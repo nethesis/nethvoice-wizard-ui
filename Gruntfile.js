@@ -204,7 +204,22 @@ module.exports = function(grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        ignorePath: /\.\.\//
+        ignorePath: /\.\.\//,
+        exclude: [
+          'node_modules/patternfly-bootstrap-combobox/css/bootstrap-combobox.css',
+          'node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.css',
+          'node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css',
+          'node_modules/bootstrap-select/dist/css/bootstrap-select.css',
+          'node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css',
+          'node_modules/patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.css',
+          'node_modules/c3/c3.css',
+          'node_modules/datatables/media/css/jquery.dataTables.css',
+          'node_modules/datatables.net-colreorder-bs/css/colReorder.bootstrap.css',
+          'node_modules/drmonty-datatables-colvis/css/dataTables.colVis.css',
+          'node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+          'node_modules/font-awesome/css/font-awesome.css',
+          'node_modules/google-code-prettify/bin/prettify.min.css'
+        ]
       },
       test: {
         devDependencies: true,
@@ -221,22 +236,7 @@ module.exports = function(grunt) {
             }
           }
         }
-      },
-      exclude: [
-        "node_modules/patternfly-bootstrap-combobox/css/bootstrap-combobox.css",
-        "node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.css",
-        "node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css",
-        "node_modules/bootstrap-select/dist/css/bootstrap-select.css",
-        "node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css",
-        "node_modules/patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.css",
-        "node_modules/c3/c3.css",
-        "node_modules/datatables/media/css/jquery.dataTables.css",
-        "node_modules/datatables.net-colreorder-bs/css/colReorder.bootstrap.css",
-        "node_modules/drmonty-datatables-colvis/css/dataTables.colVis.css",
-        "node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
-        "node_modules/font-awesome/css/font-awesome.css",
-        "node_modules/google-code-prettify/bin/prettify.min.css"
-      ],
+      }
     },
 
     // Renames files for browser caching purposes
@@ -406,6 +406,11 @@ module.exports = function(grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
+        }, {
+          expand: true,
+          cwd: 'bower_components/patternfly/dist/',
+          src: ['fonts/*.{eot,woff,woff2,ttf}'],
+          dest: '<%= yeoman.dist %>',
         }]
       },
       styles: {
@@ -491,7 +496,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'newer:jshint',
     'newer:jscs',
-    'test',
+    // 'test',
     'build'
   ]);
 };
