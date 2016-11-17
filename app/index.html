@@ -105,27 +105,6 @@
       <!-- end left menu -->
       <!-- content -->
       <div class="container-fluid container-cards-pf container-pf-alt-nav-pf-vertical-alt">
-        <!-- Change language modal-->
-        <div class="modal fade" id="langModal" tabindex="-1" role="dialog" aria-labelledby="langModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                  <span class="pficon pficon-close"></span>
-                </button>
-                <h4 class="modal-title" id="langModalLabel">{{'Change language' | translate}}</h4>
-              </div>
-              <div class="modal-body">
-                <ul class="list-group">
-                  <li data-dismiss="modal" ng-repeat="l in languagesArr track by l.key" class="list-group-item change-language" ng-click="changeLanguage(l.key)">
-                    <span class="language-name">{{l.nativeName}}</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!----->
         <div ng-show="changeRoute" class="spinner spinner-lg pageLoader"></div>
         <div ng-view>
         </div>
