@@ -1,1 +1,18 @@
-{}
+{
+  "Users": "Utenti",
+  "Trunks": "Linee",
+  "Routes": "Rotte",
+  "Extensions": "Interni",
+  "Devices": "Dispositivi",
+  "Configurations": "Configurazioni",
+  "Physical": "Fisiche",
+  "Voip": "VoIP",
+  "Inbound": "In entrata",
+  "Outbound": "In uscita",
+  "Next": "Avanti",
+  "Back": "Indietro",
+  "Cancel": "Annulla",
+  "Change language": "Cambia lingua",
+  "Fullscreen": "Schermo intero",
+  "Docs": "Documentazione"
+}

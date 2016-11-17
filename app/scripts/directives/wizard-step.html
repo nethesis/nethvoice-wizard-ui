@@ -10,12 +10,10 @@
     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
       <button type="button" class="btn btn-default btn-cancel wizard-pf-cancel wizard-pf-dismiss">{{'Cancel' | translate}}</button>
       <button ng-click="prevStep()" type="button" class="btn btn-default wizard-pf-back {{prevState ? '' : 'disabled'}}">
-          <span class="i fa fa-angle-left"></span>
           {{'Back' | translate}}
         </button>
       <button ng-click="nextStep()" type="button" class="btn btn-primary wizard-pf-next {{nextState ? '' : 'disabled'}}">
           {{'Next' | translate}}
-          <span class="i fa fa-angle-right"></span>
       </button>
     </div>
   </div>
