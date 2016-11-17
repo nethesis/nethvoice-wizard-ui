@@ -1,0 +1,175 @@
+html {
+  background: #181818;
+}
+
+body {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  background-size: 100% auto !important;
+}
+
+span a {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+span p {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  display: inline;
+}
+
+.full-height {
+  height: 100%;
+}
+
+p {
+  margin: 0;
+}
+
+
+/* VERTICAL NAVBAR */
+
+.nav-pf-vertical-alt {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+}
+
+.nav-pf-vertical-alt .list-group-item .badge {
+  border-radius: 0;
+  font-size: 11px;
+}
+
+.layout-pf-alt-fixed .nav-pf-vertical-alt {
+  width: 185px;
+  background: #282828;
+  border-right: 0;
+}
+
+.nav-pf-vertical-alt .list-group-item {
+  background: #282828;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+.nav-pf-vertical-alt .list-group-item a {
+  color: #cfcfcf;
+}
+
+.nav-pf-vertical-alt .list-group-item a:hover {
+  color: #cfcfcf;
+}
+
+.nav-pf-vertical-alt .list-group-item:hover {
+  background: #404040;
+}
+
+.nav-pf-vertical-alt .list-group-item.active {
+  background: #404040;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  margin-top: -1px;
+}
+
+.nav-pf-vertical-alt .list-group-item.active a {
+  color: #fff;
+}
+
+
+/*********/
+
+
+/* CONTENT */
+
+.container-fluid {
+  margin-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.layout-pf-alt.layout-pf-alt-fixed .container-pf-alt-nav-pf-vertical-alt {
+  margin-left: 185px;
+}
+
+.layout-pf-alt.layout-pf-alt-fixed.layout-pf-alt-fixed-inner-scroll .container-pf-alt-nav-pf-vertical-alt.container-cards-pf {
+  padding: 12px;
+  overflow-x: hidden;
+}
+
+.pageLoader {
+  z-index: 9999;
+  top: 50%;
+}
+
+.navbar-brand-icon {
+  height: 35px;
+}
+
+
+/**************/
+
+
+/* FOOTER */
+
+.footer-opt {
+  margin-left: 8px;
+  display: inline-block;
+}
+
+.footer-opt-right {
+  margin-right: 8px;
+  float: right;
+}
+
+.layout-pf-alt-fixed-with-footer .footer-pf-alt {
+  background: #171717;
+  color: #CFCFCF;
+  line-height: 27px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.card-pf-footer {
+  padding: 15px 20px;
+}
+
+
+/**************/
+
+
+/* LANGUAGE */
+
+.navbar-pf-alt .infotip.bottom-right .arrow {
+  left: 92%;
+}
+
+.change-language {
+  cursor: pointer;
+  margin-left: 15px !important;
+}
+
+.change-language:hover {
+  background: #d5ecf9;
+}
+
+.language-name {
+  margin-left: 12px;
+}
+
+
+/***********/
+
+
+/* WIZARD */
+
+.wizard-pf {
+  height: 100%;
+  margin: 0 auto;
+  max-height: 900px;
+  padding: 0px;
+  width: auto;
+}
+
+.wizard-pf-steps-indicator {
+  padding: 25px 0px;
+  margin-bottom: 0px;
+}
+
+
+/**********/
