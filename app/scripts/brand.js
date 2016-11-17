@@ -1,5 +1,5 @@
 var brandConfig = {
-  BRAND_NAME: 'Nethesis',
-  BRAND_SITE: 'http://www.nethesis.it',
-  BRAND_DOCS: 'http://www.docs.nethesis.it'
+  BRAND_NAME: 'NethVoice',
+  BRAND_SITE: 'http://www.nethvoice.it',
+  BRAND_DOCS: 'http://nethvoice.docs.nethesis.it/it/latest/'
 };

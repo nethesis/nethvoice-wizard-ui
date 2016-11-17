@@ -37,6 +37,10 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
+    $scope.currentYear = function() {
+      return new Date().getFullYear();
+    }
+
     // set language
     $scope.changeLanguage({
       key: LocalStorageService.get('preferredLanguage') || 'default'
