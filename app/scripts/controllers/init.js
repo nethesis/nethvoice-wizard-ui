@@ -75,4 +75,6 @@ angular.module('nethvoiceWizardUiApp')
       key: LocalStorageService.get('preferredLanguage') || 'default'
     });
 
+    // wait for angular...
+    $('body').show();
   });
