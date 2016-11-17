@@ -37,6 +37,35 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
+    $scope.goToFullScreen = function() {
+      if ($scope.inFullScreen) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+          $scope.inFullScreen = false;
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+          $scope.inFullScreen = false;
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+          $scope.inFullScreen = false;
+        }
+      } else {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+          $scope.inFullScreen = true;
+        } else if (document.documentElement.mozRequestFullScreen) {
+          document.documentElement.mozRequestFullScreen();
+          $scope.inFullScreen = true;
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen();
+          $scope.inFullScreen = true;
+        } else if (document.documentElement.msRequestFullscreen) {
+          document.documentElement.msRequestFullscreen();
+          $scope.inFullScreen = true;
+        }
+      }
+    };
+
     $scope.currentYear = function() {
       return new Date().getFullYear();
     }
