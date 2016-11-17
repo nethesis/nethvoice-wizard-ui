@@ -74,21 +74,21 @@
       <nav class="nav-pf-vertical-alt">
         <ul class="list-group">
           <li class="list-group-item collapse-menu {{resolveActiveTab('users',1) ? 'active' : ''}}" id="users-item-menu">
-            <a href="#/users/extensions">
+            <a ng-click="goTo('users/extensions')">
               <span class="pficon pficon-users" title="Users" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Users' | translate}}</span>
-              <span class="badge notifications">{{15}}</span>
+              <span class="badge notifications">{{12}}</span>
             </a>
           </li>
-          <li class="list-group-item collapse-menu {{resolveActiveTab('trunks',1) ? 'active' : ''}}" id="trunks-item-menu">
-            <a href="#/trunks/physical">
+          <li ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART1_STEP" class="list-group-item collapse-menu {{resolveActiveTab('trunks',1) ? 'active' : ''}}" id="trunks-item-menu">
+            <a ng-click="goTo('trunks/physical')">
               <span class="pficon pficon-topology" title="{{'Trunks' | translate}}" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Trunks' | translate}}</span>
               <span class="badge notifications">{{3}}</span>
             </a>
           </li>
-          <li class="list-group-item collapse-menu {{resolveActiveTab('routes',1) ? 'active' : ''}}" id="routes-item-menu">
-            <a href="#/routes/inbound">
+          <li ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART2_STEP" class="list-group-item collapse-menu {{resolveActiveTab('routes',1) ? 'active' : ''}}" id="routes-item-menu">
+            <a ng-click="goTo('routes/inbound')">
               <span class="pficon pficon-trend-up" title="Routes" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Routes' | translate }}</span>
               <span class="badge notifications">{{8}}</span>

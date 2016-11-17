@@ -11,10 +11,24 @@ angular.module('nethvoiceWizardUiApp')
   .controller('InitCtrl', function($scope, $translate, $route, $location, LanguageService, LocalStorageService) {
     $scope.appConfig = appConfig;
     $scope.brandConfig = brandConfig;
+    $scope.wizard = {
+      isWizard: true,
+      stepCount: 1
+    }
+
+    $scope.goTo = function(route) {
+      if (!$scope.wizard.isWizard) {
+        $location.path(route);
+      }
+    };
 
     $scope.resolveActiveTab = function(type, index) {
       return window.location.hash.split('/')[index] === type;
     };
+
+    $scope.currentStepCount = function() {
+      return $scope.wizard.stepCount;
+    }
 
     $scope.languagesArr = LanguageService.getAllLanguages();
     $scope.changeLanguage = function(l) {

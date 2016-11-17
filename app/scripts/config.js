@@ -1,5 +1,7 @@
 var appConfig = {
   TOTAL_STEP: 7,
+  PART1_STEP: 3,
+  PART2_STEP: 5,
   STEP_MAP: {
     extensions: 1,
     devices: 2,

@@ -26,6 +26,10 @@ p {
   margin: 0;
 }
 
+a {
+  cursor: pointer;
+}
+
 
 /* VERTICAL NAVBAR */
 
