@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('InitCtrl', function($scope, $translate, $route, LanguageService, LocalStorageService) {
+  .controller('InitCtrl', function($scope, $translate, $route, $location, LanguageService, LocalStorageService) {
     $scope.appConfig = appConfig;
     $scope.brandConfig = brandConfig;
 

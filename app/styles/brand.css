@@ -18,3 +18,20 @@ a {
 .nav-pf-vertical-alt .list-group-item .badge.notifications {
   background: #3f9c35;
 }
+
+.btn-primary {
+  background-color: #3f9c35;
+  background-image: linear-gradient(to bottom, #6ec664 0%, #3f9c35 100%);
+  border-color: #3f9c35;
+  color: #fff;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:focus, .btn-primary.active, .btn-primary.active:hover, btn-primary.active:focus, btn-primary.active:active, btn-primary.active:active:focus {
+  background-color: #6ec664;
+  border-color: #3f9c35;
+  color: #fff;
+}
+
+.progress-bar {
+  background-color: #6ec664;
+}

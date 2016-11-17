@@ -6,6 +6,7 @@ body {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
   background-size: 100% auto !important;
   display: none;
+  overflow: hidden;
 }
 
 span a {
@@ -170,6 +171,44 @@ p {
 .wizard-pf-steps-indicator {
   padding: 25px 0px;
   margin-bottom: 0px;
+}
+
+@media screen and (min-width: 1200px) {
+  .wizard-pf-footer {
+    margin-left: 185px;
+    padding-left: 12px;
+    bottom: 34px;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .wizard-pf-footer {
+    margin-left: 76px;
+    padding-left: 12px;
+    bottom: 34px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .wizard-pf-footer {
+    margin-left: 1px;
+    padding-left: 12px;
+    bottom: 32px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .progress {
+    margin-bottom: 0px;
+    margin-top: 3px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .progress {
+    margin-bottom: 8px;
+    margin-top: 3px;
+  }
 }
 
 
