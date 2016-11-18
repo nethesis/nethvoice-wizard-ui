@@ -30,14 +30,14 @@
     <!-- endbuild -->
   </head>
 
-  <body ng-app="nethvoiceWizardUiApp" ng-class="login.isLogged ? 'cards-pf' : 'login-pf'" ng-controller="InitCtrl">
+  <body ng-class="login.isLogged ? 'cards-pf' : 'login-pf'" ng-controller="InitCtrl">
     <!-- login -->
     <div ng-if="!login.isLogged">
       <div ng-include="loginUrl">
       </div>
     </div>
     <!-- end login -->
-    <div ng-if="login.isLogged" class="full-height">
+    <div ng-show="login.isLogged" class="full-height">
       <!-- navbar-->
       <nav class="navbar navbar-pf-alt">
         <div class="navbar-header">
