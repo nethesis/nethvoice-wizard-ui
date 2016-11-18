@@ -26,11 +26,18 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/brand.css">
+    <link rel="stylesheet" href="styles/login.css">
     <!-- endbuild -->
   </head>
 
-  <body class="cards-pf">
-    <div class="full-height">
+  <body ng-app="nethvoiceWizardUiApp" ng-class="login.isLogged ? 'cards-pf' : 'login-pf'" ng-controller="InitCtrl">
+    <!-- login -->
+    <div ng-if="!login.isLogged">
+      <div ng-include="loginUrl">
+      </div>
+    </div>
+    <!-- end login -->
+    <div ng-if="login.isLogged" class="full-height">
       <!-- navbar-->
       <nav class="navbar navbar-pf-alt">
         <div class="navbar-header">
@@ -63,7 +70,12 @@
             </li>
             <li class="dropdown">
               <a ng-click="goToFullScreen()" class="dropdown-toggle nav-item-iconic" id="fullscreen">
-                <span title="Fullscreen" class="fa fa-expand"></span>
+                <span title="{{'Fullscreen' | translate}}" class="fa fa-expand"></span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a ng-click="doLogout()" class="dropdown-toggle nav-item-iconic" id="logout">
+                <span title="{{'Logout' | translate}}" class="fa fa-sign-out"></span>
               </a>
             </li>
           </ul>
@@ -118,19 +130,6 @@
       <!-- end footer -->
     </div>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-    <script>
-      ! function(A, n, g, u, l, a, r) {
-        A.GoogleAnalyticsObject = l, A[l] = A[l] || function() {
-            (A[l].q = A[l].q || []).push(arguments)
-          }, A[l].l = +new Date, a = n.createElement(g),
-          r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
-      }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-      ga('create', 'UA-XXXXX-X');
-      ga('send', 'pageview');
-    </script>
-
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -165,6 +164,7 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/config.js"></script>
     <script src="scripts/brand.js"></script>
+    <script src="scripts/utils/sha1.js"></script>
     <script src="scripts/i18n/lang.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/users.js"></script>
@@ -178,9 +178,12 @@
     <script src="scripts/controllers/routes/inbound.js"></script>
     <script src="scripts/controllers/routes/outbound.js"></script>
     <script src="scripts/controllers/init.js"></script>
+    <script src="scripts/controllers/login.js"></script>
     <script src="scripts/services/languageservice.js"></script>
     <script src="scripts/services/localstorageservice.js"></script>
     <script src="scripts/directives/wizardstep.js"></script>
+    <script src="scripts/services/loginservice.js"></script>
+    <script src="scripts/services/restservice.js"></script>
     <!-- endbuild -->
   </body>
 
