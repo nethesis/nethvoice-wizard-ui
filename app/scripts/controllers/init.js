@@ -12,7 +12,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.brandConfig = brandConfig;
     $scope.appConfig = appConfig;
 
-    $scope.login = { isLogged: false };
+    $scope.login = {
+      isLogged: false
+    };
     $scope.loginUrl = 'views/login.html';
     $scope.wizard = {
       isWizard: true,
@@ -29,6 +31,14 @@ angular.module('nethvoiceWizardUiApp')
     $scope.goTo = function(route) {
       if (!$scope.wizard.isWizard) {
         $location.path(route);
+      }
+    };
+
+    $scope.toggleNavBar = function() {
+      if (!$('#navbar-left').hasClass('collapsed')) {
+        $('#wizard-step-footer').css('margin-left', '76px');
+      } else {
+        $('#wizard-step-footer').css('margin-left', '185px');
       }
     };
 
