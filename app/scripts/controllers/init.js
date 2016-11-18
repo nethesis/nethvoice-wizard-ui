@@ -8,18 +8,51 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('InitCtrl', function($scope, $translate, $route, $location, LanguageService, LocalStorageService) {
-    $scope.appConfig = appConfig;
+  .controller('InitCtrl', function($scope, $translate, $route, $location, LanguageService, LocalStorageService, LoginService) {
     $scope.brandConfig = brandConfig;
+    $scope.appConfig = appConfig;
+
+    $scope.login = {
+      isLogged: false
+    };
+    $scope.loginUrl = 'views/login.html';
     $scope.wizard = {
       isWizard: true,
       stepCount: 1
+    };
+
+    $scope.doLogout = function() {
+      LoginService.removeCredentials();
+      $location.path('/login');
+      $('#loginTpl').show();
+      $scope.login.isLogged = false;
     };
 
     $scope.goTo = function(route) {
       if (!$scope.wizard.isWizard) {
         $location.path(route);
       }
+    };
+
+    $scope.toggleNavBar = function() {
+      if (!$('#navbar-left').hasClass('collapsed')) {
+        $('#wizard-step-footer').css('margin-left', '76px');
+      } else {
+        $('#wizard-step-footer').css('margin-left', '185px');
+      }
+    };
+
+    $scope.logout = function() {
+      var token = LocalStorageService.get('$LoopBack$accessTokenId', true);
+      LoginService.logout(token).then(function(succ) {
+        $scope.login.isLogged = false;
+        $scope.login.showError = false;
+        LocalStorageService.set('currentLoggedUser', {});
+        $location.path('/login');
+        $scope.getRandomBackground();
+      }, function(err) {
+        console.log(err);
+      });
     };
 
     $scope.resolveActiveTab = function(type, index) {
@@ -88,7 +121,4 @@ angular.module('nethvoiceWizardUiApp')
     $scope.changeLanguage({
       key: LocalStorageService.get('preferredLanguage') || 'default'
     });
-
-    // wait for angular...
-    $('body').show();
   });
