@@ -8,10 +8,8 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('MainCtrl', function() {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function($scope, $location, $http) {
+    if ($scope.wizard.isWizard) {
+      $location.path('users/extensions');
+    }
   });

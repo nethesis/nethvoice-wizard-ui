@@ -14,7 +14,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.wizard = {
       isWizard: true,
       stepCount: 1
-    }
+    };
 
     $scope.goTo = function(route) {
       if (!$scope.wizard.isWizard) {
