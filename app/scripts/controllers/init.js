@@ -42,19 +42,6 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    $scope.logout = function() {
-      var token = LocalStorageService.get('$LoopBack$accessTokenId', true);
-      LoginService.logout(token).then(function(succ) {
-        $scope.login.isLogged = false;
-        $scope.login.showError = false;
-        LocalStorageService.set('currentLoggedUser', {});
-        $location.path('/login');
-        $scope.getRandomBackground();
-      }, function(err) {
-        console.log(err);
-      });
-    };
-
     $scope.resolveActiveTab = function(type, index) {
       return window.location.hash.split('/')[index] === type;
     };
