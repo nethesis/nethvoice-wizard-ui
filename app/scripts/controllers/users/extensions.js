@@ -8,10 +8,55 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersExtensionsCtrl', function() {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('UsersExtensionsCtrl', function($scope, UserService, UtilService) {
+    $scope.users = {};
+    $scope.onSave = false;
+
+    $scope.getUserList = function(reload) {
+      $scope.view.changeRoute = reload;
+      UserService.list().then(function(res) {
+        $scope.users = res.data;
+        $scope.view.changeRoute = false;
+        if ($scope.mode.isLegacy && UtilService.isEmpty($scope.users)) {
+          $scope.wizard.nextState = false;
+        }
+      }, function(err) {
+        console.log(err);
+      });
+    };
+
+    $scope.createUser = function(user) {
+      $scope.onSave = true;
+      UserService.create(user).then(function(res) {
+        UserService.setPassword(user.username, {
+          password: UtilService.randomPassword(8)
+        }).then(function(res) {
+          $scope.onSave = false;
+          $('#createUser').modal('hide');
+          $scope.getUserList(false);
+        }, function(err) {
+          $scope.onSave = false;
+          console.log(err);
+        });
+      }, function(err) {
+        $scope.onSave = false;
+        console.log(err);
+      });
+    };
+
+    $scope.setVirtualExtension = function(user) {
+      user.isInAction = true;
+      UserService.createVirtualExtension({
+        username: user.username,
+        extension: user.default_extension !== 'none' ? user.default_extension : user.temp_ext
+      }).then(function(res) {
+        user.isInAction = false;
+        $scope.getUserList(false);
+      }, function(err) {
+        user.isInAction = false;
+        console.log(err);
+      });
+    }
+
+    $scope.getUserList(true);
   });

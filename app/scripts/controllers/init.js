@@ -12,6 +12,14 @@ angular.module('nethvoiceWizardUiApp')
     $scope.customConfig = customConfig;
     $scope.appConfig = appConfig;
 
+    $scope.view = {
+      changeRoute: false
+    };
+
+    $scope.mode = {
+      isLegacy: false
+    };
+
     $scope.login = {
       isLogged: false
     };
@@ -35,10 +43,18 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.toggleNavBar = function() {
-      if (!$('#navbar-left').hasClass('collapsed')) {
-        $('#wizard-step-footer').css('margin-left', '76px');
+      if (window.screen.width < 768) {
+        if ($('#navbar-left').hasClass('show-mobile-nav')) {
+          $('#wizard-step-footer').css('margin-left', '0px');
+        } else {
+          $('#wizard-step-footer').css('margin-left', '185px');
+        }
       } else {
-        $('#wizard-step-footer').css('margin-left', '185px');
+        if (!$('#navbar-left').hasClass('collapsed')) {
+          $('#wizard-step-footer').css('margin-left', '76px');
+        } else {
+          $('#wizard-step-footer').css('margin-left', '185px');
+        }
       }
     };
 

@@ -3,6 +3,7 @@
   "Trunks": "Linee",
   "Routes": "Rotte",
   "Extensions": "Interni",
+  "Extension": "Interno",
   "Devices": "Dispositivi",
   "Configurations": "Configurazioni",
   "Physical": "Fisiche",
@@ -14,5 +15,10 @@
   "Cancel": "Annulla",
   "Change language": "Cambia lingua",
   "Fullscreen": "Schermo intero",
-  "Docs": "Documentazione"
+  "Docs": "Documentazione",
+  "Add": "Aggiungi",
+  "Modify": "Modifica",
+  "Insert extension": "Inserisci interno",
+  "Extension not linked to user": "Interno non associato all'utente",
+  "Extension linked correctly to user": "Interno associato correttamente all'utente"
 }

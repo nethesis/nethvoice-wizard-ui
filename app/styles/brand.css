@@ -32,10 +32,18 @@ a {
   color: #fff;
 }
 
-.progress-bar {
+.progress-bar-success {
   background-color: #6ec664;
 }
 
 .login-pf {
   background-color: #3f9c35;
+}
+
+.list-view-pf-left .pficon.list-view-pf-icon-sm, .list-view-pf-left .fa.list-view-pf-icon-sm {
+  border: 2px solid #6ec664;
+}
+
+.btn-link:hover {
+  color: #6ec664 !important;
 }

@@ -1,0 +1,35 @@
+<div class="blank-slate-pf no-border" ng-if="showConfigSwitch">
+  <div class="blank-slate-pf-icon">
+    <span class="pficon pficon-server"></span>
+  </div>
+  <h1>
+    {{'Choose mode for your PBX' | translate}}
+  </h1>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </p>
+  <p>
+    Learn more about this <a href="#">on the documentation</a>.
+  </p>
+  <div class="blank-slate-pf-main-action">
+    <button id="uc-button" ng-click="makeChoice('uc')" class="btn btn-primary btn-lgg"> {{'Unified Communication' | translate}} </button>
+    <button id="legacy-button" ng-click="makeChoice('legacy')" class="btn btn-primary btn-lgg handle-margin"> {{'Legacy' | translate}} </button>
+  </div>
+  <div ng-if="startInstall" class="progress-content">
+    <div class="progress-description">
+      <div ng-if="currentProgress < 100 && currentProgress != -1" class="spinner spinner-xs spinner-inline"></div>
+      <span ng-if="currentProgress == 100" class="pficon pficon-ok"></span>
+      <span ng-if="currentProgress == -1" class="pficon pficon-error-circle-o"></span>
+      <span ng-if="currentProgress != -1"><strong>{{'Downloading' | translate}}:</strong> {{customConfig.BRAND_NAME}} {{selectedMode | capitalize}} {{'version' | translate}}</span>
+      <span ng-if="currentProgress == -1"><strong>{{'Error' | translate}}:</strong> {{'Installation failed' | translate}}</span>
+    </div>
+    <div class="progress progress-label-top-right">
+      <div class="progress-bar {{currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{currentProgress == -1 ? '100' : currentProgress}}%;">
+        <span>{{currentProgress == -1 ? '100' : currentProgress}}%</span>
+      </div>
+    </div>
+    <div ng-if="currentProgress == 100" class="blank-slate-pf-main-action">
+      <button ng-click="nextStep()" class="btn btn-primary btn-lg">{{'Next' | translate}}</button>
+    </div>
+  </div>
+</div>
