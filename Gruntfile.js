@@ -246,7 +246,8 @@ module.exports = function(grunt) {
           '<%= yeoman.dist %>/scripts/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
           '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.dist %>/styles/fonts/*'
+          '<%= yeoman.dist %>/styles/fonts/*',
+          '!<%= yeoman.dist %>/scripts/custom.js',
         ]
       }
     },
@@ -421,6 +422,11 @@ module.exports = function(grunt) {
           cwd: 'app/scripts/i18n/',
           src: ['*.json'],
           dest: '<%= yeoman.dist %>/scripts/i18n/',
+        }, {
+          expand: true,
+          cwd: 'app/scripts/',
+          src: ['custom.js'],
+          dest: '<%= yeoman.dist %>/scripts/',
         }]
       },
       styles: {

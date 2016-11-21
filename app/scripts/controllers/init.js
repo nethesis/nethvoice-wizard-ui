@@ -9,7 +9,7 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .controller('InitCtrl', function($scope, $translate, $route, $location, LanguageService, LocalStorageService, LoginService) {
-    $scope.brandConfig = brandConfig;
+    $scope.customConfig = customConfig;
     $scope.appConfig = appConfig;
 
     $scope.login = {

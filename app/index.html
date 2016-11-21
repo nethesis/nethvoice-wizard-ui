@@ -3,7 +3,7 @@
 
   <head>
     <meta charset="utf-8">
-    <title>{{brandConfig.BRAND_NAME}}</title>
+    <title>{{customConfig.BRAND_NAME}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -124,8 +124,8 @@
       <!-- end content -->
       <!-- footer -->
       <footer class="container-fluid footer-pf-alt">
-        <p class="footer-opt"><a target="-blank" href="{{brandConfig.BRAND_SITE}}">Copyright &copy; {{currentYear()}} {{brandConfig.BRAND_NAME}}</a></p>
-        <p class="footer-opt-right"><a target="_blank" href="{{brandConfig.BRAND_DOCS}}">{{'Docs' | translate}}</a></p>
+        <p class="footer-opt"><a target="-blank" href="{{customConfig.BRAND_SITE}}">Copyright &copy; {{currentYear()}} {{customConfig.BRAND_NAME}}</a></p>
+        <p class="footer-opt-right"><a target="_blank" href="{{customConfig.BRAND_DOCS}}">{{'Docs' | translate}}</a></p>
       </footer>
       <!-- end footer -->
     </div>
@@ -157,13 +157,14 @@
     <script src="bower_components/patternfly/dist/js/patternfly.js"></script>
     <script src="bower_components/angular-translate/angular-translate.js"></script>
     <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
+    <script src="scripts/custom.js"></script>
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/config.js"></script>
-    <script src="scripts/brand.js"></script>
     <script src="scripts/utils/sha1.js"></script>
     <script src="scripts/i18n/lang.js"></script>
     <script src="scripts/controllers/main.js"></script>
