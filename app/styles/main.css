@@ -215,5 +215,18 @@ a {
   }
 }
 
+@media screen and (min-width: 768px) {
+  .adjust-size {
+    margin-top: 16px;
+    padding-right: 95px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .adjust-size {
+    margin-top: 16px;
+  }
+}
+
 
 /**********/
