@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('LoginCtrl', function($scope, $location, LoginService, RestService) {
+  .controller('LoginCtrl', function($scope, $location, LoginService) {
     $scope.doLogin = function(username, password) {
       LoginService.login(username, password).then(function(res) {
         LoginService.setCredentials(username, password);
