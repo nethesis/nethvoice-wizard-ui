@@ -3,13 +3,13 @@
     <div class="wizard-pf-steps">
       <ul class="wizard-pf-steps-indicator">
         <li class="wizard-pf-step {{resolveActiveTab('extensions',2) ? 'active' : ''}}" data-tabgroup="1">
-          <a href="#/users/extensions"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Extensions' | translate}}</span></a>
+          <a ng-click="goTo('users/extensions')"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Extensions' | translate}}</span></a>
         </li>
         <li class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="2">
-          <a href="#/users/devices"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
+          <a ng-click="goTo('users/devices')"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
         </li>
         <li class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="3">
-          <a href="#/users/configurations"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
+          <a ng-click="goTo('users/configurations')"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
         </li>
       </ul>
     </div>
@@ -17,6 +17,40 @@
 
   <div class="wizard-pf-contents adjust-size">
     <h1 class="control-label centered" for="textInput-markup">{{'Devices configuration' | translate}}</h1>
+
+    <div ng-if="!(networks | isEmpty)" class="container-fluid">
+      <div class="col-xs-12 col-sm-6 col-md-{{12/networkLength}} col-lg-{{12/networkLength}}" ng-repeat="(key, network) in networks">
+        <div class="card-pf card-pf-view adjust-card">
+          <div class="card-pf-body">
+            <div class="card-pf-top-element">
+              <span class="pficon pficon-network card-pf-icon-circle"></span>
+            </div>
+            <h2 class="card-pf-title text-center">
+              {{key}}
+            </h2>
+            <div class="card-pf-items text-center">
+              <div class="card-pf-item">
+                <span class="pficon pficon-screen"></span>
+                <span class="card-pf-item-text">{{network.ip}} /<b popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Netmask' | translate}}: {{network.netmask}}">{{network.netmask | maskToCidr}}</b></span>
+              </div>
+            </div>
+            <p class="card-pf-info text-center">
+              <div class="blank-slate-pf-main-action centered adjust-bottom">
+                <button ng-click="startScan(key, network)" class="btn btn-primary btn-lg">{{'Start scan' | translate}}</button>
+                <div ng-if="tasks[key].currentProgress < 100 && tasks[key].currentProgress != -1" class="spinner spinner-sm spinner-inline spinner-right"></div>
+                <div ng-if="tasks[key].currentProgress == 100 || tasks[key].currentProgress == -1" class="pficon pficon-{{tasks[key].currentProgress == 100 ? 'ok' : 'error-circle-o'}} icon-right"></div>
+              </div>
+              <div ng-if="tasks[key].startScan" class="progress">
+                <div class="progress-bar {{tasks[key].currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{tasks[key].currentProgress == -1 ? '100' : tasks[key].currentProgress}}%;">
+                  <span>{{tasks[key].currentProgress == -1 ? '100' : tasks[key].currentProgress}}%</span>
+                </div>
+              </div>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div ng-if="!(devices | isEmpty)" class="container-fluid">
       <div class="list-group list-view-pf list-view-pf-view list-header">
         <div class="list-group-item list-item-header">
@@ -25,37 +59,31 @@
           </div>
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
-              <span class="fa fa-usera list-view-pf-icon-sm"></span>
+              <span class="fa fa-usera list-view-pf-icon-sm adjust-line">{{devices.length}}</span>
             </div>
             <div class="list-view-pf-body">
               <div class="list-view-pf-description">
                 <div class="list-group-item-heading">
                   {{'Vendor' | translate}}
                 </div>
-                <div class="list-group-item-heading">
+                <div class="list-group-item-text">
                   {{'Model' | translate}}
                 </div>
-                <div class="list-group-item-text">
-                  {{'IP' | translate}}
-                </div>
-                <div class="list-group-item-text">
-                  {{'MAC Address' | translate}}
+              </div>
+              <div class="list-view-pf-additional-info">
+                <div class="list-view-pf-additional-info-item">
+                  <label>{{'Info' | translate}}</label>
                 </div>
               </div>
-              <!-- <div class="list-view-pf-additional-info">
-                <div class="list-view-pf-additional-info-item">
-                  <label>{{'Extension'}}</label>
-                </div>
-              </div> -->
             </div>
           </div>
         </div>
       </div>
       <div class="list-group list-view-pf list-view-pf-view">
-        <div class="list-group-item" ng-repeat="user in users">
+        <div class="list-group-item" ng-repeat="device in devices | orderBy: ['manufacturer','model']">
           <div class="list-view-pf-actions">
-            <div ng-show="user.isInAction" class="spinner spinner-sm adjust-margin"></div>
-            <span ng-show="!user.isInAction" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{user.default_extension === 'none' ? 'Not configured' : 'Configured' | translate}}" class="pficon {{user.default_extension === 'none' ? 'pficon-info' : 'pficon-ok'}} icon-med"></span>
+            <div ng-show="device.isInAction" class="spinner spinner-sm adjust-margin"></div>
+            <span ng-show="!device.isInAction" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Online' | translate}}" class="pficon pficon-ok icon-med"></span>
             <!-- <div class="dropdown pull-right dropdown-kebab-pf">
               <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebabRight9" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   <span class="fa fa-ellipsis-v"></span>
@@ -69,40 +97,29 @@
           </div>
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
-              <span class="fa fa-user list-view-pf-icon-sm"></span>
+              <span class="fa fa-phone list-view-pf-icon-sm"></span>
             </div>
             <div class="list-view-pf-body">
               <div class="list-view-pf-description">
                 <div class="list-group-item-heading">
-                  {{user.username}}
+                  {{device.manufacturer}}
                 </div>
                 <div class="list-group-item-text">
-                  {{user.displayname}} <span ng-if="user.description">{{user.description}}</span>
+                  {{device.model}}
                 </div>
               </div>
-              <div class="list-view-pf-additional-info">
-                <div ng-if="user.default_extension === 'none'" class="list-view-pf-additional-info-item">
-                  <input ng-model="user.temp_ext" type="text" class="form-control" id="filter" placeholder="{{'Insert extension' | translate}}">
-                  <div class="input-group-btn">
-                    <button ng-click="setVirtualExtension(user)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{'Add' | translate}}</button>
-                  </div>
-                </div>
-                <div ng-if="user.default_extension !== 'none'" class="list-view-pf-additional-info-item">
-                  <input type="text" ng-model="user.default_extension" class="form-control" id="filter" placeholder="{{'Insert extension' | translate}}">
-                  <div class="input-group-btn">
-                    <button ng-click="setVirtualExtension(user)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{'Modify' | translate}}</button>
-                  </div>
-                </div>
+              <div class="list-view-pf-additional-info config-info">
+                <div>IP: <b>{{device.ipv4}}</b></div>
+                <div>MAC: <b>{{device.mac}}</b></div>
               </div>
             </div>
           </div>
         </div>
-        <button ng-if="mode.isLegacy" data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg right-button">{{'Add user' | translate}}</button>
       </div>
     </div>
-    <div ng-if="devices | isEmpty" class="blank-slate-pf ">
+    <div ng-if="networks | isEmpty" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
-        <span class="pficon pficon-cluster"></span>
+        <span class="pficon pficon-network"></span>
       </div>
       <h1>
         Empty State Title
@@ -113,9 +130,20 @@
       <p>
         Learn more about this <a href="#">on the documentation</a>.
       </p>
-      <div class="blank-slate-pf-main-action">
-        <button ng-click="startSearch()" class="btn btn-primary btn-lg">{{'Start search' | translate}}</button>
+    </div>
+    <div ng-if="!(networks | isEmpty) && (devices | isEmpty)" class="blank-slate-pf ">
+      <div class="blank-slate-pf-icon">
+        <span class="fa fa-phone"></span>
       </div>
+      <h1>
+        Empty State Title
+      </h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Learn more about this <a href="#">on the documentation</a>.
+      </p>
     </div>
   </div>
 

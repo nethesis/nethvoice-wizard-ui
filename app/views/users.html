@@ -20,7 +20,7 @@
       <div ng-if="currentProgress < 100 && currentProgress != -1" class="spinner spinner-xs spinner-inline"></div>
       <span ng-if="currentProgress == 100" class="pficon pficon-ok"></span>
       <span ng-if="currentProgress == -1" class="pficon pficon-error-circle-o"></span>
-      <span ng-if="currentProgress != -1"><strong>{{'Downloading' | translate}}:</strong> {{customConfig.BRAND_NAME}} {{selectedMode | capitalize}} {{'version' | translate}}</span>
+      <span ng-if="currentProgress != -1"><strong>{{'Installing' | translate}}:</strong> {{customConfig.BRAND_NAME}} {{selectedMode | capitalize}} {{'version' | translate}}</span>
       <span ng-if="currentProgress == -1"><strong>{{'Error' | translate}}:</strong> {{'Installation failed' | translate}}</span>
     </div>
     <div class="progress progress-label-top-right">

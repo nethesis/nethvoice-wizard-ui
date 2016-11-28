@@ -40,5 +40,6 @@ var appConfig = {
       prev: 'routes/inbound',
       next: false
     }
-  }
+  },
+  MAX_TRIES: 6
 };

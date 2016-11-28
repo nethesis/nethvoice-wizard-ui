@@ -44,6 +44,24 @@ a {
   border: 2px solid #6ec664;
 }
 
+.card-pf-view .card-pf-top-element .card-pf-icon-circle {
+  border: 2px solid #6ec664;
+}
+
 .btn-link:hover {
   color: #6ec664 !important;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+  background: #6ec664;
+}
+
+.bootstrap-switch.bootstrap-switch-focused {
+  border-color: #3f9c35;
+  box-shadow: none;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on {
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
 }

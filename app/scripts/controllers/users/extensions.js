@@ -33,6 +33,7 @@ angular.module('nethvoiceWizardUiApp')
         }).then(function(res) {
           $scope.onSave = false;
           $('#createUser').modal('hide');
+          $scope.newUser = {};
           $scope.getUserList(false);
         }, function(err) {
           $scope.onSave = false;

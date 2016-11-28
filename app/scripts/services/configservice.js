@@ -30,4 +30,14 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
+    this.getNetworks = function() {
+      return $q(function(resolve, reject) {
+        RestService.get('/configuration/networks').then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
   });

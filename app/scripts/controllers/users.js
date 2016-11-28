@@ -15,11 +15,12 @@ angular.module('nethvoiceWizardUiApp')
     $scope.selectedMode = '';
     $scope.taskPromise = null;
     $scope.view.changeRoute = true;
+    $scope.errorCount = 0;
 
     ConfigService.getConfig().then(function(res) {
-      $scope.view.changeRoute = false;
       switch (res.data.result) {
         case 'unknown':
+          $scope.view.changeRoute = false;
           $scope.showConfigSwitch = true;
           break;
         case 'legacy':
@@ -54,18 +55,32 @@ angular.module('nethvoiceWizardUiApp')
             $scope.taskPromise = $interval(function() {
               UtilService.taskStatus(res.data.result).then(function(res) {
                 if (res.data.progress < 100) {
+                  $scope.errorCount = 0;
                   $scope.currentProgress = res.data.progress;
-                } else {
+                } else if (res.data.progress == 100) {
+                  $scope.errorCount = 0;
                   $interval.cancel($scope.taskPromise);
                   $scope.currentProgress = 100;
                   $scope.mode.isLegacy = true;
+                } else {
+                  console.log(res.error);
+                  if ($scope.errorCount < appConfig.MAX_TRIES) {
+                    $scope.errorCount++;
+                  } else {
+                    $interval.cancel($scope.taskPromise);
+                    $scope.currentProgress = -1;
+                  }
                 }
               }, function(err) {
-                $interval.cancel($scope.taskPromise);
-                $scope.currentProgress = -1;
                 console.log(err);
+                if ($scope.errorCount < appConfig.MAX_TRIES) {
+                  $scope.errorCount++;
+                } else {
+                  $interval.cancel($scope.taskPromise);
+                  $scope.currentProgress = -1;
+                }
               });
-            }, 8000);
+            }, 5000);
           } else {
             $('#legacy-button').addClass('disabled');
             $scope.currentProgress = 100;

@@ -24,7 +24,7 @@
           </div>
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
-              <span class="fa fa-usera list-view-pf-icon-sm"></span>
+              <span class="fa fa-usera list-view-pf-icon-sm adjust-line">{{users.length}}</span>
             </div>
             <div class="list-view-pf-body">
               <div class="list-view-pf-description">
@@ -62,15 +62,15 @@
           </div>
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
-              <span class="fa fa-user list-view-pf-icon-sm"></span>
+              <span class="fa fa-user list-view-pf-icon-sm {{user.default_extension === 'none' ? 'disabled' : ''}}"></span>
             </div>
             <div class="list-view-pf-body">
               <div class="list-view-pf-description">
-                <div class="list-group-item-heading">
+                <div class="list-group-item-heading {{user.default_extension === 'none' ? 'disabled' : ''}}">
                   {{user.username}}
                 </div>
                 <div class="list-group-item-text">
-                  {{user.displayname}} <span ng-if="user.description">{{user.description}}</span>
+                  <span class="{{user.default_extension === 'none' ? 'disabled' : ''}}">{{user.displayname}} <span ng-if="user.description">{{user.description}}</span></span>
                 </div>
               </div>
               <div class="list-view-pf-additional-info">

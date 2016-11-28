@@ -30,4 +30,16 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
+    this.maskToCidr = function(obj) {
+      if (obj === undefined) {
+        return '';
+      }
+      var maskNodes = obj.match(/(\d+)/g);
+      var cidr = 0;
+      for (var i in maskNodes) {
+        cidr += (((maskNodes[i] >>> 0).toString(2)).match(/1/g) || []).length;
+      }
+      return cidr;
+    }
   });

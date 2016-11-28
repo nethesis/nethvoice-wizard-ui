@@ -275,6 +275,10 @@ a {
   .handle-margin {
     margin-top: 10px;
   }
+  .row {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 }
 
 .list-view-pf .list-group-item {
@@ -304,6 +308,68 @@ a {
   max-width: 80%;
 }
 
+.list-view-pf .list-group-item-heading {
+  flex: 1 0 calc(40% - 20px);
+}
+
+.selected {
+  background: #d5ecf9;
+}
+
+.config-view-container {
+  margin-top: 0px;
+  overflow-y: auto;
+  border-bottom: 1px solid #dedede;
+  max-height: 295px;
+}
+
+.config-spinner {
+  float: right;
+  margin-top: 4px;
+  margin-left: 12px;
+}
+
+.config-item {
+  height: 50px;
+}
+
+.config-info {
+  display: block;
+}
+
+.config-adjust-size {
+  margin-bottom: 20px;
+}
+
+.config-span {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.config-span-container {
+  display: flex;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.config-row {
+  margin-top: 16px;
+}
+
+.config-bottom {
+  margin-bottom: 16px;
+}
+
+.config-bottom:last-child {
+  margin-bottom: 0px;
+}
+
+@media screen and (max-width: 990px) {
+  .config-form {
+    margin-left: -10px;
+  }
+}
+
 
 /**********/
 
@@ -320,14 +386,63 @@ a {
   margin-top: -2px;
 }
 
+.adjust-bottom {
+  margin-bottom: 12px;
+}
+
+.adjust-button {
+  margin-left: -1px;
+}
+
+.adjust-icon {
+  font-size: 22px !important;
+}
+
 .centered {
   text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.left {
+  text-align: left;
+}
+
+.spinner-right {
+  float: right;
+  margin-top: 6px;
+}
+
+.icon-right {
+  float: right;
+  margin-top: 7px;
+  font-size: 16px;
 }
 
 .loader-modal {
   float: right;
   margin-right: 30px;
   margin-top: -6px;
+}
+
+.adjust-line {
+  font: inherit;
+  font-size: 14px !important;
+  line-height: 26px !important;
+}
+
+.card-pf-view .card-pf-top-element .card-pf-icon-circle {
+  border: 2px solid #39a5dc;
+  font-size: 18px;
+  height: 40px;
+  line-height: 36px;
+  width: 40px;
+}
+
+.adjust-card {
+  margin-top: 20px;
 }
 
 
