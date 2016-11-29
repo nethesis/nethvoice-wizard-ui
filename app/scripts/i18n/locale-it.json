@@ -2,6 +2,7 @@
   "Users": "Utenti",
   "Trunks": "Linee",
   "Trunk": "Fascio",
+  "Trunk name": "Nome fascio",
   "Routes": "Rotte",
   "Extensions": "Interni",
   "Extension": "Interno",
@@ -34,5 +35,11 @@
   "Save": "Salva",
   "MAC address": "Indirizzo MAC",
   "New Gateway": "Nuovo Gateway",
-  "Add": "Aggiungi"
+  "Add": "Aggiungi",
+  "Username": "Nome utente",
+  "Phone number": "Numero telefono",
+  "Allowed codec": "Codec consentiti",
+  "Create": "Crea",
+  "Force codec": "Forza codec",
+  "Provider settings": "Configurazione provider"
 }
