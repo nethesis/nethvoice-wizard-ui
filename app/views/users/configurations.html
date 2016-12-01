@@ -66,8 +66,7 @@
       </div>
     </div>
     <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 config-adjust-size">
-      <h1 class="control-label centered" for="textInput-markup">{{selectedUser.displayname}} {{selectedUser.default_extension}}</h1>
-      <h4 class="control-label left" for="textInput-markup">{{'Devices' | translate}}</h4>
+      <h1 class="control-label centered config-title-user" for="textInput-markup">{{selectedUser.displayname}} {{selectedUser.default_extension}}</h1>
       <div ng-if="!(devices | isEmpty)" class="container-fluid">
         <div class="list-group list-view-pf list-view-pf-view config-view-container">
           <div class="list-group-item" ng-repeat="device in devices | orderBy: ['manufacturer','model']">
@@ -75,7 +74,7 @@
               <button ng-click="setPhysicalExtension(selectedUser)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{'Link' | translate}}</button>
               <div ng-show="selectedUser.isInAction" class="spinner spinner-sm config-spinner"></div>
             </div>
-            <div class="list-view-pf-main-info">
+            <div class="list-view-pf-main-info config-list-item-right">
               <div class="list-view-pf-left">
                 <span class="fa fa-phone list-view-pf-icon-sm"></span>
               </div>
@@ -95,6 +94,23 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div ng-if="devices | isEmpty" class="blank-slate-pf ">
+        <div class="blank-slate-pf-icon">
+          <span class="fa fa-phone"></span>
+        </div>
+        <h1>
+          Empty State Title
+        </h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+        <p>
+          Learn more about this <a href="#">on the documentation</a>.
+        </p>
+        <div ng-if="mode.isLegacy" class="blank-slate-pf-main-action">
+          <button data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg">{{'Create user' | translate}}</button>
         </div>
       </div>
 

@@ -8,7 +8,7 @@
  * Service in the nethvoiceWizardUiApp.
  */
 angular.module('nethvoiceWizardUiApp')
-  .service('RestService', function ($q, $http) {
+  .service('RestService', function($q, $http) {
 
     this.setAuthHeader = function(user, hash) {
       $http.defaults.headers.common.User = user;
@@ -16,8 +16,8 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     this.getHash = function(username, password) {
-      var pwdHash = sha1(password);
-      var hash = sha1(username + pwdHash + customConfig.SECRET_KEY);
+      var pwdHash = CryptoJS.SHA1(password);
+      var hash = CryptoJS.SHA1(username + pwdHash + customConfig.SECRET_KEY);
       return hash;
     };
 

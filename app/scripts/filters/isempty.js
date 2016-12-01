@@ -10,7 +10,7 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .filter('isEmpty', function(UtilService) {
-    return function(input) {
-      return input ? UtilService.isEmpty(input) : true;
+    return function(input, nested) {
+      return input ? UtilService.isEmpty(input, nested) : true;
     };
   });

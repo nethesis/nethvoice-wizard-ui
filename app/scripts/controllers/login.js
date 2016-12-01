@@ -12,7 +12,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.doLogin = function(username, password) {
       LoginService.login(username, password).then(function(res) {
         LoginService.setCredentials(username, password);
-        // $location.path('/users');
+        $location.path('/users');
         $('body').show();
         $scope.login.isLogged = true;
       }, function(err) {

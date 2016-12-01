@@ -31,7 +31,7 @@
             <div class="card-pf-items text-center">
               <div class="card-pf-item">
                 <span class="pficon pficon-screen"></span>
-                <span class="card-pf-item-text">{{network.ip}} /<b popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Netmask' | translate}}: {{network.netmask}}">{{network.netmask | maskToCidr}}</b></span>
+                <span class="card-pf-item-text"><b>{{network.ip}}</b> /<span popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Netmask' | translate}}: {{network.netmask}}">{{network.netmask | maskToCidr}}</span></span>
               </div>
             </div>
             <p class="card-pf-info text-center">
@@ -41,7 +41,7 @@
                 <div ng-if="tasks[key].currentProgress == 100 || tasks[key].currentProgress == -1" class="pficon pficon-{{tasks[key].currentProgress == 100 ? 'ok' : 'error-circle-o'}} icon-right"></div>
               </div>
               <div ng-if="tasks[key].startScan" class="progress">
-                <div class="progress-bar {{tasks[key].currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{tasks[key].currentProgress == -1 ? '100' : tasks[key].currentProgress}}%;">
+                <div class="progress-bar {{tasks[key].currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{tasks[key].currentProgress == -1 ? '100' : tasks[key].currentProgress}}%;">
                   <span>{{tasks[key].currentProgress == -1 ? '100' : tasks[key].currentProgress}}%</span>
                 </div>
               </div>
@@ -51,7 +51,7 @@
       </div>
     </div>
 
-    <div ng-if="!(devices | isEmpty)" class="container-fluid">
+    <div ng-if="!(allDevices | isEmpty: true)" class="container-fluid">
       <div class="list-group list-view-pf list-view-pf-view list-header">
         <div class="list-group-item list-item-header">
           <div class="list-view-pf-actions">
@@ -59,7 +59,7 @@
           </div>
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
-              <span class="fa fa-usera list-view-pf-icon-sm adjust-line">{{devices.length}}</span>
+              <span class="fa fa-usera list-view-pf-icon-sm adjust-line">{{allDevices | objCount}}</span>
             </div>
             <div class="list-view-pf-body">
               <div class="list-view-pf-description">
@@ -79,36 +79,31 @@
           </div>
         </div>
       </div>
-      <div class="list-group list-view-pf list-view-pf-view">
-        <div class="list-group-item" ng-repeat="device in devices | orderBy: ['manufacturer','model']">
+      <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)">
+        <h1><span class="pficon pficon-network card-pf-icon-circle config-title-icon"></span>{{networkName}} <span class="weight">{{networks[networkName].ip}}</span> /{{networks[networkName].netmask | maskToCidr}}</h1>
+        <div class="list-group-item" ng-repeat="device in devices | orderBy: 'manufacturer'">
           <div class="list-view-pf-actions">
             <div ng-show="device.isInAction" class="spinner spinner-sm adjust-margin"></div>
-            <span ng-show="!device.isInAction" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Online' | translate}}" class="pficon pficon-ok icon-med"></span>
-            <!-- <div class="dropdown pull-right dropdown-kebab-pf">
-              <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebabRight9" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  <span class="fa fa-ellipsis-v"></span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight9">
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">{{'Delete' | translate}}</a></li>
-              </ul>
-            </div> -->
+            <span ng-show="!device.isInAction" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{device.model ? 'Configured' : 'Not configured' | translate}}" class="pficon {{device.model ? 'pficon-ok' : 'pficon-info'}} icon-med"></span>
           </div>
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
-              <span class="fa fa-phone list-view-pf-icon-sm"></span>
+              <span class="fa fa-phone list-view-pf-icon-sm {{device.model ? '' : 'disabled'}}"></span>
             </div>
             <div class="list-view-pf-body">
               <div class="list-view-pf-description">
-                <div class="list-group-item-heading">
+                <div class="list-group-item-heading {{device.model ? '' : 'disabled'}}">
                   {{device.manufacturer}}
                 </div>
                 <div class="list-group-item-text">
-                  {{device.model}}
+                  <div class="form-group">
+                    <select pf-select="{ noneSelectedText: '-' }" ng-model="device.model" ng-options="m as m for m in allModels[device.manufacturer]">
+                        <option value="">-</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-              <div class="list-view-pf-additional-info config-info">
+              <div class="list-view-pf-additional-info config-info {{device.model ? '' : 'disabled'}}">
                 <div>IP: <b>{{device.ipv4}}</b></div>
                 <div>MAC: <b>{{device.mac}}</b></div>
               </div>
@@ -131,7 +126,7 @@
         Learn more about this <a href="#">on the documentation</a>.
       </p>
     </div>
-    <div ng-if="!(networks | isEmpty) && (devices | isEmpty)" class="blank-slate-pf ">
+    <div ng-if="!(networks | isEmpty) && (allDevices | isEmpty: true)" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
         <span class="fa fa-phone"></span>
       </div>

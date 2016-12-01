@@ -9,8 +9,16 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .service('UtilService', function($interval, $q, RestService) {
-    this.isEmpty = function(obj) {
-      return Object.keys(obj).length == 0;
+    this.isEmpty = function(obj, nested) {
+      if (nested) {
+        var empties = [];
+        for (var o in obj) {
+          empties.push(Object.keys(obj[o]).length == 0);
+        }
+        return empties.every(Boolean);
+      } else {
+        return Object.keys(obj).length == 0;
+      }
     };
 
     this.randomPassword = function(len) {
@@ -42,4 +50,8 @@ angular.module('nethvoiceWizardUiApp')
       }
       return cidr;
     }
+
+    this.hashNetwork = function(network) {
+      return CryptoJS.MD5(network.ip + '/' + this.maskToCidr(network.netmask));
+    };
   });
