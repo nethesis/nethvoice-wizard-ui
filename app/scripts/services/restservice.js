@@ -17,13 +17,13 @@ angular.module('nethvoiceWizardUiApp')
 
     this.getHash = function(username, password) {
       var pwdHash = sha1(password);
-      var hash = sha1(username + pwdHash + appConfig.SECRET_KEY);
+      var hash = sha1(username + pwdHash + customConfig.SECRET_KEY);
       return hash;
     };
 
     this.get = function(endpoint) {
       return $q(function(resolve, reject) {
-        $http.get(appConfig.BASE_API_URL + endpoint).then(function successCallback(response) {
+        $http.get(customConfig.BASE_API_URL + endpoint).then(function successCallback(response) {
           resolve(response);
         }, function errorCallback(response) {
           reject(response);
@@ -33,7 +33,7 @@ angular.module('nethvoiceWizardUiApp')
 
     this.post = function(endpoint, data) {
       return $q(function(resolve, reject) {
-        $http.post(appConfig.BASE_API_URL + endpoint, data).then(function successCallback(response) {
+        $http.post(customConfig.BASE_API_URL + endpoint, data).then(function successCallback(response) {
           resolve(response);
         }, function errorCallback(response) {
           reject(response);
@@ -43,7 +43,7 @@ angular.module('nethvoiceWizardUiApp')
 
     this.put = function(endpoint, data) {
       return $q(function(resolve, reject) {
-        $http.put(appConfig.BASE_API_URL + endpoint, data).then(function successCallback(response) {
+        $http.put(customConfig.BASE_API_URL + endpoint, data).then(function successCallback(response) {
           resolve(response);
         }, function errorCallback(response) {
           reject(response);
@@ -53,7 +53,7 @@ angular.module('nethvoiceWizardUiApp')
 
     this.delete = function(endpoint) {
       return $q(function(resolve, reject) {
-        $http.delete(appConfig.BASE_API_URL + endpoint).then(function successCallback(response) {
+        $http.delete(customConfig.BASE_API_URL + endpoint).then(function successCallback(response) {
           resolve(response);
         }, function errorCallback(response) {
           reject(response);

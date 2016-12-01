@@ -40,7 +40,5 @@ var appConfig = {
       prev: 'routes/inbound',
       next: false
     }
-  },
-  BASE_API_URL: '/freepbx/rest',
-  SECRET_KEY: 'random'
+  }
 };

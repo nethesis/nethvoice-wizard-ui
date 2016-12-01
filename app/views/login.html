@@ -1,12 +1,12 @@
 <div id="loginTpl">
   <span id="badge">
-    <img src="images/brand.png" alt="{{brandConfig.BRAND_NAME}}" />
+    <img src="images/brand.png" alt="{{customConfig.BRAND_NAME}}" />
   </span>
   <div class="container" ng-controller="LoginCtrl">
     <div class="row">
       <div class="col-sm-12">
         <div id="brand">
-          <h1>{{brandConfig.BRAND_NAME}}</h1>
+          <h1>{{customConfig.BRAND_NAME}}</h1>
         </div>
       </div>
       <div class="col-sm-7 col-md-6 col-lg-5 login">
@@ -41,10 +41,10 @@
       </div>
       <div class="col-sm-5 col-md-6 col-lg-7 details">
         <p>
-          <strong>Welcome to {{brandConfig.BRAND_NAME}}</strong>
+          <strong>Welcome to {{customConfig.BRAND_NAME}}</strong>
       </div>
     </div>
     <div ng-show="photoUser" class="login-copy">Photo by {{photoUser}}</div>
-    <div>Copyright &copy; {{currentYear()}} {{brandConfig.BRAND_NAME}}</div>
+    <div>Copyright &copy; {{currentYear()}} {{customConfig.BRAND_NAME}}</div>
   </div>
 </div>
