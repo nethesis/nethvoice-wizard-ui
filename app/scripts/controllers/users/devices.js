@@ -54,7 +54,9 @@ angular.module('nethvoiceWizardUiApp')
       DeviceService.startScan(network).then(function(res) {
         $scope.tasks[key].promise = $interval(function() {
           UtilService.taskStatus(res.data.result).then(function(res) {
-            if (res.data.progress == 100) {
+            if (res.data.progress < 100) {
+              $scope.errorCount = 0;
+            } else if (res.data.progress == 100) {
               $scope.tasks[key].errorCount = 0;
               $interval.cancel($scope.tasks[key].promise);
               $scope.getPhoneList(key, network);
