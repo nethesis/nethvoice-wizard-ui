@@ -26,7 +26,7 @@
               <span class="pficon pficon-network card-pf-icon-circle"></span>
             </div>
             <h2 class="card-pf-title text-center">
-              {{key}}
+              {{key}} | <span class="weight">{{network.network}}</span>
             </h2>
             <div class="card-pf-items text-center">
               <div class="card-pf-item">
@@ -80,7 +80,7 @@
         </div>
       </div>
       <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)">
-        <h1><span class="pficon pficon-network card-pf-icon-circle config-title-icon"></span>{{networkName}} <span class="weight">{{networks[networkName].ip}}</span> /{{networks[networkName].netmask | maskToCidr}}</h1>
+        <h1><span class="pficon pficon-network card-pf-icon-circle config-title-icon"></span>{{networkName}} <span class="weight">{{networks[networkName].network}}</span></h1>
         <div class="list-group-item" ng-repeat="device in devices | orderBy: 'manufacturer'">
           <div class="list-view-pf-actions">
             <div ng-show="device.isInAction" class="spinner spinner-sm adjust-margin"></div>
