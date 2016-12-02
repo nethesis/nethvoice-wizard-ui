@@ -39,3 +39,15 @@
 	float: right;
 	margin-top: 20px;
 }
+
+.gw-chk-codec {
+  margin: 0px !important;
+}
+
+.voip-save-btn {
+  float: right;
+}
+
+.voip-title {
+  margin-bottom: 40px;
+}

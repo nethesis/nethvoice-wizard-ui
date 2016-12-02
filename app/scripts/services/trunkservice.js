@@ -33,4 +33,11 @@ angular.module('nethvoiceWizardUiApp')
       // todo...
     };
 
+    this.createTrunkVoip = function() {
+      // todo...
+    };
+
+    this.getVoipProviders = function() {
+      // todo...
+    };
   });
