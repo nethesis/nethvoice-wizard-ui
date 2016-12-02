@@ -1,6 +1,7 @@
 {
   "Users": "Utenti",
   "Trunks": "Linee",
+  "Trunk": "Fascio",
   "Routes": "Rotte",
   "Extensions": "Interni",
   "Extension": "Interno",
@@ -21,4 +22,21 @@
   "Insert extension": "Inserisci interno",
   "Extension not linked to user": "Interno non associato all'utente",
   "Extension linked correctly to user": "Interno associato correttamente all'utente"
+  "Physical lines configuration": "Configurazione linee fisiche",
+  "Search devices": "Cerca dispositivi",
+  "Searching devices...": "Ricerca linee fisiche in corso...",
+  "Delete": "Elimina",
+  "Model": "Modello",
+  "Close": "Chiudi",
+  "Vendor": "Produttore",
+  "Port": "Porta",
+  "Point-MultiPoint": "Punto-MultiPunto",
+  "Point-Point": "Punto-Punto",
+  "Network gateway": "Gateway della rete",
+  "Configuration name": "Nome configurazione",
+  "Device IP": "IP dispositivo",
+  "Save changes": "Salva cambiamenti",
+  "Save": "Salva",
+  "MAC address": "Indirizzo MAC",
+  "New Gateway": "Nuovo Gateway"
 }
