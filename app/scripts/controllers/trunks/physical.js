@@ -8,12 +8,11 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('TrunksPhysicalCtrl', function($scope, $location, TrunkService) {
+  .controller('TrunksPhysicalCtrl', function($scope, $location, $interval, TrunkService, ConfigService, UtilService, DeviceService) {
 
     $scope.props = {
       configured: false,
       searched: false,
-      gwSearching: false,
       saving: {}
     };
     $scope.error = {
@@ -122,16 +121,20 @@ angular.module('nethvoiceWizardUiApp')
       }
     ];
     //
+    $scope.networks = {};
+    $scope.tasks = {};
+    $scope.allDevices = {};
+    $scope.networkLength = 0;
     $scope.currentGw = $scope.gateways[0];
     $scope.newGw = {};
     $scope.sipTrunks = [];
 
-    /**
-     * Initialize the data.
-     *
-     * @method init
-     */
     $scope.init = function() {
+      $scope.getSipTrunks();
+      $scope.getNetworkList();
+    };
+
+    $scope.getSipTrunks = function() {
       TrunkService.getSipTrunks().then(function(res) {
         $scope.sipTrunks = res.map(function(obj){
           return obj.channelid;
@@ -145,27 +148,80 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    /**
-     * Get the gateway list from the server.
-     *
-     * @method init
-     */
-    $scope.searchGw = function() {
-      $scope.props.gwSearching = true;
-      TrunkService.searchGw().then(function(res) {
-        // $scope.props.gwSearching = false;
-        // $scope.props.searched = true;
-        // $scope.$apply();
-      }, function(err) {
-        if (err.status !== 200) {
-          // $scope.login.showError = true;
-          // $scope.login.isLogged = false;
-          // $('#loginTpl').show();
-          // $location.path('/login');
+    $scope.getNetworkList = function() {
+      $scope.view.changeRoute = true;
+      ConfigService.getNetworks().then(function(res) {
+        $scope.networks = res.data;
+        for (var eth in res.data) {
+          $scope.tasks[eth] = {};
+          $scope.allDevices[eth] = {};
         }
+        $scope.networkLength = Object.keys(res.data).length;
+        $scope.view.changeRoute = false;
+      }, function(err) {
         console.log(err);
       });
     };
+
+    $scope.startScan = function(key, network) {
+      $scope.tasks[key].startScan = true;
+      $scope.tasks[key].currentProgress = Math.floor((Math.random() * 50) + 10);
+      DeviceService.startScan(network).then(function(res) {
+        $scope.tasks[key].promise = $interval(function() {
+          UtilService.taskStatus(res.data.result).then(function(res) {
+            if (res.data.progress < 100) {
+              $scope.errorCount = 0;
+            } else if (res.data.progress == 100) {
+              $scope.tasks[key].errorCount = 0;
+              $interval.cancel($scope.tasks[key].promise);
+              $scope.getGatewayList(key, network);
+            } else {
+              console.log(res.error);
+              if ($scope.tasks[key].errorCount < appConfig.MAX_TRIES) {
+                $scope.tasks[key].errorCount++;
+              } else {
+                $interval.cancel($scope.tasks[key].promise);
+                $scope.tasks[key].currentProgress = -1;
+              }
+            }
+          }, function(err) {
+            console.log(err);
+            if ($scope.tasks[key].errorCount < appConfig.MAX_TRIES) {
+              $scope.tasks[key].errorCount++;
+            } else {
+              $interval.cancel($scope.tasks[key].promise);
+              $scope.tasks[key].currentProgress = -1;
+            }
+          });
+        }, appConfig.INTERVAL_POLLING);
+      }, function(err) {
+        $scope.tasks[key].currentProgress = -1;
+        console.log(err);
+      });
+    };
+
+    $scope.getGatewayList = function(key, network) {
+      DeviceService.gatewayListByNetwork(network).then(function(res) {
+        $scope.allDevices[key] = res.data;
+        $scope.tasks[key].currentProgress = 100;
+      }, function(err) {
+        console.log(err);
+        $scope.tasks[key].currentProgress = -1;
+      });
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     $scope.deleteGw = function() {
       for (var i=0; i<$scope.gateways.length; i++) {
@@ -215,7 +271,6 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.updateGwList = function() {
-      $scope.props.gwSearching = true;
       TrunkService.updateGwList().then(function(res) {
         // console.log(res);
       }, function(err) {
@@ -234,7 +289,6 @@ angular.module('nethvoiceWizardUiApp')
         $scope.gateways = $scope.gateways;
         $scope.currentGw = $scope.gateways[0];
 
-        $scope.props.gwSearching = false;
         $scope.props.searched = true;
         $scope.$apply();
       }, 500);

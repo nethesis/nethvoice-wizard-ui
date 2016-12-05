@@ -12,31 +12,66 @@
     </div>
   </div>
 
-  <div class="wizard-pf-contents" ng-controller="TrunksPhysicalCtrl" ng-init="init()">
+  <div class="wizard-pf-contents" ng-init="init()">
     <div class="form-group required">
-      <div class="row" ng-if="!props.configured && !props.searched">
-        <div class="row" ng-if="!props.gwSearching">
+      <div class="row">
+        <div class="row">
           <div class="row">
             <h1 class="col-md-4 col-md-offset-4 control-label label-gw-title" for="textInput-markup">{{'Physical lines configuration' | translate}}</h1>
           </div>
-          <div class="row gw-btns">
-            <div class="col-md-4 col-md-offset-4">
-              <button class="btn btn-primary col-md-offset-5" ng-click="searchGw()">{{'Search devices' | translate}}</button>
-            </div>
-          </div>
         </div>
-        <div class="row" ng-if="props.gwSearching">
-          <div class="row">
-            <h1 class="col-md-4 col-md-offset-4 control-label label-gw-title" for="textInput-markup">{{'Searching devices...' | translate}}</h1>
-          </div>
-          <div class="row gw-btns">
-            <div class="col-md-4 col-md-offset-4">
-              <div class="col-md-offset-5 spinner spinner-lg"></div>
+    </div>
+
+    <div ng-if="!(networks | isEmpty)" class="container-fluid">
+      <div class="col-xs-12 col-sm-6 col-md-{{12/networkLength}} col-lg-{{12/networkLength}}" ng-repeat="(key, network) in networks">
+        <div class="card-pf card-pf-view adjust-card">
+          <div class="card-pf-body">
+            <div class="card-pf-top-element">
+              <span class="pficon pficon-network card-pf-icon-circle"></span>
             </div>
+            <h2 class="card-pf-title text-center">
+              {{key}} | <span class="weight">{{network.network}}</span>
+            </h2>
+            <div class="card-pf-items text-center">
+              <div class="card-pf-item">
+                <span class="pficon pficon-screen"></span>
+                <span class="card-pf-item-text"><b>{{network.ip}}</b> /<span popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Netmask' | translate}}: {{network.netmask}}">{{network.netmask | maskToCidr}}</span></span>
+              </div>
+            </div>
+            <p class="card-pf-info text-center">
+              <div class="blank-slate-pf-main-action centered adjust-bottom">
+                <button ng-click="startScan(key, network)" class="btn btn-primary btn-lg">{{'Start scan' | translate}}</button>
+                <div ng-if="tasks[key].currentProgress < 100 && tasks[key].currentProgress != -1" class="spinner spinner-sm spinner-inline spinner-right"></div>
+                <div ng-if="tasks[key].currentProgress == 100 || tasks[key].currentProgress == -1" class="pficon pficon-{{tasks[key].currentProgress == 100 ? 'ok' : 'error-circle-o'}} icon-right"></div>
+              </div>
+              <div ng-if="tasks[key].startScan" class="progress">
+                <div class="progress-bar {{tasks[key].currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{tasks[key].currentProgress == -1 ? '100' : tasks[key].currentProgress}}%;">
+                  <span>{{tasks[key].currentProgress == -1 ? '100' : tasks[key].currentProgress}}%</span>
+                </div>
+              </div>
+            </p>
           </div>
         </div>
       </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- gateway list -->
     <div ng-if="props.searched || props.configured" class="row">

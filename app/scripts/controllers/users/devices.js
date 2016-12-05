@@ -78,7 +78,7 @@ angular.module('nethvoiceWizardUiApp')
               $scope.tasks[key].currentProgress = -1;
             }
           });
-        }, 3000);
+        }, appConfig.INTERVAL_POLLING);
       }, function(err) {
         $scope.tasks[key].currentProgress = -1;
         console.log(err);

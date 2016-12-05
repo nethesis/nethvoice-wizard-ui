@@ -41,5 +41,6 @@ var appConfig = {
       next: false
     }
   },
-  MAX_TRIES: 6
+  MAX_TRIES: 6,
+  INTERVAL_POLLING: 3000
 };
