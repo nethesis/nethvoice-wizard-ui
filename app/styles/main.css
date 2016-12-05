@@ -214,6 +214,29 @@ a {
   background: #f5f5f5;
 }
 
+.adjust-header {
+  margin-top: 0px;
+}
+
+@media screen and (min-width: 992px) {
+  .adjust-search {
+    margin-top: 5px;
+    padding-right: 25px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .adjust-search {
+    margin-top: 5px;
+    padding-right: 30px;
+    padding-left: 30px;
+    margin-bottom: 5px;
+  }
+  .adjust-header {
+    margin-bottom: 4px;
+  }
+}
+
 @media screen and (min-width: 1200px) {
   .wizard-pf-footer {
     margin-left: 185px;
@@ -282,6 +305,15 @@ a {
   .no-padding {
     padding-left: 0px;
     padding-right: 0px;
+  }
+  .adjust-search {
+    margin-top: 5px;
+    padding-right: 8px;
+    padding-left: 8px;
+    margin-bottom: 8px;
+  }
+  .adjust-header {
+    margin-bottom: 4px;
   }
 }
 
@@ -381,8 +413,15 @@ a {
   margin-top: 12px;
 }
 
+.config-title-icon-adjust {
+  font-size: 18px;
+  margin-left: 23px;
+  margin-right: 18px;
+  margin-top: 12px;
+}
+
 .config-title-user {
-  margin-bottom: 16px;
+  margin-bottom: 11px;
 }
 
 .config-list-item-right {
@@ -455,6 +494,10 @@ a {
   font: inherit;
   font-size: 14px !important;
   line-height: 26px !important;
+}
+
+.adjust-form {
+  margin-top: 12px
 }
 
 .card-pf-view .card-pf-top-element .card-pf-icon-circle {
