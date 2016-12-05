@@ -40,14 +40,14 @@
 	margin-top: 20px;
 }
 
-.gw-chk-codec {
-  margin: 0px !important;
-}
-
 .voip-save-btn {
   float: right;
 }
 
 .voip-title {
   margin-bottom: 40px;
+}
+
+.gw-page {
+  margin-bottom: 50px;
 }

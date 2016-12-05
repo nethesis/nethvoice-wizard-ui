@@ -470,4 +470,10 @@ a {
 }
 
 
-/********/
+/**********/
+
+.generic-error {
+  position: absolute;
+  top: 72px;
+  right: 12px;
+}

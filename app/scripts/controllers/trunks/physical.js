@@ -8,15 +8,20 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('TrunksPhysicalCtrl', function($scope, TrunkService) {
+  .controller('TrunksPhysicalCtrl', function($scope, $location, TrunkService) {
 
     $scope.props = {
       configured: false,
       searched: false,
-      gwSearching: false
+      gwSearching: false,
+      saving: {}
     };
+    $scope.error = {
+      show: false,
+      msg: ''
+    }
+
     // example data taken from rest api calls
-    $scope.trunks = [2000,2001,2002,2003,2004,2005];
     $scope.extensions = ['200','201','202','203','204','205'];
     $scope.models = {
       'MEDIATRIX': {
@@ -73,38 +78,38 @@ angular.module('nethvoiceWizardUiApp')
     };
     $scope.vendors = Object.keys($scope.models);
     $scope.gateways = [
-      {
-        id: 2,
-        ip: '192.168.5.1',
-        mac: '00:11:22:33:44:55',
-        vendor: 'MEDIATRIX',
-        model: 'M4402',
-        gateway: '192.168.5.253',
-        name: 'test',
-        configured: true,
-        trunks_isdn: [
-          { name: '2003', type: 'pmp' },
-          { name: '2004', type: 'pmp' }
-        ],
-        trunks_fxo: [
-          { number: '1111111', linked_trunk: '2005' },
-          { number: '2222222', linked_trunk: '2006' },
-          { number: '3333333', linked_trunk: '2007' },
-          { number: '4444444', linked_trunk: '2008' }
-        ],
-        trunks_pri: [
-          { linked_trunk: '2009' },
-          { linked_trunk: '2010' },
-          { linked_trunk: '2011' },
-          { linked_trunk: '2012' }
-        ],
-        extens_fxs: [
-          { linked_ext: '200' },
-          { linked_ext: '201' },
-          { linked_ext: '202' },
-          { linked_ext: '203' }
-        ],
-      },
+      // {
+      //   id: 2,
+      //   ip: '192.168.5.1',
+      //   mac: '00:11:22:33:44:55',
+      //   vendor: 'MEDIATRIX',
+      //   model: 'M4402',
+      //   gateway: '192.168.5.253',
+      //   name: 'test',
+      //   configured: true,
+      //   trunks_isdn: [
+      //     { name: '2003', type: 'pmp' },
+      //     { name: '2004', type: 'pmp' }
+      //   ],
+      //   trunks_fxo: [
+      //     { number: '1111111', linked_trunk: '2005' },
+      //     { number: '2222222', linked_trunk: '2006' },
+      //     { number: '3333333', linked_trunk: '2007' },
+      //     { number: '4444444', linked_trunk: '2008' }
+      //   ],
+      //   trunks_pri: [
+      //     { linked_trunk: '2009' },
+      //     { linked_trunk: '2010' },
+      //     { linked_trunk: '2011' },
+      //     { linked_trunk: '2012' }
+      //   ],
+      //   extens_fxs: [
+      //     { linked_ext: '200' },
+      //     { linked_ext: '201' },
+      //     { linked_ext: '202' },
+      //     { linked_ext: '203' }
+      //   ],
+      // },
       {
         ip: '192.168.5.222',
         mac: '11:11:11:11:11:11',
@@ -119,9 +124,47 @@ angular.module('nethvoiceWizardUiApp')
     //
     $scope.currentGw = $scope.gateways[0];
     $scope.newGw = {};
+    $scope.sipTrunks = [];
 
-    $scope.getRange = function(n) {
-      return new Array(n);
+    /**
+     * Initialize the data.
+     *
+     * @method init
+     */
+    $scope.init = function() {
+      TrunkService.getSipTrunks().then(function(res) {
+        $scope.sipTrunks = res.map(function(obj){
+          return obj.channelid;
+        });
+      }, function(err) {
+        if (err.status !== 200) {
+          $scope.error.show = true;
+          $scope.error.msg = 'retrieving sip trunks';
+        }
+        console.log(err);
+      });
+    };
+
+    /**
+     * Get the gateway list from the server.
+     *
+     * @method init
+     */
+    $scope.searchGw = function() {
+      $scope.props.gwSearching = true;
+      TrunkService.searchGw().then(function(res) {
+        // $scope.props.gwSearching = false;
+        // $scope.props.searched = true;
+        // $scope.$apply();
+      }, function(err) {
+        if (err.status !== 200) {
+          // $scope.login.showError = true;
+          // $scope.login.isLogged = false;
+          // $('#loginTpl').show();
+          // $location.path('/login');
+        }
+        console.log(err);
+      });
     };
 
     $scope.deleteGw = function() {
@@ -130,7 +173,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.gateways.splice(i, 1);
         }
       }
-      $scope.updateGwList();
+      $scope.searchGw();
       // TrunkService.deleteGw().then(function(res) {
       // }, function(err) {
       //   if (err.status !== 200) {
@@ -150,17 +193,17 @@ angular.module('nethvoiceWizardUiApp')
           // add isdn trunk fields
           $scope.currentGw.trunks_isdn = [];
           for (var k=0; k<tempArr[i].n_isdn_trunks; k++) {
-            $scope.currentGw.trunks_isdn.push({ name: parseInt($scope.trunks[$scope.trunks.length - 1]) + k + 1, type: 'pp' });
+            $scope.currentGw.trunks_isdn.push({ name: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + k + 1, type: 'pp' });
           }
           // add pri trunk fields
           $scope.currentGw.trunks_pri = [];
           for (var k=0; k<tempArr[i].n_pri_trunks; k++) {
-            $scope.currentGw.trunks_pri.push({ linked_trunk: parseInt($scope.trunks[$scope.trunks.length - 1]) + k + 1 });
+            $scope.currentGw.trunks_pri.push({ linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + k + 1 });
           }
           // add fxo trunk fields
           $scope.currentGw.trunks_fxo = [];
           for (var k=0; k<tempArr[i].n_fxo_trunks; k++) {
-            $scope.currentGw.trunks_fxo.push({ number: '', linked_trunk: parseInt($scope.trunks[$scope.trunks.length - 1]) + k + 1 });
+            $scope.currentGw.trunks_fxo.push({ number: '', linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + k + 1 });
           }
           // add fxs ext fields
           $scope.currentGw.extens_fxs = [];
@@ -173,8 +216,21 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.updateGwList = function() {
       $scope.props.gwSearching = true;
+      TrunkService.updateGwList().then(function(res) {
+        // console.log(res);
+      }, function(err) {
+        if (err.status !== 200) {
+          // $scope.login.showError = true;
+          // $scope.login.isLogged = false;
+          // $('#loginTpl').show();
+          // $location.path('/login');
+        }
+        console.log(err);
+      });
+
+
       setTimeout(function () {
-        
+
         $scope.gateways = $scope.gateways;
         $scope.currentGw = $scope.gateways[0];
 
@@ -207,15 +263,15 @@ angular.module('nethvoiceWizardUiApp')
       };
       newGw.trunks_fxo = [];
       for (var i=0; i<$scope.newGw.model.n_fxo_trunks; i++) {
-        newGw.trunks_fxo.push({ number: '', linked_trunk: parseInt($scope.trunks[$scope.trunks.length - 1]) + i });
+        newGw.trunks_fxo.push({ number: '', linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i });
       }
       newGw.trunks_pri = [];
       for (var i=0; i<$scope.newGw.model.n_pri_trunks; i++) {
-        newGw.trunks_pri.push({ linked_trunk: parseInt($scope.trunks[$scope.trunks.length - 1]) + i });
+        newGw.trunks_pri.push({ linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i });
       }
       newGw.trunks_isdn = [];
       for (var i=0; i<$scope.newGw.model.n_isdn_trunks; i++) {
-        newGw.trunks_isdn.push({ name: parseInt($scope.trunks[$scope.trunks.length - 1]) + i, type: 'pmp' });
+        newGw.trunks_isdn.push({ name: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i, type: 'pmp' });
       }
       newGw.extens_fxs = [];
       for (var i=0; i<$scope.newGw.model.n_fxs_ext; i++) {
@@ -228,6 +284,11 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.saveConfig = function() {
       // todo....
+      $scope.props.saving[$scope.currentGw.mac] = true;
+      setTimeout(function () {
+        $scope.props.saving[$scope.currentGw.mac] = false;
+        $scope.$apply();
+      }, 1000);
     };
 
   });

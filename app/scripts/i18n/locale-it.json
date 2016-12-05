@@ -45,6 +45,10 @@
   "Phone number": "Numero telefono",
   "Allowed codec": "Codec consentiti",
   "Create": "Crea",
+  "Configured": "Configurato",
+  "Not configured": "Non configurato",
   "Force codec": "Forza codec",
+  "retrieving sip trunks": "recupero fasci sip",
+  "retrieving providers": "recupero providers",
   "Provider settings": "Configurazione provider"
 }

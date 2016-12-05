@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div class="container-fluid col-xs-12 col-sm-12 col-md-6 col-lg-6">
+  <div class="container-fluid col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-init="init()">
     <form class="form-horizontal" ng-submit="create()">
       <div class="form-group voip-title">
         <h2 class="col-md-4 control-label">{{'Provider settings' | translate}}</h2>
@@ -21,7 +21,7 @@
         <label class="col-sm-3 control-label">{{'Provider' | translate}}</label>
         <div class="col-sm-9">
           <select pf-select ng-model="trunk.provider">
-            <option value="{{p.provider}}" ng-repeat="p in providers">{{p.description}}</option>
+            <option value="{{p.provider}}" ng-repeat="p in providers">{{p.descrizione}}</option>
           </select>
         </div>
       </div>
@@ -58,13 +58,13 @@
       <div class="form-group">
         <label class="col-sm-3 control-label">{{'Force codec' | translate}}</label>
         <div class="col-sm-1">
-          <input type="checkbox" ng-model="trunk.force_codec" class="form-control gw-chk-codec" required>
+          <input bs-switch ng-model="trunk.force_codec" id="bootstrap-switch" class="bootstrap-switch" type="checkbox">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-3 control-label"></label>
         <div class="col-sm-9">
-          <button type="submit" class="btn btn-primary voip-save-btn">{{'Create' | translate}}</button>
+          <button type="submit" class="col-md-2 btn btn-primary voip-save-btn">{{'Create' | translate}}</button>
         </div>
       </div>
     </form>

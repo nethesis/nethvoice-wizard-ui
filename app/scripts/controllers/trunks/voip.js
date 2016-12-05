@@ -10,24 +10,36 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('TrunksVoipCtrl', function($scope, TrunkService) {
 
-    // test data to take from the server
-    $scope.providers = [
-      { provider: 'eutelia', description: 'Eutelia' },
-      { provider: 'messagenet', description: 'MessageNet' },
-      { provider: 'squillo', description: 'Squillo.it (NGI)' },
-      { provider: 'skype', description: 'Skype Connect' },
-      { provider: 'voipvoice', description: 'VoipVoice' },
-      { provider: 'enjoip', description: 'Enjoip' },
-      { provider: 'cheapnet', description: 'Cheapnet' }
-    ];
+    // current data trunk
     $scope.trunk = {
-      provider: 'eutelia',
-      codecs: ['alaw', 'ulaw'],
-      force_codec: true
+      provider: '',
+      force_codec: true,
+      codec: ['alaw', 'ulaw']
+    };
+    $scope.providers = [];
+
+    $scope.init = function() {
+      $scope.initGraphics();
+      TrunkService.getProviders().then(function(res) {
+        $scope.providers = res;
+        $scope.trunk.provider = $scope.providers[0].provider;
+      }, function(err) {
+        if (err.status !== 200) {
+          $scope.error.show = true;
+          $scope.error.msg = 'retrieving providers';
+        }
+        console.log(err);
+      });
     };
 
-    $scope.getVoipProviders = function() {
-      // TrunkService.getVoipProviders
+    $scope.initGraphics = function() {
+      jQuery(".bootstrap-switch").bootstrapSwitch();
+      $('#bootstrap-switch').on('switchChange.bootstrapSwitch', $scope.updateForceCodec);
+      $('#bootstrap-switch').bootstrapSwitch('state', $scope.trunk.force_codec);
+    };
+
+    $scope.updateForceCodec = function(event, state) {
+      $scope.trunk.force_codec = state;
     };
 
     $scope.create = function() {

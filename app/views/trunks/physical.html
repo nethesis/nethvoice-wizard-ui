@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div class="wizard-pf-contents" ng-controller="TrunksPhysicalCtrl">
+  <div class="wizard-pf-contents" ng-controller="TrunksPhysicalCtrl" ng-init="init()">
     <div class="form-group required">
       <div class="row" ng-if="!props.configured && !props.searched">
         <div class="row" ng-if="!props.gwSearching">
@@ -21,7 +21,7 @@
           </div>
           <div class="row gw-btns">
             <div class="col-md-4 col-md-offset-4">
-              <button class="btn btn-primary col-md-offset-5" ng-click="updateGwList()">{{'Search devices' | translate}}</button>
+              <button class="btn btn-primary col-md-offset-5" ng-click="searchGw()">{{'Search devices' | translate}}</button>
             </div>
           </div>
         </div>
@@ -67,10 +67,16 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-md-1">
-                <div ng-show="gw.configured" class="list-view-pf-actions gw-list-icon">
-                  <div ng-show="false" class="spinner spinner-sm adjust-margin ng-hide"></div>
-                  <span ng-show="true" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="Configured" class="pficon pficon-ok icon-med"></span>
+              <div ng-show="gw.configured" class="col-md-1">
+                <div class="list-view-pf-actions gw-list-icon">
+                  <div ng-show="props.saving[gw.mac]" class="spinner spinner-sm adjust-margin ng-hide"></div>
+                  <span ng-show="!props.saving[gw.mac]" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Configured' | translate}}" class="pficon pficon-ok icon-med"></span>
+                </div>
+              </div>
+              <div ng-show="!gw.configured" class="col-md-1">
+                <div class="list-view-pf-actions gw-list-icon">
+                  <div ng-show="props.saving[gw.mac]" class="spinner spinner-sm adjust-margin ng-hide"></div>
+                  <span ng-show="!props.saving[gw.mac]" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Not configured' | translate}}" class="pficon pficon-info icon-med"></span>
                 </div>
               </div>
             </div>
@@ -279,6 +285,7 @@
         </form>
       </div>
     </div>
+    <generic-error ng-if="error.show"></generic-error>
   </div>
   <wizard-step ng-if="wizard.isWizard"></wizard-step>
 </div>
