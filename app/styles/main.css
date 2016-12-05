@@ -141,6 +141,10 @@ a {
   margin-bottom: -30px;
 }
 
+.list-gateway:last-child {
+  margin-bottom: 54px;
+}
+
 .list-item-header {
   background: #f5f5f5;
   border: none;
@@ -223,6 +227,13 @@ a {
     margin-top: 5px;
     padding-right: 25px;
   }
+  .adjust-body-gateway {
+    display: table-cell;
+  }
+  .adjust-info-gateway {
+    clear: both;
+    margin-left: 20%;
+  }
 }
 
 @media screen and (max-width: 991px) {
@@ -234,6 +245,10 @@ a {
   }
   .adjust-header {
     margin-bottom: 4px;
+  }
+  .adjust-info-gateway {
+    clear: both;
+    margin-left: 0px;
   }
 }
 
@@ -248,6 +263,9 @@ a {
     margin-top: 16px;
     margin-bottom: 24px;
   }
+  .big-margin-top {
+    margin-top: 60px;
+  }
 }
 
 @media screen and (max-width: 1199px) {
@@ -261,6 +279,10 @@ a {
     margin-top: 16px;
     margin-bottom: 24px;
   }
+  .config-adjust-size-gateway {
+    margin-bottom: 54px;
+    margin-top: -54px;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -273,6 +295,9 @@ a {
     padding-right: 95px;
     padding-left: 95px;
     margin-bottom: 40px;
+  }
+  .config-title-icon-adjust {
+    margin-left: 23px;
   }
 }
 
@@ -314,6 +339,13 @@ a {
   }
   .adjust-header {
     margin-bottom: 4px;
+  }
+  .config-adjust-size-gateway {
+    margin-bottom: 74px;
+    margin-top: -54px;
+  }
+  .config-title-icon-adjust {
+    margin-left: 0px;
   }
 }
 
@@ -400,6 +432,10 @@ a {
   margin-bottom: 0px;
 }
 
+.config-form-gateway {
+  margin-bottom: 55px;
+}
+
 @media screen and (max-width: 990px) {
   .config-form {
     margin-left: -10px;
@@ -415,7 +451,6 @@ a {
 
 .config-title-icon-adjust {
   font-size: 18px;
-  margin-left: 23px;
   margin-right: 18px;
   margin-top: 12px;
 }
@@ -431,6 +466,37 @@ a {
 
 .weight {
   font-weight: 500;
+}
+
+@media screen and (max-width: 1557px) {
+  .weight-gateway {
+    display: block;
+    margin-left: 56px;
+    margin-top: 6px;
+  }
+  .adjust-search-gateway {
+    margin-top: 22px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .weight-gateway {
+    display: initial;
+    margin-left: initial;
+    margin-top: initial;
+  }
+  .adjust-search-gateway {
+    margin-top: 5px;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .adjust-body-gateway {
+    display: inherit;
+  }
+  .adjust-info-gateway {
+    margin-left: initial;
+  }
 }
 
 
@@ -461,12 +527,21 @@ a {
   font-size: 22px !important;
 }
 
+.adjust-model-gateway {
+  margin-left: 14px;
+}
+
 .centered {
   text-align: center;
 }
 
 .right {
   text-align: right;
+}
+
+.right-align {
+  float: right;
+  min-width: 65px;
 }
 
 .left {

@@ -81,10 +81,10 @@
       </div>
       <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)">
         <div class="row">
-          <h1 class="col-lg-6 col-md-6 col-xs-12 col-xs-12 adjust-header">
+          <h1 class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-header">
             <span class="pficon pficon-network card-pf-icon-circle config-title-icon"></span>{{networkName}} <span class="weight">{{networks[networkName].network}}</span>
           </h1>
-          <div class="col-lg-6 col-md-6 col-xs-12 col-xs-12 adjust-search">
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-search">
             <form role="form" class="search-pf has-button" id="form-lg-domains-details">
               <div class="form-group has-clear">
                 <div class="search-pf-input-group" id="filter-domains-details">
@@ -130,6 +130,7 @@
         </div>
       </div>
     </div>
+
     <div ng-if="networks | isEmpty" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
         <span class="pficon pficon-network"></span>
@@ -144,6 +145,7 @@
         Learn more about this <a href="#">on the documentation</a>.
       </p>
     </div>
+
     <div ng-if="!(networks | isEmpty) && (allDevices | isEmpty: true)" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
         <span class="fa fa-phone"></span>

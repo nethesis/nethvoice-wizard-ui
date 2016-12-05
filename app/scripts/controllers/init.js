@@ -25,7 +25,7 @@ angular.module('nethvoiceWizardUiApp')
     };
     $scope.loginUrl = 'views/login.html';
     $scope.wizard = {
-      isWizard: false,
+      isWizard: true,
       stepCount: 1
     };
 

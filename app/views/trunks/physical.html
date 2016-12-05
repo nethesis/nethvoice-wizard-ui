@@ -12,15 +12,8 @@
     </div>
   </div>
 
-  <div class="wizard-pf-contents" ng-init="init()">
-    <div class="form-group required">
-      <div class="row">
-        <div class="row">
-          <div class="row">
-            <h1 class="col-md-4 col-md-offset-4 control-label label-gw-title" for="textInput-markup">{{'Physical lines configuration' | translate}}</h1>
-          </div>
-        </div>
-    </div>
+  <div class="wizard-pf-contents adjust-size">
+    <h1 class="control-label centered" for="textInput-markup">{{'Devices configuration' | translate}}</h1>
 
     <div ng-if="!(networks | isEmpty)" class="container-fluid">
       <div class="col-xs-12 col-sm-6 col-md-{{12/networkLength}} col-lg-{{12/networkLength}}" ng-repeat="(key, network) in networks">
@@ -55,30 +48,225 @@
       </div>
     </div>
 
+    <div ng-if="!(allDevices | isEmpty: true)" class="container-fluid col-lg-6 col-md-12 col-sm-12 col-xs-12">
+      <div class="list-group list-view-pf list-view-pf-view list-header">
+        <div class="list-group-item list-item-header">
+          <div class="list-view-pf-actions">
+            <label>{{'Status' | translate}}</label>
+          </div>
+          <div class="list-view-pf-main-info">
+            <div class="list-view-pf-left">
+              <span class="fa fa-usera list-view-pf-icon-sm adjust-line">{{allDevices | objCount}}</span>
+            </div>
+            <div class="list-view-pf-body">
+              <div class="list-view-pf-description">
+                <div class="list-group-item-heading">
+                  {{'Vendor' | translate}}
+                </div>
+              </div>
+              <div class="list-view-pf-additional-info">
+                <div class="list-view-pf-additional-info-item">
+                  <label>{{'Info' | translate}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view list-gateway" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)">
+        <div class="row">
+          <h1 class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-header">
+            <span class="pficon pficon-network card-pf-icon-circle config-title-icon"></span>{{networkName}} <span class="weight weight-gateway">{{networks[networkName].network}}</span>
+          </h1>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-search adjust-search-gateway">
+            <form role="form" class="search-pf has-button" id="form-lg-domains-details">
+              <div class="form-group has-clear">
+                <div class="search-pf-input-group" id="filter-domains-details">
+                  <input ng-model="searchDeviceString" type="text" class="form-control input-lg" placeholder="{{'Search' | translate}}..."></input>
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-default btn-lg" type="submit">
+                  <span class="fa fa-search"></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="list-group-item {{selectedDevice.mac == device.mac ? 'selected' : ''}}" ng-repeat="device in devices | filter:searchDeviceString | orderBy: 'manufacturer'" ng-click="selectDevice(device, networks[networkName])">
+          <div class="list-view-pf-actions">
+            <div ng-show="device.isInAction" class="spinner spinner-sm adjust-margin"></div>
+            <span ng-show="!device.isInAction" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{device.model ? 'Configured' : 'Not configured' | translate}}" class="pficon {{device.model ? 'pficon-ok' : 'pficon-info'}} icon-med"></span>
+          </div>
+          <div class="list-view-pf-main-info">
+            <div class="list-view-pf-left">
+              <span class="pficon pficon-container-node list-view-pf-icon-sm {{device.model ? '' : 'disabled'}}"></span>
+            </div>
+            <div class="list-view-pf-body">
+              <div class="list-view-pf-description">
+                <div class="list-group-item-heading {{device.model ? '' : 'disabled'}}">
+                  {{device.manufacturer}}
+                </div>
+                <!-- <div class="list-group-item-text">
+                  <div class="form-group">
+                    <select pf-select="{ noneSelectedText: '-' }" ng-model="device.model" ng-options="m.id as m.description + ' | ' + m.model for m in allModels[device.manufacturer]">
+                        <option value="">-</option>
+                    </select>
+                  </div>
+                </div> -->
+              </div>
+              <div class="list-view-pf-additional-info config-info {{device.model ? '' : 'disabled'}}">
+                <div>IP: <b>{{device.ipv4}}</b></div>
+                <div>MAC: <b>{{device.mac}}</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 config-adjust-size-gateway" ng-if="!(selectedDevice | isEmpty)">
+      <h1 class="control-label config-title-user big-margin-top" for="textInput-markup">
+          <span class="pficon pficon-container-node config-title-icon-adjust"></span>
+          {{selectedDevice.manufacturer}}
+      </h1>
+      <form class="form-horizontal config-form-gateway" ng-submit="saveConfig()">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Configuration name' | translate}}</label>
+          <div class="col-sm-9">
+            <input type="text" ng-model="selectedDevice.name" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Device IP' | translate}}</label>
+          <div class="col-sm-9">
+            <input type="text" ng-model="selectedDevice.ipv4" class="form-control" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'MAC address' | translate}}</label>
+          <div class="col-sm-9">
+            <input type="text" ng-model="selectedDevice.mac" class="form-control" disabled>
+          </div>
+        </div>
+        {{networks[networkName]}}
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Network gateway' | translate}}</label>
+          <div class="col-sm-9">
+            <input type="text" ng-model="selectedDevice.gateway" class="form-control" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Model' | translate}}</label>
+          <div class="col-sm-9">
+            <select pf-select="{ width: '260px' }" ng-model="selectedDevice.model" ng-change="updateExtraFields()">
+              <option value="{{mod.model}}" ng-repeat="mod in allModels[selectedDevice.manufacturer]">{{mod.description}} | {{mod.model}}</option>
+            </select>
 
+          </div>
+        </div>
 
+        <div class="form-group" ng-repeat="trunk in selectedDevice.trunks_isdn">
+          <label class="col-sm-3 control-label">{{'Trunk' | translate}} ISDN {{trunk.name}}</label>
+          <div class="col-sm-9">
+            <select pf-select="{ width: '260px' }" ng-model="trunk.type">
+              <option value="pmp">{{'Point-MultiPoint' | translate}}</option>
+              <option value="pp">{{'Point-Point' | translate}}</option>
+            </select>
+          </div>
+        </div>
 
+        <div class="form-group" ng-repeat="trunk in selectedDevice.trunks_fxo track by $index">
+          <label class="col-sm-3 control-label">{{'Port' | translate}} FXO {{$index}}</label>
+          <div class="col-md-4">
+            <input type="text" ng-model="trunk.number" class="form-control">
+          </div>
+          <div class="col-md-1 gw-form-arrow">
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+          </div>
+          <div class="col-md-3">
+            <span class="control-label">{{'Trunk' | translate}} SIP {{trunk.linked_trunk}}</span>
+          </div>
+        </div>
 
+        <div class="form-group" ng-repeat="trunk in selectedDevice.trunks_pri track by $index">
+          <label class="col-sm-3 control-label">{{'Port' | translate}} PRI {{$index}}</label>
+          <div class="col-md-1 gw-form-arrow">
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+          </div>
+          <div class="col-md-3">
+            <span class="control-label">{{'Trunk' | translate}} SIP {{trunk.linked_trunk}}</span>
+          </div>
+        </div>
 
+        <div class="form-group" ng-repeat="exten in selectedDevice.extens_fxs track by $index">
+          <label class="col-sm-3 control-label">{{'Port' | translate}} {{$index}}</label>
+          <div class="col-md-1 gw-form-arrow">
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+          </div>
+          <div class="col-md-2">
+            <span class="control-label">{{'Extension' | translate}} SIP</span>
+          </div>
+          <div class="col-md-3">
+            <select class="col-md-12" pf-select="{ width: '260px' }" ng-model="exten.linked_ext">
+              <option>{{exten.linked_ext}}</option>
+            </select>
+          </div>
+        </div>
 
+        <div class="form-group">
+          <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary col-md-1 right-align">{{'Save' | translate}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
 
+    <div ng-if="networks | isEmpty" class="blank-slate-pf ">
+      <div class="blank-slate-pf-icon">
+        <span class="pficon pficon-network"></span>
+      </div>
+      <h1>
+        Empty State Title
+      </h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Learn more about this <a href="#">on the documentation</a>.
+      </p>
+    </div>
 
+    <div ng-if="!(networks | isEmpty) && (allDevices | isEmpty: true)" class="blank-slate-pf ">
+      <div class="blank-slate-pf-icon">
+        <span class="pficon pficon-container-node"></span>
+      </div>
+      <h1>
+        Empty State Title
+      </h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Learn more about this <a href="#">on the documentation</a>.
+      </p>
+    </div>
+  </div>
 
+  <!-- <div class="wizard-pf-contents">
+    <div class="form-group required">
+      <div class="row">
+        <div class="row">
+          <div class="row">
+            <h1 class="col-md-4 col-md-offset-4 control-label label-gw-title" for="textInput-markup">{{'Physical lines configuration' | translate}}</h1>
+          </div>
+        </div>
+       </div>
 
-
-
-
-
-
-
-
-
-    <!-- gateway list -->
     <div ng-if="props.searched || props.configured" class="row">
       <div class="container-fluid col-xs-12 col-sm-12 col-md-6 col-lg-6 gw-list">
         <div class="list-group list-view-pf list-view-pf-view">
           <div class="list-group-item list-item-gw list-item-gw-{{$index}} {{gw.configured ? '' : 'notConfigured'}} {{$index === 0 ? 'active' : ''}}" ng-repeat="gw in gateways track by $index">
-            <div class="list-view-pf-main-info" ng-click="setCurrentGw($index)">
+            <div class="list-view-pf-main-info" ng-click="setselectedDevice($index)">
               <div class="list-view-pf-left">
                 <span class="fa fa-plane pficon-container-node"></span>
               </div>
@@ -122,63 +310,21 @@
         </div>
       </div>
 
-      <!-- modal dialog to add new gateway manually -->
-      <div class="modal" id="newGwDialog" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">{{'New Gateway' | translate}}</h4>
-            </div>
-            <form class="form-horizontal" ng-submit="addNewGw()">
-              <div class="modal-body">
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">{{'Vendor' | translate}}</label>
-                    <div class="col-sm-9">
-                      <select pf-select ng-model="newGw.vendor" ng-options="o as o for o in vendors" required></select>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label">{{'Model' | translate}}</label>
-                    <div class="col-sm-9">
-                      <select pf-select ng-model="newGw.model" ng-options="o as o.descr for o in models[newGw.vendor].list" required></select>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label" for="modalInputDisabled">{{'MAC address' | translate}}</label>
-                    <div class="col-sm-9">
-                      <input required type="text" class="form-control" ng-model="newGw.mac"></div>
-                  </div>
-                  <div class="form-group ">
-                    <label class="col-sm-3 control-label" for="modalInputError">IP</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" ng-model="newGw.ip" required>
-                    </div>
-                  </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{'Close' | translate}}</button>
-                <button type="submit" class="btn btn-primary">{{'Save changes' | translate}}</button>
-              </div>
-            </form>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
 
-      <!-- configuration form -->
+
       <div class="container-fluid col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <form class="form-horizontal" ng-submit="saveConfig()">
           <div class="form-group">
             <h2 class="col-sm-2 control-label">Gateway</h2>
             <div class="col-sm-10">
-              <h2 ng-if="currentGw.ip && currentGw.mac && currentGw.vendor">{{currentGw.ip}} | {{currentGw.mac}} | {{currentGw.vendor}}</h2>
-              <h2 ng-if="!(currentGw.ip && currentGw.mac && currentGw.vendor)"></h2>
+              <h2 ng-if="selectedDevice.ip && selectedDevice.mac && selectedDevice.vendor">{{selectedDevice.ip}} | {{selectedDevice.mac}} | {{selectedDevice.vendor}}</h2>
+              <h2 ng-if="!(selectedDevice.ip && selectedDevice.mac && selectedDevice.vendor)"></h2>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'Vendor' | translate}}</label>
             <div class="col-sm-9">
-              <select pf-select ng-model="currentGw.vendor" disabled>
+              <select pf-select ng-model="selectedDevice.vendor" disabled>
                 <option value="{{v}}" ng-repeat="v in vendors">{{v}}</option>
               </select>
             </div>
@@ -186,42 +332,41 @@
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'Model' | translate}}</label>
             <div class="col-sm-9">
-              <select ng-if="currentGw.configured" pf-select ng-model="currentGw.model" disabled>
-                <option value="{{mod.model}}" ng-repeat="mod in models[currentGw.vendor].list">{{mod.descr}} ({{mod.code}})</option>
+              <select ng-if="selectedDevice.configured" pf-select ng-model="selectedDevice.model" disabled>
+                <option value="{{mod.model}}" ng-repeat="mod in models[selectedDevice.vendor].list">{{mod.descr}} ({{mod.code}})</option>
               </select>
               <select pf-select
                       ng-change="updateExtraFields()"
-                      ng-if="!currentGw.configured"
-                      ng-model="currentGw.model"
-                      ng-options="mod as (mod.descr + (mod.code ? ' (' + mod.code + ')' : '') ) for mod in models[currentGw.vendor].list"></select>
+                      ng-if="!selectedDevice.configured"
+                      ng-model="selectedDevice.model"
+                      ng-options="mod as (mod.descr + (mod.code ? ' (' + mod.code + ')' : '') ) for mod in models[selectedDevice.vendor].list"></select>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'Configuration name' | translate}}</label>
             <div class="col-sm-9">
-              <input type="text" ng-model="currentGw.name" class="form-control">
+              <input type="text" ng-model="selectedDevice.name" class="form-control">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'Device IP' | translate}}</label>
             <div class="col-sm-9">
-              <input type="text" ng-model="currentGw.ip" class="form-control">
+              <input type="text" ng-model="selectedDevice.ip" class="form-control">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'Network gateway' | translate}}</label>
             <div class="col-sm-9">
-              <input type="text" ng-model="currentGw.gateway" class="form-control">
+              <input type="text" ng-model="selectedDevice.gateway" class="form-control">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'MAC address' | translate}}</label>
             <div class="col-sm-9">
-              <input type="text" ng-model="currentGw.mac" class="form-control" disabled>
+              <input type="text" ng-model="selectedDevice.mac" class="form-control" disabled>
             </div>
           </div>
-          <!-- extra fields isdn -->
-          <div ng-if="currentGw.configured" class="form-group" ng-repeat="trunk in currentGw.trunks_isdn">
+          <div ng-if="selectedDevice.configured" class="form-group" ng-repeat="trunk in selectedDevice.trunks_isdn">
             <label class="col-sm-3 control-label">{{'Trunk' | translate}} ISDN {{trunk.name}}</label>
             <div class="col-sm-9">
               <select pf-select ng-model="trunk.type" disabled>
@@ -230,7 +375,7 @@
               </select>
             </div>
           </div>
-          <div ng-if="!currentGw.configured" class="form-group" ng-repeat="trunk in currentGw.trunks_isdn">
+          <div ng-if="!selectedDevice.configured" class="form-group" ng-repeat="trunk in selectedDevice.trunks_isdn">
             <label class="col-sm-3 control-label">{{'Trunk' | translate}} ISDN {{trunk.name}}</label>
             <div class="col-sm-9">
               <select pf-select ng-model="trunk.type">
@@ -239,8 +384,7 @@
               </select>
             </div>
           </div>
-          <!-- extra fields fxo -->
-          <div ng-if="currentGw.configured" class="form-group" ng-repeat="trunk in currentGw.trunks_fxo track by $index">
+          <div ng-if="selectedDevice.configured" class="form-group" ng-repeat="trunk in selectedDevice.trunks_fxo track by $index">
             <label class="col-sm-3 control-label">{{'Port' | translate}} FXO {{$index}}</label>
             <div class="col-md-4">
               <input type="text" ng-model="trunk.number" class="form-control" disabled>
@@ -252,7 +396,7 @@
               <span class="control-label">{{'Trunk' | translate}} SIP {{trunk.linked_trunk}}</span>
             </div>
           </div>
-          <div ng-if="!currentGw.configured" class="form-group" ng-repeat="trunk in currentGw.trunks_fxo track by $index">
+          <div ng-if="!selectedDevice.configured" class="form-group" ng-repeat="trunk in selectedDevice.trunks_fxo track by $index">
             <label class="col-sm-3 control-label">{{'Port' | translate}} FXO {{$index}}</label>
             <div class="col-md-4">
               <input type="text" ng-model="trunk.number" class="form-control">
@@ -264,8 +408,7 @@
               <span class="control-label">{{'Trunk' | translate}} SIP {{trunk.linked_trunk}}</span>
             </div>
           </div>
-          <!-- extra fields pri -->
-          <div ng-if="currentGw.configured" class="form-group" ng-repeat="trunk in currentGw.trunks_pri track by $index">
+          <div ng-if="selectedDevice.configured" class="form-group" ng-repeat="trunk in selectedDevice.trunks_pri track by $index">
             <label class="col-sm-3 control-label">{{'Port' | translate}} PRI {{$index}}</label>
             <div class="col-md-1 gw-form-arrow">
               <i class="fa fa-arrow-right" aria-hidden="true"></i>
@@ -274,7 +417,7 @@
               <span class="control-label">{{'Trunk' | translate}} SIP {{trunk.linked_trunk}}</span>
             </div>
           </div>
-          <div ng-if="!currentGw.configured" class="form-group" ng-repeat="trunk in currentGw.trunks_pri track by $index">
+          <div ng-if="!selectedDevice.configured" class="form-group" ng-repeat="trunk in selectedDevice.trunks_pri track by $index">
             <label class="col-sm-2 control-label">{{'Port' | translate}} PRI {{$index}}</label>
             <div class="col-md-1 gw-form-arrow">
               <i class="fa fa-arrow-right" aria-hidden="true"></i>
@@ -283,8 +426,7 @@
               <span class="control-label">{{'Trunk' | translate}} SIP {{trunk.linked_trunk}}</span>
             </div>
           </div>
-          <!-- extra fields fxs -->
-          <div ng-if="currentGw.configured" class="form-group" ng-repeat="exten in currentGw.extens_fxs track by $index">
+          <div ng-if="selectedDevice.configured" class="form-group" ng-repeat="exten in selectedDevice.extens_fxs track by $index">
             <label class="col-sm-3 control-label">{{'Port' | translate}} {{$index}}</label>
             <div class="col-md-1 gw-form-arrow">
               <i class="fa fa-arrow-right" aria-hidden="true"></i>
@@ -298,7 +440,7 @@
               </select>
             </div>
           </div>
-          <div ng-if="!currentGw.configured" class="form-group" ng-repeat="exten in currentGw.extens_fxs track by $index">
+          <div ng-if="!selectedDevice.configured" class="form-group" ng-repeat="exten in selectedDevice.extens_fxs track by $index">
             <label class="col-sm-3 control-label">{{'Port' | translate}} {{$index}}</label>
             <div class="col-md-1 gw-form-arrow">
               <i class="fa fa-arrow-right" aria-hidden="true"></i>
@@ -320,7 +462,53 @@
         </form>
       </div>
     </div>
-    <generic-error ng-if="error.show"></generic-error>
-  </div>
+
+
+
+
+
+
+    <div class="modal" id="newGwDialog" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">{{'New Gateway' | translate}}</h4>
+          </div>
+          <form class="form-horizontal" ng-submit="addNewGw()">
+            <div class="modal-body">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">{{'Vendor' | translate}}</label>
+                  <div class="col-sm-9">
+                    <select pf-select ng-model="newGw.vendor" ng-options="o as o for o in vendors" required></select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">{{'Model' | translate}}</label>
+                  <div class="col-sm-9">
+                    <select pf-select ng-model="newGw.model" ng-options="o as o.descr for o in models[newGw.vendor].list" required></select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" for="modalInputDisabled">{{'MAC address' | translate}}</label>
+                  <div class="col-sm-9">
+                    <input required type="text" class="form-control" ng-model="newGw.mac"></div>
+                </div>
+                <div class="form-group ">
+                  <label class="col-sm-3 control-label" for="modalInputError">IP</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" ng-model="newGw.ip" required>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{'Close' | translate}}</button>
+              <button type="submit" class="btn btn-primary">{{'Save changes' | translate}}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <generic-error ng-if="error.show"></generic-error> -->
   <wizard-step ng-if="wizard.isWizard"></wizard-step>
 </div>

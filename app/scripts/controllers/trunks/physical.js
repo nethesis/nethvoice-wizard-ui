@@ -10,140 +10,45 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('TrunksPhysicalCtrl', function($scope, $location, $interval, TrunkService, ConfigService, UtilService, DeviceService) {
 
-    $scope.props = {
-      configured: false,
-      searched: false,
-      saving: {}
-    };
-    $scope.error = {
-      show: false,
-      msg: ''
+    $scope.allDevices = {};
+    $scope.allModels = {};
+    $scope.networks = {};
+    $scope.networkLength = 0;
+    $scope.tasks = {};
+    $scope.trunks = {};
+    $scope.selectedDevice = {};
+
+    $scope.selectDevice = function(device, network) {
+      device.gateway = network.gateway;
+      $scope.selectedDevice = device;
     }
 
-    // example data taken from rest api calls
-    $scope.extensions = ['200','201','202','203','204','205'];
-    $scope.models = {
-      'MEDIATRIX': {
-        'list': [
-          { model: 'M4401', descr: '4401 ISDN 1 Porta', code: '4401' },
-          { model: 'M4402', descr: '4402 ISDN 2 Porte', code: '4402', n_pri_trunks: 0, n_isdn_trunks: 2, n_fxo_trunks: 0, n_fxs_ext: 0 },
-          { model: 'M4404', descr: '4404 ISDN 4 Porte', code: '4404' }
-        ]
-      },
-      'PATTON': {
-        'list': [
-          { model: 'M54321', descr: 'Analogico 2 Porte FXO', code: 'JO' },
-          { model: '1111', descr: 'Analogico 2 Porte FXS', code: 'JS' },
-          { model: '1111', descr: 'Analogico 2 Porte FXS + 2 Porte FXO', code: '2JS2JO' },
-          { model: '1111', descr: 'Analogico 2 Porte FXS + 2 Porte FXO + 2 Por', code: '2BIS2JS2JO8V' },
-          { model: '1111', descr: 'Analogico 4 Porte FXO', code: 'JO' },
-          { model: '1111', descr: 'Analogico 4 Porte FXS', code: 'JS' },
-          { model: '1111', descr: 'Analogico 4 Porte FXS + 2 Porte FXO', code: '4JS2JO' },
-          { model: '1111', descr: 'Analogico 4 Porte FXS + 2 Porte ISDN', code: '2BIS4JS8V2GS' },
-          { model: '1111', descr: 'Analogico 4 Porte FXS + 4 Porte FXO', code: '4JS4JO' },
-          { model: '1111', descr: 'Analogico 4 Porte FXS + 4 Porte FXO + 4 Por', code: '4BIS4JS4JO12V2GS' },
-          { model: '1111', descr: 'Analogico 4 Porte FXS + 4 Porte ISDN', code: '4BIS4JS12V' },
-          { model: '1111', descr: 'Analogico 4 Porte FXS + 8 Porte ISDN', code: '8BIS4JS24V' },
-          { model: '1111', descr: 'Analogico 6 Porte FXS', code: 'JS' },
-          { model: '1111', descr: 'Analogico 8 Porte FXS', code: 'JS' },
-          { model: '1111', descr: 'Analogico 8 Porte FXS + 4 Porte ISDN', code: '4BIS8JS16V2GS' },
-          { model: '4552', descr: 'ISDN 1 Porta', code: '1BIS2' },
-          { model: '4554', descr: 'ISDN 2 Porte', code: '2BIS4' },
-          { model: '4638', descr: 'ISDN 4 Porte (4 chiamate voip)', code: '4BIS4V' },
-          { model: '4661', descr: 'ISDN 8 Porte (8 chiamate voip)', code: '8BIS8V' },
-          { model: '1111', descr: 'PRI 1 Porta', code: '1E15V' },
-          { model: '1111', descr: 'PRI 4 Porte', code: '4E15VR' },
-          { model: '1111', descr: 'TRINITY ISDN 1 Porta', code: 'TRI1BRI' },
-          { model: '1111', descr: 'TRINITY ISDN 2 Porte', code: 'TRI2BRI' },
-          { model: '1111', descr: 'TRINITY ISDN 4 Porte', code: 'TRI4BRI' },
-          { model: '1111', descr: 'TRINITY PRI 1 Porta', code: 'TRI1PRI' },
-          { model: '1111', descr: 'TRINITY PRI 2 Porte', code: 'TRI2PRI' },
-          { model: '1111', descr: 'TRINITY PRI 4 Porte', code: 'TRI4PRI' }
-        ]
-      },
-      'SANGOMA': {
-        'list': [
-          { model: '1111', descr: 'Vega 100 1 Porta PRI E1', code: '' },
-          { model: '1111', descr: 'Vega 200 2 Porte PRI E1', code: '' },
-          { model: '1111', descr: 'Vega 3000 24 Porte FXS', code: '' },
-          { model: '5342677', descr: 'Vega 400 4 Porte PRI E1', code: '', n_pri_trunks: 4, n_isdn_trunks: 0, n_fxo_trunks: 0, n_fxs_ext: 0 },
-          { model: '34512', descr: 'Vega 50 2 Porte ISDN', code: '', n_pri_trunks: 0, n_isdn_trunks: 2, n_fxo_trunks: 0, n_fxs_ext: 0 },
-          { model: '778899', descr: 'Vega 50 4 Porte FXO', code: '', n_pri_trunks: 0, n_isdn_trunks: 0, n_fxo_trunks: 4, n_fxs_ext: 0 },
-          { model: '1111', descr: 'Vega_Vega 50 4 Porte FXS 2 Porte FXO', code: '' },
-          { model: '1111', descr: 'Vega 50 4 Porte ISDN', code: '' },
-          { model: 'Vega_50_50fxs', descr: 'Vega 5000 50 Porte FXS', code: '', n_pri_trunks: 0, n_isdn_trunks: 0, n_fxo_trunks: 0, n_fxs_ext: 50 }
-        ]
-      }
+    $scope.getModelDescription = function(device) {
+      var obj = $scope.allModels[device.manufacturer].filter(function(obj) {
+        if (obj.id == device.model) {
+          return obj;
+        }
+      })[0];
+      return obj && obj.model && obj.description ? {
+        description: obj.description,
+        model: obj.model
+      } : '';
     };
-    $scope.vendors = Object.keys($scope.models);
-    $scope.gateways = [
-      // {
-      //   id: 2,
-      //   ip: '192.168.5.1',
-      //   mac: '00:11:22:33:44:55',
-      //   vendor: 'MEDIATRIX',
-      //   model: 'M4402',
-      //   gateway: '192.168.5.253',
-      //   name: 'test',
-      //   configured: true,
-      //   trunks_isdn: [
-      //     { name: '2003', type: 'pmp' },
-      //     { name: '2004', type: 'pmp' }
-      //   ],
-      //   trunks_fxo: [
-      //     { number: '1111111', linked_trunk: '2005' },
-      //     { number: '2222222', linked_trunk: '2006' },
-      //     { number: '3333333', linked_trunk: '2007' },
-      //     { number: '4444444', linked_trunk: '2008' }
-      //   ],
-      //   trunks_pri: [
-      //     { linked_trunk: '2009' },
-      //     { linked_trunk: '2010' },
-      //     { linked_trunk: '2011' },
-      //     { linked_trunk: '2012' }
-      //   ],
-      //   extens_fxs: [
-      //     { linked_ext: '200' },
-      //     { linked_ext: '201' },
-      //     { linked_ext: '202' },
-      //     { linked_ext: '203' }
-      //   ],
-      // },
-      {
-        ip: '192.168.5.222',
-        mac: '11:11:11:11:11:11',
-        vendor: 'SANGOMA'
-      },
-      {
-        ip: '192.168.5.111',
-        mac: '22:22:22:22:22:22',
-        vendor: 'PATTON'
-      }
-    ];
-    //
-    $scope.networks = {};
-    $scope.tasks = {};
-    $scope.allDevices = {};
-    $scope.networkLength = 0;
-    $scope.currentGw = $scope.gateways[0];
-    $scope.newGw = {};
-    $scope.sipTrunks = [];
 
-    $scope.init = function() {
-      $scope.getSipTrunks();
-      $scope.getNetworkList();
+    $scope.getGatewayModelList = function() {
+      DeviceService.gatewayModelList().then(function(res) {
+        $scope.allModels = res.data;
+      }, function(err) {
+        console.log(err);
+      });
     };
 
     $scope.getSipTrunks = function() {
       TrunkService.getSipTrunks().then(function(res) {
-        $scope.sipTrunks = res.map(function(obj){
+        $scope.sipTrunks = res.map(function(obj) {
           return obj.channelid;
         });
       }, function(err) {
-        if (err.status !== 200) {
-          $scope.error.show = true;
-          $scope.error.msg = 'retrieving sip trunks';
-        }
         console.log(err);
       });
     };
@@ -160,6 +65,16 @@ angular.module('nethvoiceWizardUiApp')
         $scope.view.changeRoute = false;
       }, function(err) {
         console.log(err);
+      });
+    };
+
+    $scope.getGatewayList = function(key, network) {
+      DeviceService.gatewayListByNetwork(network).then(function(res) {
+        $scope.allDevices[key] = res.data;
+        $scope.tasks[key].currentProgress = 100;
+      }, function(err) {
+        console.log(err);
+        $scope.tasks[key].currentProgress = -1;
       });
     };
 
@@ -200,31 +115,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.getGatewayList = function(key, network) {
-      DeviceService.gatewayListByNetwork(network).then(function(res) {
-        $scope.allDevices[key] = res.data;
-        $scope.tasks[key].currentProgress = 100;
-      }, function(err) {
-        console.log(err);
-        $scope.tasks[key].currentProgress = -1;
-      });
-    };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     $scope.deleteGw = function() {
-      for (var i=0; i<$scope.gateways.length; i++) {
+      for (var i = 0; i < $scope.gateways.length; i++) {
         if ($scope.gateways[i].mac === $scope.currentGw.mac) {
           $scope.gateways.splice(i, 1);
         }
@@ -243,28 +136,42 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.updateExtraFields = function() {
-      var tempArr = $scope.models[$scope.currentGw.vendor].list;
-      for (var i=0; i<tempArr.length; i++) {
-        if (tempArr[i].model === $scope.currentGw.model.model) {
+      var tempArr = $scope.allModels[$scope.selectedDevice.manufacturer];
+      var startedNumber = appConfig.TRUNKS_STARTED_NUM;
+      for (var i = 0; i < tempArr.length; i++) {
+        if (tempArr[i].model === $scope.selectedDevice.model) {
+          if ($scope.sipTrunks.length > 0) {
+            startedNumber = parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + 1;
+          }
           // add isdn trunk fields
-          $scope.currentGw.trunks_isdn = [];
-          for (var k=0; k<tempArr[i].n_isdn_trunks; k++) {
-            $scope.currentGw.trunks_isdn.push({ name: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + k + 1, type: 'pp' });
+          $scope.selectedDevice.trunks_isdn = [];
+          for (var k = 0; k < tempArr[i].n_isdn_trunks; k++) {
+            $scope.selectedDevice.trunks_isdn.push({
+              name: startedNumber + k,
+              type: 'pp'
+            });
           }
           // add pri trunk fields
-          $scope.currentGw.trunks_pri = [];
-          for (var k=0; k<tempArr[i].n_pri_trunks; k++) {
-            $scope.currentGw.trunks_pri.push({ linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + k + 1 });
+          $scope.selectedDevice.trunks_pri = [];
+          for (var k = 0; k < tempArr[i].n_pri_trunks; k++) {
+            $scope.selectedDevice.trunks_pri.push({
+              linked_trunk: startedNumber + k
+            });
           }
           // add fxo trunk fields
-          $scope.currentGw.trunks_fxo = [];
-          for (var k=0; k<tempArr[i].n_fxo_trunks; k++) {
-            $scope.currentGw.trunks_fxo.push({ number: '', linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + k + 1 });
+          $scope.selectedDevice.trunks_fxo = [];
+          for (var k = 0; k < tempArr[i].n_fxo_trunks; k++) {
+            $scope.selectedDevice.trunks_fxo.push({
+              number: '',
+              linked_trunk: startedNumber + k
+            });
           }
           // add fxs ext fields
-          $scope.currentGw.extens_fxs = [];
-          for (var k=0; k<tempArr[i].n_fxs_ext; k++) {
-            $scope.currentGw.extens_fxs.push({ linked_ext: '' });
+          $scope.selectedDevice.extens_fxs = [];
+          for (var k = 0; k < tempArr[i].n_fxs_ext; k++) {
+            $scope.selectedDevice.extens_fxs.push({
+              linked_ext: ''
+            });
           }
         }
       }
@@ -283,22 +190,8 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err);
       });
 
-
-      setTimeout(function () {
-
-        $scope.gateways = $scope.gateways;
-        $scope.currentGw = $scope.gateways[0];
-
-        $scope.props.searched = true;
-        $scope.$apply();
-      }, 500);
     };
 
-    $scope.setCurrentGw = function(index) {
-      $scope.currentGw = $scope.gateways[index];
-      $('.list-item-gw').removeClass('active');
-      $('.list-item-gw-' + index).toggleClass('active');
-    };
 
     $scope.showNewGwDialog = function() {
       $('#newGwDialog').modal('show');
@@ -316,20 +209,30 @@ angular.module('nethvoiceWizardUiApp')
         vendor: $scope.newGw.vendor
       };
       newGw.trunks_fxo = [];
-      for (var i=0; i<$scope.newGw.model.n_fxo_trunks; i++) {
-        newGw.trunks_fxo.push({ number: '', linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i });
+      for (var i = 0; i < $scope.newGw.model.n_fxo_trunks; i++) {
+        newGw.trunks_fxo.push({
+          number: '',
+          linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i
+        });
       }
       newGw.trunks_pri = [];
-      for (var i=0; i<$scope.newGw.model.n_pri_trunks; i++) {
-        newGw.trunks_pri.push({ linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i });
+      for (var i = 0; i < $scope.newGw.model.n_pri_trunks; i++) {
+        newGw.trunks_pri.push({
+          linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i
+        });
       }
       newGw.trunks_isdn = [];
-      for (var i=0; i<$scope.newGw.model.n_isdn_trunks; i++) {
-        newGw.trunks_isdn.push({ name: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i, type: 'pmp' });
+      for (var i = 0; i < $scope.newGw.model.n_isdn_trunks; i++) {
+        newGw.trunks_isdn.push({
+          name: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i,
+          type: 'pmp'
+        });
       }
       newGw.extens_fxs = [];
-      for (var i=0; i<$scope.newGw.model.n_fxs_ext; i++) {
-        newGw.extens_fxs.push({ linked_ext: '' });
+      for (var i = 0; i < $scope.newGw.model.n_fxs_ext; i++) {
+        newGw.extens_fxs.push({
+          linked_ext: ''
+        });
       }
       $scope.gateways.push(newGw);
       $scope.newGw = undefined;
@@ -339,10 +242,18 @@ angular.module('nethvoiceWizardUiApp')
     $scope.saveConfig = function() {
       // todo....
       $scope.props.saving[$scope.currentGw.mac] = true;
-      setTimeout(function () {
+      setTimeout(function() {
         $scope.props.saving[$scope.currentGw.mac] = false;
         $scope.$apply();
       }, 1000);
     };
+
+    $scope.getNetworkList();
+    // $scope.getGatewayList('', {
+    //   ip: '192.168.5.102',
+    //   netmask: '255.255.255.0'
+    // });
+    $scope.getGatewayModelList();
+    $scope.getSipTrunks();
 
   });
