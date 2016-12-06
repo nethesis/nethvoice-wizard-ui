@@ -40,36 +40,7 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    /**
-     * HTTP get request to retrieve gateways.
-     *
-     * @method searchGw
-     */
-    this.searchGw = function() {
-      return $q(function(resolve, reject) {
-        // RestService.post('/devices/scan', { "network": "192.168.5.0/24" }).then(function(res) {
-        RestService.get('/devices/gateways/list').then(function(res) {
-          // console.log('post devices/scan');
-          console.log(res);
-          // resolve(res.data);
-        }, function(err) {
-          reject(err);
-        });
-        // RestService.get('/devices/phones/list').then(function(res) {
-        // // RestService.get('/devices/gateways/list').then(function(res) {
-        //   console.log(res);
-        //   // resolve(res.data);
-        // }, function(err) {
-        //   reject(err);
-        // });
-      });
-    };
-
     this.saveConfig = function() {
-      // todo...
-    };
-
-    this.deleteGw = function() {
       // todo...
     };
 

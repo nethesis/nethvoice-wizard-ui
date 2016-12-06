@@ -12,62 +12,65 @@
     </div>
   </div>
 
-  <div class="container-fluid col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-init="init()">
-    <form class="form-horizontal" ng-submit="create()">
-      <div class="form-group voip-title">
-        <h2 class="col-md-4 control-label">{{'Provider settings' | translate}}</h2>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">{{'Provider' | translate}}</label>
-        <div class="col-sm-9">
-          <select pf-select ng-model="trunk.provider">
-            <option value="{{p.provider}}" ng-repeat="p in providers">{{p.descrizione}}</option>
-          </select>
+  <div class="wizard-pf-contents adjust-size">
+    <h1 class="control-label centered" for="textInput-markup">{{'Provider settings' | translate}}</h1>
+    <div class="container-fluid col-xs-12 col-sm-12 col-md-6 col-lg-6 adjust-voip" ng-init="init()">
+      <form class="form-horizontal" ng-submit="create()">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Provider' | translate}}</label>
+          <div class="col-sm-9">
+            <select pf-select="{ width: '260px', noneSelectedText: '-' }" ng-model="trunk.provider" ng-options="m as m.description for m in providers">
+                  <option value="">-</option>
+              </select>
+            </select>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">{{'Trunk name' | translate}}</label>
-        <div class="col-sm-9">
-          <input type="text" ng-model="trunk.name" class="form-control" required>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Trunk name' | translate}}</label>
+          <div class="col-sm-9">
+            <input type="text" ng-model="trunk.name" class="form-control" required>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">{{'Username' | translate}}</label>
-        <div class="col-sm-9">
-          <input type="text" ng-model="trunk.username" class="form-control" required>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Username' | translate}}</label>
+          <div class="col-sm-9">
+            <input type="text" ng-model="trunk.username" class="form-control" required>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">{{'Password' | translate}}</label>
-        <div class="col-sm-9">
-          <input type="text" ng-model="trunk.password" class="form-control" required>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Password' | translate}}</label>
+          <div class="col-sm-9">
+            <input type="text" ng-model="trunk.password" class="form-control" required>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">{{'Phone number' | translate}}</label>
-        <div class="col-sm-9">
-          <input type="text" ng-model="trunk.phone_number" class="form-control" required>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Phone number' | translate}}</label>
+          <div class="col-sm-9">
+            <input type="text" ng-model="trunk.phone_number" class="form-control" required>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">{{'Allowed codec' | translate}}</label>
-        <div class="col-sm-9">
-          <input type="text" ng-model="trunk.codecs" class="form-control">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Allowed codec' | translate}}</label>
+          <div class="col-sm-9">
+            <select title="-" multiple pf-select="{ width: '260px' }" ng-model="trunk.codecs" ng-options="p as p for p in availableCodecs">
+              </select>
+            <!-- <input type="text" ng-model="trunk.codecs" class="form-control"> -->
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">{{'Force codec' | translate}}</label>
-        <div class="col-sm-1">
-          <input bs-switch ng-model="trunk.force_codec" id="bootstrap-switch" class="bootstrap-switch" type="checkbox">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Force codec' | translate}}</label>
+          <div class="col-sm-1">
+            <input bs-switch ng-model="trunk.force_codec" id="bootstrap-switch" class="bootstrap-switch" type="checkbox">
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label"></label>
-        <div class="col-sm-9">
-          <button type="submit" class="col-md-2 btn btn-primary voip-save-btn">{{'Create' | translate}}</button>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"></label>
+          <div class="col-sm-9">
+            <button type="submit" class="col-md-2 btn btn-primary right-align">{{'Create' | translate}}</button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 
   <wizard-step ng-if="wizard.isWizard"></wizard-step>

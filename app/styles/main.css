@@ -299,6 +299,10 @@ a {
   .config-title-icon-adjust {
     margin-left: 23px;
   }
+  .adjust-voip {
+    margin-top: 8px;
+    margin-bottom: 45px;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -346,6 +350,10 @@ a {
   }
   .config-title-icon-adjust {
     margin-left: 0px;
+  }
+  .adjust-voip {
+    margin-top: 8px;
+    margin-bottom: 65px;
   }
 }
 
