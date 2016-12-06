@@ -166,7 +166,7 @@
         <div class="form-group" ng-repeat="trunk in selectedDevice.trunks_isdn">
           <label class="col-sm-3 control-label">{{'Trunk' | translate}} ISDN {{trunk.name}}</label>
           <div class="col-sm-9">
-            <select pf-select="{ width: '260px' }" ng-model="trunk.type">
+            <select pf-select ng-model="trunk.type">
               <option value="pmp">{{'Point-MultiPoint' | translate}}</option>
               <option value="pp">{{'Point-Point' | translate}}</option>
             </select>
@@ -175,38 +175,38 @@
 
         <div class="form-group" ng-repeat="trunk in selectedDevice.trunks_fxo track by $index">
           <label class="col-sm-3 control-label">{{'Port' | translate}} FXO {{$index}}</label>
-          <div class="col-md-4">
+          <div class="col-sm-4">
             <input type="text" ng-model="trunk.number" class="form-control">
           </div>
-          <div class="col-md-1 gw-form-arrow">
+          <div class="col-sm-2 gw-form-arrow">
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
           </div>
-          <div class="col-md-3">
+          <div class="col-sm-3">
             <span class="control-label">{{'Trunk' | translate}} SIP {{trunk.linked_trunk}}</span>
           </div>
         </div>
 
         <div class="form-group" ng-repeat="trunk in selectedDevice.trunks_pri track by $index">
-          <label class="col-sm-3 control-label">{{'Port' | translate}} PRI {{$index}}</label>
-          <div class="col-md-1 gw-form-arrow">
+          <label class="col-sm-3 col-xs-5 control-label">{{'Port' | translate}} PRI {{$index}}</label>
+          <div class="col-sm-1 col-xs-1 gw-form-arrow">
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
           </div>
-          <div class="col-md-3">
+          <div class="col-sm-3 col-xs-5">
             <span class="control-label">{{'Trunk' | translate}} SIP {{trunk.linked_trunk}}</span>
           </div>
         </div>
 
         <div class="form-group" ng-repeat="exten in selectedDevice.extens_fxs track by $index">
-          <label class="col-sm-3 control-label">{{'Port' | translate}} {{$index}}</label>
-          <div class="col-md-1 gw-form-arrow">
+          <label class="col-md-3 col-sm-3 col-xs-5 control-label">{{'Port' | translate}} {{$index}}</label>
+          <div class="col-md-1 col-sm-1 col-xs-1 gw-form-arrow">
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 col-sm-2 col-xs-4">
             <span class="control-label">{{'Extension' | translate}} SIP</span>
           </div>
-          <div class="col-md-3">
-            <select class="col-md-12" pf-select="{ width: '260px' }" ng-model="exten.linked_ext">
-              <option>{{exten.linked_ext}}</option>
+          <div class="col-md-5 col-sm-5 col-xs-12">
+            <select pf-select="{ noneSelectedText: '-' }" ng-model="exten.linked_ext">
+               <option value="">-</option>
             </select>
           </div>
         </div>

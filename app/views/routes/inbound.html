@@ -72,7 +72,7 @@
                 </div>
                 <div class="list-view-pf-additional-info">
                   <div class="list-view-pf-additional-info-item">
-                    <span class="pficon pficon-export"></span> <span class="weight-dest">{{parseDestinations(route.destination).prefix | translate}}</span>: {{parseDestinations(route.destination).description | translate}}
+                    <span class="pficon pficon-export"></span> <span class="weight-dest">{{parseDestinations(route.destination).prefix | translate}}</span>{{parseDestinations(route.destination).prefix ? ':' : ''}} {{parseDestinations(route.destination).description | translate}}
                   </div>
                 </div>
               </div>
@@ -112,7 +112,7 @@
           </button>
         <h4 class="modal-title" id="myModalLabel">
           {{"Delete route" | translate}}
-          {{currentRoute.extension + (currentRoute.cidnum ? '/' + currentRoute.cidnum : '')}}
+          {{currentRoute.extension + (currentRoute.cidnum ? ' / ' + currentRoute.cidnum : '')}}
         </h4>
       </div>
       <div class="modal-body">
