@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersConfigurationsCtrl', function($scope, UserService, DeviceService, UtilService) {
+  .controller('UsersConfigurationsCtrl', function($scope, $filter, UserService, DeviceService, UtilService) {
     $scope.users = {};
     $scope.selectedUser = {};
     $scope.devices = {};
