@@ -10,7 +10,87 @@
         </li>
       </ul>
     </div>
-  </div>
 
-  <wizard-step ng-if="wizard.isWizard"></wizard-step>
+    <div class="wizard-pf-contents adjust-size">
+      <h1 class="control-label centered" for="textInput-markup" class="control-label centered" for="textInput-markup">
+        {{'Inbound Routes' | translate}}
+      </h1>
+
+      <!-- List current routes -->
+      <div ng-if="routes" class="container-fluid">
+        <div class="list-group list-view-pf list-view-pf-view">
+          <div class="list-group-item" ng-repeat="route in routes">
+            <div class="list-view-pf-actions">
+              <button class="btn btn-default" ng-click="modifyRoute(route.extension, route.cidnum)">
+                {{ 'Modify' | translate }}
+              </button>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{route.extension + '-' + route.cidnum}}">
+                {{ 'Delete' | translate }}
+              </button>
+            </div>
+            <div class="list-view-pf-main-info">
+              <div class="list-view-pf-left">
+                <span class="fa fa-plane list-view-pf-icon-sm"></span>
+              </div>
+              <div class="list-view-pf-body">
+                <div class="list-view-pf-description">
+                  <div class="list-group-item-heading">
+                    {{ route.extension }}
+                    /
+                    {{ route.cidnum }}
+                  </div>
+                  <div class="list-group-item-text">
+                    {{ route.description }}
+                  </div>
+                </div>
+                <div class="list-view-pf-additional-info">
+                  <div class="list-view-pf-additional-info-item">
+                    <span class="pficon pficon-screen"></span>
+                    {{ route.destination }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Delete confirmation modal -->
+            <div class="modal fade" id="confirmDeleteModal{{route.extension + '-' + route.cidnum}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                      {{"Delete Route" | translate}}
+                      {{route.extension + (route.cidnum ? '/' + route.cidnum : '')}}
+                    </h4>
+                  </div>
+                  <div class="modal-body">
+                    {{ "Are you sure ?" | translate }}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "Cancel" | translate }}</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteRoute(route.extension, route.cidnum)">
+                      {{ "Delete" | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Create new routes if any -->
+      <div ng-if="show && routes.length == 0" class="blank-slate-pf " id="">
+        <div class="blank-slate-pf-icon">
+          <span class="pficon pficon pficon-add-circle-o"></span>
+        </div>
+        <div class="blank-slate-pf-main-action">
+          <button class="btn btn-primary btn-lg" ng-click="newRoute()">
+            {{'Create new route' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+    <wizard-step ng-if="wizard.isWizard"></wizard-step>
+  </div>
 </div>
