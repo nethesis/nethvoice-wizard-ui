@@ -8,28 +8,55 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('RoutesInboundCtrl', function($scope, RouteService) {
+  .controller('RoutesInboundCtrl', function($scope, $interval, RouteService) {
+    $scope.routes = {};
+    $scope.destinations = {};
+    $scope.currentRoute = {};
 
-    $scope.getRouteList = function() {
-      $scope.view.changeRoute = true;
+    $scope.setCurrentRoute = function(route) {
+      $scope.currentRoute = route;
+    }
+
+    $scope.getRouteList = function(reload) {
+      $scope.view.changeRoute = reload;
       RouteService.inbounds().then(function(res) {
-        $scope.routes = res.data;
+        $scope.routes = res.data.routes;
+        $scope.destinations = res.data.destinations;
         $scope.view.changeRoute = false;
       });
+    };
+
+    $scope.parseDestinations = function(destination) {
+      if (!destination || destination === null || destination.length == 0) {
+        return '';
+      } else {
+        if (typeof $scope.destinations[destination] !== "undefined") {
+          var prefix = $scope.destinations[destination].name;
+          if (typeof $scope.destinations[destination].category !== "undefined") {
+            prefix = $scope.destinations[destination].category;
+          }
+          return {
+            prefix: prefix,
+            description: $scope.destinations[destination].description
+          };
+        } else {
+          return destination;
+        }
+      }
     };
 
     // Remove a route
     $scope.deleteRoute = function(did, cid) {
       RouteService.deleteInboundRoute(did, cid).then(function(res) {
-        RouteService.inbounds().then(function(res) {
-          $scope.routes = res.data;
-        });
+        $scope.getRouteList(false);
+      }, function(err) {
+        console.log(err);
       });
     };
 
     // Modify a route with Visual Plan
     $scope.modifyRoute = function(did, cid) {
-      window.open(customConfig.VPLAN_URL + '?id=' + encodeURI(did + ' / ' + cid), '_blank');
+      window.open(customConfig.VPLAN_URL + '?did=' + (did + '+ 2%F +' + cid), '_blank');
     };
 
     // Create a new route with Visual Plan
@@ -37,6 +64,9 @@ angular.module('nethvoiceWizardUiApp')
       window.open(customConfig.VPLAN_URL + '?did=new_route');
     };
 
-    $scope.getRouteList();
+    $scope.getRouteList(true);
+    $interval(function() {
+      $scope.getRouteList(false);
+    }, appConfig.INTERVAL_POLLING);
 
   });

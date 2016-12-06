@@ -56,7 +56,7 @@
   "Add user": "Aggiungi utente",
   "Create user": "Crea utente",
   "Netmask": "Maschera di rete",
-  "Start scan": "Inizia scansione",
+  "Scan": "Scansiona",
   "Search": "Cerca",
   "Final configurations": "Configurazioni finali",
   "Link": "Associa",
@@ -71,5 +71,8 @@
   "Actions": "Azioni",
   "Create new route": "Crea nuova rotta",
   "Delete route": "Elimina rotta",
-  "Are you sure": "Sei sicuro"
+  "Are you sure": "Sei sicuro",
+  "Trunks configuration": "Configurazione linee",
+  "Terminate Call": "Termina Chiamata",
+  "Hangup": "Chiudi"
 }

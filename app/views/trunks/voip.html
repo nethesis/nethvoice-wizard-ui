@@ -3,10 +3,10 @@
     <div class="wizard-pf-steps">
       <ul class="wizard-pf-steps-indicator">
         <li class="wizard-pf-step {{resolveActiveTab('physical',2) ? 'active' : ''}}" data-tabgroup="1">
-          <a href="#/trunks/physical"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Physical' | translate}}</span></a>
+          <a ng-click="goTo('trunks/physical')"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Physical' | translate}}</span></a>
         </li>
         <li class="wizard-pf-step {{resolveActiveTab('voip',2) ? 'active' : ''}}" data-tabgroup="2">
-          <a href="#/trunks/voip"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Voip' | translate}}</span></a>
+          <a ng-click="goTo('trunks/voip')"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Voip' | translate}}</span></a>
         </li>
       </ul>
     </div>

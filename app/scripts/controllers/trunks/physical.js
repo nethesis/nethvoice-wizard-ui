@@ -15,7 +15,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.networks = {};
     $scope.networkLength = 0;
     $scope.tasks = {};
-    $scope.trunks = {};
+    $scope.sipTrunks = {};
     $scope.selectedDevice = {};
 
     $scope.selectDevice = function(device, network) {
@@ -63,6 +63,9 @@ angular.module('nethvoiceWizardUiApp')
         }
         $scope.networkLength = Object.keys(res.data).length;
         $scope.view.changeRoute = false;
+        for (var n in $scope.networks) {
+          $scope.startScan(n, $scope.networks[n]);
+        }
       }, function(err) {
         console.log(err);
       });
@@ -79,6 +82,9 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.startScan = function(key, network) {
+      if ($scope.tasks[key].currentProgress > 0 && $scope.tasks[key].currentProgress < 100) {
+        return true;
+      }
       $scope.tasks[key].startScan = true;
       $scope.tasks[key].currentProgress = Math.floor((Math.random() * 50) + 10);
       DeviceService.startScan(network).then(function(res) {
@@ -139,7 +145,7 @@ angular.module('nethvoiceWizardUiApp')
       var tempArr = $scope.allModels[$scope.selectedDevice.manufacturer];
       var startedNumber = appConfig.TRUNKS_STARTED_NUM;
       for (var i = 0; i < tempArr.length; i++) {
-        if (tempArr[i].model === $scope.selectedDevice.model) {
+        if (tempArr[i].id === $scope.selectedDevice.model) {
           if ($scope.sipTrunks.length > 0) {
             startedNumber = parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + 1;
           }
@@ -249,10 +255,6 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.getNetworkList();
-    // $scope.getGatewayList('', {
-    //   ip: '192.168.5.102',
-    //   netmask: '255.255.255.0'
-    // });
     $scope.getGatewayModelList();
     $scope.getSipTrunks();
 

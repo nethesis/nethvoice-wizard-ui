@@ -13,7 +13,7 @@
   </div>
 
   <div class="wizard-pf-contents adjust-size">
-    <h1 class="control-label centered" for="textInput-markup">{{'Devices configuration' | translate}}</h1>
+    <h1 class="control-label centered" for="textInput-markup">{{'Trunks configuration' | translate}}</h1>
     <div ng-if="!(networks | isEmpty)" class="container-fluid">
       <div class="col-xs-12 col-sm-6 col-md-{{12/networkLength}} col-lg-{{12/networkLength}}" ng-repeat="(key, network) in networks">
         <div class="card-pf card-pf-view adjust-card">
@@ -32,7 +32,7 @@
             </div>
             <p class="card-pf-info text-center">
               <div class="blank-slate-pf-main-action centered adjust-bottom">
-                <button ng-click="startScan(key, network)" class="btn btn-primary btn-lg">{{'Start scan' | translate}}</button>
+                <button ng-click="startScan(key, network)" class="btn btn-primary btn-lg {{tasks[key].currentProgress > 0 && tasks[key].currentProgress < 100 ? 'disabled' : ''}}">{{'Scan' | translate}}</button>
                 <div ng-if="tasks[key].currentProgress < 100 && tasks[key].currentProgress != -1" class="spinner spinner-sm spinner-inline spinner-right"></div>
                 <div ng-if="tasks[key].currentProgress == 100 || tasks[key].currentProgress == -1" class="pficon pficon-{{tasks[key].currentProgress == 100 ? 'ok' : 'error-circle-o'}} icon-right"></div>
               </div>

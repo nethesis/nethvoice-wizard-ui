@@ -142,7 +142,7 @@ a {
 }
 
 .list-gateway:last-child {
-  margin-bottom: 54px;
+  margin-bottom: 74px;
 }
 
 .list-item-header {
@@ -345,7 +345,7 @@ a {
     margin-bottom: 4px;
   }
   .config-adjust-size-gateway {
-    margin-bottom: 74px;
+    margin-bottom: 30px;
     margin-top: -54px;
   }
   .config-title-icon-adjust {
@@ -476,6 +476,11 @@ a {
   font-weight: 500;
 }
 
+.weight-dest {
+  font-weight: 700;
+  line-height: 1px;
+}
+
 @media screen and (max-width: 1557px) {
   .weight-gateway {
     display: block;
@@ -556,6 +561,10 @@ a {
   min-width: 65px;
 }
 
+.right-only {
+  float: right;
+}
+
 .left {
   text-align: left;
 }
@@ -581,6 +590,11 @@ a {
   font: inherit;
   font-size: 14px !important;
   line-height: 26px !important;
+}
+
+.adjust-list {
+  flex: initial;
+  width: 60%;
 }
 
 .adjust-form {
