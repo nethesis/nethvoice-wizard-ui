@@ -9,17 +9,20 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .controller('RoutesInboundCtrl', function($scope, RouteService) {
-    RouteService.inbounds().then(function (res) {
-      $scope.routes = res.data;
-      $scope.show = true;
-    });
+
+    $scope.getRouteList = function() {
+      $scope.view.changeRoute = true;
+      RouteService.inbounds().then(function(res) {
+        $scope.routes = res.data;
+        $scope.view.changeRoute = false;
+      });
+    };
 
     // Remove a route
     $scope.deleteRoute = function(did, cid) {
-      RouteService.deleteInboundRoute(did, cid).then(function (res) {
-        RouteService.inbounds().then(function (res) {
+      RouteService.deleteInboundRoute(did, cid).then(function(res) {
+        RouteService.inbounds().then(function(res) {
           $scope.routes = res.data;
-          $scope.show = true;
         });
       });
     };
@@ -33,5 +36,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.newRoute = function() {
       window.open(customConfig.VPLAN_URL + '?did=new_route');
     };
+
+    $scope.getRouteList();
 
   });
