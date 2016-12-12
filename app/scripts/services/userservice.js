@@ -48,4 +48,55 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
+    this.createPhysicalExtension = function(obj) {
+      return $q(function(resolve, reject) {
+        RestService.post('/physicalextensions', obj).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.getVoiceMail = function(extension) {
+      return $q(function(resolve, reject) {
+        RestService.get('/voicemails/' + extension).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.createVoiceMail = function(obj) {
+      return $q(function(resolve, reject) {
+        RestService.post('/voicemails', obj).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.getMobileExtension = function(username) {
+      return $q(function(resolve, reject) {
+        RestService.get('/mobiles/' + username).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.createMobileExtension = function(obj) {
+      return $q(function(resolve, reject) {
+        RestService.post('/mobiles', obj).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
   });

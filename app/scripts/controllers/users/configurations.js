@@ -14,7 +14,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.devices = {};
 
     $scope.initGraphics = function() {
-      jQuery(".bootstrap-switch").bootstrapSwitch();
+      jQuery('.bootstrap-switch-voicemail').on('switchChange.bootstrapSwitch', $scope.setVoiceMail);
     };
 
     $scope.getUserList = function(reload) {
@@ -22,7 +22,7 @@ angular.module('nethvoiceWizardUiApp')
       UserService.list().then(function(res) {
         $scope.users = res.data;
         $scope.view.changeRoute = false;
-        $scope.selectedUser = $scope.users[0];
+        $scope.selectUser($scope.users[0].id);
         if ($scope.mode.isLegacy && UtilService.isEmpty($scope.users)) {
           $scope.wizard.nextState = false;
         }
@@ -48,7 +48,48 @@ angular.module('nethvoiceWizardUiApp')
           return obj;
         }
       })[0];
-    }
+      UserService.getMobileExtension($scope.selectedUser.username).then(function(res) {
+        $scope.selectedUser.mobile = res.data;
+      }, function(err) {
+        if (err.status != 404) {
+          console.log(err);
+        }
+      });
+      UserService.getVoiceMail($scope.selectedUser.default_extension).then(function(res) {
+        $('#bootstrap-switch-voicemail-' + $scope.selectedUser.id).bootstrapSwitch('state', true);
+      }, function(err) {
+        if (err.status != 404) {
+          console.log(err);
+        }
+        $('#bootstrap-switch-voicemail-' + $scope.selectedUser.id).bootstrapSwitch('state', false);
+      });
+    };
+
+    $scope.setMobileExtension = function(user) {
+      $scope.selectedUser.setMobileInAction = true;
+      if (user.mobile) {
+        UserService.createMobileExtension({
+          username: user.username,
+          mobile: user.mobile
+        }).then(function(res) {
+          $scope.selectedUser.setMobileInAction = false;
+        }, function(err) {
+          console.log(err);
+        });
+      }
+    };
+
+    $scope.setVoiceMail = function(event, state) {
+      $scope.selectedUser.setVoiceMailInAction = true;
+      UserService.createVoiceMail({
+        extension: $scope.selectedUser.default_extension,
+        state: state ? 'yes' : 'no'
+      }).then(function(res) {
+        $scope.selectedUser.setVoiceMailInAction = false;
+      }, function(err) {
+        console.log(err);
+      });
+    };
 
     $scope.initGraphics();
 

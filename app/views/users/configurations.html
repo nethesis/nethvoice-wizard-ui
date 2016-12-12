@@ -130,14 +130,21 @@
         <div class="col-lg-6 col-xs-12 config-bottom">
           <div class="list-view-pf-additional-info-item">
             <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12"><span class="fa fa-phone"></span><span class="config-span">{{'Mobile' | translate}}</span></span>
-            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 config-span-container"><input ng-model="selectedUser.mobile" type="text" class="form-control config-form" placeholder="{{'Mobile' | translate}}">
-            <button ng-click="setMobileExtension(selectedUser)" type="button" class="btn btn-default adjust-button" aria-haspopup="true" aria-expanded="false">{{'Add' | translate}}</button></span>
+            <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 config-span-container">
+                <input ng-model="selectedUser.mobile" type="text" class="form-control config-form" placeholder="{{'Mobile' | translate}}">
+                <button ng-click="setMobileExtension(selectedUser)" type="button" class="btn btn-default adjust-button" aria-haspopup="true" aria-expanded="false">{{'Set' | translate}}</button>
+            </span>
+            <div ng-if="selectedUser.setMobileInAction" class="spinner spinner-sm language-name"></div>
           </div>
         </div>
         <div class="col-lg-6 col-xs-12 config-bottom">
           <div class="list-view-pf-additional-info-item">
-            <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="fa fa-envelope-o"></span><span class="config-span">{{'Voicemail' | translate}}</span></span>
-            <input class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-model="selectedUser.voicemail" type="checkbox" checked>
+            <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <span class="fa fa-envelope-o"></span>
+                <span class="config-span">{{'Voicemail' | translate}}</span>
+            </span>
+            <input id="bootstrap-switch-voicemail-{{selectedUser.id}}" class="bootstrap-switch bootstrap-switch-voicemail col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
+            <div ng-if="selectedUser.setVoiceMailInAction" class="spinner spinner-sm language-name"></div>
           </div>
         </div>
       </div>
