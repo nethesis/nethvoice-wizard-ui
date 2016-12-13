@@ -59,6 +59,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.deletePhysicalExtension = function(obj) {
+      return $q(function(resolve, reject) {
+        RestService.post('/physicalextensions/unlink', obj).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
     this.getVoiceMail = function(extension) {
       return $q(function(resolve, reject) {
         RestService.get('/voicemails/' + extension).then(function(res) {

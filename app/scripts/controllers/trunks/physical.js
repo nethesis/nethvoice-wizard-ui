@@ -24,15 +24,22 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.getModelDescription = function(device) {
-      var obj = $scope.allModels[device.manufacturer].filter(function(obj) {
-        if (obj.id == device.model) {
-          return obj;
-        }
-      })[0];
-      return obj && obj.model && obj.description ? {
-        description: obj.description,
-        model: obj.model
-      } : '';
+      if ($scope.allModels[device.manufacturer]) {
+        var obj = $scope.allModels[device.manufacturer].filter(function(obj) {
+          if (obj.id == device.model) {
+            return obj;
+          }
+        })[0];
+        return obj && obj.model && obj.description ? {
+          description: obj.description,
+          model: obj.model
+        } : '';
+      } else {
+        return {
+          description: '',
+          model: ''
+        };
+      }
     };
 
     $scope.getGatewayModelList = function() {
