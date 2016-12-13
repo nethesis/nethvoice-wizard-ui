@@ -222,6 +222,18 @@ a {
   margin-top: 0px;
 }
 
+@media screen and (min-width: 1440px) {
+  .adjust-link {}
+}
+
+@media screen and (max-width: 1440px) {
+  .adjust-link {
+    width: 100%;
+    margin-top: -4px !important;
+    margin-left: 40px;
+  }
+}
+
 @media screen and (min-width: 992px) {
   .adjust-search {
     margin-top: 5px;
@@ -376,6 +388,12 @@ a {
   margin-bottom: 16px;
 }
 
+@media (min-width: 992px) {
+  .list-view-pf .list-group-item-text {
+    width: calc(75% - 80px);
+  }
+}
+
 .progress-content {
   margin-top: 40px;
 }
@@ -397,6 +415,7 @@ a {
   margin-top: 0px;
   overflow-y: auto;
   max-height: 315px;
+  background-color: #fff;
 }
 
 .config-spinner {

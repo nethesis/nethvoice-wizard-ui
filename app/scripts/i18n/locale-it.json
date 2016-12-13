@@ -7,6 +7,8 @@
   "Extensions": "Interni",
   "Extension": "Interno",
   "Devices": "Dispositivi",
+  "devices": "dispositivi",
+  "device": "dispositivo",
   "Configurations": "Configurazioni",
   "Physical": "Fisiche",
   "Voip": "VoIP",
@@ -60,7 +62,8 @@
   "Scan": "Scansiona",
   "Search": "Cerca",
   "Final configurations": "Configurazioni finali",
-  "Link": "Associa",
+  "Link to": "Associa a",
+  "Unlink from": "Disassocia da",
   "Mobile": "Cellulare",
   "Voicemail": "Casella vocale",
   "Yes": "Si",
@@ -75,5 +78,7 @@
   "Are you sure": "Sei sicuro",
   "Trunks configuration": "Configurazione linee",
   "Terminate Call": "Termina Chiamata",
-  "Hangup": "Chiudi"
+  "Hangup": "Chiudi",
+  "Devices limit reached": "Limite dispositivi raggiunto",
+  "An user can have up to 7 devices associated": "Un utente può avere fino a 7 dispositivi associati"
 }

@@ -115,7 +115,7 @@
                 </div>
                 <div class="list-group-item-text">
                   <div class="form-group">
-                    <select pf-select="{ noneSelectedText: '-' }" ng-model="device.model" ng-options="m as m for m in allModels[device.manufacturer]">
+                    <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(device)" ng-model="device.model" ng-options="m as m for m in allModels[device.manufacturer]">
                         <option value="">-</option>
                     </select>
                   </div>

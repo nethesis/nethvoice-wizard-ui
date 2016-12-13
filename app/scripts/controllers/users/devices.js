@@ -91,6 +91,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    $scope.setPhoneModel = function(device) {
+      DeviceService.setPhoneModel({
+        mac: device.mac,
+        vendor: device.manufacturer,
+        model: device.model
+      }).then(function(res) {}, function(err) {
+        console.log(err);
+      });
+    };
+
     $scope.getNetworkList();
     $scope.getPhoneModelList();
   });

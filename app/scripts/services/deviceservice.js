@@ -80,4 +80,14 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     }
+
+    this.setPhoneModel = function(obj) {
+      return $q(function(resolve, reject) {
+        RestService.post('/devices/phones/model', obj).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    }
   });
