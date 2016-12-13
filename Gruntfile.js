@@ -458,6 +458,15 @@ module.exports = function(grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    shell: {
+      deployToProd: {
+        command: [
+          "tar -zcf dist-ui.tar.gz dist/",
+          "scp dist-ui.tar.gz birro.nethesis.it:/srv/install/nethvoice/"
+        ].join('&&')
+      }
     }
   });
 
@@ -509,10 +518,12 @@ module.exports = function(grunt) {
     'htmlmin'
   ]);
 
+  grunt.registerTask('deploy', [
+    'shell:deployToProd'
+  ]);
+
   grunt.registerTask('default', [
-    // 'newer:jshint',
     'newer:jscs',
-    // 'test',
     'build'
   ]);
 };
