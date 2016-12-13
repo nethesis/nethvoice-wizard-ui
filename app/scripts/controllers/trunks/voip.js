@@ -36,6 +36,14 @@ angular.module('nethvoiceWizardUiApp')
       $scope.trunk.force_codec = state;
     };
 
+    $scope.create = function() {
+      TrunkService.createTrunkVoip($scope.trunk).then(function(res) {
+        $scope.trunk = {};
+      }, function(err) {
+        console.log(err);
+      });
+    };
+
     $scope.initGraphics();
     $scope.getProvidersList();
 

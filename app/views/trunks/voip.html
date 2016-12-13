@@ -40,19 +40,19 @@
         <div class="form-group">
           <label class="col-sm-3 control-label">{{'Password' | translate}}</label>
           <div class="col-sm-9">
-            <input type="text" ng-model="trunk.password" class="form-control" required>
+            <input type="password" ng-model="trunk.password" class="form-control" required>
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-3 control-label">{{'Phone number' | translate}}</label>
           <div class="col-sm-9">
-            <input type="text" ng-model="trunk.phone_number" class="form-control" required>
+            <input type="text" ng-model="trunk.phone" class="form-control" required>
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-3 control-label">{{'Allowed codec' | translate}}</label>
           <div class="col-sm-9">
-            <select title="-" multiple pf-select="{ width: '260px' }" ng-model="trunk.codecs" ng-options="p as p for p in availableCodecs">
+            <select title="-" multiple pf-select="{ width: '260px' }" ng-model="trunk.codec" ng-options="p as p for p in availableCodecs">
               </select>
             <!-- <input type="text" ng-model="trunk.codecs" class="form-control"> -->
           </div>
@@ -60,7 +60,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label">{{'Force codec' | translate}}</label>
           <div class="col-sm-1">
-            <input bs-switch ng-model="trunk.force_codec" id="bootstrap-switch" class="bootstrap-switch" type="checkbox">
+            <input bs-switch ng-model="trunk.forceCodec" id="bootstrap-switch" class="bootstrap-switch" type="checkbox">
           </div>
         </div>
         <div class="form-group">
