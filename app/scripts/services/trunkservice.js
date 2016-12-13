@@ -44,8 +44,21 @@ angular.module('nethvoiceWizardUiApp')
       // todo...
     };
 
-    this.createTrunkVoip = function() {
-      // todo...
+    this.createTrunkVoip = function(trunk) {
+      return $q(function(resolve, reject) {
+        RestService.post('/trunks', {
+          name: trunk.name,
+          username: trunk.username,
+          password: trunk.password,
+          phone: trunk.phone,
+          codecs: trunk.codecs,
+          forceCodec: trunk.forceCodec
+        }).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
     };
 
     this.getVoipProviders = function() {
