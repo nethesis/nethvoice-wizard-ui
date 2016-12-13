@@ -1,43 +1,5 @@
-.gw-list {
-  margin: 0px 85px;
-  width: 35%;
-}
-
-.gw-list-icon {
-	margin: 0px;
-}
-
-.list-item-gw {
-  cursor: pointer;
-}
-
-.saveBtnGw {
-  text-align: right;
-}
-
-.label-gw-title {
-  text-align: center !important;
-}
-
-.gw-btns {
-  margin: 10px 0px;
-}
-
-.gw-spinner {
-  padding: 0px;
-}
-
-.notConfigured {
-  color: gray !important;
-}
-
 .gw-form-arrow {
 	width: 0px;
-}
-
-.gw-btn-add {
-	float: right;
-	margin-top: 20px;
 }
 
 .voip-save-btn {
@@ -48,6 +10,7 @@
   margin-bottom: 40px;
 }
 
-.gw-page {
-  margin-bottom: 50px;
+.btn-add-gateway {
+  float: right;
+  margin: 10px 0px;
 }

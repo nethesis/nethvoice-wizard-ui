@@ -11,12 +11,14 @@ angular.module('nethvoiceWizardUiApp')
   .controller('TrunksPhysicalCtrl', function($scope, $location, $interval, TrunkService, ConfigService, UtilService, DeviceService) {
 
     $scope.allDevices = {};
+    $scope.allVendors = {};
     $scope.allModels = {};
     $scope.networks = {};
     $scope.networkLength = 0;
     $scope.tasks = {};
     $scope.sipTrunks = {};
     $scope.selectedDevice = {};
+    $scope.newGateway = {};
 
     $scope.selectDevice = function(device, network) {
       device.gateway = network.gateway;
@@ -45,6 +47,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getGatewayModelList = function() {
       DeviceService.gatewayModelList().then(function(res) {
         $scope.allModels = res.data;
+        $scope.allVendors = Object.keys($scope.allModels);
       }, function(err) {
         console.log(err);
       });
@@ -206,15 +209,15 @@ angular.module('nethvoiceWizardUiApp')
     };
 
 
-    $scope.showNewGwDialog = function() {
+    $scope.newGatewayDialog = function() {
       $('#newGwDialog').modal('show');
     };
 
-    $scope.hideNewGwDialog = function() {
+    $scope.hideGatewayDialog = function() {
       $('#newGwDialog').modal('hide');
     };
 
-    $scope.addNewGw = function() {
+    $scope.addNewGateway = function() {
       var newGw = {
         ip: $scope.newGw.ip,
         mac: $scope.newGw.mac,
