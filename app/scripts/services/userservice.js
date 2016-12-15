@@ -9,6 +9,16 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .service('UserService', function($q, RestService) {
+    this.count = function() {
+      return $q(function(resolve, reject) {
+        RestService.get('/users/count').then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
     this.list = function() {
       return $q(function(resolve, reject) {
         RestService.get('/users').then(function(res) {

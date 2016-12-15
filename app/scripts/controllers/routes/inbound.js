@@ -12,6 +12,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.routes = {};
     $scope.destinations = {};
     $scope.currentRoute = {};
+    $scope.inboundPromise = null;
 
     $scope.setCurrentRoute = function(route) {
       $scope.currentRoute = route;
@@ -64,8 +65,14 @@ angular.module('nethvoiceWizardUiApp')
       window.open(customConfig.VPLAN_URL + '?did=new_route');
     };
 
+    $scope.$on('$destroy', function() {
+      if ($scope.inboundPromise) {
+        $interval.cancel($scope.inboundPromise);
+      }
+    })
+
     $scope.getRouteList(true);
-    $interval(function() {
+    $scope.inboundPromise = $interval(function() {
       $scope.getRouteList(false);
     }, appConfig.INTERVAL_POLLING);
 
