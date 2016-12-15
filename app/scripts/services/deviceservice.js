@@ -79,7 +79,7 @@ angular.module('nethvoiceWizardUiApp')
           reject(err);
         });
       });
-    }
+    };
 
     this.setPhoneModel = function(obj) {
       return $q(function(resolve, reject) {
@@ -89,5 +89,15 @@ angular.module('nethvoiceWizardUiApp')
           reject(err);
         });
       });
-    }
+    };
+
+    this.saveGatewayConfig = function(obj) {
+      return $q(function(resolve, reject) {
+        RestService.post('/devices/gateways', obj).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
   });

@@ -19,6 +19,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.sipTrunks = {};
     $scope.selectedDevice = {};
     $scope.newGateway = {};
+    $scope.onSave = false;
 
     $scope.selectDevice = function(device, network) {
       device.gateway = network.gateway;
@@ -26,7 +27,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.getModelDescription = function(device) {
-      if ($scope.allModels[device.manufacturer]) {
+      if (device && device.manufacturer && device.model) {
         var obj = $scope.allModels[device.manufacturer].filter(function(obj) {
           if (obj.id == device.model) {
             return obj;
@@ -38,8 +39,7 @@ angular.module('nethvoiceWizardUiApp')
         } : '';
       } else {
         return {
-          description: '',
-          model: ''
+          description: ''
         };
       }
     };
@@ -131,137 +131,77 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-
-    $scope.deleteGw = function() {
-      for (var i = 0; i < $scope.gateways.length; i++) {
-        if ($scope.gateways[i].mac === $scope.currentGw.mac) {
-          $scope.gateways.splice(i, 1);
-        }
-      }
-      $scope.searchGw();
-      // TrunkService.deleteGw().then(function(res) {
-      // }, function(err) {
-      //   if (err.status !== 200) {
-      //     $scope.login.showError = true;
-      //     $scope.login.isLogged = false;
-      //     $('#loginTpl').show();
-      //     $location.path('/login');
-      //   }
-      //   console.log(err);
-      // });
-    };
-
-    $scope.updateExtraFields = function() {
-      var tempArr = $scope.allModels[$scope.selectedDevice.manufacturer];
+    $scope.updateExtraFields = function(device) {
+      var tempArr = $scope.allModels[device.manufacturer];
       var startedNumber = appConfig.TRUNKS_STARTED_NUM;
       for (var i = 0; i < tempArr.length; i++) {
-        if (tempArr[i].id === $scope.selectedDevice.model) {
+        if (tempArr[i].id === device.model) {
           if ($scope.sipTrunks.length > 0) {
-            startedNumber = parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + 1;
+            startedNumber = (parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) || appConfig.TRUNKS_STARTED_NUM) + 1;
           }
           // add isdn trunk fields
-          $scope.selectedDevice.trunks_isdn = [];
+          device.trunks_isdn = [];
           for (var k = 0; k < tempArr[i].n_isdn_trunks; k++) {
-            $scope.selectedDevice.trunks_isdn.push({
+            device.trunks_isdn.push({
               name: startedNumber + k,
               type: 'pp'
             });
           }
           // add pri trunk fields
-          $scope.selectedDevice.trunks_pri = [];
+          device.trunks_pri = [];
           for (var k = 0; k < tempArr[i].n_pri_trunks; k++) {
-            $scope.selectedDevice.trunks_pri.push({
+            device.trunks_pri.push({
               linked_trunk: startedNumber + k
             });
           }
           // add fxo trunk fields
-          $scope.selectedDevice.trunks_fxo = [];
+          device.trunks_fxo = [];
           for (var k = 0; k < tempArr[i].n_fxo_trunks; k++) {
-            $scope.selectedDevice.trunks_fxo.push({
+            device.trunks_fxo.push({
               number: '',
               linked_trunk: startedNumber + k
             });
           }
           // add fxs ext fields
-          $scope.selectedDevice.extens_fxs = [];
+          device.users_fxs = [];
           for (var k = 0; k < tempArr[i].n_fxs_ext; k++) {
-            $scope.selectedDevice.extens_fxs.push({
-              linked_ext: ''
+            device.users_fxs.push({
+              linked_user: ''
             });
           }
         }
       }
+      device.name = device.manufacturer + '-' + $scope.getModelDescription(device, true).description;
     };
 
-    $scope.updateGwList = function() {
-      TrunkService.updateGwList().then(function(res) {
-        // console.log(res);
-      }, function(err) {
-        if (err.status !== 200) {
-          // $scope.login.showError = true;
-          // $scope.login.isLogged = false;
-          // $('#loginTpl').show();
-          // $location.path('/login');
-        }
-        console.log(err);
-      });
-
-    };
-
-
-    $scope.newGatewayDialog = function() {
-      $('#newGwDialog').modal('show');
+    $scope.setNewGateway = function(network_key, network) {
+      $scope.newGateway.network_key = network_key;
+      $scope.newGateway.network = network.network;
+      $scope.newGateway.ipv4 = network.network.slice(0, -1);
+      $scope.newGateway.gateway = network.gateway;
     };
 
     $scope.hideGatewayDialog = function() {
+      $scope.newGateway = {};
       $('#newGwDialog').modal('hide');
     };
 
-    $scope.addNewGateway = function() {
-      var newGw = {
-        ip: $scope.newGw.ip,
-        mac: $scope.newGw.mac,
-        model: $scope.newGw.model,
-        vendor: $scope.newGw.vendor
-      };
-      newGw.trunks_fxo = [];
-      for (var i = 0; i < $scope.newGw.model.n_fxo_trunks; i++) {
-        newGw.trunks_fxo.push({
-          number: '',
-          linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i
-        });
+    $scope.saveConfig = function(device, isNew) {
+      $scope.onSave = true;
+      if (isNew) {
+        device.ipv4_new = '';
       }
-      newGw.trunks_pri = [];
-      for (var i = 0; i < $scope.newGw.model.n_pri_trunks; i++) {
-        newGw.trunks_pri.push({
-          linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i
-        });
-      }
-      newGw.trunks_isdn = [];
-      for (var i = 0; i < $scope.newGw.model.n_isdn_trunks; i++) {
-        newGw.trunks_isdn.push({
-          name: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i,
-          type: 'pmp'
-        });
-      }
-      newGw.extens_fxs = [];
-      for (var i = 0; i < $scope.newGw.model.n_fxs_ext; i++) {
-        newGw.extens_fxs.push({
-          linked_ext: ''
-        });
-      }
-      $scope.gateways.push(newGw);
-      $scope.newGw = undefined;
-      this.hideNewGwDialog();
-    };
-
-    $scope.saveConfig = function() {
-      // todo....
-      $scope.props.saving[$scope.currentGw.mac] = true;
-      setTimeout(function() {
-        $scope.props.saving[$scope.currentGw.mac] = false;
-        $scope.$apply();
-      }, 1000);
+      DeviceService.saveGatewayConfig(device).then(function(res) {
+        $scope.onSave = false;
+        $scope.hideGatewayDialog();
+        if (isNew) {
+          $scope.allDevices[device.network_key].push(device);
+        }
+        device.isConfigured = true;
+      }, function(err) {
+        $scope.onSave = false;
+        console.log(err);
+      });
     };
 
     $scope.getNetworkList();
