@@ -49,9 +49,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.createVirtualExtension = function(obj) {
+    this.createMainExtension = function(obj) {
       return $q(function(resolve, reject) {
-        RestService.post('/virtualextensions', obj).then(function(res) {
+        RestService.post('/mainextensions', obj).then(function(res) {
           resolve(res);
         }, function(err) {
           reject(err);
@@ -69,9 +69,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.deletePhysicalExtension = function(obj) {
+    this.deletePhysicalExtension = function(ext) {
       return $q(function(resolve, reject) {
-        RestService.post('/physicalextensions/unlink', obj).then(function(res) {
+        RestService.delete('/physicalextensions/' + ext).then(function(res) {
           resolve(res);
         }, function(err) {
           reject(err);

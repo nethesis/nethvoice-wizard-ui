@@ -100,4 +100,14 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
+    this.pushGatewayConfig = function(obj) {
+      return $q(function(resolve, reject) {
+        RestService.post('/devices/gateways/push', obj).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
   });

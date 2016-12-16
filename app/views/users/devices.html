@@ -52,33 +52,6 @@
     </div>
 
     <div ng-if="!(allDevices | isEmpty: true)" class="container-fluid">
-      <div class="list-group list-view-pf list-view-pf-view list-header">
-        <div class="list-group-item list-item-header">
-          <div class="list-view-pf-actions">
-            <label>{{'Status' | translate}}</label>
-          </div>
-          <div class="list-view-pf-main-info">
-            <div class="list-view-pf-left">
-              <span class="fa fa-usera list-view-pf-icon-sm adjust-line">{{allDevices | objCount}}</span>
-            </div>
-            <div class="list-view-pf-body">
-              <div class="list-view-pf-description">
-                <div class="list-group-item-heading">
-                  {{'Vendor' | translate}}
-                </div>
-                <div class="list-group-item-text">
-                  {{'Model' | translate}}
-                </div>
-              </div>
-              <div class="list-view-pf-additional-info">
-                <div class="list-view-pf-additional-info-item">
-                  <label>{{'Info' | translate}}</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)">
         <div class="row">
           <h1 class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-header">

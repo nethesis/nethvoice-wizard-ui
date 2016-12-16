@@ -45,9 +45,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.setVirtualExtension = function(user) {
+    $scope.setMainExtension = function(user) {
       user.isInAction = true;
-      UserService.createVirtualExtension({
+      UserService.createMainExtension({
         username: user.username,
         extension: user.default_extension !== 'none' ? user.default_extension : user.temp_ext
       }).then(function(res) {

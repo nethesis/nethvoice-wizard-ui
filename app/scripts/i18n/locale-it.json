@@ -48,6 +48,8 @@
   "Create": "Crea",
   "Configured": "Configurato",
   "Not configured": "Non configurato",
+  "Configured and Connected": "Configurato e Connesso",
+  "Configured and Not Connected": "Configurato e Non Connesso",
   "Force codec": "Forza codec",
   "retrieving sip trunks": "recupero fasci sip",
   "retrieving providers": "recupero providers",
@@ -71,6 +73,7 @@
   "Yes": "Si",
   "No": "No",
   "Inbound routes": "Rotte in entrata",
+  "Outbound routes": "Rotte in uscita",
   "Route": "Rotta",
   "Description": "Descrizione",
   "Destination": "Destinazione",
@@ -82,5 +85,9 @@
   "Terminate Call": "Termina Chiamata",
   "Hangup": "Chiudi",
   "Devices limit reached": "Limite dispositivi raggiunto",
-  "An user can have up to 7 devices associated": "Un utente può avere fino a 7 dispositivi associati"
+  "An user can have up to 7 devices associated": "Un utente può avere fino a 7 dispositivi associati",
+  "Configuration saved": "Configurazione salvata",
+  "The gateway is configured correctly": "Il gateway è configurato correttamente",
+  "Configuration not saved": "Configurazione non salvata",
+  "The configuration is not saved correctly": "La configurazione non è stata salvata correttamente"
 }
