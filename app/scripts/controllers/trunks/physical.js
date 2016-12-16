@@ -20,9 +20,18 @@ angular.module('nethvoiceWizardUiApp')
     $scope.selectedDevice = {};
     $scope.newGateway = {};
     $scope.onSave = false;
+    $scope.onSaveSuccess = false;
+    $scope.onSaveError = false;
 
     $scope.selectDevice = function(device, network) {
       device.gateway = network.gateway;
+      device.ipv4_green = network.ip;
+      device.netmask_green = network.netmask;
+      if (device.isConnected) {
+        device.ipv4_new = device.ipv4;
+      } else {
+        device.ipv4 = device.ipv4_new;
+      }
       $scope.selectedDevice = device;
     }
 
@@ -133,17 +142,14 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.updateExtraFields = function(device) {
       var tempArr = $scope.allModels[device.manufacturer];
-      var startedNumber = appConfig.TRUNKS_STARTED_NUM;
+      var base_num = device.manufacturer === 'Patton' ? 0 : 1;
       for (var i = 0; i < tempArr.length; i++) {
         if (tempArr[i].id === device.model) {
-          if ($scope.sipTrunks.length > 0) {
-            startedNumber = (parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) || appConfig.TRUNKS_STARTED_NUM) + 1;
-          }
           // add isdn trunk fields
           device.trunks_isdn = [];
           for (var k = 0; k < tempArr[i].n_isdn_trunks; k++) {
             device.trunks_isdn.push({
-              name: startedNumber + k,
+              name: k + base_num,
               type: 'pp'
             });
           }
@@ -151,15 +157,15 @@ angular.module('nethvoiceWizardUiApp')
           device.trunks_pri = [];
           for (var k = 0; k < tempArr[i].n_pri_trunks; k++) {
             device.trunks_pri.push({
-              linked_trunk: startedNumber + k
+              name: k + base_num
             });
           }
           // add fxo trunk fields
           device.trunks_fxo = [];
           for (var k = 0; k < tempArr[i].n_fxo_trunks; k++) {
             device.trunks_fxo.push({
+              name: k + base_num,
               number: '',
-              linked_trunk: startedNumber + k
             });
           }
           // add fxs ext fields
@@ -177,7 +183,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.setNewGateway = function(network_key, network) {
       $scope.newGateway.network_key = network_key;
       $scope.newGateway.network = network.network;
-      $scope.newGateway.ipv4 = network.network.slice(0, -1);
+      $scope.newGateway.ipv4_new = network.network.slice(0, -1);
       $scope.newGateway.gateway = network.gateway;
     };
 
@@ -188,18 +194,41 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.saveConfig = function(device, isNew) {
       $scope.onSave = true;
+      $scope.onSaveSuccess = false;
+      $scope.onSaveError = false;
       if (isNew) {
-        device.ipv4_new = '';
+        device.ipv4 = '';
       }
       DeviceService.saveGatewayConfig(device).then(function(res) {
-        $scope.onSave = false;
         $scope.hideGatewayDialog();
         if (isNew) {
           $scope.allDevices[device.network_key].push(device);
         }
+        device.ipv4 = device.ipv4_new;
         device.isConfigured = true;
+        // push configuration
+        if (!isNew) {
+          DeviceService.pushGatewayConfig({
+            name: device.name,
+            ipv4_green: '',
+            netmask_green: ''
+          }).then(function(res) {
+            $scope.onSave = false;
+            $scope.onSaveSuccess = true;
+            $scope.onSaveError = false;
+          }, function(err) {
+            console.log(err);
+            $scope.onSave = false;
+            $scope.onSaveSuccess = false;
+            $scope.onSaveError = true;
+          });
+        } else {
+          $scope.onSave = false;
+        }
       }, function(err) {
         $scope.onSave = false;
+        $scope.onSaveSuccess = false;
+        $scope.onSaveError = true;
         console.log(err);
       });
     };

@@ -96,7 +96,7 @@
         <div class="list-group list-view-pf list-view-pf-view config-view-container">
           <div class="list-group-item {{device.extension ? 'disabled' : ''}}" ng-repeat="device in devices | filter:searchDeviceUserString | orderBy: ['manufacturer','model']">
             <div class="list-view-pf-actions adjust-link">
-              <button ng-click="device.extension ? unsetPhysicalExtension(device) : setPhysicalExtension(selectedUser, device)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{device.extension ? 'Unlink from' : 'Link to' | translate}} {{device.extension ? getNameFromExtension(device.virtualextension) : selectedUser.displayname}}</button>
+              <button ng-click="device.extension ? deletePhysicalExtension(device) : setPhysicalExtension(selectedUser, device)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{device.extension ? 'Unlink from' : 'Link to' | translate}} {{device.extension ? getNameFromExtension(device.mainextension) : selectedUser.displayname}}</button>
               <div ng-show="device.setPhysicalInAction" class="spinner spinner-sm config-spinner"></div>
             </div>
             <div class="list-view-pf-main-info config-list-item-right">
@@ -115,7 +115,6 @@
                 <div class="list-view-pf-additional-info config-info">
                   <div>IP: <b>{{device.ipv4}}</b></div>
                   <div>MAC: <b>{{device.mac}}</b></div>
-                  <div ng-if="device.virtualextension">User: <b>{{device.extension ? getNameFromExtension(device.virtualextension) : ''}}</b></div>
                 </div>
               </div>
             </div>
