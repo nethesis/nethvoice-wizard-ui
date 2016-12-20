@@ -80,5 +80,9 @@
   "Terminate Call": "Termina Chiamata",
   "Hangup": "Chiudi",
   "Devices limit reached": "Limite dispositivi raggiunto",
-  "An user can have up to 7 devices associated": "Un utente può avere fino a 7 dispositivi associati"
+  "An user can have up to 7 devices associated": "Un utente può avere fino a 7 dispositivi associati",
+  "VoIP trunk created": "Fascio VoIP creato",
+  "VoIP trunk created with success": "Fascio VoIP creato con successo",
+  "VoIP trunk error": "Errore fascio VoIP",
+  "VoIP trunk creation failed": "Creazione fascio VoIP fallita"
 }

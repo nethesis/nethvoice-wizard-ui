@@ -15,6 +15,20 @@
   <div class="wizard-pf-contents adjust-size">
     <h1 class="control-label centered" for="textInput-markup">{{'Provider settings' | translate}}</h1>
     <div class="container-fluid col-xs-12 col-sm-12 col-md-6 col-lg-6 adjust-voip" ng-init="init()">
+      <div ng-show="onSaveSuccess" class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+        </button>
+        <span class="pficon pficon-ok"></span>
+        <strong>{{'VoIP trunk created' | translate}}.</strong> {{'VoIP trunk created with success' | translate}}
+      </div>
+      <div ng-show="onSaveError" class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+        <span class="pficon pficon-error-circle-o"></span>
+        <strong>{{'VoIP trunk error'}}</strong> {{'VoIP trunk creation failed' | translate}}
+      </div>
       <form class="form-horizontal" ng-submit="create()">
         <div class="form-group">
           <label class="col-sm-3 control-label">{{'Provider' | translate}}</label>
