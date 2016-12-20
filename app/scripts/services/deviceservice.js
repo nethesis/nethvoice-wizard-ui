@@ -110,4 +110,14 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
+    this.deleteGatewayConfig = function(id) {
+      return $q(function(resolve, reject) {
+        RestService.delete('/devices/gateways/' + id).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
   });

@@ -185,7 +185,7 @@ a {
 }
 
 .no-top-pad {
-    padding-top: 0px !important;
+  padding-top: 0px !important;
 }
 
 .blank-slate-pf {
@@ -375,7 +375,7 @@ a {
 }
 
 .list-view-pf .list-group-item:first-child {
-    border-top: none;
+  border-top: none;
 }
 
 .list-view-pf-additional-info {
@@ -488,6 +488,13 @@ a {
   .config-form {
     margin-left: -10px;
   }
+}
+
+.adjust-alert {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 15px;
+  margin-bottom: 0px;
 }
 
 .config-title-icon {

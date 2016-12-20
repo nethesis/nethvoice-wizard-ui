@@ -22,11 +22,13 @@ angular.module('nethvoiceWizardUiApp')
     $scope.onSave = false;
     $scope.onSaveSuccess = false;
     $scope.onSaveError = false;
+    $scope.onDeleteSuccess = false;
 
-    $scope.selectDevice = function(device, network) {
+    $scope.selectDevice = function(device, network, networkName) {
       device.gateway = network.gateway;
       device.ipv4_green = network.ip;
       device.netmask_green = network.netmask;
+      device.network_name = networkName
       if (device.isConnected) {
         device.ipv4_new = device.ipv4;
       } else {
@@ -94,6 +96,10 @@ angular.module('nethvoiceWizardUiApp')
       DeviceService.gatewayListByNetwork(network).then(function(res) {
         $scope.allDevices[key] = res.data;
         $scope.tasks[key].currentProgress = 100;
+        $scope.onSave = false;
+        $scope.onSaveSuccess = false;
+        $scope.onSaveError = false;
+        $scope.onDeleteSuccess = false;
       }, function(err) {
         console.log(err);
         $scope.tasks[key].currentProgress = -1;
@@ -193,43 +199,78 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.saveConfig = function(device, isNew) {
-      $scope.onSave = true;
-      $scope.onSaveSuccess = false;
-      $scope.onSaveError = false;
+      device.onSave = true;
+      device.onSaveSuccess = false;
+      device.onSaveError = false;
+      device.onDeleteSuccess = false;
       if (isNew) {
         device.ipv4 = '';
       }
       DeviceService.saveGatewayConfig(device).then(function(res) {
         $scope.hideGatewayDialog();
         if (isNew) {
+          device.id = res.data.id
           $scope.allDevices[device.network_key].push(device);
         }
         device.ipv4 = device.ipv4_new;
         device.isConfigured = true;
         // push configuration
-        if (!isNew) {
-          DeviceService.pushGatewayConfig({
-            name: device.name,
-            ipv4_green: '',
-            netmask_green: ''
-          }).then(function(res) {
-            $scope.onSave = false;
-            $scope.onSaveSuccess = true;
-            $scope.onSaveError = false;
-          }, function(err) {
-            console.log(err);
-            $scope.onSave = false;
-            $scope.onSaveSuccess = false;
-            $scope.onSaveError = true;
-          });
+        if (!isNew && device.isConnected) {
+          $scope.pushConfig(device);
         } else {
-          $scope.onSave = false;
+          device.onSave = false;
+          device.onDeleteSuccess = false;
         }
       }, function(err) {
-        $scope.onSave = false;
-        $scope.onSaveSuccess = false;
-        $scope.onSaveError = true;
+        device.onSave = false;
+        device.onSaveSuccess = false;
+        device.onSaveError = true;
+        device.onDeleteSuccess = false;
         console.log(err);
+      });
+    };
+
+    $scope.pushConfig = function(device) {
+      DeviceService.pushGatewayConfig({
+        name: device.name,
+        ipv4_green: '',
+        netmask_green: ''
+      }).then(function(res) {
+        device.onSave = false;
+        device.onSaveSuccess = true;
+        device.onSaveError = false;
+        device.onDeleteSuccess = false;
+      }, function(err) {
+        console.log(err);
+        device.onSave = false;
+        device.onSaveSuccess = false;
+        device.onSaveError = true;
+        device.onDeleteSuccess = false;
+      });
+    };
+
+    $scope.downConfig = function(device) {
+
+    };
+
+    $scope.deleteConfig = function(device) {
+      device.onSave = true;
+      DeviceService.deleteGatewayConfig(device.id).then(function(res) {
+        device.onSave = false;
+        device.onSaveSuccess = false;
+        device.onSaveError = false;
+        device.onDeleteSuccess = true;
+        $scope.selectedDevice = {};
+        $scope.getGatewayList(device.network_name, {
+            netmask: device.netmask_green,
+            ip: device.ipv4_green
+        });
+      }, function(err) {
+        console.log(err);
+        device.onSave = false;
+        device.onSaveSuccess = false;
+        device.onSaveError = false;
+        device.onDeleteSuccess = false;
       });
     };
 

@@ -42,5 +42,5 @@ var appConfig = {
     }
   },
   MAX_TRIES: 6,
-  INTERVAL_POLLING: 3000
+  INTERVAL_POLLING: 5000
 };
