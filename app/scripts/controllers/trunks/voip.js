@@ -12,6 +12,8 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.providers = {};
     $scope.availableCodecs = ['alaw', 'ulaw'];
+    $scope.onSaveSuccess = false;
+    $scope.onSaveError = false;
 
     $scope.trunk = {
       force_codec: true,
@@ -39,8 +41,12 @@ angular.module('nethvoiceWizardUiApp')
     $scope.create = function() {
       TrunkService.createTrunkVoip($scope.trunk).then(function(res) {
         $scope.trunk = {};
+        $scope.onSaveSuccess = true;
+        $scope.onSaveError = false;
       }, function(err) {
         console.log(err);
+        $scope.onSaveSuccess = false;
+        $scope.onSaveError = true;
       });
     };
 
