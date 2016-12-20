@@ -29,6 +29,10 @@ a {
 
 /* VERTICAL NAVBAR */
 
+.panel {
+  background-color: #282828;
+}
+
 .nav-pf-vertical-alt {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
 }
@@ -602,6 +606,33 @@ a {
 
 .adjust-badge {
   right: 38px !important;
+}
+
+.adjust-panel-body:first-child {
+  border-top: 2px solid #000 !important;
+}
+.adjust-panel-body:last-child {
+  border-bottom: 2px solid #000 !important;
+}
+
+.adjust-panel-body {
+  color: #fff;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  font-size: 14px;
+  border-top: 1px solid #000 !important;
+}
+
+.menu-item-left {
+  cursor: pointer;
+  padding-left: 25px !important;
+  padding-top: 10px !important;
+}
+
+.menu-item-left:hover {
+  background: #404040;
 }
 
 .centered {
