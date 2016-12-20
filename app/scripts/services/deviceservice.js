@@ -120,4 +120,14 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
+    this.downloadConfig = function(name) {
+        return $q(function(resolve, reject) {
+          RestService.get('/devices/gateways/download/' + name).then(function(res) {
+            resolve(res);
+          }, function(err) {
+            reject(err);
+          });
+        });
+    };
   });

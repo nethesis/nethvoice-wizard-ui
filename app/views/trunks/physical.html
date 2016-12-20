@@ -79,10 +79,8 @@
                   <span class="fa fa-ellipsis-v"></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebab">
-                <li><a ng-click="downConfig(device, networkName, networks[networkName])">{{'Download configuration' | translate}}</a></li>
-                <li><a ng-click="pushConfig(device)" data-toggle="modal" data-target="#confirmPushModal">{{'Push configuration' | translate}}</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a data-toggle="modal" data-target="#confirmDeleteModal">{{'Delete configuration' | translate}}</a></li>
+                <li><a ng-click="downConfig(device)">{{'Download configuration' | translate}}</a></li>
+                <li ng-if="selectedDevice.isConfigured && selectedDevice.isConnected"><a data-toggle="modal" data-target="#confirmPushModal">{{'Push configuration on device' | translate}}</a></li>
               </ul>
             </div>
           </div>
@@ -147,7 +145,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label">{{'Model' | translate}}</label>
           <div class="col-sm-9">
-            <select required pf-select="{ width: '260px', noneSelectedText: '-' }" ng-model="selectedDevice.model" ng-change="updateExtraFields(selectedDevice)" ng-options="m.id as m.description + ' | ' + m.model for m in allModels[selectedDevice.manufacturer]">
+            <select ng-disabled="selectedDevice.isConfigured" required pf-select="{ width: '260px', noneSelectedText: '-' }" ng-model="selectedDevice.model" ng-change="updateExtraFields(selectedDevice)" ng-options="m.id as m.description + ' | ' + m.model for m in allModels[selectedDevice.manufacturer]">
                 <option value="">-</option>
             </select>
           </div>
@@ -155,7 +153,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label">{{'Device IP' | translate}}</label>
           <div class="col-sm-9">
-            <input type="text" ng-model="selectedDevice.ipv4_new" class="form-control" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$">
+            <input type="text" ng-model="selectedDevice.ipv4_new" class="form-control" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$" ng-disabled="selectedDevice.isConfigured">
           </div>
         </div>
         <div class="form-group">
@@ -174,7 +172,7 @@
         <div class="form-group" ng-repeat="trunk in selectedDevice.trunks_isdn">
           <label class="col-sm-3 control-label">{{'Port' | translate}} ISDN {{trunk.name}}</label>
           <div class="col-sm-9">
-            <select pf-select ng-model="trunk.type">
+            <select ng-disabled="selectedDevice.isConfigured" pf-select ng-model="trunk.type">
               <option value="pmp">{{'Point-MultiPoint' | translate}}</option>
               <option value="pp">{{'Point-Point' | translate}}</option>
             </select>
@@ -184,7 +182,7 @@
         <div class="form-group" ng-repeat="trunk in selectedDevice.trunks_fxo">
           <label class="col-sm-3 control-label">{{'Port' | translate}} FXO {{trunk.name}}</label>
           <div class="col-sm-4">
-            <input type="text" ng-model="trunk.number" placeholder="{{'Number'|translate}}" class="form-control">
+            <input ng-disabled="selectedDevice.isConfigured" type="text" ng-model="trunk.number" placeholder="{{'Number'|translate}}" class="form-control">
           </div>
         </div>
 
@@ -209,7 +207,8 @@
         <div class="form-group">
           <div class="col-sm-12">
             <div ng-show="selectedDevice.onSave" class="spinner spinner-sm adjust-margin loader-modal-gateway-not-form"></div>
-            <button ng-disabled="selectedDevice.onSave" type="submit" class="btn btn-primary col-md-1 right-align">{{'Save' | translate}}</button>
+            <button data-toggle="modal" data-target="#confirmDeleteModal" ng-show="selectedDevice.isConfigured" type="button" ng-disabled="selectedDevice.onSave" class="btn btn-danger col-md-1 right-align">{{'Delete' | translate}}</button>
+            <button ng-show="!selectedDevice.isConfigured" ng-disabled="selectedDevice.onSave" type="submit" class="btn btn-primary col-md-1 right-align">{{'Save' | translate}}</button>
           </div>
         </div>
       </form>

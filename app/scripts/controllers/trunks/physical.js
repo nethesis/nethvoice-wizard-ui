@@ -250,7 +250,16 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.downConfig = function(device) {
-
+      DeviceService.downloadConfig(device.name).then(function(res) {
+        var config = 'data:text/plain;charset=utf-8,' + res.data;
+        var encodedUri = encodeURI(config);
+        var link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', device.name + '.cfg');
+        link.click();
+      }, function(err) {
+        console.log(err);
+      });
     };
 
     $scope.deleteConfig = function(device) {
@@ -262,8 +271,8 @@ angular.module('nethvoiceWizardUiApp')
         device.onDeleteSuccess = true;
         $scope.selectedDevice = {};
         $scope.getGatewayList(device.network_name, {
-            netmask: device.netmask_green,
-            ip: device.ipv4_green
+          netmask: device.netmask_green,
+          ip: device.ipv4_green
         });
       }, function(err) {
         console.log(err);
