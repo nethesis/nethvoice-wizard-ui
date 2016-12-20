@@ -68,12 +68,23 @@
             </form>
           </div>
         </div>
-        <div class="list-group-item {{selectedDevice.mac == device.mac ? 'selected' : ''}}" ng-repeat="device in devices | filter:searchDeviceString | orderBy: 'manufacturer'" ng-click="selectDevice(device, networks[networkName])">
+        <div class="list-group-item {{selectedDevice.mac == device.mac ? 'selected' : ''}}" ng-repeat="device in devices | filter:searchDeviceString | orderBy: 'manufacturer'" ng-click="selectDevice(device, networks[networkName], networkName)">
           <div class="list-view-pf-actions">
             <div ng-show="device.isInAction" class="spinner spinner-sm adjust-margin"></div>
             <span ng-show="!device.isInAction" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{device.isConfigured && device.isConnected ? 'Configured and Connected' : device.isConfigured && !device.isConnected ? 'Configured and Not Connected' : 'Not configured' | translate}}"
                 class="pficon {{device.isConfigured && device.isConnected ? 'pficon-ok' : device.isConfigured && !device.isConnected ? 'pficon-warning-triangle-o' : 'pficon-info'}} icon-med">
             </span>
+            <div ng-if="device.isConfigured" class="dropdown dropdown-kebab-pf right-only">
+              <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <span class="fa fa-ellipsis-v"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebab">
+                <li><a ng-click="downConfig(device, networkName, networks[networkName])">{{'Download configuration' | translate}}</a></li>
+                <li><a ng-click="pushConfig(device)" data-toggle="modal" data-target="#confirmPushModal">{{'Push configuration' | translate}}</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a data-toggle="modal" data-target="#confirmDeleteModal">{{'Delete configuration' | translate}}</a></li>
+              </ul>
+            </div>
           </div>
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
@@ -96,7 +107,7 @@
           </div>
         </div>
         <div class="config-button-list">
-          <button ng-disabled="onSave" ng-click="setNewGateway(networkName, networks[networkName])" class="btn btn-primary" data-toggle="modal" data-target="#newGwDialog">{{'Add gateway' | translate}}</button>
+          <button ng-disabled="selectedDevice.onSave" ng-click="setNewGateway(networkName, networks[networkName])" class="btn btn-primary" data-toggle="modal" data-target="#newGwDialog">{{'Add gateway' | translate}}</button>
         </div>
       </div>
     </div>
@@ -105,19 +116,26 @@
           <span class="pficon pficon-container-node config-title-icon-adjust"></span>
           {{selectedDevice.manufacturer}}
       </h1>
-      <div ng-if="onSaveSuccess" class="alert alert-success alert-dismissable">
+      <div ng-if="selectedDevice.onSaveSuccess" class="alert alert-success alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
             <span class="pficon pficon-close"></span>
           </button>
         <span class="pficon pficon-ok"></span>
         <strong>{{'Configuration saved' | translate}}.</strong> {{'The gateway is configured correctly' | translate}}.
       </div>
-      <div ng-if="onSaveError" class="alert alert-danger alert-dismissable">
+      <div ng-if="selectedDevice.onSaveError" class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
         <span class="pficon pficon-close"></span>
       </button>
         <span class="pficon pficon-error-circle-o"></span>
         <strong>{{'Configuration not saved' | translate}}.</strong> {{'The configuration is not saved correctly' | translate}}.
+      </div>
+      <div ng-if="selectedDevice.onDeleteSuccess" class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+        <span class="pficon pficon-ok"></span>
+        <strong>{{'Configuration deleted' | translate}}.</strong> {{'The gateway configuration is delete correctly' | translate}}.
       </div>
       <form class="form-horizontal config-form-gateway" ng-submit="saveConfig(selectedDevice)">
         <!-- <div class="form-group">
@@ -190,8 +208,8 @@
 
         <div class="form-group">
           <div class="col-sm-12">
-            <div ng-show="onSave" class="spinner spinner-sm adjust-margin loader-modal-gateway-not-form"></div>
-            <button ng-disabled="onSave || !selectedDevice.isConnected" type="submit" class="btn btn-primary col-md-1 right-align">{{'Save' | translate}}</button>
+            <div ng-show="selectedDevice.onSave" class="spinner spinner-sm adjust-margin loader-modal-gateway-not-form"></div>
+            <button ng-disabled="selectedDevice.onSave" type="submit" class="btn btn-primary col-md-1 right-align">{{'Save' | translate}}</button>
           </div>
         </div>
       </form>
@@ -236,6 +254,20 @@
                 <span class="pficon pficon-close"></span>
               </button>
           <h4 class="modal-title">{{'New Gateway' | translate}}</h4>
+        </div>
+        <div ng-if="newGateway.onSaveSuccess" class="alert alert-success alert-dismissable adjust-alert">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+              <span class="pficon pficon-close"></span>
+            </button>
+          <span class="pficon pficon-ok"></span>
+          <strong>{{'Configuration saved' | translate}}.</strong> {{'The gateway is configured correctly' | translate}}.
+        </div>
+        <div ng-if="newGateway.onSaveError" class="alert alert-danger alert-dismissable adjust-alert">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+          <span class="pficon pficon-error-circle-o"></span>
+          <strong>{{'Configuration not saved' | translate}}.</strong> {{'The configuration is not saved correctly' | translate}}.
         </div>
         <form class="form-horizontal" ng-submit="saveConfig(newGateway, true)">
           <div class="modal-body">
@@ -314,10 +346,10 @@
               </select>
               </div>
             </div>
-            <div ng-show="onSave" class="spinner spinner-sm adjust-margin loader-modal-gateway"></div>
+            <div ng-show="newGateway.onSave" class="spinner spinner-sm adjust-margin loader-modal-gateway"></div>
             <div class="modal-footer config-gateway-footer">
               <button ng-click="hideGatewayDialog()" type="button" class="btn btn-default" data-dismiss="modal">{{'Close' | translate}}</button>
-              <button ng-disabled="onSave" type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
+              <button ng-disabled="newGateway.onSave" type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
             </div>
         </form>
         </div>
@@ -326,4 +358,57 @@
   </div>
 
   <wizard-step ng-if="wizard.isWizard"></wizard-step>
+</div>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+        <h4 class="modal-title" id="myModalLabel">
+          {{"Delete configuration" | translate}}
+          {{selectedDevice.name}}
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group medium-font">
+          {{ "Are you sure" | translate }} ?
+        </div>
+      </div>
+      <div class="modal-footer submit">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ "Cancel" | translate }}</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteConfig(selectedDevice)">
+          {{ "Delete" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="confirmPushModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+        <h4 class="modal-title" id="myModalLabel">
+          {{"Push configuration" | translate}} {{'on' | translate}} {{selectedDevice.name}}
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group medium-font">
+          {{ "Are you sure" | translate }} ?
+        </div>
+      </div>
+      <div class="modal-footer submit">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ "Cancel" | translate }}</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="pushConfig(selectedDevice)">
+          {{ "Push" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
