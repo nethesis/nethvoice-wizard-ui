@@ -110,31 +110,38 @@
       </div>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 config-adjust-size-gateway" ng-if="!(selectedDevice | isEmpty)">
-      <h1 class="control-label config-title-user big-margin-top" for="textInput-markup">
-          <span class="pficon pficon-container-node config-title-icon-adjust"></span>
-          {{selectedDevice.manufacturer}}
-      </h1>
-      <div ng-if="selectedDevice.onSaveSuccess" class="alert alert-success alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+      <div ng-if="selectedDevice.onSaveSuccess" class="alert alert-success alert-dismissable adjust-alert-gateway">
+        <button ng-click="close(selectedDevice)" type="button" class="close" data-dismiss="alert" aria-hidden="true">
             <span class="pficon pficon-close"></span>
           </button>
         <span class="pficon pficon-ok"></span>
-        <strong>{{'Configuration saved' | translate}}.</strong> {{'The gateway is configured correctly' | translate}}.
+        <strong>{{'Configuration saved' | translate}}.</strong> {{'Click' | translate}} <a ng-click="pushConfig(selectedDevice)" class="alert-link">{{'here' | translate}}</a> {{'to push configuration on device' | translate}}.
       </div>
-      <div ng-if="selectedDevice.onSaveError" class="alert alert-danger alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+      <div ng-if="selectedDevice.onError" class="alert alert-danger alert-dismissable adjust-alert-gateway">
+        <button ng-click="close(selectedDevice)" type="button" class="close" data-dismiss="alert" aria-hidden="true">
         <span class="pficon pficon-close"></span>
       </button>
         <span class="pficon pficon-error-circle-o"></span>
-        <strong>{{'Configuration not saved' | translate}}.</strong> {{'The configuration is not saved correctly' | translate}}.
+        <strong>{{'Configuration error' | translate}}.</strong> {{'Generic error on configuration' | translate}}.
       </div>
-      <div ng-if="selectedDevice.onDeleteSuccess" class="alert alert-success alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+      <div ng-if="selectedDevice.onDeleteSuccess" class="alert alert-success alert-dismissable adjust-alert-gateway">
+        <button ng-click="close(selectedDevice)" type="button" class="close" data-dismiss="alert" aria-hidden="true">
             <span class="pficon pficon-close"></span>
           </button>
         <span class="pficon pficon-ok"></span>
-        <strong>{{'Configuration deleted' | translate}}.</strong> {{'The gateway configuration is delete correctly' | translate}}.
+        <strong>{{'Configuration deleted' | translate}}.</strong> {{'Configuration deleted with success' | translate}}.
       </div>
+      <div ng-if="selectedDevice.onPushSuccess" class="alert alert-success alert-dismissable adjust-alert-gateway">
+        <button ng-click="close(selectedDevice)" type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+        <span class="pficon pficon-ok"></span>
+        <strong>{{'Configuration pushed' | translate}}.</strong> {{'Configuration pushed with success' | translate}}.
+      </div>
+      <h1 class="control-label config-title-user" for="textInput-markup">
+          <span class="pficon pficon-container-node config-title-icon-adjust"></span>
+          {{selectedDevice.manufacturer}}
+      </h1>
       <form class="form-horizontal config-form-gateway" ng-submit="saveConfig(selectedDevice)">
         <!-- <div class="form-group">
           <label class="col-sm-3 control-label">{{'Configuration name' | translate}}</label>
@@ -254,28 +261,15 @@
               </button>
           <h4 class="modal-title">{{'New Gateway' | translate}}</h4>
         </div>
-        <div ng-if="newGateway.onSaveSuccess" class="alert alert-success alert-dismissable adjust-alert">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-              <span class="pficon pficon-close"></span>
-            </button>
-          <span class="pficon pficon-ok"></span>
-          <strong>{{'Configuration saved' | translate}}.</strong> {{'The gateway is configured correctly' | translate}}.
-        </div>
         <div ng-if="newGateway.onSaveError" class="alert alert-danger alert-dismissable adjust-alert">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+          <button ng-click="close(newGateway)" type="button" class="close" data-dismiss="alert" aria-hidden="true">
           <span class="pficon pficon-close"></span>
         </button>
           <span class="pficon pficon-error-circle-o"></span>
-          <strong>{{'Configuration not saved' | translate}}.</strong> {{'The configuration is not saved correctly' | translate}}.
+          <strong>{{'Configuration error' | translate}}.</strong> {{'Generic error in configuration' | translate}}.
         </div>
         <form class="form-horizontal" ng-submit="saveConfig(newGateway, true)">
           <div class="modal-body">
-            <!-- <div class="form-group">
-              <label class="col-sm-3 control-label">{{'Configuration name' | translate}}</label>
-              <div class="col-sm-9">
-                <input type="text" ng-model="newGateway.name" class="form-control" placeholder="{{'Vendor'|translate}}-{{'Model'|translate}}" required disabled>
-              </div>
-            </div> -->
             <div class="form-group">
               <label class="col-sm-3 control-label">{{'Vendor' | translate}}</label>
               <div class="col-sm-9">

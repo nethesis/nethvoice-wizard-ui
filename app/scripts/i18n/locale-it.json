@@ -73,6 +73,8 @@
   "Yes": "Si",
   "No": "No",
   "on": "su",
+  "Click": "Clicca",
+  "here": "qui",
   "Inbound routes": "Rotte in entrata",
   "Outbound routes": "Rotte in uscita",
   "Route": "Rotta",
@@ -93,7 +95,12 @@
   "Devices limit reached": "Limite dispositivi raggiunto",
   "An user can have up to 7 devices associated": "Un utente può avere fino a 7 dispositivi associati",
   "Configuration saved": "Configurazione salvata",
-  "The gateway is configured correctly": "Il gateway è configurato correttamente",
-  "Configuration not saved": "Configurazione non salvata",
-  "The configuration is not saved correctly": "La configurazione non è stata salvata correttamente"
+  "Configuration saved with success": "Configurazione salvata con successo",
+  "Configuration error": "Errore configurazione",
+  "Generic error in configuration": "Errore generico nella configurazione",
+  "Configuration deleted": "Configurazione eliminata",
+  "Configuration deleted with success": "Configurazione eliminata con successo",
+  "Configuration pushed": "Configurazione caricata",
+  "Configuration pushed with success": "Configurazione caricata con successo",
+  "to push configuration on device": "per caricare la configurazione sul dispositivo"
 }

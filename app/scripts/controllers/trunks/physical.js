@@ -20,9 +20,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.selectedDevice = {};
     $scope.newGateway = {};
     $scope.onSave = false;
-    $scope.onSaveSuccess = false;
-    $scope.onSaveError = false;
-    $scope.onDeleteSuccess = false;
 
     $scope.selectDevice = function(device, network, networkName) {
       device.gateway = network.gateway;
@@ -35,7 +32,15 @@ angular.module('nethvoiceWizardUiApp')
         device.ipv4 = device.ipv4_new;
       }
       $scope.selectedDevice = device;
-    }
+    };
+
+    $scope.close = function(device) {
+      device.onSave = false;
+      device.onSaveSuccess = false;
+      device.onError = false;
+      device.onDeleteSuccess = false;
+      device.onPushSuccess = false;
+    };
 
     $scope.getModelDescription = function(device) {
       if (device && device.manufacturer && device.model) {
@@ -97,9 +102,6 @@ angular.module('nethvoiceWizardUiApp')
         $scope.allDevices[key] = res.data;
         $scope.tasks[key].currentProgress = 100;
         $scope.onSave = false;
-        $scope.onSaveSuccess = false;
-        $scope.onSaveError = false;
-        $scope.onDeleteSuccess = false;
       }, function(err) {
         console.log(err);
         $scope.tasks[key].currentProgress = -1;
@@ -201,8 +203,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.saveConfig = function(device, isNew) {
       device.onSave = true;
       device.onSaveSuccess = false;
-      device.onSaveError = false;
+      device.onError = false;
       device.onDeleteSuccess = false;
+      device.onPushSuccess = false;
       if (isNew) {
         device.ipv4 = '';
       }
@@ -214,42 +217,47 @@ angular.module('nethvoiceWizardUiApp')
         }
         device.ipv4 = device.ipv4_new;
         device.isConfigured = true;
-        // push configuration
-        if (!isNew && device.isConnected) {
-          $scope.pushConfig(device);
-        } else {
-          device.onSave = false;
-          device.onDeleteSuccess = false;
+        device.onSave = false;
+        if (!isNew) {
+          device.onSaveSuccess = true;
         }
+        device.onError = false;
+        device.onDeleteSuccess = false;
+        device.onPushSuccess = false;
       }, function(err) {
         device.onSave = false;
         device.onSaveSuccess = false;
-        device.onSaveError = true;
+        device.onError = true;
         device.onDeleteSuccess = false;
+        device.onPushSuccess = false;
         console.log(err);
       });
     };
 
     $scope.pushConfig = function(device) {
+      device.onSave = true;
       DeviceService.pushGatewayConfig({
         name: device.name,
         ipv4_green: '',
         netmask_green: ''
       }).then(function(res) {
         device.onSave = false;
-        device.onSaveSuccess = true;
-        device.onSaveError = false;
+        device.onSaveSuccess = false;
+        device.onError = false;
         device.onDeleteSuccess = false;
+        device.onPushSuccess = true;
       }, function(err) {
         console.log(err);
         device.onSave = false;
         device.onSaveSuccess = false;
-        device.onSaveError = true;
+        device.onError = true;
         device.onDeleteSuccess = false;
+        device.onPushSuccess = false;
       });
     };
 
     $scope.downConfig = function(device) {
+      device.onSave = true;
       DeviceService.downloadConfig(device.name).then(function(res) {
         var config = 'data:text/plain;charset=utf-8,' + res.data;
         var encodedUri = encodeURI(config);
@@ -257,6 +265,7 @@ angular.module('nethvoiceWizardUiApp')
         link.setAttribute('href', encodedUri);
         link.setAttribute('download', device.name + '.cfg');
         link.click();
+        device.onSave = false;
       }, function(err) {
         console.log(err);
       });
@@ -267,8 +276,9 @@ angular.module('nethvoiceWizardUiApp')
       DeviceService.deleteGatewayConfig(device.id).then(function(res) {
         device.onSave = false;
         device.onSaveSuccess = false;
-        device.onSaveError = false;
+        device.onError = false;
         device.onDeleteSuccess = true;
+        device.onPushSuccess = false;
         $scope.selectedDevice = {};
         $scope.getGatewayList(device.network_name, {
           netmask: device.netmask_green,
@@ -278,8 +288,9 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err);
         device.onSave = false;
         device.onSaveSuccess = false;
-        device.onSaveError = false;
+        device.onError = true;
         device.onDeleteSuccess = false;
+        device.onPushSuccess = false;
       });
     };
 
