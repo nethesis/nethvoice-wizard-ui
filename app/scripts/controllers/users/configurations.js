@@ -10,7 +10,7 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('UsersConfigurationsCtrl', function($scope, $filter, UserService, DeviceService, UtilService) {
     $scope.users = {};
-    $scope.selectedUser = {};
+    $scope.selectedUser = null;
     $scope.devices = {};
     $scope.maxExtensionReached = false;
 
@@ -27,7 +27,16 @@ angular.module('nethvoiceWizardUiApp')
       UserService.list().then(function(res) {
         $scope.users = res.data;
         $scope.view.changeRoute = false;
-        $scope.selectUser($scope.currentUserIndex || $scope.users[0].id);
+        var index = 0;
+        for (var u in $scope.users) {
+          if ($scope.users[u].default_extension !== 'none') {
+            index = u;
+            break;
+          } else {
+            continue;
+          }
+        }
+        $scope.selectUser($scope.currentUserIndex || $scope.users[index]);
         if ($scope.mode.isLegacy && UtilService.isEmpty($scope.users)) {
           $scope.wizard.nextState = false;
         }
@@ -47,44 +56,47 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.getNameFromExtension = function(virtual) {
+    $scope.getNameFromExtension = function(main) {
       if ($scope.users.filter) {
-        return $scope.users.filter(function(obj) {
-          if (obj.default_extension == virtual) {
+        var returned = $scope.users.filter(function(obj) {
+          if (obj.default_extension == main) {
             return obj;
           }
-        })[0].displayname;
+        })[0];
+        return returned && returned.displayname ? returned.displayname : '';
       }
     };
 
-    $scope.selectUser = function(id) {
-      $scope.currentUserIndex = id;
-      $scope.selectedUser = $scope.users.filter(function(obj) {
-        if (obj.id == id) {
-          return obj;
-        }
-      })[0];
-      UserService.getMobileExtension($scope.selectedUser.username).then(function(res) {
-        $scope.selectedUser.mobile = res.data;
-      }, function(err) {
-        if (err.status != 404) {
-          console.log(err);
-        }
-      });
-      UserService.getVoiceMail($scope.selectedUser.default_extension).then(function(res) {
-        $('#bootstrap-switch-voicemail-' + $scope.selectedUser.id).bootstrapSwitch('state', true);
-      }, function(err) {
-        if (err.status != 404) {
-          console.log(err);
-        }
-        $('#bootstrap-switch-voicemail-' + $scope.selectedUser.id).bootstrapSwitch('state', false);
-      });
+    $scope.selectUser = function(user) {
+      if (user.default_extension !== 'none') {
+        $scope.currentUserIndex = user;
+        $scope.selectedUser = $scope.users.filter(function(obj) {
+          if (obj.id == user.id) {
+            return obj;
+          }
+        })[0];
+        UserService.getMobileExtension($scope.selectedUser.username).then(function(res) {
+          $scope.selectedUser.mobile = res.data;
+        }, function(err) {
+          if (err.status != 404) {
+            console.log(err);
+          }
+        });
+        UserService.getVoiceMail($scope.selectedUser.default_extension).then(function(res) {
+          $('#bootstrap-switch-voicemail-' + $scope.selectedUser.id).bootstrapSwitch('state', true);
+        }, function(err) {
+          if (err.status != 404) {
+            console.log(err);
+          }
+          $('#bootstrap-switch-voicemail-' + $scope.selectedUser.id).bootstrapSwitch('state', false);
+        });
+      }
     };
 
     $scope.setPhysicalExtension = function(user, device) {
       device.setPhysicalInAction = true;
       UserService.createPhysicalExtension({
-        virtualextension: user.default_extension,
+        mainextension: user.default_extension,
         mac: device.mac
       }).then(function(res) {
         device.setPhysicalInAction = false;
@@ -99,11 +111,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.unsetPhysicalExtension = function(device) {
+    $scope.deletePhysicalExtension = function(device) {
       device.setPhysicalInAction = true;
-      UserService.deletePhysicalExtension({
-        mac: device.mac
-      }).then(function(res) {
+      UserService.deletePhysicalExtension(device.extension).then(function(res) {
         device.setPhysicalInAction = false;
         $scope.getUserList(false);
         $scope.getDeviceList(false);

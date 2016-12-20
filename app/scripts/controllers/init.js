@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('InitCtrl', function($scope, $translate, $route, $location, LanguageService, LocalStorageService, LoginService) {
+  .controller('InitCtrl', function($scope, $translate, $route, $location, LanguageService, LocalStorageService, LoginService, UserService, TrunkService, RouteService) {
     $scope.customConfig = customConfig;
     $scope.appConfig = appConfig;
 
@@ -27,6 +27,13 @@ angular.module('nethvoiceWizardUiApp')
     $scope.wizard = {
       isWizard: true,
       stepCount: 1
+    };
+
+    $scope.menuCount = {
+      users: 0,
+      trunks: 0,
+      routesIn: 0,
+      routesOut: 0
     };
 
     $scope.doLogout = function() {
@@ -124,4 +131,34 @@ angular.module('nethvoiceWizardUiApp')
     $scope.changeLanguage({
       key: LocalStorageService.get('preferredLanguage') || 'default'
     });
+
+    // get count data
+    $scope.$on('loginCompleted', function(event, args) {
+      // users
+      UserService.count().then(function(res) {
+        $scope.menuCount.users = res.data;
+      }, function(err) {
+        console.log(err);
+      });
+
+      //trunks
+      TrunkService.count().then(function(res) {
+        $scope.menuCount.trunks = res.data;
+      }, function(err) {
+        console.log(err);
+      });
+
+      //routes
+      RouteService.countIn().then(function(res) {
+        $scope.menuCount.routesIn = res.data;
+      }, function(err) {
+        console.log(err);
+      });
+      RouteService.countOut().then(function(res) {
+        $scope.menuCount.routesOut = res.data;
+      }, function(err) {
+        console.log(err);
+      });
+    });
+
   });

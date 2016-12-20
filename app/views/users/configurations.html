@@ -16,7 +16,7 @@
   </div>
 
   <div class="wizard-pf-contents adjust-size row">
-    <h1 class="control-label centered" for="textInput-markup">{{'Final configurations' | translate}}</h1>
+    <h1 class="control-label centered" for="textInput-markup">{{'Extensions configurations' | translate}}</h1>
     <div ng-if="!(users | isEmpty)" class="container-fluid col-lg-5 col-md-6 col-sm-6 col-xs-12">
       <div class="list-group list-view-pf list-view-pf-view list-header">
         <div class="list-group-item list-item-header">
@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="list-group list-view-pf list-view-pf-view">
-        <div class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users" ng-click="selectUser(user.id)">
+        <div class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users" ng-click="selectUser(user)">
           <div class="list-view-pf-actions">
             <span popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{user.devices.length > 0 ? 'Configured' : 'Not configured' | translate}}" class="pficon {{user.devices.length > 0 ? 'pficon-ok' : 'pficon-info'}} icon-med"></span>
           </div>
@@ -61,7 +61,7 @@
                 </div>
               </div>
               <div class="list-view-pf-additional-info">
-                {{user.default_extension}}
+                {{user.default_extension !== 'none' ? user.default_extension : ''}}
               </div>
             </div>
           </div>
@@ -96,7 +96,7 @@
         <div class="list-group list-view-pf list-view-pf-view config-view-container">
           <div class="list-group-item {{device.extension ? 'disabled' : ''}}" ng-repeat="device in devices | filter:searchDeviceUserString | orderBy: ['manufacturer','model']">
             <div class="list-view-pf-actions adjust-link">
-              <button ng-click="device.extension ? unsetPhysicalExtension(device) : setPhysicalExtension(selectedUser, device)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{device.extension ? 'Unlink from' : 'Link to' | translate}} {{device.extension ? getNameFromExtension(device.virtualextension) : selectedUser.displayname}}</button>
+              <button ng-click="device.extension ? deletePhysicalExtension(device) : setPhysicalExtension(selectedUser, device)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{device.extension ? 'Unlink from' : 'Link to' | translate}} {{device.extension ? getNameFromExtension(device.mainextension) : selectedUser.displayname}}</button>
               <div ng-show="device.setPhysicalInAction" class="spinner spinner-sm config-spinner"></div>
             </div>
             <div class="list-view-pf-main-info config-list-item-right">
@@ -115,7 +115,6 @@
                 <div class="list-view-pf-additional-info config-info">
                   <div>IP: <b>{{device.ipv4}}</b></div>
                   <div>MAC: <b>{{device.mac}}</b></div>
-                  <div ng-if="device.virtualextension">User: <b>{{getNameFromExtension(device.virtualextension)}}</b></div>
                 </div>
               </div>
             </div>

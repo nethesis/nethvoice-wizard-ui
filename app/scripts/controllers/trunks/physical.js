@@ -11,20 +11,39 @@ angular.module('nethvoiceWizardUiApp')
   .controller('TrunksPhysicalCtrl', function($scope, $location, $interval, TrunkService, ConfigService, UtilService, DeviceService) {
 
     $scope.allDevices = {};
+    $scope.allVendors = {};
     $scope.allModels = {};
     $scope.networks = {};
     $scope.networkLength = 0;
     $scope.tasks = {};
     $scope.sipTrunks = {};
     $scope.selectedDevice = {};
+    $scope.newGateway = {};
+    $scope.onSave = false;
 
-    $scope.selectDevice = function(device, network) {
+    $scope.selectDevice = function(device, network, networkName) {
       device.gateway = network.gateway;
+      device.ipv4_green = network.ip;
+      device.netmask_green = network.netmask;
+      device.network_name = networkName
+      if (device.isConnected) {
+        device.ipv4_new = device.ipv4;
+      } else {
+        device.ipv4 = device.ipv4_new;
+      }
       $scope.selectedDevice = device;
-    }
+    };
+
+    $scope.close = function(device) {
+      device.onSave = false;
+      device.onSaveSuccess = false;
+      device.onError = false;
+      device.onDeleteSuccess = false;
+      device.onPushSuccess = false;
+    };
 
     $scope.getModelDescription = function(device) {
-      if ($scope.allModels[device.manufacturer]) {
+      if (device && device.manufacturer && device.model) {
         var obj = $scope.allModels[device.manufacturer].filter(function(obj) {
           if (obj.id == device.model) {
             return obj;
@@ -36,8 +55,7 @@ angular.module('nethvoiceWizardUiApp')
         } : '';
       } else {
         return {
-          description: '',
-          model: ''
+          description: ''
         };
       }
     };
@@ -45,6 +63,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getGatewayModelList = function() {
       DeviceService.gatewayModelList().then(function(res) {
         $scope.allModels = res.data;
+        $scope.allVendors = Object.keys($scope.allModels);
       }, function(err) {
         console.log(err);
       });
@@ -82,6 +101,7 @@ angular.module('nethvoiceWizardUiApp')
       DeviceService.gatewayListByNetwork(network).then(function(res) {
         $scope.allDevices[key] = res.data;
         $scope.tasks[key].currentProgress = 100;
+        $scope.onSave = false;
       }, function(err) {
         console.log(err);
         $scope.tasks[key].currentProgress = -1;
@@ -128,137 +148,150 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-
-    $scope.deleteGw = function() {
-      for (var i = 0; i < $scope.gateways.length; i++) {
-        if ($scope.gateways[i].mac === $scope.currentGw.mac) {
-          $scope.gateways.splice(i, 1);
-        }
-      }
-      $scope.searchGw();
-      // TrunkService.deleteGw().then(function(res) {
-      // }, function(err) {
-      //   if (err.status !== 200) {
-      //     $scope.login.showError = true;
-      //     $scope.login.isLogged = false;
-      //     $('#loginTpl').show();
-      //     $location.path('/login');
-      //   }
-      //   console.log(err);
-      // });
-    };
-
-    $scope.updateExtraFields = function() {
-      var tempArr = $scope.allModels[$scope.selectedDevice.manufacturer];
-      var startedNumber = appConfig.TRUNKS_STARTED_NUM;
+    $scope.updateExtraFields = function(device) {
+      var tempArr = $scope.allModels[device.manufacturer];
+      var base_num = device.manufacturer === 'Patton' ? 0 : 1;
       for (var i = 0; i < tempArr.length; i++) {
-        if (tempArr[i].id === $scope.selectedDevice.model) {
-          if ($scope.sipTrunks.length > 0) {
-            startedNumber = parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + 1;
-          }
+        if (tempArr[i].id === device.model) {
           // add isdn trunk fields
-          $scope.selectedDevice.trunks_isdn = [];
+          device.trunks_isdn = [];
           for (var k = 0; k < tempArr[i].n_isdn_trunks; k++) {
-            $scope.selectedDevice.trunks_isdn.push({
-              name: startedNumber + k,
+            device.trunks_isdn.push({
+              name: k + base_num,
               type: 'pp'
             });
           }
           // add pri trunk fields
-          $scope.selectedDevice.trunks_pri = [];
+          device.trunks_pri = [];
           for (var k = 0; k < tempArr[i].n_pri_trunks; k++) {
-            $scope.selectedDevice.trunks_pri.push({
-              linked_trunk: startedNumber + k
+            device.trunks_pri.push({
+              name: k + base_num
             });
           }
           // add fxo trunk fields
-          $scope.selectedDevice.trunks_fxo = [];
+          device.trunks_fxo = [];
           for (var k = 0; k < tempArr[i].n_fxo_trunks; k++) {
-            $scope.selectedDevice.trunks_fxo.push({
+            device.trunks_fxo.push({
+              name: k + base_num,
               number: '',
-              linked_trunk: startedNumber + k
             });
           }
           // add fxs ext fields
-          $scope.selectedDevice.extens_fxs = [];
+          device.users_fxs = [];
           for (var k = 0; k < tempArr[i].n_fxs_ext; k++) {
-            $scope.selectedDevice.extens_fxs.push({
-              linked_ext: ''
+            device.users_fxs.push({
+              linked_user: ''
             });
           }
         }
       }
+      device.name = device.manufacturer + '-' + $scope.getModelDescription(device, true).description;
     };
 
-    $scope.updateGwList = function() {
-      TrunkService.updateGwList().then(function(res) {
-        // console.log(res);
-      }, function(err) {
-        if (err.status !== 200) {
-          // $scope.login.showError = true;
-          // $scope.login.isLogged = false;
-          // $('#loginTpl').show();
-          // $location.path('/login');
-        }
-        console.log(err);
-      });
-
+    $scope.setNewGateway = function(network_key, network) {
+      $scope.newGateway.network_key = network_key;
+      $scope.newGateway.network = network.network;
+      $scope.newGateway.ipv4_new = network.network.slice(0, -1);
+      $scope.newGateway.gateway = network.gateway;
     };
 
-
-    $scope.showNewGwDialog = function() {
-      $('#newGwDialog').modal('show');
-    };
-
-    $scope.hideNewGwDialog = function() {
+    $scope.hideGatewayDialog = function() {
+      $scope.newGateway = {};
       $('#newGwDialog').modal('hide');
     };
 
-    $scope.addNewGw = function() {
-      var newGw = {
-        ip: $scope.newGw.ip,
-        mac: $scope.newGw.mac,
-        model: $scope.newGw.model,
-        vendor: $scope.newGw.vendor
-      };
-      newGw.trunks_fxo = [];
-      for (var i = 0; i < $scope.newGw.model.n_fxo_trunks; i++) {
-        newGw.trunks_fxo.push({
-          number: '',
-          linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i
-        });
+    $scope.saveConfig = function(device, isNew) {
+      device.onSave = true;
+      device.onSaveSuccess = false;
+      device.onError = false;
+      device.onDeleteSuccess = false;
+      device.onPushSuccess = false;
+      if (isNew) {
+        device.ipv4 = '';
       }
-      newGw.trunks_pri = [];
-      for (var i = 0; i < $scope.newGw.model.n_pri_trunks; i++) {
-        newGw.trunks_pri.push({
-          linked_trunk: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i
-        });
-      }
-      newGw.trunks_isdn = [];
-      for (var i = 0; i < $scope.newGw.model.n_isdn_trunks; i++) {
-        newGw.trunks_isdn.push({
-          name: parseInt($scope.sipTrunks[$scope.sipTrunks.length - 1]) + i,
-          type: 'pmp'
-        });
-      }
-      newGw.extens_fxs = [];
-      for (var i = 0; i < $scope.newGw.model.n_fxs_ext; i++) {
-        newGw.extens_fxs.push({
-          linked_ext: ''
-        });
-      }
-      $scope.gateways.push(newGw);
-      $scope.newGw = undefined;
-      this.hideNewGwDialog();
+      DeviceService.saveGatewayConfig(device).then(function(res) {
+        $scope.hideGatewayDialog();
+        if (isNew) {
+          device.id = res.data.id
+          $scope.allDevices[device.network_key].push(device);
+        }
+        device.ipv4 = device.ipv4_new;
+        device.isConfigured = true;
+        device.onSave = false;
+        if (!isNew) {
+          device.onSaveSuccess = true;
+        }
+        device.onError = false;
+        device.onDeleteSuccess = false;
+        device.onPushSuccess = false;
+      }, function(err) {
+        device.onSave = false;
+        device.onSaveSuccess = false;
+        device.onError = true;
+        device.onDeleteSuccess = false;
+        device.onPushSuccess = false;
+        console.log(err);
+      });
     };
 
-    $scope.saveConfig = function() {
-      // todo....
-      $scope.props.saving[$scope.currentGw.mac] = true;
-      setTimeout(function() {
-        $scope.props.saving[$scope.currentGw.mac] = false;
-        $scope.$apply();
-      }, 1000);
+    $scope.pushConfig = function(device) {
+      device.onSave = true;
+      DeviceService.pushGatewayConfig({
+        name: device.name,
+        ipv4_green: '',
+        netmask_green: ''
+      }).then(function(res) {
+        device.onSave = false;
+        device.onSaveSuccess = false;
+        device.onError = false;
+        device.onDeleteSuccess = false;
+        device.onPushSuccess = true;
+      }, function(err) {
+        console.log(err);
+        device.onSave = false;
+        device.onSaveSuccess = false;
+        device.onError = true;
+        device.onDeleteSuccess = false;
+        device.onPushSuccess = false;
+      });
+    };
+
+    $scope.downConfig = function(device) {
+      device.onSave = true;
+      DeviceService.downloadConfig(device.name).then(function(res) {
+        var config = 'data:text/plain;charset=utf-8,' + res.data;
+        var encodedUri = encodeURI(config);
+        var link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', device.name + '.cfg');
+        link.click();
+        device.onSave = false;
+      }, function(err) {
+        console.log(err);
+      });
+    };
+
+    $scope.deleteConfig = function(device) {
+      device.onSave = true;
+      DeviceService.deleteGatewayConfig(device.id).then(function(res) {
+        device.onSave = false;
+        device.onSaveSuccess = false;
+        device.onError = false;
+        device.onDeleteSuccess = true;
+        device.onPushSuccess = false;
+        $scope.selectedDevice = {};
+        $scope.getGatewayList(device.network_name, {
+          netmask: device.netmask_green,
+          ip: device.ipv4_green
+        });
+      }, function(err) {
+        console.log(err);
+        device.onSave = false;
+        device.onSaveSuccess = false;
+        device.onError = true;
+        device.onDeleteSuccess = false;
+        device.onPushSuccess = false;
+      });
     };
 
     $scope.getNetworkList();

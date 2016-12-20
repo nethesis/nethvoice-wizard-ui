@@ -79,7 +79,7 @@ angular.module('nethvoiceWizardUiApp')
           reject(err);
         });
       });
-    }
+    };
 
     this.setPhoneModel = function(obj) {
       return $q(function(resolve, reject) {
@@ -89,5 +89,45 @@ angular.module('nethvoiceWizardUiApp')
           reject(err);
         });
       });
-    }
+    };
+
+    this.saveGatewayConfig = function(obj) {
+      return $q(function(resolve, reject) {
+        RestService.post('/devices/gateways', obj).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.pushGatewayConfig = function(obj) {
+      return $q(function(resolve, reject) {
+        RestService.post('/devices/gateways/push', obj).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.deleteGatewayConfig = function(id) {
+      return $q(function(resolve, reject) {
+        RestService.delete('/devices/gateways/' + id).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.downloadConfig = function(name) {
+        return $q(function(resolve, reject) {
+          RestService.get('/devices/gateways/download/' + name).then(function(res) {
+            resolve(res);
+          }, function(err) {
+            reject(err);
+          });
+        });
+    };
   });

@@ -8,7 +8,17 @@
  * Service in the nethvoiceWizardUiApp.
  */
 angular.module('nethvoiceWizardUiApp')
-  .service('TrunkService', function ($q, RestService) {
+  .service('TrunkService', function($q, RestService) {
+
+    this.count = function() {
+      return $q(function(resolve, reject) {
+        RestService.get('/trunks/count').then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
 
     /**
      * HTTP get request to retrieve sip trunks.

@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="wizard-pf-contents adjust-size">
-    <h1 class="control-label centered" for="textInput-markup">{{'Extensions configuration' | translate}}</h1>
+    <h1 class="control-label centered" for="textInput-markup">{{'Users configuration' | translate}}</h1>
     <div ng-if="!(users | isEmpty)" class="container-fluid">
       <div class="list-group list-view-pf list-view-pf-view list-header">
         <div class="list-group-item list-item-header">
@@ -77,13 +77,13 @@
                 <div ng-if="user.default_extension === 'none'" class="list-view-pf-additional-info-item">
                   <input ng-model="user.temp_ext" type="text" class="form-control" id="filter" placeholder="{{'Insert extension' | translate}}">
                   <div class="input-group-btn">
-                    <button ng-click="setVirtualExtension(user)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{'Add' | translate}}</button>
+                    <button ng-click="setMainExtension(user)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{'Add' | translate}}</button>
                   </div>
                 </div>
                 <div ng-if="user.default_extension !== 'none'" class="list-view-pf-additional-info-item">
                   <input type="text" ng-model="user.default_extension" class="form-control" id="filter" placeholder="{{'Insert extension' | translate}}">
                   <div class="input-group-btn">
-                    <button ng-click="setVirtualExtension(user)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{'Modify' | translate}}</button>
+                    <button ng-click="setMainExtension(user)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{'Modify' | translate}}</button>
                   </div>
                 </div>
               </div>
