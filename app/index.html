@@ -87,29 +87,56 @@
       <!-- end navbar-->
       <!-- left menu -->
       <nav id="navbar-left" class="nav-pf-vertical-alt">
-        <ul class="list-group">
-          <li class="list-group-item collapse-menu {{resolveActiveTab('users',1) ? 'active' : ''}}" id="users-item-menu">
-            <a ng-click="goTo('users/extensions')">
+        <ul class="list-group panel">
+          <li data-toggle="collapse" data-parent="#navbar-left" href="#usersCollapse" class="list-group-item collapse-menu {{resolveActiveTab('users',1) ? 'active' : ''}}" id="users-item-menu">
+            <a>
               <span class="pficon pficon-users" title="Users" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Users' | translate}}</span>
               <span class="badge notifications">{{menuCount.users}}</span>
             </a>
           </li>
-          <li ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART1_STEP" class="list-group-item collapse-menu {{resolveActiveTab('trunks',1) ? 'active' : ''}}" id="trunks-item-menu">
-            <a ng-click="goTo('trunks/physical')">
+          <div id="usersCollapse" class="panel-collapse collapse">
+              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('extensions',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('users/extensions')" class="list-group-item-value menu-item-left">{{'Extensions' | translate}}</div>
+              </div>
+              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('devices',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('users/devices')" class="list-group-item-value  menu-item-left">{{'Devices' | translate}}</div>
+              </div>
+              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('configurations',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('users/configurations')" class="list-group-item-value  menu-item-left">{{'Configurations' | translate}}</div>
+              </div>
+          </div>
+          <li data-toggle="collapse" data-parent="#navbar-left" href="#trunksCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART1_STEP" class="list-group-item collapse-menu {{resolveActiveTab('trunks',1) ? 'active' : ''}}" id="trunks-item-menu">
+            <a>
               <span class="pficon pficon-topology" title="{{'Trunks' | translate}}" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Trunks' | translate}}</span>
               <span class="badge notifications">{{menuCount.trunks}}</span>
             </a>
           </li>
-          <li ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART2_STEP" class="list-group-item collapse-menu {{resolveActiveTab('routes',1) ? 'active' : ''}}" id="routes-item-menu">
-            <a ng-click="goTo('routes/inbound')">
+          <div id="trunksCollapse" class="panel-collapse collapse">
+              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('physical',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('trunks/physical')" class="list-group-item-value menu-item-left">{{'Physical' | translate}}</div>
+              </div>
+              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('voip',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('trunks/voip')" class="list-group-item-value  menu-item-left">{{'VoIP' | translate}}</div>
+              </div>
+          </div>
+          <li data-toggle="collapse" data-parent="#navbar-left" href="#routesCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART2_STEP" class="list-group-item collapse-menu {{resolveActiveTab('routes',1) ? 'active' : ''}}" id="routes-item-menu">
+            <a>
               <span class="pficon pficon-trend-up" title="Routes" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Routes' | translate }}</span>
               <span popover-placement="bottom-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Outbound routes' | translate}}" class="badge notifications">{{menuCount.routesOut}}</span>
               <span popover-placement="bottom-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Inbound routes' | translate}}" class="badge notifications adjust-badge">{{menuCount.routesIn}}</span>
             </a>
           </li>
+          <div id="routesCollapse" class="panel-collapse collapse">
+              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('inbound',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('routes/inbound')" class="list-group-item-value menu-item-left">{{'Inbound' | translate}}</div>
+              </div>
+              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('outbound',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('routes/outbound')" class="list-group-item-value  menu-item-left">{{'Outbound' | translate}}</div>
+              </div>
+          </div>
           <li class="list-group-item list-group-item-separator hidden-sm hidden-md hidden-lg collapse-menu" id="fullscreen-item-menu">
             <a ng-click="goToFullScreen()" href="">
               <span class="fa fa-expand" title="{{'Profile' | translate}}"></span>
