@@ -8,12 +8,19 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('TrunksVoipCtrl', function($scope, TrunkService) {
+  .controller('TrunksVoipCtrl', function($scope, TrunkService, CodecService) {
 
     $scope.providers = {};
-    $scope.availableCodecs = ['alaw', 'ulaw'];
     $scope.onSaveSuccess = false;
     $scope.onSaveError = false;
+
+    $scope.trunk = {
+      force_codec: true
+    };
+
+    $scope.retrieveCodecs = function() {
+      return CodecService.getVoipCodecs();
+    }
 
     $scope.trunk = {
       force_codec: true,
@@ -51,6 +58,21 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.initGraphics();
+
     $scope.getProvidersList();
+
+    // Set default codecs
+    $scope.retrieveCodecs().then(function(res) {
+      $scope.availableCodecs = res.map(function(a) {
+        return a.codec;
+      });
+
+      $scope.trunk.codecs = res.map(function(a) {
+        if(a.enabled)
+          return a.codec;
+      });
+    }, function(err) {
+      console.log(err);
+    });
 
   });
