@@ -59,22 +59,20 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.initGraphics();
 
-    $scope.$on('loginCompleted', function(event, args) {
-      $scope.getProvidersList();
+    $scope.getProvidersList();
 
-      // Set default codecs
-      $scope.retrieveCodecs().then(function(res) {
-        $scope.availableCodecs = res.map(function(a) {
-          return a.codec;
-        });
-
-        $scope.trunk.codecs = res.map(function(a) {
-          if(a.enabled)
-            return a.codec;
-        });
-      }, function(err) {
-        console.log(err);
+    // Set default codecs
+    $scope.retrieveCodecs().then(function(res) {
+      $scope.availableCodecs = res.map(function(a) {
+        return a.codec;
       });
+
+      $scope.trunk.codecs = res.map(function(a) {
+        if(a.enabled)
+          return a.codec;
+      });
+    }, function(err) {
+      console.log(err);
     });
 
   });
