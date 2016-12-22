@@ -196,7 +196,8 @@ a {
   border: none;
 }
 
-.btn-lgg, .btn-group-lgg>.btn {
+.btn-lgg,
+.btn-group-lgg>.btn {
   padding: 6px 10px;
   font-size: 20px;
   margin-right: 20px;
@@ -488,6 +489,16 @@ a {
   margin-top: 30px;
 }
 
+.no-margin-bottom {
+  margin-bottom: 0px;
+}
+
+.anchor-sortable {
+  font-size: 16px;
+  margin-right: 8px;
+  color: #777777 !important;
+}
+
 @media screen and (max-width: 990px) {
   .config-form {
     margin-left: -10px;
@@ -535,6 +546,28 @@ a {
 .weight-dest {
   font-weight: 700;
   line-height: 1px;
+}
+
+.more-elem {
+  width: calc(35% - 80px) !important;
+}
+
+.space-bottom {
+  margin-bottom: 8px;
+}
+
+.no-background {
+  background: #f5f5f5;
+}
+
+.as-sortable-placeholder {
+  border: 2px dashed #bbb !important;
+  background: #fff !important;
+  visibility: visible !important;
+}
+
+.route-name-id {
+  color: #909090;
 }
 
 @media screen and (max-width: 1557px) {
@@ -611,6 +644,7 @@ a {
 .adjust-panel-body:first-child {
   border-top: 2px solid #000 !important;
 }
+
 .adjust-panel-body:last-child {
   border-bottom: 1px solid #000 !important;
 }
@@ -715,6 +749,37 @@ a {
 
 .adjust-card {
   margin-top: 20px;
+}
+
+.list-group-item-container {
+  background: #fff;
+  border-top: solid 1px #ededed;
+  box-sizing: content-box;
+  margin: 0px 0px 15px;
+  -ms-flex-order: 3;
+  order: 3;
+  padding: 10px 15px;
+  position: relative;
+  width: 100%;
+}
+
+.sortable-item {
+  background: rgb(245, 245, 245);
+  margin-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.sortable-item:active {
+  background: rgb(234, 234, 234);
+}
+
+.sortable-item:hover {
+  background: rgb(234, 234, 234);
+}
+
+.sortable-item:last-child {
+  border-bottom: 0px;
 }
 
 

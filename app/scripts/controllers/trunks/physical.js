@@ -69,16 +69,6 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.getSipTrunks = function() {
-      TrunkService.getSipTrunks().then(function(res) {
-        $scope.sipTrunks = res.map(function(obj) {
-          return obj.channelid;
-        });
-      }, function(err) {
-        console.log(err);
-      });
-    };
-
     $scope.getNetworkList = function() {
       $scope.view.changeRoute = true;
       ConfigService.getNetworks().then(function(res) {
@@ -296,6 +286,5 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getNetworkList();
     $scope.getGatewayModelList();
-    $scope.getSipTrunks();
 
   });

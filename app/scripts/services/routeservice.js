@@ -30,9 +30,31 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     // Retrieve inbounds routes
-    this.inbounds = function() {
+    this.getInbounds = function() {
       return $q(function(resolve, reject) {
         RestService.get('/inboundroutes').then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    // Retrieve outbounds routes
+    this.getOutbounds = function() {
+      return $q(function(resolve, reject) {
+        RestService.get('/outboundroutes').then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    // Retrieve default outbounds routes
+    this.getDefaultOutbounds = function() {
+      return $q(function(resolve, reject) {
+        RestService.get('/outboundroutes/defaults').then(function(res) {
           resolve(res);
         }, function(err) {
           reject(err);

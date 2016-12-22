@@ -8,8 +8,8 @@
  * Service in the nethvoiceWizardUiApp.
  */
 angular.module('nethvoiceWizardUiApp')
-  .service('UtilService', function($interval, $q, RestService) {
-    this.isEmpty = function(obj, nested) {
+  .service('UtilService', function ($interval, $q, RestService) {
+    this.isEmpty = function (obj, nested) {
       if (nested) {
         var empties = [];
         for (var o in obj) {
@@ -21,7 +21,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    this.randomPassword = function(len) {
+    this.randomPassword = function (len) {
       var text = "";
       var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
       for (var i = 0; i < len; i++)
@@ -29,17 +29,17 @@ angular.module('nethvoiceWizardUiApp')
       return text;
     };
 
-    this.taskStatus = function(task) {
-      return $q(function(resolve, reject) {
-        RestService.get('/tasks/' + task).then(function(res) {
+    this.taskStatus = function (task) {
+      return $q(function (resolve, reject) {
+        RestService.get('/tasks/' + task).then(function (res) {
           resolve(res);
-        }, function(err) {
+        }, function (err) {
           reject(err);
         });
       });
     };
 
-    this.maskToCidr = function(obj) {
+    this.maskToCidr = function (obj) {
       if (obj === undefined) {
         return '';
       }
@@ -51,7 +51,17 @@ angular.module('nethvoiceWizardUiApp')
       return cidr;
     }
 
-    this.hashNetwork = function(network) {
+    this.hashNetwork = function (network) {
       return CryptoJS.MD5(network.ip + '/' + this.maskToCidr(network.netmask));
+    };
+
+    this.extractTrunkInfo = function (trunk) {
+      var infos = trunk.split('_');
+      return {
+        vendor: infos[0],
+        mac: infos[1] && infos[1].replace(/(.{2})/g,"$1:").slice(0, -1) || '',
+        tech: infos[2] && infos[2].toUpperCase() || '',
+        port: infos[3]
+      }
     };
   });
