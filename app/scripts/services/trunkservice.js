@@ -20,6 +20,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.getAllTrunks = function() {
+      return $q(function(resolve, reject) {
+        RestService.get('/trunks').then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
     /**
      * HTTP get request to retrieve sip trunks.
      *

@@ -564,6 +564,7 @@ a {
   border: 2px dashed #bbb !important;
   background: #fff !important;
   visibility: visible !important;
+  margin-bottom: 4px !important;
 }
 
 .route-name-id {
@@ -720,6 +721,13 @@ a {
   margin-left: 8px;
 }
 
+.loader-modal-gateway-not-form-out {
+  float: right;
+  margin-right: 0px;
+  margin-top: 6px;
+  margin-left: 8px;
+}
+
 .disabled {
   color: #999 !important;
 }
@@ -772,6 +780,14 @@ a {
 
 .sortable-item:active {
   background: rgb(234, 234, 234);
+}
+.as-sortable-dragging {
+  border: 1px solid #bbb !important;
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  height: 62px;
 }
 
 .sortable-item:hover {

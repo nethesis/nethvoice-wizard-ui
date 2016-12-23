@@ -58,10 +58,10 @@ angular.module('nethvoiceWizardUiApp')
     this.extractTrunkInfo = function (trunk) {
       var infos = trunk.split('_');
       return {
-        vendor: infos[0],
-        mac: infos[1] && infos[1].replace(/(.{2})/g,"$1:").slice(0, -1) || '',
-        tech: infos[2] && infos[2].toUpperCase() || '',
-        port: infos[3]
+        vendor: infos[0] && infos[1] ? infos[0] : null,
+        mac: infos[1] && infos[1].replace(/(.{2})/g,"$1:").slice(0, -1) || null,
+        tech: infos[2] && infos[2].toUpperCase() || null,
+        port: infos[3] || null
       }
     };
   });

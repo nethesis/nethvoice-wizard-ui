@@ -11,7 +11,12 @@ angular.module('nethvoiceWizardUiApp')
   .controller('RoutesOutboundCtrl', function ($scope, LocalStorageService, TrunkService, RouteService, UtilService) {
 
     $scope.routes = [];
+    $scope.allTrunks = [];
+    $scope.filteredTrunks = [];
     $scope.selectedRouteLang = LocalStorageService.get('preferredLanguage') || 'en';
+    $scope.onSaveSuccess = false;
+    $scope.onSaveError = false;
+    $scope.onSave = false;
 
     $scope.toggleDetails = function (event) {
       var $this = $(event.target);
@@ -44,14 +49,50 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.removeTrunk = function (indexRoute, indexTrunk) {
       $scope.routes[$scope.selectedRouteLang][indexRoute].trunks.splice(indexTrunk, 1);
+      RouteService.deleteOutboundTrunk(indexRoute, indexTrunk).then(function (res) {
+        console.log(res);
+      }, function (err) {
+        console.log(err);
+      });
+    };
+
+    $scope.addTrunkToRoute = function (indexRoute, trunk) {
+      $scope.routes[$scope.selectedRouteLang][indexRoute].trunks.push(trunk);
+    };
+
+    $scope.filterAllTrunks = function (routeTrunks) {
+      function operation(list1, list2, isUnion) {
+        return list1.filter(function (a) {
+          return isUnion === this.has(a.trunkid);
+        }, list2.reduce((hash, b) => hash.add(b.trunkid), new Set()));
+      }
+
+      function inFirstOnly(list1, list2) {
+        return operation(list1, list2, false);
+      }
+      return inFirstOnly($scope.allTrunks, routeTrunks);
     };
 
     $scope.saveRoutes = function () {
-      console.log($scope.routes[$scope.selectedRouteLang]);
+      $scope.onSave = false;
+      var postObj = {};
+      postObj[$scope.selectedRouteLang] = $scope.routes[$scope.selectedRouteLang];
+      RouteService.createDefaultsOutbounds(postObj).then(function (res) {
+        console.log(res);
+        $scope.onSaveSuccess = true;
+        $scope.onSaveError = false;
+        $scope.onSave = false;
+        $scope.getOutbounds(false);
+      }, function (err) {
+        console.log(err);
+        $scope.onSaveSuccess = false;
+        $scope.onSaveError = true;
+        $scope.onSave = false;
+      });
     };
 
-    $scope.getOutbounds = function () {
-      $scope.view.changeRoute = true;
+    $scope.getOutbounds = function (reload) {
+      $scope.view.changeRoute = reload;
       RouteService.getOutbounds().then(function (resOutbounds) {
         // outbounds empty? get defaults
         if (resOutbounds.data.length == 0) {
@@ -63,13 +104,22 @@ angular.module('nethvoiceWizardUiApp')
             console.log(err);
           });
         } else {
-          console.log(resOutbounds);
+          $scope.routes[$scope.selectedRouteLang] = resOutbounds.data;
+          $scope.routes.length = resOutbounds.data.length;
           $scope.view.changeRoute = false;
         }
+        $scope.menuCount.routesOut = $scope.routes.length;
       }, function (err) {
         console.log(err);
       });
     };
 
-    $scope.getOutbounds();
+    TrunkService.getAllTrunks().then(function (res) {
+      $scope.allTrunks = res.data;
+      $scope.getOutbounds(true);
+    }, function (err) {
+      console.log(err);
+    });
+
+
   });
