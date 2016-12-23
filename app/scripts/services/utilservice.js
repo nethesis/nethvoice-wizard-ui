@@ -59,9 +59,17 @@ angular.module('nethvoiceWizardUiApp')
       var infos = trunk.split('_');
       return {
         vendor: infos[0] && infos[1] ? infos[0] : null,
-        mac: infos[1] && infos[1].replace(/(.{2})/g,"$1:").slice(0, -1) || null,
+        mac: infos[1] && infos[1].replace(/(.{2})/g, "$1:").slice(0, -1) || null,
         tech: infos[2] && infos[2].toUpperCase() || null,
         port: infos[3] || null
       }
+    };
+
+    this.intersectTwoObj = function (list1, list2, isUnion) {
+      return list1.filter(function (current) {
+        return list2.filter(function (current_b) {
+          return current_b.trunkid == current.trunkid
+        }).length == 0
+      });
     };
   });

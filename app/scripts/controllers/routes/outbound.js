@@ -61,16 +61,7 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.filterAllTrunks = function (routeTrunks) {
-      function operation(list1, list2, isUnion) {
-        return list1.filter(function (a) {
-          return isUnion === this.has(a.trunkid);
-        }, list2.reduce((hash, b) => hash.add(b.trunkid), new Set()));
-      }
-
-      function inFirstOnly(list1, list2) {
-        return operation(list1, list2, false);
-      }
-      return inFirstOnly($scope.allTrunks, routeTrunks);
+      return UtilService.intersectTwoObj($scope.allTrunks, routeTrunks, false);
     };
 
     $scope.saveRoutes = function () {
