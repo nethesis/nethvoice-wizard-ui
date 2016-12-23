@@ -106,5 +106,9 @@
   "Configuration deleted with success": "Configurazione eliminata con successo",
   "Configuration pushed": "Configurazione caricata",
   "Configuration pushed with success": "Configurazione caricata con successo",
-  "to push configuration on device": "per caricare la configurazione sul dispositivo"
+  "to push configuration on device": "per caricare la configurazione sul dispositivo",
+  "Configure your phones": "Configura i telefoni",
+  "Configure your trunks": "Configura le linee fisiche",
+  "Configure your inbound routes": "Configure le rotte in entrata",
+  "Configure your users": "Configura gli utenti"
 }
