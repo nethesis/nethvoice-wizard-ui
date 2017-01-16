@@ -19,5 +19,11 @@
     "angular-mocks": "^1.4.0"
   },
   "appPath": "app",
-  "moduleName": "nethvoiceWizardUiApp"
+  "moduleName": "nethvoiceWizardUiApp",
+  "resolutions": {
+    "angular-bootstrap": "~2.2.0",
+    "angular": "^1.4.0",
+    "patternfly": "~3.14.0",
+    "jquery": "~2.1.4"
+  }
 }
