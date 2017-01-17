@@ -21,6 +21,8 @@ angular.module('nethvoiceWizardUiApp')
           $scope.wizard.nextState = false;
         }
       }, function(err) {
+        $scope.users = {}
+        $scope.view.changeRoute = false;
         console.log(err);
       });
     };
