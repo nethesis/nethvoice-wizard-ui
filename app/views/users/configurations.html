@@ -23,7 +23,6 @@
         <select class="adjust-filter-user" title="-" pf-select="{ width: '180px' }" ng-model="selectedUserFilter" ng-options="uf as uf | translate for uf in availableUserFilters">
         </select>
       </div>
-      <div class="user-config-detail"><span class="weight-plus">{{selectedUser.displayname}}</span> | {{selectedUser.devices.length}} {{selectedUser.devices.length == 1 ? 'device' : 'devices' | translate}}</div>
       <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
         <div class="form-group has-clear">
           <div class="search-pf-input-group" id="filter-domains-details">
@@ -36,6 +35,7 @@
           </button>
         </div>
       </form>
+      <div class="user-config-detail"><span class="weight-plus">{{selectedUser.displayname}}</span> | {{selectedUser.devices.length}} {{selectedUser.devices.length == 1 ? 'device' : 'devices' | translate}}</div>
       <div class="list-group list-view-pf list-view-pf-view adjust-body-user">
         <div ng-show="selectedUserFilter == 'configured' ? user.devices.length > 0 : (selectedUserFilter == 'unconfigured' ? user.devices.length == 0 : true)" class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users | filter:searchUserUserString" ng-click="selectUser(user)">
           <div class="list-view-pf-actions">
@@ -82,6 +82,9 @@
               </button>
             </div>
           </form>
+          <div class="device-config-detail">
+            <span class="weight-plus">{{devices.length}} {{devices.length == 1 ? 'device' : 'devices' | translate}}</span>
+          </div>
       </h1>
       <div ng-if="maxExtensionReached" class="alert alert-warning alert-dismissable">
           <button ng-click="cancelError()" type="button" class="close" data-dismiss="alert" aria-hidden="true">
