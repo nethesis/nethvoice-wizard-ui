@@ -9,7 +9,7 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .controller('MainCtrl', function($scope, $location, $http) {
-    if ($scope.wizard.isWizard) {
+    if ($scope.login.isLogged && $scope.wizard.isWizard) {
       $location.path('/users');
     }
   });

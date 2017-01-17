@@ -20,10 +20,13 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getRouteList = function(reload) {
       $scope.view.changeRoute = reload;
-      RouteService.inbounds().then(function(res) {
+      RouteService.getInbounds().then(function(res) {
         $scope.routes = res.data.routes;
         $scope.destinations = res.data.destinations;
         $scope.view.changeRoute = false;
+        $scope.menuCount.routesIn = $scope.routes.length;
+      }, function (err) {
+        console.log(err);
       });
     };
 

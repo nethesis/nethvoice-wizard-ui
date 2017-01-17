@@ -16,6 +16,7 @@ angular
     'ngSanitize',
     'pascalprecht.translate',
     'ui.bootstrap',
+    'as.sortable',
     'patternfly'
   ])
   .config(function($routeProvider) {
