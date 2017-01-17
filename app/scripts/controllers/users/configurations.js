@@ -8,23 +8,29 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersConfigurationsCtrl', function($scope, $filter, UserService, DeviceService, UtilService) {
+  .controller('UsersConfigurationsCtrl', function ($scope, $filter, UserService, DeviceService, UtilService) {
     $scope.users = {};
     $scope.selectedUser = null;
     $scope.devices = {};
     $scope.maxExtensionReached = false;
 
-    $scope.cancelError = function() {
+    $scope.availableUserFilters = ['all', 'configured', 'unconfigured'];
+    $scope.selectedUserFilter = $scope.availableUserFilters[0];
+
+    $scope.availableDeviceFilters = ['all', 'linked', 'unlinked'];
+    $scope.selectedDeviceFilter = $scope.availableDeviceFilters[0];
+
+    $scope.cancelError = function () {
       $scope.maxExtensionReached = false;
     };
 
-    $scope.initGraphics = function() {
+    $scope.initGraphics = function () {
       jQuery('.bootstrap-switch-voicemail').on('switchChange.bootstrapSwitch', $scope.setVoiceMail);
     };
 
-    $scope.getUserList = function(reload) {
+    $scope.getUserList = function (reload) {
       $scope.view.changeRoute = reload;
-      UserService.list().then(function(res) {
+      UserService.list().then(function (res) {
         $scope.users = res.data;
         $scope.view.changeRoute = false;
         var index = 0;
@@ -40,25 +46,25 @@ angular.module('nethvoiceWizardUiApp')
         if ($scope.mode.isLegacy && UtilService.isEmpty($scope.users)) {
           $scope.wizard.nextState = false;
         }
-      }, function(err) {
+      }, function (err) {
         console.log(err);
       });
     };
 
-    $scope.getDeviceList = function(key) {
-      DeviceService.phoneList().then(function(res) {
+    $scope.getDeviceList = function (key) {
+      DeviceService.phoneList().then(function (res) {
         $scope.devices = res.data;
         if (UtilService.isEmpty($scope.devices)) {
           $scope.wizard.nextState = false;
         }
-      }, function(err) {
+      }, function (err) {
         console.log(err);
       });
     };
 
-    $scope.getNameFromExtension = function(main) {
+    $scope.getNameFromExtension = function (main) {
       if ($scope.users.filter) {
-        var returned = $scope.users.filter(function(obj) {
+        var returned = $scope.users.filter(function (obj) {
           if (obj.default_extension == main) {
             return obj;
           }
@@ -67,24 +73,24 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    $scope.selectUser = function(user) {
+    $scope.selectUser = function (user) {
       if (user.default_extension !== 'none') {
         $scope.currentUserIndex = user;
-        $scope.selectedUser = $scope.users.filter(function(obj) {
+        $scope.selectedUser = $scope.users.filter(function (obj) {
           if (obj.id == user.id) {
             return obj;
           }
         })[0];
-        UserService.getMobileExtension($scope.selectedUser.username).then(function(res) {
+        UserService.getMobileExtension($scope.selectedUser.username).then(function (res) {
           $scope.selectedUser.mobile = res.data;
-        }, function(err) {
+        }, function (err) {
           if (err.status != 404) {
             console.log(err);
           }
         });
-        UserService.getVoiceMail($scope.selectedUser.default_extension).then(function(res) {
+        UserService.getVoiceMail($scope.selectedUser.default_extension).then(function (res) {
           $('#bootstrap-switch-voicemail-' + $scope.selectedUser.id).bootstrapSwitch('state', true);
-        }, function(err) {
+        }, function (err) {
           if (err.status != 404) {
             console.log(err);
           }
@@ -93,16 +99,16 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    $scope.setPhysicalExtension = function(user, device) {
+    $scope.setPhysicalExtension = function (user, device) {
       device.setPhysicalInAction = true;
       UserService.createPhysicalExtension({
         mainextension: user.default_extension,
         mac: device.mac
-      }).then(function(res) {
+      }).then(function (res) {
         device.setPhysicalInAction = false;
         $scope.getUserList(false);
         $scope.getDeviceList(false);
-      }, function(err) {
+      }, function (err) {
         device.setPhysicalInAction = false;
         console.log(err);
         if (err.data.status == "There aren't available extension numbers") {
@@ -111,42 +117,42 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.deletePhysicalExtension = function(device) {
+    $scope.deletePhysicalExtension = function (device) {
       device.setPhysicalInAction = true;
-      UserService.deletePhysicalExtension(device.extension).then(function(res) {
+      UserService.deletePhysicalExtension(device.extension).then(function (res) {
         device.setPhysicalInAction = false;
         $scope.getUserList(false);
         $scope.getDeviceList(false);
         console.log(res);
-      }, function(err) {
+      }, function (err) {
         device.setPhysicalInAction = false;
         console.log(err);
       });
     };
 
-    $scope.setMobileExtension = function(user) {
+    $scope.setMobileExtension = function (user) {
       $scope.selectedUser.setMobileInAction = true;
       if (user.mobile) {
         UserService.createMobileExtension({
           username: user.username,
           mobile: user.mobile
-        }).then(function(res) {
+        }).then(function (res) {
           $scope.selectedUser.setMobileInAction = false;
-        }, function(err) {
+        }, function (err) {
           console.log(err);
           $scope.selectedUser.setVoiceMailInAction = false;
         });
       }
     };
 
-    $scope.setVoiceMail = function(event, state) {
+    $scope.setVoiceMail = function (event, state) {
       $scope.selectedUser.setVoiceMailInAction = true;
       UserService.createVoiceMail({
         extension: $scope.selectedUser.default_extension,
         state: state ? 'yes' : 'no'
-      }).then(function(res) {
+      }).then(function (res) {
         $scope.selectedUser.setVoiceMailInAction = false;
-      }, function(err) {
+      }, function (err) {
         console.log(err);
         $scope.selectedUser.setVoiceMailInAction = false;
       });

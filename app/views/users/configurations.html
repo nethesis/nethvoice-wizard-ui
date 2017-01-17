@@ -18,11 +18,28 @@
   <div class="wizard-pf-contents adjust-size row">
     <h1 class="control-label centered" for="textInput-markup">{{'Extensions configurations' | translate}}</h1>
     <div ng-if="!(users | isEmpty)" class="container-fluid col-lg-5 col-md-6 col-sm-6 col-xs-12">
-      <div class="list-group list-view-pf list-view-pf-view">
-        <div class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users" ng-click="selectUser(user)">
+      <div>
+        <div class="filter-label-user">{{'Filter' | translate}}:</div>
+        <select class="adjust-filter-user" title="-" pf-select="{ width: '180px' }" ng-model="selectedUserFilter" ng-options="uf as uf | translate for uf in availableUserFilters">
+        </select>
+      </div>
+      <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
+        <div class="form-group has-clear">
+          <div class="search-pf-input-group" id="filter-domains-details">
+            <input ng-model="searchUserUserString" type="text" class="form-control input-lg" placeholder="{{'Search users' | translate}}..."></input>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-default btn-lg" type="submit">
+            <span class="fa fa-search"></span>
+          </button>
+        </div>
+      </form>
+      <div class="list-group list-view-pf list-view-pf-view adjust-body-user">
+        <div ng-show="selectedUserFilter == 'configured' ? user.devices.length > 0 : (selectedUserFilter == 'unconfigured' ? user.devices.length == 0 : true)" class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users | filter:searchUserUserString" ng-click="selectUser(user)">
           <div class="list-view-pf-actions">
-            <span ng-if="user.default_extension == 'none'" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Main extension not created' | translate}}" class="pficon pficon-warning-triangle-o icon-med"></span>
-            <span ng-if="user.default_extension != 'none'" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{user.devices.length > 0 ? 'Configured' : 'No device associated' | translate}}" class="pficon {{user.devices.length > 0 ? 'pficon-ok' : 'pficon-info'}} icon-med"></span>
+            <span ng-if="user.default_extension == 'none'" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Main extension not created' | translate}}" class="pficon pficon-warning-triangle-o icon-med"></span>
+            <span ng-if="user.default_extension != 'none'" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{user.devices.length > 0 ? 'Configured' : 'No device associated' | translate}}" class="pficon {{user.devices.length > 0 ? 'pficon-ok' : 'pficon-info'}} icon-med"></span>
           </div>
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
@@ -47,12 +64,15 @@
     </div>
     <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 config-adjust-size">
       <h1 class="control-label config-title-user" for="textInput-markup">
-          <span class="fa fa-user config-title-icon-adjust"></span>
-          {{selectedUser.displayname}} <span class="weight-plus">{{selectedUser.default_extension}}</span> | {{selectedUser.devices.length}} {{selectedUser.devices.length == 1 ? 'device' : 'devices' | translate}}
+          <div>
+            <div class="filter-label">{{'Filter' | translate}}:</div>
+            <select class="adjust-filter" title="-" pf-select="{ width: '180px' }" ng-model="selectedDeviceFilter" ng-options="df as df | translate for df in availableDeviceFilters">
+            </select>
+          </div>
           <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
             <div class="form-group has-clear">
               <div class="search-pf-input-group" id="filter-domains-details">
-                <input ng-model="searchDeviceUserString" type="text" class="form-control input-lg" placeholder="{{'Search' | translate}}..."></input>
+                <input ng-model="searchDeviceUserString" type="text" class="form-control input-lg adjust-weight" placeholder="{{'Search devices' | translate}}..."></input>
               </div>
             </div>
             <div class="form-group">
@@ -71,7 +91,7 @@
       </div>
       <div ng-if="!(devices | isEmpty)" class="container-fluid">
         <div class="list-group list-view-pf list-view-pf-view config-view-container">
-          <div class="list-group-item {{device.extension ? 'disabled' : ''}}" ng-repeat="device in devices | filter:searchDeviceUserString | orderBy: ['manufacturer','model']">
+          <div ng-show="selectedDeviceFilter == 'linked' ? device.extension.length > 0 : (selectedDeviceFilter == 'unlinked' ? (device.extension === null || device.extension.length == 0) : true)" class="list-group-item {{device.extension ? 'disabled' : ''}}" ng-repeat="device in devices | filter:searchDeviceUserString | orderBy: ['manufacturer','model']">
             <div class="list-view-pf-actions adjust-link">
               <button ng-click="device.extension ? deletePhysicalExtension(device) : setPhysicalExtension(selectedUser, device)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{device.extension ? 'Unlink from' : 'Link to' | translate}} {{device.extension ? getNameFromExtension(device.mainextension) : selectedUser.displayname}}</button>
               <div ng-show="device.setPhysicalInAction" class="spinner spinner-sm config-spinner"></div>
@@ -149,7 +169,7 @@
             <input class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-model="selectedUser.app_mobile" type="checkbox" checked>
           </div>
         </div>
-      </div> -->
+      </div>-->
     </div>
   </div>
 

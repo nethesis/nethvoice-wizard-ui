@@ -18,5 +18,10 @@
   "national_de": "National",
   "international_de": "International",
   "cellphone_de": "Cellphone",
-  "payment_de": "Payment"
+  "payment_de": "Payment",
+  "all": "All",
+  "linked": "Linked",
+  "unlinked": "Unlinked",
+  "configured": "Configured",
+  "unconfigured": "Not configured"
 }

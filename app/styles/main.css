@@ -660,6 +660,41 @@ a {
   border-top: 1px solid #000 !important;
 }
 
+.adjust-weight {
+  font-weight: normal;
+}
+
+.adjust-body-user {
+  margin-top: 10px;
+  overflow-y: auto;
+  max-height: 440px;
+}
+
+.adjust-filter {
+  margin-top: 8px;
+}
+
+.filter-label {
+  float: left;
+  line-height: 42px;
+  font-size: 15px;
+  margin-right: 8px;
+  font-weight: 400;
+}
+
+.adjust-filter-user {
+  margin-top: 28px;
+}
+
+.filter-label-user {
+  float: left;
+  line-height: 42px;
+  font-size: 15px;
+  margin-right: 8px;
+  font-weight: 400;
+  margin-top: 20px;
+}
+
 .menu-item-left {
   cursor: pointer;
   padding-left: 25px !important;
