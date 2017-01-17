@@ -683,6 +683,11 @@ a {
   min-width: 65px;
 }
 
+.left-align {
+  float: left;
+  min-width: 65px;
+}
+
 .right-only {
   float: right;
 }
