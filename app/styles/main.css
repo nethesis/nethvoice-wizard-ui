@@ -684,7 +684,8 @@ a {
 }
 
 .left-align {
-  float: left;
+  float: right;
+  margin-right: 10px;
   min-width: 65px;
 }
 
@@ -786,6 +787,7 @@ a {
 .sortable-item:active {
   background: rgb(234, 234, 234);
 }
+
 .as-sortable-dragging {
   border: 1px solid #bbb !important;
   padding-right: 0px;

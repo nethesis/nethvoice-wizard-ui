@@ -2,5 +2,21 @@
   "national_en": "National",
   "international_en": "International",
   "cellphone_en": "Cellphone",
-  "payment_en": "Payment"
+  "payment_en": "Payment",
+  "national_it": "National",
+  "international_it": "International",
+  "cellphone_it": "Cellphone",
+  "payment_it": "Payment",
+  "national_fr": "National",
+  "international_fr": "International",
+  "cellphone_fr": "Cellphone",
+  "payment_fr": "Payment",
+  "national_es": "National",
+  "international_es": "International",
+  "cellphone_es": "Cellphone",
+  "payment_es": "Payment",
+  "national_de": "National",
+  "international_de": "International",
+  "cellphone_de": "Cellphone",
+  "payment_de": "Payment"
 }

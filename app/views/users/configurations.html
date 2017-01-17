@@ -18,30 +18,6 @@
   <div class="wizard-pf-contents adjust-size row">
     <h1 class="control-label centered" for="textInput-markup">{{'Extensions configurations' | translate}}</h1>
     <div ng-if="!(users | isEmpty)" class="container-fluid col-lg-5 col-md-6 col-sm-6 col-xs-12">
-      <div class="list-group list-view-pf list-view-pf-view list-header">
-        <div class="list-group-item list-item-header">
-          <div class="list-view-pf-main-info">
-            <div class="list-view-pf-left">
-              <span class="fa fa-usera list-view-pf-icon-sm adjust-line">{{users.length}}</span>
-            </div>
-            <div class="list-view-pf-body">
-              <div class="list-view-pf-description">
-                <div class="list-group-item-heading">
-                  {{'Username' | translate}}
-                </div>
-                <div class="list-group-item-text">
-                  {{'Fullname' | translate}}
-                </div>
-              </div>
-              <div class="list-view-pf-additional-info">
-                <div class="list-view-pf-additional-info-item">
-                  <label>{{'Extension' | translate}}</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="list-group list-view-pf list-view-pf-view">
         <div class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users" ng-click="selectUser(user)">
           <div class="list-view-pf-actions">

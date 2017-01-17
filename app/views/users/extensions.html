@@ -17,33 +17,6 @@
   <div class="wizard-pf-contents adjust-size">
     <h1 class="control-label centered" for="textInput-markup">{{'Users configuration' | translate}}</h1>
     <div ng-if="!(users | isEmpty)" class="container-fluid">
-      <div class="list-group list-view-pf list-view-pf-view list-header">
-        <div class="list-group-item list-item-header">
-          <div class="list-view-pf-actions">
-            <label>{{'Status' | translate}}</label>
-          </div>
-          <div class="list-view-pf-main-info">
-            <div class="list-view-pf-left">
-              <span class="fa fa-usera list-view-pf-icon-sm adjust-line">{{users.length}}</span>
-            </div>
-            <div class="list-view-pf-body">
-              <div class="list-view-pf-description">
-                <div class="list-group-item-heading">
-                  {{'Username' | translate}}
-                </div>
-                <div class="list-group-item-text">
-                  {{'Fullname' | translate}}
-                </div>
-              </div>
-              <div class="list-view-pf-additional-info">
-                <div class="list-view-pf-additional-info-item">
-                  <label>{{'Extension' | translate}}</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="list-group list-view-pf list-view-pf-view">
         <div class="list-group-item" ng-repeat="user in users">
           <div class="list-view-pf-actions">

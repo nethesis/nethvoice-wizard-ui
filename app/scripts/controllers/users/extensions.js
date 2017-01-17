@@ -17,7 +17,7 @@ angular.module('nethvoiceWizardUiApp')
       UserService.list().then(function(res) {
         $scope.users = res.data;
         $scope.view.changeRoute = false;
-        if ($scope.mode.isLegacy && UtilService.isEmpty($scope.users)) {
+        if (UtilService.isEmpty($scope.users)) {
           $scope.wizard.nextState = false;
         }
       }, function(err) {
