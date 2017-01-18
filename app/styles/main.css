@@ -689,6 +689,10 @@ a {
   text-align: right
 }
 
+.no-opacity {
+  opacity: 1 !important;
+}
+
 .adjust-filter {
   margin-top: 8px;
 }
