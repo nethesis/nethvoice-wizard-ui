@@ -626,6 +626,10 @@ a {
   margin-top: -2px;
 }
 
+.adjust-margin-extensions {
+  margin-top: 10px;
+}
+
 .adjust-bottom {
   margin-bottom: 12px;
 }

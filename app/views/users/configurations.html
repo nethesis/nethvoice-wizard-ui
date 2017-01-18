@@ -35,7 +35,10 @@
           </button>
         </div>
       </form>
-      <div class="user-config-detail"><span class="weight-plus">{{selectedUser.displayname}}</span> | {{selectedUser.devices.length}} {{selectedUser.devices.length == 1 ? 'device' : 'devices' | translate}}</div>
+      <div class="user-config-detail">
+        <span ng-if="selectedUser"><span class="weight-plus">{{selectedUser.displayname}}</span> | {{selectedUser.devices.length}} {{selectedUser.devices.length == 1 ? 'device' : 'devices' | translate}}</span>
+        <span ng-if="!selectedUser"><span class="weight-plus">{{'No users configured' | translate}}</span></span>
+      </div>
       <div class="list-group list-view-pf list-view-pf-view adjust-body-user">
         <div ng-show="selectedUserFilter == 'configured' ? user.devices.length > 0 : (selectedUserFilter == 'unconfigured' ? user.devices.length == 0 : true)" class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users | filter:searchUserUserString" ng-click="selectUser(user)">
           <div class="list-view-pf-actions">

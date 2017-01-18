@@ -17,8 +17,25 @@
   <div class="wizard-pf-contents adjust-size">
     <h1 class="control-label centered" for="textInput-markup">{{'Users configuration' | translate}}</h1>
     <div ng-if="!(users | isEmpty)" class="container-fluid">
-      <div class="list-group list-view-pf list-view-pf-view">
-        <div class="list-group-item" ng-repeat="user in users">
+      <div>
+        <div class="filter-label-user">{{'Filter' | translate}}:</div>
+        <select class="adjust-filter-user" title="-" pf-select="{ width: '180px' }" ng-model="selectedUsersFilter" ng-options="uf as uf | translate for uf in availableUsersFilters">
+        </select>
+      </div>
+      <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
+        <div class="form-group has-clear">
+          <div class="search-pf-input-group" id="filter-domains-details">
+            <input ng-model="searchUsersString" type="text" class="form-control input-lg" placeholder="{{'Search users' | translate}}..."></input>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-default btn-lg" type="submit">
+            <span class="fa fa-search"></span>
+          </button>
+        </div>
+      </form>
+      <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions">
+        <div ng-show="selectedUsersFilter == 'configured' ? user.default_extension !== 'none' : (selectedUsersFilter == 'unconfigured' ? user.default_extension == 'none' : true)" class="list-group-item" ng-repeat="user in users | filter:searchUsersString">
           <div class="list-view-pf-actions">
             <div ng-show="user.isInAction" class="spinner spinner-sm adjust-margin"></div>
             <span ng-show="!user.isInAction" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{user.default_extension === 'none' ? 'Not configured' : 'Configured' | translate}}" class="pficon {{user.default_extension === 'none' ? 'pficon-info' : 'pficon-ok'}} icon-med"></span>
@@ -43,7 +60,7 @@
                   {{user.username}}
                 </div>
                 <div class="list-group-item-text">
-                  <span class="{{user.default_extension === 'none' ? 'disabled' : ''}}">{{user.displayname}} <span ng-if="user.description">{{user.description}}</span></span>
+                  <span class="{{user.default_extension === 'none' ? 'disabled' : ''}}">{{user.displayname}}</span>
                 </div>
               </div>
               <div class="list-view-pf-additional-info">

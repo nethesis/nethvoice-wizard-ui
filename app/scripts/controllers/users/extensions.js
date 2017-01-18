@@ -12,6 +12,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.users = {};
     $scope.onSave = false;
 
+    $scope.availableUsersFilters = ['all', 'configured', 'unconfigured'];
+    $scope.selectedUsersFilter = $scope.availableUsersFilters[0];
+
     $scope.getUserList = function(reload) {
       $scope.view.changeRoute = reload;
       UserService.list().then(function(res) {
