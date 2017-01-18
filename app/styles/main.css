@@ -543,6 +543,10 @@ a {
   font-weight: 500;
 }
 
+.weight-plus {
+  font-weight: 600;
+}
+
 .weight-dest {
   font-weight: 700;
   line-height: 1px;
@@ -660,6 +664,56 @@ a {
   border-top: 1px solid #000 !important;
 }
 
+.adjust-weight {
+  font-weight: normal;
+}
+
+.adjust-body-user {
+  margin-top: 10px;
+  overflow-y: auto;
+  max-height: 440px;
+}
+
+.user-config-detail {
+  line-height: 30px;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: -2px;
+}
+
+.device-config-detail {
+  line-height: 30px;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: -2px;
+  text-align: right
+}
+
+.adjust-filter {
+  margin-top: 8px;
+}
+
+.filter-label {
+  float: left;
+  line-height: 42px;
+  font-size: 15px;
+  margin-right: 8px;
+  font-weight: 400;
+}
+
+.adjust-filter-user {
+  margin-top: 28px;
+}
+
+.filter-label-user {
+  float: left;
+  line-height: 42px;
+  font-size: 15px;
+  margin-right: 8px;
+  font-weight: 400;
+  margin-top: 20px;
+}
+
 .menu-item-left {
   cursor: pointer;
   padding-left: 25px !important;
@@ -680,6 +734,12 @@ a {
 
 .right-align {
   float: right;
+  min-width: 65px;
+}
+
+.left-align {
+  float: right;
+  margin-right: 10px;
   min-width: 65px;
 }
 
@@ -781,6 +841,7 @@ a {
 .sortable-item:active {
   background: rgb(234, 234, 234);
 }
+
 .as-sortable-dragging {
   border: 1px solid #bbb !important;
   padding-right: 0px;

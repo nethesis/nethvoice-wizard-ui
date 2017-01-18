@@ -21,5 +21,10 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         return '';
       }
-    }
+    };
+
+    this.remove = function(itemName) {
+      if ($window.localStorage)
+        $window.localStorage.removeItem(itemName);
+    };
   });

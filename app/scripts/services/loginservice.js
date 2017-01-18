@@ -10,22 +10,22 @@
 angular.module('nethvoiceWizardUiApp')
   .service('LoginService', function($q, LocalStorageService, RestService) {
 
-    this.setCredentials = function(username, password) {
-      LocalStorageService.set('credentials', { username: username, password: password });
-    };
-
     this.removeCredentials = function() {
-      LocalStorageService.set('credentials', null);
+      LocalStorageService.remove('secretkey');
     };
 
     this.getCredentials = function() {
-      return LocalStorageService.get('credentials');
+      return LocalStorageService.get('secretkey');
     };
 
-    this.login = function(username, password) {
+    this.login = function(username, password, secret) {
       return $q(function(resolve, reject) {
-        var hash = RestService.getHash(username, password);
-        RestService.setAuthHeader(username, hash);
+        if(secret === undefined) {
+          var hash = RestService.getHash(username, password);
+          RestService.setAuthHeader(username, hash);
+        } else {
+           RestService.setAuthHeader(secret.user, secret.hash);
+        }
         RestService.get('/login').then(function(res) {
           res.hash = hash;
           resolve(res);

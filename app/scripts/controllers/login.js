@@ -9,9 +9,8 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .controller('LoginCtrl', function($rootScope, $scope, $location, LoginService) {
-    $scope.doLogin = function(username, password) {
-      LoginService.login(username, password).then(function(res) {
-        LoginService.setCredentials(username, password);
+    $scope.doLogin = function(secret) {
+      LoginService.login($scope.username, $scope.password, secret).then(function(res) {
         if ($scope.wizard.isWizard) {
           $location.path('/users');
         }
@@ -32,7 +31,7 @@ angular.module('nethvoiceWizardUiApp')
     var obj = LoginService.getCredentials();
     if (obj) {
       $('#loginTpl').hide();
-      $scope.doLogin(obj.username, obj.password);
+      $scope.doLogin(obj);
     } else {
       $location.path('/login');
       $('body').show();
