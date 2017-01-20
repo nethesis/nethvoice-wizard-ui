@@ -7,32 +7,63 @@
  * # WizardStep
  */
 angular.module('nethvoiceWizardUiApp')
-  .directive('wizardStep', function() {
+  .directive('wizardStep', function () {
     return {
       templateUrl: 'scripts/directives/wizard-step.html',
-      controller: function($scope, $route, $location) {
+      controller: function ($scope, $route, $location, ConfigService) {
         $scope.currentStep = $route.current.controllerAs.split('/')[1];
         $scope.wizard.stepCount = appConfig.STEP_MAP[$scope.currentStep];
         $scope.wizard.prevState = appConfig.STEP_WIZARD[$scope.currentStep].prev;
         $scope.wizard.nextState = appConfig.STEP_WIZARD[$scope.currentStep].next;
 
-        $scope.resolveProgress = function() {
+        if (!appConfig.STEP_WIZARD[$scope.currentStep].next && appConfig.STEP_WIZARD[$scope.currentStep].last) {
+          $scope.endWizard = true;
+        }
+
+        $scope.resolveProgress = function () {
           return Math.floor($scope.wizard.stepCount * 100 / appConfig.TOTAL_STEP);
         };
 
-        $scope.prevStep = function() {
+        $scope.finalize = function() {
+           ConfigService.setWizard({
+            status: 'false',
+            step: $scope.wizard.stepCount
+          }).then(function (res) {
+            $location.path('/final');
+          }, function (err) {
+            console.log(err);
+          });
+        }
+
+        $scope.prevStep = function () {
           if (appConfig.STEP_WIZARD[$scope.currentStep].prev) {
             $location.path(appConfig.STEP_WIZARD[$scope.currentStep].prev);
             $scope.wizard.stepCount--;
           }
+          ConfigService.setWizard({
+            status: 'true',
+            step: $scope.wizard.stepCount
+          }).then(function (res) {
+            console.log(res);
+          }, function (err) {
+            console.log(err);
+          });
           return appConfig.STEP_WIZARD[$scope.currentStep].prev;
         };
 
-        $scope.nextStep = function() {
+        $scope.nextStep = function () {
           if ($scope.wizard.nextState && appConfig.STEP_WIZARD[$scope.currentStep].next) {
             $location.path(appConfig.STEP_WIZARD[$scope.currentStep].next);
             $scope.wizard.stepCount++;
           }
+          ConfigService.setWizard({
+            status: 'true',
+            step: $scope.wizard.stepCount
+          }).then(function (res) {
+            console.log(res);
+          }, function (err) {
+            console.log(err);
+          });
           return appConfig.STEP_WIZARD[$scope.currentStep].next;
         };
       }

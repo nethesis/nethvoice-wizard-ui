@@ -76,6 +76,11 @@ angular
         controller: 'RoutesOutboundCtrl',
         controllerAs: 'routes/outbound'
       })
+      .when('/final', {
+        templateUrl: 'views/final.html',
+        controller: 'FinalCtrl',
+        controllerAs: 'final'
+      })
       .otherwise({
         redirectTo: '/'
       });

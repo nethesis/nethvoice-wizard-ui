@@ -8,15 +8,27 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('LoginCtrl', function($rootScope, $scope, $location, LoginService) {
+  .controller('LoginCtrl', function($rootScope, $scope, $location, ConfigService, LoginService) {
     $scope.doLogin = function(secret) {
       LoginService.login($scope.username, $scope.password, secret).then(function(res) {
-        if ($scope.wizard.isWizard) {
-          $location.path('/users');
-        }
-        $('body').show();
-        $scope.login.isLogged = true;
-        $rootScope.$broadcast('loginCompleted');
+        ConfigService.getWizard().then(function(res) {
+          if(res.length == 0) {
+            $scope.wizard.isWizard = true;
+            $scope.wizard.stepCount = 1;
+          } else {
+            $scope.wizard.isWizard = res[0].status === 'true';
+            $scope.wizard.stepCount = res[0].step;
+          }
+          if ($scope.wizard.isWizard) {
+            var location = appConfig.STEP_MAP_REVERSE[$scope.wizard.stepCount];
+            $location.path('/' + location);
+          }
+          $('body').show();
+          $scope.login.isLogged = true;
+          $rootScope.$broadcast('loginCompleted');
+        }, function(err) {
+          console.log(err);
+        });
       }, function(err) {
         if (err.status !== 200) {
           $scope.login.showError = true;

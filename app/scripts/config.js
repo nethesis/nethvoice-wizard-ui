@@ -11,6 +11,15 @@ var appConfig = {
     inbound: 6,
     outbound: 7
   },
+  STEP_MAP_REVERSE: {
+    '1': 'users/extensions',
+    '2': 'users/devices',
+    '3': 'users/configurations',
+    '4': 'trunks/physical',
+    '5': 'trunks/voip',
+    '6': 'routes/inbound',
+    '7': 'routes/outbound'
+  },
   STEP_WIZARD: {
     extensions: {
       prev: false,
@@ -38,7 +47,8 @@ var appConfig = {
     },
     outbound: {
       prev: 'routes/inbound',
-      next: false
+      next: false,
+      last: true
     }
   },
   MAX_TRIES: 6,

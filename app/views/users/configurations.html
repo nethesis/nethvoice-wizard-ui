@@ -40,7 +40,7 @@
         <span ng-if="!selectedUser"><span class="weight-plus">{{'No users configured' | translate}}</span></span>
       </div>
       <div class="list-group list-view-pf list-view-pf-view adjust-body-user">
-        <div ng-show="selectedUserFilter == 'configured' ? user.devices.length > 0 : (selectedUserFilter == 'unconfigured' ? user.devices.length == 0 : true)" class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users | filter:searchUserUserString" ng-click="selectUser(user)">
+        <div ng-if="user.default_extension !== 'none'" ng-show="selectedUserFilter == 'configured' ? user.devices.length > 0 : (selectedUserFilter == 'unconfigured' ? user.devices.length == 0 : true)" class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users | filter:searchUserUserString" ng-click="selectUser(user)">
           <div class="list-view-pf-actions">
             <span ng-if="user.default_extension == 'none'" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Main extension not created' | translate}}" class="pficon pficon-warning-triangle-o icon-med"></span>
             <span ng-if="user.default_extension != 'none'" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{user.devices.length > 0 ? 'Configured' : 'No device associated' | translate}}" class="pficon {{user.devices.length > 0 ? 'pficon-ok' : 'pficon-info'}} icon-med"></span>
@@ -130,7 +130,7 @@
           <span class="fa fa-phone"></span>
         </div>
         <h1>
-          {{'Configure your users' | translate}}
+          {{'Configure your devices' | translate}}
         </h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.

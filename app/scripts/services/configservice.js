@@ -40,4 +40,24 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
+    this.getWizard = function() {
+      return $q(function(resolve, reject) {
+        RestService.get('/configuration/wizard').then(function(res) {
+          resolve(res.data);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.setWizard = function(wizard) {
+      return $q(function(resolve, reject) {
+        RestService.post('/configuration/wizard', wizard).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
   });
