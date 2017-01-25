@@ -99,11 +99,36 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
+    $scope.configureAndRebootPhone = function (device) {
+      device.setPhysicalInAction = true;
+      DeviceService.generateDeviceConfig({
+        mac: device.mac,
+      }).then(function (res) {
+        DeviceService.rebootPhone({
+          mac: device.mac,
+          ip: device.ipv4
+        }).then(function (res1) {
+          console.log(res1);
+          device.setPhysicalInAction = false;
+          device.inError = false;
+        }, function (err1) {
+          console.log(err1);
+          device.setPhysicalInAction = false;
+          device.inError = true;
+        });
+      }, function (err) {
+        console.log(err);
+        device.setPhysicalInAction = false;
+        device.inError = true;
+      });
+    };
+
     $scope.setPhysicalExtension = function (user, device) {
       device.setPhysicalInAction = true;
       UserService.createPhysicalExtension({
         mainextension: user.default_extension,
-        mac: device.mac
+        mac: device.mac,
+        model: device.model
       }).then(function (res) {
         device.setPhysicalInAction = false;
         $scope.getUserList(false);

@@ -15,6 +15,10 @@ angular.module('nethvoiceWizardUiApp')
     $scope.networkLength = 0;
     $scope.tasks = {};
 
+    $scope.orderByValue = function (value) {
+        return value;
+    };
+
     $scope.getPhoneModelList = function() {
       DeviceService.phoneModelList().then(function(res) {
         $scope.allModels = res.data;

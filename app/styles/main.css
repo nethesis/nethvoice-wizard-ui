@@ -621,6 +621,12 @@ a {
   line-height: 24px;
 }
 
+.icon-med-reload {
+  vertical-align: middle;
+  margin-left: 12px;
+  padding: 6px;
+}
+
 .adjust-margin {
   margin-left: -1px;
   margin-top: -2px;
