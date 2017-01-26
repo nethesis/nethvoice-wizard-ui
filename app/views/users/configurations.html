@@ -101,7 +101,7 @@
           <div ng-show="selectedDeviceFilter == 'linked' ? device.extension.length > 0 : (selectedDeviceFilter == 'unlinked' ? (device.extension === null || device.extension.length == 0) : true)" class="list-group-item {{device.extension ? 'disabled' : ''}}" ng-repeat="device in devices | filter:searchDeviceUserString | orderBy: ['manufacturer','model']">
             <div class="list-view-pf-actions adjust-link">
               <button ng-click="device.extension ? deletePhysicalExtension(device) : setPhysicalExtension(selectedUser, device)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false"><span>{{device.extension ? 'Unlink from' : 'Link to' | translate}} {{device.extension ? getNameFromExtension(device.mainextension) : selectedUser.displayname}}</span></button>
-              <span ng-if="device.extension" ng-click="configureAndRebootPhone(device)" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{device.inError ? 'Provision error, try again' : 'Provision and reboot phone' | translate}}" class="{{device.inError ? 'fa fa-times btn btn-danger' : 'pficon pficon-running btn btn-warning'}} icon-med-reload"></span>
+              <span ng-if="device.extension" ng-click="configureAndRebootPhone(device)" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{device.inError ? 'Provision error, try again' : 'Provision and reboot phone' | translate}}" class="{{device.inError ? 'fa fa-times btn btn-danger' : 'fa fa-magic btn btn-warning'}} icon-med-reload"></span>
               <div ng-show="device.setPhysicalInAction" class="spinner spinner-sm config-spinner"></div>
             </div>
             <div class="list-view-pf-main-info config-list-item-right">
@@ -134,10 +134,7 @@
           {{'Configure your devices' | translate}}
         </h1>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
-        <p>
-          Learn more about this <a href="#">on the documentation</a>.
+          {{'Scan your networks' | translate}} <a ng-click="goTo('users/devices')">{{'here' | translate}}</a>.
         </p>
       </div>
 

@@ -38,20 +38,31 @@ angular.module('nethvoiceWizardUiApp')
         $scope.networkLength = Object.keys(res.data).length;
         $scope.view.changeRoute = false;
         for (var n in $scope.networks) {
-          $scope.startScan(n, $scope.networks[n]);
+          $scope.tasks[n].startScan = true;
+          $scope.tasks[n].currentProgress = Math.floor((Math.random() * 50) + 10);
+          $scope.getPhoneList(n, $scope.networks[n], function(err) {
+            if(err) {
+              $scope.tasks[n].startScan = false;
+              $scope.tasks[n].currentProgress = 0;
+              $scope.startScan(n, $scope.networks[n]);
+            }
+          });
         }
       }, function(err) {
         console.log(err);
       });
     };
 
-    $scope.getPhoneList = function(key, network) {
+    $scope.getPhoneList = function(key, network, callback) {
       DeviceService.phoneListByNetwork(network).then(function(res) {
         $scope.allDevices[key] = res.data;
         $scope.tasks[key].currentProgress = 100;
+        callback(null);
       }, function(err) {
-        console.log(err);
-        $scope.tasks[key].currentProgress = -1;
+        if(err.status !== 404) {
+          $scope.tasks[key].currentProgress = -1;
+        }
+        callback(err);
       });
     };
 
@@ -69,7 +80,11 @@ angular.module('nethvoiceWizardUiApp')
             } else if (res.data.progress == 100) {
               $scope.tasks[key].errorCount = 0;
               $interval.cancel($scope.tasks[key].promise);
-              $scope.getPhoneList(key, network);
+              $scope.getPhoneList(key, network, function(err) {
+                if(err) {
+                  console.log(err);
+                }
+              });
             } else {
               console.log(res.error);
               if ($scope.tasks[key].errorCount < appConfig.MAX_TRIES) {
