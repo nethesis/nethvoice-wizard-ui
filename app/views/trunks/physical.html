@@ -198,17 +198,10 @@
         <div class="form-group" ng-repeat="trunk in selectedDevice.trunks_pri">
         </div>
 
-        <div class="form-group" ng-repeat="exten in selectedDevice.users_fxs">
-          <label class="col-md-3 col-sm-3 col-xs-5 control-label">{{'Port' | translate}} {{$index}}</label>
-          <div class="col-md-1 col-sm-1 col-xs-1 gw-form-arrow">
-            <i class="fa fa-arrow-right" aria-hidden="true"></i>
-          </div>
-          <div class="col-md-2 col-sm-2 col-xs-4">
-            <span class="control-label">{{'Extension' | translate}} SIP</span>
-          </div>
-          <div class="col-md-5 col-sm-5 col-xs-12">
-            <select pf-select="{ noneSelectedText: '-' }" ng-model="exten.linked_user">
-               <option value="">-</option>
+        <div class="form-group" ng-repeat="exten in selectedDevice.trunks_fxs">
+          <label class="col-sm-3 control-label">{{'Port' | translate}} FXS {{exten.name}}</label>
+          <div class="col-sm-4">
+            <select ng-disabled="selectedDevice.isConfigured" pf-select="{ noneSelectedText: '-' }" ng-model="exten.linked_extension" ng-options="user.default_extension as user.displayname for user in users">
             </select>
           </div>
         </div>
@@ -322,18 +315,11 @@
             <div class="form-group" ng-repeat="trunk in newGateway.trunks_pri">
             </div>
 
-            <div class="form-group" ng-repeat="exten in newGateway.users_fxs">
-              <label class="col-md-3 col-sm-3 col-xs-5 control-label">{{'Port' | translate}} {{$index}}</label>
-              <div class="col-md-1 col-sm-1 col-xs-1 gw-form-arrow">
-                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-              </div>
-              <div class="col-md-2 col-sm-2 col-xs-4">
-                <span class="control-label">{{'Extension' | translate}} SIP</span>
-              </div>
-              <div class="col-md-5 col-sm-5 col-xs-12">
-                <select pf-select="{ noneSelectedText: '-' }" ng-model="exten.linked_user">
-                 <option value="">-</option>
-              </select>
+            <div class="form-group" ng-repeat="exten in newGateway.trunks_fxs">
+              <label class="col-sm-3 control-label">{{'Port' | translate}} FXS {{exten.name}}</label>
+              <div class="col-sm-4">
+                <select pf-select="{ noneSelectedText: '-' }" ng-model="exten.linked_extension" ng-options="user.default_extension as user.displayname for user in users">
+                </select>
               </div>
             </div>
             <div ng-show="newGateway.onSave" class="spinner spinner-sm adjust-margin loader-modal-gateway"></div>

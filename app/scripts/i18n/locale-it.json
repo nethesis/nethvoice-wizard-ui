@@ -139,6 +139,7 @@
   "No outbound routes found": "Nessuna rotta in uscita trovata",
   "There are problems to get networks configurations": "Ci sono problemi nelle impostazioni di rete",
   "Check your LDAP or Active Directory settings": "Controlla le impostazioni di LDAP o di Active Directory",
+  "Generic error on configuration": "Errore generico nella configurazione",
   "Filter": "Filtra",
   "all": "Tutti",
   "linked": "Associati",

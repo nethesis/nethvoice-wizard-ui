@@ -17,7 +17,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getUserList = function(reload) {
       $scope.view.changeRoute = reload;
-      UserService.list().then(function(res) {
+      UserService.list(true).then(function(res) {
         $scope.users = res.data;
         $scope.view.changeRoute = false;
         if (UtilService.isEmpty($scope.users)) {

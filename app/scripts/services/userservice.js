@@ -19,9 +19,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.list = function() {
+    this.list = function(filtered) {
       return $q(function(resolve, reject) {
-        RestService.get('/users').then(function(res) {
+        RestService.get('/users/' + filtered).then(function(res) {
           resolve(res);
         }, function(err) {
           reject(err);

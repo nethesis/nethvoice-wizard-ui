@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('TrunksPhysicalCtrl', function($scope, $location, $interval, TrunkService, ConfigService, UtilService, DeviceService) {
+  .controller('TrunksPhysicalCtrl', function($scope, $location, $interval, UserService, TrunkService, ConfigService, UtilService, DeviceService) {
 
     $scope.allDevices = {};
     $scope.allVendors = {};
@@ -20,6 +20,26 @@ angular.module('nethvoiceWizardUiApp')
     $scope.selectedDevice = {};
     $scope.newGateway = {};
     $scope.onSave = false;
+    $scope.users = [];
+
+    $scope.getUserList = function (reload) {
+      $scope.view.changeRoute = reload;
+      UserService.list(false).then(function (res) {
+        $scope.users = res.data;
+        $scope.view.changeRoute = false;
+        var index = 0;
+        for (var u in $scope.users) {
+          if ($scope.users[u].default_extension !== 'none') {
+            index = u;
+            break;
+          } else {
+            continue;
+          }
+        }
+      }, function (err) {
+        console.log(err);
+      });
+    };
 
     $scope.selectDevice = function(device, network, networkName) {
       device.gateway = network.gateway;
@@ -167,10 +187,11 @@ angular.module('nethvoiceWizardUiApp')
             });
           }
           // add fxs ext fields
-          device.users_fxs = [];
+          device.trunks_fxs = [];
           for (var k = 0; k < tempArr[i].n_fxs_ext; k++) {
-            device.users_fxs.push({
-              linked_user: ''
+            device.trunks_fxs.push({
+              name: k + base_num,
+              linked_extension: ''
             });
           }
         }
@@ -201,8 +222,8 @@ angular.module('nethvoiceWizardUiApp')
       }
       DeviceService.saveGatewayConfig(device).then(function(res) {
         $scope.hideGatewayDialog();
+        device.id = res.data.id
         if (isNew) {
-          device.id = res.data.id
           $scope.allDevices[device.network_key].push(device);
         }
         device.ipv4 = device.ipv4_new;
@@ -286,5 +307,6 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getNetworkList();
     $scope.getGatewayModelList();
+    $scope.getUserList(false);
 
   });
