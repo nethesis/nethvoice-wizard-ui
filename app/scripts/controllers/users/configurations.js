@@ -123,12 +123,22 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.setPhysicalExtension = function (user, device) {
+    $scope.isConfigured = function (device) {
+      for (var l in device.lines) {
+        var line = device.lines[l];
+        if (line.extension) {
+          return true;
+        }
+      }
+    };
+
+    $scope.setPhysicalExtension = function (user, device, line) {
       device.setPhysicalInAction = true;
       UserService.createPhysicalExtension({
         mainextension: user.default_extension,
         mac: device.mac,
-        model: device.model
+        model: device.model,
+        line: line || null
       }).then(function (res) {
         device.setPhysicalInAction = false;
         $scope.getUserList(false);
@@ -142,9 +152,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.deletePhysicalExtension = function (device) {
+    $scope.deletePhysicalExtension = function (device, extension) {
       device.setPhysicalInAction = true;
-      UserService.deletePhysicalExtension(device.extension).then(function (res) {
+      UserService.deletePhysicalExtension(extension).then(function (res) {
         device.setPhysicalInAction = false;
         $scope.getUserList(false);
         $scope.getDeviceList(false);
