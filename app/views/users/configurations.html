@@ -5,11 +5,14 @@
         <li class="wizard-pf-step {{resolveActiveTab('extensions',2) ? 'active' : ''}}" data-tabgroup="1">
           <a ng-click="goTo('users/extensions')"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Extensions' | translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="2">
-          <a ng-click="goTo('users/devices')"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
+        <li class="wizard-pf-step {{resolveActiveTab('profiles',2) ? 'active' : ''}}" data-tabgroup="2">
+          <a ng-click="goTo('users/profiles')"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Profiles' | translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="3">
-          <a ng-click="goTo('users/configurations')"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
+        <li class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="3">
+          <a ng-click="goTo('users/devices')"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
+        </li>
+        <li class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="4">
+          <a ng-click="goTo('users/configurations')"><span class="wizard-pf-step-number">4</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
         </li>
       </ul>
     </div>
@@ -26,7 +29,7 @@
       <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
         <div class="form-group has-clear">
           <div class="search-pf-input-group" id="filter-domains-details">
-            <input ng-model="searchUserUserString" type="text" class="form-control input-lg" placeholder="{{'Search users' | translate}}..."></input>
+            <input ng-model="searchUserUserString" type="text" class="form-control input-lg" placeholder="{{'Search users' | translate}}...">
           </div>
         </div>
         <div class="form-group">
@@ -66,6 +69,17 @@
         </div>
       </div>
     </div>
+    <div ng-if="users | isEmpty" class="blank-slate-pf container-fluid col-lg-5 col-md-6 col-sm-6 col-xs-12">
+        <div class="blank-slate-pf-icon">
+          <span class="pficon pficon-users"></span>
+        </div>
+        <h1>
+          {{'Configure your users' | translate}}
+        </h1>
+        <p>
+          {{'Add main extensions' | translate}} <a ng-click="goTo('users/extensions')">{{'here' | translate}}</a>.
+        </p>
+      </div>
     <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 config-adjust-size">
       <h1 class="control-label config-title-user" for="textInput-markup">
           <div>

@@ -1,0 +1,100 @@
+<div class="wizard-pf">
+  <div class="wizard-pf-body clearfix">
+    <div class="wizard-pf-steps">
+      <ul class="wizard-pf-steps-indicator">
+        <li class="wizard-pf-step {{resolveActiveTab('extensions',2) ? 'active' : ''}}" data-tabgroup="1">
+          <a ng-click="goTo('users/extensions')"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Extensions' | translate}}</span></a>
+        </li>
+        <li class="wizard-pf-step {{resolveActiveTab('profiles',2) ? 'active' : ''}}" data-tabgroup="2">
+          <a ng-click="goTo('users/profiles')"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Profiles' | translate}}</span></a>
+        </li>
+        <li class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="3">
+          <a ng-click="goTo('users/devices')"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
+        </li>
+        <li class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="4">
+          <a ng-click="goTo('users/configurations')"><span class="wizard-pf-step-number">4</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="wizard-pf-contents adjust-size">
+    <h1 class="control-label centered" for="textInput-markup">{{'Profiles configuration' | translate}}</h1>
+    <div ng-if="!(allProfiles | isEmpty)" class="container-fluid">
+      <div class="list-group list-view-pf adjust-margin-extensions no-border">
+        <div ng-repeat="profile in allProfiles | filter:searchProfilesString" class="adjust-profile-margin">
+          <div id="accordion-markup-{{$index}}">
+            <h1 data-toggle="collapse" data-parent="#accordion-markup-{{$index}}" href="#collapse-{{$index}}" class="adjust-header adjust-profile-header">
+              <span class="pficon pficon-users card-pf-icon-circle config-title-icon"></span>{{'Profile' | translate}} <span
+                class="weight">{{profile.name}}</span>
+              <div ng-show="profile.onSave" class="spinner spinner-sm profile-save-spinner"></div>
+            </h1>
+            <div id="collapse-{{$index}}" class="panel-collapse collapse adjust-profile-body">
+              <div class="panel-body profile-panel">
+                <div class="col-lg-12 profile-list-container" ng-repeat="(macro, obj_permissions) in profile.macro_permissions">
+                  <div ng-if="obj_permissions.permissions.length > 0" class="profile-macro-title">{{macro | capitalize}}</div>
+                  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 profile-permission" ng-repeat="permission in obj_permissions.permissions">
+                    <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                      <span class="config-span">{{permission.name | capitalize}}</span>
+                    </span>
+                    <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                      <input bs-switch ng-model="permission.value" class="bootstrap-switch bootstrap-switch-permission"
+                      type="checkbox">
+                    </span>
+                  </div>
+                </div>
+                <button ng-click="saveProfile(profile)" class="btn btn-primary btn-lg profile-button-save" type="submit">
+                 {{'Save' | translate}}
+              </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button data-toggle="modal" data-target="#newProfileModal" class="btn btn-primary btn-lg right-only">{{'Create new profile' | translate}}</button>
+      </div>
+    </div>
+    <div ng-if="allProfiles | isEmpty" class="blank-slate-pf ">
+      <div class="blank-slate-pf-icon">
+        <span class="pficon pficon-users"></span>
+      </div>
+      <h1>
+        {{'No profiles found' | translate}}
+      </h1>
+      <div class="blank-slate-pf-main-action">
+        <button data-toggle="modal" data-target="#newProfileModal" class="btn btn-primary btn-lg">{{'Create new profile' | translate}}</button>
+      </div>
+    </div>
+  </div>
+  <wizard-step ng-if="wizard.isWizard"></wizard-step>
+</div>
+<div class="modal fade" id="newProfileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{'New profile' | translate}}</h4>
+      </div>
+      <form class="form-horizontal" ng-submit="createNewProfile(newProfile)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
+            <div class="col-sm-9">
+              <input required ng-model="newProfile.name" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Duplicate from' | translate}}</label>
+            <div class="col-sm-9">
+              <select title="-" pf-select="{ width: '180px' }" ng-model="newProfile.duplicateProfile" ng-options="p as p.name for p in allProfiles">
+            </select>
+          </div>
+        </div>
+        <div ng-show="onSave" class="spinner spinner-sm adjust-margin loader-modal"></div>
+        <div class="modal-footer submit">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+          <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

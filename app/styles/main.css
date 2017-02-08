@@ -388,8 +388,8 @@ a {
     margin-right: 0px;
   }
   .no-padding {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
   .adjust-search {
     margin-top: 5px;
@@ -859,6 +859,56 @@ a {
 
 .adjust-form {
   margin-top: 12px
+}
+
+.adjust-profile-header {
+  background: #ededed;
+  margin-bottom: 0px;
+  line-height: 42px;
+}
+
+.adjust-profile-margin {
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.adjust-profile-body {
+  border: 1px solid #e2e2e2;
+}
+
+.profile-list-container {
+  margin-bottom: 12px;
+}
+
+.profile-macro-title {
+  clear: both;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.profile-permission {
+  margin-bottom: 12px;
+}
+
+.profile-panel {
+  background: #fff;
+  cursor: auto;
+}
+
+.profile-button-save {
+  float: right;
+  margin-top: 6px;
+  margin-right: 8px;
+}
+
+.profile-save-spinner {
+  float: right;
+  margin-top: 12px;
+  margin-right: 10px;
+}
+
+.profile-new-name {
+  max-width: 180px;
 }
 
 .card-pf-view .card-pf-top-element .card-pf-icon-circle {

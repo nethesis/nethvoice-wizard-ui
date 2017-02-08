@@ -14,7 +14,7 @@ angular.module('nethvoiceWizardUiApp')
         ConfigService.getWizard().then(function(res) {
           if(res.length == 0) {
             $scope.wizard.isWizard = true;
-            $scope.wizard.stepCount = 1;
+            $scope.wizard.stepCount = 0;
           } else {
             $scope.wizard.isWizard = res[0].status === 'true';
             $scope.wizard.stepCount = res[0].step;

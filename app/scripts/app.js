@@ -17,9 +17,10 @@ angular
     'pascalprecht.translate',
     'ui.bootstrap',
     'as.sortable',
-    'patternfly'
+    'patternfly',
+    'frapontillo.bootstrap-switch'
   ])
-  .config(function($routeProvider) {
+  .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -45,6 +46,11 @@ angular
         templateUrl: 'views/users/extensions.html',
         controller: 'UsersExtensionsCtrl',
         controllerAs: 'users/extensions'
+      })
+      .when('/users/profiles', {
+        templateUrl: 'views/users/profiles.html',
+        controller: 'UsersProfilesCtrl',
+        controllerAs: 'users/profiles'
       })
       .when('/users/devices', {
         templateUrl: 'views/users/devices.html',
@@ -84,7 +90,7 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  }).config(function($translateProvider) {
+  }).config(function ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy(null);
     $translateProvider.useStaticFilesLoader({
       prefix: 'scripts/i18n/locale-',

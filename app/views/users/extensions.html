@@ -5,11 +5,14 @@
         <li class="wizard-pf-step {{resolveActiveTab('extensions',2) ? 'active' : ''}}" data-tabgroup="1">
           <a ng-click="goTo('users/extensions')"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Extensions' | translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="2">
-          <a ng-click="goTo('users/devices')"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
+        <li class="wizard-pf-step {{resolveActiveTab('profiles',2) ? 'active' : ''}}" data-tabgroup="2">
+          <a ng-click="goTo('users/profiles')"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Profiles' | translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="3">
-          <a ng-click="goTo('users/configurations')"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
+        <li class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="3">
+          <a ng-click="goTo('users/devices')"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
+        </li>
+        <li class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="4">
+          <a ng-click="goTo('users/configurations')"><span class="wizard-pf-step-number">4</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
         </li>
       </ul>
     </div>
@@ -90,7 +93,7 @@
       <h1>
         {{'No users found' | translate}}
       </h1>
-      <p>
+      <p ng-if="!mode.isLegacy">
         {{'Check your LDAP or Active Directory settings' | translate}}
       </p>
       <div ng-if="mode.isLegacy" class="blank-slate-pf-main-action">

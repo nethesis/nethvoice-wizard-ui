@@ -100,6 +100,9 @@
               <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('extensions',2) ? 'active' : ''}}">
                   <div ng-click="goTo('users/extensions')" class="list-group-item-value menu-item-left no-opacity">{{'Extensions' | translate | ellipsis:'1200'}}</div>
               </div>
+              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('profiles',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('users/profiles')" class="list-group-item-value menu-item-left no-opacity">{{'Profiles' | translate | ellipsis:'1200'}}</div>
+              </div>
               <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('devices',2) ? 'active' : ''}}">
                   <div ng-click="goTo('users/devices')" class="list-group-item-value  menu-item-left no-opacity">{{'Devices' | translate | ellipsis:'1200'}}</div>
               </div>
@@ -197,6 +200,7 @@
     <script src="bower_components/jquery-ui/jquery-ui.js"></script>
     <script src="bower_components/angular-ui-sortable/sortable.js"></script>
     <script src="bower_components/ng-sortable/dist/ng-sortable.js"></script>
+    <script src="bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -239,6 +243,8 @@
     <script src="scripts/services/codecservice.js"></script>
     <script src="scripts/filters/ellipsis.js"></script>
     <script src="scripts/controllers/final.js"></script>
+    <script src="scripts/controllers/users/profiles.js"></script>
+    <script src="scripts/services/profileservice.js"></script>
     <!-- endbuild -->
   </body>
 

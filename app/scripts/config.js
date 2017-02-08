@@ -1,32 +1,39 @@
 var appConfig = {
-  TOTAL_STEP: 7,
-  PART1_STEP: 3,
-  PART2_STEP: 5,
+  TOTAL_STEP: 8,
+  PART1_STEP: 4,
+  PART2_STEP: 6,
   STEP_MAP: {
     extensions: 1,
-    devices: 2,
-    configurations: 3,
-    physical: 4,
-    voip: 5,
-    inbound: 6,
-    outbound: 7
+    profiles: 2,
+    devices: 3,
+    configurations: 4,
+    physical: 5,
+    voip: 6,
+    inbound: 7,
+    outbound: 8
   },
   STEP_MAP_REVERSE: {
+    '0': 'users',
     '1': 'users/extensions',
-    '2': 'users/devices',
-    '3': 'users/configurations',
-    '4': 'trunks/physical',
-    '5': 'trunks/voip',
-    '6': 'routes/inbound',
-    '7': 'routes/outbound'
+    '2': 'users/profiles',
+    '3': 'users/devices',
+    '4': 'users/configurations',
+    '5': 'trunks/physical',
+    '6': 'trunks/voip',
+    '7': 'routes/inbound',
+    '8': 'routes/outbound'
   },
   STEP_WIZARD: {
     extensions: {
       prev: false,
+      next: 'users/profiles'
+    },
+    profiles: {
+      prev: 'users/extensions',
       next: 'users/devices'
     },
     devices: {
-      prev: 'users/extensions',
+      prev: 'users/profiles',
       next: 'users/configurations'
     },
     configurations: {
