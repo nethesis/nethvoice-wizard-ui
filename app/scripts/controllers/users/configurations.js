@@ -8,10 +8,11 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersConfigurationsCtrl', function ($scope, $filter, UserService, DeviceService, UtilService) {
+  .controller('UsersConfigurationsCtrl', function ($scope, $filter, UserService, DeviceService, ProfileService, UtilService) {
     $scope.users = {};
     $scope.selectedUser = null;
     $scope.devices = {};
+    $scope.allProfiles = {};
     $scope.maxExtensionReached = false;
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured'];
@@ -26,6 +27,17 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.initGraphics = function () {
       jQuery('.bootstrap-switch-voicemail').on('switchChange.bootstrapSwitch', $scope.setVoiceMail);
+      /*jQuery('.bootstrap-switch-webrtc').on('switchChange.bootstrapSwitch', $scope.setWebRTC);
+      jQuery('.bootstrap-switch-appmobile').on('switchChange.bootstrapSwitch', $scope.setAppMobile);*/
+    };
+
+    $scope.getAllProfiles = function (reload) {
+      ProfileService.allProfiles().then(function (res) {
+        $scope.allProfiles = res.data;
+        $scope.view.changeRoute = false;
+      }, function (err) {
+        console.log(err);
+      });
     };
 
     $scope.getUserList = function (reload) {
@@ -95,6 +107,15 @@ angular.module('nethvoiceWizardUiApp')
             console.log(err);
           }
           $('#bootstrap-switch-voicemail-' + $scope.selectedUser.id).bootstrapSwitch('state', false);
+        });
+        /*setTimeout(function () {
+          $('#bootstrap-switch-webrtc-' + $scope.selectedUser.id).bootstrapSwitch('state', true);
+          $('#bootstrap-switch-appmobile-' + $scope.selectedUser.id).bootstrapSwitch('state', true);
+        }, 0);*/
+        ProfileService.getUserProfile($scope.selectedUser.id).then(function (res) {
+          $scope.selectedUser.profile = res.data.id;
+        }, function (err) {
+          console.log(err);
         });
       }
     };
@@ -167,7 +188,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.setMobileExtension = function (user) {
       $scope.selectedUser.setMobileInAction = true;
-      if (user.mobile) {
+      if (user.mobile && user.mobile.length > 0) {
         UserService.createMobileExtension({
           username: user.username,
           mobile: user.mobile
@@ -175,8 +196,10 @@ angular.module('nethvoiceWizardUiApp')
           $scope.selectedUser.setMobileInAction = false;
         }, function (err) {
           console.log(err);
-          $scope.selectedUser.setVoiceMailInAction = false;
+          $scope.selectedUser.setMobileInAction = false;
         });
+      } else {
+        $scope.selectedUser.setMobileInAction = false;
       }
     };
 
@@ -193,8 +216,53 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    $scope.setWebRTC = function (event, state) {
+      $scope.selectedUser.setWebRTCInAction = true;
+      /*UserService.createVoiceMail({
+        extension: $scope.selectedUser.default_extension,
+        state: state ? 'yes' : 'no'
+      }).then(function (res) {
+        $scope.selectedUser.setVoiceMailInAction = false;
+      }, function (err) {
+        console.log(err);
+        $scope.selectedUser.setVoiceMailInAction = false;
+      });*/
+    };
+
+    $scope.setAppMobile = function (event, state) {
+      $scope.selectedUser.setAppMobileInAction = true;
+      /*UserService.createVoiceMail({
+        extension: $scope.selectedUser.default_extension,
+        state: state ? 'yes' : 'no'
+      }).then(function (res) {
+        $scope.selectedUser.setVoiceMailInAction = false;
+      }, function (err) {
+        console.log(err);
+        $scope.selectedUser.setVoiceMailInAction = false;
+      });*/
+    };
+
+    $scope.setProfile = function () {
+      ProfileService.setUserProfile($scope.selectedUser.id, {
+        profile_id: $scope.selectedUser.profile
+      }).then(function (res) {
+        $scope.generateUsers();
+      }, function (err) {
+        console.log(err);
+      });
+    };
+
+    $scope.generateUsers = function () {
+      UserService.generate().then(function (res) {
+        console.log(res);
+      }, function (err) {
+        console.log(err);
+      });
+    };
+
     $scope.initGraphics();
 
     $scope.getUserList(true);
     $scope.getDeviceList();
+    $scope.getAllProfiles();
   });

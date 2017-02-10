@@ -24,28 +24,75 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.createNewProfile = function (newProfile) {
-      console.log(newProfile.duplicateProfile);
-      ProfileService.allPermissions().then(function (res) {
-        $scope.allPermissions = res.data;
-        var emptyProfile = {
-          name: newProfile.name,
-          macro_permissions: $scope.allPermissions
-        }
-        if (newProfile.duplicateProfile !== undefined) {
-          emptyProfile.macro_permissions = newProfile.duplicateProfile.macro_permissions;
-        }
-        $scope.allProfiles.push(emptyProfile);
-        $scope.newProfile = {};
-        $('#newProfileModal').modal('hide');
+    $scope.createNewProfile = function (newProfile, macros) {
+      if (newProfile.duplicateProfile) {
+        ProfileService.getProfile(newProfile.duplicateProfile.id).then(function (res) {
+          var emptyProfile = {
+            name: newProfile.name,
+            macro_permissions: res.data.macro_permissions
+          }
+          $scope.allProfiles.push(emptyProfile);
+          $scope.newProfile = {};
+          $('#newProfileModal').modal('hide');
+        }, function (err) {
+          console.log(err);
+        });
+      } else {
+        ProfileService.allPermissions().then(function (res) {
+          var emptyProfile = {
+            name: newProfile.name,
+            macro_permissions: res.data
+          }
+          $scope.allProfiles.push(emptyProfile);
+          $scope.newProfile = {};
+          $('#newProfileModal').modal('hide');
+        }, function (err) {
+          console.log(err);
+        });
+      }
+    };
+
+    $scope.saveProfile = function (profile) {
+      profile.onSave = true;
+      if (profile.id) {
+        ProfileService.update(profile.id, profile).then(function (res) {
+          profile.onSave = false;
+          $scope.generateProfile();
+          $scope.getAllProfiles(false);
+        }, function (err) {
+          profile.onSave = false;
+          console.log(err);
+        });
+      } else {
+        ProfileService.create(profile).then(function (res) {
+          profile.onSave = false;
+          profile.id = res.id;
+          $scope.generateProfile();
+          $scope.getAllProfiles(false);
+        }, function (err) {
+          profile.onSave = false;
+          console.log(err);
+        });
+      }
+    };
+
+    $scope.generateProfile = function () {
+      ProfileService.generate().then(function (res) {
+        console.log(res);
       }, function (err) {
         console.log(err);
       });
     };
 
-    $scope.saveProfile = function (profile) {
+    $scope.deleteProfile = function (profile) {
       profile.onSave = true;
-      console.log(profile);
+      ProfileService.delete(profile.id).then(function (res) {
+        profile.onSave = false;
+        $scope.getAllProfiles(false);
+      }, function (err) {
+        profile.onSave = false;
+        console.log(err);
+      });
     };
 
     $scope.getAllProfiles(true);

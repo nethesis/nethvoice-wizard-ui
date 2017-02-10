@@ -39,6 +39,26 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.getUserProfile = function (id) {
+      return $q(function (resolve, reject) {
+        RestService.get('/cti/profiles/users/' + id).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.setUserProfile = function (id, obj) {
+      return $q(function (resolve, reject) {
+        RestService.post('/cti/profiles/users/' + id, obj).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.create = function (obj) {
       return $q(function (resolve, reject) {
         RestService.post('/cti/profiles', obj).then(function (res) {
@@ -52,6 +72,26 @@ angular.module('nethvoiceWizardUiApp')
     this.update = function (id, obj) {
       return $q(function (resolve, reject) {
         RestService.post('/cti/profiles/' + id, obj).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.delete = function (id) {
+      return $q(function (resolve, reject) {
+        RestService.delete('/cti/profiles/' + id).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.generate = function () {
+      return $q(function (resolve, reject) {
+        RestService.post('/cti/configuration/profiles', {}).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);

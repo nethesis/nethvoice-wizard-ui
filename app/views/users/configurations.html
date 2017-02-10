@@ -180,26 +180,44 @@
                 <span class="fa fa-envelope-o"></span>
             <span class="config-span">{{'Voicemail' | translate}}</span>
             </span>
-            <input id="bootstrap-switch-voicemail-{{selectedUser.id}}" class="bootstrap-switch bootstrap-switch-voicemail col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
+            <input bs-switch ng-model="selectedUser.voiceMailState" id="bootstrap-switch-voicemail-{{selectedUser.id}}" class="bootstrap-switch bootstrap-switch-voicemail col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
             <div ng-if="selectedUser.setVoiceMailInAction" class="spinner spinner-sm language-name"></div>
           </div>
         </div>
       </div>
 
       <!-- <div class="row config-row">
-        <div class="col-lg-6 col-xs-12 config-bottom">
+       <div class="col-lg-6 col-xs-12 config-bottom">
           <div class="list-view-pf-additional-info-item">
-            <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="fa fa-headphones"></span><span class="config-span">{{'WebRTC' | translate}}</span></span>
-            <input class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-model="selectedUser.webrtc" type="checkbox" checked>
+            <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <span class="fa fa-headphones"></span>
+            <span class="config-span">{{'WebRTC' | translate}}</span>
+            </span>
+            <input bs-switch ng-model="selectedUser.webRtcState" id="bootstrap-switch-webrtc-{{selectedUser.id}}" class="bootstrap-switch bootstrap-switch-webrtc col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
+            <div ng-if="selectedUser.setWebRTCInAction" class="spinner spinner-sm language-name"></div>
           </div>
         </div>
         <div class="col-lg-6 col-xs-12 config-bottom">
           <div class="list-view-pf-additional-info-item">
-            <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="fa fa-mobile adjust-icon"></span><span class="config-span">{{'App Mobile' | translate}}</span></span>
-            <input class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-model="selectedUser.app_mobile" type="checkbox" checked>
+            <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <span class="fa fa-mobile adjust-icon"></span>
+            <span class="config-span">{{'App Mobile' | translate}}</span>
+            </span>
+            <input bs-switch ng-model="selectedUser.appMobileState" id="bootstrap-switch-appmobile-{{selectedUser.id}}" class="bootstrap-switch bootstrap-switch-appmobile col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
+            <div ng-if="selectedUser.setAppMobileInAction" class="spinner spinner-sm language-name"></div>
           </div>
         </div>
       </div>-->
+
+       <div class="row config-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 config-bottom">
+          <div class="list-view-pf-additional-info-item">
+            <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="fa fa-user"></span><span class="config-span">{{'Profile' | translate}}</span></span>
+            <select ng-change="setProfile()" title="-" pf-select="{ width: '180px' }" ng-model="selectedUser.profile" ng-options="p.id as p.name for p in allProfiles">
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

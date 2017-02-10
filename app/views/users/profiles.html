@@ -26,25 +26,37 @@
             <h1 data-toggle="collapse" data-parent="#accordion-markup-{{$index}}" href="#collapse-{{$index}}" class="adjust-header adjust-profile-header">
               <span class="pficon pficon-users card-pf-icon-circle config-title-icon"></span>{{'Profile' | translate}} <span
                 class="weight">{{profile.name}}</span>
+              <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
               <div ng-show="profile.onSave" class="spinner spinner-sm profile-save-spinner"></div>
             </h1>
             <div id="collapse-{{$index}}" class="panel-collapse collapse adjust-profile-body">
               <div class="panel-body profile-panel">
                 <div class="col-lg-12 profile-list-container" ng-repeat="(macro, obj_permissions) in profile.macro_permissions">
-                  <div ng-if="obj_permissions.permissions.length > 0" class="profile-macro-title">{{macro | capitalize}}</div>
-                  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 profile-permission" ng-repeat="permission in obj_permissions.permissions">
-                    <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                      <span class="config-span">{{permission.name | capitalize}}</span>
-                    </span>
-                    <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                  <div class="row profile-macro-title {{!obj_permissions.value ? 'disabled' : ''}}">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">{{obj_permissions.displayname}}</div>
+                    <div class="col-lg-1">
+                      <input bs-switch ng-model="obj_permissions.value" class="bootstrap-switch bootstrap-switch-permission" type="checkbox">
+                    </div>
+                    <div class="col-lg-10"></div>
+                  </div>
+                  <div class="row profile-permission-container" ng-if="obj_permissions.value">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-permission" ng-repeat="permission in obj_permissions.permissions">
+                      <span class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                      <span class="config-span">{{permission.displayname}}</span>
+                      </span>
+                      <span class="col-lg-6 col-md-4 col-sm-6 col-xs-6">
                       <input bs-switch ng-model="permission.value" class="bootstrap-switch bootstrap-switch-permission"
                       type="checkbox">
                     </span>
+                    </div>
                   </div>
                 </div>
                 <button ng-click="saveProfile(profile)" class="btn btn-primary btn-lg profile-button-save" type="submit">
                  {{'Save' | translate}}
-              </button>
+                </button>
+                <button ng-click="deleteProfile(profile)" class="btn btn-danger btn-lg profile-button-save" type="submit">
+                 {{'Delete' | translate}}
+                </button>
               </div>
             </div>
           </div>
@@ -85,16 +97,16 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Duplicate from' | translate}}</label>
             <div class="col-sm-9">
-              <select title="-" pf-select="{ width: '180px' }" ng-model="newProfile.duplicateProfile" ng-options="p as p.name for p in allProfiles">
+              <select title="-" pf-select="{ width: '180px' }" ng-model="newProfile.duplicateProfile" ng-options="p as p.name for p in allProfiles | profileList">
             </select>
+            </div>
           </div>
-        </div>
-        <div ng-show="onSave" class="spinner spinner-sm adjust-margin loader-modal"></div>
-        <div class="modal-footer submit">
-          <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
-          <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
-        </div>
+          <div ng-show="onSave" class="spinner spinner-sm adjust-margin loader-modal"></div>
+          <div class="modal-footer submit">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+            <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
+          </div>
       </form>
+      </div>
     </div>
   </div>
-</div>

@@ -119,4 +119,14 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.generate = function(obj) {
+      return $q(function(resolve, reject) {
+        RestService.post('/cti/configuration/users', {}).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
   });

@@ -8,57 +8,77 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersExtensionsCtrl', function($scope, UserService, UtilService) {
+  .controller('UsersExtensionsCtrl', function ($scope, $location, ConfigService, UserService, UtilService) {
     $scope.users = {};
     $scope.onSave = false;
 
     $scope.availableUsersFilters = ['all', 'configured', 'unconfigured'];
     $scope.selectedUsersFilter = $scope.availableUsersFilters[0];
 
-    $scope.getUserList = function(reload) {
+    ConfigService.getConfig().then(function (res) {
+      switch (res.data.result) {
+        case 'unknown':
+          $scope.view.changeRoute = false;
+          $scope.showConfigSwitch = true;
+          $location.path('/users');
+          break;
+        case 'legacy':
+          $scope.mode.isLegacy = true;
+          break;
+        case 'uc':
+          $scope.mode.isLegacy = false;
+          break;
+      }
+    }, function (err) {
+      console.log(err);
+    });
+
+    $scope.getUserList = function (reload) {
       $scope.view.changeRoute = reload;
-      UserService.list(true).then(function(res) {
+      UserService.list(true).then(function (res) {
         $scope.users = res.data;
         $scope.view.changeRoute = false;
         if (UtilService.isEmpty($scope.users)) {
           $scope.wizard.nextState = false;
+        } else {
+          $scope.wizard.nextState = true;
         }
-      }, function(err) {
+      }, function (err) {
         $scope.users = {}
         $scope.view.changeRoute = false;
         console.log(err);
       });
     };
 
-    $scope.createUser = function(user) {
+    $scope.createUser = function (user) {
       $scope.onSave = true;
-      UserService.create(user).then(function(res) {
+      UserService.create(user).then(function (res) {
         UserService.setPassword(user.username, {
           password: UtilService.randomPassword(8)
-        }).then(function(res) {
+        }).then(function (res) {
           $scope.onSave = false;
           $('#createUser').modal('hide');
           $scope.newUser = {};
           $scope.getUserList(false);
-        }, function(err) {
+        }, function (err) {
           $scope.onSave = false;
           console.log(err);
         });
-      }, function(err) {
+      }, function (err) {
         $scope.onSave = false;
         console.log(err);
       });
     };
 
-    $scope.setMainExtension = function(user) {
+    $scope.setMainExtension = function (user) {
       user.isInAction = true;
       UserService.createMainExtension({
         username: user.username,
         extension: user.default_extension !== 'none' ? user.default_extension : user.temp_ext
-      }).then(function(res) {
+      }).then(function (res) {
         user.isInAction = false;
         $scope.getUserList(false);
-      }, function(err) {
+      }, function (err) {
         user.isInAction = false;
         console.log(err);
       });
