@@ -878,6 +878,12 @@ a {
 
 .profile-list-container {
   margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.profile-list-container:nth-last-child(3) {
+  border-bottom: none;
 }
 
 .profile-macro-title {
@@ -892,7 +898,6 @@ a {
 
 .profile-permission-container {
   margin-top: 16px;
-  border-bottom: 1px solid #e2e2e2;
 }
 
 .profile-panel {

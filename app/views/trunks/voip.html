@@ -33,7 +33,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label">{{'Provider' | translate}}</label>
           <div class="col-sm-9">
-            <select pf-select="{ width: '260px', noneSelectedText: '-' }" ng-model="trunk.provider" ng-options="m as m.description for m in providers">
+            <select pf-select="{ width: '260px', noneSelectedText: '-' }" ng-model="trunk.provider" ng-options="m.provider as m.description for m in providers">
                   <option value="">-</option>
               </select>
             </select>
@@ -74,7 +74,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label">{{'Force codec' | translate}}</label>
           <div class="col-sm-1">
-            <input bs-switch ng-model="trunk.forceCodec" id="bootstrap-switch" class="bootstrap-switch" type="checkbox">
+            <input bs-switch ng-model="trunk.forceCodec" id="bootstrap-switch-forcecodec" class="bootstrap-switch" type="checkbox">
           </div>
         </div>
         <div class="form-group">

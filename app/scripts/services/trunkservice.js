@@ -60,13 +60,10 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.saveConfig = function() {
-      // todo...
-    };
-
     this.createTrunkVoip = function(trunk) {
       return $q(function(resolve, reject) {
         RestService.post('/trunks', {
+          provider: trunk.provider,
           name: trunk.name,
           username: trunk.username,
           password: trunk.password,
@@ -81,7 +78,4 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.getVoipProviders = function() {
-      // todo...
-    };
   });

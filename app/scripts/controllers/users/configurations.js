@@ -112,11 +112,6 @@ angular.module('nethvoiceWizardUiApp')
           $('#bootstrap-switch-webrtc-' + $scope.selectedUser.id).bootstrapSwitch('state', true);
           $('#bootstrap-switch-appmobile-' + $scope.selectedUser.id).bootstrapSwitch('state', true);
         }, 0);*/
-        ProfileService.getUserProfile($scope.selectedUser.id).then(function (res) {
-          $scope.selectedUser.profile = res.data.id;
-        }, function (err) {
-          console.log(err);
-        });
       }
     };
 

@@ -25,7 +25,7 @@
           <div id="accordion-markup-{{$index}}">
             <h1 data-toggle="collapse" data-parent="#accordion-markup-{{$index}}" href="#collapse-{{$index}}" class="adjust-header adjust-profile-header">
               <span class="pficon pficon-users card-pf-icon-circle config-title-icon"></span>{{'Profile' | translate}} <span
-                class="weight">{{profile.name}}</span>
+                class="weight">{{profile.name | translate}}</span>
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
               <div ng-show="profile.onSave" class="spinner spinner-sm profile-save-spinner"></div>
             </h1>
@@ -33,16 +33,16 @@
               <div class="panel-body profile-panel">
                 <div class="col-lg-12 profile-list-container" ng-repeat="(macro, obj_permissions) in profile.macro_permissions">
                   <div class="row profile-macro-title {{!obj_permissions.value ? 'disabled' : ''}}">
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">{{obj_permissions.displayname}}</div>
+                    <div popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{obj_permissions.description | translate}}" class="col-lg-2 col-md-3 col-sm-4 col-xs-12">{{obj_permissions.displayname | translate}}</div>
                     <div class="col-lg-1">
                       <input bs-switch ng-model="obj_permissions.value" class="bootstrap-switch bootstrap-switch-permission" type="checkbox">
                     </div>
                     <div class="col-lg-10"></div>
                   </div>
-                  <div class="row profile-permission-container" ng-if="obj_permissions.value">
+                  <div class="row {{obj_permissions.permissions.length > 0 ? 'profile-permission-container' : ''}}" ng-if="obj_permissions.value">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-permission" ng-repeat="permission in obj_permissions.permissions">
                       <span class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                      <span class="config-span">{{permission.displayname}}</span>
+                      <span popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{permission.description | translate}}" class="config-span">{{permission.displayname | translate}}</span>
                       </span>
                       <span class="col-lg-6 col-md-4 col-sm-6 col-xs-6">
                       <input bs-switch ng-model="permission.value" class="bootstrap-switch bootstrap-switch-permission"

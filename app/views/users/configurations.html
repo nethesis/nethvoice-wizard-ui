@@ -46,7 +46,7 @@
         <div ng-if="user.default_extension !== 'none'" ng-show="selectedUserFilter == 'configured' ? user.devices.length > 0 : (selectedUserFilter == 'unconfigured' ? user.devices.length == 0 : true)" class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users | filter:searchUserUserString" ng-click="selectUser(user)">
           <div class="list-view-pf-actions">
             <span ng-if="user.default_extension == 'none'" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Main extension not created' | translate}}" class="pficon pficon-warning-triangle-o icon-med"></span>
-            <span ng-if="user.default_extension != 'none'" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{user.devices.length > 0 ? 'Configured' : 'No device associated' | translate}}" class="pficon {{user.devices.length > 0 ? 'pficon-ok' : 'pficon-info'}} icon-med"></span>
+            <span ng-if="user.default_extension != 'none'" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{user.profile ? 'Configured' : 'No profile associated' | translate}}" class="pficon {{user.profile ? 'pficon-ok' : 'pficon-warning-triangle-o'}} icon-med"></span>
           </div>
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
@@ -129,7 +129,7 @@
                 </div>
               </div>
             </div>
-            <div class="list-view-pf-main-info config-list-item-right">
+            <div class="list-view-pf-main-info config-list-item-right" data-toggle="collapse" data-parent="#accordion-markup-{{$index}}" href="#collapseOne-{{$index}}">
               <div class="list-view-pf-left">
                 <span class="fa fa-phone list-view-pf-icon-sm"></span>
               </div>
