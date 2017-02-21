@@ -138,6 +138,7 @@
   "Outbound routes configuration error": "Errore nella configurazione delle rotte in uscita",
   "Profiles configuration saved with success": "Configurazione dei profili salvata con successo",
   "Profiles configuration error": "Errore nella configurazione dei profili",
+  "Extension already in use": "Interno già esistente",
   "Trunks not found": "Fasci non trovati",
   "No trunks created, go": "Nessun fascio creato, vai",
   "to create one": "per crearne uno",

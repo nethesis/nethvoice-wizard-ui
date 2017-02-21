@@ -78,6 +78,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.setMainExtension = function (user) {
       user.isInAction = true;
+      user.alreadyExists = false;
       UserService.createMainExtension({
         username: user.username,
         extension: user.default_extension !== 'none' ? user.default_extension : user.temp_ext
@@ -86,6 +87,9 @@ angular.module('nethvoiceWizardUiApp')
         $scope.getUserList(false);
       }, function (err) {
         user.isInAction = false;
+        if(err.status == 422) {
+          user.alreadyExists = true;
+        }
         console.log(err);
       });
     }
