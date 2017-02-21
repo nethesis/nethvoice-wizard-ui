@@ -12,6 +12,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allProfiles = [];
     $scope.allPermissions = [];
 
+    $scope.onSaveSuccess = false;
+    $scope.onSaveError = false;
+
     $scope.initGraphics = function () {};
 
     $scope.getAllProfiles = function (reload) {
@@ -59,8 +62,12 @@ angular.module('nethvoiceWizardUiApp')
           profile.onSave = false;
           $scope.generateProfile();
           $scope.getAllProfiles(false);
+          $scope.onSaveSuccess = true;
+          $scope.onSaveError = false;
         }, function (err) {
           profile.onSave = false;
+          $scope.onSaveSuccess = false;
+          $scope.onSaveError = true;
           console.log(err);
         });
       } else {
@@ -69,8 +76,12 @@ angular.module('nethvoiceWizardUiApp')
           profile.id = res.id;
           $scope.generateProfile();
           $scope.getAllProfiles(false);
+          $scope.onSaveSuccess = true;
+          $scope.onSaveError = false;
         }, function (err) {
           profile.onSave = false;
+          $scope.onSaveSuccess = false;
+          $scope.onSaveError = true;
           console.log(err);
         });
       }

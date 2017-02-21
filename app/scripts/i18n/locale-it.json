@@ -136,6 +136,8 @@
   "Configure your devices": "Configura i dispositivi",
   "Outbound routes configuration saved with success": "Configurazione delle rotte in uscita salvata con successo",
   "Outbound routes configuration error": "Errore nella configurazione delle rotte in uscita",
+  "Profiles configuration saved with success": "Configurazione dei profili salvata con successo",
+  "Profiles configuration error": "Errore nella configurazione dei profili",
   "Trunks not found": "Fasci non trovati",
   "No trunks created, go": "Nessun fascio creato, vai",
   "to create one": "per crearne uno",

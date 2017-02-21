@@ -20,6 +20,20 @@
   <div class="wizard-pf-contents adjust-size">
     <h1 class="control-label centered" for="textInput-markup">{{'Profiles configuration' | translate}}</h1>
     <div ng-if="!(allProfiles | isEmpty)" class="container-fluid">
+      <div ng-if="onSaveSuccess" class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+        <span class="pficon pficon-ok"></span>
+        <strong>{{'Configuration saved' | translate}}.</strong> {{'Profiles configuration saved with success' | translate}}
+      </div>
+      <div ng-if="onSaveError" class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+        <span class="pficon pficon-error-circle-o"></span>
+        <strong>{{'Configuration not saved' | translate}}.</strong> {{'Profiles configuration error' | translate}}
+      </div>
       <div class="list-group list-view-pf adjust-margin-extensions no-border">
         <div ng-repeat="profile in allProfiles | filter:searchProfilesString" class="adjust-profile-margin">
           <div id="accordion-markup-{{$index}}">
@@ -33,50 +47,51 @@
               <div class="panel-body profile-panel">
                 <div class="col-lg-12 profile-list-container" ng-repeat="(macro, obj_permissions) in profile.macro_permissions">
                   <div class="row profile-macro-title {{!obj_permissions.value ? 'disabled' : ''}}">
-                    <div popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{obj_permissions.description | translate}}" class="col-lg-2 col-md-3 col-sm-4 col-xs-12">{{obj_permissions.displayname | translate}}</div>
-                    <div class="col-lg-1">
-                      <input bs-switch ng-model="obj_permissions.value" class="bootstrap-switch bootstrap-switch-permission" type="checkbox">
-                    </div>
-                    <div class="col-lg-10"></div>
+                    <div popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{obj_permissions.description | translate}}"
+                      class="col-lg-2 col-md-3 col-sm-4 col-xs-12">{{obj_permissions.displayname | translate}}</div>
+                  <div class="col-lg-1">
+                    <input bs-switch ng-model="obj_permissions.value" class="bootstrap-switch bootstrap-switch-permission" type="checkbox">
                   </div>
-                  <div class="row {{obj_permissions.permissions.length > 0 ? 'profile-permission-container' : ''}}" ng-if="obj_permissions.value">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-permission" ng-repeat="permission in obj_permissions.permissions">
-                      <span class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                  <div class="col-lg-10"></div>
+                </div>
+                <div class="row {{obj_permissions.permissions.length > 0 ? 'profile-permission-container' : ''}}" ng-if="obj_permissions.value">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-permission" ng-repeat="permission in obj_permissions.permissions">
+                    <span class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
                       <span popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{permission.description | translate}}" class="config-span">{{permission.displayname | translate}}</span>
-                      </span>
-                      <span class="col-lg-6 col-md-4 col-sm-6 col-xs-6">
+                    </span>
+                    <span class="col-lg-6 col-md-4 col-sm-6 col-xs-6">
                       <input bs-switch ng-model="permission.value" class="bootstrap-switch bootstrap-switch-permission"
                       type="checkbox">
                     </span>
-                    </div>
                   </div>
                 </div>
-                <button ng-click="saveProfile(profile)" class="btn btn-primary btn-lg profile-button-save" type="submit">
+              </div>
+              <button ng-click="saveProfile(profile)" class="btn btn-primary btn-lg profile-button-save" type="submit">
                  {{'Save' | translate}}
                 </button>
-                <button ng-click="deleteProfile(profile)" class="btn btn-danger btn-lg profile-button-save" type="submit">
+              <button ng-click="deleteProfile(profile)" class="btn btn-danger btn-lg profile-button-save" type="submit">
                  {{'Delete' | translate}}
                 </button>
-              </div>
             </div>
           </div>
         </div>
-        <button data-toggle="modal" data-target="#newProfileModal" class="btn btn-primary btn-lg right-only">{{'Create new profile' | translate}}</button>
       </div>
-    </div>
-    <div ng-if="allProfiles | isEmpty" class="blank-slate-pf ">
-      <div class="blank-slate-pf-icon">
-        <span class="pficon pficon-users"></span>
-      </div>
-      <h1>
-        {{'No profiles found' | translate}}
-      </h1>
-      <div class="blank-slate-pf-main-action">
-        <button data-toggle="modal" data-target="#newProfileModal" class="btn btn-primary btn-lg">{{'Create new profile' | translate}}</button>
-      </div>
+      <button data-toggle="modal" data-target="#newProfileModal" class="btn btn-primary btn-lg right-only">{{'Create new profile' | translate}}</button>
     </div>
   </div>
-  <wizard-step ng-if="wizard.isWizard"></wizard-step>
+  <div ng-if="allProfiles | isEmpty" class="blank-slate-pf ">
+    <div class="blank-slate-pf-icon">
+      <span class="pficon pficon-users"></span>
+    </div>
+    <h1>
+      {{'No profiles found' | translate}}
+    </h1>
+    <div class="blank-slate-pf-main-action">
+      <button data-toggle="modal" data-target="#newProfileModal" class="btn btn-primary btn-lg">{{'Create new profile' | translate}}</button>
+    </div>
+  </div>
+</div>
+<wizard-step ng-if="wizard.isWizard"></wizard-step>
 </div>
 <div class="modal fade" id="newProfileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
