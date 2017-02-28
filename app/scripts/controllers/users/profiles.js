@@ -28,15 +28,29 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.createNewProfile = function (newProfile, macros) {
+      newProfile.onSave = true;
       if (newProfile.duplicateProfile) {
         ProfileService.getProfile(newProfile.duplicateProfile.id).then(function (res) {
           var emptyProfile = {
             name: newProfile.name,
             macro_permissions: res.data.macro_permissions
           }
-          $scope.allProfiles.push(emptyProfile);
-          $scope.newProfile = {};
-          $('#newProfileModal').modal('hide');
+          ProfileService.create(emptyProfile).then(function (res) {
+            newProfile.onSave = false;
+            emptyProfile.id = res.id;
+            $scope.generateProfile();
+            $scope.getAllProfiles(false);
+            $scope.onSaveSuccess = true;
+            $scope.onSaveError = false;
+            $scope.allProfiles.push(emptyProfile);
+            $scope.newProfile = {};
+            $('#newProfileModal').modal('hide');
+          }, function (err) {
+            newProfile.onSave = false;
+            $scope.onSaveSuccess = false;
+            $scope.onSaveError = true;
+            console.log(err);
+          });
         }, function (err) {
           console.log(err);
         });
@@ -46,9 +60,22 @@ angular.module('nethvoiceWizardUiApp')
             name: newProfile.name,
             macro_permissions: res.data
           }
-          $scope.allProfiles.push(emptyProfile);
-          $scope.newProfile = {};
-          $('#newProfileModal').modal('hide');
+          ProfileService.create(emptyProfile).then(function (res) {
+            newProfile.onSave = false;
+            emptyProfile.id = res.id;
+            $scope.generateProfile();
+            $scope.getAllProfiles(false);
+            $scope.onSaveSuccess = true;
+            $scope.onSaveError = false;
+            $scope.allProfiles.push(emptyProfile);
+            $scope.newProfile = {};
+            $('#newProfileModal').modal('hide');
+          }, function (err) {
+            newProfile.onSave = false;
+            $scope.onSaveSuccess = false;
+            $scope.onSaveError = true;
+            console.log(err);
+          });
         }, function (err) {
           console.log(err);
         });

@@ -822,6 +822,12 @@ a {
   margin-top: -6px;
 }
 
+.loader-modal-profile {
+  float: right;
+  margin-left: 10px;
+  margin-top: 16px;
+}
+
 .loader-modal-gateway {
   float: right;
   margin-right: 15px;
