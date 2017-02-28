@@ -25,12 +25,6 @@ angular.module('nethvoiceWizardUiApp')
       $scope.maxExtensionReached = false;
     };
 
-    $scope.initGraphics = function () {
-      jQuery('.bootstrap-switch-voicemail').on('switchChange.bootstrapSwitch', $scope.setVoiceMail);
-      /*jQuery('.bootstrap-switch-webrtc').on('switchChange.bootstrapSwitch', $scope.setWebRTC);
-      jQuery('.bootstrap-switch-appmobile').on('switchChange.bootstrapSwitch', $scope.setAppMobile);*/
-    };
-
     $scope.getAllProfiles = function (reload) {
       ProfileService.allProfiles().then(function (res) {
         $scope.allProfiles = res.data;
@@ -101,17 +95,19 @@ angular.module('nethvoiceWizardUiApp')
           }
         });
         UserService.getVoiceMail($scope.selectedUser.default_extension).then(function (res) {
-          $('#bootstrap-switch-voicemail-' + $scope.selectedUser.id).bootstrapSwitch('state', true);
+          $scope.selectedUser.voiceMailState = true;
         }, function (err) {
           if (err.status != 404) {
             console.log(err);
           }
-          $('#bootstrap-switch-voicemail-' + $scope.selectedUser.id).bootstrapSwitch('state', false);
+          $scope.selectedUser.voiceMailState = false;
         });
-        /*setTimeout(function () {
-          $('#bootstrap-switch-webrtc-' + $scope.selectedUser.id).bootstrapSwitch('state', true);
-          $('#bootstrap-switch-appmobile-' + $scope.selectedUser.id).bootstrapSwitch('state', true);
-        }, 0);*/
+        UserService.getWebRTCExtension($scope.selectedUser.default_extension).then(function (res) {
+          $scope.selectedUser.webRtcState = true;
+        }, function (err) {
+          console.log(err);
+          $scope.selectedUser.webRtcState = false;
+        });
       }
     };
 
@@ -189,6 +185,7 @@ angular.module('nethvoiceWizardUiApp')
           mobile: user.mobile
         }).then(function (res) {
           $scope.selectedUser.setMobileInAction = false;
+          $scope.generateUsers();
         }, function (err) {
           console.log(err);
           $scope.selectedUser.setMobileInAction = false;
@@ -198,13 +195,14 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    $scope.setVoiceMail = function (event, state) {
+    $scope.setVoiceMail = function () {
       $scope.selectedUser.setVoiceMailInAction = true;
       UserService.createVoiceMail({
         extension: $scope.selectedUser.default_extension,
-        state: state ? 'yes' : 'no'
+        state: $scope.selectedUser.voiceMailState ? 'yes' : 'no'
       }).then(function (res) {
         $scope.selectedUser.setVoiceMailInAction = false;
+        $scope.generateUsers();
       }, function (err) {
         console.log(err);
         $scope.selectedUser.setVoiceMailInAction = false;
@@ -213,15 +211,25 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.setWebRTC = function (event, state) {
       $scope.selectedUser.setWebRTCInAction = true;
-      /*UserService.createVoiceMail({
-        extension: $scope.selectedUser.default_extension,
-        state: state ? 'yes' : 'no'
-      }).then(function (res) {
-        $scope.selectedUser.setVoiceMailInAction = false;
-      }, function (err) {
-        console.log(err);
-        $scope.selectedUser.setVoiceMailInAction = false;
-      });*/
+      if ($scope.selectedUser.webRtcState) {
+        UserService.createWebRTCExtension({
+          extension: $scope.selectedUser.default_extension
+        }).then(function (res) {
+          $scope.selectedUser.setWebRTCInAction = false;
+          $scope.generateUsers();
+        }, function (err) {
+          console.log(err);
+          $scope.selectedUser.setWebRTCInAction = false;
+        });
+      } else {
+        UserService.deleteWebRTCExtension($scope.selectedUser.default_extension).then(function (res) {
+          $scope.selectedUser.setWebRTCInAction = false;
+          $scope.generateUsers();
+        }, function (err) {
+          console.log(err);
+          $scope.selectedUser.setWebRTCInAction = false;
+        });
+      }
     };
 
     $scope.setAppMobile = function (event, state) {
@@ -254,8 +262,6 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err);
       });
     };
-
-    $scope.initGraphics();
 
     $scope.getUserList(true);
     $scope.getDeviceList();

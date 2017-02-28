@@ -119,6 +119,36 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.getWebRTCExtension = function(mainextension) {
+      return $q(function(resolve, reject) {
+        RestService.get('/webrtc/' + mainextension).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.createWebRTCExtension = function(obj) {
+      return $q(function(resolve, reject) {
+        RestService.post('/webrtc', obj).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.deleteWebRTCExtension = function(mainextension) {
+      return $q(function(resolve, reject) {
+        RestService.delete('/webrtc/' + mainextension).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
     this.generate = function(obj) {
       return $q(function(resolve, reject) {
         RestService.post('/cti/configuration/users', {}).then(function(res) {
