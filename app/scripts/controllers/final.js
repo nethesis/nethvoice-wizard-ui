@@ -55,7 +55,6 @@ angular.module('nethvoiceWizardUiApp')
             doc.text($filter('translate')('Header Report 2'), 40, 80);
             doc.setFontSize(11);
             doc.text(customConfig.BRAND_NAME, data.settings.margin.left, doc.internal.pageSize.height - 20);
-            //doc.text(customConfig.BRAND_SITE, data.settings.margin.right-40, doc.internal.pageSize.height - 20);
           }
         });
         doc.save('wizard_report.pdf');

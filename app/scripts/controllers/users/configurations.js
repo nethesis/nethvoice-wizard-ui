@@ -60,9 +60,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getDeviceList = function (key) {
       DeviceService.phoneList().then(function (res) {
         $scope.devices = res.data;
-        if (UtilService.isEmpty($scope.devices)) {
-          $scope.wizard.nextState = false;
-        }
       }, function (err) {
         console.log(err);
       });
