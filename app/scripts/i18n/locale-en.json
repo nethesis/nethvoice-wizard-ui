@@ -24,5 +24,7 @@
   "linked": "Linked",
   "unlinked": "Unlinked",
   "configured": "Configured",
-  "unconfigured": "Not configured"
+  "unconfigured": "Not configured",
+  "Header Report 1": "Summary table of users created with wizard.",
+  "Header Report 2": "Provide credentials to the users to access CTI"
 }

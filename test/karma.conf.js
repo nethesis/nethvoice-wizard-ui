@@ -55,6 +55,8 @@ module.exports = function(config) {
       'bower_components/angular-ui-sortable/sortable.js',
       'bower_components/ng-sortable/dist/ng-sortable.js',
       'bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.js',
+      'bower_components/jspdf/dist/jspdf.debug.js',
+      'bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.src.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
