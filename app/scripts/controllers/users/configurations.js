@@ -152,6 +152,7 @@ angular.module('nethvoiceWizardUiApp')
         device.setPhysicalInAction = false;
         $scope.getUserList(false);
         $scope.getDeviceList(false);
+        $scope.generateUsers();
       }, function (err) {
         device.setPhysicalInAction = false;
         console.log(err);
