@@ -22,6 +22,7 @@ angular.module('nethvoiceWizardUiApp')
       ProfileService.allProfiles().then(function (res) {
         $scope.allProfiles = res.data;
         $scope.view.changeRoute = false;
+        $scope.generateProfile();
       }, function (err) {
         console.log(err);
       });
