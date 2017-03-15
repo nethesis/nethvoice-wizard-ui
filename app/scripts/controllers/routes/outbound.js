@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('RoutesOutboundCtrl', function ($scope, LocalStorageService, TrunkService, RouteService, UtilService) {
+  .controller('RoutesOutboundCtrl', function ($scope, LocalStorageService, LanguageService, TrunkService, RouteService, UtilService) {
 
     $scope.routes = [];
     $scope.allTrunks = [];
@@ -17,6 +17,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.onSaveSuccess = false;
     $scope.onSaveError = false;
     $scope.onSave = false;
+    $scope.showDialDefault = false;
 
     $scope.toggleDetails = function (event) {
       var $this = $(event.target);
@@ -42,6 +43,10 @@ angular.module('nethvoiceWizardUiApp')
           .end();
       }
     };
+
+    $scope.getLangName = function() {
+      return LanguageService.getNativeName($scope.selectedRouteLang);
+    }
 
     $scope.extractTrunkInfo = function (trunkName) {
       return UtilService.extractTrunkInfo(trunkName);
@@ -87,6 +92,7 @@ angular.module('nethvoiceWizardUiApp')
       RouteService.getOutbounds().then(function (resOutbounds) {
         // outbounds empty? get defaults
         if (resOutbounds.data.length == 0) {
+          $scope.showDialDefault = true;
           RouteService.getDefaultOutbounds().then(function (resDefaultOutbounds) {
             $scope.routes = resDefaultOutbounds.data;
             $scope.routes.length = Object.keys(resDefaultOutbounds.data).length;
@@ -95,6 +101,7 @@ angular.module('nethvoiceWizardUiApp')
             console.log(err);
           });
         } else {
+          $scope.showDialDefault = false;
           $scope.routes[$scope.selectedRouteLang] = resOutbounds.data;
           $scope.routes.length = resOutbounds.data.length;
           $scope.view.changeRoute = false;

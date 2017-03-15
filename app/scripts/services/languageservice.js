@@ -21,5 +21,9 @@ angular.module('nethvoiceWizardUiApp')
         langArr.push(tmp);
       }
       return langArr;
-    }
+    };
+
+    this.getNativeName = function(key) {
+      return window.getLanguageNativeName(key);
+    };
   });
