@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersDevicesCtrl', function($scope, $interval, ConfigService, DeviceService, UtilService) {
+  .controller('UsersDevicesCtrl', function ($scope, $interval, ConfigService, DeviceService, UtilService) {
     $scope.allDevices = {};
     $scope.allModels = {};
     $scope.networks = {};
@@ -16,20 +16,20 @@ angular.module('nethvoiceWizardUiApp')
     $scope.tasks = {};
 
     $scope.orderByValue = function (value) {
-        return value;
+      return value;
     };
 
-    $scope.getPhoneModelList = function() {
-      DeviceService.phoneModelList().then(function(res) {
+    $scope.getPhoneModelList = function () {
+      DeviceService.phoneModelList().then(function (res) {
         $scope.allModels = res.data;
-      }, function(err) {
+      }, function (err) {
         console.log(err);
       });
     };
 
-    $scope.getNetworkList = function() {
+    $scope.getNetworkList = function () {
       $scope.view.changeRoute = true;
-      ConfigService.getNetworks().then(function(res) {
+      ConfigService.getNetworks().then(function (res) {
         $scope.networks = res.data;
         for (var eth in res.data) {
           $scope.tasks[eth] = {};
@@ -40,48 +40,50 @@ angular.module('nethvoiceWizardUiApp')
         for (var n in $scope.networks) {
           $scope.tasks[n].startScan = true;
           $scope.tasks[n].currentProgress = Math.floor((Math.random() * 50) + 10);
-          $scope.getPhoneList(n, $scope.networks[n], function(err) {
-            if(err) {
+          $scope.getPhoneList(n, $scope.networks[n], function (err) {
+            if (err) {
               $scope.tasks[n].startScan = false;
               $scope.tasks[n].currentProgress = 0;
               $scope.startScan(n, $scope.networks[n]);
             }
           });
         }
-      }, function(err) {
+      }, function (err) {
         console.log(err);
       });
     };
 
-    $scope.getPhoneList = function(key, network, callback) {
-      DeviceService.phoneListByNetwork(network).then(function(res) {
+    $scope.getPhoneList = function (key, network, callback) {
+      DeviceService.phoneListByNetwork(network).then(function (res) {
         $scope.allDevices[key] = res.data;
         $scope.tasks[key].currentProgress = 100;
         callback(null);
-      }, function(err) {
-        if(err.status !== 404) {
+      }, function (err) {
+        if (err.status !== 404) {
           $scope.tasks[key].currentProgress = -1;
+        } else {
+          $scope.tasks[key].currentProgress = 100;
         }
         callback(err);
       });
     };
 
-    $scope.startScan = function(key, network) {
+    $scope.startScan = function (key, network) {
       if ($scope.tasks[key].currentProgress > 0 && $scope.tasks[key].currentProgress < 100) {
         return true;
       }
       $scope.tasks[key].startScan = true;
       $scope.tasks[key].currentProgress = Math.floor((Math.random() * 50) + 10);
-      DeviceService.startScan(network).then(function(res) {
-        $scope.tasks[key].promise = $interval(function() {
-          UtilService.taskStatus(res.data.result).then(function(res) {
+      DeviceService.startScan(network).then(function (res) {
+        $scope.tasks[key].promise = $interval(function () {
+          UtilService.taskStatus(res.data.result).then(function (res) {
             if (res.data.progress < 100) {
               $scope.errorCount = 0;
             } else if (res.data.progress == 100) {
               $scope.tasks[key].errorCount = 0;
               $interval.cancel($scope.tasks[key].promise);
-              $scope.getPhoneList(key, network, function(err) {
-                if(err) {
+              $scope.getPhoneList(key, network, function (err) {
+                if (err) {
                   console.log(err);
                 }
               });
@@ -94,7 +96,7 @@ angular.module('nethvoiceWizardUiApp')
                 $scope.tasks[key].currentProgress = -1;
               }
             }
-          }, function(err) {
+          }, function (err) {
             console.log(err);
             if ($scope.tasks[key].errorCount < appConfig.MAX_TRIES) {
               $scope.tasks[key].errorCount++;
@@ -104,18 +106,18 @@ angular.module('nethvoiceWizardUiApp')
             }
           });
         }, appConfig.INTERVAL_POLLING);
-      }, function(err) {
+      }, function (err) {
         $scope.tasks[key].currentProgress = -1;
         console.log(err);
       });
     };
 
-    $scope.setPhoneModel = function(device) {
+    $scope.setPhoneModel = function (device) {
       DeviceService.setPhoneModel({
         mac: device.mac,
         vendor: device.manufacturer,
         model: device.model
-      }).then(function(res) {}, function(err) {
+      }).then(function (res) {}, function (err) {
         console.log(err);
       });
     };
