@@ -8,11 +8,11 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('LoginCtrl', function($rootScope, $scope, $location, ConfigService, LoginService) {
-    $scope.doLogin = function(secret) {
-      LoginService.login($scope.username, $scope.password, secret).then(function(res) {
-        ConfigService.getWizard().then(function(res) {
-          if(res.length == 0) {
+  .controller('LoginCtrl', function ($rootScope, $scope, $location, ConfigService, LoginService, LocalStorageService) {
+    $scope.doLogin = function (secret) {
+      LoginService.login($scope.username, $scope.password, secret).then(function (res) {
+        ConfigService.getWizard().then(function (res) {
+          if (res.length == 0) {
             $scope.wizard.isWizard = true;
             $scope.wizard.stepCount = 0;
           } else {
@@ -26,15 +26,17 @@ angular.module('nethvoiceWizardUiApp')
           $('body').show();
           $scope.login.isLogged = true;
           $rootScope.$broadcast('loginCompleted');
-        }, function(err) {
+        }, function (err) {
           console.log(err);
         });
-      }, function(err) {
+      }, function (err) {
         if (err.status !== 200) {
           $scope.login.showError = true;
           $scope.login.isLogged = false;
           $('#loginTpl').show();
           $location.path('/login');
+          $('body').show();
+          LocalStorageService.remove('secretkey');
         }
         console.log(err);
       });
