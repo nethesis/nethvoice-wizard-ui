@@ -61,13 +61,17 @@
               </div>
               <div class="list-view-pf-additional-info">
                 <div ng-if="user.default_extension === 'none'" class="list-view-pf-additional-info-item {{user.alreadyExists ? 'has-error' : ''}}">
-                  <input ng-model="user.temp_ext" type="text" class="form-control" id="filter" placeholder="{{'Insert extension' | translate}}">
+                  <form class="full-size" ng-submit="setMainExtension(user)">
+                    <input ng-model="user.temp_ext" type="text" class="form-control" id="filter" placeholder="{{'Insert extension' | translate}}">
+                  </form>
                   <div class="input-group-btn">
                     <button ng-click="setMainExtension(user)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{'Add' | translate}}</button>
                   </div>
                 </div>
                 <div ng-if="user.default_extension !== 'none'" class="list-view-pf-additional-info-item">
-                  <input type="text" ng-model="user.default_extension" class="form-control" id="filter" placeholder="{{'Insert extension' | translate}}">
+                  <form class="full-size" ng-submit="setMainExtension(user)">
+                    <input type="text" ng-model="user.default_extension" class="form-control" id="filter" placeholder="{{'Insert extension' | translate}}">
+                  </form>
                   <div class="input-group-btn">
                     <button ng-click="setMainExtension(user)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{'Modify' | translate}}</button>
                   </div>

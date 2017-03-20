@@ -84,10 +84,14 @@ angular.module('nethvoiceWizardUiApp')
         extension: user.default_extension !== 'none' ? user.default_extension : user.temp_ext
       }).then(function (res) {
         user.isInAction = false;
-        $scope.getUserList(false);
+        if (user.temp_ext && user.temp_ext.length == 0 && user.default_extension == 'none' || user.default_extension.length == 0) {
+          user.default_extension = 'none';
+        } else {
+          user.default_extension = user.default_extension !== 'none' ? user.default_extension : user.temp_ext;
+        }
       }, function (err) {
         user.isInAction = false;
-        if(err.status == 422) {
+        if (err.status == 422) {
           user.alreadyExists = true;
         }
         console.log(err);
