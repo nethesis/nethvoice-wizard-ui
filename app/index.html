@@ -1,11 +1,13 @@
 <!doctype html>
-<html lang="en" class="layout-pf-alt layout-pf-alt-fixed layout-pf-alt-fixed-with-footer layout-pf-alt-fixed-inner-scroll" ng-app="nethvoiceWizardUiApp" ng-controller="InitCtrl">
+<html lang="en" class="layout-pf-alt layout-pf-alt-fixed layout-pf-alt-fixed-with-footer layout-pf-alt-fixed-inner-scroll"
+  ng-app="nethvoiceWizardUiApp" ng-controller="InitCtrl">
 
   <head>
     <meta charset="utf-8">
     <title ng-bind="customConfig.BRAND_NAME"></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -27,10 +29,10 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/brand.css">
     <link rel="stylesheet" href="styles/login.css">
     <link rel="stylesheet" href="styles/trunks.css">
     <!-- endbuild -->
+    <link rel="stylesheet" href="styles/brand.css">
   </head>
 
   <body ng-class="login.isLogged ? 'cards-pf' : 'login-pf'" ng-controller="InitCtrl">
