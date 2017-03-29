@@ -168,6 +168,7 @@ angular.module('nethvoiceWizardUiApp')
         device.setPhysicalInAction = false;
         $scope.getUserList(false);
         $scope.getDeviceList(false);
+        $scope.generateUsers();
         console.log(res);
       }, function (err) {
         device.setPhysicalInAction = false;
@@ -177,20 +178,16 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.setMobileExtension = function (user) {
       $scope.selectedUser.setMobileInAction = true;
-      if (user.mobile && user.mobile.length > 0) {
-        UserService.createMobileExtension({
-          username: user.username,
-          mobile: user.mobile
-        }).then(function (res) {
-          $scope.selectedUser.setMobileInAction = false;
-          $scope.generateUsers();
-        }, function (err) {
-          console.log(err);
-          $scope.selectedUser.setMobileInAction = false;
-        });
-      } else {
+      UserService.createMobileExtension({
+        username: user.username,
+        mobile: user.mobile
+      }).then(function (res) {
         $scope.selectedUser.setMobileInAction = false;
-      }
+        $scope.generateUsers();
+      }, function (err) {
+        console.log(err);
+        $scope.selectedUser.setMobileInAction = false;
+      });
     };
 
     $scope.setVoiceMail = function () {
