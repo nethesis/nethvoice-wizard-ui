@@ -258,6 +258,20 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    $scope.checkConfiguredExtensions = function (device, filter) {
+      if (filter == 'all') {
+        return true;
+      }
+      var count = device.lines.length;
+      for (var l in device.lines) {
+        var line = device.lines[l];
+        if (line.extension) {
+          count--;
+        }
+      }
+      return filter == 'unlinked' ? count == device.lines.length : count != device.lines.length;
+    };
+
     $scope.getUserList(true);
     $scope.getDeviceList();
     $scope.getAllProfiles();

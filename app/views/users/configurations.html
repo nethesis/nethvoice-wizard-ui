@@ -112,7 +112,7 @@
       </div>
       <div ng-if="!(devices | isEmpty)" class="container-fluid">
         <div class="list-group list-view-pf list-view-pf-view config-view-container">
-          <div id="accordion-markup-{{$index}}" ng-show="selectedDeviceFilter == 'linked' ? device.extension.length > 0 : (selectedDeviceFilter == 'unlinked' ? (device.extension === null || device.extension.length == 0) : true)" class="list-group-item
+          <div id="accordion-markup-{{$index}}" ng-show="checkConfiguredExtensions(device, selectedDeviceFilter)" class="list-group-item
             {{device.lines[0].mainextension == selectedUser.default_extension ? 'selected' : ''}} {{device.extension ? 'disabled' : ''}}" ng-repeat="device in devices | filter:searchDeviceUserString | orderBy: ['manufacturer','model']">
             <div class="list-view-pf-actions adjust-link">
               <button ng-if="device.lines && device.lines.length == 1" ng-click="device.lines[0].extension ? deletePhysicalExtension(device, device.lines[0].extension) : setPhysicalExtension(selectedUser, device)" type="button" class="btn btn-{{device.lines[0].extension ? 'default' : 'primary'}}" aria-haspopup="true" aria-expanded="false"><span>{{device.lines[0].extension ? 'Unlink from' : 'Link to' | translate}} {{device.lines[0].extension ? getNameFromExtension(device.lines[0].mainextension) : selectedUser.displayname}}</span></button>
