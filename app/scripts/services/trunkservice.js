@@ -8,23 +8,23 @@
  * Service in the nethvoiceWizardUiApp.
  */
 angular.module('nethvoiceWizardUiApp')
-  .service('TrunkService', function($q, RestService) {
+  .service('TrunkService', function ($q, RestService) {
 
-    this.count = function() {
-      return $q(function(resolve, reject) {
-        RestService.get('/trunks/count').then(function(res) {
+    this.count = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/trunks/count').then(function (res) {
           resolve(res);
-        }, function(err) {
+        }, function (err) {
           reject(err);
         });
       });
     };
 
-    this.getAllTrunks = function() {
-      return $q(function(resolve, reject) {
-        RestService.get('/trunks').then(function(res) {
+    this.getAllTrunks = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/trunks').then(function (res) {
           resolve(res);
-        }, function(err) {
+        }, function (err) {
           reject(err);
         });
       });
@@ -35,11 +35,11 @@ angular.module('nethvoiceWizardUiApp')
      *
      * @method getSipTrunks
      */
-    this.getSipByTech = function(tech) {
-      return $q(function(resolve, reject) {
-        RestService.get('/trunks/' + tech).then(function(res) {
+    this.getSipByTech = function (tech) {
+      return $q(function (resolve, reject) {
+        RestService.get('/trunks/' + tech).then(function (res) {
           resolve(res.data);
-        }, function(err) {
+        }, function (err) {
           reject(err);
         });
       });
@@ -50,18 +50,18 @@ angular.module('nethvoiceWizardUiApp')
      *
      * @method getProviders
      */
-    this.getProviders = function() {
-      return $q(function(resolve, reject) {
-        RestService.get('/providers').then(function(res) {
+    this.getProviders = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/providers').then(function (res) {
           resolve(res.data);
-        }, function(err) {
+        }, function (err) {
           reject(err);
         });
       });
     };
 
-    this.createTrunkVoip = function(trunk) {
-      return $q(function(resolve, reject) {
+    this.createTrunkVoip = function (trunk) {
+      return $q(function (resolve, reject) {
         RestService.post('/trunks', {
           provider: trunk.provider,
           name: trunk.name,
@@ -70,9 +70,19 @@ angular.module('nethvoiceWizardUiApp')
           phone: trunk.phone,
           codecs: trunk.codecs,
           forceCodec: trunk.forceCodec
-        }).then(function(res) {
+        }).then(function (res) {
           resolve(res);
-        }, function(err) {
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.ctiConfigurationTrunks = function () {
+      return $q(function (resolve, reject) {
+        RestService.post('/cti/configuration/trunks', {}).then(function (res) {
+          resolve(res);
+        }, function (err) {
           reject(err);
         });
       });

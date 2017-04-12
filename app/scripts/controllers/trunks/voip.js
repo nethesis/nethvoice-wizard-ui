@@ -39,6 +39,7 @@ angular.module('nethvoiceWizardUiApp')
         };
         $scope.onSaveSuccess = true;
         $scope.onSaveError = false;
+        $scope.ctiTrunksConfig();
       }, function (err) {
         console.log(err);
         $scope.onSaveSuccess = false;
@@ -61,5 +62,14 @@ angular.module('nethvoiceWizardUiApp')
     }, function (err) {
       console.log(err);
     });
+
+    $scope.ctiTrunksConfig = function () {
+      TrunkService.ctiConfigurationTrunks().then(function (res) {
+        console.log(res);
+      }, function (err) {
+        console.log(err);
+
+      });
+    };
 
   });
