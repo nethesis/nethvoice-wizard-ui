@@ -64,7 +64,7 @@ angular.module('nethvoiceWizardUiApp')
     });
 
     $scope.ctiTrunksConfig = function () {
-      TrunkService.ctiConfigurationTrunks().then(function (res) {
+      TrunkService.ctiConfigurationAstObjConfig().then(function (res) {
         console.log(res);
       }, function (err) {
         console.log(err);

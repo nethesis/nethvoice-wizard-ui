@@ -78,9 +78,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.ctiConfigurationTrunks = function () {
+    this.ctiConfigurationAstObjConfig = function () {
       return $q(function (resolve, reject) {
-        RestService.post('/cti/configuration/trunks', {}).then(function (res) {
+        RestService.post('/cti/configuration/astobjconfig', {}).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
