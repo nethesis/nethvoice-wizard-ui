@@ -152,7 +152,6 @@ angular.module('nethvoiceWizardUiApp')
         device.setPhysicalInAction = false;
         $scope.getUserList(false);
         $scope.getDeviceList(false);
-        $scope.generateUsers();
       }, function (err) {
         device.setPhysicalInAction = false;
         console.log(err);
@@ -168,7 +167,6 @@ angular.module('nethvoiceWizardUiApp')
         device.setPhysicalInAction = false;
         $scope.getUserList(false);
         $scope.getDeviceList(false);
-        $scope.generateUsers();
         console.log(res);
       }, function (err) {
         device.setPhysicalInAction = false;
@@ -183,7 +181,6 @@ angular.module('nethvoiceWizardUiApp')
         mobile: user.mobile
       }).then(function (res) {
         $scope.selectedUser.setMobileInAction = false;
-        $scope.generateUsers();
       }, function (err) {
         console.log(err);
         $scope.selectedUser.setMobileInAction = false;
@@ -197,7 +194,6 @@ angular.module('nethvoiceWizardUiApp')
         state: $scope.selectedUser.voiceMailState ? 'yes' : 'no'
       }).then(function (res) {
         $scope.selectedUser.setVoiceMailInAction = false;
-        $scope.generateUsers();
       }, function (err) {
         console.log(err);
         $scope.selectedUser.setVoiceMailInAction = false;
@@ -211,7 +207,6 @@ angular.module('nethvoiceWizardUiApp')
           extension: $scope.selectedUser.default_extension
         }).then(function (res) {
           $scope.selectedUser.setWebRTCInAction = false;
-          $scope.generateUsers();
         }, function (err) {
           console.log(err);
           $scope.selectedUser.setWebRTCInAction = false;
@@ -219,7 +214,6 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         UserService.deleteWebRTCExtension($scope.selectedUser.default_extension).then(function (res) {
           $scope.selectedUser.setWebRTCInAction = false;
-          $scope.generateUsers();
         }, function (err) {
           console.log(err);
           $scope.selectedUser.setWebRTCInAction = false;
@@ -244,14 +238,6 @@ angular.module('nethvoiceWizardUiApp')
       ProfileService.setUserProfile($scope.selectedUser.id, {
         profile_id: $scope.selectedUser.profile
       }).then(function (res) {
-        $scope.generateUsers();
-      }, function (err) {
-        console.log(err);
-      });
-    };
-
-    $scope.generateUsers = function () {
-      UserService.generate().then(function (res) {
         console.log(res);
       }, function (err) {
         console.log(err);
