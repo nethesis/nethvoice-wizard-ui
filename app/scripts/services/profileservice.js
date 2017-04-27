@@ -89,13 +89,4 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.generate = function () {
-      return $q(function (resolve, reject) {
-        RestService.post('/cti/configuration/profiles', {}).then(function (res) {
-          resolve(res);
-        }, function (err) {
-          reject(err);
-        });
-      });
-    };
   });

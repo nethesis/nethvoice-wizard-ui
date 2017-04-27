@@ -22,7 +22,6 @@ angular.module('nethvoiceWizardUiApp')
       ProfileService.allProfiles().then(function (res) {
         $scope.allProfiles = res.data;
         $scope.view.changeRoute = false;
-        $scope.generateProfile();
       }, function (err) {
         console.log(err);
       });
@@ -39,7 +38,6 @@ angular.module('nethvoiceWizardUiApp')
           ProfileService.create(emptyProfile).then(function (res) {
             newProfile.onSave = false;
             emptyProfile.id = res.id;
-            $scope.generateProfile();
             $scope.getAllProfiles(false);
             $scope.onSaveSuccess = true;
             $scope.onSaveError = false;
@@ -64,7 +62,6 @@ angular.module('nethvoiceWizardUiApp')
           ProfileService.create(emptyProfile).then(function (res) {
             newProfile.onSave = false;
             emptyProfile.id = res.id;
-            $scope.generateProfile();
             $scope.getAllProfiles(false);
             $scope.onSaveSuccess = true;
             $scope.onSaveError = false;
@@ -89,7 +86,6 @@ angular.module('nethvoiceWizardUiApp')
         ProfileService.update(profile.id, profile).then(function (res) {
           UserService.generate().then(function (res) {
             profile.onSave = false;
-            $scope.generateProfile();
             $scope.getAllProfiles(false);
             $scope.onSaveSuccess = true;
             $scope.onSaveError = false;
@@ -107,7 +103,6 @@ angular.module('nethvoiceWizardUiApp')
           UserService.generate().then(function (res) {
             profile.onSave = false;
             profile.id = res.id;
-            $scope.generateProfile();
             $scope.getAllProfiles(false);
             $scope.onSaveSuccess = true;
             $scope.onSaveError = false;
@@ -121,14 +116,6 @@ angular.module('nethvoiceWizardUiApp')
           console.log(err);
         });
       }
-    };
-
-    $scope.generateProfile = function () {
-      ProfileService.generate().then(function (res) {
-        console.log(res);
-      }, function (err) {
-        console.log(err);
-      });
     };
 
     $scope.deleteProfile = function (profile) {

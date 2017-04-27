@@ -222,7 +222,6 @@ angular.module('nethvoiceWizardUiApp')
       }
       DeviceService.saveGatewayConfig(device).then(function (res) {
         $scope.hideGatewayDialog();
-        $scope.ctiTrunksConfig();
         device.id = res.data.id
         if (isNew) {
           $scope.allDevices[device.network_key].push(device);
@@ -296,7 +295,6 @@ angular.module('nethvoiceWizardUiApp')
           netmask: device.netmask_green,
           ip: device.ipv4_green
         });
-        $scope.ctiTrunksConfig();
       }, function (err) {
         console.log(err);
         device.onSave = false;
@@ -304,15 +302,6 @@ angular.module('nethvoiceWizardUiApp')
         device.onError = true;
         device.onDeleteSuccess = false;
         device.onPushSuccess = false;
-      });
-    };
-
-    $scope.ctiTrunksConfig = function () {
-      TrunkService.ctiConfigurationAstObjConfig().then(function (res) {
-        console.log(res);
-      }, function (err) {
-        console.log(err);
-
       });
     };
 
