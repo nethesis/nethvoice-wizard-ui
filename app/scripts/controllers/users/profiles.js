@@ -84,14 +84,10 @@ angular.module('nethvoiceWizardUiApp')
       profile.onSave = true;
       if (profile.id) {
         ProfileService.update(profile.id, profile).then(function (res) {
-          UserService.generate().then(function (res) {
-            profile.onSave = false;
-            $scope.getAllProfiles(false);
-            $scope.onSaveSuccess = true;
-            $scope.onSaveError = false;
-          }, function (err) {
-            console.log(err);
-          });
+          profile.onSave = false;
+          $scope.getAllProfiles(false);
+          $scope.onSaveSuccess = true;
+          $scope.onSaveError = false;
         }, function (err) {
           profile.onSave = false;
           $scope.onSaveSuccess = false;
@@ -100,15 +96,11 @@ angular.module('nethvoiceWizardUiApp')
         });
       } else {
         ProfileService.create(profile).then(function (res) {
-          UserService.generate().then(function (res) {
-            profile.onSave = false;
-            profile.id = res.id;
-            $scope.getAllProfiles(false);
-            $scope.onSaveSuccess = true;
-            $scope.onSaveError = false;
-          }, function (err) {
-            console.log(err);
-          });
+          profile.onSave = false;
+          profile.id = res.id;
+          $scope.getAllProfiles(false);
+          $scope.onSaveSuccess = true;
+          $scope.onSaveError = false;
         }, function (err) {
           profile.onSave = false;
           $scope.onSaveSuccess = false;
