@@ -9,7 +9,7 @@
             <span class="fa fa-users card-pf-icon-circle"></span>
           </div>
           <h2 class="card-pf-title text-center">
-              {{'Extensions' | translate}}
+            {{'Extensions' | translate}}
           </h2>
         </div>
       </div>
@@ -21,7 +21,7 @@
             <span class="pficon pficon-users card-pf-icon-circle"></span>
           </div>
           <h2 class="card-pf-title text-center">
-              {{'Profiles' | translate}}
+            {{'Profiles' | translate}}
           </h2>
         </div>
       </div>
@@ -33,7 +33,7 @@
             <span class="fa fa-phone card-pf-icon-circle"></span>
           </div>
           <h2 class="card-pf-title text-center">
-              {{'Devices' | translate}}
+            {{'Devices' | translate}}
           </h2>
         </div>
       </div>
@@ -45,7 +45,7 @@
             <span class="fa fa-asterisk card-pf-icon-circle"></span>
           </div>
           <h2 class="card-pf-title text-center">
-              {{'Configurations' | translate}}
+            {{'Configurations' | translate}}
           </h2>
         </div>
       </div>
@@ -63,7 +63,7 @@
             <span class="pficon pficon-topology card-pf-icon-circle"></span>
           </div>
           <h2 class="card-pf-title text-center">
-              {{'Physical' | translate}}
+            {{'Physical' | translate}}
           </h2>
         </div>
       </div>
@@ -75,7 +75,7 @@
             <span class="fa fa-cloud card-pf-icon-circle"></span>
           </div>
           <h2 class="card-pf-title text-center">
-              {{'VoIP' | translate}}
+            {{'VoIP' | translate}}
           </h2>
         </div>
       </div>
@@ -93,7 +93,7 @@
             <span class="pficon pficon-trend-up card-pf-icon-circle"></span>
           </div>
           <h2 class="card-pf-title text-center">
-              {{'Inbound' | translate}}
+            {{'Inbound' | translate}}
           </h2>
         </div>
       </div>
@@ -105,7 +105,7 @@
             <span class="pficon pficon-trend-down card-pf-icon-circle"></span>
           </div>
           <h2 class="card-pf-title text-center">
-              {{'Outbound' | translate}}
+            {{'Outbound' | translate}}
           </h2>
         </div>
       </div>
@@ -113,21 +113,33 @@
   </div>
   <!-- END ROUTES -->
 
-   <!-- REPORT -->
+  <!-- ADMIN -->
   <div class="row row-cards-pf no-top-pad">
-    <h1>{{'Report' | translate}}</h1>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <div ng-click="goTo('final')" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+    <h1>{{'Admin' | translate}}</h1>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div ng-click="goTo('admin/settings')" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="fa fa-lock card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            {{'Settings' | translate}}
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div ng-click="goTo('admin/report')" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
         <div class="card-pf-body">
           <div class="card-pf-top-element">
             <span class="pficon pficon-blueprint card-pf-icon-circle"></span>
           </div>
           <h2 class="card-pf-title text-center">
-              {{'Final' | translate}}
+            {{'Report' | translate}}
           </h2>
         </div>
       </div>
     </div>
   </div>
-  <!-- END REPORT -->
+  <!-- END ADMIN -->
 </div>

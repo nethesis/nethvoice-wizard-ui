@@ -87,6 +87,21 @@ angular
         controller: 'FinalCtrl',
         controllerAs: 'final'
       })
+      .when('/admin', {
+        templateUrl: 'views/admin.html',
+        controller: 'AdminCtrl',
+        controllerAs: 'admin'
+      })
+      .when('/admin/settings', {
+        templateUrl: 'views/admin/settings.html',
+        controller: 'AdminSettingsCtrl',
+        controllerAs: 'admin/settings'
+      })
+      .when('/admin/report', {
+        templateUrl: 'views/admin/report.html',
+        controller: 'AdminReportCtrl',
+        controllerAs: 'admin/report'
+      })
       .otherwise({
         redirectTo: '/'
       });
