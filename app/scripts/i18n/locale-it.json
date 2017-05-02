@@ -260,5 +260,13 @@
   "View PBX lines": "Visualizza le linee PBX",
   "View more queue information and manage every agent queue state": "Visualizza informazioni aggiuntive sulle code e gestisci ogni stato degli agenti in coda",
   "Allow to view Queue Recall panel": "Permetti di vedere il pannello Richiama Code",
-  "Allow to change of all incoming call paths": "Permetti di cambiare tutti i percorsi delle chiamate entranti"
+  "Allow to change of all incoming call paths": "Permetti di cambiare tutti i percorsi delle chiamate entranti",
+  "Admin": "Amministratore",
+  "Admin Settings": "Impostazioni Amministratore",
+  "Confirm Password": "Conferma Password",
+  "Administrator password update error": "Errore aggiornamento password amministratore",
+  "Administrator password update failed": "Aggiornamento della password amministratore fallito",
+  "Administrator password updated": "Password amministratore aggiornata",
+  "Administrator password updated with success": "Password amministratore aggiornata con successo",
+  "Print report": "Stampa report"
 }

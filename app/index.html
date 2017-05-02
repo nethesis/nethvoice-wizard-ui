@@ -2,59 +2,60 @@
 <html lang="en" class="layout-pf-alt layout-pf-alt-fixed layout-pf-alt-fixed-with-footer layout-pf-alt-fixed-inner-scroll"
   ng-app="nethvoiceWizardUiApp" ng-controller="InitCtrl">
 
-  <head>
-    <meta charset="utf-8">
-    <title ng-bind="customConfig.BRAND_NAME"></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap-combobox/css/bootstrap-combobox.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-touchspin/src/jquery.bootstrap-touchspin.css" />
-    <link rel="stylesheet" href="bower_components/c3/c3.css" />
-    <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="bower_components/datatables-colvis/css/dataTables.colVis.css" />
-    <link rel="stylesheet" href="bower_components/google-code-prettify/bin/prettify.min.css" />
-    <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
-    <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly.css" />
-    <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly-additions.css" />
-    <link rel="stylesheet" href="bower_components/angular-patternfly/dist/styles/angular-patternfly.css" />
-    <link rel="stylesheet" href="bower_components/ng-sortable/dist/ng-sortable.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/login.css">
-    <link rel="stylesheet" href="styles/trunks.css">
-    <!-- endbuild -->
-    <link rel="stylesheet" href="styles/brand.css">
-  </head>
+<head>
+  <meta charset="utf-8">
+  <title ng-bind="customConfig.BRAND_NAME"></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap-combobox/css/bootstrap-combobox.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap-touchspin/src/jquery.bootstrap-touchspin.css" />
+  <link rel="stylesheet" href="bower_components/c3/c3.css" />
+  <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css" />
+  <link rel="stylesheet" href="bower_components/datatables-colvis/css/dataTables.colVis.css" />
+  <link rel="stylesheet" href="bower_components/google-code-prettify/bin/prettify.min.css" />
+  <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
+  />
+  <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly.css" />
+  <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly-additions.css" />
+  <link rel="stylesheet" href="bower_components/angular-patternfly/dist/styles/angular-patternfly.css" />
+  <link rel="stylesheet" href="bower_components/ng-sortable/dist/ng-sortable.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/login.css">
+  <link rel="stylesheet" href="styles/trunks.css">
+  <!-- endbuild -->
+  <link rel="stylesheet" href="styles/brand.css">
+</head>
 
-  <body ng-class="login.isLogged ? 'cards-pf' : 'login-pf'" ng-controller="InitCtrl">
-    <!-- login -->
-    <div ng-if="!login.isLogged">
-      <div ng-include="loginUrl">
-      </div>
+<body ng-class="login.isLogged ? 'cards-pf' : 'login-pf'" ng-controller="InitCtrl">
+  <!-- login -->
+  <div ng-if="!login.isLogged">
+    <div ng-include="loginUrl">
     </div>
-    <!-- end login -->
-    <div ng-show="login.isLogged" class="full-height">
-      <!-- navbar-->
-      <nav class="navbar navbar-pf-alt">
-        <div class="navbar-header">
-          <button ng-click="toggleNavBar()" type="button" class="navbar-toggle">
+  </div>
+  <!-- end login -->
+  <div ng-show="login.isLogged" class="full-height">
+    <!-- navbar-->
+    <nav class="navbar navbar-pf-alt">
+      <div class="navbar-header">
+        <button ng-click="toggleNavBar()" type="button" class="navbar-toggle">
           <span class="sr-only"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-          <a ng-click="goTo('/')" class="navbar-brand">
-            <img class="navbar-brand-icon" src="images/brand.png" alt="" />
-            <label ng-if="mode.isLegacy">{{'Legacy' | translate}}</legacy>
+        <a ng-click="goTo('/')" class="navbar-brand">
+          <img class="navbar-brand-icon" src="images/brand.png" alt="" />
+          <label ng-if="mode.isLegacy">{{'Legacy' | translate}}</legacy>
           </a>
         </div>
         <nav class="collapse navbar-collapse">
@@ -141,6 +142,20 @@
               </div>
               <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('outbound',2) ? 'active' : ''}}">
                   <div ng-click="goTo('routes/outbound')" class="list-group-item-value  menu-item-left no-opacity">{{'Outbound' | translate | ellipsis:'1200'}}</div>
+              </div>
+          </div>
+          <li data-toggle="collapse" data-parent="#navbar-left" href="#adminCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART3_STEP" class="list-group-item collapse-menu {{resolveActiveTab('admin',1) ? 'active' : ''}}" id="admin-item-menu">
+            <a>
+              <span class="pficon pficon-user" title="Admin" data-toggle="tooltip" data-placement="right"></span>
+              <span class="list-group-item-value">{{'Admin' | translate }}</span>
+            </a>
+          </li>
+          <div id="adminCollapse" class="panel-collapse collapse {{resolveActiveTab('admin',1) ? 'in' : ''}}">
+              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('settings',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('admin/settings')" class="list-group-item-value menu-item-left no-opacity">{{'Settings' | translate | ellipsis:'1200'}}</div>
+              </div>
+              <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('report',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('admin/report')" class="list-group-item-value menu-item-left no-opacity">{{'Report' | translate | ellipsis:'1200'}}</div>
               </div>
           </div>
           <li class="list-group-item list-group-item-separator hidden-sm hidden-md hidden-lg collapse-menu" id="fullscreen-item-menu">
@@ -248,6 +263,9 @@
     <script src="scripts/controllers/users/profiles.js"></script>
     <script src="scripts/services/profileservice.js"></script>
     <script src="scripts/filters/profilelist.js"></script>
+    <script src="scripts/controllers/admin.js"></script>
+    <script src="scripts/controllers/admin/settings.js"></script>
+    <script src="scripts/controllers/admin/report.js"></script>
     <!-- endbuild -->
   </body>
 

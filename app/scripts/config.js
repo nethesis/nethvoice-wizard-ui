@@ -1,7 +1,8 @@
 var appConfig = {
-  TOTAL_STEP: 8,
+  TOTAL_STEP: 9,
   PART1_STEP: 4,
   PART2_STEP: 6,
+  PART3_STEP: 8,
   STEP_MAP: {
     extensions: 1,
     profiles: 2,
@@ -10,7 +11,8 @@ var appConfig = {
     physical: 5,
     voip: 6,
     inbound: 7,
-    outbound: 8
+    outbound: 8,
+    settings: 9
   },
   STEP_MAP_REVERSE: {
     '0': 'users',
@@ -21,7 +23,8 @@ var appConfig = {
     '5': 'trunks/physical',
     '6': 'trunks/voip',
     '7': 'routes/inbound',
-    '8': 'routes/outbound'
+    '8': 'routes/outbound',
+    '9': 'admin/settings'
   },
   STEP_WIZARD: {
     extensions: {
@@ -54,6 +57,10 @@ var appConfig = {
     },
     outbound: {
       prev: 'routes/inbound',
+      next: 'admin/settings'
+    },
+    settings: {
+      prev: 'routes/outbound',
       next: false,
       last: true
     }
