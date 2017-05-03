@@ -8,13 +8,13 @@
       </div>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 no-padding">
-      <button ng-click="prevStep()" type="button" class="btn btn-default wizard-pf-back {{wizard.prevState ? '' : 'disabled'}}">
+      <button ng-click="wizard.prevState ? prevStep() : undefined" type="button" class="btn btn-default wizard-pf-back {{wizard.prevState ? '' : 'disabled'}}">
           {{'Back' | translate}}
         </button>
-      <button ng-if="!endWizard" ng-click="nextStep()" type="button" class="btn btn-primary wizard-pf-next {{wizard.nextState ? '' : 'disabled'}}">
+      <button ng-if="!endWizard" ng-click="wizard.nextState ? nextStep() : undefined" type="button" class="btn btn-primary wizard-pf-next {{wizard.nextState ? '' : 'disabled'}}">
           {{'Next' | translate}}
       </button>
-      <button ng-if="endWizard" ng-click="finalize()" type="button" class="btn btn-primary wizard-pf-next">
+      <button ng-if="endWizard" ng-click="wizard.isEnd ? finalize() : undefined" type="button" class="btn btn-primary wizard-pf-next {{wizard.isEnd ? '' : 'disabled'}}">
           {{'Finish' | translate}}
       </button>
     </div>

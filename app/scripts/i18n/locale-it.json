@@ -161,7 +161,7 @@
   "unlinked": "Non associati",
   "configured": "Configurati",
   "unconfigured": "Non configurati",
-  "Print final report": "Stampa report finale",
+  "Final report": "Report finale",
   "You have successfully completed the wizard": "Hai completato con successo il wizard",
   "Go to Home or Print final report for your created users": "Vai all Home o Stampa il report finale per gli utenti creati",
   "Final wizard report": "Report finale wizard",
@@ -264,9 +264,9 @@
   "Admin": "Amministratore",
   "Admin Settings": "Impostazioni Amministratore",
   "Confirm Password": "Conferma Password",
-  "Administrator password update error": "Errore aggiornamento password amministratore",
+  "Password error": "Errore password",
   "Administrator password update failed": "Aggiornamento della password amministratore fallito",
-  "Administrator password updated": "Password amministratore aggiornata",
+  "Password changed": "Password aggiornata",
   "Administrator password updated with success": "Password amministratore aggiornata con successo",
-  "Print report": "Stampa report"
+  "Print PDF report": "Stampa report PDF"
 }

@@ -9,9 +9,36 @@
     </div>
   </div>
   <div class="wizard-pf-contents adjust-size">
-    <h1 class="control-label centered" for="textInput-markup">{{'Print report' | translate}}</h1>
-    <div class="container-fluid col-xs-12 col-sm-12 col-md-6 col-lg-12 adjust-voip">
-      <button ng-click="generatePDF()" class="btn btn-primary btn-lg"> {{'Print final report' | translate}} </button>
+    <h1 class="control-label centered" for="textInput-markup">{{'Final report' | translate}}</h1>
+    <div class="container-fluid adjust-voip">
+      <button ng-click="generatePDF()" class="btn btn-primary btn-lg"> {{'Print PDF report' | translate}}</button>
+    </div>
+    <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions">
+      <div class="list-group-item" ng-repeat="user in users | filter:searchUsersString">
+        <div ng-if="mode.isLegacy" class="list-view-pf-actions">
+          <strong>{{user.password}}</strong>
+        </div>
+        <div class="list-view-pf-main-info">
+          <div class="list-view-pf-left">
+            <span class="fa fa-user list-view-pf-icon-sm"></span>
+          </div>
+          <div class="list-view-pf-body">
+            <div class="list-view-pf-description">
+              <div class="list-group-item-heading">
+                {{user.default_extension}}
+              </div>
+              <div class="list-group-item-text">
+                <span class=>{{user.username}}</span>
+              </div>
+            </div>
+            <div class="list-view-pf-additional-info">
+              <div class="list-view-pf-additional-info-item">
+                {{user.displayname}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

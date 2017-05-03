@@ -36,7 +36,11 @@
             <span class="fa fa-search"></span>
           </button>
         </div>
+
       </form>
+      <div class="form-group config-row-button">
+          <button ng-if="mode.isLegacy" data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg no-margin">{{'Add user' | translate}}</button>
+        </div>
       <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions">
         <div ng-show="selectedUsersFilter == 'configured' ? user.default_extension !== 'none' : (selectedUsersFilter == 'unconfigured' ? user.default_extension == 'none' : true)"
           class="list-group-item" ng-repeat="user in users | filter:searchUsersString">
@@ -44,7 +48,7 @@
             <div ng-show="user.isInAction" class="spinner spinner-sm adjust-margin"></div>
             <span ng-show="!user.isInAction" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{user.default_extension === 'none' ? 'Not configured' : 'Configured' | translate}}"
               class="pficon {{user.default_extension === 'none' ? 'pficon-info' : 'pficon-ok'}} icon-med"></span>
-              <span ng-if="user.alreadyExists" class="help-block">{{'Extension already in use' | translate}}</span>
+            <span ng-if="user.alreadyExists" class="help-block">{{'Extension already in use' | translate}}</span>
           </div>
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
@@ -79,26 +83,25 @@
               </div>
             </div>
           </div>
+        </div>
       </div>
-      <button ng-if="mode.isLegacy" data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg right-button">{{'Add user' | translate}}</button>
+    </div>
+    <div ng-if="users | isEmpty" class="blank-slate-pf ">
+      <div class="blank-slate-pf-icon">
+        <span class="pficon pficon-users"></span>
+      </div>
+      <h1>
+        {{'No users found' | translate}}
+      </h1>
+      <p ng-if="!mode.isLegacy">
+        {{'Check your LDAP or Active Directory settings' | translate}}
+      </p>
+      <div ng-if="mode.isLegacy" class="blank-slate-pf-main-action">
+        <button data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg">{{'Create user' | translate}}</button>
+      </div>
     </div>
   </div>
-  <div ng-if="users | isEmpty" class="blank-slate-pf ">
-    <div class="blank-slate-pf-icon">
-      <span class="pficon pficon-users"></span>
-    </div>
-    <h1>
-      {{'No users found' | translate}}
-    </h1>
-    <p ng-if="!mode.isLegacy">
-      {{'Check your LDAP or Active Directory settings' | translate}}
-    </p>
-    <div ng-if="mode.isLegacy" class="blank-slate-pf-main-action">
-      <button data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg">{{'Create user' | translate}}</button>
-    </div>
-  </div>
-</div>
-<wizard-step ng-if="wizard.isWizard"></wizard-step>
+  <wizard-step ng-if="wizard.isWizard"></wizard-step>
 </div>
 <div class="modal fade" id="createUser" tabindex="-1" role="dialog" aria-labelledby="createUserLabel" aria-hidden="true">
   <div class="modal-dialog">

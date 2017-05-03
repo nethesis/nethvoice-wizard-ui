@@ -10,6 +10,18 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('AdminReportCtrl', function ($scope, $filter, UserService) {
     $scope.customConfig = customConfig;
+    $scope.users = [];
+    $scope.view.changeRoute = true;
+
+    $scope.retrieveInfo = function () {
+      UserService.retrieveFinalInfo().then(function (res) {
+        $scope.users = res.data;
+        $scope.view.changeRoute = false;
+      }, function (err) {
+        console.log(err);
+      });
+    };
+
     $scope.generatePDF = function () {
       var columns = [{
           title: $filter('translate')('Extension'),
@@ -21,13 +33,14 @@ angular.module('nethvoiceWizardUiApp')
         {
           title: $filter('translate')('Username'),
           dataKey: "username"
-        },
-
-        {
-          title: "Password",
-          dataKey: "password"
         }
       ];
+      if ($scope.mode.isLegacy) {
+        columns.push({
+          title: "Password",
+          dataKey: "password"
+        });
+      }
       var rows = [];
 
       UserService.retrieveFinalInfo().then(function (res) {
@@ -60,4 +73,6 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err);
       });
     };
+
+    $scope.retrieveInfo();
   });

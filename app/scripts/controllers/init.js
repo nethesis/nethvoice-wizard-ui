@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('InitCtrl', function($scope, $translate, $route, $location, LanguageService, LocalStorageService, LoginService, UserService, TrunkService, RouteService) {
+  .controller('InitCtrl', function ($scope, $translate, $route, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService, TrunkService, RouteService) {
     $scope.customConfig = customConfig;
     $scope.appConfig = appConfig;
 
@@ -37,20 +37,20 @@ angular.module('nethvoiceWizardUiApp')
       routesOut: 0
     };
 
-    $scope.doLogout = function() {
+    $scope.doLogout = function () {
       LoginService.removeCredentials();
       $location.path('/');
       $('#loginTpl').show();
       $scope.login.isLogged = false;
     };
 
-    $scope.goTo = function(route) {
+    $scope.goTo = function (route) {
       if (!$scope.wizard.isWizard) {
         $location.path(route);
       }
     };
 
-    $scope.toggleNavBar = function() {
+    $scope.toggleNavBar = function () {
       if (window.screen.width < 768) {
         if ($('#navbar-left').hasClass('show-mobile-nav')) {
           $('#wizard-step-footer').css('margin-left', '0px');
@@ -66,16 +66,31 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    $scope.resolveActiveTab = function(type, index) {
+    $scope.getConfig = function () {
+      ConfigService.getConfig().then(function (res) {
+        switch (res.data.result) {
+          case 'legacy':
+            $scope.mode.isLegacy = true;
+            break;
+          case 'uc':
+            $scope.mode.isLegacy = false;
+            break;
+        }
+      }, function (err) {
+        console.log(err);
+      });
+    };
+
+    $scope.resolveActiveTab = function (type, index) {
       return window.location.hash.split('/')[index] === type;
     };
 
-    $scope.currentStepCount = function() {
+    $scope.currentStepCount = function () {
       return $scope.wizard.stepCount;
     }
 
     $scope.languagesArr = LanguageService.getAllLanguages();
-    $scope.changeLanguage = function(l) {
+    $scope.changeLanguage = function (l) {
       var userLang = '';
       if (l.key == 'default') {
         userLang = navigator.language || navigator.userLanguage;
@@ -95,7 +110,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    $scope.goToFullScreen = function() {
+    $scope.goToFullScreen = function () {
       if ($scope.inFullScreen) {
         if (document.exitFullscreen) {
           document.exitFullscreen();
@@ -124,7 +139,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    $scope.currentYear = function() {
+    $scope.currentYear = function () {
       return new Date().getFullYear();
     }
 
@@ -134,32 +149,35 @@ angular.module('nethvoiceWizardUiApp')
     });
 
     // get count data
-    $scope.$on('loginCompleted', function(event, args) {
+    $scope.$on('loginCompleted', function (event, args) {
       // users
-      UserService.count().then(function(res) {
+      UserService.count().then(function (res) {
         $scope.menuCount.users = res.data;
-      }, function(err) {
+      }, function (err) {
         console.log(err);
       });
 
       //trunks
-      TrunkService.count().then(function(res) {
+      TrunkService.count().then(function (res) {
         $scope.menuCount.trunks = res.data;
-      }, function(err) {
+      }, function (err) {
         console.log(err);
       });
 
       //routes
-      RouteService.countIn().then(function(res) {
+      RouteService.countIn().then(function (res) {
         $scope.menuCount.routesIn = res.data;
-      }, function(err) {
+      }, function (err) {
         console.log(err);
       });
-      RouteService.countOut().then(function(res) {
+      RouteService.countOut().then(function (res) {
         $scope.menuCount.routesOut = res.data;
-      }, function(err) {
+      }, function (err) {
         console.log(err);
       });
+
+      //config
+      $scope.getConfig();
     });
 
   });

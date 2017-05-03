@@ -9,6 +9,8 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .controller('AdminSettingsCtrl', function ($scope, UserService, RestService) {
+    $scope.wizard.isEnd = false;
+
     $scope.create = function () {
       if ($scope.admin.password === $scope.admin.confirmPassword) {
         UserService.setPassword('admin', {
@@ -18,6 +20,7 @@ angular.module('nethvoiceWizardUiApp')
           RestService.setAuthHeader('admin', hash);
           $scope.onSaveSuccess = true;
           $scope.onSaveError = false;
+          $scope.wizard.isEnd = true;
         }, function (err) {
           $scope.onSaveSuccess = false;
           $scope.onSaveError = true;
