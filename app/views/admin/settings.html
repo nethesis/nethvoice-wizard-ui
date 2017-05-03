@@ -16,33 +16,32 @@
             <span class="pficon pficon-close"></span>
         </button>
         <span class="pficon pficon-ok"></span>
-        <strong>{{'Password changed' | translate}}.</strong> {{'Administrator password updated with success'
-        | translate}}
+        <strong>{{'Password changed' | translate}}.</strong> {{'Administrator password updated with success' | translate}}
       </div>
       <div ng-show="onSaveError" class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
             <span class="pficon pficon-close"></span>
           </button>
         <span class="pficon pficon-error-circle-o"></span>
-        <strong>{{'Password error' | translate}}</strong> {{'Administrator password update failed' |
-        translate}}
+        <strong>{{'Password error' | translate}}</strong> {{'Administrator password update failed' | translate}}
       </div>
+      <h3>{{'Change password' | translate}}</h3>
       <form class="form-horizontal" ng-submit="create()">
         <div class="form-group">
-          <label class="col-sm-6 control-label">{{'Password' | translate}}</label>
-          <div class="col-sm-6">
+          <label class="col-sm-3 control-label">{{'Password' | translate}}</label>
+          <div class="col-sm-9">
             <input type="password" ng-model="admin.password" class="form-control" required>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-6 control-label">{{'Confirm Password' | translate}}</label>
-          <div class="col-sm-6">
+          <label class="col-sm-3 control-label">{{'Confirm Password' | translate}}</label>
+          <div class="col-sm-9">
             <input type="password" ng-model="admin.confirmPassword" class="form-control" required>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-6 control-label"></label>
-          <div class="col-sm-6">
+          <label class="col-sm-3 control-label"></label>
+          <div class="col-sm-9">
             <button type="submit" class="col-md-2 btn btn-primary right-align">{{'Set' | translate}}</button>
           </div>
         </div>
