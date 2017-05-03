@@ -268,5 +268,6 @@
   "Administrator password update failed": "Aggiornamento della password amministratore fallito",
   "Password changed": "Password aggiornata",
   "Administrator password updated with success": "Password amministratore aggiornata con successo",
-  "Print PDF report": "Stampa report PDF"
+  "Print PDF report": "Stampa report PDF",
+  "Print final report": "Stampa report finale"
 }

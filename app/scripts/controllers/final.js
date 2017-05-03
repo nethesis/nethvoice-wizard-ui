@@ -23,13 +23,14 @@ angular.module('nethvoiceWizardUiApp')
         {
           title: $filter('translate')('Username'),
           dataKey: "username"
-        },
-
-        {
-          title: "Password",
-          dataKey: "password"
         }
       ];
+      if ($scope.mode.isLegacy) {
+        columns.push({
+          title: "Password",
+          dataKey: "password"
+        });
+      }
       var rows = [];
 
       UserService.retrieveFinalInfo().then(function (res) {
