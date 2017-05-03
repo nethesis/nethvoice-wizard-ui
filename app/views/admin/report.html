@@ -10,12 +10,12 @@
   </div>
   <div class="wizard-pf-contents adjust-size">
     <h1 class="control-label centered" for="textInput-markup">{{'Final report' | translate}}</h1>
-    <div class="container-fluid adjust-voip">
+    <div class="container-fluid">
       <button ng-click="generatePDF()" class="btn btn-primary btn-lg"> {{'Print PDF report' | translate}}</button>
     </div>
     <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions">
       <div class="list-group-item" ng-repeat="user in users | filter:searchUsersString">
-        <div ng-if="mode.isLegacy" class="list-view-pf-actions">
+        <div popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="Password" ng-if="mode.isLegacy" class="list-view-pf-actions">
           <strong>{{user.password}}</strong>
         </div>
         <div class="list-view-pf-main-info">
@@ -24,14 +24,14 @@
           </div>
           <div class="list-view-pf-body">
             <div class="list-view-pf-description">
-              <div class="list-group-item-heading">
+              <div popover-placement="top-left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Extension' | translate}}" class="list-group-item-heading">
                 {{user.default_extension}}
               </div>
-              <div class="list-group-item-text">
+              <div popover-placement="top-left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Username' | translate}}" class="list-group-item-text">
                 <span class=>{{user.username}}</span>
               </div>
             </div>
-            <div class="list-view-pf-additional-info">
+            <div popover-placement="top-left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Fullname' | translate}}" class="list-view-pf-additional-info">
               <div class="list-view-pf-additional-info-item">
                 {{user.displayname}}
               </div>
