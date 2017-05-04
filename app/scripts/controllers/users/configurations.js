@@ -92,7 +92,11 @@ angular.module('nethvoiceWizardUiApp')
           }
         });
         UserService.getVoiceMail($scope.selectedUser.default_extension).then(function (res) {
-          $scope.selectedUser.voiceMailState = true;
+          if (res.data && res.data.mailbox) {
+            $scope.selectedUser.voiceMailState = true;
+          } else {
+            $scope.selectedUser.voiceMailState = false;
+          }
         }, function (err) {
           if (err.status != 404) {
             console.log(err);
