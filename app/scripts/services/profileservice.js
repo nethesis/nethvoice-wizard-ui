@@ -19,6 +19,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.allGroups = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/cti/groups').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.getProfile = function (id) {
       return $q(function (resolve, reject) {
         RestService.get('/cti/profiles/' + id).then(function (res) {
@@ -59,9 +69,29 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.setUserGroup = function (id, obj) {
+      return $q(function (resolve, reject) {
+        RestService.post('/cti/groups/users/' + id, obj).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.create = function (obj) {
       return $q(function (resolve, reject) {
         RestService.post('/cti/profiles', obj).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.createGroup = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.post('/cti/groups', obj).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
@@ -82,6 +112,16 @@ angular.module('nethvoiceWizardUiApp')
     this.delete = function (id) {
       return $q(function (resolve, reject) {
         RestService.delete('/cti/profiles/' + id).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.deleteGroup = function (id) {
+      return $q(function (resolve, reject) {
+        RestService.delete('/cti/groups/' + id).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);

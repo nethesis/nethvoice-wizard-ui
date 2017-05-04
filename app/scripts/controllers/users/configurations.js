@@ -12,7 +12,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.users = {};
     $scope.selectedUser = null;
     $scope.devices = {};
-    $scope.allProfiles = {};
+    $scope.allProfiles = [];
+    $scope.allGroups = [];
     $scope.maxExtensionReached = false;
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured'];
@@ -31,6 +32,17 @@ angular.module('nethvoiceWizardUiApp')
         $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
+        $scope.view.changeRoute = false;
+      });
+    };
+
+    $scope.getAllGroups = function (reload) {
+      ProfileService.allGroups().then(function (res) {
+        $scope.allGroups = res.data;
+        $scope.view.changeRoute = false;
+      }, function (err) {
+        console.log(err);
+        $scope.view.changeRoute = false;
       });
     };
 
@@ -248,6 +260,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    $scope.setGroup = function () {
+      ProfileService.setUserGroup($scope.selectedUser.id, {
+        data: $scope.selectedUser.groups
+      }).then(function (res) {
+        console.log(res);
+      }, function (err) {
+        console.log(err);
+      });
+    };
+
     $scope.checkConfiguredExtensions = function (device, filter) {
       if (filter == 'all') {
         return true;
@@ -265,4 +287,5 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getUserList(true);
     $scope.getDeviceList();
     $scope.getAllProfiles();
+    $scope.getAllGroups();
   });

@@ -102,6 +102,11 @@ angular
         controller: 'AdminReportCtrl',
         controllerAs: 'admin/report'
       })
+      .when('/users/groups', {
+        templateUrl: 'views/users/groups.html',
+        controller: 'UsersGroupsCtrl',
+        controllerAs: 'users/groups'
+      })
       .otherwise({
         redirectTo: '/'
       });

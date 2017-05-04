@@ -5,14 +5,17 @@
         <li class="wizard-pf-step {{resolveActiveTab('extensions',2) ? 'active' : ''}}" data-tabgroup="1">
           <a ng-click="goTo('users/extensions')"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Extensions' | translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('profiles',2) ? 'active' : ''}}" data-tabgroup="2">
-          <a ng-click="goTo('users/profiles')"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Profiles' | translate}}</span></a>
+        <li class="wizard-pf-step {{resolveActiveTab('groups',2) ? 'active' : ''}}" data-tabgroup="2">
+          <a ng-click="goTo('users/groups')"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Groups' | translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="3">
-          <a ng-click="goTo('users/devices')"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
+        <li class="wizard-pf-step {{resolveActiveTab('profiles',2) ? 'active' : ''}}" data-tabgroup="3">
+          <a ng-click="goTo('users/profiles')"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Profiles' | translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="4">
-          <a ng-click="goTo('users/configurations')"><span class="wizard-pf-step-number">4</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
+        <li class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="4">
+          <a ng-click="goTo('users/devices')"><span class="wizard-pf-step-number">4</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
+        </li>
+        <li class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="5">
+          <a ng-click="goTo('users/configurations')"><span class="wizard-pf-step-number">5</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
         </li>
       </ul>
     </div>
@@ -39,14 +42,19 @@
         </div>
       </form>
       <div class="user-config-detail">
-        <span ng-if="selectedUser"><span class="weight-plus">{{selectedUser.displayname}}</span> | {{selectedUser.devices.length}} {{selectedUser.devices.length == 1 ? 'device' : 'devices' | translate}}</span>
+        <span ng-if="selectedUser"><span class="weight-plus">{{selectedUser.displayname}}</span> | {{selectedUser.devices.length}}
+        {{selectedUser.devices.length == 1 ? 'device' : 'devices' | translate}}</span>
         <span ng-if="!selectedUser"><span class="weight-plus">{{'No users configured' | translate}}</span></span>
       </div>
       <div class="list-group list-view-pf list-view-pf-view adjust-body-user">
-        <div ng-if="user.default_extension !== 'none'" ng-show="selectedUserFilter == 'configured' ? user.devices.length > 0 : (selectedUserFilter == 'unconfigured' ? user.devices.length == 0 : true)" class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users | filter:searchUserUserString" ng-click="selectUser(user)">
+        <div ng-if="user.default_extension !== 'none'" ng-show="selectedUserFilter == 'configured' ? user.devices.length > 0 : (selectedUserFilter == 'unconfigured' ? user.devices.length == 0 : true)"
+          class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users | filter:searchUserUserString"
+          ng-click="selectUser(user)">
           <div class="list-view-pf-actions">
-            <span ng-if="user.default_extension == 'none'" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Main extension not created' | translate}}" class="pficon pficon-warning-triangle-o icon-med"></span>
-            <span ng-if="user.default_extension != 'none'" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{user.profile ? 'Configured' : 'No profile associated' | translate}}" class="pficon {{user.profile ? 'pficon-ok' : 'pficon-warning-triangle-o'}} icon-med"></span>
+            <span ng-if="user.default_extension == 'none'" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true"
+              uib-popover="{{'Main extension not created' | translate}}" class="pficon pficon-warning-triangle-o icon-med"></span>
+            <span ng-if="user.default_extension != 'none'" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true"
+              uib-popover="{{user.profile ? 'Configured' : 'No profile associated' | translate}}" class="pficon {{user.profile ? 'pficon-ok' : 'pficon-warning-triangle-o'}} icon-med"></span>
           </div>
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
@@ -70,67 +78,74 @@
       </div>
     </div>
     <div ng-if="users | isEmpty" class="blank-slate-pf container-fluid col-lg-5 col-md-6 col-sm-6 col-xs-12">
-        <div class="blank-slate-pf-icon">
-          <span class="pficon pficon-users"></span>
-        </div>
-        <h1>
-          {{'Configure your users' | translate}}
-        </h1>
-        <p>
-          {{'Add main extensions' | translate}} <a ng-click="goTo('users/extensions')">{{'here' | translate}}</a>.
-        </p>
+      <div class="blank-slate-pf-icon">
+        <span class="pficon pficon-users"></span>
       </div>
+      <h1>
+        {{'Configure your users' | translate}}
+      </h1>
+      <p>
+        {{'Add main extensions' | translate}} <a ng-click="goTo('users/extensions')">{{'here' | translate}}</a>.
+      </p>
+    </div>
     <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 config-adjust-size">
       <h1 class="control-label config-title-user" for="textInput-markup">
-          <div>
-            <div class="filter-label">{{'Filter' | translate}}:</div>
-            <select class="adjust-filter" title="-" pf-select="{ width: '180px' }" ng-model="selectedDeviceFilter" ng-options="df as df | translate for df in availableDeviceFilters">
+        <div>
+          <div class="filter-label">{{'Filter' | translate}}:</div>
+          <select class="adjust-filter" title="-" pf-select="{ width: '180px' }" ng-model="selectedDeviceFilter" ng-options="df as df | translate for df in availableDeviceFilters">
             </select>
-          </div>
-          <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
-            <div class="form-group has-clear">
-              <div class="search-pf-input-group" id="filter-domains-details">
-                <input ng-model="searchDeviceUserString" type="text" class="form-control input-lg adjust-weight" placeholder="{{'Search devices' | translate}}..."></input>
-              </div>
+        </div>
+        <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
+          <div class="form-group has-clear">
+            <div class="search-pf-input-group" id="filter-domains-details">
+              <input ng-model="searchDeviceUserString" type="text" class="form-control input-lg adjust-weight" placeholder="{{'Search devices' | translate}}..."></input>
             </div>
-            <div class="form-group">
-              <button class="btn btn-default btn-lg" type="submit">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-default btn-lg" type="submit">
                 <span class="fa fa-search"></span>
               </button>
-            </div>
-          </form>
-          <div class="device-config-detail">
-            <span class="weight-plus">{{devices.length}} {{devices.length == 1 ? 'device' : 'devices' | translate}}</span>
           </div>
+        </form>
+        <div class="device-config-detail">
+          <span class="weight-plus">{{devices.length}} {{devices.length == 1 ? 'device' : 'devices' | translate}}</span>
+        </div>
       </h1>
       <div ng-if="maxExtensionReached" class="alert alert-warning alert-dismissable">
-          <button ng-click="cancelError()" type="button" class="close" data-dismiss="alert" aria-hidden="true">
+        <button ng-click="cancelError()" type="button" class="close" data-dismiss="alert" aria-hidden="true">
             <span class="pficon pficon-close"></span>
           </button>
-          <span class="pficon pficon-warning-triangle-o"></span>
-          <strong>{{'Devices limit reached' | translate}}.</strong> {{'An user can have up to 7 devices associated' | translate}}.
+        <span class="pficon pficon-warning-triangle-o"></span>
+        <strong>{{'Devices limit reached' | translate}}.</strong> {{'An user can have up to 7 devices associated' | translate}}.
       </div>
       <div ng-if="!(devices | isEmpty)" class="container-fluid">
         <div class="list-group list-view-pf list-view-pf-view config-view-container">
           <div id="accordion-markup-{{$index}}" ng-show="checkConfiguredExtensions(device, selectedDeviceFilter)" class="list-group-item
-            {{device.lines[0].mainextension == selectedUser.default_extension ? 'selected' : ''}} {{device.extension ? 'disabled' : ''}}" ng-repeat="device in devices | filter:searchDeviceUserString | orderBy: ['manufacturer','model']">
+            {{device.lines[0].mainextension == selectedUser.default_extension ? 'selected' : ''}} {{device.extension ? 'disabled' : ''}}"
+            ng-repeat="device in devices | filter:searchDeviceUserString | orderBy: ['manufacturer','model']">
             <div class="list-view-pf-actions adjust-link">
-              <button ng-if="device.lines && device.lines.length == 1" ng-click="device.lines[0].extension ? deletePhysicalExtension(device, device.lines[0].extension) : setPhysicalExtension(selectedUser, device)" type="button" class="btn btn-{{device.lines[0].extension ? 'default' : 'primary'}}" aria-haspopup="true" aria-expanded="false"><span>{{device.lines[0].extension ? 'Unlink from' : 'Link to' | translate}} {{device.lines[0].extension ? getNameFromExtension(device.lines[0].mainextension) : selectedUser.displayname}}</span></button>
-              <span ng-if="isConfigured(device)" ng-click="configureAndRebootPhone(device)" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{device.inError ? 'Provision error, try again' : 'Provision and reboot phone' | translate}}" class="{{device.inError ? 'fa fa-times btn btn-danger' : 'fa fa-magic btn btn-warning'}} icon-med-reload {{device.lines.length == 1 ? '' : 'absolute-provision'}}"></span>
-              <span ng-if="device.lines && device.lines.length > 1" class="fa fa-angle-down icon-med-reload absolute-expand" data-toggle="collapse" data-parent="#accordion-markup-{{$index}}" href="#collapseOne-{{$index}}"></span>
+              <button ng-if="device.lines && device.lines.length == 1" ng-click="device.lines[0].extension ? deletePhysicalExtension(device, device.lines[0].extension) : setPhysicalExtension(selectedUser, device)"
+                type="button" class="btn btn-{{device.lines[0].extension ? 'default' : 'primary'}}" aria-haspopup="true" aria-expanded="false"><span>{{device.lines[0].extension ? 'Unlink from' : 'Link to' | translate}} {{device.lines[0].extension ? getNameFromExtension(device.lines[0].mainextension) : selectedUser.displayname}}</span></button>
+              <span ng-if="isConfigured(device)" ng-click="configureAndRebootPhone(device)" popover-placement="left" popover-trigger="'mouseenter'"
+                popover-animation="true" uib-popover="{{device.inError ? 'Provision error, try again' : 'Provision and reboot phone' | translate}}"
+                class="{{device.inError ? 'fa fa-times btn btn-danger' : 'fa fa-magic btn btn-warning'}} icon-med-reload {{device.lines.length == 1 ? '' : 'absolute-provision'}}"></span>
+              <span ng-if="device.lines && device.lines.length > 1" class="fa fa-angle-down icon-med-reload absolute-expand" data-toggle="collapse"
+                data-parent="#accordion-markup-{{$index}}" href="#collapseOne-{{$index}}"></span>
               <div ng-show="device.setPhysicalInAction" class="spinner spinner-sm config-spinner"></div>
               <div ng-if="device.lines && device.lines.length > 1" id="collapseOne-{{$index}}" class="panel-collapse collapse">
                 <div class="panel-body resized-list">
                   <div ng-repeat="line in device.lines">
                     <div class="line-margin-top">{{'Line' | translate}} <b>{{line.line}}</b></div>
                     <div class="space-bottom">
-                      <button ng-click="line.extension ? deletePhysicalExtension(device, line.extension) : setPhysicalExtension(selectedUser, device, line.line)" type="button" class="btn btn-{{line.extension ? 'default' : 'primary'}}" aria-haspopup="true" aria-expanded="false"><span>{{line.extension ? 'Unlink from' : 'Link to' | translate}} {{line.extension ? getNameFromExtension(line.mainextension) : selectedUser.displayname}}</span></button>
+                      <button ng-click="line.extension ? deletePhysicalExtension(device, line.extension) : setPhysicalExtension(selectedUser, device, line.line)"
+                        type="button" class="btn btn-{{line.extension ? 'default' : 'primary'}}" aria-haspopup="true" aria-expanded="false"><span>{{line.extension ? 'Unlink from' : 'Link to' | translate}} {{line.extension ? getNameFromExtension(line.mainextension) : selectedUser.displayname}}</span></button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="list-view-pf-main-info config-list-item-right" data-toggle="collapse" data-parent="#accordion-markup-{{$index}}" href="#collapseOne-{{$index}}">
+            <div class="list-view-pf-main-info config-list-item-right" data-toggle="collapse" data-parent="#accordion-markup-{{$index}}"
+              href="#collapseOne-{{$index}}">
               <div class="list-view-pf-left">
                 <span class="fa fa-phone list-view-pf-icon-sm"></span>
               </div>
@@ -181,20 +196,22 @@
                 <span class="fa fa-envelope-o"></span>
             <span class="config-span">{{'Voicemail' | translate}}</span>
             </span>
-            <input bs-switch ng-model="selectedUser.voiceMailState" ng-change="setVoiceMail()" id="bootstrap-switch-voicemail-{{selectedUser.id}}" class="bootstrap-switch bootstrap-switch-voicemail col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
+            <input bs-switch ng-model="selectedUser.voiceMailState" ng-change="setVoiceMail()" id="bootstrap-switch-voicemail-{{selectedUser.id}}"
+              class="bootstrap-switch bootstrap-switch-voicemail col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
             <div ng-if="selectedUser.setVoiceMailInAction" class="spinner spinner-sm language-name"></div>
           </div>
         </div>
       </div>
 
-       <div class="row config-row">
-       <div class="col-lg-6 col-xs-12 config-bottom">
+      <div class="row config-row">
+        <div class="col-lg-6 col-xs-12 config-bottom">
           <div class="list-view-pf-additional-info-item">
             <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="fa fa-headphones"></span>
             <span class="config-span">{{'WebRTC' | translate}}</span>
             </span>
-            <input bs-switch ng-model="selectedUser.webRtcState" ng-change="setWebRTC()" id="bootstrap-switch-webrtc-{{selectedUser.id}}" class="bootstrap-switch bootstrap-switch-webrtc col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
+            <input bs-switch ng-model="selectedUser.webRtcState" ng-change="setWebRTC()" id="bootstrap-switch-webrtc-{{selectedUser.id}}"
+              class="bootstrap-switch bootstrap-switch-webrtc col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
             <div ng-if="selectedUser.setWebRTCInAction" class="spinner spinner-sm language-name"></div>
           </div>
         </div>
@@ -210,11 +227,21 @@
         </div>-->
       </div>
 
-       <div class="row config-row">
+      <div class="row config-row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 config-bottom">
           <div class="list-view-pf-additional-info-item">
             <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="fa fa-user"></span><span class="config-span">{{'Profile' | translate}}</span></span>
             <select ng-change="setProfile()" title="-" pf-select="{ width: '180px' }" ng-model="selectedUser.profile" ng-options="p.id as p.name for p in allProfiles">
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row config-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 config-bottom">
+          <div class="list-view-pf-additional-info-item">
+            <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="fa fa-groups"></span><span class="config-span">{{'Group' | translate}}</span></span>
+            <select multiple ng-change="setGroup()" title="-" pf-select="{ width: '180px' }" ng-model="selectedUser.groups" ng-options="p.id as p.name for p in allGroups">
             </select>
           </div>
         </div>
