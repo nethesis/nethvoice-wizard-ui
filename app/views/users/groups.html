@@ -37,7 +37,7 @@
       <strong>{{'Group not saved' | translate}}.</strong> {{'Group saving error' | translate}}
     </div>
     <div ng-if="!(allGroups | isEmpty)" class="row row-cards-pf adjust-card">
-      <div ng-repeat="g in allGroups" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div ng-repeat="g in allGroups | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <div class="card-pf">
           <h2 class="card-pf-title">
             {{g.name}}

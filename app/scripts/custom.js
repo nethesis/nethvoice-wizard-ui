@@ -5,5 +5,5 @@ var customConfig = {
   BASE_API_URL: 'https://nethpanico.nethesis.it/freepbx/rest',
   VPLAN_URL: 'https://nethpanico.nethesis.it/freepbx/visualplan',
   OUTBOUNDS_URL: '/freepbx/admin/config.php?display=routing&view=form&id=',
-  SECRET_KEY: 'q_SPxqTuHHfYXKZE'
+  SECRET_KEY: '1234'
 };
