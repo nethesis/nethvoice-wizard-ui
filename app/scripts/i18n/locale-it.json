@@ -11,6 +11,16 @@
   "device": "dispositivo",
   "Profiles": "Profili",
   "Profile": "Profilo",
+  "Groups": "Gruppi",
+  "Group": "Gruppo",
+  "No groups found": "Nessun gruppo trovato",
+  "Groups configuration": "Configurazione gruppi",
+  "Create new group": "Crea nuovo gruppo",
+  "New group": "Nuovo gruppo",
+  "Group saved": "Gruppo salvato",
+  "Group saved with success": "Gruppo salvato con successo",
+  "Group not saved": "Gruppo non salvato",
+  "Group saving error": "Errore nel salvataggio del gruppo",
   "Profiles configuration": "Configurazione profili",
   "Search profiles": "Cerca profili",
   "Configurations": "Configurazioni",
@@ -270,5 +280,6 @@
   "Password changed": "Password aggiornata",
   "Administrator password updated with success": "Password amministratore aggiornata con successo",
   "Print PDF report": "Stampa report PDF",
-  "Print final report": "Stampa report finale"
+  "Print final report": "Stampa report finale",
+  "Name": "Nome"
 }

@@ -1002,6 +1002,16 @@ a {
   border-bottom: 0px;
 }
 
+.wizard-pf-step a {
+  font-size: 12px !important;
+}
+
+@media screen and (max-width: 430px) {
+  .wizard-pf-step a {
+    font-size: 10px !important;
+  }
+}
+
 
 /**********/
 

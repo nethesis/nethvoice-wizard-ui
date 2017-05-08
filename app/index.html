@@ -20,8 +20,7 @@
   <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css" />
   <link rel="stylesheet" href="bower_components/datatables-colvis/css/dataTables.colVis.css" />
   <link rel="stylesheet" href="bower_components/google-code-prettify/bin/prettify.min.css" />
-  <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
-  />
+  <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
   <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly.css" />
   <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly-additions.css" />
   <link rel="stylesheet" href="bower_components/angular-patternfly/dist/styles/angular-patternfly.css" />
@@ -102,6 +101,9 @@
           <div id="usersCollapse" class="panel-collapse collapse {{resolveActiveTab('users',1) ? 'in' : ''}}">
               <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('extensions',2) ? 'active' : ''}}">
                   <div ng-click="goTo('users/extensions')" class="list-group-item-value menu-item-left no-opacity">{{'Extensions' | translate | ellipsis:'1200'}}</div>
+              </div>
+              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('groups',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('users/groups')" class="list-group-item-value menu-item-left no-opacity">{{'Groups' | translate | ellipsis:'1200'}}</div>
               </div>
               <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('profiles',2) ? 'active' : ''}}">
                   <div ng-click="goTo('users/profiles')" class="list-group-item-value menu-item-left no-opacity">{{'Profiles' | translate | ellipsis:'1200'}}</div>
@@ -266,6 +268,7 @@
     <script src="scripts/controllers/admin.js"></script>
     <script src="scripts/controllers/admin/settings.js"></script>
     <script src="scripts/controllers/admin/report.js"></script>
+    <script src="scripts/controllers/users/groups.js"></script>
     <!-- endbuild -->
   </body>
 

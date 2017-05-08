@@ -5,14 +5,17 @@
         <li class="wizard-pf-step {{resolveActiveTab('extensions',2) ? 'active' : ''}}" data-tabgroup="1">
           <a ng-click="goTo('users/extensions')"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Extensions' | translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('profiles',2) ? 'active' : ''}}" data-tabgroup="2">
-          <a ng-click="goTo('users/profiles')"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Profiles' | translate}}</span></a>
+        <li class="wizard-pf-step {{resolveActiveTab('groups',2) ? 'active' : ''}}" data-tabgroup="2">
+          <a ng-click="goTo('users/groups')"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Groups' | translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="3">
-          <a ng-click="goTo('users/devices')"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
+        <li class="wizard-pf-step {{resolveActiveTab('profiles',2) ? 'active' : ''}}" data-tabgroup="3">
+          <a ng-click="goTo('users/profiles')"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Profiles' | translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="4">
-          <a ng-click="goTo('users/configurations')"><span class="wizard-pf-step-number">4</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
+        <li class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="4">
+          <a ng-click="goTo('users/devices')"><span class="wizard-pf-step-number">4</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
+        </li>
+        <li class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="5">
+          <a ng-click="goTo('users/configurations')"><span class="wizard-pf-step-number">5</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
         </li>
       </ul>
     </div>
@@ -35,7 +38,7 @@
         <strong>{{'Configuration not saved' | translate}}.</strong> {{'Profiles configuration error' | translate}}
       </div>
       <div class="list-group list-view-pf adjust-margin-extensions no-border">
-        <div ng-repeat="profile in allProfiles | filter:searchProfilesString" class="adjust-profile-margin">
+        <div ng-repeat="profile in allProfiles" class="adjust-profile-margin">
           <div id="accordion-markup-{{$index}}">
             <h1 data-toggle="collapse" data-parent="#accordion-markup-{{$index}}" href="#collapse-{{$index}}" class="adjust-header adjust-profile-header">
               <span class="pficon pficon-users card-pf-icon-circle config-title-icon"></span>{{'Profile' | translate}} <span

@@ -24,6 +24,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
+        $scope.view.changeRoute = false;
       });
     };
 

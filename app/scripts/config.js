@@ -1,38 +1,44 @@
 var appConfig = {
-  TOTAL_STEP: 9,
-  PART1_STEP: 4,
-  PART2_STEP: 6,
-  PART3_STEP: 8,
+  TOTAL_STEP: 10,
+  PART1_STEP: 5,
+  PART2_STEP: 7,
+  PART3_STEP: 9,
   STEP_MAP: {
     extensions: 1,
-    profiles: 2,
-    devices: 3,
-    configurations: 4,
-    physical: 5,
-    voip: 6,
-    inbound: 7,
-    outbound: 8,
-    settings: 9
+    groups: 2,
+    profiles: 3,
+    devices: 4,
+    configurations: 5,
+    physical: 6,
+    voip: 7,
+    inbound: 8,
+    outbound: 9,
+    settings: 10
   },
   STEP_MAP_REVERSE: {
     '0': 'users',
     '1': 'users/extensions',
-    '2': 'users/profiles',
-    '3': 'users/devices',
-    '4': 'users/configurations',
-    '5': 'trunks/physical',
-    '6': 'trunks/voip',
-    '7': 'routes/inbound',
-    '8': 'routes/outbound',
-    '9': 'admin/settings'
+    '2': 'users/groups',
+    '3': 'users/profiles',
+    '4': 'users/devices',
+    '5': 'users/configurations',
+    '6': 'trunks/physical',
+    '7': 'trunks/voip',
+    '8': 'routes/inbound',
+    '9': 'routes/outbound',
+    '10': 'admin/settings'
   },
   STEP_WIZARD: {
     extensions: {
       prev: false,
+      next: 'users/groups'
+    },
+    groups: {
+      prev: 'users/extensions',
       next: 'users/profiles'
     },
     profiles: {
-      prev: 'users/extensions',
+      prev: 'users/groups',
       next: 'users/devices'
     },
     devices: {
