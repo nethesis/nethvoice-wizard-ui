@@ -26,7 +26,7 @@ angular.module('nethvoiceWizardUiApp')
       group.onSave = true;
       ProfileService.createGroup(group).then(function (res) {
         group.onSave = false;
-        group.id = res.id;
+        group.id = res.data.id;
         $scope.getAllGroups(false);
         $scope.onSaveSuccess = true;
         $scope.onSaveError = false;

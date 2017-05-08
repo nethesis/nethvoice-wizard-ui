@@ -262,7 +262,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.setGroup = function () {
       ProfileService.setUserGroup($scope.selectedUser.id, {
-        data: $scope.selectedUser.groups
+        groups: $scope.selectedUser.groups
       }).then(function (res) {
         console.log(res);
       }, function (err) {
