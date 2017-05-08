@@ -96,6 +96,13 @@ angular.module('nethvoiceWizardUiApp')
             return obj;
           }
         })[0];
+        ProfileService.getUserGroup($scope.selectedUser.id).then(function (res) {
+          $scope.selectedUser.groups = res.data;
+        }, function (err) {
+          if (err.status != 404) {
+            console.log(err);
+          }
+        });
         UserService.getMobileExtension($scope.selectedUser.username).then(function (res) {
           $scope.selectedUser.mobile = res.data;
         }, function (err) {
