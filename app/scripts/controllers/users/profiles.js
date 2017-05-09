@@ -17,6 +17,14 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.initGraphics = function () {};
 
+    $scope.isGroupPermission = function(p) {
+      return p.indexOf("grp_") !== -1;
+    };
+
+    $scope.splitGroupName = function(p) {
+      return p.split(': ');
+    };
+
     $scope.getAllProfiles = function (reload) {
       $scope.view.changeRoute = reload;
       ProfileService.allProfiles().then(function (res) {

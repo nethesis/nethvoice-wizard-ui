@@ -62,7 +62,6 @@
   "Save": "Salva",
   "MAC address": "Indirizzo MAC",
   "New Gateway": "Nuovo Gateway",
-  "Add": "Aggiungi",
   "Username": "Nome utente",
   "Phone number": "Numero telefono",
   "Number": "Numero",
@@ -281,5 +280,6 @@
   "Administrator password updated with success": "Password amministratore aggiornata con successo",
   "Print PDF report": "Stampa report PDF",
   "Print final report": "Stampa report finale",
-  "Name": "Nome"
+  "Name": "Nome",
+  "of presence panel": "del pannello presenza"
 }
