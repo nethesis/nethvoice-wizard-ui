@@ -27,27 +27,31 @@
       <strong>{{'Source not saved' | translate}}.</strong> {{'Source saving error' | translate}}
     </div>
     <div ng-if="!(allSources | isEmpty)" class="row row-cards-pf adjust-card">
-      <div ng-repeat="g in allSources | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card-pf">
-          <h2 class="card-pf-title">
-            <span class="pficon pficon-volume"></span> {{g.name}} <span class="right-only small-font">{{getDBName(g.type)}}</span>
-          </h2>
+      <div ng-repeat="g in allSources | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+        <div id="accordion-markup-{{g.id}}" class="card-pf">
+          <div data-toggle="collapse" data-parent="#accordion-markup-{{g.id}}" href="#collapse-{{g.id}}">
+            <h2 class="card-pf-title pointer">
+              <span class="pficon pficon-volume"></span> {{g.name}} <span class="right-only small-font">{{getDBName(g.type)}} <span class="fa fa-sort-desc"></span>              </span>
+            </h2>
+          </div>
           <div class="card-pf-body">
-            <div class="progress-description full-size-max">
-              {{'Database address' | translate}} <span class="right-only"><strong>{{g.host}}</strong></span>
-            </div>
-            <div class="progress-description full-size-max">
-              {{'Database port' | translate}} <span class="right-only"><strong>{{g.port}}</strong></span>
-            </div>
-            <div class="progress-description full-size-max">
-              {{'Database user' | translate}} <span class="right-only"><strong>{{g.user}}</strong></span>
-            </div>
-            <div class="progress-description full-size-max">
-              {{'Database password' | translate}} <span class="right-only"><strong>{{g.pass}}</strong></span>
+            <div id="collapse-{{g.id}}" class="panel-collapse collapse">
+              <div class="progress-description full-size-max">
+                {{'Database address' | translate}} <span class="right-only"><strong>{{g.host}}</strong></span>
+              </div>
+              <div class="progress-description full-size-max">
+                {{'Database port' | translate}} <span class="right-only"><strong>{{g.port}}</strong></span>
+              </div>
+              <div class="progress-description full-size-max">
+                {{'Database user' | translate}} <span class="right-only"><strong>{{g.user}}</strong></span>
+              </div>
+              <div class="progress-description full-size-max">
+                {{'Database password' | translate}} <span class="right-only"><strong>{{g.showPass ? g.pass : '*****'}}</strong> <a ng-click="togglePass(g)">{{g.showPass ? 'Hide' : 'Show' | translate}}</a></span>
+              </div>
             </div>
             <div class="progress progress-xs progress-label-top-right">
-              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-                style="width: 100%;" data-toggle="tooltip" title="100% Used">
+              <div class="progress-bar progress-bar-{{g.verified ? 'success' : 'danger'}}" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100" style="width: 100%;" data-toggle="tooltip" title="100% Used">
               </div>
             </div>
           </div>
@@ -77,6 +81,71 @@
     </div>
     <!-- END SOURCES -->
     <div class="divider"></div>
+    <!-- TEMPLATES -->
+    <h3 ng-if="!(allTemplates | isEmpty)">{{'Templates' | translate}}</h3>
+    <div ng-if="onSaveSuccessTemplate" class="alert alert-success alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+        <span class="pficon pficon-close"></span>
+        </button>
+      <span class="pficon pficon-ok"></span>
+      <strong>{{'Template saved' | translate}}.</strong> {{'Template saved with success' | translate}}
+    </div>
+    <div ng-if="onSaveErrorTemplate" class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+        <span class="pficon pficon-close"></span>
+        </button>
+      <span class="pficon pficon-error-circle-o"></span>
+      <strong>{{'Template not saved' | translate}}.</strong> {{'Template saving error' | translate}}
+    </div>
+    <div ng-if="!(allTemplates | isEmpty)" class="row row-cards-pf adjust-card">
+      <div ng-repeat="g in allTemplates | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+        <div class="card-pf">
+          <h2 class="card-pf-title">
+            <span class="pficon pficon-blueprint"></span> {{g.name}} <span class="right-only small-font">
+            </span>
+          </h2>
+          <div class="card-pf-body">
+            <div ng-if="g.custom" class="progress-description full-size-max">
+              {{'Preview' | translate}}
+              <div>
+                <iframe class="editor-preview-list" src="{{'data:text/html,' + g.html | trustUrl}}"></iframe>
+              </div>
+              <!--<div readonly class="editor-template" ng-model="g.html" ui-ace="{theme:'twilight', mode: 'html'}"></div>-->
+            </div>
+            <div ng-if="!g.custom" class="progress-description full-size-max">
+              {{'Color' | translate}}
+              <div class="small-margin">
+                <span class="cube-color-{{g.color}}"></span>
+              </div>
+            </div>
+          </div>
+          <div class="card-pf-footer">
+            <div class="card-pf-time-frame-filter">
+              <div ng-show="g.onSave" class="spinner spinner-sm adjust-margin spinner-right"></div>
+            </div>
+            <p>
+              <button data-toggle="modal" data-target="#newTemplateModal" ng-click="modifyTemplate(g)" class="btn btn-primary" type="button">{{!g.custom ? 'Preview' : 'Modify' | translate}}</button>
+              <button ng-click="deleteTemplate(g)" class="btn btn-danger" type="button">{{'Delete' | translate}}</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button ng-if="!(allTemplates | isEmpty)" ng-click="cancelTemplate()" data-toggle="modal" data-target="#newTemplateModal"
+      class="btn btn-primary btn-lg right-only">{{'Create new template' | translate}}</button>
+    <div ng-if="allTemplates | isEmpty" class="blank-slate-pf ">
+      <div class="blank-slate-pf-icon">
+        <span class="pficon pficon-blueprint"></span>
+      </div>
+      <h1>
+        {{'No templates found' | translate}}
+      </h1>
+      <div class="blank-slate-pf-main-action">
+        <button ng-click="cancelTemplate()" data-toggle="modal" data-target="#newTemplateModal" class="btn btn-primary btn-lg">{{'Create new template' | translate}}</button>
+      </div>
+    </div>
+    <!-- END TEMPLATES -->
+    <div class="divider"></div>
     <!-- CUSTOMER CARDS -->
     <h3 ng-if="!(allCards | isEmpty)">{{'Customer cards' | translate}}</h3>
     <div ng-if="onSaveSuccessCard" class="alert alert-success alert-dismissable">
@@ -94,7 +163,7 @@
       <strong>{{'Card not saved' | translate}}.</strong> {{'Card saving error' | translate}}
     </div>
     <div ng-if="!(allCards | isEmpty)" class="row row-cards-pf adjust-card">
-      <div ng-repeat="g in allCards | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <div ng-repeat="g in allCards | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div class="card-pf">
           <h2 class="card-pf-title">
             <span class="fa fa-calendar-o"></span> {{g.name}} <span class="right-only small-font"><span class="pficon pficon-volume"></span>            {{getSourceName(g.source)}}</span>
@@ -134,6 +203,8 @@
   <!-- END CUSTOMER CARDS -->
 </div>
 </div>
+
+<!-- MODALS -->
 <div class="modal fade" id="newSourceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -174,7 +245,10 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database password' | translate}}</label>
             <div class="col-sm-9">
-              <input required ng-model="newSource.pass" type="password" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+              <input required ng-model="newSource.pass" type="{{newSource.showPass ? 'text' : 'password'}}" id="textInput-modal-markup"
+                class="form-control profile-new-name">
+              <a ng-click="togglePass(newSource)">{{newSource.showPass ? 'Hide' : 'Show' | translate}}</a>
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Connection' | translate}}</label>
@@ -197,8 +271,61 @@
   </div>
 </div>
 
+<div class="modal fade" id="newTemplateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{'New template' | translate}}</h4>
+      </div>
+      <form class="form-horizontal" ng-submit="newTemplate.html.length > 0 ? saveTemplate(newTemplate) : undefined">
+        <div class="modal-body">
+          <div ng-if="newTemplate.custom" class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
+            <div class="col-sm-9">
+              <input required ng-model="newTemplate.name" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+          </div>
+          <div ng-if="!newTemplate.custom" class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Color' | translate}}</label>
+            <div class="col-sm-9">
+              <span ng-click="setColor(newTemplate, 'red')" class="cube-color-red {{newTemplate.color=='red' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'orange')" class="cube-color-orange {{newTemplate.color=='orange' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'gold')" class="cube-color-gold {{newTemplate.color=='gold' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'light-green')" class="cube-color-light-green {{newTemplate.color=='light-green' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'green')" class="cube-color-green {{newTemplate.color=='green' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'blue')" class="cube-color-blue {{newTemplate.color=='blue' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'cyan')" class="cube-color-cyan {{newTemplate.color=='cyan' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'light-blue')" class="cube-color-light-blue {{newTemplate.color=='light-blue' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'purple')" class="cube-color-purple {{newTemplate.color=='purple' ? 'color-active' : ''}}"></span>
+            </div>
+          </div>
+          <div ng-if="newTemplate.custom" class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Code' | translate}}</label>
+            <div class="col-sm-9">
+              <div required ng-model="newTemplate.html" class="editor-form" ui-ace="{theme:'twilight',mode: 'html', onChange: editorOnChange}"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Preview' | translate}}</label>
+            <div class="col-sm-9">
+              <iframe class="editor-preview" src="{{'data:text/html,' + newTemplate.html | trustUrl}}"></iframe>
+            </div>
+          </div>
+          <div ng-show="newTemplate.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
+          <div class="modal-footer submit">
+            <button ng-click="cancelTemplate(newTemplate)" type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+            <button type="submit" class="btn btn-primary {{newTemplate.html.length > 0 ? '' : 'disabled'}}">{{'Save' | translate}}</button>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="newCardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -220,6 +347,18 @@
             </select></div>
           </div>
           <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Template' | translate}}</label>
+            <div class="col-sm-9">
+              <select required title="-" pf-select="{ width: '180px' }" ng-model="newCard.template" ng-options="p.id as p.name for p in allTemplates">
+            </select></div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Profile' | translate}}</label>
+            <div class="col-sm-9">
+              <select multiple required title="-" pf-select="{ width: '180px' }" ng-model="newCard.profiles" ng-options="p.id as p.name for p in allProfiles">
+            </select></div>
+          </div>
+          <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Query' | translate}}</label>
             <div class="col-sm-9">
               <div required ng-model="newCard.query" class="editor-form" ui-ace="{theme:'twilight',mode: 'sql', onChange: editorOnChange}"></div>
@@ -235,3 +374,4 @@
     </div>
   </div>
 </div>
+<!-- END MODALS -->

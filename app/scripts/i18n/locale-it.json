@@ -294,6 +294,15 @@
   "No sources found": "Nessuna sorgente trovata",
   "New source": "Nuova sorgente",
 
+  "Template saved": "Template salvato",
+  "Template saved with success": "Template salvato con successo",
+  "Template not saved": "Template non salvato",
+  "Template saving error": "Errore nel salvataggio del template",
+  "Create new template": "Crea nuovo template",
+  "No templates found": "Nessun template trovato",
+  "New template": "Nuovo template",
+  "Templates": "Template",
+
   "Card saved": "Scheda salvata",
   "Card saved with success": "Scheda salvata con successo",
   "Card not saved": "Scheda non salvata",
@@ -312,5 +321,10 @@
   "Connection": "Connessione",
   "Check": "Verifica",
   "Source": "Sorgente",
-  "Sources": "Sorgenti"
+  "Sources": "Sorgenti",
+  "Show": "Mostra",
+  "Hide": "Nascondi",
+  "Code": "Codice",
+  "Color": "Colore",
+  "Preview": "Anteprima"
 }

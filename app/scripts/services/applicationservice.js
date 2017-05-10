@@ -8,7 +8,7 @@
  * Service in the nethvoiceWizardUiApp.
  */
 angular.module('nethvoiceWizardUiApp')
-  .service('ApplicationService', function ($q, RestService) {
+  .service('ApplicationService', function ($q, $http, RestService, RestServiceCTI) {
     this.allSources = function () {
       return $q(function (resolve, reject) {
         RestService.get('/dbconn').then(function (res) {
@@ -41,7 +41,7 @@ angular.module('nethvoiceWizardUiApp')
 
     this.checkConnectionSource = function (obj) {
       return $q(function (resolve, reject) {
-        RestService.post('/dbconn/test', obj).then(function (res) {
+        RestServiceCTI.post('/dbconn/test', obj).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);

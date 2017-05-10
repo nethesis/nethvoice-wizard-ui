@@ -26,6 +26,10 @@ a {
   cursor: pointer;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 
 /* VERTICAL NAVBAR */
 
@@ -838,6 +842,11 @@ a {
   margin-top: 6px;
 }
 
+.spinner-right-color {
+  float: right;
+  margin-top: 2px;
+}
+
 .icon-right {
   float: right;
   margin-top: 7px;
@@ -1061,9 +1070,115 @@ a {
   margin-top: 5px;
 }
 
+.small-margin {
+  margin-top: 5px;
+}
+
 .editor-form {
   height: 200px;
   width: 96%;
   font-size: 14px !important;
   margin-top: 5px;
+}
+
+.editor-template {
+  height: 85px;
+  margin-top: 5px;
+}
+
+.editor-preview {
+  width: 96%;
+  border: 1px solid #bbb;
+  min-height: 200px;
+}
+
+.editor-preview-list {
+  width: 100%;
+  border: 1px solid #bbb;
+  height: 85px;
+}
+
+.color-active {
+  border: 2px solid #c1c1c1 !important;
+}
+
+.cube-color-red {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 22px;
+  background: #cc0000;
+  display: inline-block;
+}
+
+.cube-color-blue {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 22px;
+  background: #0088ce;
+  display: inline-block;
+}
+
+.cube-color-green {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 22px;
+  background: #3f9c35;
+  display: inline-block;
+}
+
+.cube-color-orange {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 22px;
+  background: #ec7a08;
+  display: inline-block;
+}
+
+.cube-color-gold {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 22px;
+  background: #f0ab00;
+  display: inline-block;
+}
+
+.cube-color-light-green {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 22px;
+  background: #92d400;
+  display: inline-block;
+}
+
+.cube-color-light-blue {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 22px;
+  background: #00b9e4;
+  display: inline-block;
+}
+
+.cube-color-purple {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 22px;
+  background: #582fc0;
+  display: inline-block;
+}
+
+.cube-color-cyan {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 22px;
+  background: #007a87;
+  display: inline-block;
 }
