@@ -40,7 +40,6 @@ angular.module('nethvoiceWizardUiApp')
         $('#newGroupModal').modal('hide');
         console.log(err);
       });
-
     };
 
     $scope.deleteGroup = function (group) {
