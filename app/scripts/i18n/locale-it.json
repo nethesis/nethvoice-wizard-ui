@@ -293,6 +293,7 @@
   "Create new source": "Crea nuova sorgente",
   "No sources found": "Nessuna sorgente trovata",
   "New source": "Nuova sorgente",
+  "Modify source": "Modifica sorgente",
 
   "Template saved": "Template salvato",
   "Template saved with success": "Template salvato con successo",
@@ -301,6 +302,7 @@
   "Create new template": "Crea nuovo template",
   "No templates found": "Nessun template trovato",
   "New template": "Nuovo template",
+  "Modify template": "Modifica template",
   "Templates": "Template",
 
   "Card saved": "Scheda salvata",
@@ -310,8 +312,10 @@
   "Create new card": "Crea nuova scheda",
   "No cards found": "Nessuna scheda trovata",
   "New card": "Nuova scheda",
+  "Modify card": "Modifica scheda",
   "Cards": "Schede",
 
+  "No customer cards found": "Nessuna scheda cliente trovata",
   "Database type": "Tipo database",
   "Database name": "Nome database",
   "Database address": "Indirizzo database",
@@ -326,5 +330,10 @@
   "Hide": "Nascondi",
   "Code": "Codice",
   "Color": "Colore",
-  "Preview": "Anteprima"
+  "Preview": "Anteprima",
+  "Objects": "Oggetti",
+  "contains the output of query": "contiene il risultato della query",
+  "Connection error": "Errore di connessione",
+  "Connected": "Connesso",
+  "Real name": "Nome reale"
 }

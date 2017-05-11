@@ -624,6 +624,10 @@ a {
   width: calc(35% - 80px) !important;
 }
 
+.card-body-small-bottom {
+  margin-bottom: 5px;
+}
+
 .space-bottom {
   margin-bottom: 8px;
 }
@@ -970,9 +974,14 @@ a {
 .divider {
   border-bottom: 1px solid #d1d1d1;
   width: 100%;
-  float: left;
+  display: inline-block;
   margin-top: 1%;
   margin-bottom: 1%;
+}
+
+.gray-label {
+  font-weight: 600;
+  color: #8e8e8e;
 }
 
 .profile-new-name {
@@ -1092,10 +1101,15 @@ a {
   min-height: 200px;
 }
 
+.editor-code {
+  width: 96%;
+  margin-bottom: -5px;
+}
+
 .editor-preview-list {
   width: 100%;
   border: 1px solid #bbb;
-  height: 85px;
+  height: 250px;
 }
 
 .color-active {

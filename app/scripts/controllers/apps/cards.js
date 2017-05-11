@@ -10,68 +10,22 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('AppsCardsCtrl', function ($scope, ProfileService, ApplicationService) {
     $scope.allProfiles = [];
-    $scope.allSources = [{
-      id: 1,
-      type: 'mysql',
-      name: 'nethcti3',
-      host: 'localhost',
-      port: '3306',
-      user: 'nethcti',
-      pass: 'SB1iX0Hc_X_K6Zy8'
-    }, {
-      id: 2,
-      type: 'mysql',
-      name: 'Saluti',
-      host: '192.168.5.78',
-      port: '5432',
-      user: 'postgres',
-      pass: 'eccola'
-    }];
-    $scope.allTemplates = [{
-      id: 1,
-      name: 'Default',
-      html: '<p><strong>eccolo</strong></p>',
-      color: 'blue',
-      custom: false
-    }, {
-      id: 2,
-      name: 'Ordini',
-      html: '<p>Ciaone</p>',
-      custom: true
-    }];
-    $scope.allCards = [{
-      id: 1,
-      name: 'Vendite',
-      source: 1,
-      query: 'SELECT * FROM Users u JOIN\na ON a.id = u.id WHERE a = 1;'
-    }, {
-      id: 2,
-      name: 'Canoni',
-      source: 1,
-      query: 'SELECT * FROM Canoni;'
-    }];
-    $scope.allDBTypes = [{
-      type: 'mysql',
-      name: 'MySQL'
-    }, {
-      type: 'postgres',
-      name: 'PostgreSQL'
-    }, {
-      type: 'sqlserver:7',
-      name: 'SQL Server 2012/2014'
-    }, {
-      type: 'sqlserver:8',
-      name: 'SQL Server 2008 R2'
-    }, {
-      type: 'sqlserver:9',
-      name: 'SQL Server 2008'
-    }, {
-      type: 'sqlserver:10',
-      name: 'SQL Server 2005'
-    }, {
-      type: 'sqlserver:11',
-      name: 'SQL Server 2000'
-    }];
+    $scope.allSources = [];
+    $scope.allTemplates = [];
+    $scope.allCards = [
+      /*{
+            id: 1,
+            name: 'Vendite',
+            source: 1,
+            query: 'SELECT * FROM Users u JOIN\na ON a.id = u.id WHERE a = 1;'
+          }, {
+            id: 2,
+            name: 'Canoni',
+            source: 1,
+            query: 'SELECT * FROM Canoni;'
+          }*/
+    ];
+    $scope.allDBTypes = [];
     $scope.supportedColors = {
       'red': '#cc0000',
       'blue': '#0088ce',
@@ -100,6 +54,26 @@ angular.module('nethvoiceWizardUiApp')
       query: ''
     };
 
+    $scope.isCustomerCardsWizard = function (step) {
+      var status = true;
+      if (step == 1) {
+        status = $scope.allSources.length == 0 && $scope.allTemplates.length == 0 && $scope.allCards.length == 0;
+      }
+      if (step == 2) {
+        status = $scope.allTemplates.length == 0 && $scope.allCards.length == 0;
+      }
+      if (step == 3) {
+        status = $scope.allCards.length == 0;
+      }
+      return status;
+    };
+    $scope.stepTemplate = function () {
+
+    };
+    $scope.stepCard = function () {
+
+    };
+
     $scope.togglePass = function (g) {
       g.showPass = !g.showPass;
     };
@@ -117,25 +91,21 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.getDBName = function (type) {
-      return $scope.allDBTypes.filter(function (val) {
-        return val.type == type;
-      })[0].name;
+      return $scope.allDBTypes[type];
     };
 
     $scope.getSourceName = function (id) {
-      return $scope.allSources.filter(function (val) {
+      var obj = $scope.allSources.filter(function (val) {
         return val.id == id;
-      })[0].name;
+      })[0];
+      return obj && obj.name;
     };
 
-    $scope.getAllDBTypes = function (reload) {
-      $scope.view.changeRoute = reload;
+    $scope.getAllDBTypes = function () {
       ApplicationService.allDBTypes().then(function (res) {
         $scope.allDBTypes = res.data;
-        $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
-        $scope.view.changeRoute = false;
       });
     };
 
@@ -157,6 +127,9 @@ angular.module('nethvoiceWizardUiApp')
       $scope.view.changeRoute = reload;
       ApplicationService.allTemplates().then(function (res) {
         $scope.allTemplates = res.data;
+        for (var t in $scope.allTemplates) {
+          $scope.allTemplates[t].html = atob($scope.allTemplates[t].html);
+        }
         $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
@@ -168,6 +141,9 @@ angular.module('nethvoiceWizardUiApp')
       $scope.view.changeRoute = reload;
       ApplicationService.allCards().then(function (res) {
         $scope.allCards = res.data;
+        for (var t in $scope.allTemplates) {
+          $scope.allCards[t].query = atob($scope.allCards[t].query);
+        }
         $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
@@ -175,13 +151,11 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.getAllProfiles = function (reload) {
+    $scope.getAllProfiles = function () {
       ProfileService.allProfiles().then(function (res) {
         $scope.allProfiles = res.data;
-        $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
-        $scope.view.changeRoute = false;
       });
     };
 
@@ -201,28 +175,60 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.saveSource = function (s) {
       s.onSave = true;
-      ApplicationService.createSource(s).then(function (res) {
-        s.onSave = false;
-        s.id = res.data.id;
-        $scope.getAllSources(false);
-        $scope.onSaveSuccessSource = true;
-        $scope.onSaveErrorSource = false;
-        $scope.allSources.push(s);
-        $scope.newSource = {
-          verified: false,
-          isChecking: false,
-          checked: false
-        };
-        $('#newSourceModal').modal('hide');
-      }, function (err) {
-        s.onSave = false;
-        $scope.onSaveSuccessSource = false;
-        $scope.onSaveErrorSource = true;
-        $('#newSourceModal').modal('hide');
-        console.log(err);
-      });
+      if (s.id) {
+        ApplicationService.updateSource(s.id, s).then(function (res) {
+          s.onSave = false;
+          $scope.getAllSources(false);
+          $scope.onSaveSuccessSource = true;
+          $scope.onSaveErrorSource = false;
+          $scope.allSources.push(s);
+          $scope.newSource = {
+            verified: false,
+            isChecking: false,
+            checked: false
+          };
+          $('#newSourceModal').modal('hide');
+          if ($scope.isCustomerCardsWizard(2)) {
+            setTimeout(function () {
+              $('#newTemplateModal').modal('show');
+            }, 500);
+          }
+        }, function (err) {
+          s.onSave = false;
+          $scope.onSaveSuccessSource = false;
+          $scope.onSaveErrorSource = true;
+          $('#newSourceModal').modal('hide');
+          console.log(err);
+        });
+      } else {
+        ApplicationService.createSource(s).then(function (res) {
+          s.onSave = false;
+          $scope.getAllSources(false);
+          $scope.onSaveSuccessSource = true;
+          $scope.onSaveErrorSource = false;
+          $scope.allSources.push(s);
+          $scope.newSource = {
+            verified: false,
+            isChecking: false,
+            checked: false
+          };
+          $('#newSourceModal').modal('hide');
+          if ($scope.isCustomerCardsWizard(2)) {
+            setTimeout(function () {
+              $('#newTemplateModal').modal('show');
+            }, 500);
+          }
+        }, function (err) {
+          s.onSave = false;
+          $scope.onSaveSuccessSource = false;
+          $scope.onSaveErrorSource = true;
+          $('#newSourceModal').modal('hide');
+          console.log(err);
+        });
+      }
     };
     $scope.modifySource = function (s) {
+      s.onMod = true;
       $scope.newSource = s;
     };
     $scope.deleteSource = function (s) {
@@ -242,36 +248,70 @@ angular.module('nethvoiceWizardUiApp')
         checked: false
       };
       s = $scope.newSource;
+      s.onMod = false;
     };
 
     $scope.saveTemplate = function (s) {
       s.onSave = true;
-      ApplicationService.createTemplate(s).then(function (res) {
-        s.onSave = false;
-        s.id = res.data.id;
-        $scope.getAllTemplates(false);
-        $scope.onSaveSuccessTemplate = true;
-        $scope.onSaveErrorTemplate = false;
-        $scope.allTemplates.push(s);
-        $scope.newTemplate = {
-          html: '',
-          custom: true
-        };
-        $('#newTemplateModal').modal('hide');
-      }, function (err) {
-        s.onSave = false;
-        $scope.onSaveSuccessTemplate = false;
-        $scope.onSaveErrorTemplate = true;
-        $('#newTemplateModal').modal('hide');
-        console.log(err);
-      });
+      s.html = btoa(s.html);
+      if (s.id) {
+        ApplicationService.updateTemplate(s.id, s).then(function (res) {
+          s.onSave = false;
+          $scope.getAllTemplates(false);
+          $scope.onSaveSuccessTemplate = true;
+          $scope.onSaveErrorTemplate = false;
+          $scope.allTemplates.push(s);
+          $scope.newTemplate = {
+            html: '',
+            custom: true
+          };
+          $('#newTemplateModal').modal('hide');
+          if ($scope.isCustomerCardsWizard(3)) {
+            setTimeout(function () {
+              $('#newCardModal').modal('show');
+            }, 500);
+          }
+        }, function (err) {
+          s.onSave = false;
+          $scope.onSaveSuccessTemplate = false;
+          $scope.onSaveErrorTemplate = true;
+          $('#newTemplateModal').modal('hide');
+          console.log(err);
+        });
+      } else {
+        ApplicationService.createTemplate(s).then(function (res) {
+          s.onSave = false;
+          $scope.getAllTemplates(false);
+          $scope.onSaveSuccessTemplate = true;
+          $scope.onSaveErrorTemplate = false;
+          $scope.allTemplates.push(s);
+          $scope.newTemplate = {
+            html: '',
+            custom: true
+          };
+          $('#newTemplateModal').modal('hide');
+          if ($scope.isCustomerCardsWizard(3)) {
+            setTimeout(function () {
+              $('#newCardModal').modal('show');
+            }, 500);
+          }
+        }, function (err) {
+          s.onSave = false;
+          $scope.onSaveSuccessTemplate = false;
+          $scope.onSaveErrorTemplate = true;
+          $('#newTemplateModal').modal('hide');
+          console.log(err);
+        });
+      }
+
     };
     $scope.modifyTemplate = function (s) {
+      s.onMod = true;
       $scope.newTemplate = s;
     };
     $scope.deleteTemplate = function (s) {
       s.onSave = true;
-      ApplicationService.deleteTemplate(s.id).then(function (res) {
+      ApplicationService.deleteTemplate(s.name).then(function (res) {
         s.onSave = false;
         $scope.getAllTemplates(false);
       }, function (err) {
@@ -285,30 +325,53 @@ angular.module('nethvoiceWizardUiApp')
         custom: true
       };
       s = $scope.newSource;
+      s.onMod = false;
     };
 
     $scope.saveCard = function (s) {
       s.onSave = true;
-      ApplicationService.createCard(s).then(function (res) {
-        s.onSave = false;
-        s.id = res.data.id;
-        $scope.getAllCards(false);
-        $scope.onSaveSuccessCard = true;
-        $scope.onSaveErrorCard = false;
-        $scope.allCards.push(s);
-        $scope.newCard = {
-          query: ''
-        };
-        $('#newCardModal').modal('hide');
-      }, function (err) {
-        s.onSave = false;
-        $scope.onSaveSuccessCard = false;
-        $scope.onSaveErrorCard = true;
-        $('#newCardModal').modal('hide');
-        console.log(err);
-      });
+      s.query = btoa(s.query);
+      if (s.id) {
+        ApplicationService.updateCard(s.id, s).then(function (res) {
+          s.onSave = false;
+          $scope.getAllCards(false);
+          $scope.onSaveSuccessCard = true;
+          $scope.onSaveErrorCard = false;
+          $scope.allCards.push(s);
+          $scope.newCard = {
+            query: ''
+          };
+          $('#newCardModal').modal('hide');
+        }, function (err) {
+          s.onSave = false;
+          $scope.onSaveSuccessCard = false;
+          $scope.onSaveErrorCard = true;
+          $('#newCardModal').modal('hide');
+          console.log(err);
+        });
+      } else {
+        ApplicationService.createCard(s).then(function (res) {
+          s.onSave = false;
+          $scope.getAllCards(false);
+          $scope.onSaveSuccessCard = true;
+          $scope.onSaveErrorCard = false;
+          $scope.allCards.push(s);
+          $scope.newCard = {
+            query: ''
+          };
+          $('#newCardModal').modal('hide');
+        }, function (err) {
+          s.onSave = false;
+          $scope.onSaveSuccessCard = false;
+          $scope.onSaveErrorCard = true;
+          $('#newCardModal').modal('hide');
+          console.log(err);
+        });
+      }
+
     };
     $scope.modifyCard = function (s) {
+      s.onMod = true;
       $scope.newCard = s;
     };
     $scope.deleteCard = function (s) {
@@ -326,13 +389,12 @@ angular.module('nethvoiceWizardUiApp')
         query: ''
       };
       s = $scope.newSource;
+      s.onMod = false;
     };
 
-    /*$scope.getAllDBTypes();
-    $scope.getAllSources();
-    $scope.getAllCards();*/
+    $scope.getAllDBTypes();
     $scope.getAllProfiles();
-    for (var s in $scope.allSources) {
-      $scope.checkConnection($scope.allSources[s]);
-    }
+    $scope.getAllSources(true);
+    $scope.getAllTemplates(true);
+    $scope.getAllCards(true);
   });

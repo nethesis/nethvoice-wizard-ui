@@ -8,9 +8,23 @@
       </ul>
     </div>
   </div>
-  <!-- SOURCES -->
+
   <div class="wizard-pf-contents adjust-size">
     <h1 class="control-label centered" for="textInput-markup">{{'Customer cards configuration' | translate}}</h1>
+    <!-- WIZARD -->
+    <div ng-if="(allSources | isEmpty) && (allTemplates | isEmpty) && (allCards | isEmpty)" class="blank-slate-pf ">
+      <div class="blank-slate-pf-icon">
+        <span class="fa fa-calendar-o"></span>
+      </div>
+      <h1>
+        {{'No customer cards found' | translate}}
+      </h1>
+      <div class="blank-slate-pf-main-action">
+        <button data-toggle="modal" data-target="#newSourceModal" class="btn btn-primary btn-lg">{{'Create new card' | translate}}</button>
+      </div>
+    </div>
+    <!-- END WIZARD -->
+    <!-- SOURCES -->
     <h3 ng-if="!(allSources | isEmpty)">{{'Sources' | translate}}</h3>
     <div ng-if="onSaveSuccessSource" class="alert alert-success alert-dismissable">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -34,7 +48,7 @@
               <span class="pficon pficon-volume"></span> {{g.name}} <span class="right-only small-font">{{getDBName(g.type)}} <span class="fa fa-sort-desc"></span>              </span>
             </h2>
           </div>
-          <div class="card-pf-body">
+          <div class="card-pf-body card-body-small-bottom">
             <div id="collapse-{{g.id}}" class="panel-collapse collapse">
               <div class="progress-description full-size-max">
                 {{'Database address' | translate}} <span class="right-only"><strong>{{g.host}}</strong></span>
@@ -53,6 +67,7 @@
               <div class="progress-bar progress-bar-{{g.verified ? 'success' : 'danger'}}" role="progressbar" aria-valuenow="100" aria-valuemin="0"
                 aria-valuemax="100" style="width: 100%;" data-toggle="tooltip" title="100% Used">
               </div>
+              <span>{{g.verified ? 'Connected' : 'Connection error' | translate}}</span>
             </div>
           </div>
           <div class="card-pf-footer">
@@ -68,7 +83,7 @@
       </div>
     </div>
     <button ng-click="cancelSource()" ng-if="!(allSources | isEmpty)" data-toggle="modal" data-target="#newSourceModal" class="btn btn-primary btn-lg right-only">{{'Create new source' | translate}}</button>
-    <div ng-if="allSources | isEmpty" class="blank-slate-pf ">
+    <div ng-if="(allSources | isEmpty) && !((allSources | isEmpty) && (allTemplates | isEmpty) && (allCards | isEmpty))" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
         <span class="pficon pficon-volume"></span>
       </div>
@@ -80,7 +95,7 @@
       </div>
     </div>
     <!-- END SOURCES -->
-    <div class="divider"></div>
+    <div ng-if="!((allSources | isEmpty) && (allTemplates | isEmpty) && (allCards | isEmpty))" class="divider"></div>
     <!-- TEMPLATES -->
     <h3 ng-if="!(allTemplates | isEmpty)">{{'Templates' | translate}}</h3>
     <div ng-if="onSaveSuccessTemplate" class="alert alert-success alert-dismissable">
@@ -99,16 +114,20 @@
     </div>
     <div ng-if="!(allTemplates | isEmpty)" class="row row-cards-pf adjust-card">
       <div ng-repeat="g in allTemplates | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-        <div class="card-pf">
+        <div id="accordion-template-{{$index}}" class="card-pf">
           <h2 class="card-pf-title">
             <span class="pficon pficon-blueprint"></span> {{g.name}} <span class="right-only small-font">
             </span>
           </h2>
           <div class="card-pf-body">
             <div ng-if="g.custom" class="progress-description full-size-max">
-              {{'Preview' | translate}}
-              <div>
-                <iframe class="editor-preview-list" src="{{'data:text/html,' + g.html | trustUrl}}"></iframe>
+              <div class="pointer" data-toggle="collapse" data-parent="#accordion-template-{{$index}}" href="#collapse-template-{{$index}}">
+                {{'Preview' | translate}}
+              </div>
+              <div id="collapse-template-{{$index}}" class="panel-collapse collapse">
+                <div>
+                  <iframe class="editor-preview-list" src="{{'data:text/html,' + g.html | trustUrl}}"></iframe>
+                </div>
               </div>
               <!--<div readonly class="editor-template" ng-model="g.html" ui-ace="{theme:'twilight', mode: 'html'}"></div>-->
             </div>
@@ -133,7 +152,7 @@
     </div>
     <button ng-if="!(allTemplates | isEmpty)" ng-click="cancelTemplate()" data-toggle="modal" data-target="#newTemplateModal"
       class="btn btn-primary btn-lg right-only">{{'Create new template' | translate}}</button>
-    <div ng-if="allTemplates | isEmpty" class="blank-slate-pf ">
+    <div ng-if="(allTemplates | isEmpty) && !((allSources | isEmpty) && (allTemplates | isEmpty) && (allCards | isEmpty))" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
         <span class="pficon pficon-blueprint"></span>
       </div>
@@ -145,7 +164,7 @@
       </div>
     </div>
     <!-- END TEMPLATES -->
-    <div class="divider"></div>
+    <div ng-if="!((allSources | isEmpty) && (allTemplates | isEmpty) && (allCards | isEmpty))" class="divider"></div>
     <!-- CUSTOMER CARDS -->
     <h3 ng-if="!(allCards | isEmpty)">{{'Customer cards' | translate}}</h3>
     <div ng-if="onSaveSuccessCard" class="alert alert-success alert-dismissable">
@@ -166,7 +185,7 @@
       <div ng-repeat="g in allCards | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div class="card-pf">
           <h2 class="card-pf-title">
-            <span class="fa fa-calendar-o"></span> {{g.name}} <span class="right-only small-font"><span class="pficon pficon-volume"></span>            {{getSourceName(g.source)}}</span>
+            <span class="fa fa-calendar-o"></span> {{g.name}} <span class="right-only small-font"><span class="pficon pficon-volume"></span>            {{getSourceName(g.dbconn_id)}}</span>
             </span>
           </h2>
           <div class="card-pf-body">
@@ -188,7 +207,7 @@
       </div>
     </div>
     <button ng-if="!(allCards | isEmpty)" ng-click="cancelCard()" data-toggle="modal" data-target="#newCardModal" class="btn btn-primary btn-lg right-only">{{'Create new card' | translate}}</button>
-    <div ng-if="allCards | isEmpty" class="blank-slate-pf ">
+    <div ng-if="(allCards | isEmpty) && !((allSources | isEmpty) && (allTemplates | isEmpty) && (allCards | isEmpty))" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
         <span class="fa fa-calendar-o"></span>
       </div>
@@ -212,14 +231,14 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
           <span class="pficon pficon-close"></span>
         </button>
-        <h4 class="modal-title" id="myModalLabel">{{'New source' | translate}}</h4>
+        <h4 class="modal-title" id="myModalLabel">{{newSource.onMod ? 'Modify source' : 'New source' | translate}}</h4>
       </div>
       <form class="form-horizontal" ng-submit="newSource.verified ? saveSource(newSource) : undefined">
         <div class="modal-body">
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database type' | translate}}</label>
             <div class="col-sm-9">
-              <select required title="-" pf-select="{ width: '180px' }" ng-model="newSource.type" ng-options="p.type as p.name for p in allDBTypes">
+              <select required title="-" pf-select="{ width: '180px' }" ng-model="newSource.type" ng-options="k as v for (k, v) in  allDBTypes">
             </select></div>
           </div>
           <div class="form-group">
@@ -262,7 +281,7 @@
           </div>
           <div ng-show="newSource.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
           <div class="modal-footer submit">
-            <button ng-click="cancelSource(newSource)" type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
             <button type="submit" class="btn btn-primary {{newSource.verified ? '' : 'disabled'}}">{{'Save' | translate}}</button>
           </div>
       </form>
@@ -278,7 +297,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
           <span class="pficon pficon-close"></span>
         </button>
-        <h4 class="modal-title" id="myModalLabel">{{'New template' | translate}}</h4>
+        <h4 class="modal-title" id="myModalLabel">{{newTemplate.onMod ? 'Modify template' : 'New template' | translate}}</h4>
       </div>
       <form class="form-horizontal" ng-submit="newTemplate.html.length > 0 ? saveTemplate(newTemplate) : undefined">
         <div class="modal-body">
@@ -286,6 +305,20 @@
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
             <div class="col-sm-9">
               <input required ng-model="newTemplate.name" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+          </div>
+          <div ng-if="newTemplate.custom" class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Real name' | translate}}</label>
+            <div class="col-sm-9">
+              <span class="gray-label">{{newTemplate.name | regexpParse}}</span>
+            </div>
+          </div>
+          <div ng-if="newTemplate.custom" class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Objects' | translate}}
+                <a class="config-info" target="blank" href="http://www.embeddedjs.com/">{{'Docs' | translate}}</a>
+            </label>
+            <div class="col-sm-9">
+              <pre class="editor-code"><code>results ({{'contains the output of query' | translate}})</code></pre>
+            </div>
           </div>
           <div ng-if="!newTemplate.custom" class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Color' | translate}}</label>
@@ -315,7 +348,7 @@
           </div>
           <div ng-show="newTemplate.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
           <div class="modal-footer submit">
-            <button ng-click="cancelTemplate(newTemplate)" type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
             <button type="submit" class="btn btn-primary {{newTemplate.html.length > 0 ? '' : 'disabled'}}">{{'Save' | translate}}</button>
           </div>
       </form>
@@ -331,7 +364,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
           <span class="pficon pficon-close"></span>
         </button>
-        <h4 class="modal-title" id="myModalLabel">{{'New card' | translate}}</h4>
+        <h4 class="modal-title" id="myModalLabel">{{newCard.onMod ? 'Modify card' : 'New card' | translate}}</h4>
       </div>
       <form class="form-horizontal" ng-submit="newCard.query.length > 0 ? saveCard(newCard) : undefined">
         <div class="modal-body">
@@ -343,13 +376,13 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Source' | translate}}</label>
             <div class="col-sm-9">
-              <select required title="-" pf-select="{ width: '180px' }" ng-model="newCard.source" ng-options="p.id as p.name for p in allSources">
+              <select required title="-" pf-select="{ width: '180px' }" ng-model="newCard.dbconn_id" ng-options="p.id as p.name for p in allSources">
             </select></div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Template' | translate}}</label>
             <div class="col-sm-9">
-              <select required title="-" pf-select="{ width: '180px' }" ng-model="newCard.template" ng-options="p.id as p.name for p in allTemplates">
+              <select required title="-" pf-select="{ width: '180px' }" ng-model="newCard.template" ng-options="p.name as p.name for p in allTemplates">
             </select></div>
           </div>
           <div class="form-group">
@@ -366,7 +399,7 @@
           </div>
           <div ng-show="newCard.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
           <div class="modal-footer submit">
-            <button ng-click="cancelCard(newCard)" type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
             <button type="submit" class="btn btn-primary {{newCard.query.length > 0 ? '' : 'disabled'}}">{{'Save' | translate}}</button>
           </div>
       </form>
