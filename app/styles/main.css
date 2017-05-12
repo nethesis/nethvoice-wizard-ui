@@ -1085,7 +1085,7 @@ a {
 
 .editor-form {
   height: 200px;
-  width: 96%;
+  width: 97%;
   font-size: 14px !important;
   margin-top: 5px;
 }
@@ -1096,13 +1096,13 @@ a {
 }
 
 .editor-preview {
-  width: 96%;
+  width: 97%;
   border: 1px solid #bbb;
-  min-height: 200px;
+  min-height: 275px;
 }
 
 .editor-code {
-  width: 96%;
+  width: 97%;
   margin-bottom: -5px;
 }
 

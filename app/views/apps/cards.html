@@ -126,7 +126,7 @@
               </div>
               <div id="collapse-template-{{$index}}" class="panel-collapse collapse">
                 <div>
-                  <iframe class="editor-preview-list" src="{{'data:text/html,' + g.html | trustUrl}}"></iframe>
+                  <iframe class="editor-preview-list" src="{{'data:text/html;base64,' + (g.html | toBase64) | trustUrl}}"></iframe>
                 </div>
               </div>
               <!--<div readonly class="editor-template" ng-model="g.html" ui-ace="{theme:'twilight', mode: 'html'}"></div>-->
@@ -337,13 +337,13 @@
           <div ng-if="newTemplate.custom" class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Code' | translate}}</label>
             <div class="col-sm-9">
-              <div required ng-model="newTemplate.html" class="editor-form" ui-ace="{theme:'twilight',mode: 'html', onChange: editorOnChange}"></div>
+              <pre required ng-model="newTemplate.html" class="editor-form" ui-ace="{theme:'twilight',mode: 'html', onChange: editorOnChange}"></pre>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Preview' | translate}}</label>
             <div class="col-sm-9">
-              <iframe class="editor-preview" src="{{'data:text/html,' + newTemplate.html | trustUrl}}"></iframe>
+              <iframe class="editor-preview" src="{{'data:text/html;base64,' + (newTemplate.html | toBase64) | trustUrl}}"></iframe>
             </div>
           </div>
           <div ng-show="newTemplate.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>

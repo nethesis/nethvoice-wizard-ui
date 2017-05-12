@@ -12,30 +12,18 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allProfiles = [];
     $scope.allSources = [];
     $scope.allTemplates = [];
-    $scope.allCards = [
-      /*{
-            id: 1,
-            name: 'Vendite',
-            source: 1,
-            query: 'SELECT * FROM Users u JOIN\na ON a.id = u.id WHERE a = 1;'
-          }, {
-            id: 2,
-            name: 'Canoni',
-            source: 1,
-            query: 'SELECT * FROM Canoni;'
-          }*/
-    ];
+    $scope.allCards = [];
     $scope.allDBTypes = [];
     $scope.supportedColors = {
-      'red': '#cc0000',
-      'blue': '#0088ce',
-      'orange': '#ec7a08',
-      'gold': '#f0ab00',
-      'light-green': '#92d400',
-      'green': '#3f9c35',
-      'cyan': '#007a87',
-      'light-blue': '#00b9e4',
-      'purple': '#703fec'
+      'red': 'cc0000',
+      'blue': '0088ce',
+      'orange': 'ec7a08',
+      'gold': 'f0ab00',
+      'light-green': '92d400',
+      'green': '3f9c35',
+      'cyan': '007a87',
+      'light-blue': '00b9e4',
+      'purple': '703fec'
     };
 
     $scope.newSource = {
@@ -67,12 +55,6 @@ angular.module('nethvoiceWizardUiApp')
       }
       return status;
     };
-    $scope.stepTemplate = function () {
-
-    };
-    $scope.stepCard = function () {
-
-    };
 
     $scope.togglePass = function (g) {
       g.showPass = !g.showPass;
@@ -80,7 +62,11 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.setColor = function (g, color) {
       g.onSaveColor = true;
+      var oldColor = g.color;
+      g.color = color;
+      var hashOld = $scope.supportedColors[oldColor];
       var hash = $scope.supportedColors[color];
+      g.html = g.html.replace(hashOld, hash);
     };
 
     $scope.editorOnChange = function (e) {
@@ -141,7 +127,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.view.changeRoute = reload;
       ApplicationService.allCards().then(function (res) {
         $scope.allCards = res.data;
-        for (var t in $scope.allTemplates) {
+        for (var t in $scope.allCards) {
           $scope.allCards[t].query = atob($scope.allCards[t].query);
         }
         $scope.view.changeRoute = false;

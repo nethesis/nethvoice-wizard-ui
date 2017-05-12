@@ -335,5 +335,6 @@
   "contains the output of query": "contiene il risultato della query",
   "Connection error": "Errore di connessione",
   "Connected": "Connesso",
-  "Real name": "Nome reale"
+  "Real name": "Nome reale",
+  "Enable the customer card for this profile": "Abilita la scheda cliente per questo profilo"
 }
