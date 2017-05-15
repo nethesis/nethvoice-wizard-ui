@@ -236,6 +236,7 @@
   "Advanced queue agent panel": "Pannello agente di coda avanzato",
   "Lost Queue Calls": "Chiamate perse code",
   "Advanced Off Hour": "Fuori orario avanzato",
+  "Info": "Informazioni",
 
   "General and notifications settings": "Impostazioni generali di notifica",
   "View Phonebook, add contacts, modify and delete own contacts": "Visualizza Rubrica, aggiungi contatti, modifica ed elimina i contatti propri",
@@ -279,6 +280,7 @@
   "Administrator password update failed": "Aggiornamento della password amministratore fallito",
   "Password changed": "Password aggiornata",
   "Administrator password updated with success": "Password amministratore aggiornata con successo",
+  "Refresh": "Aggiorna",
   "Print PDF report": "Stampa report PDF",
   "Print final report": "Stampa report finale",
   "Name": "Nome",
@@ -332,9 +334,15 @@
   "Color": "Colore",
   "Preview": "Anteprima",
   "Objects": "Oggetti",
-  "contains the output of query": "contiene il risultato della query",
+  "will contain the output of query": "conterrà il risultato della query",
+  "in JSON format": "in formato JSON",
   "Connection error": "Errore di connessione",
   "Connected": "Connesso",
   "Real name": "Nome reale",
-  "Enable the customer card for this profile": "Abilita la scheda cliente per questo profilo"
+  "Enable the customer card for this profile": "Abilita la scheda cliente per questo profilo",
+  "Card dependency": "Dipendenza scheda",
+  "Cards list": "Lista schede",
+  "Dependency problem": "Problema di dipendenza",
+  "This source is used by following cards": "Questa sorgente è usata dalle seguenti schede",
+  "This template is used by following cards": "Questo template è usato dalle seguenti schede"
 }

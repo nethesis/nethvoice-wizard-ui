@@ -15,15 +15,15 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allCards = [];
     $scope.allDBTypes = [];
     $scope.supportedColors = {
-      'red': 'cc0000',
-      'blue': '0088ce',
-      'orange': 'ec7a08',
-      'gold': 'f0ab00',
-      'light-green': '92d400',
-      'green': '3f9c35',
-      'cyan': '007a87',
-      'light-blue': '00b9e4',
-      'purple': '703fec'
+      'red': '#cc0000',
+      'blue': '#0088ce',
+      'orange': '#ec7a08',
+      'gold': '#f0ab00',
+      'light-green': '#92d400',
+      'green': '#3f9c35',
+      'cyan': '#007a87',
+      'light-blue': '#00b9e4',
+      'purple': '#703fec'
     };
 
     $scope.newSource = {
@@ -66,7 +66,12 @@ angular.module('nethvoiceWizardUiApp')
       g.color = color;
       var hashOld = $scope.supportedColors[oldColor];
       var hash = $scope.supportedColors[color];
-      g.html = g.html.replace(hashOld, hash);
+      RegExp.quote = function (str) {
+        return str.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+      };
+      var replace = hashOld;
+      var re = new RegExp(RegExp.quote(replace), "g");
+      g.html = g.html.replace(re, hash).replace('<!-- color: ' + oldColor + ' -->\n', '<!-- color: ' + color + ' -->\n');
     };
 
     $scope.editorOnChange = function (e) {
@@ -162,6 +167,12 @@ angular.module('nethvoiceWizardUiApp')
     $scope.saveSource = function (s) {
       s.onSave = true;
       if (s.id) {
+        // clean useless data
+        delete s.checked;
+        delete s.isChecking;
+        delete s.onSave;
+        delete s.onMod;
+        delete s.verified;
         ApplicationService.updateSource(s.id, s).then(function (res) {
           s.onSave = false;
           $scope.getAllSources(false);
@@ -217,11 +228,24 @@ angular.module('nethvoiceWizardUiApp')
       s.onMod = true;
       $scope.newSource = s;
     };
+    $scope.checkSourceDeps = function (s) {
+      $('#cardSourceDepsModal').modal('show');
+      $scope.cardDeps = s;
+      $scope.cardDeps.loading = true;
+      ApplicationService.sourceDeps(s.id).then(function (res) {
+        $scope.cardDeps.dependencies = res.data;
+        $scope.cardDeps.loading = false;
+      }, function (err) {
+        $scope.cardDeps.loading = false;
+        console.log(err);
+      });
+    };
     $scope.deleteSource = function (s) {
       s.onSave = true;
       ApplicationService.deleteSource(s.id).then(function (res) {
         s.onSave = false;
         $scope.getAllSources(false);
+        $('#cardSourceDepsModal').modal('hide');
       }, function (err) {
         s.onSave = false;
         console.log(err);
@@ -240,8 +264,14 @@ angular.module('nethvoiceWizardUiApp')
     $scope.saveTemplate = function (s) {
       s.onSave = true;
       s.html = btoa(s.html);
-      if (s.id) {
-        ApplicationService.updateTemplate(s.id, s).then(function (res) {
+      if (s.onMod && s.name == s.old_name) {
+        // clean useless data
+        delete s.objects;
+        delete s.onSave;
+        delete s.onMod;
+        delete s.onSaveColor;
+        delete s.color;
+        ApplicationService.updateTemplate(s.old_name, s).then(function (res) {
           s.onSave = false;
           $scope.getAllTemplates(false);
           $scope.onSaveSuccessTemplate = true;
@@ -293,13 +323,28 @@ angular.module('nethvoiceWizardUiApp')
     };
     $scope.modifyTemplate = function (s) {
       s.onMod = true;
+      s.old_name = s.name;
+      s.objects = "[{}]";
       $scope.newTemplate = s;
+    };
+    $scope.checkTemplateDeps = function (s) {
+      $('#cardTemplateDepsModal').modal('show');
+      $scope.cardDeps = s;
+      $scope.cardDeps.loading = true;
+      ApplicationService.templateDeps(s.name).then(function (res) {
+        $scope.cardDeps.dependencies = res.data;
+        $scope.cardDeps.loading = false;
+      }, function (err) {
+        $scope.cardDeps.loading = false;
+        console.log(err);
+      });
     };
     $scope.deleteTemplate = function (s) {
       s.onSave = true;
       ApplicationService.deleteTemplate(s.name).then(function (res) {
         s.onSave = false;
         $scope.getAllTemplates(false);
+        $('#cardTemplateDepsModal').modal('hide');
       }, function (err) {
         s.onSave = false;
         console.log(err);
@@ -307,10 +352,14 @@ angular.module('nethvoiceWizardUiApp')
     };
     $scope.cancelTemplate = function (s) {
       $scope.newTemplate = {
-        html: '',
-        custom: true
+        html: '<% for(var i=0; i<results.length; i++){ %><%= results[i].name %> <strong><%= results[i].lastname %></strong><% } %>',
+        custom: true,
+        objects: JSON.stringify([{
+          name: 'John',
+          lastname: 'Doe'
+        }])
       };
-      s = $scope.newSource;
+      s = $scope.newTemplate;
       s.onMod = false;
     };
 
@@ -318,6 +367,9 @@ angular.module('nethvoiceWizardUiApp')
       s.onSave = true;
       s.query = btoa(s.query);
       if (s.id) {
+        // clean useless data
+        delete s.onSave;
+        delete s.onMod;
         ApplicationService.updateCard(s.id, s).then(function (res) {
           s.onSave = false;
           $scope.getAllCards(false);
@@ -374,8 +426,19 @@ angular.module('nethvoiceWizardUiApp')
       $scope.newCard = {
         query: ''
       };
-      s = $scope.newSource;
+      s = $scope.newCard;
       s.onMod = false;
+    };
+
+    $scope.setPreview = function (g) {
+      var tmpl = '';
+      for (var t in $scope.allTemplates) {
+        if (g.template == $scope.allTemplates[t].name) {
+          tmpl = $scope.allTemplates[t].html;
+        }
+      }
+      g.html = tmpl;
+      $scope.ccard = g;
     };
 
     $scope.getAllDBTypes();

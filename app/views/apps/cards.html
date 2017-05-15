@@ -41,7 +41,7 @@
       <strong>{{'Source not saved' | translate}}.</strong> {{'Source saving error' | translate}}
     </div>
     <div ng-if="!(allSources | isEmpty)" class="row row-cards-pf adjust-card">
-      <div ng-repeat="g in allSources | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <div ng-repeat="g in allSources track by $index | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div id="accordion-markup-{{g.id}}" class="card-pf">
           <div data-toggle="collapse" data-parent="#accordion-markup-{{g.id}}" href="#collapse-{{g.id}}">
             <h2 class="card-pf-title pointer">
@@ -76,7 +76,7 @@
             </div>
             <p>
               <button data-toggle="modal" data-target="#newSourceModal" ng-click="modifySource(g)" class="btn btn-primary" type="button">{{'Modify' | translate}}</button>
-              <button ng-click="deleteSource(g)" class="btn btn-danger" type="button">{{'Delete' | translate}}</button>
+              <button ng-click="checkSourceDeps(g)" class="btn btn-danger" type="button">{{'Delete' | translate}}</button>
             </p>
           </div>
         </div>
@@ -113,7 +113,7 @@
       <strong>{{'Template not saved' | translate}}.</strong> {{'Template saving error' | translate}}
     </div>
     <div ng-if="!(allTemplates | isEmpty)" class="row row-cards-pf adjust-card">
-      <div ng-repeat="g in allTemplates | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <div ng-repeat="g in allTemplates track by $index | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div id="accordion-template-{{$index}}" class="card-pf">
           <h2 class="card-pf-title">
             <span class="pficon pficon-blueprint"></span> {{g.name}} <span class="right-only small-font">
@@ -126,7 +126,7 @@
               </div>
               <div id="collapse-template-{{$index}}" class="panel-collapse collapse">
                 <div>
-                  <iframe class="editor-preview-list" src="{{'data:text/html;base64,' + (g.html | toBase64) | trustUrl}}"></iframe>
+                  <iframe class="editor-preview-list" src="{{'data:text/html;base64,' + (g.html | ejsRender:'[{}]':g.name | toBase64) | trustUrl}}"></iframe>
                 </div>
               </div>
               <!--<div readonly class="editor-template" ng-model="g.html" ui-ace="{theme:'twilight', mode: 'html'}"></div>-->
@@ -144,7 +144,7 @@
             </div>
             <p>
               <button data-toggle="modal" data-target="#newTemplateModal" ng-click="modifyTemplate(g)" class="btn btn-primary" type="button">{{!g.custom ? 'Preview' : 'Modify' | translate}}</button>
-              <button ng-click="deleteTemplate(g)" class="btn btn-danger" type="button">{{'Delete' | translate}}</button>
+              <button ng-click="checkTemplateDeps(g)" class="btn btn-danger" type="button">{{'Delete' | translate}}</button>
             </p>
           </div>
         </div>
@@ -182,10 +182,15 @@
       <strong>{{'Card not saved' | translate}}.</strong> {{'Card saving error' | translate}}
     </div>
     <div ng-if="!(allCards | isEmpty)" class="row row-cards-pf adjust-card">
-      <div ng-repeat="g in allCards | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <div ng-repeat="g in allCards track by $index | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div class="card-pf">
           <h2 class="card-pf-title">
-            <span class="fa fa-calendar-o"></span> {{g.name}} <span class="right-only small-font"><span class="pficon pficon-volume"></span>            {{getSourceName(g.dbconn_id)}}</span>
+            <span class="fa fa-calendar-o"></span> {{g.name}}
+            <span class="right-only small-font right">
+              <span class="pficon pficon-volume"></span> {{getSourceName(g.dbconn_id)}}
+            <div class="small-margin">
+              <span class="pficon pficon-blueprint"></span> {{g.template}}
+            </div>
             </span>
           </h2>
           <div class="card-pf-body">
@@ -201,6 +206,8 @@
             <p>
               <button data-toggle="modal" data-target="#newCardModal" ng-click="modifyCard(g)" class="btn btn-primary" type="button">{{'Modify' | translate}}</button>
               <button ng-click="deleteCard(g)" class="btn btn-danger" type="button">{{'Delete' | translate}}</button>
+              <button ng-click="setPreview(g)" data-toggle="modal" data-target="#customerCardPreview" class="btn btn-default right-only"
+                type="button">{{'Preview' | translate}}</button>
             </p>
           </div>
         </div>
@@ -304,7 +311,7 @@
           <div ng-if="newTemplate.custom" class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
             <div class="col-sm-9">
-              <input required ng-model="newTemplate.name" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+              <input ng-disabled="newTemplate.onMod" required ng-model="newTemplate.name" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
           </div>
           <div ng-if="newTemplate.custom" class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Real name' | translate}}</label>
@@ -312,12 +319,12 @@
               <span class="gray-label">{{newTemplate.name | regexpParse}}</span>
             </div>
           </div>
-          <div ng-if="newTemplate.custom" class="form-group">
-            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Objects' | translate}}
-                <a class="config-info" target="blank" href="http://www.embeddedjs.com/">{{'Docs' | translate}}</a>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Info' | translate}}
+                <a class="config-info" target="blank" href="https://github.com/tj/ejs">{{'Docs' | translate}}</a>
             </label>
             <div class="col-sm-9">
-              <pre class="editor-code"><code>results ({{'contains the output of query' | translate}})</code></pre>
+              <pre class="editor-code"><code>results ({{'will contain the output of query' | translate}}) {{'in JSON format' | translate}}</code></pre>
             </div>
           </div>
           <div ng-if="!newTemplate.custom" class="form-group">
@@ -334,16 +341,22 @@
               <span ng-click="setColor(newTemplate, 'purple')" class="cube-color-purple {{newTemplate.color=='purple' ? 'color-active' : ''}}"></span>
             </div>
           </div>
-          <div ng-if="newTemplate.custom" class="form-group">
-            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Code' | translate}}</label>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Results'}}</label>
             <div class="col-sm-9">
-              <pre required ng-model="newTemplate.html" class="editor-form" ui-ace="{theme:'twilight',mode: 'html', onChange: editorOnChange}"></pre>
+              <pre required ng-model="newTemplate.objects" class="editor-form" ui-ace="{theme:'twilight',mode: 'json', onChange: editorOnChange}"></pre>
+            </div>
+          </div>
+          <div ng-if="newTemplate.custom" class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Code' | translate}} (ejs)</label>
+            <div class="col-sm-9">
+              <pre required ng-model="newTemplate.html" class="editor-form" ui-ace="{theme:'twilight',mode: 'ejs', onChange: editorOnChange}"></pre>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Preview' | translate}}</label>
             <div class="col-sm-9">
-              <iframe class="editor-preview" src="{{'data:text/html;base64,' + (newTemplate.html | toBase64) | trustUrl}}"></iframe>
+              <iframe class="editor-preview" src="{{'data:text/html;base64,' + (newTemplate.html | ejsRender:newTemplate.objects:newTemplate.name | toBase64) | trustUrl}}"></iframe>
             </div>
           </div>
           <div ng-show="newTemplate.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
@@ -401,6 +414,128 @@
           <div class="modal-footer submit">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
             <button type="submit" class="btn btn-primary {{newCard.query.length > 0 ? '' : 'disabled'}}">{{'Save' | translate}}</button>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cardSourceDepsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{'Card dependency' | translate}}</h4>
+      </div>
+      <form class="form-horizontal" ng-submit="cardDeps.dependencies.length == 0 ? deleteSource(cardDeps) : undefined">
+        <div class="modal-body">
+          <div ng-show="!cardDeps.loading && cardDeps.dependencies.length > 0" class="alert alert-warning alert-dismissable">
+            <span class="pficon pficon-warning-triangle-o"></span>
+            <strong>{{'Dependency problem' | translate}}.</strong> {{'This source is used by following cards' | translate}}:
+          </div>
+          <div ng-show="!cardDeps.loading && cardDeps.dependencies.length == 0" class="form-group medium-font col-md-3">
+            {{ "Are you sure" | translate }} ?
+          </div>
+          <div class="form-group">
+            <div ng-show="cardDeps.loading" class="spinner"></div>
+            <label ng-show="!cardDeps.loading && cardDeps.dependencies.length > 0" class="col-sm-3 control-label" for="textInput-modal-markup">{{'Cards list' | translate}}</label>
+            <div ng-show="!cardDeps.loading" class="col-sm-9">
+              <ul class="list-group">
+                <li ng-repeat="d in cardDeps.dependencies track by $index" class="list-group-item">{{d.name}}</li>
+              </ul>
+            </div>
+          </div>
+          <div ng-show="cardDeps.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
+          <div class="modal-footer submit">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+            <button type="submit" class="btn btn-danger {{cardDeps.dependencies.length == 0 ? '' : 'disabled'}}">{{'Delete' | translate}}</button>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cardTemplateDepsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{'Card dependency' | translate}}</h4>
+      </div>
+      <form class="form-horizontal" ng-submit="cardDeps.dependencies.length == 0 ? deleteTemplate(cardDeps) : undefined">
+        <div class="modal-body">
+          <div ng-show="!cardDeps.loading && cardDeps.dependencies.length > 0" class="alert alert-warning alert-dismissable">
+            <span class="pficon pficon-warning-triangle-o"></span>
+            <strong>{{'Dependency problem' | translate}}.</strong> {{'This template is used by following cards' | translate}}:
+          </div>
+          <div ng-show="!cardDeps.loading && cardDeps.dependencies.length == 0" class="form-group medium-font col-md-3">
+            {{ "Are you sure" | translate }} ?
+          </div>
+          <div class="form-group">
+            <div ng-show="cardDeps.loading" class="spinner"></div>
+            <label ng-show="!cardDeps.loading && cardDeps.dependencies.length > 0" class="col-sm-3 control-label" for="textInput-modal-markup">{{'Cards list' | translate}}</label>
+            <div ng-show="!cardDeps.loading" class="col-sm-9">
+              <ul class="list-group">
+                <li ng-repeat="d in cardDeps.dependencies track by $index" class="list-group-item">{{d.name}}</li>
+              </ul>
+            </div>
+          </div>
+          <div ng-show="cardDeps.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
+          <div class="modal-footer submit">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+            <button type="submit" class="btn btn-danger {{cardDeps.dependencies.length == 0 ? '' : 'disabled'}}">{{'Delete' | translate}}</button>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="customerCardPreview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{'Preview' | translate}}</h4>
+      </div>
+      <form class="form-horizontal">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Template' | translate}}</label>
+            <div class="col-sm-9">
+              <pre required ng-model="ccard.html" class="editor-form" ui-ace="{theme:'twilight',mode: 'ejs', onChange: editorOnChange}"></pre>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Query' | translate}}</label>
+            <div class="col-sm-9">
+              <pre required ng-model="ccard.query" class="editor-form" ui-ace="{theme:'twilight',mode: 'sql', onChange: editorOnChange}"></pre>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Render' | translate}}</label>
+            <div class="col-sm-9">
+              <button ng-click="setPreview(ccard)" class="btn btn-primary"
+                type="button">{{'Refresh' | translate}}</button>
+              <div ng-show="ccard.isChecking" class="spinner spinner-sm inline-display language-name check-connection"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Preview' | translate}}</label>
+            <div class="col-sm-9">
+              <iframe class="editor-preview" src="{{'data:text/html;base64,' + (ccard.html | ejsRender:ccard.objects:ccard.name | toBase64) | trustUrl}}"></iframe>
+            </div>
+          </div>
+          <div class="modal-footer submit">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
           </div>
       </form>
       </div>

@@ -952,6 +952,14 @@ a {
   cursor: auto;
 }
 
+.list-group {
+  border-top: 0px;
+}
+
+.list-group-item:hover {
+  background: #f1f1f1;
+}
+
 .profile-button-save {
   float: right;
   margin-top: 6px;

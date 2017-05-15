@@ -49,6 +49,26 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.sourceDeps = function (id) {
+      return $q(function (resolve, reject) {
+        RestService.get('/cti/customer_card?dbconn_id=' + id).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.templateDeps = function (name) {
+      return $q(function (resolve, reject) {
+        RestService.get('/cti/customer_card?template=' + name).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.checkConnectionSource = function (obj) {
       return $q(function (resolve, reject) {
         RestServiceCTI.post('/dbconn/test', obj).then(function (res) {
@@ -71,7 +91,7 @@ angular.module('nethvoiceWizardUiApp')
 
     this.updateSource = function (id, obj) {
       return $q(function (resolve, reject) {
-        RestService.post('/cti/dbconn/' + id, obj).then(function (res) {
+        RestService.put('/cti/dbconn/' + id, obj).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
@@ -101,7 +121,7 @@ angular.module('nethvoiceWizardUiApp')
 
     this.updateTemplate = function (id, obj) {
       return $q(function (resolve, reject) {
-        RestService.post('/cti/customer_card/template/' + id, obj).then(function (res) {
+        RestService.put('/cti/customer_card/template/' + id, obj).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
@@ -131,7 +151,7 @@ angular.module('nethvoiceWizardUiApp')
 
     this.updateCard = function (id, obj) {
       return $q(function (resolve, reject) {
-        RestService.post('/cti/customer_card/' + id, obj).then(function (res) {
+        RestService.put('/cti/customer_card/' + id, obj).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
