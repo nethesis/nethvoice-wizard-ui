@@ -210,9 +210,9 @@ angular.module('nethvoiceWizardUiApp')
             checked: false
           };
           $('#newSourceModal').modal('hide');
-          if ($scope.isCustomerCardsWizard(2)) {
+          if ($scope.isCustomerCardsWizard(3)) {
             setTimeout(function () {
-              $('#newTemplateModal').modal('show');
+              $('#newCardModal').modal('show');
             }, 500);
           }
         }, function (err) {
@@ -282,11 +282,6 @@ angular.module('nethvoiceWizardUiApp')
             custom: true
           };
           $('#newTemplateModal').modal('hide');
-          if ($scope.isCustomerCardsWizard(3)) {
-            setTimeout(function () {
-              $('#newCardModal').modal('show');
-            }, 500);
-          }
         }, function (err) {
           s.onSave = false;
           $scope.onSaveSuccessTemplate = false;
@@ -306,11 +301,6 @@ angular.module('nethvoiceWizardUiApp')
             custom: true
           };
           $('#newTemplateModal').modal('hide');
-          if ($scope.isCustomerCardsWizard(3)) {
-            setTimeout(function () {
-              $('#newCardModal').modal('show');
-            }, 500);
-          }
         }, function (err) {
           s.onSave = false;
           $scope.onSaveSuccessTemplate = false;
@@ -324,7 +314,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.modifyTemplate = function (s) {
       s.onMod = true;
       s.old_name = s.name;
-      s.objects = "[{}]";
+      s.objects = s.custom ? '[{"name": "John", "lastname": "Doe"}]' : '[{"col_1":"val_1","col_2":"val_2"}]';
       $scope.newTemplate = s;
     };
     $scope.checkTemplateDeps = function (s) {
@@ -355,8 +345,8 @@ angular.module('nethvoiceWizardUiApp')
         html: '<% for(var i=0; i<results.length; i++){ %><%= results[i].name %> <strong><%= results[i].lastname %></strong><% } %>',
         custom: true,
         objects: JSON.stringify([{
-          name: 'John',
-          lastname: 'Doe'
+          name: "John",
+          lastname: "Doe"
         }])
       };
       s = $scope.newTemplate;
@@ -410,6 +400,7 @@ angular.module('nethvoiceWizardUiApp')
     };
     $scope.modifyCard = function (s) {
       s.onMod = true;
+      s.render_html = '';
       $scope.newCard = s;
     };
     $scope.deleteCard = function (s) {
@@ -424,7 +415,8 @@ angular.module('nethvoiceWizardUiApp')
     };
     $scope.cancelCard = function (s) {
       $scope.newCard = {
-        query: ''
+        query: '',
+        render_html: ''
       };
       s = $scope.newCard;
       s.onMod = false;
@@ -442,12 +434,31 @@ angular.module('nethvoiceWizardUiApp')
       $scope.ccard = g;
     };
     $scope.updatePreview = function (g) {
-      ApplicationService.customerCardPreview().then(function (res) {
-        g.render_html = res.data[g.name].data;
+      g.isChecking = true;
+      ApplicationService.customerCardPreview({
+        dbconn_id: g.dbconn_id,
+        template: g.template,
+        query: btoa(g.query)
+      }).then(function (res) {
+        g.render_html = res.data;
+        g.isChecking = false;
       }, function (err) {
-        s.onSave = false;
+        g.isChecking = false;
         console.log(err);
       });
+    };
+    $scope.setTemplatePreview = function (g) {
+      g.objects = '[{"name": "John", "lastname": "Doe"}]';
+    };
+    $scope.setDuplicate = function (g) {
+      $scope.duplicated = g;
+      $scope.duplicated.old_name = g.name;
+    };
+    $scope.duplicateTemplate = function (g) {
+      g.name = g.name;
+      g.custom = true;
+      $scope.saveTemplate(g);
+      $('#duplicateTemplateModal').modal('hide');
     };
 
     $scope.getAllDBTypes();

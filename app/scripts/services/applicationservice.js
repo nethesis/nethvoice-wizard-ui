@@ -79,9 +79,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.customerCardPreview = function () {
+    this.customerCardPreview = function (obj) {
       return $q(function (resolve, reject) {
-        RestServiceCTI.get('/custcard/getbynum/%/html').then(function (res) {
+        RestServiceCTI.post('/custcard/preview', obj).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);

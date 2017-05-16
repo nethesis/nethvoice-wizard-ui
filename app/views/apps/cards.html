@@ -113,7 +113,7 @@
       <strong>{{'Template not saved' | translate}}.</strong> {{'Template saving error' | translate}}
     </div>
     <div ng-if="!(allTemplates | isEmpty)" class="row row-cards-pf adjust-card">
-      <div ng-repeat="g in allTemplates track by $index | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <div ng-repeat="g in allTemplates track by $index | orderBy:'-name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div id="accordion-template-{{$index}}" class="card-pf">
           <h2 class="card-pf-title">
             <span class="pficon pficon-blueprint"></span> {{g.name}} <span class="right-only small-font">
@@ -121,12 +121,13 @@
           </h2>
           <div class="card-pf-body">
             <div ng-if="g.custom" class="progress-description full-size-max">
-              <div class="pointer" data-toggle="collapse" data-parent="#accordion-template-{{$index}}" href="#collapse-template-{{$index}}">
+              <div ng-click="setTemplatePreview(g)" class="pointer" data-toggle="collapse" data-parent="#accordion-template-{{$index}}"
+                href="#collapse-template-{{$index}}">
                 {{'Preview' | translate}}
               </div>
               <div id="collapse-template-{{$index}}" class="panel-collapse collapse">
                 <div>
-                  <iframe class="editor-preview-list" src="{{'data:text/html;base64,' + (g.html | ejsRender:'[{}]':g.name | toBase64) | trustUrl}}"></iframe>
+                  <iframe class="editor-preview-list" src="{{'data:text/html;base64,' + (g.html | ejsRender:g.objects:g.name | toBase64) | trustUrl}}"></iframe>
                 </div>
               </div>
               <!--<div readonly class="editor-template" ng-model="g.html" ui-ace="{theme:'twilight', mode: 'html'}"></div>-->
@@ -144,7 +145,9 @@
             </div>
             <p>
               <button data-toggle="modal" data-target="#newTemplateModal" ng-click="modifyTemplate(g)" class="btn btn-primary" type="button">{{!g.custom ? 'Preview' : 'Modify' | translate}}</button>
-              <button ng-click="checkTemplateDeps(g)" class="btn btn-danger" type="button">{{'Delete' | translate}}</button>
+              <button ng-if="g.custom" ng-click="checkTemplateDeps(g)" class="btn btn-danger" type="button">{{'Delete' | translate}}</button>
+              <button data-toggle="modal" data-target="#duplicateTemplateModal" ng-if="!g.custom" ng-click="setDuplicate(g)" class="btn btn-warning"
+                type="button">{{'Duplicate' | translate}}</button>
             </p>
           </div>
         </div>
@@ -206,15 +209,13 @@
             <p>
               <button data-toggle="modal" data-target="#newCardModal" ng-click="modifyCard(g)" class="btn btn-primary" type="button">{{'Modify' | translate}}</button>
               <button ng-click="deleteCard(g)" class="btn btn-danger" type="button">{{'Delete' | translate}}</button>
-              <button ng-click="setPreview(g)" data-toggle="modal" data-target="#customerCardPreview" class="btn btn-default right-only"
-                type="button">{{'Preview' | translate}}</button>
             </p>
           </div>
         </div>
       </div>
     </div>
     <button ng-if="!(allCards | isEmpty)" ng-click="cancelCard()" data-toggle="modal" data-target="#newCardModal" class="btn btn-primary btn-lg right-only">{{'Create new card' | translate}}</button>
-    <div ng-if="(allCards | isEmpty) && !((allSources | isEmpty) && (allTemplates | isEmpty) && (allCards | isEmpty))" class="blank-slate-pf ">
+    <div ng-if="(allCards | isEmpty) && !((allSources | isEmpty) || (allTemplates | isEmpty))" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
         <span class="fa fa-calendar-o"></span>
       </div>
@@ -410,6 +411,19 @@
               <div required ng-model="newCard.query" class="editor-form" ui-ace="{theme:'twilight',mode: 'sql', onChange: editorOnChange}"></div>
             </div>
           </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Render' | translate}}</label>
+            <div class="col-sm-9">
+              <button ng-click="updatePreview(newCard)" class="btn btn-primary" type="button">{{'Refresh' | translate}}</button>
+              <div ng-show="newCard.isChecking" class="spinner spinner-sm inline-display language-name check-connection"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Preview' | translate}}</label>
+            <div class="col-sm-9">
+              <iframe class="editor-preview" src="{{'data:text/html;base64,' + (newCard.render_html | toBase64) | trustUrl}}"></iframe>
+            </div>
+          </div>
           <div ng-show="newCard.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
           <div class="modal-footer submit">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
@@ -436,7 +450,7 @@
             <span class="pficon pficon-warning-triangle-o"></span>
             <strong>{{'Dependency problem' | translate}}.</strong> {{'This source is used by following cards' | translate}}:
           </div>
-          <div ng-show="!cardDeps.loading && cardDeps.dependencies.length == 0" class="form-group medium-font col-md-3">
+          <div ng-show="!cardDeps.loading && cardDeps.dependencies.length == 0" class="form-group medium-font col-md-4">
             {{ "Are you sure" | translate }} ?
           </div>
           <div class="form-group">
@@ -474,7 +488,7 @@
             <span class="pficon pficon-warning-triangle-o"></span>
             <strong>{{'Dependency problem' | translate}}.</strong> {{'This template is used by following cards' | translate}}:
           </div>
-          <div ng-show="!cardDeps.loading && cardDeps.dependencies.length == 0" class="form-group medium-font col-md-3">
+          <div ng-show="!cardDeps.loading && cardDeps.dependencies.length == 0" class="form-group medium-font col-md-4">
             {{ "Are you sure" | translate }} ?
           </div>
           <div class="form-group">
@@ -497,49 +511,31 @@
   </div>
 </div>
 
-<div class="modal fade" id="customerCardPreview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+<div class="modal fade" id="duplicateTemplateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
           <span class="pficon pficon-close"></span>
         </button>
-        <h4 class="modal-title" id="myModalLabel">{{'Preview' | translate}}</h4>
+        <h4 class="modal-title" id="myModalLabel">{{'Duplicate template' | translate}}</h4>
       </div>
-      <form class="form-horizontal">
+      <form class="form-horizontal" ng-submit="{{duplicated.name == duplicated.old_name ? undefined : duplicateTemplate(duplicated)}}">
         <div class="modal-body">
           <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Template' | translate}}</label>
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
             <div class="col-sm-9">
-              <pre required ng-model="ccard.html" class="editor-form" ui-ace="{theme:'twilight',mode: 'ejs', onChange: editorOnChange}"></pre>
-            </div>
+              <input required ng-model="duplicated.name" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
           </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Query' | translate}}</label>
-            <div class="col-sm-9">
-              <pre required ng-model="ccard.query" class="editor-form" ui-ace="{theme:'twilight',mode: 'sql', onChange: editorOnChange}"></pre>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Render' | translate}}</label>
-            <div class="col-sm-9">
-              <button ng-click="updatePreview(ccard)" class="btn btn-primary"
-                type="button">{{'Refresh' | translate}}</button>
-              <div ng-show="ccard.isChecking" class="spinner spinner-sm inline-display language-name check-connection"></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Preview' | translate}}</label>
-            <div class="col-sm-9">
-              <iframe class="editor-preview" src="{{'data:text/html;base64,' + (ccard.render_html | toBase64) | trustUrl}}"></iframe>
-            </div>
-          </div>
+          <div ng-show="duplicated.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
           <div class="modal-footer submit">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+            <button type="submit" class="btn btn-primary {{duplicated.name == duplicated.old_name ? 'disabled' : ''}}">{{'Save' | translate}}</button>
           </div>
       </form>
       </div>
     </div>
   </div>
 </div>
+
 <!-- END MODALS -->
