@@ -15,6 +15,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allProfiles = [];
     $scope.allGroups = [];
     $scope.maxExtensionReached = false;
+    $scope.newDevice = {};
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured'];
     $scope.selectedUserFilter = $scope.availableUserFilters[0];
@@ -168,9 +169,11 @@ angular.module('nethvoiceWizardUiApp')
       device.setPhysicalInAction = true;
       UserService.createPhysicalExtension({
         mainextension: user.default_extension,
-        mac: device.mac,
-        model: device.model,
-        line: line || null
+        mac: device.mac || null,
+        model: device.model || null,
+        line: line || null,
+        web_user: device.web_user || 'admin',
+        web_password: device.web_password || 'admin'
       }).then(function (res) {
         device.setPhysicalInAction = false;
         $scope.getUserList(false);

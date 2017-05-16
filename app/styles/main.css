@@ -136,6 +136,10 @@ a {
   padding-bottom: 5px;
 }
 
+.popover.top {
+  min-width: 245px;
+}
+
 .card-pf-footer {
   padding: 15px 20px;
 }

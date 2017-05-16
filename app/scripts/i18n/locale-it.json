@@ -281,5 +281,9 @@
   "Print PDF report": "Stampa report PDF",
   "Print final report": "Stampa report finale",
   "Name": "Nome",
-  "of presence panel": "del pannello presenza"
+  "of presence panel": "del pannello presenza",
+  "Custom device": "Device personalizzato",
+  "Web user": "Utente web",
+  "Web password": "Password web",
+  "Show secret": "Mostra secret"
 }
