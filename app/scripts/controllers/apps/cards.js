@@ -326,6 +326,7 @@ angular.module('nethvoiceWizardUiApp')
           template = JSON.stringify([{
             "name": "John Doe",
             "type": "public",
+            "extension": "200",
             "homephone": "555894512",
             "workphone": "78960012",
             "cellphone": "340784512",
@@ -465,10 +466,11 @@ angular.module('nethvoiceWizardUiApp')
         template: g.template,
         query: btoa(g.query)
       }).then(function (res) {
-        g.render_html = res.data;
+        g.render_html = '<style>body{padding: 5px !important;}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"/>' + atob(res.data.html);
         g.isChecking = false;
       }, function (err) {
         g.isChecking = false;
+        g.render_html = '';
         console.log(err);
       });
     };
