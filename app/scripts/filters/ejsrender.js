@@ -19,7 +19,7 @@ angular.module('nethvoiceWizardUiApp')
         }
         return true;
       }
-      return ejs.render(input, {
+      return '<style>body{padding: 5px !important;}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"/>'+ejs.render(input, {
         results: isJson(data) ? JSON.parse(data) : [{}],
         name: name
       });

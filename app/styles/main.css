@@ -1143,25 +1143,7 @@ a {
   border: 2px solid #fff;
   width: 22px;
   height: 16px;
-  background: #cc0000;
-  display: inline-block;
-}
-
-.cube-color-blue {
-  cursor: pointer;
-  border: 2px solid #fff;
-  width: 22px;
-  height: 16px;
-  background: #0088ce;
-  display: inline-block;
-}
-
-.cube-color-green {
-  cursor: pointer;
-  border: 2px solid #fff;
-  width: 22px;
-  height: 16px;
-  background: #3f9c35;
+  background: #db2828;
   display: inline-block;
 }
 
@@ -1170,34 +1152,61 @@ a {
   border: 2px solid #fff;
   width: 22px;
   height: 16px;
-  background: #ec7a08;
+  background: #f2711c;
   display: inline-block;
 }
 
-.cube-color-gold {
+.cube-color-yellow {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
   height: 16px;
-  background: #f0ab00;
+  background: #fbbd08;
   display: inline-block;
 }
 
-.cube-color-light-green {
+.cube-color-olive {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
   height: 16px;
-  background: #92d400;
+  background: #b5cc18;
   display: inline-block;
 }
 
-.cube-color-light-blue {
+.cube-color-green {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
   height: 16px;
-  background: #00b9e4;
+  background: #21ba45;
+  display: inline-block;
+}
+
+.cube-color-teal {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 16px;
+  background: #00b5ad;
+  display: inline-block;
+}
+
+.cube-color-blue {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 16px;
+  background: #2185d0;
+  display: inline-block;
+}
+
+.cube-color-violet {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 16px;
+  background: #6435c9;
   display: inline-block;
 }
 
@@ -1206,15 +1215,25 @@ a {
   border: 2px solid #fff;
   width: 22px;
   height: 16px;
-  background: #582fc0;
+  background: #a333c8;
   display: inline-block;
 }
 
-.cube-color-cyan {
+.cube-color-pink {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
   height: 16px;
-  background: #007a87;
+  background: #e03997;
   display: inline-block;
 }
+
+.cube-color-brown {
+  cursor: pointer;
+  border: 2px solid #fff;
+  width: 22px;
+  height: 16px;
+  background: #a5673f;
+  display: inline-block;
+}
+

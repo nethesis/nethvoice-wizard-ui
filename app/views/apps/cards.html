@@ -144,7 +144,7 @@
               <div ng-show="g.onSave" class="spinner spinner-sm adjust-margin spinner-right"></div>
             </div>
             <p>
-              <button data-toggle="modal" data-target="#newTemplateModal" ng-click="modifyTemplate(g)" class="btn btn-primary" type="button">{{!g.custom ? 'Preview' : 'Modify' | translate}}</button>
+              <button data-toggle="modal" data-target="#newTemplateModal" ng-click="modifyTemplate(g)" class="btn btn-primary" type="button">{{'Modify' | translate}}</button>
               <button ng-if="g.custom" ng-click="checkTemplateDeps(g)" class="btn btn-danger" type="button">{{'Delete' | translate}}</button>
               <button data-toggle="modal" data-target="#duplicateTemplateModal" ng-if="!g.custom" ng-click="setDuplicate(g)" class="btn btn-warning"
                 type="button">{{'Duplicate' | translate}}</button>
@@ -333,13 +333,15 @@
             <div class="col-sm-9 color-padding">
               <span ng-click="setColor(newTemplate, 'red')" class="cube-color-red {{newTemplate.color=='red' ? 'color-active' : ''}}"></span>
               <span ng-click="setColor(newTemplate, 'orange')" class="cube-color-orange {{newTemplate.color=='orange' ? 'color-active' : ''}}"></span>
-              <span ng-click="setColor(newTemplate, 'gold')" class="cube-color-gold {{newTemplate.color=='gold' ? 'color-active' : ''}}"></span>
-              <span ng-click="setColor(newTemplate, 'light-green')" class="cube-color-light-green {{newTemplate.color=='light-green' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'yellow')" class="cube-color-yellow {{newTemplate.color=='yellow' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'olive')" class="cube-color-light-olive {{newTemplate.color=='olive' ? 'color-active' : ''}}"></span>
               <span ng-click="setColor(newTemplate, 'green')" class="cube-color-green {{newTemplate.color=='green' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'teal')" class="cube-color-teal {{newTemplate.color=='teal' ? 'color-active' : ''}}"></span>
               <span ng-click="setColor(newTemplate, 'blue')" class="cube-color-blue {{newTemplate.color=='blue' ? 'color-active' : ''}}"></span>
-              <span ng-click="setColor(newTemplate, 'cyan')" class="cube-color-cyan {{newTemplate.color=='cyan' ? 'color-active' : ''}}"></span>
-              <span ng-click="setColor(newTemplate, 'light-blue')" class="cube-color-light-blue {{newTemplate.color=='light-blue' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'violet')" class="cube-color-light-violet {{newTemplate.color=='violet' ? 'color-active' : ''}}"></span>
               <span ng-click="setColor(newTemplate, 'purple')" class="cube-color-purple {{newTemplate.color=='purple' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'pink')" class="cube-color-pink {{newTemplate.color=='pink' ? 'color-active' : ''}}"></span>
+              <span ng-click="setColor(newTemplate, 'brown')" class="cube-color-brown {{newTemplate.color=='brown' ? 'color-active' : ''}}"></span>
             </div>
           </div>
           <div class="form-group">
@@ -520,7 +522,7 @@
         </button>
         <h4 class="modal-title" id="myModalLabel">{{'Duplicate template' | translate}}</h4>
       </div>
-      <form class="form-horizontal" ng-submit="{{duplicated.name == duplicated.old_name ? undefined : duplicateTemplate(duplicated)}}">
+      <form class="form-horizontal" ng-submit="duplicated.name == duplicated.old_name ? undefined : duplicateTemplate(duplicated)">
         <div class="modal-body">
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>

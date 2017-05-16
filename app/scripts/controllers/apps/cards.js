@@ -15,15 +15,17 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allCards = [];
     $scope.allDBTypes = [];
     $scope.supportedColors = {
-      'red': '#cc0000',
-      'blue': '#0088ce',
-      'orange': '#ec7a08',
-      'gold': '#f0ab00',
-      'light-green': '#92d400',
-      'green': '#3f9c35',
-      'cyan': '#007a87',
-      'light-blue': '#00b9e4',
-      'purple': '#703fec'
+      'red': '#db2828',
+      'orange': '#f2711c',
+      'yellow': '#fbbd08',
+      'olive': '#b5cc18',
+      'green': '#21ba45',
+      'teal': '#00b5ad',
+      'blue': '#2185d0',
+      'violet': '#6435c9',
+      'purple': '#a333c8',
+      'pink': '#e03997',
+      'brown': '#a5673f'
     };
 
     $scope.newSource = {
@@ -64,14 +66,12 @@ angular.module('nethvoiceWizardUiApp')
       g.onSaveColor = true;
       var oldColor = g.color;
       g.color = color;
-      var hashOld = $scope.supportedColors[oldColor];
-      var hash = $scope.supportedColors[color];
       RegExp.quote = function (str) {
         return str.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
       };
-      var replace = hashOld;
+      var replace = oldColor;
       var re = new RegExp(RegExp.quote(replace), "g");
-      g.html = g.html.replace(re, hash).replace('<!-- color: ' + oldColor + ' -->\n', '<!-- color: ' + color + ' -->\n');
+      g.html = g.html.replace(re, color).replace('<!-- color: ' + oldColor + ' -->\n', '<!-- color: ' + color + ' -->\n');
     };
 
     $scope.editorOnChange = function (e) {
@@ -309,12 +309,37 @@ angular.module('nethvoiceWizardUiApp')
           console.log(err);
         });
       }
-
+    };
+    $scope.switchResultsData = function (t) {
+      var template = '';
+      switch (t) {
+        case 'table':
+          template = JSON.stringify([{
+            "Col_1": "Val_1",
+            "Col_2": "Val_2"
+          }, {
+            "Col_1": "Val_3",
+            "Col_2": "Val_4"
+          }]);
+          break;
+        case 'identity':
+          template = JSON.stringify([{
+            "name": "John Doe",
+            "type": "public",
+            "homephone": "555894512",
+            "workphone": "78960012",
+            "cellphone": "340784512",
+            "url": "http://google.com",
+            "company": "Google Inc."
+          }]);;
+          break;
+      }
+      return template;
     };
     $scope.modifyTemplate = function (s) {
       s.onMod = true;
       s.old_name = s.name;
-      s.objects = s.custom ? '[{"name": "John", "lastname": "Doe"}]' : '[{"col_1":"val_1","col_2":"val_2"}]';
+      s.objects = s.custom ? '[{"name": "John", "lastname": "Doe"}]' : $scope.switchResultsData(s.name);
       $scope.newTemplate = s;
     };
     $scope.checkTemplateDeps = function (s) {
