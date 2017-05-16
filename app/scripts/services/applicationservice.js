@@ -79,6 +79,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.customerCardPreview = function () {
+      return $q(function (resolve, reject) {
+        RestServiceCTI.get('/custcard/getbynum/%/html').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.createSource = function (obj) {
       return $q(function (resolve, reject) {
         RestService.post('/cti/dbconn', obj).then(function (res) {

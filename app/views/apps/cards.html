@@ -132,10 +132,10 @@
               <!--<div readonly class="editor-template" ng-model="g.html" ui-ace="{theme:'twilight', mode: 'html'}"></div>-->
             </div>
             <div ng-if="!g.custom" class="progress-description full-size-max">
-              {{'Color' | translate}}
-              <div class="small-margin">
+              <span>{{'Color' | translate}}</span>
+              <span class="inline-color">
                 <span class="cube-color-{{g.color}}"></span>
-              </div>
+              </span>
             </div>
           </div>
           <div class="card-pf-footer">
@@ -329,7 +329,7 @@
           </div>
           <div ng-if="!newTemplate.custom" class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Color' | translate}}</label>
-            <div class="col-sm-9">
+            <div class="col-sm-9 color-padding">
               <span ng-click="setColor(newTemplate, 'red')" class="cube-color-red {{newTemplate.color=='red' ? 'color-active' : ''}}"></span>
               <span ng-click="setColor(newTemplate, 'orange')" class="cube-color-orange {{newTemplate.color=='orange' ? 'color-active' : ''}}"></span>
               <span ng-click="setColor(newTemplate, 'gold')" class="cube-color-gold {{newTemplate.color=='gold' ? 'color-active' : ''}}"></span>
@@ -523,7 +523,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Render' | translate}}</label>
             <div class="col-sm-9">
-              <button ng-click="setPreview(ccard)" class="btn btn-primary"
+              <button ng-click="updatePreview(ccard)" class="btn btn-primary"
                 type="button">{{'Refresh' | translate}}</button>
               <div ng-show="ccard.isChecking" class="spinner spinner-sm inline-display language-name check-connection"></div>
             </div>
@@ -531,7 +531,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Preview' | translate}}</label>
             <div class="col-sm-9">
-              <iframe class="editor-preview" src="{{'data:text/html;base64,' + (ccard.html | ejsRender:ccard.objects:ccard.name | toBase64) | trustUrl}}"></iframe>
+              <iframe class="editor-preview" src="{{'data:text/html;base64,' + (ccard.render_html | toBase64) | trustUrl}}"></iframe>
             </div>
           </div>
           <div class="modal-footer submit">

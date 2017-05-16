@@ -438,7 +438,16 @@ angular.module('nethvoiceWizardUiApp')
         }
       }
       g.html = tmpl;
+      g.render_html = '';
       $scope.ccard = g;
+    };
+    $scope.updatePreview = function (g) {
+      ApplicationService.customerCardPreview().then(function (res) {
+        g.render_html = res.data[g.name].data;
+      }, function (err) {
+        s.onSave = false;
+        console.log(err);
+      });
     };
 
     $scope.getAllDBTypes();

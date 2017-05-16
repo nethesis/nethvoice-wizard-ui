@@ -130,6 +130,12 @@ a {
   font-size: 20px;
 }
 
+.inline-color {
+  position: absolute;
+  margin-top: 2px;
+  margin-left: 8px;
+}
+
 .inline-display {
   display: inline-block;
 }
@@ -1091,6 +1097,10 @@ a {
   margin-top: 5px;
 }
 
+.adjust-margin-bottom {
+  margin-bottom: 4px !important;
+}
+
 .editor-form {
   height: 200px;
   width: 97%;
@@ -1120,6 +1130,10 @@ a {
   height: 250px;
 }
 
+.color-padding {
+  padding-top: 4px;
+}
+
 .color-active {
   border: 2px solid #c1c1c1 !important;
 }
@@ -1128,7 +1142,7 @@ a {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
-  height: 22px;
+  height: 16px;
   background: #cc0000;
   display: inline-block;
 }
@@ -1137,7 +1151,7 @@ a {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
-  height: 22px;
+  height: 16px;
   background: #0088ce;
   display: inline-block;
 }
@@ -1146,7 +1160,7 @@ a {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
-  height: 22px;
+  height: 16px;
   background: #3f9c35;
   display: inline-block;
 }
@@ -1155,7 +1169,7 @@ a {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
-  height: 22px;
+  height: 16px;
   background: #ec7a08;
   display: inline-block;
 }
@@ -1164,7 +1178,7 @@ a {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
-  height: 22px;
+  height: 16px;
   background: #f0ab00;
   display: inline-block;
 }
@@ -1173,7 +1187,7 @@ a {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
-  height: 22px;
+  height: 16px;
   background: #92d400;
   display: inline-block;
 }
@@ -1182,7 +1196,7 @@ a {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
-  height: 22px;
+  height: 16px;
   background: #00b9e4;
   display: inline-block;
 }
@@ -1191,7 +1205,7 @@ a {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
-  height: 22px;
+  height: 16px;
   background: #582fc0;
   display: inline-block;
 }
@@ -1200,7 +1214,7 @@ a {
   cursor: pointer;
   border: 2px solid #fff;
   width: 22px;
-  height: 22px;
+  height: 16px;
   background: #007a87;
   display: inline-block;
 }
