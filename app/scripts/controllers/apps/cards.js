@@ -428,6 +428,7 @@ angular.module('nethvoiceWizardUiApp')
       s.onMod = true;
       s.render_html = '';
       $scope.newCard = s;
+      $scope.updatePreview(s);
     };
     $scope.deleteCard = function (s) {
       s.onSave = true;
