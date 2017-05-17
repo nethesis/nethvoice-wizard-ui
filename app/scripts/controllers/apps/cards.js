@@ -172,6 +172,7 @@ angular.module('nethvoiceWizardUiApp')
       delete s.onSave;
       delete s.onMod;
       delete s.verified;
+      delete s.showPass;
       if (s.id) {
         ApplicationService.updateSource(s.id, s).then(function (res) {
           s.onSave = false;
