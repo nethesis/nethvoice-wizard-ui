@@ -258,7 +258,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 config-bottom">
           <div class="list-view-pf-additional-info-item">
             <span class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span class="fa fa-user"></span><span class="config-span">{{'Profile' | translate}}</span></span>
-            <select ng-change="setProfile()" title="-" pf-select="{ width: '180px' }" ng-model="selectedUser.profile" ng-options="p.id as p.name for p in allProfiles">
+            <select ng-change="setProfile()" title="-" pf-select="{ width: '180px' }" ng-model="selectedUser.profile" ng-options="p.id as p.name | translate for p in allProfiles">
             </select>
           </div>
         </div>
