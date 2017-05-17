@@ -18,7 +18,8 @@ angular
     'ui.bootstrap',
     'as.sortable',
     'patternfly',
-    'frapontillo.bootstrap-switch'
+    'frapontillo.bootstrap-switch',
+    'ui.ace'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -106,6 +107,16 @@ angular
         templateUrl: 'views/users/groups.html',
         controller: 'UsersGroupsCtrl',
         controllerAs: 'users/groups'
+      })
+      .when('/apps', {
+        templateUrl: 'views/apps.html',
+        controller: 'AppsCtrl',
+        controllerAs: 'apps'
+      })
+      .when('/apps/cards', {
+        templateUrl: 'views/apps/cards.html',
+        controller: 'AppsCardsCtrl',
+        controllerAs: 'apps/cards'
       })
       .otherwise({
         redirectTo: '/'

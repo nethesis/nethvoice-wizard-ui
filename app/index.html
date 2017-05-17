@@ -93,7 +93,7 @@
         <ul class="list-group panel">
           <li data-toggle="collapse" data-parent="#navbar-left" href="#usersCollapse" class="list-group-item collapse-menu {{resolveActiveTab('users',1) ? 'active' : ''}}" id="users-item-menu">
             <a>
-              <span class="pficon pficon-users" title="Users" data-toggle="tooltip" data-placement="right"></span>
+              <span class="pficon pficon-users" title="{{'Users' | translate}}" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Users' | translate}}</span>
               <span class="badge notifications">{{menuCount.users}}</span>
             </a>
@@ -132,7 +132,7 @@
           </div>
           <li data-toggle="collapse" data-parent="#navbar-left" href="#routesCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART2_STEP" class="list-group-item collapse-menu {{resolveActiveTab('routes',1) ? 'active' : ''}}" id="routes-item-menu">
             <a>
-              <span class="pficon pficon-trend-up" title="Routes" data-toggle="tooltip" data-placement="right"></span>
+              <span class="pficon pficon-trend-up" title="{{'Routes' | translate}}" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Routes' | translate }}</span>
               <span popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Outbound routes' | translate}}" class="badge notifications">{{menuCount.routesOut}}</span>
               <span popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Inbound routes' | translate}}" class="badge notifications adjust-badge">{{menuCount.routesIn}}</span>
@@ -146,10 +146,21 @@
                   <div ng-click="goTo('routes/outbound')" class="list-group-item-value  menu-item-left no-opacity">{{'Outbound' | translate | ellipsis:'1200'}}</div>
               </div>
           </div>
+          <li data-toggle="collapse" data-parent="#navbar-left" href="#appsCollapse" ng-if="!wizard.isWizard" class="list-group-item collapse-menu {{resolveActiveTab('apps',1) ? 'active' : ''}}" id="apps-item-menu">
+            <a>
+              <span class="pficon pficon-bundle" title="{{'Apps' | translate}}" data-toggle="tooltip" data-placement="right"></span>
+              <span class="list-group-item-value">{{'Apps' | translate }}</span>
+            </a>
+          </li>
+          <div id="appsCollapse" class="panel-collapse collapse {{resolveActiveTab('apps',1) ? 'in' : ''}}">
+              <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('cards',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('apps/cards')" class="list-group-item-value menu-item-left no-opacity">{{'Customer cards' | translate | ellipsis:'1200'}}</div>
+              </div>
+          </div>
           <li data-toggle="collapse" data-parent="#navbar-left" href="#adminCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART3_STEP" class="list-group-item collapse-menu {{resolveActiveTab('admin',1) ? 'active' : ''}}" id="admin-item-menu">
             <a>
-              <span class="fa fa-cog" title="Admin" data-toggle="tooltip" data-placement="right"></span>
-              <span class="list-group-item-value">{{'Admin' | translate }}</span>
+              <span class="fa fa-cog" title="{{'Admins' | translate}}" data-toggle="tooltip" data-placement="right"></span>
+              <span class="list-group-item-value">{{'Admins' | translate }}</span>
             </a>
           </li>
           <div id="adminCollapse" class="panel-collapse collapse {{resolveActiveTab('admin',1) ? 'in' : ''}}">
@@ -220,6 +231,8 @@
     <script src="bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.js"></script>
     <script src="bower_components/jspdf/dist/jspdf.debug.js"></script>
     <script src="bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.src.js"></script>
+    <script src="bower_components/ace-builds/src-min/ace.js"></script>
+    <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -229,6 +242,7 @@
     <script src="scripts/config.js"></script>
     <script src="scripts/utils/sha1.js"></script>
     <script src="scripts/utils/md5.js"></script>
+    <script src="scripts/utils/ejs.min.js"></script>
     <script src="scripts/i18n/lang.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/users.js"></script>
@@ -269,6 +283,14 @@
     <script src="scripts/controllers/admin/settings.js"></script>
     <script src="scripts/controllers/admin/report.js"></script>
     <script src="scripts/controllers/users/groups.js"></script>
+    <script src="scripts/controllers/apps.js"></script>
+    <script src="scripts/controllers/apps/cards.js"></script>
+    <script src="scripts/services/applicationservice.js"></script>
+    <script src="scripts/services/restservicecti.js"></script>
+    <script src="scripts/filters/trusturl.js"></script>
+    <script src="scripts/filters/regexpparse.js"></script>
+    <script src="scripts/filters/tobase64.js"></script>
+    <script src="scripts/filters/ejsrender.js"></script>
     <!-- endbuild -->
   </body>
 
