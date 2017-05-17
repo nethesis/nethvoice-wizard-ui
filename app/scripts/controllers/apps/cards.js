@@ -166,13 +166,13 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.saveSource = function (s) {
       s.onSave = true;
+      // clean useless data
+      delete s.checked;
+      delete s.isChecking;
+      delete s.onSave;
+      delete s.onMod;
+      delete s.verified;
       if (s.id) {
-        // clean useless data
-        delete s.checked;
-        delete s.isChecking;
-        delete s.onSave;
-        delete s.onMod;
-        delete s.verified;
         ApplicationService.updateSource(s.id, s).then(function (res) {
           s.onSave = false;
           $scope.getAllSources(false);
@@ -264,13 +264,13 @@ angular.module('nethvoiceWizardUiApp')
     $scope.saveTemplate = function (s) {
       s.onSave = true;
       s.html = btoa(s.html);
+      // clean useless data
+      delete s.objects;
+      delete s.onSave;
+      delete s.onMod;
+      delete s.onSaveColor;
+      delete s.color;
       if (s.onMod && s.name == s.old_name) {
-        // clean useless data
-        delete s.objects;
-        delete s.onSave;
-        delete s.onMod;
-        delete s.onSaveColor;
-        delete s.color;
         ApplicationService.updateTemplate(s.old_name, s).then(function (res) {
           s.onSave = false;
           $scope.getAllTemplates(false);
@@ -334,6 +334,20 @@ angular.module('nethvoiceWizardUiApp')
             "company": "Google Inc."
           }]);;
           break;
+        case 'statistics':
+          template = JSON.stringify([{
+            "key": "value"
+          }]);
+          break;
+        case 'lastcalls':
+          template = JSON.stringify([{
+            "date": "18/04/2017",
+            "time": "09:50:25",
+            "billsec": "15:23:56",
+            "clid": "John Doe",
+            "dst": "Marilyn Monroe"
+          }]);
+          break;
       }
       return template;
     };
@@ -382,10 +396,12 @@ angular.module('nethvoiceWizardUiApp')
     $scope.saveCard = function (s) {
       s.onSave = true;
       s.query = btoa(s.query);
+      // clean useless data
+      delete s.onSave;
+      delete s.onMod;
+      delete s.render_html;
+      delete s.isChecking;
       if (s.id) {
-        // clean useless data
-        delete s.onSave;
-        delete s.onMod;
         ApplicationService.updateCard(s.id, s).then(function (res) {
           s.onSave = false;
           $scope.getAllCards(false);
@@ -467,7 +483,7 @@ angular.module('nethvoiceWizardUiApp')
         template: g.template,
         query: btoa(g.query)
       }).then(function (res) {
-        g.render_html = '<style>body{padding: 5px !important;}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"/>' + atob(res.data.html);
+        g.render_html = '<style>body{overflow: auto !important; padding: 5px !important;}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"/>' + atob(res.data.html);
         g.isChecking = false;
       }, function (err) {
         g.isChecking = false;

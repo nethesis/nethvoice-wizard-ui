@@ -116,7 +116,9 @@
       <div ng-repeat="g in allTemplates track by $index | orderBy:'-name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div id="accordion-template-{{$index}}" class="card-pf">
           <h2 class="card-pf-title">
-            <span class="pficon pficon-blueprint"></span> {{g.name}} <span class="right-only small-font">
+            <span class="pficon pficon-blueprint"></span> {{g.name}}
+            <span ng-if="!g.custom" class="right-only small-font right">
+              <span class="pficon pficon-thumb-tack-o"></span> {{'default'}}
             </span>
           </h2>
           <div class="card-pf-body">

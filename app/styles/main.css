@@ -1138,6 +1138,10 @@ a {
   border: 2px solid #c1c1c1 !important;
 }
 
+iframe body {
+  overflow: auto;
+}
+
 .cube-color-red {
   cursor: pointer;
   border: 2px solid #fff;
