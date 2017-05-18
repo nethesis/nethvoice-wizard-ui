@@ -176,6 +176,8 @@ angular.module('nethvoiceWizardUiApp')
         web_password: device.web_password || 'admin'
       }).then(function (res) {
         device.setPhysicalInAction = false;
+        device.web_password = '';
+        device.web_user = '';
         $scope.getUserList(false);
         $scope.getDeviceList(false);
       }, function (err) {
