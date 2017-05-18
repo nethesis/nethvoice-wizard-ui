@@ -351,5 +351,7 @@
   "Cards list": "Lista schede",
   "Dependency problem": "Problema di dipendenza",
   "This source is used by following cards": "Questa sorgente è usata dalle seguenti schede",
-  "This template is used by following cards": "Questo template è usato dalle seguenti schede"
+  "This template is used by following cards": "Questo template è usato dalle seguenti schede",
+  "Set customer card profile": "Imposta profilo scheda cliente",
+  "Don't forget to set profile for the customer cards": "Non dimenticare di impostare il profilo per la customer card"
 }

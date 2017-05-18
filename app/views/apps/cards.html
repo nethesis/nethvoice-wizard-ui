@@ -172,6 +172,13 @@
     <div ng-if="!((allSources | isEmpty) && (allTemplates | isEmpty) && (allCards | isEmpty))" class="divider"></div>
     <!-- CUSTOMER CARDS -->
     <h3 ng-if="!(allCards | isEmpty)">{{'Customer cards' | translate}}</h3>
+    <div class="alert alert-info alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+        <span class="pficon pficon-close"></span>
+      </button>
+      <span class="pficon pficon-info"></span>
+      <strong>{{'Set customer card profile' | translate}}.</strong> {{'Don\'t forget to set profile for the customer cards' | translate}}.
+    </div>
     <div ng-if="onSaveSuccessCard" class="alert alert-success alert-dismissable">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
         <span class="pficon pficon-close"></span>

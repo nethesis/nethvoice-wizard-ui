@@ -402,6 +402,7 @@ angular.module('nethvoiceWizardUiApp')
       delete s.onMod;
       delete s.render_html;
       delete s.isChecking;
+      delete s.permission_id;
       if (s.id) {
         ApplicationService.updateCard(s.id, s).then(function (res) {
           s.onSave = false;
