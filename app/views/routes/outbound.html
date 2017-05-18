@@ -15,7 +15,9 @@
     <h1 class="control-label centered" for="textInput-markup" class="control-label centered" for="textInput-markup">
       {{'Outbound routes' | translate}}
       <span ng-if="showDialDefault">- {{'Dial patterns' | translate}} in
-        <span class="weight">{{getLangName()}}</span>
+        <!--<span class="weight">{{getLangName()}}</span>-->
+        <select ng-change="setNewPattern(selectedRouteLang)" title="-" pf-select="{ width: '180px' }" ng-model="selectedRouteLang" ng-options="l as getLangName(l) for l in availableDialPatterns">
+        </select>
       </span>
     </h1>
     <div ng-if="routes[selectedRouteLang].length || routes.length" class="container-fluid">
@@ -68,8 +70,8 @@
                 <div ng-if="allTrunks.length === 0" class="alert alert-warning alert-dismissable no-margin-bottom">
                   <span class="pficon pficon-warning-triangle-o"></span>
                   <strong>{{'Trunks not found' | translate}}.</strong> {{'No trunks created, go' | translate}}
-                  <a ng-click="goTo('trunks/physical')"
-                    class="alert-link">{{'here' | translate }}</a> {{'to create one' | translate}}.
+                  <a ng-click="goTo('trunks/physical')" class="alert-link">{{'here' | translate }}</a> {{'to create one'
+                  | translate}}.
                 </div>
                 <div class="sortable-item" as-sortable-item ng-repeat="trunk in route.trunks">
                   <div class="list-view-pf-actions">
@@ -79,56 +81,56 @@
                     <div class="btn btn-link dropdown-toggle anchor-sortable" type="button" id="dropdownKebab" data-toggle="dropdown" aria-haspopup="true"
                       aria-expanded="true">
                       <span class="fa fa-arrows-v"></span>
-                  </div>
-                  <!--<div class="btn btn-link dropdown-toggle anchor-sortable" type="button" id="dropdownKebab" data-toggle="dropdown" aria-haspopup="true"
+                    </div>
+                    <!--<div class="btn btn-link dropdown-toggle anchor-sortable" type="button" id="dropdownKebab" data-toggle="dropdown" aria-haspopup="true"
                       aria-expanded="true">
                       <span class="">{{$index}}</span>
                     </div>-->
-                  <div class="list-view-pf-left">
-                    <span class="pficon pficon-topology list-view-pf-icon-sm"></span>
-                  </div>
-                  <div class="list-view-pf-body">
-                    <div class="list-view-pf-description adjust-list">
-                      <div class="list-group-item-heading">
-                        {{trunk.name}}
-                      </div>
-                      <div ng-if="extractTrunkInfo(trunk.name).vendor" class="list-group-item-heading">
-                        {{'Device' | translate}}: {{extractTrunkInfo(trunk.name).vendor}}
-                      </div>
+                    <div class="list-view-pf-left">
+                      <span class="pficon pficon-topology list-view-pf-icon-sm"></span>
                     </div>
-                    <div class="list-view-pf-additional-info">
-                      <div ng-if="extractTrunkInfo(trunk.name).port" class="list-view-pf-additional-info-item">
-                        {{'Port' | translate}}:&nbsp;<span class="weight-dest">{{extractTrunkInfo(trunk.name).port}}</span>
+                    <div class="list-view-pf-body">
+                      <div class="list-view-pf-description adjust-list">
+                        <div class="list-group-item-heading">
+                          {{trunk.name}}
+                        </div>
+                        <div ng-if="extractTrunkInfo(trunk.name).vendor" class="list-group-item-heading">
+                          {{'Device' | translate}}: {{extractTrunkInfo(trunk.name).vendor}}
+                        </div>
+                      </div>
+                      <div class="list-view-pf-additional-info">
+                        <div ng-if="extractTrunkInfo(trunk.name).port" class="list-view-pf-additional-info-item">
+                          {{'Port' | translate}}:&nbsp;<span class="weight-dest">{{extractTrunkInfo(trunk.name).port}}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div ng-if="filterAllTrunks(route.trunks).length > 0" class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                <div ng-if="filterAllTrunks(route.trunks).length > 0" class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                     {{'Add trunk' | translate}}
                     <span class="caret"></span>
                   </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                  <li ng-repeat="trunk in filterAllTrunks(route.trunks) track by $index" role="presentation"><a role="menuitem" tabindex="-1" ng-click="addTrunkToRoute(indexRoute, trunk)">{{trunk.name}}</a></li>
-                </ul>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li ng-repeat="trunk in filterAllTrunks(route.trunks) track by $index" role="presentation"><a role="menuitem" tabindex="-1" ng-click="addTrunkToRoute(indexRoute, trunk)">{{trunk.name}}</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div ng-show="onSave" class="spinner spinner-sm adjust-margin loader-modal-gateway-not-form-out"></div>
+      <button ng-click="saveRoutes()" class="btn btn-primary btn-lg right-only">{{'Save' | translate}}</button>
     </div>
-    <div ng-show="onSave" class="spinner spinner-sm adjust-margin loader-modal-gateway-not-form-out"></div>
-    <button ng-click="saveRoutes()" class="btn btn-primary btn-lg right-only">{{'Save' | translate}}</button>
-  </div>
-  <div ng-if="routes.length == 0" class="blank-slate-pf ">
-    <div class="blank-slate-pf-icon">
-      <span class="fa fa-long-arrow-up"></span>
+    <div ng-if="routes.length == 0" class="blank-slate-pf ">
+      <div class="blank-slate-pf-icon">
+        <span class="fa fa-long-arrow-up"></span>
+      </div>
+      <h1>
+        {{'No outbound routes found' | translate}}
+      </h1>
     </div>
-    <h1>
-      {{'No outbound routes found' | translate}}
-    </h1>
+    <wizard-step ng-if="wizard.isWizard"></wizard-step>
   </div>
-  <wizard-step ng-if="wizard.isWizard"></wizard-step>
-</div>
 </div>

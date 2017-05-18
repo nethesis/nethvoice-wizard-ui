@@ -44,8 +44,12 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    $scope.getLangName = function() {
-      return LanguageService.getNativeName($scope.selectedRouteLang);
+    $scope.setNewPattern = function(lang) {
+      $scope.selectedRouteLang = lang;
+    };
+
+    $scope.getLangName = function (key) {
+      return LanguageService.getNativeName(key);
     }
 
     $scope.extractTrunkInfo = function (trunkName) {
@@ -95,6 +99,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.showDialDefault = true;
           RouteService.getDefaultOutbounds().then(function (resDefaultOutbounds) {
             $scope.routes = resDefaultOutbounds.data;
+            $scope.availableDialPatterns = Object.keys(resDefaultOutbounds.data);
             $scope.routes.length = Object.keys(resDefaultOutbounds.data).length;
             $scope.view.changeRoute = false;
           }, function (err) {

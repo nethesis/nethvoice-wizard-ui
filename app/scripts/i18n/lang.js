@@ -206,7 +206,7 @@
 		},
 		'fr':{
 			'name':'French',
-			'nativeName':'français, langue française'
+			'nativeName':'Français'
 		},
 		'ff':{
 			'name':'Fula; Fulah; Pulaar; Pular',
@@ -602,7 +602,7 @@
 		},
 		'so':{
 			'name':'Somali',
-			'nativeName':'Soomaaliga, af Soomaali'
+			'nativeName':'Soomaaliga'
 		},
 		'st':{
 			'name':'Southern Sotho',
@@ -610,7 +610,7 @@
 		},
 		'es':{
 			'name':'Spanish; Castilian',
-			'nativeName':'español, castellano'
+			'nativeName':'Español'
 		},
 		'su':{
 			'name':'Sundanese',
