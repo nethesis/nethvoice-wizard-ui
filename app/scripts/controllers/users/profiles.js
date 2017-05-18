@@ -94,7 +94,7 @@ angular.module('nethvoiceWizardUiApp')
       if (profile.id) {
         ProfileService.update(profile.id, profile).then(function (res) {
           profile.onSave = false;
-          $scope.getAllProfiles(false);
+          //$scope.getAllProfiles(false);
           $scope.onSaveSuccess = true;
           $scope.onSaveError = false;
         }, function (err) {

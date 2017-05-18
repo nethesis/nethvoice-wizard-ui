@@ -53,7 +53,7 @@
                     <div popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{obj_permissions.description | translate}}"
                       class="col-lg-2 col-md-3 col-sm-4 col-xs-12">{{obj_permissions.displayname | translate}}</div>
                   <div class="col-lg-1">
-                    <input bs-switch ng-model="obj_permissions.value" class="bootstrap-switch bootstrap-switch-permission" type="checkbox">
+                    <input bs-switch ng-change="saveProfile(profile)" ng-model="obj_permissions.value" class="bootstrap-switch bootstrap-switch-permission" type="checkbox">
                   </div>
                   <div class="col-lg-10"></div>
                 </div>
@@ -64,15 +64,12 @@
                       <span ng-if="isGroupPermission(permission.name)" popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{splitGroupName(permission.description)[0] | translate}} {{splitGroupName(permission.description)[1]}} {{splitGroupName(permission.description)[2] | translate}}" class="config-span">{{splitGroupName(permission.displayname)[0] | translate}} {{splitGroupName(permission.displayname)[1]}}</span>
                     </span>
                     <span class="col-lg-6 col-md-4 col-sm-6 col-xs-6">
-                      <input bs-switch ng-model="permission.value" class="bootstrap-switch bootstrap-switch-permission"
+                      <input bs-switch ng-change="saveProfile(profile)" ng-model="permission.value" class="bootstrap-switch bootstrap-switch-permission"
                       type="checkbox">
                     </span>
                   </div>
                 </div>
               </div>
-              <button ng-click="saveProfile(profile)" class="btn btn-primary btn-lg profile-button-save" type="submit">
-                 {{'Save' | translate}}
-                </button>
               <button ng-click="deleteProfile(profile)" class="btn btn-danger btn-lg profile-button-save" type="submit">
                  {{'Delete' | translate}}
                 </button>
