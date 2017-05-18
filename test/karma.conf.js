@@ -62,6 +62,7 @@ module.exports = function(config) {
       'bower_components/ace-builds/src-min/mode-sql.js',
       'bower_components/ace-builds/src-min/mode-ejs.js',
       'bower_components/ace-builds/src-min/theme-twilight.js',
+      'bower_components/ace-builds/src-min/worker-json.js',
       'bower_components/angular-ui-ace/ui-ace.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
