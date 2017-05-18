@@ -38,7 +38,11 @@
     },
     "ace-builds": {
       "main": [
-        "src-min/ace.js"
+        "src-min/ace.js",
+        "src-min/mode-json.js",
+        "src-min/mode-sql.js",
+        "src-min/mode-ejs.js",
+        "src-min/theme-twilight.js"
       ]
     }
   }

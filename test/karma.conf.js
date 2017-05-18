@@ -58,6 +58,10 @@ module.exports = function(config) {
       'bower_components/jspdf/dist/jspdf.debug.js',
       'bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.src.js',
       'bower_components/ace-builds/src-min/ace.js',
+      'bower_components/ace-builds/src-min/mode-json.js',
+      'bower_components/ace-builds/src-min/mode-sql.js',
+      'bower_components/ace-builds/src-min/mode-ejs.js',
+      'bower_components/ace-builds/src-min/theme-twilight.js',
       'bower_components/angular-ui-ace/ui-ace.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
