@@ -180,7 +180,7 @@
               <div class="list-view-pf-body">
                 <div class="list-view-pf-description">
                   <div class="list-group-item-heading">
-                    {{device.manufacturer == ' _' ? ('Custom device' | translate) : device.manufacturer}}
+                    {{device.manufacturer == ' _' ? device.lines[0].extension : device.manufacturer}}
                   </div>
                   <div class="list-group-item-text">
                     <button ng-if="device.model == 'custom'" popover-animation="true" uib-popover="{{device.lines[0].secret}}" type="button"
