@@ -28,6 +28,16 @@ angular.module('nethvoiceWizardUiApp')
       'brown': '#a5673f'
     };
 
+    $scope.sourcePortMap = {
+      "mssql:7_1": 1433,
+      "mssql:7_2": 1433,
+      "mssql:7_3_A": 1433,
+      "mssql:7_3_B": 1433,
+      "mssql:7_4": 1433,
+      "mysql": 3306,
+      "postgres": 5432
+    };
+
     $scope.newSource = {
       verified: false,
       isChecking: false,
@@ -42,6 +52,10 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.newCard = {
       query: ''
+    };
+
+    $scope.updatePort = function () {
+      $scope.newSource.port = $scope.sourcePortMap[$scope.newSource.type];
     };
 
     $scope.isCustomerCardsWizard = function (step) {
@@ -258,6 +272,7 @@ angular.module('nethvoiceWizardUiApp')
         isChecking: false,
         checked: false
       };
+
       s = $scope.newSource;
       s.onMod = false;
     };

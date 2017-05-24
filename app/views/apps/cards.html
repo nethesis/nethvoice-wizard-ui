@@ -255,7 +255,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database type' | translate}}</label>
             <div class="col-sm-9">
-              <select required title="-" pf-select="{ width: '180px' }" ng-model="newSource.type" ng-options="k as v for (k, v) in  allDBTypes">
+              <select ng-change="updatePort()" required title="-" pf-select="{ width: '180px' }" ng-model="newSource.type" ng-options="k as v for (k, v) in  allDBTypes">
             </select></div>
           </div>
           <div class="form-group">
