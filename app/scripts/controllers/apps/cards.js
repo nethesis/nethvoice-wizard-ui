@@ -29,13 +29,13 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.sourcePortMap = {
-      "mssql:7_1": 1433,
-      "mssql:7_2": 1433,
-      "mssql:7_3_A": 1433,
-      "mssql:7_3_B": 1433,
-      "mssql:7_4": 1433,
-      "mysql": 3306,
-      "postgres": 5432
+      "mssql:7_1": '1433',
+      "mssql:7_2": '1433',
+      "mssql:7_3_A": '1433',
+      "mssql:7_3_B": '1433',
+      "mssql:7_4": '1433',
+      "mysql": '3306',
+      "postgres": '5432'
     };
 
     $scope.newSource = {
