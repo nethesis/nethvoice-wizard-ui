@@ -148,6 +148,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.allCards = res.data;
         for (var t in $scope.allCards) {
           $scope.allCards[t].query = atob($scope.allCards[t].query);
+          $scope.allCards[t].template = $scope.allCards[t].template.custom ? $scope.allCards[t].template.name + '_custom' : $scope.allCards[t].template.name;
         }
         $scope.view.changeRoute = false;
       }, function (err) {
@@ -497,7 +498,7 @@ angular.module('nethvoiceWizardUiApp')
       g.isChecking = true;
       ApplicationService.customerCardPreview({
         dbconn_id: g.dbconn_id,
-        template: g.template.custom ? g.template.name + '_custom' : g.template.name,
+        template: g.template,
         query: btoa(g.query)
       }).then(function (res) {
         g.render_html = '<style>body{overflow: auto !important; padding: 5px !important;}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"/>' + atob(res.data.html);

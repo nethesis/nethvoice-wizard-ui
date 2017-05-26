@@ -201,7 +201,7 @@
             <span class="right-only small-font right">
               <span class="pficon pficon-volume"></span> {{getSourceName(g.dbconn_id)}}
             <div class="small-margin">
-              <span class="pficon pficon-blueprint"></span> {{g.template}}
+              <span class="pficon pficon-blueprint"></span> {{g.template.replace('_custom','')}}
             </div>
             </span>
           </h2>
@@ -407,7 +407,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Template' | translate}}</label>
             <div class="col-sm-9">
-              <select required title="-" pf-select="{ width: '180px' }" ng-model="newCard.template" ng-options="p as p.name for p in allTemplates">
+              <select required title="-" pf-select="{ width: '180px' }" ng-model="newCard.template" ng-options="(p.custom ? p.name+'_custom' : p.name) as p.name for p in allTemplates">
             </select></div>
           </div>
           <div class="form-group">
