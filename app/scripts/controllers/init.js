@@ -44,8 +44,8 @@ angular.module('nethvoiceWizardUiApp')
       $scope.login.isLogged = false;
     };
 
-    $scope.goTo = function (route) {
-      if (!$scope.wizard.isWizard) {
+    $scope.goTo = function (route, exception) {
+      if (!$scope.wizard.isWizard || exception) {
         $location.path(route);
       }
     };
