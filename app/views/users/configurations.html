@@ -118,7 +118,7 @@
         <span class="pficon pficon-warning-triangle-o"></span>
         <strong>{{'Devices limit reached' | translate}}.</strong> {{'An user can have up to 7 devices associated' | translate}}.
       </div>
-      <div ng-if="!(devices | isEmpty)" class="container-fluid">
+      <div class="container-fluid">
         <div class="list-group list-view-pf list-view-pf-view config-view-container">
 
           <div class="list-group-item">
@@ -138,9 +138,9 @@
                   </div>
                 </div>
                 <div class="list-view-pf-additional-info config-info">
-                  <div>{{'Web user' | translate}}: <input class="form-control" placeholder="admin" ng-model="newDevice.web_user"></b>
+                  <div>{{'Web user' | translate}}: <input class="form-control" placeholder="admin" ng-model="newDevice.web_user">
                   </div>
-                  <div>{{'Web password' | translate}}: <input class="form-control" placeholder="admin" ng-model="newDevice.web_password"></b>
+                  <div>{{'Web password' | translate}}: <input class="form-control" placeholder="admin" ng-model="newDevice.web_password">
                   </div>
                 </div>
               </div>
@@ -148,7 +148,7 @@
           </div>
 
 
-          <div id="accordion-markup-{{$index}}" ng-show="checkConfiguredExtensions(device, selectedDeviceFilter)" class="list-group-item
+          <div ng-if="!(devices | isEmpty)" id="accordion-markup-{{$index}}" ng-show="checkConfiguredExtensions(device, selectedDeviceFilter)" class="list-group-item
             {{device.lines[0].mainextension == selectedUser.default_extension ? 'selected' : ''}} {{device.extension ? 'disabled' : ''}}"
             ng-repeat="device in devices | filter:searchDeviceUserString | orderBy: ['manufacturer','model']">
             <div class="list-view-pf-actions adjust-link">
