@@ -42,8 +42,8 @@
     </div>
     <div ng-if="!(allSources | isEmpty)" class="row row-cards-pf adjust-card">
       <div ng-repeat="g in allSources track by $index | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-        <div id="accordion-markup-{{g.id}}" class="card-pf">
-          <div data-toggle="collapse" data-parent="#accordion-markup-{{g.id}}" href="#collapse-{{g.id}}">
+        <div id="accordion-markup-{{$index}}" class="card-pf">
+          <div data-toggle="collapse" data-parent="#accordion-markup-{{$index}}" href="#collapse-{{$index}}">
             <h2 class="card-pf-title pointer">
               <span class="fa fa-video-camera"></span> {{g.name}}
               <span class="right-only small-font">Info
@@ -52,7 +52,7 @@
             </h2>
           </div>
           <div class="card-pf-body card-body-small-bottom">
-            <div id="collapse-{{g.id}}" class="panel-collapse collapse">
+            <div id="collapse-{{$index}}" class="panel-collapse collapse">
               <div ng-if="g.exten && g.exten.length > 0" class="progress-description full-size-max">
                 {{'Extension' | translate}} <span class="right-only"><strong>{{g.exten}}</strong></span>
               </div>
