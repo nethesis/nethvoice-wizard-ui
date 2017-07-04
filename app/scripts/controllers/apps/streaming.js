@@ -72,10 +72,13 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.checkConnection = function (s) {
       s.isChecking = true;
-      ApplicationService.checkConnectionVideoSource(s).then(function (res) {
+      ApplicationService.checkConnectionVideoSource({
+        url: s.url
+      }).then(function (res) {
         s.checked = true;
         s.isChecking = false;
         s.verified = true;
+        s.preview = 'data:image/png;base64,' + res.data;
       }, function (err) {
         s.checked = true;
         s.isChecking = false;
@@ -88,6 +91,9 @@ angular.module('nethvoiceWizardUiApp')
       ApplicationService.allVideoSources().then(function (res) {
         $scope.allSources = res.data;
         $scope.view.changeRoute = false;
+        for (var s in $scope.allSources) {
+          $scope.checkConnection($scope.allSources[s]);
+        }
       }, function (err) {
         $scope.view.changeRoute = false;
         console.log(err);

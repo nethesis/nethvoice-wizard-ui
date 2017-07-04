@@ -91,7 +91,7 @@ angular.module('nethvoiceWizardUiApp')
 
     this.checkConnectionVideoSource = function (obj) {
       return $q(function (resolve, reject) {
-        RestServiceCTI.post('/dbconn/test', obj).then(function (res) {
+        RestService.post('/cti/sources/test', obj).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);

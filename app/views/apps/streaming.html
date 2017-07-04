@@ -45,7 +45,7 @@
         <div id="accordion-markup-{{$index}}" class="card-pf">
           <div data-toggle="collapse" data-parent="#accordion-markup-{{$index}}" href="#collapse-{{$index}}">
             <h2 class="card-pf-title pointer">
-              <span class="fa fa-video-camera"></span> {{g.name}}
+              <span class="fa fa-video-camera"></span> {{g.descr}}
               <span class="right-only small-font">Info
                   <span class="fa fa-sort-desc"></span>
               </span>
@@ -61,6 +61,9 @@
               </div>
               <div class="progress-description full-size-max">
                 {{'Opening code' | translate}} <span class="right-only"><strong>{{g.open}}</strong></span>
+              </div>
+              <div class="progress-description full-size-max">
+                {{'Preview' | translate}} <span class="right-only"><img ng-src="{{g.preview}}"></span>
               </div>
             </div>
             <div class="progress progress-xs progress-label-top-right">
@@ -132,6 +135,12 @@
               <div ng-show="newSource.isChecking" class="spinner spinner-sm inline-display language-name check-connection"></div>
               <span ng-show="!newSource.isChecking && newSource.checked && newSource.verified" class="pficon pficon-ok check-status"></span>
               <span ng-show="!newSource.isChecking && newSource.checked && !newSource.verified" class="pficon pficon-error-circle-o check-status"></span>
+            </div>
+          </div>
+          <div ng-if="newSource.verified" class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Preview' | translate}}</label>
+            <div class="col-sm-9">
+              <img ng-src="{{newSource.preview}}">
             </div>
           </div>
           <div ng-show="newSource.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
