@@ -156,6 +156,9 @@
               <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('cards',2) ? 'active' : ''}}">
                   <div ng-click="goTo('apps/cards')" class="list-group-item-value menu-item-left no-opacity">{{'Customer cards' | translate | ellipsis:'1200'}}</div>
               </div>
+              <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('streaming',2) ? 'active' : ''}}">
+                  <div ng-click="goTo('apps/streaming')" class="list-group-item-value menu-item-left no-opacity">{{'Video sources' | translate | ellipsis:'1200'}}</div>
+              </div>
           </div>
           <li data-toggle="collapse" data-parent="#navbar-left" href="#adminCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART3_STEP" class="list-group-item collapse-menu {{resolveActiveTab('admin',1) ? 'active' : ''}}" id="admin-item-menu">
             <a>
@@ -296,6 +299,7 @@
     <script src="scripts/filters/regexpparse.js"></script>
     <script src="scripts/filters/tobase64.js"></script>
     <script src="scripts/filters/ejsrender.js"></script>
+    <script src="scripts/controllers/apps/streaming.js"></script>
     <!-- endbuild -->
   </body>
 

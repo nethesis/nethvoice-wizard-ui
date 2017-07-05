@@ -326,6 +326,10 @@
   "New card": "Nuova scheda",
   "Modify card": "Modifica scheda",
   "Cards": "Schede",
+  "Video sources": "Sorgenti video",
+  "Video sources configuration": "Configurazione sorgenti video",
+  "No video sources found": "Nessuna sorgente video trovata",
+  "Opening code": "Codice d'apertura",
 
   "No customer cards found": "Nessuna scheda cliente trovata",
   "Database type": "Tipo database",
@@ -350,6 +354,7 @@
   "Connected": "Connesso",
   "Real name": "Nome reale",
   "Enable the customer card for this profile": "Abilita la scheda cliente per questo profilo",
+  "Enable the video source for this profile": "Abilita sorgente video per questo profilo",
   "Card dependency": "Dipendenza scheda",
   "Cards list": "Lista schede",
   "Dependency problem": "Problema di dipendenza",

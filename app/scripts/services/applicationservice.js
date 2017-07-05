@@ -19,6 +19,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.allVideoSources = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/cti/streaming').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.allTemplates = function () {
       return $q(function (resolve, reject) {
         RestService.get('/cti/customer_card/template').then(function (res) {
@@ -79,6 +89,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.checkConnectionVideoSource = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.post('/cti/sources/test', obj).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.customerCardPreview = function (obj) {
       return $q(function (resolve, reject) {
         RestServiceCTI.post('/custcard/preview', obj).then(function (res) {
@@ -99,6 +119,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.createVideoSource = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.post('/cti/streaming', obj).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.updateSource = function (id, obj) {
       return $q(function (resolve, reject) {
         RestService.put('/cti/dbconn/' + id, obj).then(function (res) {
@@ -112,6 +142,16 @@ angular.module('nethvoiceWizardUiApp')
     this.deleteSource = function (id) {
       return $q(function (resolve, reject) {
         RestService.delete('/cti/dbconn/' + id).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.deleteVideoSource = function (name) {
+      return $q(function (resolve, reject) {
+        RestService.delete('/cti/streaming/' + name).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);

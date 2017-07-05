@@ -289,7 +289,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Connection' | translate}}</label>
             <div class="col-sm-9">
-              <button ng-click="checkConnection(newSource)" class="btn btn-primary {{newSource.type && newSource.name && newSource.port ? '' : 'disabled'}}"
+              <button ng-click="checkConnection(newSource)" ng-disabled="!newSource.type || !newSource.name || newSource.name.length < 1 || !newSource.port" class="btn btn-primary"
                 type="button">{{'Check' | translate}}</button>
               <div ng-show="newSource.isChecking" class="spinner spinner-sm inline-display language-name check-connection"></div>
               <span ng-show="!newSource.isChecking && newSource.checked && newSource.verified" class="pficon pficon-ok check-status"></span>

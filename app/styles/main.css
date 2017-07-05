@@ -785,6 +785,10 @@ a {
   text-align: right
 }
 
+.border-gray {
+  border: 1px solid #8e8e8e;
+}
+
 .no-opacity {
   opacity: 1 !important;
 }
@@ -1244,4 +1248,3 @@ iframe body {
   background: #a5673f;
   display: inline-block;
 }
-

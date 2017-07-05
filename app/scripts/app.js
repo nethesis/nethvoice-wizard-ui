@@ -118,6 +118,11 @@ angular
         controller: 'AppsCardsCtrl',
         controllerAs: 'apps/cards'
       })
+      .when('/apps/streaming', {
+        templateUrl: 'views/apps/streaming.html',
+        controller: 'AppsStreamingCtrl',
+        controllerAs: 'apps/streaming'
+      })
       .otherwise({
         redirectTo: '/'
       });
