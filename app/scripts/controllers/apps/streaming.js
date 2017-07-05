@@ -40,6 +40,7 @@ angular.module('nethvoiceWizardUiApp')
           isChecking: false,
           checked: false
         };
+        $scope.checkConnection(s);
         $('#newSourceModal').modal('hide');
       }, function (err) {
         s.onSave = false;
@@ -51,7 +52,7 @@ angular.module('nethvoiceWizardUiApp')
     };
     $scope.deleteSource = function (s) {
       s.onSave = true;
-      ApplicationService.deleteVideoSource(s.name).then(function (res) {
+      ApplicationService.deleteVideoSource(s.descr).then(function (res) {
         s.onSave = false;
         $scope.getSourceList();
         $('#deleteModal').modal('hide');
