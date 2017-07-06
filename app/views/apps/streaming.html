@@ -63,7 +63,7 @@
                 {{'Opening code' | translate}} <span class="right-only"><strong>{{g.open}}</strong></span>
               </div>
               <div class="progress-description full-size-max">
-                {{'Preview' | translate}} <span class="right-only border-gray"><img ng-src="{{g.preview}}"></span>
+                {{'Preview' | translate}} <span class="right-only border-gray"><img class="img-max-width-pre" ng-src="{{g.preview}}"></span>
               </div>
             </div>
             <div class="progress progress-xs progress-label-top-right">
@@ -109,7 +109,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Extension' | translate}}</label>
             <div class="col-sm-9">
-              <select title="-" pf-select="{ width: '180px' }" ng-model="newSource.exten" ng-options="u.default_extension as (u.displayname + ' ' + u.default_extension) for u in users">
+              <select data-live-search="true" title="-" pf-select="{ width: '180px' }" ng-model="newSource.exten" ng-options="u.id as (u.name + ' - ' + u.id) for u in users">
             </select></div>
           </div>
           <div class="form-group">
@@ -140,7 +140,7 @@
           <div ng-if="newSource.verified" class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Preview' | translate}}</label>
             <div class="col-sm-9">
-              <img ng-src="{{newSource.preview}}">
+              <img class="img-max-width" ng-src="{{newSource.preview}}">
             </div>
           </div>
           <div ng-show="newSource.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>

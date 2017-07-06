@@ -9,6 +9,16 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .service('ApplicationService', function ($q, $http, RestService, RestServiceCTI) {
+    this.allExtensions = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/physicalextensions').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.allSources = function () {
       return $q(function (resolve, reject) {
         RestService.get('/cti/dbconn').then(function (res) {

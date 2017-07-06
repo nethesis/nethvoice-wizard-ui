@@ -785,6 +785,14 @@ a {
   text-align: right
 }
 
+.img-max-width {
+  max-width: 372px;
+}
+
+.img-max-width-pre {
+  max-width: 290px;
+}
+
 .border-gray {
   border: 1px solid #8e8e8e;
 }

@@ -103,7 +103,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getUserList = function () {
       $scope.view.changeRoute = true;
-      UserService.list(true).then(function (res) {
+      ApplicationService.allExtensions().then(function (res) {
         $scope.users = res.data;
         $scope.getSourceList();
       }, function (err) {
