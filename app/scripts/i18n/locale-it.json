@@ -361,5 +361,7 @@
   "This source is used by following cards": "Questa sorgente è usata dalle seguenti schede",
   "This template is used by following cards": "Questo template è usato dalle seguenti schede",
   "Set customer card profile": "Imposta profilo scheda cliente",
-  "Don't forget to set profile for the customer cards": "Non dimenticare di impostare il profilo per la scheda cliente"
+  "Don't forget to set profile for the customer cards": "Non dimenticare di impostare il profilo per la scheda cliente",
+  "You can choose the users base to use for your PBX installation": "Puoi scegliere quale base utenti utilizzare per la tua installazione",
+  "Unified communication to get users from an LDAP server or Legacy to manage them directly by your PBX": "Scegli la modalità Unified Communication per usare un server LDAP o quella Legacy per gestirli direttamente dal tuo PBX"
 }
