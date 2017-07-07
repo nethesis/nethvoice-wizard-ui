@@ -23,6 +23,10 @@ angular.module('nethvoiceWizardUiApp')
         {
           title: $filter('translate')('Username'),
           dataKey: "username"
+        },
+        {
+          title: $filter('translate')('Voicemail Password'),
+          dataKey: "voicemailpwd"
         }
       ];
       if ($scope.mode.isLegacy) {
