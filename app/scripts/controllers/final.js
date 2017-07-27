@@ -39,7 +39,7 @@ angular.module('nethvoiceWizardUiApp')
 
       UserService.retrieveFinalInfo().then(function (res) {
         rows = res.data;
-        var doc = new jsPDF('p', 'pt');
+        var doc = new jsPDF('l', 'pt');
         doc.autoTable(columns, rows, {
           theme: 'grid',
           margin: {
