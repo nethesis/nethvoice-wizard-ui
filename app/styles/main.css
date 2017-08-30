@@ -785,6 +785,11 @@ a {
   text-align: right
 }
 
+.a-menu {
+  padding: 0px !important;
+  height: 100% !important;
+}
+
 .img-max-width {
   max-width: 372px;
 }

@@ -364,5 +364,17 @@
   "Set customer card profile": "Imposta profilo scheda cliente",
   "Don't forget to set profile for the customer cards": "Non dimenticare di impostare il profilo per la scheda cliente",
   "You can choose the users base to use for your PBX installation": "Puoi scegliere quale base utenti utilizzare per la tua installazione",
-  "Unified communication to get users from an LDAP server or Legacy to manage them directly by your PBX": "Scegli la modalità Unified Communication per usare un server LDAP o quella Legacy per gestirli direttamente dal tuo PBX"
+  "Unified communication to get users from an LDAP server or Legacy to manage them directly by your PBX": "Scegli la modalità Unified Communication per usare un server LDAP o quella Legacy per gestirli direttamente dal tuo PBX",
+  "system languages": "lingue di sistema",
+  "Installing": "Installazione",
+  "Error": "Errore",
+  "installation failed": "installazione fallita",
+  "Languages": "Lingue",
+  "Language": "Lingua",
+  "Languages settings": "Impostazioni lingue",
+  "Language saved": "Lingua salvata",
+  "Language error": "Errore lingua",
+  "Set system language": "Imposta lingua di sistema",
+  "System language installation error": "Errore installazione lingua di sistema",
+  "System language saved with success": "Lingua di sistema salvata con successo"
 }

@@ -56,251 +56,263 @@
           <img class="navbar-brand-icon" src="images/brand.png" alt="" />
           <label ng-if="mode.isLegacy">{{'Legacy' | translate}}</legacy>
           </a>
-        </div>
-        <nav class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right navbar-iconic">
-            <li class="dropdown f16">
-              <a class="dropdown-toggle nav-item-iconic" id="languages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      </div>
+      <nav class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right navbar-iconic">
+          <li class="dropdown f16">
+            <a class="dropdown-toggle nav-item-iconic" id="languages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <span title="{{'Change language' | translate}}" class="fa fa-globe"></span>
               </a>
-              <div class="dropdown-menu infotip bottom-right">
-                <div class="arrow"></div>
-                <ul class="list-group">
-                  <li ng-repeat="l in languagesArr track by l.key" class="list-group-item change-language" ng-click="changeLanguage(l)">
-                    <span ng-show="l.check" class="fa fa-check"></span>
-                    <span ng-hide="l.check">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <span class="language-name">{{l.nativeName}}</span>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="dropdown">
-              <a ng-click="goToFullScreen()" class="dropdown-toggle nav-item-iconic" id="fullscreen">
+            <div class="dropdown-menu infotip bottom-right">
+              <div class="arrow"></div>
+              <ul class="list-group">
+                <li ng-repeat="l in languagesArr track by l.key" class="list-group-item change-language" ng-click="changeLanguage(l)">
+                  <span ng-show="l.check" class="fa fa-check"></span>
+                  <span ng-hide="l.check">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <span class="language-name">{{l.nativeName}}</span>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a ng-click="goToFullScreen()" class="dropdown-toggle nav-item-iconic" id="fullscreen">
                 <span title="{{'Fullscreen' | translate}}" class="fa fa-expand"></span>
               </a>
-            </li>
-            <li class="dropdown">
-              <a ng-click="doLogout()" class="dropdown-toggle nav-item-iconic" id="logout">
+          </li>
+          <li class="dropdown">
+            <a ng-click="doLogout()" class="dropdown-toggle nav-item-iconic" id="logout">
                 <span title="{{'Logout' | translate}}" class="fa fa-sign-out"></span>
               </a>
-            </li>
-          </ul>
-        </nav>
+          </li>
+        </ul>
       </nav>
-      <!-- end navbar-->
-      <!-- left menu -->
-      <nav id="navbar-left" class="nav-pf-vertical-alt">
-        <ul class="list-group panel">
-          <li data-toggle="collapse" data-parent="#navbar-left" href="#usersCollapse" class="list-group-item collapse-menu {{resolveActiveTab('users',1) ? 'active' : ''}}" id="users-item-menu">
-            <a>
+    </nav>
+    <!-- end navbar-->
+    <!-- left menu -->
+    <nav id="navbar-left" class="nav-pf-vertical-alt">
+      <ul class="list-group panel">
+        <li data-toggle="collapse" data-parent="#navbar-left" href="#usersCollapse" class="list-group-item collapse-menu {{resolveActiveTab('users',1) ? 'active' : ''}}"
+          id="users-item-menu">
+          <a>
               <span class="pficon pficon-users" title="{{'Users' | translate}}" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Users' | translate}}</span>
               <span class="badge notifications">{{menuCount.users}}</span>
             </a>
-          </li>
-          <div id="usersCollapse" class="panel-collapse collapse {{resolveActiveTab('users',1) ? 'in' : ''}}">
-              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('extensions',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('users/extensions')" class="list-group-item-value menu-item-left no-opacity">{{'Extensions' | translate | ellipsis:'1200'}}</div>
-              </div>
-              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('groups',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('users/groups')" class="list-group-item-value menu-item-left no-opacity">{{'Groups' | translate | ellipsis:'1200'}}</div>
-              </div>
-              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('profiles',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('users/profiles')" class="list-group-item-value menu-item-left no-opacity">{{'Profiles' | translate | ellipsis:'1200'}}</div>
-              </div>
-              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('devices',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('users/devices')" class="list-group-item-value  menu-item-left no-opacity">{{'Devices' | translate | ellipsis:'1200'}}</div>
-              </div>
-              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('configurations',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('users/configurations')" class="list-group-item-value  menu-item-left no-opacity">{{'Configurations' | translate | ellipsis:'1200'}}</div>
-              </div>
+        </li>
+        <div id="usersCollapse" class="panel-collapse collapse {{resolveActiveTab('users',1) ? 'in' : ''}}">
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('extensions',2) ? 'active' : ''}}">
+            <div ng-click="goTo('users/extensions')" class="list-group-item-value menu-item-left no-opacity">{{'Extensions' | translate | ellipsis:'1200'}}</div>
           </div>
-          <li data-toggle="collapse" data-parent="#navbar-left" href="#trunksCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART1_STEP" class="list-group-item collapse-menu {{resolveActiveTab('trunks',1) ? 'active' : ''}}" id="trunks-item-menu">
-            <a>
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('groups',2) ? 'active' : ''}}">
+            <div ng-click="goTo('users/groups')" class="list-group-item-value menu-item-left no-opacity">{{'Groups' | translate | ellipsis:'1200'}}</div>
+          </div>
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('profiles',2) ? 'active' : ''}}">
+            <div ng-click="goTo('users/profiles')" class="list-group-item-value menu-item-left no-opacity">{{'Profiles' | translate | ellipsis:'1200'}}</div>
+          </div>
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('devices',2) ? 'active' : ''}}">
+            <div ng-click="goTo('users/devices')" class="list-group-item-value  menu-item-left no-opacity">{{'Devices' | translate | ellipsis:'1200'}}</div>
+          </div>
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('configurations',2) ? 'active' : ''}}">
+            <div ng-click="goTo('users/configurations')" class="list-group-item-value  menu-item-left no-opacity">{{'Configurations' | translate | ellipsis:'1200'}}</div>
+          </div>
+        </div>
+        <li data-toggle="collapse" data-parent="#navbar-left" href="#trunksCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART1_STEP"
+          class="list-group-item collapse-menu {{resolveActiveTab('trunks',1) ? 'active' : ''}}" id="trunks-item-menu">
+          <a>
               <span class="pficon pficon-topology" title="{{'Trunks' | translate}}" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Trunks' | translate}}</span>
               <span class="badge notifications">{{menuCount.trunks}}</span>
             </a>
-          </li>
-          <div id="trunksCollapse" class="panel-collapse collapse {{resolveActiveTab('trunks',1) ? 'in' : ''}}">
-              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('physical',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('trunks/physical')" class="list-group-item-value menu-item-left no-opacity">{{'Physical' | translate | ellipsis:'1200'}}</div>
-              </div>
-              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('voip',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('trunks/voip')" class="list-group-item-value  menu-item-left no-opacity">{{'VoIP' | translate | ellipsis:'1200'}}</div>
-              </div>
+        </li>
+        <div id="trunksCollapse" class="panel-collapse collapse {{resolveActiveTab('trunks',1) ? 'in' : ''}}">
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('physical',2) ? 'active' : ''}}">
+            <div ng-click="goTo('trunks/physical')" class="list-group-item-value menu-item-left no-opacity">{{'Physical' | translate | ellipsis:'1200'}}</div>
           </div>
-          <li data-toggle="collapse" data-parent="#navbar-left" href="#routesCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART2_STEP" class="list-group-item collapse-menu {{resolveActiveTab('routes',1) ? 'active' : ''}}" id="routes-item-menu">
-            <a>
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('voip',2) ? 'active' : ''}}">
+            <div ng-click="goTo('trunks/voip')" class="list-group-item-value  menu-item-left no-opacity">{{'VoIP' | translate | ellipsis:'1200'}}</div>
+          </div>
+        </div>
+        <li data-toggle="collapse" data-parent="#navbar-left" href="#routesCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART2_STEP"
+          class="list-group-item collapse-menu {{resolveActiveTab('routes',1) ? 'active' : ''}}" id="routes-item-menu">
+          <a>
               <span class="pficon pficon-trend-up" title="{{'Routes' | translate}}" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Routes' | translate }}</span>
               <span popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Outbound routes' | translate}}" class="badge notifications">{{menuCount.routesOut}}</span>
               <span popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Inbound routes' | translate}}" class="badge notifications adjust-badge">{{menuCount.routesIn}}</span>
             </a>
-          </li>
-          <div id="routesCollapse" class="panel-collapse collapse {{resolveActiveTab('routes',1) ? 'in' : ''}}">
-              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('inbound',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('routes/inbound')" class="list-group-item-value menu-item-left no-opacity">{{'Inbound' | translate | ellipsis:'1200'}}</div>
-              </div>
-              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('outbound',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('routes/outbound')" class="list-group-item-value  menu-item-left no-opacity">{{'Outbound' | translate | ellipsis:'1200'}}</div>
-              </div>
+        </li>
+        <div id="routesCollapse" class="panel-collapse collapse {{resolveActiveTab('routes',1) ? 'in' : ''}}">
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('inbound',2) ? 'active' : ''}}">
+            <div ng-click="goTo('routes/inbound')" class="list-group-item-value menu-item-left no-opacity">{{'Inbound' | translate | ellipsis:'1200'}}</div>
           </div>
-          <li data-toggle="collapse" data-parent="#navbar-left" href="#appsCollapse" ng-if="!wizard.isWizard" class="list-group-item collapse-menu {{resolveActiveTab('apps',1) ? 'active' : ''}}" id="apps-item-menu">
-            <a>
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('outbound',2) ? 'active' : ''}}">
+            <div ng-click="goTo('routes/outbound')" class="list-group-item-value  menu-item-left no-opacity">{{'Outbound' | translate | ellipsis:'1200'}}</div>
+          </div>
+        </div>
+        <li data-toggle="collapse" data-parent="#navbar-left" href="#appsCollapse" ng-if="!wizard.isWizard" class="list-group-item collapse-menu {{resolveActiveTab('apps',1) ? 'active' : ''}}"
+          id="apps-item-menu">
+          <a>
               <span class="pficon pficon-bundle" title="{{'Apps' | translate}}" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Apps' | translate }}</span>
             </a>
-          </li>
-          <div id="appsCollapse" class="panel-collapse collapse {{resolveActiveTab('apps',1) ? 'in' : ''}}">
-              <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('cards',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('apps/cards')" class="list-group-item-value menu-item-left no-opacity">{{'Customer cards' | translate | ellipsis:'1200'}}</div>
-              </div>
-              <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('streaming',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('apps/streaming')" class="list-group-item-value menu-item-left no-opacity">{{'Video sources' | translate | ellipsis:'1200'}}</div>
-              </div>
+        </li>
+        <div id="appsCollapse" class="panel-collapse collapse {{resolveActiveTab('apps',1) ? 'in' : ''}}">
+          <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('cards',2) ? 'active' : ''}}">
+            <div ng-click="goTo('apps/cards')" class="list-group-item-value menu-item-left no-opacity">{{'Customer cards' | translate | ellipsis:'1200'}}</div>
           </div>
-          <li data-toggle="collapse" data-parent="#navbar-left" href="#adminCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART3_STEP" class="list-group-item collapse-menu {{resolveActiveTab('admin',1) ? 'active' : ''}}" id="admin-item-menu">
-            <a>
+          <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('streaming',2) ? 'active' : ''}}">
+            <div ng-click="goTo('apps/streaming')" class="list-group-item-value menu-item-left no-opacity">{{'Video sources' | translate | ellipsis:'1200'}}</div>
+          </div>
+        </div>
+        <li data-toggle="collapse" data-parent="#navbar-left" href="#adminCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART3_STEP"
+          class="list-group-item collapse-menu {{resolveActiveTab('admin',1) ? 'active' : ''}}" id="admin-item-menu">
+          <a>
               <span class="fa fa-cog" title="{{'Admins' | translate}}" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Admins' | translate }}</span>
             </a>
-          </li>
-          <div id="adminCollapse" class="panel-collapse collapse {{resolveActiveTab('admin',1) ? 'in' : ''}}">
-              <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('settings',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('admin/settings')" class="list-group-item-value menu-item-left no-opacity">{{'Settings' | translate | ellipsis:'1200'}}</div>
+        </li>
+        <div id="adminCollapse" class="panel-collapse collapse {{resolveActiveTab('admin',1) ? 'in' : ''}}">
+            <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('languages',2) ? 'active' : ''}}">
+                <div ng-click="goTo('admin/languages')" class="list-group-item-value menu-item-left no-opacity">{{'Languages' | translate | ellipsis:'1200'}}</div>
               </div>
-              <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('report',2) ? 'active' : ''}}">
-                  <div ng-click="goTo('admin/report')" class="list-group-item-value menu-item-left no-opacity">{{'Report' | translate | ellipsis:'1200'}}</div>
-              </div>
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('settings',2) ? 'active' : ''}}">
+            <div ng-click="goTo('admin/settings')" class="list-group-item-value menu-item-left no-opacity">{{'Settings' | translate | ellipsis:'1200'}}</div>
           </div>
-          <li class="list-group-item list-group-item-separator hidden-sm hidden-md hidden-lg collapse-menu" id="fullscreen-item-menu">
-            <a ng-click="goToFullScreen()" href="">
+          <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu">
+            <a target="_blank" href="freepbx/admin" class="list-group-item-value menu-item-left no-opacity a-menu">{{'Advanceds' | translate | ellipsis:'1200'}}</a>
+          </div>
+          <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('report',2) ? 'active' : ''}}">
+            <div ng-click="goTo('admin/report')" class="list-group-item-value menu-item-left no-opacity">{{'Report' | translate | ellipsis:'1200'}}</div>
+          </div>
+        </div>
+        <li class="list-group-item list-group-item-separator hidden-sm hidden-md hidden-lg collapse-menu" id="fullscreen-item-menu">
+          <a ng-click="goToFullScreen()" href="">
               <span class="fa fa-expand" title="{{'Profile' | translate}}"></span>
               <span class="list-group-item-value">{{'Full screen' | translate}}</span>
             </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- end left menu -->
-      <!-- content -->
-      <div class="container-fluid container-cards-pf container-pf-alt-nav-pf-vertical-alt">
-        <div ng-show="view.changeRoute" class="spinner spinner-lg pageLoader"></div>
-        <div ng-show="!view.changeRoute" ng-view></div>
-      </div>
-      <!-- end content -->
-      <!-- footer -->
-      <footer class="container-fluid footer-pf-alt">
-        <p class="footer-opt"><a target="-blank" href="{{customConfig.BRAND_SITE}}">Copyright &copy; {{currentYear()}} {{customConfig.BRAND_NAME}}</a></p>
-        <p class="footer-opt-right"><a target="_blank" href="{{customConfig.BRAND_DOCS}}">{{'Docs' | translate}}</a></p>
-      </footer>
-      <!-- end footer -->
+        </li>
+      </ul>
+    </nav>
+    <!-- end left menu -->
+    <!-- content -->
+    <div class="container-fluid container-cards-pf container-pf-alt-nav-pf-vertical-alt">
+      <div ng-show="view.changeRoute" class="spinner spinner-lg pageLoader"></div>
+      <div ng-show="!view.changeRoute" ng-view></div>
     </div>
+    <!-- end content -->
+    <!-- footer -->
+    <footer class="container-fluid footer-pf-alt">
+      <p class="footer-opt"><a target="-blank" href="{{customConfig.BRAND_SITE}}">Copyright &copy; {{currentYear()}} {{customConfig.BRAND_NAME}}</a></p>
+      <p class="footer-opt-right"><a target="_blank" href="{{customConfig.BRAND_DOCS}}">{{'Docs' | translate}}</a></p>
+    </footer>
+    <!-- end footer -->
+  </div>
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/bootstrap-combobox/js/bootstrap-combobox.js"></script>
-    <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-    <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
-    <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
-    <script src="bower_components/bootstrap-touchspin/src/jquery.bootstrap-touchspin.js"></script>
-    <script src="bower_components/d3/d3.js"></script>
-    <script src="bower_components/c3/c3.js"></script>
-    <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
-    <script src="bower_components/datatables-colreorder/js/dataTables.colReorder.js"></script>
-    <script src="bower_components/datatables-colvis/js/dataTables.colVis.js"></script>
-    <script src="bower_components/google-code-prettify/bin/prettify.min.js"></script>
-    <script src="bower_components/matchHeight/dist/jquery.matchHeight.js"></script>
-    <script src="bower_components/moment/moment.js"></script>
-    <script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="bower_components/patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
-    <script src="bower_components/patternfly/dist/js/patternfly.js"></script>
-    <script src="bower_components/angular-translate/angular-translate.js"></script>
-    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/lodash/lodash.js"></script>
-    <script src="bower_components/angular-patternfly/dist/angular-patternfly.js"></script>
-    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
-    <script src="bower_components/angular-ui-sortable/sortable.js"></script>
-    <script src="bower_components/ng-sortable/dist/ng-sortable.js"></script>
-    <script src="bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.js"></script>
-    <script src="bower_components/jspdf/dist/jspdf.debug.js"></script>
-    <script src="bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.src.js"></script>
-    <script src="bower_components/ace-builds/src-min/ace.js"></script>
-    <script src="bower_components/ace-builds/src-min/mode-json.js"></script>
-    <script src="bower_components/ace-builds/src-min/mode-sql.js"></script>
-    <script src="bower_components/ace-builds/src-min/mode-ejs.js"></script>
-    <script src="bower_components/ace-builds/src-min/theme-twilight.js"></script>
-    <script src="bower_components/ace-builds/src-min/worker-json.js"></script>
-    <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+  <!-- build:js(.) scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+  <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+  <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+  <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
+  <script src="bower_components/bootstrap-touchspin/src/jquery.bootstrap-touchspin.js"></script>
+  <script src="bower_components/d3/d3.js"></script>
+  <script src="bower_components/c3/c3.js"></script>
+  <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
+  <script src="bower_components/datatables-colreorder/js/dataTables.colReorder.js"></script>
+  <script src="bower_components/datatables-colvis/js/dataTables.colVis.js"></script>
+  <script src="bower_components/google-code-prettify/bin/prettify.min.js"></script>
+  <script src="bower_components/matchHeight/dist/jquery.matchHeight.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="bower_components/patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
+  <script src="bower_components/patternfly/dist/js/patternfly.js"></script>
+  <script src="bower_components/angular-translate/angular-translate.js"></script>
+  <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/lodash/lodash.js"></script>
+  <script src="bower_components/angular-patternfly/dist/angular-patternfly.js"></script>
+  <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+  <script src="bower_components/angular-ui-sortable/sortable.js"></script>
+  <script src="bower_components/ng-sortable/dist/ng-sortable.js"></script>
+  <script src="bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.js"></script>
+  <script src="bower_components/jspdf/dist/jspdf.debug.js"></script>
+  <script src="bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.src.js"></script>
+  <script src="bower_components/ace-builds/src-min/ace.js"></script>
+  <script src="bower_components/ace-builds/src-min/mode-json.js"></script>
+  <script src="bower_components/ace-builds/src-min/mode-sql.js"></script>
+  <script src="bower_components/ace-builds/src-min/mode-ejs.js"></script>
+  <script src="bower_components/ace-builds/src-min/theme-twilight.js"></script>
+  <script src="bower_components/ace-builds/src-min/worker-json.js"></script>
+  <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
 
-    <script src="scripts/custom.js"></script>
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/config.js"></script>
-    <script src="scripts/utils/sha1.js"></script>
-    <script src="scripts/utils/md5.js"></script>
-    <script src="scripts/utils/ejs.min.js"></script>
-    <script src="scripts/i18n/lang.js"></script>
-    <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/controllers/users.js"></script>
-    <script src="scripts/controllers/trunks.js"></script>
-    <script src="scripts/controllers/routes.js"></script>
-    <script src="scripts/controllers/users/extensions.js"></script>
-    <script src="scripts/controllers/users/devices.js"></script>
-    <script src="scripts/controllers/users/configurations.js"></script>
-    <script src="scripts/controllers/trunks/physical.js"></script>
-    <script src="scripts/controllers/trunks/voip.js"></script>
-    <script src="scripts/controllers/routes/inbound.js"></script>
-    <script src="scripts/controllers/routes/outbound.js"></script>
-    <script src="scripts/controllers/init.js"></script>
-    <script src="scripts/controllers/login.js"></script>
-    <script src="scripts/services/languageservice.js"></script>
-    <script src="scripts/services/localstorageservice.js"></script>
-    <script src="scripts/directives/wizardstep.js"></script>
-    <script src="scripts/services/loginservice.js"></script>
-    <script src="scripts/services/restservice.js"></script>
-    <script src="scripts/services/userservice.js"></script>
-    <script src="scripts/services/configservice.js"></script>
-    <script src="scripts/filters/isempty.js"></script>
-    <script src="scripts/services/utilservice.js"></script>
-    <script src="scripts/filters/capitalize.js"></script>
-    <script src="scripts/services/deviceservice.js"></script>
-    <script src="scripts/filters/masktocidr.js"></script>
-    <script src="scripts/filters/objcount.js"></script>
-    <script src="scripts/services/trunkservice.js"></script>
-    <script src="scripts/directives/genericerror.js"></script>
-    <script src="scripts/services/routeservice.js"></script>
-    <script src="scripts/services/codecservice.js"></script>
-    <script src="scripts/filters/ellipsis.js"></script>
-    <script src="scripts/controllers/final.js"></script>
-    <script src="scripts/controllers/users/profiles.js"></script>
-    <script src="scripts/services/profileservice.js"></script>
-    <script src="scripts/filters/profilelist.js"></script>
-    <script src="scripts/controllers/admin.js"></script>
-    <script src="scripts/controllers/admin/settings.js"></script>
-    <script src="scripts/controllers/admin/report.js"></script>
-    <script src="scripts/controllers/users/groups.js"></script>
-    <script src="scripts/controllers/apps.js"></script>
-    <script src="scripts/controllers/apps/cards.js"></script>
-    <script src="scripts/services/applicationservice.js"></script>
-    <script src="scripts/services/restservicecti.js"></script>
-    <script src="scripts/filters/trusturl.js"></script>
-    <script src="scripts/filters/regexpparse.js"></script>
-    <script src="scripts/filters/tobase64.js"></script>
-    <script src="scripts/filters/ejsrender.js"></script>
-    <script src="scripts/controllers/apps/streaming.js"></script>
-    <!-- endbuild -->
-  </body>
+  <script src="scripts/custom.js"></script>
+  <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/config.js"></script>
+  <script src="scripts/utils/sha1.js"></script>
+  <script src="scripts/utils/md5.js"></script>
+  <script src="scripts/utils/ejs.min.js"></script>
+  <script src="scripts/i18n/lang.js"></script>
+  <script src="scripts/controllers/main.js"></script>
+  <script src="scripts/controllers/users.js"></script>
+  <script src="scripts/controllers/trunks.js"></script>
+  <script src="scripts/controllers/routes.js"></script>
+  <script src="scripts/controllers/users/extensions.js"></script>
+  <script src="scripts/controllers/users/devices.js"></script>
+  <script src="scripts/controllers/users/configurations.js"></script>
+  <script src="scripts/controllers/trunks/physical.js"></script>
+  <script src="scripts/controllers/trunks/voip.js"></script>
+  <script src="scripts/controllers/routes/inbound.js"></script>
+  <script src="scripts/controllers/routes/outbound.js"></script>
+  <script src="scripts/controllers/init.js"></script>
+  <script src="scripts/controllers/login.js"></script>
+  <script src="scripts/services/languageservice.js"></script>
+  <script src="scripts/services/localstorageservice.js"></script>
+  <script src="scripts/directives/wizardstep.js"></script>
+  <script src="scripts/services/loginservice.js"></script>
+  <script src="scripts/services/restservice.js"></script>
+  <script src="scripts/services/userservice.js"></script>
+  <script src="scripts/services/configservice.js"></script>
+  <script src="scripts/filters/isempty.js"></script>
+  <script src="scripts/services/utilservice.js"></script>
+  <script src="scripts/filters/capitalize.js"></script>
+  <script src="scripts/services/deviceservice.js"></script>
+  <script src="scripts/filters/masktocidr.js"></script>
+  <script src="scripts/filters/objcount.js"></script>
+  <script src="scripts/services/trunkservice.js"></script>
+  <script src="scripts/directives/genericerror.js"></script>
+  <script src="scripts/services/routeservice.js"></script>
+  <script src="scripts/services/codecservice.js"></script>
+  <script src="scripts/filters/ellipsis.js"></script>
+  <script src="scripts/controllers/final.js"></script>
+  <script src="scripts/controllers/users/profiles.js"></script>
+  <script src="scripts/services/profileservice.js"></script>
+  <script src="scripts/filters/profilelist.js"></script>
+  <script src="scripts/controllers/admin.js"></script>
+  <script src="scripts/controllers/admin/settings.js"></script>
+  <script src="scripts/controllers/admin/report.js"></script>
+  <script src="scripts/controllers/users/groups.js"></script>
+  <script src="scripts/controllers/apps.js"></script>
+  <script src="scripts/controllers/apps/cards.js"></script>
+  <script src="scripts/services/applicationservice.js"></script>
+  <script src="scripts/services/restservicecti.js"></script>
+  <script src="scripts/filters/trusturl.js"></script>
+  <script src="scripts/filters/regexpparse.js"></script>
+  <script src="scripts/filters/tobase64.js"></script>
+  <script src="scripts/filters/ejsrender.js"></script>
+  <script src="scripts/controllers/apps/streaming.js"></script>
+  <script src="scripts/controllers/admin/languages.js"></script>
+  <!-- endbuild -->
+</body>
 
 </html>

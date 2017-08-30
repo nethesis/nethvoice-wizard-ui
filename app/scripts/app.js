@@ -123,6 +123,11 @@ angular
         controller: 'AppsStreamingCtrl',
         controllerAs: 'apps/streaming'
       })
+      .when('/admin/languages', {
+        templateUrl: 'views/admin/languages.html',
+        controller: 'AdminLanguagesCtrl',
+        controllerAs: 'admin/languages'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -60,4 +60,24 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
+    this.setPBXLang = function(lang) {
+      return $q(function(resolve, reject) {
+        RestService.post('/settings/language', lang).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.setDefaultPBXLang = function(lang) {
+      return $q(function(resolve, reject) {
+        RestService.post('/settings/defaultlanguage', lang).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      });
+    };
   });
