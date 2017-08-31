@@ -159,10 +159,22 @@
   <div class="row row-cards-pf no-top-pad">
     <h1>{{'Admin' | translate}}</h1>
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <div ng-click="goTo('admin/languages')" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+          <div class="card-pf-body">
+            <div class="card-pf-top-element">
+              <span class="fa fa-globe card-pf-icon-circle"></span>
+            </div>
+            <h2 class="card-pf-title text-center">
+              {{'Languages' | translate}}
+            </h2>
+          </div>
+        </div>
+      </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
       <div ng-click="goTo('admin/settings')" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
         <div class="card-pf-body">
           <div class="card-pf-top-element">
-            <span class="fa fa-lock card-pf-icon-circle"></span>
+            <span class="fa fa-cog card-pf-icon-circle"></span>
           </div>
           <h2 class="card-pf-title text-center">
             {{'Settings' | translate}}
@@ -170,6 +182,18 @@
         </div>
       </div>
     </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <div ng-click="goTo('freepbx/admin', false, true)" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
+          <div class="card-pf-body">
+            <div class="card-pf-top-element">
+              <span class="fa fa-lock card-pf-icon-circle"></span>
+            </div>
+            <h2 class="card-pf-title text-center">
+              {{'Advanceds' | translate}}
+            </h2>
+          </div>
+        </div>
+      </div>
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
       <div ng-click="goTo('admin/report')" class="card-pf card-pf-view card-pf-view-select card-pf-view-single-select">
         <div class="card-pf-body">
