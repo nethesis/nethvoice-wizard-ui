@@ -179,7 +179,7 @@
             <div ng-click="goTo('admin/settings')" class="list-group-item-value menu-item-left no-opacity">{{'Settings' | translate | ellipsis:'1200'}}</div>
           </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu">
-            <a target="_blank" href="freepbx/admin" class="list-group-item-value menu-item-left no-opacity a-menu">{{'Advanceds' | translate | ellipsis:'1200'}}</a>
+            <a target="_blank" href="/freepbx/admin" class="list-group-item-value menu-item-left no-opacity a-menu">{{'Advanceds' | translate | ellipsis:'1200'}}</a>
           </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('report',2) ? 'active' : ''}}">
             <div ng-click="goTo('admin/report')" class="list-group-item-value menu-item-left no-opacity">{{'Report' | translate | ellipsis:'1200'}}</div>
