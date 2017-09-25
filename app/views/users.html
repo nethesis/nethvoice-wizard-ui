@@ -6,13 +6,13 @@
     {{'Choose mode for your PBX' | translate}}
   </h1>
   <p>
-    {{"You can choose the users base to use for your PBX installation" | translate}}.
+    {{'You can choose the users base to use for your PBX installation' | translate}}.
   </p>
   <p>
-    {{"Unified communication to get users from an LDAP server or Legacy to manage them directly by your PBX" | translate}}.
+    {{'Unified communication to get users from an LDAP server or Legacy to manage them directly by your PBX' | translate}}.
   </p>
   <p>
-    Learn more about this <a href="#">on the documentation</a>.
+    {{'Learn more about this' | translate}} <a href="{{customConfig.BRAND_DOCS}}">{{'on the documentation' | translate}}</a>.
   </p>
   <div class="blank-slate-pf-main-action">
     <button id="uc-button" ng-click="makeChoice('uc')" class="btn btn-primary btn-lgg"> {{'Unified Communication' | translate}} </button>
@@ -27,7 +27,8 @@
       <span ng-if="currentProgress == -1"><strong>{{'Error' | translate}}:</strong> {{'Installation failed' | translate}}</span>
     </div>
     <div class="progress progress-label-top-right">
-      <div class="progress-bar {{currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{currentProgress == -1 ? '100' : currentProgress}}%;">
+      <div class="progress-bar {{currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}" role="progressbar" aria-valuenow="0"
+        aria-valuemin="0" aria-valuemax="100" style="width: {{currentProgress == -1 ? '100' : currentProgress}}%;">
         <span>{{currentProgress == -1 ? '100' : currentProgress}}%</span>
       </div>
     </div>
