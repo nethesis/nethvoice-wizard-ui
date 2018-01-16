@@ -3,16 +3,19 @@
     <span class="pficon pficon-server"></span>
   </div>
   <h1>
-    {{'Choose mode for your PBX' | translate}}
+    {{'Choose how to manage your PBX users' | translate}}
   </h1>
   <p>
     {{'You can choose the users base to use for your PBX installation' | translate}}.
   </p>
   <p>
-    {{'Unified communication to get users from an LDAP server or Legacy to manage them directly by your PBX' | translate}}.
+    {{'Unified Communication, to get users from an already existing LDAP or Active Directory Server' | translate}}.
   </p>
   <p>
-    {{'Learn more about this' | translate}} <a href="{{customConfig.BRAND_DOCS}}">{{'on the documentation' | translate}}</a>.
+    {{'Legacy, to run a new installation of LDAP Server that can be managed directly from your PBX' | translate}}.
+  </p>
+  <p>
+    {{'Learn more about this' | translate}} <a target="_blank" href="{{customConfig.BRAND_DOCS}}">{{'on the documentation' | translate}}</a>.
   </p>
   <div class="blank-slate-pf-main-action">
     <button id="uc-button" ng-click="makeChoice('uc')" class="btn btn-primary btn-lgg"> {{'Unified Communication' | translate}} </button>
