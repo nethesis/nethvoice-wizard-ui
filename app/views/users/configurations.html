@@ -149,7 +149,8 @@
 
 
           <div ng-if="!(devices | isEmpty)" id="accordion-markup-{{$index}}" ng-show="checkConfiguredExtensions(device, selectedDeviceFilter)" class="list-group-item
-            {{device.lines[0].mainextension == selectedUser.default_extension ? 'selected' : ''}} {{device.extension ? 'disabled' : ''}}"
+            {{device.lines[0].mainextension == selectedUser.default_extension ? 'selected' : ''}} {{device.extension ? 'disabled' : ''}}
+            {{device.lines[0].mainextension != null && selectedUser.default_extension !=null && device.lines[0].mainextension != selectedUser.default_extension ? 'associated' : ''}}"
             ng-repeat="device in devices | filter:searchDeviceUserString | orderBy: ['manufacturer','model']">
             <div class="list-view-pf-actions adjust-link">
               <button ng-if="device.lines && device.lines.length == 1" ng-click="device.lines[0].extension ? deletePhysicalExtension(device, device.lines[0].extension) : setPhysicalExtension(selectedUser, device)"
