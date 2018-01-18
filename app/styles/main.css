@@ -1261,3 +1261,13 @@ iframe body {
   background: #a5673f;
   display: inline-block;
 }
+
+.config-all-devices {
+  border-bottom: 1px solid #d1d1d1;
+  margin-bottom: 32px;
+  margin-top: 0px;
+}
+
+.bulk-container {
+  margin-bottom: 12px;
+}

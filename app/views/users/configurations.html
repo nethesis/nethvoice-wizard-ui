@@ -111,6 +111,7 @@
           <span class="weight-plus">{{devices.length}} {{devices.length == 1 ? 'device' : 'devices' | translate}}</span>
         </div>
       </h1>
+
       <div ng-if="maxExtensionReached" class="alert alert-warning alert-dismissable">
         <button ng-click="cancelError()" type="button" class="close" data-dismiss="alert" aria-hidden="true">
             <span class="pficon pficon-close"></span>
@@ -196,6 +197,9 @@
             </div>
           </div>
         </div>
+        <div ng-if="!(devices | isEmpty)" class="right config-all-devices">
+          <a data-toggle="modal" data-target="#bulkModal" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Provision and reboot all linked phones' | translate}}" class="btn btn-warning bulk-container"><span class="fa fa-magic"></span> {{'Bulk provisioning' | translate}}</a>
+        </div>
       </div>
       <div ng-if="devices | isEmpty" class="blank-slate-pf ">
         <div class="blank-slate-pf-icon">
@@ -275,6 +279,28 @@
             </select>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bulkModal" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{'Warning' | translate}}!</h4>
+        </div>
+        <form class="form-horizontal" ng-submit="bulkPhonesConfiguration()">
+          <div class="modal-body">
+            <div class="alert alert-warning alert-dismissable" style="margin-bottom: 0px;">
+              <span class="pficon pficon-warning-triangle-o"></span>
+              <strong>{{'Are you sure that you want to provision and restart all linked phones' | translate}}?</strong>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default" type="button" data-dismiss="modal">{{'Cancel' | translate}}</button>
+            <button class="btn btn-warning" type="submit"><span class="fa fa-magic"></span> {{'Start provisioning' | translate}}</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
