@@ -95,7 +95,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.networks = res.data;
         for (var eth in res.data) {
           $scope.tasks[eth] = {};
-          $scope.allDevices[eth] = {};
+          $scope.allDevices[eth] = [];
         }
         $scope.networkLength = Object.keys(res.data).length;
         $scope.view.changeRoute = false;

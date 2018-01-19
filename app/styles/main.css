@@ -538,6 +538,11 @@ a {
   margin-top: 15px;
 }
 
+.absolute-icon-right {
+  position: absolute;
+  right: 30px;
+}
+
 .config-bottom {
   margin-bottom: 16px;
 }
