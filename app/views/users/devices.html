@@ -37,7 +37,8 @@
             <div class="card-pf-items text-center">
               <div class="card-pf-item">
                 <span class="pficon pficon-screen"></span>
-                <span class="card-pf-item-text"><b>{{network.ip}}</b> /<span popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Netmask' | translate}}: {{network.netmask}}">{{network.netmask | maskToCidr}}</span></span>
+                <span class="card-pf-item-text"><b>{{network.ip}}</b> / </span>
+                <span class="inline-display" popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Netmask' | translate}}: {{network.netmask}}"><input ng-model="network.netmask" type="text" class="form-control config-form"></span>
               </div>
             </div>
             <p class="card-pf-info text-center">
@@ -122,7 +123,7 @@
       </p>
     </div>
 
-    <div ng-if="!(networks | isEmpty) && (allDevices | isEmpty: true)" class="blank-slate-pf ">
+    <div ng-if="!(networks | isEmpty) && (allDevices | isEmpty: true) && scanned == true" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
         <span class="fa fa-phone"></span>
       </div>

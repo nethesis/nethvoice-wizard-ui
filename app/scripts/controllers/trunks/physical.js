@@ -20,6 +20,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.selectedDevice = {};
     $scope.newGateway = {};
     $scope.onSave = false;
+    $scope.scanned = false;
     $scope.users = [];
 
     $scope.getUserList = function (reload) {
@@ -99,9 +100,6 @@ angular.module('nethvoiceWizardUiApp')
         }
         $scope.networkLength = Object.keys(res.data).length;
         $scope.view.changeRoute = false;
-        for (var n in $scope.networks) {
-          $scope.startScan(n, $scope.networks[n]);
-        }
       }, function (err) {
         console.log(err);
       });
@@ -112,6 +110,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.allDevices[key] = res.data;
         $scope.tasks[key].currentProgress = 100;
         $scope.onSave = false;
+        $scope.scanned = true;
       }, function (err) {
         console.log(err);
         $scope.tasks[key].currentProgress = -1;
