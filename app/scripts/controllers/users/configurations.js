@@ -156,6 +156,15 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    $scope.bulkPhonesConfiguration = function () {
+      for (var d in $scope.devices) {
+        if ($scope.isConfigured($scope.devices[d])) {
+          $scope.configureAndRebootPhone($scope.devices[d]);
+          $('#bulkModal').modal('hide');
+        }
+      }
+    }
+
     $scope.isConfigured = function (device) {
       for (var l in device.lines) {
         var line = device.lines[l];
