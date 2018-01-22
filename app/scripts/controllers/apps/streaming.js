@@ -30,25 +30,48 @@ angular.module('nethvoiceWizardUiApp')
       delete s.isChecking;
       delete s.onSave;
       delete s.verified;
-      ApplicationService.createVideoSource(s).then(function (res) {
-        s.onSave = false;
-        $scope.onSaveSuccessSource = true;
-        $scope.onSaveErrorSource = false;
-        $scope.allSources.push(s);
-        $scope.newSource = {
-          verified: false,
-          isChecking: false,
-          checked: false
-        };
-        $scope.checkConnection(s);
-        $('#newSourceModal').modal('hide');
-      }, function (err) {
-        s.onSave = false;
-        $scope.onSaveSuccessSource = false;
-        $scope.onSaveErrorSource = true;
-        $('#newSourceModal').modal('hide');
-        console.log(err);
-      });
+      if (s.onMod) {
+        ApplicationService.updateVideoSource(s.descr, s).then(function (res) {
+          s.onSave = false;
+          $scope.onSaveSuccessSource = true;
+          $scope.onSaveErrorSource = false;
+          $scope.getSourceList();
+          $scope.newSource = {
+            verified: false,
+            isChecking: false,
+            checked: false
+          };
+          $scope.checkConnection(s);
+          $('#newSourceModal').modal('hide');
+
+        }, function (err) {
+          s.onSave = false;
+          $scope.onSaveSuccessSource = false;
+          $scope.onSaveErrorSource = true;
+          $('#newSourceModal').modal('hide');
+          console.log(err);
+        });
+      } else {
+        ApplicationService.createVideoSource(s).then(function (res) {
+          s.onSave = false;
+          $scope.onSaveSuccessSource = true;
+          $scope.onSaveErrorSource = false;
+          $scope.getSourceList();
+          $scope.newSource = {
+            verified: false,
+            isChecking: false,
+            checked: false
+          };
+          $scope.checkConnection(s);
+          $('#newSourceModal').modal('hide');
+        }, function (err) {
+          s.onSave = false;
+          $scope.onSaveSuccessSource = false;
+          $scope.onSaveErrorSource = true;
+          $('#newSourceModal').modal('hide');
+          console.log(err);
+        });
+      }
     };
     $scope.deleteSource = function (s) {
       s.onSave = true;
@@ -69,6 +92,11 @@ angular.module('nethvoiceWizardUiApp')
       };
       s = $scope.newSource;
       s.onMod = false;
+    };
+    $scope.modifySource = function (s) {
+      s.onMod = true;
+      $scope.newSource = s;
+      $scope.newSource.currentDescr = s.descr;
     };
 
     $scope.checkConnection = function (s) {

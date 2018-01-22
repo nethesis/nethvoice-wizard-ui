@@ -78,6 +78,7 @@
               <div ng-show="g.onSave" class="spinner spinner-sm adjust-margin spinner-right"></div>
             </div>
             <p>
+              <button data-toggle="modal" data-target="#newSourceModal" ng-click="modifySource(g)" class="btn btn-primary" type="button">{{'Modify' | translate}}</button>
               <button ng-click="selectSource(g)" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" type="button">{{'Delete' | translate}}</button>
             </p>
           </div>
@@ -103,7 +104,9 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
             <div class="col-sm-9">
-              <input required ng-model="newSource.descr" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+              <input type="hidden" value="{{newSource.currentDescr}}">
+              <input required ng-model="newSource.descr" type="text" id="textInput-modal-markup" class="form-control profile-new-name">
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Extension' | translate}}</label>
@@ -125,7 +128,8 @@
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Profile' | translate}}</label>
             <div class="col-sm-9">
               <select multiple required title="-" pf-select="{ width: '180px' }" ng-model="newSource.profiles" ng-options="p.id as p.name for p in allProfiles">
-            </select></div>
+              </select>
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Connection' | translate}}</label>

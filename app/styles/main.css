@@ -150,6 +150,11 @@ a {
   float: right;
 }
 
+.associated {
+  color: #CFCFCF;
+  background-color: #f5f5f5;
+}
+
 .layout-pf-alt-fixed-with-footer .footer-pf-alt {
   background: #171717;
   color: #CFCFCF;
@@ -536,6 +541,11 @@ a {
 
 .config-row-button {
   margin-top: 15px;
+}
+
+.absolute-icon-right {
+  position: absolute;
+  right: 30px;
 }
 
 .config-bottom {

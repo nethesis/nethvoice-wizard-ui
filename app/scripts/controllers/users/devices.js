@@ -14,6 +14,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.networks = {};
     $scope.networkLength = 0;
     $scope.tasks = {};
+    $scope.scanned = false;
 
     $scope.orderByValue = function (value) {
       return value;
@@ -37,17 +38,6 @@ angular.module('nethvoiceWizardUiApp')
         }
         $scope.networkLength = Object.keys(res.data).length;
         $scope.view.changeRoute = false;
-        for (var n in $scope.networks) {
-          $scope.tasks[n].startScan = true;
-          $scope.tasks[n].currentProgress = Math.floor((Math.random() * 50) + 10);
-          $scope.getPhoneList(n, $scope.networks[n], function (err) {
-            if (err) {
-              $scope.tasks[n].startScan = false;
-              $scope.tasks[n].currentProgress = 0;
-              $scope.startScan(n, $scope.networks[n]);
-            }
-          });
-        }
       }, function (err) {
         console.log(err);
       });
@@ -57,6 +47,7 @@ angular.module('nethvoiceWizardUiApp')
       DeviceService.phoneListByNetwork(network).then(function (res) {
         $scope.allDevices[key] = res.data;
         $scope.tasks[key].currentProgress = 100;
+        $scope.scanned = true;
         callback(null);
       }, function (err) {
         if (err.status !== 404) {
