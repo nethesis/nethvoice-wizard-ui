@@ -202,6 +202,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.newGateway.network_key = network_key;
       $scope.newGateway.network = network.network;
       $scope.newGateway.ipv4_new = network.network.slice(0, -1);
+      $scope.newGateway.ipv4_green = network.ip;
       $scope.newGateway.gateway = network.gateway;
     };
 
