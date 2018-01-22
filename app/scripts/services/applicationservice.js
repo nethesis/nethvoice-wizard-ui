@@ -139,6 +139,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.updateVideoSource = function (descr, obj) {
+      return $q(function (resolve, reject) {
+        RestService.put('/cti/streaming/' + descr, obj).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.updateSource = function (id, obj) {
       return $q(function (resolve, reject) {
         RestService.put('/cti/dbconn/' + id, obj).then(function (res) {
