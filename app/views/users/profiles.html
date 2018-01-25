@@ -23,6 +23,13 @@
   <div class="wizard-pf-contents adjust-size">
     <h1 class="control-label centered" for="textInput-markup">{{'Profiles configuration' | translate}}</h1>
     <div ng-if="!(allProfiles | isEmpty)" class="container-fluid">
+      <div ng-if="gruopsDisabled" class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <span class="pficon pficon-warning-triangle-o"></span>
+        <strong>{{'Some groups have not been enabled' | translate}}.</strong> {{'Check your groups permissions' | translate}}
+      </div>
       <div ng-if="onSaveSuccess" class="alert alert-success alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
             <span class="pficon pficon-close"></span>
