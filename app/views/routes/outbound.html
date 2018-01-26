@@ -22,6 +22,13 @@
     </h1>
     <div ng-if="routes[selectedRouteLang].length || routes.length" class="container-fluid">
       <div class="list-group list-view-pf list-view-pf-view no-background">
+        <div ng-if="!(routes.length == 0) && !(onSaveSuccess || onSaveError) && wizard.isWizard && showDialDefault" class="alert alert-warning alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+          <span class="pficon pficon-warning-triangle-o"></span>
+          {{'Remember to save before pushing forward' | translate}}
+        </div>
         <div ng-if="onSaveSuccess" class="alert alert-success alert-dismissable">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
             <span class="pficon pficon-close"></span>

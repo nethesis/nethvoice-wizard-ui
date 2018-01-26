@@ -59,7 +59,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.removeTrunk = function (indexRoute, indexTrunk) {
       $scope.routes[$scope.selectedRouteLang][indexRoute].trunks.splice(indexTrunk, 1);
       RouteService.deleteOutboundTrunk(indexRoute, indexTrunk).then(function (res) {
-        console.log(res);
       }, function (err) {
         console.log(err);
       });
@@ -78,7 +77,6 @@ angular.module('nethvoiceWizardUiApp')
       var postObj = {};
       postObj[$scope.selectedRouteLang] = $scope.routes[$scope.selectedRouteLang];
       RouteService.createDefaultsOutbounds(postObj).then(function (res) {
-        console.log(res);
         $scope.onSaveSuccess = true;
         $scope.onSaveError = false;
         $scope.onSave = false;

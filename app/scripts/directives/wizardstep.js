@@ -44,7 +44,6 @@ angular.module('nethvoiceWizardUiApp')
             status: 'true',
             step: $scope.wizard.stepCount
           }).then(function (res) {
-            console.log(res);
           }, function (err) {
             console.log(err);
           });
@@ -60,7 +59,6 @@ angular.module('nethvoiceWizardUiApp')
             status: 'true',
             step: $scope.wizard.stepCount
           }).then(function (res) {
-            console.log(res);
           }, function (err) {
             console.log(err);
           });
