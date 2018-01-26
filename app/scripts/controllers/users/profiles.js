@@ -11,9 +11,11 @@ angular.module('nethvoiceWizardUiApp')
   .controller('UsersProfilesCtrl', function ($scope, UserService, ProfileService) {
     $scope.allProfiles = [];
     $scope.allPermissions = [];
+    $scope.allGroups = [];
 
     $scope.onSaveSuccess = false;
     $scope.onSaveError = false;
+    $scope.gruopsDisabled = false;
 
     $scope.initGraphics = function () {};
 
@@ -25,10 +27,15 @@ angular.module('nethvoiceWizardUiApp')
       return p.split(': ');
     };
 
+    $scope.toPermissionName = function(g) {
+      return "grp_" + g;
+    }
+
     $scope.getAllProfiles = function (reload) {
       $scope.view.changeRoute = reload;
       ProfileService.allProfiles().then(function (res) {
         $scope.allProfiles = res.data;
+        $scope.getAllGroups();
         $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
@@ -93,6 +100,7 @@ angular.module('nethvoiceWizardUiApp')
       profile.onSave = true;
       if (profile.id) {
         ProfileService.update(profile.id, profile).then(function (res) {
+          $scope.checkAllGroups();
           profile.onSave = false;
           //$scope.getAllProfiles(false);
           $scope.onSaveSuccess = true;
@@ -126,6 +134,37 @@ angular.module('nethvoiceWizardUiApp')
         $scope.getAllProfiles(false);
       }, function (err) {
         profile.onSave = false;
+        console.log(err);
+      });
+    };
+
+    $scope.checkDisabledGruops = function (group) {
+      for (var profile in $scope.allProfiles) {
+        for (var n in $scope.allProfiles[profile].macro_permissions.presence_panel.permissions) {
+          var permission = $scope.allProfiles[profile].macro_permissions.presence_panel.permissions[n];
+          if (permission.name == $scope.toPermissionName(group.toLowerCase())) {
+            if (permission.value == true) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+
+    $scope.checkAllGroups = function () {
+      $scope.gruopsDisabled = false;
+      for (var group in $scope.allGroups) {
+        if ($scope.checkDisabledGruops($scope.allGroups[group].name) != true) {
+          $scope.gruopsDisabled = true;
+        }
+      }
+    };
+
+    $scope.getAllGroups = function () {
+      ProfileService.allGroups().then(function (res) {
+        $scope.allGroups = res.data;
+        $scope.checkAllGroups();
+      }, function (err) {
         console.log(err);
       });
     };

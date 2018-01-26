@@ -36,13 +36,6 @@
       <span class="pficon pficon-error-circle-o"></span>
       <strong>{{'Group not saved' | translate}}.</strong> {{'Group saving error' | translate}}
     </div>
-    <div ng-if="onSaveSuccess" class="alert alert-warning alert-dismissable">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-        <span class="pficon pficon-close"></span>
-      </button>
-      <span class="pficon pficon-warning-triangle-o"></span>
-      {{'Remember to enable groups in user profiles' | translate}}
-    </div>
     <div ng-if="!(allGroups | isEmpty)" class="row row-cards-pf adjust-card">
       <div ng-repeat="g in allGroups | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <div class="card-pf">
