@@ -43,9 +43,6 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.selectDevice = function (device, network, networkName) {
-      device.gateway = network.gateway;
-      device.ipv4_green = network.ip;
-      device.netmask_green = network.netmask;
       device.network_name = networkName
       if (device.isConnected) {
         device.ipv4_new = device.ipv4;
@@ -204,6 +201,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.newGateway.ipv4_new = network.network.slice(0, -1);
       $scope.newGateway.ipv4_green = network.ip;
       $scope.newGateway.gateway = network.gateway;
+      $scope.newGateway.netmask_green = network.netmask;
     };
 
     $scope.hideGatewayDialog = function () {

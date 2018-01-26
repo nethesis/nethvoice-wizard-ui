@@ -173,9 +173,21 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Network mask' | translate}}</label>
+          <div class="col-sm-9">
+            <input type="text" ng-model="selectedDevice.netmask_green" class="form-control" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$" ng-disabled="selectedDevice.isConfigured">
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-3 control-label">{{'Network gateway' | translate}}</label>
           <div class="col-sm-9">
-            <input type="text" ng-model="selectedDevice.gateway" class="form-control" disabled>
+            <input type="text" ng-model="selectedDevice.gateway" class="form-control" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$" ng-disabled="selectedDevice.isConfigured">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'PBX IP' | translate}}</label>
+          <div class="col-sm-9">
+            <input type="text" ng-model="selectedDevice.ipv4_green" class="form-control" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$" ng-disabled="selectedDevice.isConfigured">
           </div>
         </div>
 
@@ -290,9 +302,21 @@
               </div>
             </div>
             <div class="form-group">
+              <label class="col-sm-3 control-label">{{'Network mask' | translate}}</label>
+              <div class="col-sm-9">
+                <input type="text" ng-model="newGateway.netmask_green" class="form-control" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$">
+              </div>
+            </div>
+            <div class="form-group">
               <label class="col-sm-3 control-label">{{'Network gateway' | translate}}</label>
               <div class="col-sm-9">
-                <input type="text" ng-model="newGateway.gateway" class="form-control" disabled>
+                <input type="text" ng-model="newGateway.gateway" class="form-control" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">{{'PBX IP' | translate}}</label>
+              <div class="col-sm-9">
+                <input type="text" ng-model="newGateway.ipv4_green" class="form-control" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$">
               </div>
             </div>
 
