@@ -24,6 +24,18 @@ angular.module('nethvoiceWizardUiApp')
       return LanguageService.getNativeName(key);
     }
 
+    $scope.getLanguageList = function () {
+      LanguageService.getInstalledLanguages().then(function (res) {
+        for (var l in res.data) {
+          if (res.data[l].default == true) {
+            $scope.language = l;
+          }
+        }
+      }, function (err) {
+        console.log(err);
+      });
+    }
+
     $scope.setDefaultPBXLanguage = function (lang) {
       $scope.startInstallation = true;
       $scope.currentProgress = 0;
@@ -82,4 +94,6 @@ angular.module('nethvoiceWizardUiApp')
         $scope.currentProgress = 100;
       });
     };
+
+    $scope.getLanguageList();
   });

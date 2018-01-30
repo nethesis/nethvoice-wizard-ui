@@ -8,7 +8,7 @@
  * Service in the nethvoiceWizardUiApp.
  */
 angular.module('nethvoiceWizardUiApp')
-  .service('LanguageService', function() {
+  .service('LanguageService', function($q, RestService) {
     this.getAllLanguages = function() {
       var langArr = [];
       for (var k in window.getAllSupportedLanguagesKey()) {
@@ -25,5 +25,15 @@ angular.module('nethvoiceWizardUiApp')
 
     this.getNativeName = function(key) {
       return window.getLanguageNativeName(key);
+    };
+
+    this.getInstalledLanguages = function() {
+      return $q(function (resolve, reject) {
+        RestService.get('/settings/languages').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
     };
   });

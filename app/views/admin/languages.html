@@ -30,7 +30,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label">{{'Language' | translate}}</label>
           <div class="col-sm-9">
-            <select title="-" pf-select="{ width: '180px' }" ng-model="language" ng-options="l as getLangName(l) for l in availableLangs">
+            <select title='-' pf-select="{ width: '180px' }" ng-model="language" ng-options="l as getLangName(l) for l in availableLangs track by l">
                     </select>
           </div>
         </div>
