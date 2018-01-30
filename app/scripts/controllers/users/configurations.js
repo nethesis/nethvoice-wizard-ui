@@ -11,7 +11,7 @@ angular.module('nethvoiceWizardUiApp')
   .controller('UsersConfigurationsCtrl', function ($scope, $filter, UserService, DeviceService, ProfileService, UtilService) {
     $scope.users = {};
     $scope.selectedUser = null;
-    $scope.devices = {};
+    $scope.devices = [];
     $scope.allProfiles = [];
     $scope.allGroups = [];
     $scope.maxExtensionReached = false;
