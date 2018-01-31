@@ -3,7 +3,7 @@
   "private": true,
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
-    "grunt": "^0.4.5",
+    "grunt": "^1.0.1",
     "grunt-angular-templates": "^0.5.7",
     "grunt-concurrent": "^1.0.0",
     "grunt-contrib-clean": "^0.6.0",
@@ -23,10 +23,10 @@
     "grunt-newer": "^1.1.0",
     "grunt-ng-annotate": "^0.9.2",
     "grunt-postcss": "^0.5.5",
+    "grunt-shell": "^2.1.0",
     "grunt-svgmin": "^2.0.0",
     "grunt-usemin": "^3.0.0",
     "grunt-wiredep": "^2.0.0",
-    "grunt-shell": "^2.1.0",
     "jit-grunt": "^0.9.1",
     "jshint-stylish": "^1.0.0",
     "karma-jasmine": "*",
@@ -42,9 +42,6 @@
     "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'bower_components', 'junction') } catch (e) { }\""
   },
   "dependencies": {
-    "bower-away": "^1.1.2",
-    "grunt-cli": "^1.2.0",
-    "yarn": "^1.3.2",
     "@bower_components/ace-builds": "ajaxorg/ace-builds#^1",
     "@bower_components/angular": "angular/bower-angular#1.4.0",
     "@bower_components/angular-animate": "angular/bower-angular-animate#1.3.0 - 1.5.*",
@@ -84,6 +81,9 @@
     "@bower_components/ng-sortable": "a5hik/ng-sortable#1.3.7",
     "@bower_components/patternfly": "patternfly/patternfly#3.14.0",
     "@bower_components/patternfly-bootstrap-combobox": "patternfly/patternfly-bootstrap-combobox#~1.1.7",
-    "@bower_components/patternfly-bootstrap-treeview": "patternfly/patternfly-bootstrap-treeview#~2.1.0"
+    "@bower_components/patternfly-bootstrap-treeview": "patternfly/patternfly-bootstrap-treeview#~2.1.0",
+    "bower-away": "^1.1.2",
+    "grunt-cli": "^1.2.0",
+    "yarn": "^1.3.2"
   }
 }
