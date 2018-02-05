@@ -50,6 +50,11 @@ angular.module('nethvoiceWizardUiApp')
         device.ipv4 = device.ipv4_new;
       }
       $scope.selectedDevice = device;
+      if (!device.isConfigured) {
+        $scope.selectedDevice.netmask_green = network.netmask;
+        $scope.selectedDevice.gateway = network.gateway;
+        $scope.selectedDevice.ipv4_green = network.ip;
+      }
     };
 
     $scope.close = function (device) {
