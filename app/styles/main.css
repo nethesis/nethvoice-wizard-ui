@@ -1281,3 +1281,8 @@ iframe body {
 .bulk-container {
   margin-bottom: 12px;
 }
+
+.scanned-lists {
+    padding-right: 9px !important;
+    padding-left: 9px !important;
+}
