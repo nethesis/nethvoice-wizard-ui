@@ -19,6 +19,9 @@ angular.module('nethvoiceWizardUiApp')
         if (!appConfig.STEP_WIZARD[$scope.currentStep].next && appConfig.STEP_WIZARD[$scope.currentStep].last) {
           $scope.endWizard = true;
         }
+        if (($scope.wizard.nextState == "admin/settings" || $scope.wizard.nextState == "admin/languages")) {
+          $scope.wizard.nextState = false;
+        }
 
         $scope.resolveProgress = function () {
           return Math.floor($scope.wizard.stepCount * 100 / appConfig.TOTAL_STEP);

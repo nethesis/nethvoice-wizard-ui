@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <div ng-if="!(allDevices | isEmpty: true)" class="container-fluid">
+    <div ng-if="!(allDevices | isEmpty: true)" class="container-fluid scanned-lists">
       <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)">
         <div class="row">
           <h1 class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-header">

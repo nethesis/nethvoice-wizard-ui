@@ -29,6 +29,7 @@ angular.module('nethvoiceWizardUiApp')
         for (var l in res.data) {
           if (res.data[l].default == true) {
             $scope.language = l;
+            $scope.wizard.nextState = true;
           }
         }
       }, function (err) {
@@ -41,6 +42,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.currentProgress = 0;
       $scope.onSaveSuccess = false;
       $scope.onSaveError = false;
+      $scope.wizard.nextState = true;
       ConfigService.setPBXLang({
         lang: lang
       }).then(function (res) {

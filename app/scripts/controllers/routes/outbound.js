@@ -81,6 +81,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.onSaveError = false;
         $scope.onSave = false;
         $scope.getOutbounds(false);
+        $scope.wizard.nextState = true;
       }, function (err) {
         console.log(err);
         $scope.onSaveSuccess = false;
@@ -108,6 +109,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.routes[$scope.selectedRouteLang] = resOutbounds.data;
           $scope.routes.length = resOutbounds.data.length;
           $scope.view.changeRoute = false;
+          $scope.wizard.nextState = true;
         }
         $scope.menuCount.routesOut = $scope.routes.length;
       }, function (err) {

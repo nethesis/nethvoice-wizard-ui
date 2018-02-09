@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div ng-if="!(allDevices | isEmpty: true)" class="container-fluid col-lg-6 col-md-12 col-sm-12 col-xs-12">
+    <div ng-if="!(allDevices | isEmpty: true)" class="container-fluid scanned-lists col-lg-6 col-md-12 col-sm-12 col-xs-12">
       <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view list-gateway" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)">
         <div class="row">
           <h1 class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-header">
