@@ -381,6 +381,7 @@
   "Unified Communication, to get users from an already existing LDAP or Active Directory Server": "Unified Communication, per utilizzare un Server LDAP esistente oppure un Active Directory precedentemente configurato",
   "Legacy, to run a new installation of LDAP Server that can be managed directly from your PBX": "Legacy, per eseguire una nuova installazione di LDAP Server gestibile direttamente dal tuo PBX",
   "system languages": "lingue di sistema",
+  "current": "attuale",
   "Installing": "Installazione",
   "Error": "Errore",
   "installation failed": "installazione fallita",

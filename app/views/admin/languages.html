@@ -25,7 +25,7 @@
         <span class="pficon pficon-error-circle-o"></span>
         <strong>{{'Language error' | translate}}</strong> {{'System language installation error' | translate}}
       </div>
-      <h3>{{'Set system language' | translate}}</h3>
+      <h3>{{'Set system language' | translate}} <span ng-if="language" class="slim-weight">( {{'current' | translate}}: {{getLangName(currentLanguage)}} )</span></h3>
       <form class="form-horizontal" ng-submit="setDefaultPBXLanguage(language)">
         <div class="form-group">
           <label class="col-sm-3 control-label">{{'Language' | translate}}</label>
@@ -37,7 +37,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label"></label>
           <div class="col-sm-9">
-            <button type="submit" class="col-md-2 btn btn-primary right-align">{{'Set' | translate}}</button>
+            <button ng-disabled="language == currentLanguage" type="submit" class="col-md-2 btn btn-primary right-align">{{'Set' | translate}}</button>
           </div>
         </div>
       </form>

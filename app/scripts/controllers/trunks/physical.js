@@ -23,11 +23,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.scanned = false;
     $scope.users = [];
 
-    $scope.getUserList = function (reload) {
-      $scope.view.changeRoute = reload;
+    $scope.getUserList = function () {
       UserService.list(false).then(function (res) {
         $scope.users = res.data;
-        $scope.view.changeRoute = false;
         var index = 0;
         for (var u in $scope.users) {
           if ($scope.users[u].default_extension !== 'none') {
@@ -92,8 +90,8 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.getNetworkList = function () {
-      $scope.view.changeRoute = true;
+    $scope.getNetworkList = function (reload) {
+      $scope.view.changeRoute = reload;
       ConfigService.getNetworks().then(function (res) {
         $scope.networks = res.data;
         for (var eth in res.data) {
@@ -104,6 +102,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
+        $scope.view.changeRoute = false;
       });
     };
 
@@ -308,8 +307,8 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.getNetworkList();
+    $scope.getNetworkList(true);
     $scope.getGatewayModelList();
-    $scope.getUserList(false);
+    $scope.getUserList();
 
   });

@@ -23,11 +23,14 @@ angular.module('nethvoiceWizardUiApp')
       return CodecService.getVoipCodecs();
     }
 
-    $scope.getProvidersList = function () {
+    $scope.getProvidersList = function (reload) {
+      $scope.view.changeRoute = reload;
       TrunkService.getProviders().then(function (res) {
         $scope.providers = res;
+        $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
+        $scope.view.changeRoute = false;
       });
     };
 
@@ -46,7 +49,7 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.getProvidersList();
+    $scope.getProvidersList(true);
 
     // Set default codecs
     $scope.retrieveCodecs().then(function (res) {
