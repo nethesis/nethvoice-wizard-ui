@@ -12,7 +12,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.taskPromise = null;
     $scope.currentProgress = 0;
     $scope.errorCount = 0;
+    $scope.defaultLanguage = "";
     $scope.startInstallation = false;
+    $scope.currentLanguage = "";
     $scope.language = LocalStorageService.get('preferredLanguage');
     $scope.availableLangs = ['it', 'en', 'fr', 'de', 'es'];
 
@@ -24,16 +26,22 @@ angular.module('nethvoiceWizardUiApp')
       return LanguageService.getNativeName(key);
     }
 
-    $scope.getLanguageList = function () {
+    $scope.getLanguageList = function (reload) {
+      $scope.view.changeRoute = reload;
       LanguageService.getInstalledLanguages().then(function (res) {
         for (var l in res.data) {
           if (res.data[l].default == true) {
             $scope.language = l;
+            $scope.currentLanguage = l;
             $scope.wizard.nextState = true;
+            $scope.view.changeRoute = false;
+          } else {
+            $scope.view.changeRoute = false;
           }
         }
       }, function (err) {
         console.log(err);
+        $scope.view.changeRoute = false;
       });
     }
 
@@ -59,6 +67,7 @@ angular.module('nethvoiceWizardUiApp')
               ConfigService.setDefaultPBXLang({
                 lang: lang
               }).then(function (res) {
+                $scope.currentLanguage = $scope.language;
                 $scope.onSaveSuccess = true;
                 $scope.onSaveError = false;
               }, function (err) {
@@ -97,5 +106,5 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.getLanguageList();
+    $scope.getLanguageList(true);
   });

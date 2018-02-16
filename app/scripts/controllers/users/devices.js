@@ -28,8 +28,8 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.getNetworkList = function () {
-      $scope.view.changeRoute = true;
+    $scope.getNetworkList = function (reload) {
+      $scope.view.changeRoute = reload;
       ConfigService.getNetworks().then(function (res) {
         $scope.networks = res.data;
         for (var eth in res.data) {
@@ -40,6 +40,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
+        $scope.view.changeRoute = false;
       });
     };
 
@@ -113,6 +114,6 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.getNetworkList();
+    $scope.getNetworkList(true);
     $scope.getPhoneModelList();
   });

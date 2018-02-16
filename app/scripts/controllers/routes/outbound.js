@@ -18,6 +18,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.onSaveError = false;
     $scope.onSave = false;
     $scope.showDialDefault = false;
+    $scope.view.changeRoute = true;
 
     $scope.toggleDetails = function (event) {
       var $this = $(event.target);
@@ -114,6 +115,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.menuCount.routesOut = $scope.routes.length;
       }, function (err) {
         console.log(err);
+        $scope.view.changeRoute = false;
       });
     };
 

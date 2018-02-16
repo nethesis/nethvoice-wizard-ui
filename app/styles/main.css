@@ -1283,6 +1283,10 @@ iframe body {
 }
 
 .scanned-lists {
-    padding-right: 9px !important;
-    padding-left: 9px !important;
+  padding-right: 9px !important;
+  padding-left: 9px !important;
+}
+
+.slim-weight {
+  font-weight: 200;
 }

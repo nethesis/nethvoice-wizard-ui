@@ -27,23 +27,19 @@ angular.module('nethvoiceWizardUiApp')
       $scope.maxExtensionReached = false;
     };
 
-    $scope.getAllProfiles = function (reload) {
+    $scope.getAllProfiles = function () {
       ProfileService.allProfiles().then(function (res) {
         $scope.allProfiles = res.data;
-        $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
-        $scope.view.changeRoute = false;
       });
     };
 
-    $scope.getAllGroups = function (reload) {
+    $scope.getAllGroups = function () {
       ProfileService.allGroups().then(function (res) {
         $scope.allGroups = res.data;
-        $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
-        $scope.view.changeRoute = false;
       });
     };
 
@@ -51,7 +47,6 @@ angular.module('nethvoiceWizardUiApp')
       $scope.view.changeRoute = reload;
       UserService.list(false).then(function (res) {
         $scope.users = res.data;
-        $scope.view.changeRoute = false;
         var index = 0;
         for (var u in $scope.users) {
           if ($scope.users[u].default_extension !== 'none') {
@@ -65,8 +60,10 @@ angular.module('nethvoiceWizardUiApp')
         if ($scope.mode.isLegacy && UtilService.isEmpty($scope.users)) {
           $scope.wizard.nextState = false;
         }
+        $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
+        $scope.view.changeRoute = false;
       });
     };
 
