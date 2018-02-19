@@ -1,0 +1,80 @@
+{
+
+my $colorDark = $nethvoice{'BrandColorDark'} || "#3f9c35";
+my $colorLight = $nethvoice{'BrandColorLight'} || "#6ec664";
+my $colorNormal = $nethvoice{'BrandColorNormal'} || "#56b04c";
+
+$OUT .= "a {\n";
+$OUT .= "  color: $colorLight;\n";
+$OUT .= "}\n";
+
+$OUT .= ".navbar-pf-alt {\n";
+$OUT .= "  border-top: 2px solid $colorDark;\n";
+$OUT .= "}\n";
+
+$OUT .= ".nav-pf-vertical-alt .list-group-item.active:before {\n";
+$OUT .= "  background: $colorLight;\n";
+$OUT .= "}\n";
+
+$OUT .= ".wizard-pf-steps-indicator .active .wizard-pf-step-number {\n";
+$OUT .= "  background-color: $colorLight;\n";
+$OUT .= "  border-color: $colorDark;\n";
+$OUT .= "}\n";
+
+$OUT .= ".nav-pf-vertical-alt .list-group-item .badge.notifications {\n";
+$OUT .= "  background: $colorDark;\n";
+$OUT .= "}\n";
+
+$OUT .= ".btn-primary {\n";
+$OUT .= "  background-color: $colorDark;\n";
+$OUT .= "  background-image: linear-gradient(to bottom, $colorLight 0%, $colorDark 100%);\n";
+$OUT .= "  border-color: $colorDark;\n";
+$OUT .= "  color: #fff;\n";
+$OUT .= "}\n";
+
+$OUT .= ".btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:focus, .btn-primary.active, .btn-primary.active:hover, btn-primary.active:focus, btn-primary.active:active, btn-primary.active:active:focus {\n";
+$OUT .= "  background-color: $colorLight;\n";
+$OUT .= "  border-color: $colorDark;\n";
+$OUT .= "  color: #fff;\n";
+$OUT .= "}\n";
+
+$OUT .= ".progress-bar-success {\n";
+$OUT .= "  background-color: $colorLight;\n";
+$OUT .= "}\n";
+
+$OUT .= "html {\n";
+$OUT .= "  background: $colorDark;\n";
+$OUT .= "}\n";
+
+$OUT .= ".login-pf {\n";
+$OUT .= "  background-color: $colorDark;\n";
+$OUT .= "  overflow-y: auto;\n";
+$OUT .= "}\n";
+
+$OUT .= ".list-view-pf-left .pficon.list-view-pf-icon-sm, .list-view-pf-left .fa.list-view-pf-icon-sm {\n";
+$OUT .= "  border: 2px solid $colorLight;\n";
+$OUT .= "}\n";
+
+$OUT .= ".card-pf-view .card-pf-top-element .card-pf-icon-circle {\n";
+$OUT .= "  border: 2px solid $colorLight;\n";
+$OUT .= "}\n";
+
+$OUT .= ".btn-link:hover {\n";
+$OUT .= "  color: $colorLight !important;\n";
+$OUT .= "}\n";
+
+$OUT .= ".bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {\n";
+$OUT .= "  background: $colorLight;\n";
+$OUT .= "}\n";
+
+$OUT .= ".bootstrap-switch.bootstrap-switch-focused {\n";
+$OUT .= "  border-color: $colorDark;\n";
+$OUT .= "  box-shadow: none;\n";
+$OUT .= "}\n";
+
+$OUT .= ".bootstrap-switch .bootstrap-switch-handle-on {\n";
+$OUT .= "  border-bottom-left-radius: 0px;\n";
+$OUT .= "  border-top-left-radius: 0px;\n";
+$OUT .= "}\n";
+
+}
