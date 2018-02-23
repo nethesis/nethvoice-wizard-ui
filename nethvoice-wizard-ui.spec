@@ -43,3 +43,8 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Fri Feb 23 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.0.0-1
+- Created nethvoice-wizard-ui RPM instead of embed it into nethserver-nethvoice14. Nethesis/dev#5341
+- Enhance language section and fix page loaders. Nethesis/dev#5340
+- Usability minor fixes. Nethesis/dev#5325
+
