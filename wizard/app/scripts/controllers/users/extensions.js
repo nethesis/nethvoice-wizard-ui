@@ -47,6 +47,12 @@ angular.module('nethvoiceWizardUiApp')
             $scope.wizard.nextState = true;
           }
           $scope.lockOnList = false;
+          // users
+          UserService.count().then(function (res) {
+            $scope.menuCount.users = res.data;
+          }, function (err) {
+            console.log(err);
+          });
         }, function (err) {
           $scope.users = {}
           $scope.view.changeRoute = false;
