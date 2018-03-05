@@ -241,6 +241,7 @@ angular.module('nethvoiceWizardUiApp')
           extension: $scope.selectedUser.default_extension
         }).then(function (res) {
           $scope.selectedUser.setWebRTCInAction = false;
+          $scope.getUserList(false);
         }, function (err) {
           console.log(err);
           $scope.selectedUser.setWebRTCInAction = false;
@@ -248,6 +249,7 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         UserService.deleteWebRTCExtension($scope.selectedUser.default_extension).then(function (res) {
           $scope.selectedUser.setWebRTCInAction = false;
+          $scope.getUserList(false);
         }, function (err) {
           console.log(err);
           $scope.selectedUser.setWebRTCInAction = false;

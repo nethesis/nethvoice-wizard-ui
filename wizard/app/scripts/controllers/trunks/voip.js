@@ -42,6 +42,12 @@ angular.module('nethvoiceWizardUiApp')
         };
         $scope.onSaveSuccess = true;
         $scope.onSaveError = false;
+        //trunks
+        TrunkService.count().then(function (res) {
+          $scope.menuCount.trunks = res.data;
+        }, function (err) {
+          console.log(err);
+        });
       }, function (err) {
         console.log(err);
         $scope.onSaveSuccess = false;

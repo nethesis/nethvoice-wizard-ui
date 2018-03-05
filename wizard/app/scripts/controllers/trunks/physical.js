@@ -237,6 +237,12 @@ angular.module('nethvoiceWizardUiApp')
         device.onError = false;
         device.onDeleteSuccess = false;
         device.onPushSuccess = false;
+        //trunks
+        TrunkService.count().then(function (res) {
+          $scope.menuCount.trunks = res.data;
+        }, function (err) {
+          console.log(err);
+        });
       }, function (err) {
         device.onSave = false;
         device.onSaveSuccess = false;
@@ -296,6 +302,12 @@ angular.module('nethvoiceWizardUiApp')
         $scope.getGatewayList(device.network_name, {
           netmask: device.netmask_green,
           ip: device.ipv4_green
+        });
+        //trunks
+        TrunkService.count().then(function (res) {
+          $scope.menuCount.trunks = res.data;
+        }, function (err) {
+          console.log(err);
         });
       }, function (err) {
         console.log(err);
