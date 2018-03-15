@@ -12,7 +12,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.users = {};
     $scope.onSave = false;
     $scope.lockOnList = false;
-
+    $scope.view.changeRoute = true;
     $scope.availableUsersFilters = ['all', 'configured', 'unconfigured'];
     $scope.selectedUsersFilter = $scope.availableUsersFilters[0];
 
@@ -34,6 +34,15 @@ angular.module('nethvoiceWizardUiApp')
       console.log(err);
     });
 
+    $scope.checkDefaultExtensions = function() {
+      $scope.wizard.nextState = false;
+      for (var u in $scope.users) {
+        if ($scope.users[u].default_extension != "none") {
+          $scope.wizard.nextState = true;
+        }
+      }
+    }
+
     $scope.getUserList = function (reload) {
       $scope.view.changeRoute = reload;
       if (!$scope.lockOnList) {
@@ -44,7 +53,7 @@ angular.module('nethvoiceWizardUiApp')
           if (UtilService.isEmpty($scope.users)) {
             $scope.wizard.nextState = false;
           } else {
-            $scope.wizard.nextState = true;
+            $scope.checkDefaultExtensions();
           }
           $scope.lockOnList = false;
           // users
@@ -92,8 +101,10 @@ angular.module('nethvoiceWizardUiApp')
         user.isInAction = false;
         if (user.temp_ext && user.temp_ext.length == 0 && user.default_extension == 'none' || user.default_extension.length == 0) {
           user.default_extension = 'none';
+          $scope.checkDefaultExtensions();
         } else {
           user.default_extension = user.default_extension !== 'none' ? user.default_extension : user.temp_ext;
+          $scope.wizard.nextState = true;
         }
       }, function (err) {
         user.isInAction = false;
