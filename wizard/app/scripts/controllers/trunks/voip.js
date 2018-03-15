@@ -63,10 +63,11 @@ angular.module('nethvoiceWizardUiApp')
         return a.codec;
       });
 
-      $scope.trunk.codecs = res.map(function (a) {
-        if (a.enabled)
-          return a.codec;
-      });
+      for (var c in res) {
+        if (res[c].enabled) {
+          $scope.trunk.codecs = [res[c].codec];
+        }
+      }
     }, function (err) {
       console.log(err);
     });
