@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.0.0
+Version: 14.0.1
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,12 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Fri Mar 16 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.0.1-1
+- Fix default selected codec in voip trunks nethesis/dev#5356
+- Block next step if there aren't extensions nethesis/dev#5356
+- Fix switch visualization nethesis/dev#5346
+- make navbar numbers dinamic nethesis/dev#5347
+
 * Fri Feb 23 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.0.0-1
 - Created nethvoice-wizard-ui RPM instead of embed it into nethserver-nethvoice14. Nethesis/dev#5341
 - Enhance language section and fix page loaders. Nethesis/dev#5340
