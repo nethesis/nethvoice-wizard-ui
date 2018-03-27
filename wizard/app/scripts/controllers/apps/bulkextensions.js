@@ -116,9 +116,6 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.initEditModal = function () {
-      $(".bootstrap-touchspin").TouchSpin({
-         max: 120
-      });
       $scope.bulkEdit = {};
       $scope.selectedUsers = [];
       $scope.temp.context = "";
@@ -138,6 +135,7 @@ angular.module('nethvoiceWizardUiApp')
         if ($scope.exts) {
           BulkService.getBulkInfo($scope.exts).then(function (res) {
             $scope.bulkEdit = res.data;
+            $scope.bulkEdit.ringtime = parseInt($scope.bulkEdit.ringtime);
             $scope.bulkEdit.context = $scope.contexts[res.data.context];
           }, function (err) {
             console.log(err);
