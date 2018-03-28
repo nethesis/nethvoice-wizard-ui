@@ -43,6 +43,8 @@
       </form>
       <div class="form-group config-row-button">
           <button ng-if="mode.isLegacy" data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg no-margin">{{'Add user' | translate}}</button>
+          <button ng-if="mode.isLegacy" ng-click="fileSelectImport()" class="btn btn-primary btn-lg no-margin">{{'Import' | translate}}</button>
+          <input ng-if="mode.isLegacy" file-reader="temp.importFile" ng-model="temp.importFile" type="file" id="importInput">
         </div>
       <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions">
         <div ng-show="selectedUsersFilter == 'configured' ? user.default_extension !== 'none' : (selectedUsersFilter == 'unconfigured' ? user.default_extension == 'none' : true)"
@@ -130,6 +132,27 @@
         <div class="modal-footer submit">
           <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
           <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="importModal" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{'Warning' | translate}}!</h4>
+      </div>
+      <form class="form-horizontal" ng-submit="importConfirm(temp.file64)">
+        <div class="modal-body">
+          <div class="alert alert-warning alert-dismissable" style="margin-bottom: 0px;">
+            <span class="pficon pficon-warning-triangle-o"></span>
+            <strong>{{'Are you sure that you want to import users from' | translate}} {{temp.csvFileName}}?</strong>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default" type="button" data-dismiss="modal">{{'Cancel' | translate}}</button>
+          <button class="btn btn-primary" type="submit">{{'Import' | translate}}</button>
         </div>
       </form>
     </div>

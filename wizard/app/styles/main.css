@@ -1342,3 +1342,7 @@ iframe body {
 .spinner-container {
   padding: 18px 0px;
 }
+
+#importInput {
+  display: none !important;
+}

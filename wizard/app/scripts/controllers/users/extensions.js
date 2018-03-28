@@ -10,6 +10,7 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('UsersExtensionsCtrl', function ($scope, $location, ConfigService, UserService, UtilService) {
     $scope.users = {};
+    $scope.temp = {};
     $scope.onSave = false;
     $scope.lockOnList = false;
     $scope.view.changeRoute = true;
@@ -111,6 +112,34 @@ angular.module('nethvoiceWizardUiApp')
         if (err.status == 422) {
           user.alreadyExists = true;
         }
+        console.log(err);
+      });
+    }
+
+    $scope.fileSelectImport = function () {
+      $('#importInput').click();
+      $('#importInput').change(function(e) {
+        if (e.target.files[0].name != undefined) {
+          $scope.temp.csvFileName = e.target.files[0].name;
+          var reader = new FileReader();
+          reader.onload = function(ev) {
+            $scope.$apply(function() {
+              $scope.temp.file64 = ev.target.result;
+              $('#importInput').val('');
+              $('#importInput').unbind();
+              console.log($scope.temp.file64);
+            });
+          };
+          reader.readAsDataURL(e.target.files[0]);
+          $('#importModal').modal('show');
+        }
+      });
+    }
+
+    $scope.importConfirm = function (f) {
+      UserService.setCsvImport({'file':f}).then(function (res) {
+        $('#importModal').modal('hide');
+      }, function (err) {
         console.log(err);
       });
     }
