@@ -30,6 +30,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.getDestinations = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/destinations').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.setBulkInfo = function (ext, obj) {
       return $q(function (resolve, reject) {
         RestService.post('/bulk/' + ext, obj).then(function (res) {
