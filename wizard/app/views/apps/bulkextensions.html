@@ -123,7 +123,13 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-name-bulk">{{'Name' | translate}}</label>
             <div class="col-sm-9">
-              <input ng-model="bulkEdit.displayname" type="text" id="textInput-name-bulk" class="form-control"></div>
+              <div class="input-group">
+                <input ng-required="bulkEdit.displayname != null && bulkEdit.displayname != ''" ng-disabled="bulkEdit.displayname == null" ng-model="bulkEdit.displayname" type="text" id="textInput-name-bulk" class="form-control">
+                <span ng-click="bulkEdit.displayname == null ? bulkEdit.displayname = '' : bulkEdit.displayname = null" class="input-group-addon btn btn-default no-box-shadow">
+                  <span class="fa {{bulkEdit.displayname == null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
+                </span>
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-contest-bulk">{{'Context' | translate}}</label>
@@ -134,6 +140,7 @@
                   <span class="caret drd-carret"></span>
                 </button>
                 <ul class="dropdown-menu drd-ul imp-full-size-max" role="menu" aria-labelledby="textInput-contest-bulk">
+                  <li><a ng-click="bulkEdit.context = null">-</a></li>
                   <li ng-repeat="c in contexts"><a ng-click="bulkEdit.context = c">{{c}}</a></li>
                 </ul>
               </div>
@@ -142,39 +149,55 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-callWaiting-bulk">{{'Call waiting' | translate}}</label>
             <div class="col-sm-9">
-              <input type="checkbox" bs-switch ng-model="bulkEdit.callwaiting" class="bootstrap-switch bootstrap-switch-permission" id="textInput-callWaiting-bulk">
-            </div>
+              <div class="dropdown inline-display imp-full-size-max">
+                <button class="btn btn-default dropdown-toggle drd-button imp-full-size-max" type="button" id="textInput-callWaiting-bulk" data-toggle="dropdown">
+                    {{bulkEdit.callwaiting === true ? 'Enabled' : bulkEdit.callwaiting === false ? 'Disabled' : '-'}}
+                  <span class="caret drd-carret"></span>
+                </button>
+                <ul class="dropdown-menu drd-ul imp-full-size-max" role="menu" aria-labelledby="textInput-callWaiting-bulk">
+                  <li><a ng-click="bulkEdit.callwaiting = null">-</a></li>
+                  <li><a ng-click="bulkEdit.callwaiting = true">{{'Enabled' | translate}}</a></li>
+                  <li><a ng-click="bulkEdit.callwaiting = false">{{'Disabled' | translate}}</a></li>
+                </ul>
+              </div></div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="bootstrap-touchspin-empty">{{'Ringing time' | translate}}</label>
             <div class="col-sm-9">
-              <input ng-model="bulkEdit.ringtime" type="number" class="form-control" id="textInput-ringingtime-bulk" min="0" max="120"></div>
+              <div class="input-group">
+                <input ng-required="bulkEdit.ringtime != null && bulkEdit.ringtime != ''" ng-disabled="bulkEdit.ringtime == null" ng-model="bulkEdit.ringtime" type="number" class="form-control" id="textInput-ringingtime-bulk" min="0" max="120">
+                <span ng-click="bulkEdit.ringtime == null ? bulkEdit.ringtime = '' : bulkEdit.ringtime = null" class="input-group-addon btn btn-default no-box-shadow">
+                  <span class="fa {{bulkEdit.ringtime == null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
+                </span>
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-callgroup-bulk">{{'Callgroup' | translate}}</label>
             <div class="col-sm-9">
-              <input ng-model="bulkEdit.callgroup" type="text" id="textInput-callgroup-bulk" class="form-control"></div>
+              <div class="input-group">
+                <input ng-disabled="bulkEdit.callgroup == null" ng-model="bulkEdit.callgroup" type="text" id="textInput-callgroup-bulk" class="form-control">
+                <span ng-click="bulkEdit.callgroup == null ? bulkEdit.callgroup = '' : bulkEdit.callgroup = null" class="input-group-addon btn btn-default no-box-shadow">
+                  <span class="fa {{bulkEdit.callgroup == null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
+                </span>
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-pickupgroup-bulk">{{'Pickupgroup' | translate}}</label>
             <div class="col-sm-9">
               <div class="input-group">
-                <input ng-model="bulkEdit.pickupgroup" type="text" id="textInput-pickupgroup-bulk" class="form-control">
-                <span class="input-group-addon btn btn-default">
-                  <span class="fa fa-lock"></span>
+                <input ng-disabled="bulkEdit.pickupgroup == null" ng-model="bulkEdit.pickupgroup" type="text" id="textInput-pickupgroup-bulk" class="form-control">
+                <span ng-click="bulkEdit.pickupgroup == null ? bulkEdit.pickupgroup = '' : bulkEdit.pickupgroup = null" class="input-group-addon btn btn-default no-box-shadow">
+                  <span class="fa {{bulkEdit.pickupgroup == null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
                 </span>
               </div>
             </div>
           </div>
-
-
           <!-- <div class="form-group">
             <button class="btn btn-default" type="button"><i class="fa fa-lock"></i></button>
-          </div> -->
-
-
-
-          <!-- <div class="form-group">
+          </div>
+          <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-directdidmodule-bulk">{{'Direct did module' | translate}}</label>
             <div class="col-sm-9">
               <input type="checkbox" bs-switch ng-model="bulkEdit.directdidmodule" class="bootstrap-switch bootstrap-switch-permission" id="textInput-directdidmodule-bulk"></div>
@@ -188,42 +211,40 @@
             <label class="col-sm-3 control-label" for="textInput-directdidvariable-bulk">{{'Direct did variable' | translate}}</label>
             <div class="col-sm-9">
               <input ng-model="bulkEdit.directdid.variable" type="text" id="textInput-directdidvariable-bulk" class="form-control"></div>
-          </div>
-        </div> -->
-
-        <div ng-repeat="(destKey, destVal) in selectDest">
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="selectInput-{{destKey}}-bulk">{{destVal.label | translate}}.</label>
-            <div class="col-sm-9">
-              <div class="dropdown inline-display imp-full-size-max">
-                <button class="btn btn-default dropdown-toggle drd-button imp-full-size-max" type="button" id="selectInput-{{destKey}}-bulk" data-toggle="dropdown">
-                  {{selectDest[destKey].key ? selectDest[destKey].key : '-'}}
-                  <span class="caret drd-carret"></span>
-                </button>
-                <ul class="dropdown-menu drd-ul imp-full-size-max" role="menu" aria-labelledby="textInput-contest-bulk">
-                  <li><a ng-click="resetDest(destKey)">-</a></li>
-                  <li ng-repeat="(k, v) in dest"><a ng-click="setDest(k, v, destKey)">{{k}}</a></li>
-                </ul>
+          </div>-->
+          <div ng-repeat="(destKey, destVal) in selectDest">
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="selectInput-{{destKey}}-bulk">{{destVal.label | translate}}.</label>
+              <div class="col-sm-9">
+                <div class="dropdown inline-display imp-full-size-max">
+                  <button class="btn btn-default dropdown-toggle drd-button imp-full-size-max" type="button" id="selectInput-{{destKey}}-bulk" data-toggle="dropdown">
+                    {{selectDest[destKey].key ? selectDest[destKey].key : '-'}}
+                    <span class="caret drd-carret"></span>
+                  </button>
+                  <ul class="dropdown-menu drd-ul imp-full-size-max" role="menu" aria-labelledby="textInput-contest-bulk">
+                    <li><a ng-click="resetDest(destKey)">-</a></li>
+                    <li ng-repeat="(k, v) in dest"><a ng-click="setDest(k, v, destKey)">{{k}}</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
-          <div ng-if="!(selectDest[destKey].value | isEmpty)" class="form-group">
-            <label class="col-sm-3 control-label" for="selectInput-{{destKey}}item-bulk"> </label>
-            <div class="col-sm-9">
-              <div class="dropdown inline-display imp-full-size-max">
-                <button class="btn btn-default dropdown-toggle drd-button imp-full-size-max" type="button" id="selectInput-{{destKey}}item-bulk" data-toggle="dropdown">
-                  {{selectDest[destKey].selected ? selectDest[destKey].selected : '-'}}
-                  <span class="caret drd-carret"></span>
-                </button>
-                <ul class="dropdown-menu drd-ul imp-full-size-max" role="menu" aria-labelledby="textInput-contest-bulk">
-                  <li><a ng-click="resetDestVal(destKey)">-</a></li>
-                  <li ng-repeat="(k, v) in selectDest[destKey].value" ng-if="k != '99999'"><a ng-click="setDestVal(k, destKey)">{{v.description}}</a></li>
-                </ul>
+            <div ng-if="!(selectDest[destKey].value | isEmpty)" class="form-group">
+              <label class="col-sm-3 control-label" for="selectInput-{{destKey}}item-bulk"> </label>
+              <div class="col-sm-9">
+                <div class="dropdown inline-display imp-full-size-max">
+                  <button class="btn btn-default dropdown-toggle drd-button imp-full-size-max" type="button" id="selectInput-{{destKey}}item-bulk" data-toggle="dropdown">
+                    {{selectDest[destKey].selected ? selectDest[destKey].selected : '-'}}
+                    <span class="caret drd-carret"></span>
+                  </button>
+                  <ul class="dropdown-menu drd-ul imp-full-size-max" role="menu" aria-labelledby="textInput-contest-bulk">
+                    <li><a ng-click="resetDestVal(destKey)">-</a></li>
+                    <li ng-repeat="(k, v) in selectDest[destKey].value" ng-if="k != '99999'"><a ng-click="setDestVal(k, destKey)">{{v.description}}</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
         <div ng-show="temp.onsave" class="spinner spinner-sm adjust-margin loader-modal"></div>
         <div class="modal-footer submit">
           <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
@@ -248,12 +269,14 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="frominterval-modal-markup">{{'From' | translate}}</label>
             <div class="col-sm-9">
-              <input ng-model="interval.from" type="number" id="frominterval-modal-markup" class="form-control" min="0"></div>
+              <input ng-model="interval.from" type="number" id="frominterval-modal-markup" class="form-control" min="0">
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="tointerval-modal-markup">{{'To' | translate}}</label>
             <div class="col-sm-9">
-              <input ng-model="interval.to" type="number" id="tointerval-modal-markup" class="form-control" min="0"></div>
+              <input ng-model="interval.to" type="number" id="tointerval-modal-markup" class="form-control" min="0">
+            </div>
           </div>
         </div>
         <div ng-show="onSave" class="spinner spinner-sm adjust-margin loader-modal"></div>

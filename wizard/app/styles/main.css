@@ -1346,3 +1346,7 @@ iframe body {
 #importInput {
   display: none !important;
 }
+
+.no-box-shadow {
+  box-shadow: none !important;
+}
