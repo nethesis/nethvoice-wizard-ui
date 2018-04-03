@@ -101,6 +101,8 @@
       </p>
       <div ng-if="mode.isLegacy" class="blank-slate-pf-main-action">
         <button data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg">{{'Create user' | translate}}</button>
+        <button ng-click="fileSelectImport()" class="btn btn-primary btn-lg no-margin">{{'Import' | translate}}</button>
+        <input ng-model="temp.importFile" type="file" accept=".csv" id="importInput">
       </div>
     </div>
   </div>
@@ -137,23 +139,37 @@
     </div>
   </div>
 </div>
+
 <div id="importModal" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">{{'Warning' | translate}}!</h4>
+        <h4 class="modal-title">{{'Import users from CSV' | translate}}</h4>
       </div>
       <form class="form-horizontal" ng-submit="importConfirm(temp.file64)">
         <div class="modal-body">
-          <div class="alert alert-warning alert-dismissable" style="margin-bottom: 0px;">
+          <div ng-if="!temp.loading" class="alert alert-warning alert-dismissable" style="margin-bottom: 0px;">
             <span class="pficon pficon-warning-triangle-o"></span>
             <strong>{{'Are you sure that you want to import users from' | translate}} {{temp.csvFileName}}?</strong>
           </div>
+          <div ng-if="temp.loading">
+            <div class="progress-description">
+              <div ng-if="temp.currentProgress < 100 && temp.currentProgress != -1" class="spinner spinner-xs spinner-inline"></div>
+              <span ng-if="temp.currentProgress == 100" class="pficon pficon-ok"></span>
+              <span ng-if="temp.currentProgress == -1" class="pficon pficon-error-circle-o"></span>
+              <span ng-if="temp.currentProgress != -1"><strong>{{'Creating' | translate}}:</strong> {{'users' | translate}}</span>
+              <span ng-if="temp.currentProgress == -1"><strong>{{'Error' | translate}}:</strong> {{'users creation failed' | translate}}</span>
+            </div>
+            <div class="progress progress-label-top-right">
+              <div class="progress-bar {{temp.currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{temp.currentProgress == -1 ? '100' : temp.currentProgress}}%;">
+                <span>{{temp.currentProgress == -1 ? '100' : temp.currentProgress}}%</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div ng-show="temp.loading" class="spinner spinner-sm adjust-margin loader-modal"></div>
         <div class="modal-footer submit">
           <button class="btn btn-default" type="button" data-dismiss="modal">{{'Cancel' | translate}}</button>
-          <button class="btn btn-primary" type="submit">{{'Import' | translate}}</button>
+          <button class="btn btn-primary" ng-disabled="temp.loading" type="submit">{{'Import' | translate}}</button>
         </div>
       </form>
     </div>

@@ -8,9 +8,13 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersExtensionsCtrl', function ($scope, $location, ConfigService, UserService, UtilService) {
+  .controller('UsersExtensionsCtrl', function ($scope, $location, $interval, ConfigService, UserService, UtilService) {
     $scope.users = {};
-    $scope.temp = {};
+    $scope.temp = {
+      errorCount: 0,
+      currentProgress: 0
+    };
+    $scope.taskPromise = null;
     $scope.onSave = false;
     $scope.lockOnList = false;
     $scope.view.changeRoute = true;
@@ -136,16 +140,52 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.importConfirm = function (f) {
-      $scope.temp.loading = true;
       UserService.setCsvImport({'file':f}).then(function (res) {
-        $scope.temp.loading = false;
-        $('#importModal').modal('hide');
-        $scope.getUserList(false);
+        $scope.temp.loading = true;
+        $scope.taskPromise = $interval(function () {
+          UtilService.taskStatus(res.data.result).then(function (res) {
+            if (res.data.progress < 100) {
+              $scope.temp.errorCount = 0;
+              $scope.temp.currentProgress = res.data.progress;
+            } else if (res.data.progress == 100) {
+              $interval.cancel($scope.taskPromise);
+              $scope.temp.errorCount = 0;
+              $scope.temp.currentProgress = 100;
+              $scope.getUserList(false);
+              setTimeout(function () {
+                $('#importModal').modal('hide');
+                $scope.temp.errorCount = 0;
+                $scope.temp.currentProgress = 0;
+                $scope.temp.loading = false;
+              },1000);
+            } else {
+              console.log(res.error);
+              if ($scope.temp.errorCount < appConfig.MAX_TRIES) {
+                $scope.temp.errorCount++;
+              } else {
+                $interval.cancel($scope.taskPromise);
+                $scope.temp.currentProgress = -1;
+              }
+            }
+          }, function (err) {
+            console.log(err);
+            if ($scope.temp.errorCount < appConfig.MAX_TRIES) {
+              $scope.temp.errorCount++;
+            } else {
+              $interval.cancel($scope.taskPromise);
+              $scope.temp.currentProgress = -1;
+            }
+          });
+        }, 5000);
       }, function (err) {
         $scope.temp.loading = false;
         console.log(err);
       });
     }
+
+    $scope.$on('$destroy', function () {
+      $interval.cancel($scope.taskPromise);
+    });
 
     $scope.getUserList(true);
   });

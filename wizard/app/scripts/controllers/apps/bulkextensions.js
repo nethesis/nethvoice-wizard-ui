@@ -153,11 +153,6 @@ angular.module('nethvoiceWizardUiApp')
             $scope.bulkEdit = res.data;
             $scope.bulkEdit.ringtime = parseInt($scope.bulkEdit.ringtime);
             $scope.bulkEdit.context = $scope.contexts[res.data.context];
-
-            // $scope.selectDest.noanswerdest.original = $scope.bulkEdit.noanswerdest;
-            // $scope.selectDest.busydest.original = $scope.bulkEdit.busydest;
-            // $scope.selectDest.notreachabledest.original = $scope.bulkEdit.notreachabledest;
-
             console.log("BULK");
             console.log($scope.bulkEdit);
 
