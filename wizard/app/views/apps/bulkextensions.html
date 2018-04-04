@@ -8,7 +8,7 @@
       </ul>
     </div>
   </div>
-  <div class="wizard-pf-contents adjust-size">
+  <div class="wizard-pf-contents adjust-size no-margin-bottom">
     <h1 class="control-label centered" for="textInput-markup">{{'Bulk extensions configuration' | translate}}</h1>
     <div ng-if="!(users | isEmpty)" class="container-fluid">
       <div>
@@ -16,7 +16,7 @@
         <!-- <select title="-" pf-select="{ width: '180px' }" ng-model="selectedUsersFilter" ng-options="uf as uf | translate for uf in availableUsersFilters" multiple>
         </select> -->
         <div class="dropdown inline-display">
-          <button class="btn btn-default dropdown-toggle drd-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
+          <button class="btn btn-default dropdown-toggle drd-button" popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Select multiple users' | translate}}" type="button" id="dropdownMenu1" data-toggle="dropdown">
             <span class="filter-option pull-left">
               -
             </span>
@@ -54,7 +54,7 @@
       </div>
       <div class="form-group config-row-button">
         </div>
-      <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions">
+      <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions margin-bottom-lg">
         <div ng-if="user.default_extension !== 'none'" class="list-group-item {{user.selected == true ? 'selected' : ''}}" ng-repeat="user in users | filter:search.string" ng-click="selectUser(user)">
           <div class="list-view-pf-actions {{user.alreadyExists ? 'has-error' : ''}}">
             <div ng-show="user.isInAction" class="spinner spinner-sm adjust-margin"></div>

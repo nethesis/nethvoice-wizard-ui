@@ -594,7 +594,7 @@ a {
 }
 
 .no-margin-bottom {
-  margin-bottom: 0px;
+  margin-bottom: 0px !important;
 }
 
 .anchor-sortable {
@@ -1348,4 +1348,8 @@ iframe body {
 
 .no-box-shadow {
   box-shadow: none !important;
+}
+
+.margin-bottom-lg {
+  margin-bottom: 85px;
 }

@@ -20,7 +20,7 @@
       </ul>
     </div>
   </div>
-  <div class="wizard-pf-contents adjust-size">
+  <div class="wizard-pf-contents adjust-size no-margin-bottom">
     <h1 class="control-label centered" for="textInput-markup">{{'Users configuration' | translate}}</h1>
     <div ng-if="!(users | isEmpty)" class="container-fluid">
       <div>
@@ -46,7 +46,7 @@
           <button ng-if="mode.isLegacy" ng-click="fileSelectImport()" class="btn btn-primary btn-lg no-margin">{{'Import' | translate}}</button>
           <input ng-if="mode.isLegacy" ng-model="temp.importFile" type="file" accept=".csv" id="importInput">
         </div>
-      <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions">
+      <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions margin-bottom-lg">
         <div ng-show="selectedUsersFilter == 'configured' ? user.default_extension !== 'none' : (selectedUsersFilter == 'unconfigured' ? user.default_extension == 'none' : true)"
           class="list-group-item" ng-repeat="user in users | filter:searchUsersString">
           <div class="list-view-pf-actions {{user.alreadyExists ? 'has-error' : ''}}">
