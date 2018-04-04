@@ -121,8 +121,15 @@ angular.module('nethvoiceWizardUiApp')
         }
         resolve($scope.bulkEdit);
       }).then(function (res) {
+        console.log('BULK SAVED');
+        console.log($scope.bulkEdit);
         BulkService.setBulkInfo($scope.exts, $scope.bulkEdit).then(function (res) {
           $scope.temp.onsave = false;
+          for (var d in $scope.selectDest) {
+            $scope.selectDest[d].key = '';
+            $scope.selectDest[d].selected = '';
+            $scope.selectDest[d].value = {};
+          }
           $('#bulkEdit').modal('hide');
         }, function (err) {
           $scope.temp.onsave = false;
@@ -135,8 +142,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.bulkEdit = {};
       $scope.selectedUsers = [];
       $scope.temp.context = "";
-      $scope.bulkEdit.callwaiting = false;
-      $scope.bulkEdit.directdidmodule = false;
+      //$scope.bulkEdit.directdidmodule = false;
       $('#bulkEdit').modal('show');
 
       $q(function (resolve) {
@@ -155,7 +161,6 @@ angular.module('nethvoiceWizardUiApp')
             $scope.bulkEdit.context = $scope.contexts[res.data.context];
             console.log("BULK");
             console.log($scope.bulkEdit);
-
           }, function (err) {
             console.log(err);
           });
@@ -164,26 +169,33 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.selectResults = function (res) {
-      var users = $filter('filter')($scope.users, res);
-      if ($scope.search.result == false) {
-        $scope.search.result = true;
-      } else {
-        $scope.search.result = false;
-      }
-      for (var u in users) {
-        if ($scope.search.result == false) {
-          users[u].selected = false;
-        } else {
-          users[u].selected = true;
+      $q(function (resolve) {
+        for (var u in $scope.users) {
+            $scope.users[u].selected = false;
         }
-      }
+        resolve($scope.users);
+      }).then(function () {
+        var users = $filter('filter')($scope.users, res);
+        if ($scope.search.result == false) {
+          $scope.search.result = true;
+        } else {
+          $scope.search.result = false;
+        }
+        for (var u in users) {
+          if ($scope.search.result == false) {
+            users[u].selected = false;
+          } else {
+            users[u].selected = true;
+          }
+        }
+      });
     }
 
     $scope.setDest = function (k, v, dk) {
       $scope.selectDest[dk].value = v;
       if (k != $scope.selectDest[dk].key) {
         $scope.selectDest[dk].selected = '';
-        $scope.bulkEdit[dk] = '';
+        $scope.bulkEdit[dk] = null;
       }
       $scope.selectDest[dk].key = k;
       console.log("SET DEST");
