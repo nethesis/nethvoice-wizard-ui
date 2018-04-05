@@ -434,5 +434,7 @@
   "Put caller on hold forever": "Metti in attesa per sempre",
   "Play SIT Tone (Zapateller)": "Riproduci tono SIT",
   "Play ringtones to caller until they hangup": "Riproduci suonerie fino a quando non chiude",
-  "Play no service message": "Riproduci messaggio di servizio assente"
+  "Play no service message": "Riproduci messaggio di servizio assente",
+  "Select search results": "Seleziona i risultati della ricerca",
+  "Deselect search results": "Deseleziona i risultati della ricerca"
 }
