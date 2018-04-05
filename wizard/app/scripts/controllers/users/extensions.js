@@ -140,9 +140,9 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.importConfirm = function (f) {
+      $scope.temp.loading = true;
+      $scope.temp.loadingCancel = true;
       UserService.setCsvImport({'file':f}).then(function (res) {
-        $scope.temp.loading = true;
-        $scope.temp.loadingCancel = true;
         $scope.taskPromise = $interval(function () {
           UserService.statusCsvImport(res.data.result).then(function (res) {
             if (res.data.result < 100) {
@@ -162,30 +162,30 @@ angular.module('nethvoiceWizardUiApp')
               },1000);
             } else {
               console.log(res.error);
-              if ($scope.temp.errorCount < appConfig.MAX_TRIES) {
-                $scope.temp.errorCount++;
-              } else {
-                $scope.temp.loadingCancel = false;
-                $interval.cancel($scope.taskPromise);
-                $scope.temp.currentProgress = -1;
-              }
-            }
-          }, function (err) {
-            console.log(err);
-            if ($scope.temp.errorCount < appConfig.MAX_TRIES) {
-              $scope.temp.errorCount++;
-            } else {
               $scope.temp.loadingCancel = false;
               $interval.cancel($scope.taskPromise);
               $scope.temp.currentProgress = -1;
             }
+          }, function (err) {
+            console.log(err);
+            $scope.temp.loadingCancel = false;
+            $interval.cancel($scope.taskPromise);
+            $scope.temp.currentProgress = -1;
           });
         }, 5000);
       }, function (err) {
-        $scope.temp.loading = false;
-        $scope.temp.loadingCancel = false;
         console.log(err);
+        $scope.temp.loadingCancel = false;
+        $interval.cancel($scope.taskPromise);
+        $scope.temp.currentProgress = -1;
       });
+    }
+
+    $scope.clearImport = function () {
+      $scope.temp.errorCount = 0;
+      $scope.temp.currentProgress = 0;
+      $scope.temp.loading = false;
+      $scope.temp.loadingCancel = false;
     }
 
     $scope.$on('$destroy', function () {
