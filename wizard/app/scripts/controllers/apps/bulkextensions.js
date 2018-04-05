@@ -121,8 +121,6 @@ angular.module('nethvoiceWizardUiApp')
         }
         resolve($scope.bulkEdit);
       }).then(function (res) {
-        console.log('BULK SAVED');
-        console.log($scope.bulkEdit);
         BulkService.setBulkInfo($scope.exts, $scope.bulkEdit).then(function (res) {
           $scope.temp.onsave = false;
           for (var d in $scope.selectDest) {
@@ -174,10 +172,6 @@ angular.module('nethvoiceWizardUiApp')
                 }
               }
             }
-            console.log('DEST');
-            console.log($scope.dest);
-            console.log("BULK");
-            console.log($scope.bulkEdit);
           }, function (err) {
             console.log(err);
           });
@@ -215,30 +209,22 @@ angular.module('nethvoiceWizardUiApp')
         $scope.bulkEdit[dk] = null;
       }
       $scope.selectDest[dk].key = k;
-      console.log("SET DEST");
-      console.log($scope.selectDest);
     }
 
     $scope.setDestVal = function (k, dk) {
       $scope.bulkEdit[dk] = $scope.selectDest[dk].value[k].destination;
       $scope.selectDest[dk].selected = $scope.selectDest[dk].value[k].description;
-      console.log("SET DEST VAL");
-      console.log($scope.selectDest);
     }
 
     $scope.resetDest = function (dk) {
       $scope.bulkEdit[dk] = null;
       $scope.selectDest[dk].value = {};
       $scope.selectDest[dk].key = '';
-      console.log("RESET DEST");
-      console.log($scope.bulkEdit);
     }
 
     $scope.resetDestVal = function (dk) {
       $scope.bulkEdit[dk] = null;
       $scope.selectDest[dk].selected = '';
-      console.log("SET DEST VAL");
-      console.log($scope.bulkEdit);
     }
 
     BulkService.getDestinations().then(function (res) {
