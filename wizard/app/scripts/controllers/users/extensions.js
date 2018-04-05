@@ -143,11 +143,11 @@ angular.module('nethvoiceWizardUiApp')
       UserService.setCsvImport({'file':f}).then(function (res) {
         $scope.temp.loading = true;
         $scope.taskPromise = $interval(function () {
-          UtilService.taskStatus(res.data.result).then(function (res) {
-            if (res.data.progress < 100) {
+          UserService.statusCsvImport(res.data.result).then(function (res) {
+            if (res.data.result < 100) {
               $scope.temp.errorCount = 0;
-              $scope.temp.currentProgress = res.data.progress;
-            } else if (res.data.progress == 100) {
+              $scope.temp.currentProgress = res.data.result;
+            } else if (res.data.result == 100) {
               $interval.cancel($scope.taskPromise);
               $scope.temp.errorCount = 0;
               $scope.temp.currentProgress = 100;
@@ -176,7 +176,7 @@ angular.module('nethvoiceWizardUiApp')
               $scope.temp.currentProgress = -1;
             }
           });
-        }, 5000);
+        }, 1000);
       }, function (err) {
         $scope.temp.loading = false;
         console.log(err);
