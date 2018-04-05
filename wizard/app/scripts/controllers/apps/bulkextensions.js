@@ -22,14 +22,14 @@ angular.module('nethvoiceWizardUiApp')
     $scope.view.changeRoute = true;
 
     $scope.selectDest = {
-      noanswerdest: {
-        label: 'No Answer dest'
-      },
       busydest: {
-        label: 'Busy dest'
+        label: 'Busy'
+      },
+      noanswerdest: {
+        label: 'No answer'
       },
       notreachabledest: {
-        label: 'Not Reachable dest'
+        label: 'Not reachable'
       }
     };
 
@@ -142,9 +142,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.bulkEdit = {};
       $scope.selectedUsers = [];
       $scope.temp.context = "";
-      //$scope.bulkEdit.directdidmodule = false;
       $('#bulkEdit').modal('show');
-
       $q(function (resolve) {
         for (var u in $scope.users) {
           if ($scope.users[u].default_extension != 'none' && $scope.users[u].selected == true && !$scope.selectedUsers.includes($scope.users[u].default_extension)) {
@@ -159,6 +157,25 @@ angular.module('nethvoiceWizardUiApp')
             $scope.bulkEdit = res.data;
             $scope.bulkEdit.ringtime = parseInt($scope.bulkEdit.ringtime);
             $scope.bulkEdit.context = $scope.contexts[res.data.context];
+            for (var d in $scope.dest) {
+              for (var i in $scope.dest[d]) {
+                if ($scope.dest[d][i].destination == $scope.bulkEdit.noanswerdest) {
+                  $scope.selectDest.noanswerdest.selected = $scope.dest[d][i].description;
+                  $scope.selectDest.noanswerdest.key = d;
+                  $scope.selectDest.noanswerdest.value = $scope.dest[d];
+                } else if ($scope.dest[d][i].destination == $scope.bulkEdit.busydest) {
+                  $scope.selectDest.busydest.selected = $scope.dest[d][i].description;
+                  $scope.selectDest.busydest.key = d;
+                  $scope.selectDest.busydest.value = $scope.dest[d];
+                } else if ($scope.dest[d][i].destination == $scope.bulkEdit.notreachabledest) {
+                  $scope.selectDest.notreachabledest.selected = $scope.dest[d][i].description;
+                  $scope.selectDest.notreachabledest.key = d;
+                  $scope.selectDest.notreachabledest.value = $scope.dest[d];
+                }
+              }
+            }
+            console.log('DEST');
+            console.log($scope.dest);
             console.log("BULK");
             console.log($scope.bulkEdit);
           }, function (err) {
@@ -199,14 +216,14 @@ angular.module('nethvoiceWizardUiApp')
       }
       $scope.selectDest[dk].key = k;
       console.log("SET DEST");
-      console.log($scope.bulkEdit);
+      console.log($scope.selectDest);
     }
 
     $scope.setDestVal = function (k, dk) {
       $scope.bulkEdit[dk] = $scope.selectDest[dk].value[k].destination;
       $scope.selectDest[dk].selected = $scope.selectDest[dk].value[k].description;
       console.log("SET DEST VAL");
-      console.log($scope.bulkEdit);
+      console.log($scope.selectDest);
     }
 
     $scope.resetDest = function (dk) {

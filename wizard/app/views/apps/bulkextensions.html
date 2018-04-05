@@ -13,8 +13,6 @@
     <div ng-if="!(users | isEmpty)" class="container-fluid">
       <div>
         <div class="filter-label-bulk">{{'Select' | translate}}:</div>
-        <!-- <select title="-" pf-select="{ width: '180px' }" ng-model="selectedUsersFilter" ng-options="uf as uf | translate for uf in availableUsersFilters" multiple>
-        </select> -->
         <div class="dropdown inline-display">
           <button class="btn btn-default dropdown-toggle drd-button" popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Select multiple users' | translate}}" type="button" id="dropdownMenu1" data-toggle="dropdown">
             <span class="filter-option pull-left">
@@ -35,7 +33,6 @@
           {{'Edit' | translate}}
         </button>
       </div>
-
       <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
         <div class="form-group has-clear">
           <div class="search-pf-input-group" id="filter-domains-details">
@@ -126,8 +123,8 @@
             <label class="col-sm-3 control-label" for="textInput-name-bulk">{{'Name' | translate}}</label>
             <div class="col-sm-9">
               <div class="input-group">
-                <input ng-required="bulkEdit.displayname !== null && bulkEdit.displayname !== ''" ng-disabled="bulkEdit.displayname === null" ng-model="bulkEdit.displayname" type="text" id="textInput-name-bulk" class="form-control">
-                <span ng-click="bulkEdit.displayname === null ? bulkEdit.displayname = '' : bulkEdit.displayname = null" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{ bulkEdit.displayname === null ? 'Change filed value' : 'Leave the field value unchanged' | translate}}" class="input-group-addon btn btn-default no-box-shadow">
+                <input required ng-disabled="bulkEdit.displayname === null" ng-model="bulkEdit.displayname" type="text" id="textInput-name-bulk" class="form-control">
+                <span ng-click="bulkEdit.displayname === null ? bulkEdit.displayname = '' : bulkEdit.displayname = null" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{ bulkEdit.displayname === null ? 'Change filed value' : 'Leave the field value unchanged' | translate}}" class="input-group-addon btn btn-default no-box-shadow">
                   <span class="fa {{bulkEdit.displayname === null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
                 </span>
               </div>
@@ -171,9 +168,9 @@
             <label class="col-sm-3 control-label" for="textInput-ringingtime-bulk">{{'Ringing time' | translate}}</label>
             <div class="col-sm-9">
               <div class="input-group">
-                <input ng-required="bulkEdit.ringtime != null && bulkEdit.ringtime != ''" ng-disabled="bulkEdit.ringtime == null" ng-model="bulkEdit.ringtime"  type="number" class="form-control" id="textInput-ringingtime-bulk" min="0" max="120">
-                <span ng-click="bulkEdit.ringtime == null ? bulkEdit.ringtime = '' : bulkEdit.ringtime = null" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.ringtime === null ? 'Change filed value' : 'Leave the field value unchanged' | translate}}" class="input-group-addon btn btn-default no-box-shadow">
-                  <span class="fa {{bulkEdit.ringtime == null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
+                <input required ng-disabled="bulkEdit.ringtime === null" ng-model="bulkEdit.ringtime" popover-placement="top-left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.ringtime === 0 ? '0 = infinite' : '' | translate}}" type="number" class="form-control" id="textInput-ringingtime-bulk" min="0" max="120">
+                <span ng-click="bulkEdit.ringtime === null ? bulkEdit.ringtime = '' : bulkEdit.ringtime = null" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.ringtime === null ? 'Change filed value' : 'Leave the field value unchanged' | translate}}" class="input-group-addon btn btn-default no-box-shadow">
+                  <span class="fa {{bulkEdit.ringtime === null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
                 </span>
               </div>
             </div>
@@ -182,9 +179,9 @@
             <label class="col-sm-3 control-label" for="textInput-callgroup-bulk">{{'Callgroup' | translate}}</label>
             <div class="col-sm-9">
               <div class="input-group">
-                <input ng-disabled="bulkEdit.callgroup == null" ng-model="bulkEdit.callgroup" type="text" id="textInput-callgroup-bulk" class="form-control">
-                <span ng-click="bulkEdit.callgroup == null ? bulkEdit.callgroup = '' : bulkEdit.callgroup = null" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.callgroup === null ? 'Change filed value' : 'Leave the field value unchanged' | translate}}" class="input-group-addon btn btn-default no-box-shadow">
-                  <span class="fa {{bulkEdit.callgroup == null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
+                <input ng-disabled="bulkEdit.callgroup === null" ng-model="bulkEdit.callgroup" type="text" id="textInput-callgroup-bulk" class="form-control">
+                <span ng-click="bulkEdit.callgroup === null ? bulkEdit.callgroup = '' : bulkEdit.callgroup = null" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.callgroup === null ? 'Change filed value' : 'Leave the field value unchanged' | translate}}" class="input-group-addon btn btn-default no-box-shadow">
+                  <span class="fa {{bulkEdit.callgroup === null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
                 </span>
               </div>
             </div>
@@ -193,9 +190,9 @@
             <label class="col-sm-3 control-label" for="textInput-pickupgroup-bulk">{{'Pickupgroup' | translate}}</label>
             <div class="col-sm-9">
               <div class="input-group">
-                <input ng-disabled="bulkEdit.pickupgroup == null" ng-model="bulkEdit.pickupgroup" type="text" id="textInput-pickupgroup-bulk" class="form-control">
-                <span ng-click="bulkEdit.pickupgroup == null ? bulkEdit.pickupgroup = '' : bulkEdit.pickupgroup = null" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.pickupgroup === null ? 'Change filed value' : 'Leave the field value unchanged' | translate}}"  class="input-group-addon btn btn-default no-box-shadow">
-                  <span class="fa {{bulkEdit.pickupgroup == null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
+                <input ng-disabled="bulkEdit.pickupgroup === null" ng-model="bulkEdit.pickupgroup" type="text" id="textInput-pickupgroup-bulk" class="form-control">
+                <span ng-click="bulkEdit.pickupgroup === null ? bulkEdit.pickupgroup = '' : bulkEdit.pickupgroup = null" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.pickupgroup === null ? 'Change filed value' : 'Leave the field value unchanged' | translate}}"  class="input-group-addon btn btn-default no-box-shadow">
+                  <span class="fa {{bulkEdit.pickupgroup === null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
                 </span>
               </div>
             </div>
@@ -220,7 +217,7 @@
           </div>-->
           <div ng-repeat="(destKey, destVal) in selectDest">
             <div class="form-group">
-              <label class="col-sm-3 control-label" for="selectInput-{{destKey}}-bulk">{{destVal.label | translate}}</label>
+              <label class="col-sm-3 control-label" for="selectInput-{{destKey}}-bulk" title="{{destVal.label}} {{'destination' | translate}}">{{destVal.label | translate}}</label>
               <div class="col-sm-9">
                 <div class="dropdown inline-display imp-full-size-max">
                   <button class="btn btn-default dropdown-toggle drd-button imp-full-size-max" popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit[destKey] === null ? 'The field value will not be changed' : '' | translate}}" type="button" id="selectInput-{{destKey}}-bulk" data-toggle="dropdown">
