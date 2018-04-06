@@ -854,12 +854,19 @@ a {
 }
 
 .filter-label-bulk {
-    display: inline-block;
-    line-height: 42px;
-    font-size: 15px;
-    margin-right: 8px;
-    font-weight: 400;
-    margin-top: 20px;
+  display: inline-block;
+  font-size: 15px;
+  margin-right: 8px;
+  font-weight: 400;
+}
+
+.label-selected-bulk {
+  font-size: 15px;
+  text-align: right;
+}
+
+.margin-top-lg {
+  margin-top: 60px;
 }
 
 .filter-label-user {

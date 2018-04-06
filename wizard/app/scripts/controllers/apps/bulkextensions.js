@@ -17,6 +17,10 @@ angular.module('nethvoiceWizardUiApp')
     $scope.exts = {};
     $scope.temp = {};
     $scope.dest = {};
+    $scope.num = {
+      tot: 0,
+      selected: 0
+    };
     $scope.bulkEdit = {}
 
     $scope.view.changeRoute = true;
@@ -47,6 +51,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.lockOnList = true;
         UserService.list(true).then(function (res) {
           $scope.users = res.data;
+          $scope.num.tot = Object.keys($scope.users).length;
           $scope.view.changeRoute = false;
         }, function (err) {
           $scope.users = {}
@@ -56,12 +61,23 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
+    $scope.countSelected = function () {
+      $scope.num.selected = 0;
+      for (var u in $scope.users) {
+        if ($scope.users[u].selected == true) {
+          $scope.num.selected++;
+        }
+      }
+    }
+
     $scope.selectUser = function (user) {
       if (user.selected != true) {
         user.selected = true;
+        $scope.num.selected++;
       } else {
         user.selected = false;
         $scope.search.result = false;
+        $scope.num.selected--;
       }
     }
 
@@ -75,11 +91,13 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.selectGroup = function (id) {
       ProfileService.allUserGroups(id).then(function (res) {
+        $scope.num.selected = 0;
         for (var g in res.data) {
           for (var u in $scope.users) {
             $scope.users[u].selected = false;
             if (res.data[g].user_id == $scope.users[u].id) {
               $scope.users[u].selected = true;
+              $scope.num.selected++;
             }
           }
         }
@@ -91,8 +109,10 @@ angular.module('nethvoiceWizardUiApp')
     $scope.selectAll = function (val) {
       for (var u in $scope.users) {
         if (val == true) {
+          $scope.num.selected = Object.keys($scope.users).length;
           $scope.users[u].selected = true;
         } else {
+          $scope.num.selected = 0;
           $scope.users[u].selected = false;
           $scope.search.result = false;
         }
@@ -101,10 +121,12 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.selectInterval = function () {
+      $scope.num.selected = 0;
       for (var u in $scope.users) {
         $scope.users[u].selected = false;
         if ($scope.users[u].default_extension >= $scope.interval.from && $scope.users[u].default_extension <= $scope.interval.to) {
           $scope.users[u].selected = true;
+          $scope.num.selected++;
         }
       }
       $('#setInterval').modal('hide');
