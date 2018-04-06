@@ -8,8 +8,13 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersExtensionsCtrl', function ($scope, $location, ConfigService, UserService, UtilService) {
+  .controller('UsersExtensionsCtrl', function ($scope, $location, $interval, ConfigService, UserService, UtilService) {
     $scope.users = {};
+    $scope.temp = {
+      errorCount: 0,
+      currentProgress: 0
+    };
+    $scope.taskPromise = null;
     $scope.onSave = false;
     $scope.lockOnList = false;
     $scope.view.changeRoute = true;
@@ -114,6 +119,79 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err);
       });
     }
+
+    $scope.fileSelectImport = function () {
+      $('#importInput').click();
+      $('#importInput').change(function(e) {
+        if (e.target.files[0].name != undefined && e.target.files[0].type == 'text/csv') {
+          $scope.temp.csvFileName = e.target.files[0].name;
+          var reader = new FileReader();
+          reader.onload = function(ev) {
+            $scope.$apply(function() {
+              $scope.temp.file64 = ev.target.result;
+              $('#importInput').val('');
+              $('#importInput').unbind();
+            });
+          };
+          reader.readAsDataURL(e.target.files[0]);
+          $('#importModal').modal('show');
+        }
+      });
+    }
+
+    $scope.importError = function () {
+      $scope.temp.loadingCancel = false;
+      $interval.cancel($scope.taskPromise);
+      $scope.getUserList(false);
+      $scope.temp.currentProgress = -1;
+    }
+
+    $scope.importConfirm = function (f) {
+      $scope.temp.loading = true;
+      $scope.temp.loadingCancel = true;
+      UserService.setCsvImport({'file':f}).then(function (res) {
+        $scope.taskPromise = $interval(function () {
+          UserService.statusCsvImport(res.data.result).then(function (res) {
+            if (res.data.result < 100) {
+              $scope.temp.errorCount = 0;
+              $scope.temp.currentProgress = res.data.result;
+            } else if (res.data.result == 100) {
+              $interval.cancel($scope.taskPromise);
+              $scope.temp.errorCount = 0;
+              $scope.temp.currentProgress = 100;
+              $scope.getUserList(false);
+              setTimeout(function () {
+                $('#importModal').modal('hide');
+                $scope.temp.errorCount = 0;
+                $scope.temp.currentProgress = 0;
+                $scope.temp.loading = false;
+                $scope.temp.loadingCancel = false;
+              },1000);
+            } else {
+              console.log(res.error);
+              $scope.importError();
+            }
+          }, function (err) {
+            console.log(err);
+            $scope.importError();
+          });
+        }, 5000);
+      }, function (err) {
+        console.log(err);
+        $scope.importError();
+      });
+    }
+
+    $scope.clearImport = function () {
+      $scope.temp.errorCount = 0;
+      $scope.temp.currentProgress = 0;
+      $scope.temp.loading = false;
+      $scope.temp.loadingCancel = false;
+    }
+
+    $scope.$on('$destroy', function () {
+      $interval.cancel($scope.taskPromise);
+    });
 
     $scope.getUserList(true);
   });

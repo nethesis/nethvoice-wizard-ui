@@ -163,6 +163,9 @@
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('streaming',2) ? 'active' : ''}}">
             <div ng-click="goTo('apps/streaming')" class="list-group-item-value menu-item-left no-opacity">{{'Video sources' | translate | ellipsis:'1200'}}</div>
           </div>
+          <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('bulkextensions',2) ? 'active' : ''}}">
+            <div ng-click="goTo('apps/bulkextensions')" class="list-group-item-value menu-item-left no-opacity">{{'Bulk extensions' | translate | ellipsis:'1200'}}</div>
+          </div>
         </div>
         <li data-toggle="collapse" data-parent="#navbar-left" href="#adminCollapse" ng-if="!wizard.isWizard || wizard.stepCount > appConfig.PART3_STEP"
           class="list-group-item collapse-menu {{resolveActiveTab('admin',1) ? 'active' : ''}}" id="admin-item-menu">
@@ -312,6 +315,8 @@
   <script src="scripts/filters/ejsrender.js"></script>
   <script src="scripts/controllers/apps/streaming.js"></script>
   <script src="scripts/controllers/admin/languages.js"></script>
+  <script src="scripts/controllers/apps/bulkextensions.js"></script>
+  <script src="scripts/services/bulkservice.js"></script>
   <!-- endbuild -->
 </body>
 

@@ -128,6 +128,11 @@ angular
         controller: 'AdminLanguagesCtrl',
         controllerAs: 'admin/languages'
       })
+      .when('/apps/bulkextensions', {
+        templateUrl: 'views/apps/bulkextensions.html',
+        controller: 'BulkextensionsCtrl',
+        controllerAs: 'bulkextensions'
+      })
       .otherwise({
         redirectTo: '/'
       });

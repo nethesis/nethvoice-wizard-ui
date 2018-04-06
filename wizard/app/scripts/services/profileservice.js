@@ -29,6 +29,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.allUserGroups = function (id) {
+      return $q(function (resolve, reject) {
+        RestService.get('/cti/users/groups/' + id).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.getProfile = function (id) {
       return $q(function (resolve, reject) {
         RestService.get('/cti/profiles/' + id).then(function (res) {
