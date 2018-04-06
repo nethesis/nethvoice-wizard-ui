@@ -61,15 +61,6 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    $scope.countSelected = function () {
-      $scope.num.selected = 0;
-      for (var u in $scope.users) {
-        if ($scope.users[u].selected == true) {
-          $scope.num.selected++;
-        }
-      }
-    }
-
     $scope.selectUser = function (user) {
       if (user.selected != true) {
         user.selected = true;

@@ -139,6 +139,13 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
+    $scope.importError = function () {
+      $scope.temp.loadingCancel = false;
+      $interval.cancel($scope.taskPromise);
+      $scope.getUserList(false);
+      $scope.temp.currentProgress = -1;
+    }
+
     $scope.importConfirm = function (f) {
       $scope.temp.loading = true;
       $scope.temp.loadingCancel = true;
@@ -162,22 +169,16 @@ angular.module('nethvoiceWizardUiApp')
               },1000);
             } else {
               console.log(res.error);
-              $scope.temp.loadingCancel = false;
-              $interval.cancel($scope.taskPromise);
-              $scope.temp.currentProgress = -1;
+              $scope.importError();
             }
           }, function (err) {
             console.log(err);
-            $scope.temp.loadingCancel = false;
-            $interval.cancel($scope.taskPromise);
-            $scope.temp.currentProgress = -1;
+            $scope.importError();
           });
         }, 5000);
       }, function (err) {
         console.log(err);
-        $scope.temp.loadingCancel = false;
-        $interval.cancel($scope.taskPromise);
-        $scope.temp.currentProgress = -1;
+        $scope.importError();
       });
     }
 
