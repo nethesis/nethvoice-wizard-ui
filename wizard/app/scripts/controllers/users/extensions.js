@@ -10,16 +10,25 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('UsersExtensionsCtrl', function ($scope, $location, $interval, ConfigService, UserService, UtilService) {
     $scope.users = {};
-    $scope.temp = {
-      errorCount: 0,
-      currentProgress: 0
-    };
     $scope.taskPromise = null;
     $scope.onSave = false;
     $scope.lockOnList = false;
     $scope.view.changeRoute = true;
     $scope.availableUsersFilters = ['all', 'configured', 'unconfigured'];
     $scope.selectedUsersFilter = $scope.availableUsersFilters[0];
+
+    $scope.error = {
+      file: {
+        status: false,
+        title: 'File format error',
+        content: 'File must be a CSV'
+      }
+    };
+
+    $scope.temp = {
+      errorCount: 0,
+      currentProgress: 0
+    };
 
     ConfigService.getConfig().then(function (res) {
       switch (res.data.result) {
@@ -123,18 +132,23 @@ angular.module('nethvoiceWizardUiApp')
     $scope.fileSelectImport = function () {
       $('#importInput').click();
       $('#importInput').change(function(e) {
-        if (e.target.files[0].name != undefined && e.target.files[0].type == 'text/csv') {
+        if (e.target.files[0].name != undefined) {
           $scope.temp.csvFileName = e.target.files[0].name;
           var reader = new FileReader();
           reader.onload = function(ev) {
             $scope.$apply(function() {
               $scope.temp.file64 = ev.target.result;
+              $scope.error.file.status = false;
               $('#importInput').val('');
               $('#importInput').unbind();
             });
           };
           reader.readAsDataURL(e.target.files[0]);
           $('#importModal').modal('show');
+        } else {
+          $scope.$apply(function() {
+            $scope.error.file.status = true;
+          });
         }
       });
     }
