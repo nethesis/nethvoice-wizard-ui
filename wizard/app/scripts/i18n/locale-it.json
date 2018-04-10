@@ -442,5 +442,10 @@
   "To": "A",
   "of": "di",
   "selected": "selezionati",
-  "Disabled fields and empty selections will not be taken into consideration": "I campi disabilitati e le select vuote non verranno presi in considerazione"
+  "Locked fields will be left untouched": "I campi bloccati non verranno modificati",
+  "Show advanced options": "Mostra opzioni avanzate",
+  "Enabled": "Abilitato",
+  "Disabled": "Disabilitato",
+  "Hide advanced options": "Nascondi opzioni avanzate",
+  "Optional destinations": "Destinazioni opzionali"
 }

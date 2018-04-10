@@ -1358,3 +1358,31 @@ iframe body {
 .margin-bottom-lg {
   margin-bottom: 85px;
 }
+
+.inline-hr {
+  display: inline-block;
+  margin-top: 0px !important;
+  margin-bottom: 3px !important;
+  width: 100%;
+  border-color: #d1d1d1 !important;
+}
+
+.form-divider-row {
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 22px;
+  margin-top: 28px;
+}
+
+.form-divider-string {
+  font-size: 13px;
+  margin: 0px 2px;
+}
+
+.cursive {
+  font-style: italic;
+}
+
+.right-padding {
+  padding-right: 21px !important;
+}
