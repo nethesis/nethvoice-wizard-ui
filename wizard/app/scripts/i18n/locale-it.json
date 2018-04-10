@@ -421,7 +421,7 @@
   "Lock field": "Blocca campo",
   "Empty field": "Svuota campo",
   "0 = infinite": "0 = infinito",
-  "This field will be left untouched ": "Questo campo non verra modificato",
+  "This field will be left untouched": "Questo campo non verra modificato",
   "Edit selected extensions": "Modifica gli interni selezionati",
   "Announcements": "Annunci",
   "Extensions": "Interni",
@@ -442,5 +442,12 @@
   "To": "A",
   "of": "di",
   "selected": "selezionati",
-  "Disabled fields and empty selections will not be taken into consideration": "I campi disabilitati e le select vuote non verranno presi in considerazione"
+  "Locked fields will be left untouched": "I campi bloccati non verranno modificati",
+  "Show advanced options": "Mostra opzioni avanzate",
+  "Enabled": "Abilitato",
+  "Disabled": "Disabilitato",
+  "Hide advanced options": "Nascondi opzioni avanzate",
+  "Optional destinations": "Destinazioni opzionali",
+  "File format error": "Formato del file errato",
+  "File must be a CSV": "Il file deve essere in formato CSV"
 }

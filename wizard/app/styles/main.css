@@ -462,6 +462,9 @@ a {
     margin-top: 8px;
     margin-bottom: 65px;
   }
+  .label-selected-bulk {
+    margin-top: 15px;
+  }
 }
 
 .list-view-pf .list-group-item {
@@ -866,16 +869,14 @@ a {
 }
 
 .margin-top-lg {
-  margin-top: 60px;
+  margin-top: 38px;
 }
 
 .filter-label-user {
   float: left;
-  line-height: 42px;
   font-size: 15px;
   margin-right: 8px;
   font-weight: 400;
-  margin-top: 20px;
 }
 
 .menu-item-left {
@@ -1360,3 +1361,32 @@ iframe body {
 .margin-bottom-lg {
   margin-bottom: 85px;
 }
+
+.inline-hr {
+  display: inline-block;
+  margin-top: 0px !important;
+  margin-bottom: 3px !important;
+  width: 100%;
+  border-color: #d1d1d1 !important;
+}
+
+.form-divider-row {
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 22px;
+  margin-top: 28px;
+}
+
+.form-divider-string {
+  font-size: 13px;
+  margin: 0px 2px;
+}
+
+.cursive {
+  font-style: italic;
+}
+
+.right-padding {
+  padding-right: 21px !important;
+}
+

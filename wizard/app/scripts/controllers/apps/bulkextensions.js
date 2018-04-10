@@ -15,7 +15,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allGroups = {};
     $scope.contexts = {};
     $scope.exts = {};
-    $scope.temp = {};
+    $scope.temp = {
+      advancedOptions: false
+    };
     $scope.dest = {};
     $scope.num = {
       tot: 0,
@@ -166,7 +168,9 @@ angular.module('nethvoiceWizardUiApp')
         if ($scope.exts) {
           BulkService.getBulkInfo($scope.exts).then(function (res) {
             $scope.bulkEdit = res.data;
-            $scope.bulkEdit.ringtime = parseInt($scope.bulkEdit.ringtime);
+            if ($scope.bulkEdit.ringtime !== null) {
+              $scope.bulkEdit.ringtime = parseInt($scope.bulkEdit.ringtime);
+            }
             $scope.bulkEdit.context = $scope.contexts[res.data.context];
             for (var d in $scope.dest) {
               for (var i in $scope.dest[d]) {
@@ -219,7 +223,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.selectDest[dk].value = v;
       if (k != $scope.selectDest[dk].key) {
         $scope.selectDest[dk].selected = '';
-        $scope.bulkEdit[dk] = null;
+        $scope.bulkEdit[dk] = '';
       }
       $scope.selectDest[dk].key = k;
     }
@@ -229,14 +233,14 @@ angular.module('nethvoiceWizardUiApp')
       $scope.selectDest[dk].selected = $scope.selectDest[dk].value[k].description;
     }
 
-    $scope.resetDest = function (dk) {
-      $scope.bulkEdit[dk] = null;
+    $scope.resetDest = function (dk, val) {
+      $scope.bulkEdit[dk] = val;
       $scope.selectDest[dk].value = {};
       $scope.selectDest[dk].key = '';
     }
 
     $scope.resetDestVal = function (dk) {
-      $scope.bulkEdit[dk] = null;
+      $scope.bulkEdit[dk] = '';
       $scope.selectDest[dk].selected = '';
     }
 

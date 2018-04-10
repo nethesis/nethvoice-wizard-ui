@@ -22,10 +22,19 @@
   </div>
   <div class="wizard-pf-contents adjust-size no-margin-bottom">
     <h1 class="control-label centered" for="textInput-markup">{{'Users configuration' | translate}}</h1>
-    <div ng-if="!(users | isEmpty)" class="container-fluid">
+    <div ng-if="!(users | isEmpty)" class="container-fluid margin-top-lg">
+
+      <div ng-if="error.file.status" class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <span class="pficon pficon-error-circle-o"></span>
+        <strong>{{error.file.title | translate}}.</strong> {{error.file.content | translate}}
+      </div>
+
       <div>
         <div class="filter-label-user">{{'Filter' | translate}}:</div>
-        <select class="adjust-filter-user" title="-" pf-select="{ width: '180px' }" ng-model="selectedUsersFilter" ng-options="uf as uf | translate for uf in availableUsersFilters">
+        <select title="-" pf-select="{ width: '180px' }" ng-model="selectedUsersFilter" ng-options="uf as uf | translate for uf in availableUsersFilters">
         </select>
       </div>
       <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
