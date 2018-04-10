@@ -12,7 +12,7 @@
     <h1 class="control-label centered" for="textInput-markup">{{'Bulk extensions configuration' | translate}}</h1>
     <div ng-if="!(users | isEmpty)" class="container-fluid">
       <div class="row margin-top-lg">
-        <div class="col-sm-9">
+        <div class="col-sm-9 no-padding">
           <div class="filter-label-bulk">{{'Select' | translate}}:</div>
           <div class="dropdown inline-display">
             <button class="btn btn-default dropdown-toggle drd-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
@@ -34,7 +34,7 @@
             {{'Edit' | translate}}
           </button>
         </div>
-        <div class="col-sm-3 label-selected-bulk">
+        <div class="col-sm-3 label-selected-bulk no-padding">
           <strong>{{num.selected}}</strong> {{'of' | translate}} <strong>{{num.tot}}</strong> {{'selected' | translate}}
         </div>
       </div>

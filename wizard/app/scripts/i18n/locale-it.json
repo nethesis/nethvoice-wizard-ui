@@ -447,5 +447,7 @@
   "Enabled": "Abilitato",
   "Disabled": "Disabilitato",
   "Hide advanced options": "Nascondi opzioni avanzate",
-  "Optional destinations": "Destinazioni opzionali"
+  "Optional destinations": "Destinazioni opzionali",
+  "File format error": "Formato del file errato",
+  "File must be a CSV": "Il file deve essere in formato CSV"
 }

@@ -462,6 +462,9 @@ a {
     margin-top: 8px;
     margin-bottom: 65px;
   }
+  .label-selected-bulk {
+    margin-top: 15px;
+  }
 }
 
 .list-view-pf .list-group-item {
@@ -1386,3 +1389,4 @@ iframe body {
 .right-padding {
   padding-right: 21px !important;
 }
+
