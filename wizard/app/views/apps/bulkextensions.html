@@ -143,7 +143,7 @@
                     <li ng-repeat="c in contexts"><a ng-click="bulkEdit.context = c">{{c}}</a></li>
                   </ul>
                 </div>
-                <span ng-click="bulkEdit.context === null ? bulkEdit.context = '' : bulkEdit.context = null" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.context === null ? 'Unlock field' : 'Lock field' | translate}}" class="input-group-addon btn btn-default">
+                <span ng-click="bulkEdit.context === null ? lock('enable', 'context') : lock('disable', 'context')" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.context === null ? 'Unlock field' : 'Lock field' | translate}}" class="input-group-addon btn btn-default">
                   <span class="fa {{bulkEdit.context === null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
                 </span>
               </div>
@@ -165,7 +165,7 @@
                     <li><a ng-click="bulkEdit.callwaiting = false">{{'Disabled' | translate}}</a></li>
                   </ul>
                 </div>
-                <span ng-click="bulkEdit.callwaiting === null ? bulkEdit.callwaiting = '' : bulkEdit.callwaiting = null" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.callwaiting === null ? 'Unlock field' : 'Lock field' | translate}}" class="input-group-addon btn btn-default">
+                <span ng-click="bulkEdit.callwaiting === null ? lock('enable', 'callwaiting') : lock('disable', 'callwaiting')" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.callwaiting === null ? 'Unlock field' : 'Lock field' | translate}}" class="input-group-addon btn btn-default">
                   <span class="fa {{bulkEdit.callwaiting === null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
                 </span>
               </div>
@@ -176,7 +176,7 @@
             <div class="col-sm-9">
               <div class="input-group">
                 <input required placeholder="{{ bulkEdit.ringtime === null ? 'This field will be left untouched ' : '' | translate}}" ng-disabled="bulkEdit.ringtime === null" ng-model="bulkEdit.ringtime" popover-placement="top-left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.ringtime === 0 ? '0 = infinite' : '' | translate}}" type="number" class="form-control" id="textInput-ringingtime-bulk" min="0" max="120">
-                <span ng-click="bulkEdit.ringtime === null ? bulkEdit.ringtime = '' : bulkEdit.ringtime = null" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.ringtime === null ? 'Unlock field' : 'Lock field' | translate}}" class="input-group-addon btn btn-default">
+                <span ng-click="bulkEdit.ringtime === null ? lock('enable', 'ringtime') : lock('disable', 'ringtime')" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.ringtime === null ? 'Unlock field' : 'Lock field' | translate}}" class="input-group-addon btn btn-default">
                   <span class="fa {{bulkEdit.ringtime === null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
                 </span>
               </div>
@@ -187,7 +187,7 @@
             <div class="col-sm-9">
               <div class="input-group">
                 <input placeholder="{{ bulkEdit.callgroup === null ? 'This field will be left untouched ' : '' | translate}}" ng-disabled="bulkEdit.callgroup === null" ng-model="bulkEdit.callgroup" type="text" id="textInput-callgroup-bulk" class="form-control">
-                <span ng-click="bulkEdit.callgroup === null ? bulkEdit.callgroup = '' : bulkEdit.callgroup = null" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.callgroup === null ? 'Unlock field' : 'Lock field' | translate}}" class="input-group-addon btn btn-default">
+                <span ng-click="bulkEdit.callgroup === null ? lock('enable', 'callgroup') : lock('disable', 'callgroup')" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.callgroup === null ? 'Unlock field' : 'Lock field' | translate}}" class="input-group-addon btn btn-default">
                   <span class="fa {{bulkEdit.callgroup === null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
                 </span>
               </div>
@@ -198,7 +198,7 @@
             <div class="col-sm-9">
               <div class="input-group">
                 <input placeholder="{{ bulkEdit.pickupgroup === null ? 'This field will be left untouched ' : '' | translate}}" ng-disabled="bulkEdit.pickupgroup === null" ng-model="bulkEdit.pickupgroup" type="text" id="textInput-pickupgroup-bulk" class="form-control">
-                <span ng-click="bulkEdit.pickupgroup === null ? bulkEdit.pickupgroup = '' : bulkEdit.pickupgroup = null" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.pickupgroup === null ? 'Unlock field' : 'Lock field' | translate}}"  class="input-group-addon btn btn-default">
+                <span ng-click="bulkEdit.pickupgroup === null ? lock('enable', 'pickupgroup') : lock('disable', 'pickupgroup')" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit.pickupgroup === null ? 'Unlock field' : 'Lock field' | translate}}"  class="input-group-addon btn btn-default">
                   <span class="fa {{bulkEdit.pickupgroup === null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
                 </span>
               </div>
@@ -253,7 +253,7 @@
                         <li ng-repeat="(k, v) in dest" ng-if="v.length > 1 || v[1] != undefined"><a ng-click="setDest(k, v, destKey)">{{k | translate}}</a></li>
                       </ul>
                     </div>
-                    <span ng-click="bulkEdit[destKey] === null ? resetDest(destKey, '') : resetDest(destKey, null)" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit[destKey] === null ? 'Unlock field' : 'Lock field' | translate}}" class="input-group-addon btn btn-default">
+                    <span ng-click="bulkEdit[destKey] === null ? lockDests('enable', destKey) : lockDests('disable', destKey)" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{bulkEdit[destKey] === null ? 'Unlock field' : 'Lock field' | translate}}" class="input-group-addon btn btn-default">
                       <span class="fa {{bulkEdit[destKey] === null ? 'fa-lock' : 'fa-unlock-alt'}}"></span>
                     </span>
                   </div>

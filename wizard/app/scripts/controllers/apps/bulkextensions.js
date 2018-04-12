@@ -14,6 +14,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.interval = {};
     $scope.allGroups = {};
     $scope.contexts = {};
+    $scope.bulkData = {};
     $scope.exts = {};
     $scope.temp = {
       advancedOptions: false
@@ -139,7 +140,6 @@ angular.module('nethvoiceWizardUiApp')
         }
         resolve($scope.bulkEdit);
       }).then(function (res) {
-        console.log($scope.bulkEdit);
         BulkService.setBulkInfo($scope.exts, $scope.bulkEdit).then(function (res) {
           $scope.temp.onsave = false;
           for (var d in $scope.selectDest) {
@@ -172,6 +172,7 @@ angular.module('nethvoiceWizardUiApp')
         if ($scope.exts) {
           BulkService.getBulkInfo($scope.exts).then(function (res) {
             $scope.bulkEdit = res.data;
+            $scope.bulkData = angular.copy(res.data);
             if ($scope.bulkEdit.ringtime !== null) {
               $scope.bulkEdit.ringtime = parseInt($scope.bulkEdit.ringtime);
             }
@@ -221,6 +222,47 @@ angular.module('nethvoiceWizardUiApp')
           }
         }
       });
+    }
+
+    $scope.selectDests = function (key) {
+      for (var d in $scope.dest) {
+        for (var i in $scope.dest[d]) {
+          if ($scope.dest[d][i].destination == $scope.bulkData[key]) {
+            $scope.selectDest[key].selected = $scope.dest[d][i].description;
+            $scope.selectDest[key].key = d;
+            $scope.selectDest[key].value = $scope.dest[d];
+          }
+        }
+      }
+    }
+
+    $scope.lock = function (action, key) {
+      if (action == 'disable') {
+        $scope.bulkData[key] = $scope.bulkEdit[key];
+        $scope.bulkEdit[key] = null;
+      } else if (action == 'enable' && ($scope.bulkData[key] != null)) {
+        $scope.bulkEdit[key] = $scope.bulkData[key];
+      } else {
+        if (key == "callwaiting") {
+          $scope.bulkEdit.callwaiting = true;
+        } else if (key == "context") {
+          $scope.bulkEdit.context = 'Standard';
+        } else {
+          $scope.bulkEdit[key] = '';
+        }
+      }
+    }
+
+    $scope.lockDests = function (action, key) {
+      if (action == 'disable') {
+        $scope.bulkData[key] = $scope.bulkEdit[key];
+        $scope.bulkEdit[key] = null;
+        $scope.selectDest[key].value = {};
+        $scope.selectDest[key].key = '';
+      } else if (action == 'enable') {
+        $scope.bulkEdit[key] = $scope.bulkData[key];
+        $scope.selectDests(key);
+      }
     }
 
     $scope.setDest = function (k, v, dk) {
