@@ -83,14 +83,17 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.selectGroup = function (id) {
+      var usersId = [];
       ProfileService.allUserGroups(id).then(function (res) {
         $scope.num.selected = 0;
         for (var g in res.data) {
           for (var u in $scope.users) {
-            $scope.users[u].selected = false;
             if (res.data[g].user_id == $scope.users[u].id) {
+              usersId.push($scope.users[u].id);
               $scope.users[u].selected = true;
               $scope.num.selected++;
+            } else if (!usersId.includes($scope.users[u].id)) {
+              $scope.users[u].selected = false;
             }
           }
         }
