@@ -30,7 +30,7 @@
               <li><a ng-click="selectAll(false)">{{'None' | translate}}</a></li>
             </ul>
           </div>
-          <button ng-click="initEditModal()" class="btn btn-default inline-display">
+          <button ng-disabled="num.selected < 1" ng-click="initEditModal()" class="btn btn-default inline-display">
             {{'Edit' | translate}}
           </button>
         </div>
@@ -113,7 +113,7 @@
   <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>
 </div>
 
-<div class="modal fade" id="bulkEdit" tabindex="-1" role="dialog" aria-labelledby="bulkEditLabel" aria-hidden="true">
+<div class="modal fade" id="bulkEdit" tabindex="-1" role="dialog" aria-labelledby="bulkEditLabel" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -183,7 +183,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput-callgroup-bulk">{{'Callgroup' | translate}}</label>
+            <label class="col-sm-3 control-label" for="textInput-callgroup-bulk">{{'Call Groups' | translate}}</label>
             <div class="col-sm-9">
               <div class="input-group">
                 <input placeholder="{{ bulkEdit.callgroup === null ? 'This field will be left untouched ' : '' | translate}}" ng-disabled="bulkEdit.callgroup === null" ng-model="bulkEdit.callgroup" type="text" id="textInput-callgroup-bulk" class="form-control">
@@ -194,7 +194,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput-pickupgroup-bulk">{{'Pickupgroup' | translate}}</label>
+            <label class="col-sm-3 control-label" for="textInput-pickupgroup-bulk">{{'Pickup Groups' | translate}}</label>
             <div class="col-sm-9">
               <div class="input-group">
                 <input placeholder="{{ bulkEdit.pickupgroup === null ? 'This field will be left untouched ' : '' | translate}}" ng-disabled="bulkEdit.pickupgroup === null" ng-model="bulkEdit.pickupgroup" type="text" id="textInput-pickupgroup-bulk" class="form-control">
@@ -244,12 +244,12 @@
                     <div class="dropdown inline-display imp-full-size-max">
                       <button ng-disabled="bulkEdit[destKey] === null" class="btn btn-default dropdown-toggle drd-button imp-full-size-max" type="button" id="selectInput-{{destKey}}-bulk" data-toggle="dropdown">
                         <span class="filter-option pull-left {{bulkEdit[destKey] === null ? 'cursive' : ''}}">
-                          {{selectDest[destKey].key ? selectDest[destKey].key : bulkEdit[destKey] === null ? 'This field will be left untouched' : 'Unavail Voicemail if Enabled' | translate}}
+                          {{bulkEdit[destKey] === null ? 'This field will be left untouched' : selectDest[destKey].key ? selectDest[destKey].key : 'Unavail Voicemail if Enabled' | translate}}
                         </span>
                         <span class="caret drd-carret"></span>
                       </button>
                       <ul class="dropdown-menu drd-ul imp-full-size-max" role="menu" aria-labelledby="textInput-contest-bulk">
-                        <li><a ng-click="resetDest(destKey)">{{"Unavail Voicemail if Enabled" | translate}}</a></li>
+                        <li><a ng-click="resetDest(destKey, '')">{{"Unavail Voicemail if Enabled" | translate}}</a></li>
                         <li ng-repeat="(k, v) in dest" ng-if="v.length > 1 || v[1] != undefined"><a ng-click="setDest(k, v, destKey)">{{k | translate}}</a></li>
                       </ul>
                     </div>
@@ -259,7 +259,7 @@
                   </div>
                 </div>
               </div>
-              <div ng-if="!(selectDest[destKey].value | isEmpty)" class="form-group">
+              <div ng-if="!(selectDest[destKey].value | isEmpty) && bulkEdit[destKey] != null" class="form-group">
                 <label class="col-sm-3 control-label" for="selectInput-{{destKey}}item-bulk"> </label>
                 <div class="col-sm-9">
                   <div class="dropdown inline-display imp-full-size-max right-padding">
@@ -280,7 +280,7 @@
         </div>
         <div ng-show="temp.onsave" class="spinner spinner-sm adjust-margin loader-modal"></div>
         <div class="modal-footer submit">
-          <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+          <button type="button" class="btn btn-default" ng-click="closeEditModal()">{{'Cancel' | translate}}</button>
           <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
         </div>
       </form>
