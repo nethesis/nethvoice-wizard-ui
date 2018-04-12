@@ -140,7 +140,6 @@
                     <span class="caret drd-carret"></span>
                   </button>
                   <ul class="dropdown-menu drd-ul imp-full-size-max" role="menu" aria-labelledby="textInput-contest-bulk">
-                    <li><a ng-click="bulkEdit.context = ''" popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Empty field' | translate}}">-</a></li>
                     <li ng-repeat="c in contexts"><a ng-click="bulkEdit.context = c">{{c}}</a></li>
                   </ul>
                 </div>
@@ -245,12 +244,12 @@
                     <div class="dropdown inline-display imp-full-size-max">
                       <button ng-disabled="bulkEdit[destKey] === null" class="btn btn-default dropdown-toggle drd-button imp-full-size-max" type="button" id="selectInput-{{destKey}}-bulk" data-toggle="dropdown">
                         <span class="filter-option pull-left {{bulkEdit[destKey] === null ? 'cursive' : ''}}">
-                          {{selectDest[destKey].key ? selectDest[destKey].key : bulkEdit[destKey] === null ? 'This field will be left untouched' : '-' | translate}}
+                          {{selectDest[destKey].key ? selectDest[destKey].key : bulkEdit[destKey] === null ? 'This field will be left untouched' : 'Unavail Voicemail if Enabled' | translate}}
                         </span>
                         <span class="caret drd-carret"></span>
                       </button>
                       <ul class="dropdown-menu drd-ul imp-full-size-max" role="menu" aria-labelledby="textInput-contest-bulk">
-                        <li><a ng-click="resetDest(destKey)" popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Empty field' | translate}}">-</a></li>
+                        <li><a ng-click="resetDest(destKey)">{{"Unavail Voicemail if Enabled" | translate}}</a></li>
                         <li ng-repeat="(k, v) in dest" ng-if="v.length > 1 || v[1] != undefined"><a ng-click="setDest(k, v, destKey)">{{k | translate}}</a></li>
                       </ul>
                     </div>
@@ -266,12 +265,11 @@
                   <div class="dropdown inline-display imp-full-size-max right-padding">
                     <button class="btn btn-default dropdown-toggle drd-button imp-full-size-max"  type="button" id="selectInput-{{destKey}}item-bulk" data-toggle="dropdown">
                       <span class="filter-option pull-left">
-                        {{selectDest[destKey].selected ? selectDest[destKey].selected : '-' | translate}}
+                        {{selectDest[destKey].selected ? selectDest[destKey].selected : selectDest[destKey].value[0].description | translate}}
                       </span>
                       <span class="caret drd-carret"></span>
                     </button>
                     <ul class="dropdown-menu drd-ul imp-full-size-max" role="menu" aria-labelledby="textInput-contest-bulk">
-                      <li><a ng-click="resetDestVal(destKey)" popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Empty field' | translate}}">-</a></li>
                       <li ng-repeat="(k, v) in selectDest[destKey].value" ng-if="k != '99999'"><a ng-click="setDestVal(k, destKey)">{{v.description | translate}}</a></li>
                     </ul>
                   </div>

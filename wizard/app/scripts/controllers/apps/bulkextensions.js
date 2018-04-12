@@ -136,6 +136,7 @@ angular.module('nethvoiceWizardUiApp')
         }
         resolve($scope.bulkEdit);
       }).then(function (res) {
+        console.log($scope.bulkEdit);
         BulkService.setBulkInfo($scope.exts, $scope.bulkEdit).then(function (res) {
           $scope.temp.onsave = false;
           for (var d in $scope.selectDest) {
@@ -237,11 +238,6 @@ angular.module('nethvoiceWizardUiApp')
       $scope.bulkEdit[dk] = val;
       $scope.selectDest[dk].value = {};
       $scope.selectDest[dk].key = '';
-    }
-
-    $scope.resetDestVal = function (dk) {
-      $scope.bulkEdit[dk] = '';
-      $scope.selectDest[dk].selected = '';
     }
 
     BulkService.getDestinations().then(function (res) {
