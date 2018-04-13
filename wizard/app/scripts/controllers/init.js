@@ -62,13 +62,13 @@ angular.module('nethvoiceWizardUiApp')
         if ($('#navbar-left').hasClass('show-mobile-nav')) {
           $('#wizard-step-footer').css('margin-left', '0px');
         } else {
-          $('#wizard-step-footer').css('margin-left', '185px');
+          $('#wizard-step-footer').css('margin-left', '200px');
         }
       } else {
         if (!$('#navbar-left').hasClass('collapsed')) {
           $('#wizard-step-footer').css('margin-left', '76px');
         } else {
-          $('#wizard-step-footer').css('margin-left', '185px');
+          $('#wizard-step-footer').css('margin-left', '200px');
         }
       }
     };

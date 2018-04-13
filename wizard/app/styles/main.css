@@ -47,7 +47,7 @@ a {
 }
 
 .layout-pf-alt-fixed .nav-pf-vertical-alt {
-  width: 185px;
+  width: 200px;
   background: #282828;
   border-right: 0;
   z-index: 999;
@@ -55,8 +55,8 @@ a {
 
 .nav-pf-vertical-alt .list-group-item {
   background: #282828;
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
+  border-top: 1px solid #030303;
+  border-bottom: 1px solid #030303;
 }
 
 .nav-pf-vertical-alt .list-group-item a {
@@ -73,8 +73,8 @@ a {
 
 .nav-pf-vertical-alt .list-group-item.active {
   background: #404040;
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
+  border-top: 1px solid #030303;
+  border-bottom: 1px solid #030303;
   margin-top: -1px;
 }
 
@@ -95,7 +95,7 @@ a {
 }
 
 .layout-pf-alt.layout-pf-alt-fixed .container-pf-alt-nav-pf-vertical-alt {
-  margin-left: 185px;
+  margin-left: 200px;
 }
 
 .layout-pf-alt.layout-pf-alt-fixed.layout-pf-alt-fixed-inner-scroll .container-pf-alt-nav-pf-vertical-alt.container-cards-pf {
@@ -355,7 +355,7 @@ a {
 
 @media screen and (min-width: 1200px) {
   .wizard-pf-footer {
-    margin-left: 185px;
+    margin-left: 200px;
     padding-left: 12px;
   }
   .right-button {
@@ -772,11 +772,11 @@ a {
 }
 
 .adjust-panel-body:first-child {
-  border-top: 2px solid #000 !important;
+  border-top: 2px solid #030303 !important;
 }
 
 .adjust-panel-body:last-child {
-  border-bottom: 1px solid #000 !important;
+  border-bottom: 1px solid #030303 !important;
 }
 
 .adjust-panel-body {
@@ -786,7 +786,7 @@ a {
   padding-left: 0px;
   padding-right: 0px;
   font-size: 14px;
-  border-top: 1px solid #000 !important;
+  border-top: 1px solid #030303 !important;
 }
 
 .adjust-weight {
@@ -1390,3 +1390,21 @@ iframe body {
   padding-right: 21px !important;
 }
 
+#badge img {
+  height: 48px;
+}
+
+#brand {
+  margin-top: 8px;
+  margin-bottom: 15px;
+  margin-left: 0px;
+  font-size: 22px !important;
+}
+
+.navbar-pf-alt {
+  background: #171717;
+}
+
+.col-brand {
+  height: 20px;
+}
