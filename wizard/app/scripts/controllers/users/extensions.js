@@ -166,7 +166,7 @@ angular.module('nethvoiceWizardUiApp')
       UserService.setCsvImport({'file':f}).then(function (res) {
         $scope.taskPromise = $interval(function () {
           UserService.statusCsvImport(res.data.result).then(function (res) {
-            if (res.data.result < 100) {
+            if (res.data.result < 100 && res.data.result != null) {
               $scope.temp.errorCount = 0;
               $scope.temp.currentProgress = res.data.result;
             } else if (res.data.result == 100) {
