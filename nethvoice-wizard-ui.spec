@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.0.1
+Version: 14.1.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,10 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Mon Apr 16 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.1.0-1
+- Add wizard page for bulk operations nethesis/dev#5365
+- Wizard add import from csv file nethesis/dev#5371
+
 * Fri Mar 16 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.0.1-1
 - Fix default selected codec in voip trunks nethesis/dev#5356
 - Block next step if there aren't extensions nethesis/dev#5356
