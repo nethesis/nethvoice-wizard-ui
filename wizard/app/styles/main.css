@@ -1401,6 +1401,12 @@ iframe body {
   font-size: 22px !important;
 }
 
+.dashboard-title {
+  margin-bottom: 15px;
+  margin-left: 5px;
+  font-size: 22px !important;
+}
+
 .navbar-pf-alt {
   background: #171717;
 }
