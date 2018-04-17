@@ -465,6 +465,9 @@ a {
   .label-selected-bulk {
     margin-top: 15px;
   }
+  #badge img {
+    height: 35px !important;
+  }
 }
 
 .list-view-pf .list-group-item {
