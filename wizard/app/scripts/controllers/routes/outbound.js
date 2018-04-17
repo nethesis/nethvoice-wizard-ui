@@ -13,7 +13,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.routes = [];
     $scope.allTrunks = [];
     $scope.filteredTrunks = [];
-    $scope.selectedRouteLang = LocalStorageService.get('preferredLanguage') || 'en';
     $scope.onSaveSuccess = false;
     $scope.onSaveError = false;
     $scope.onSave = false;
@@ -120,11 +119,13 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     TrunkService.getAllTrunks().then(function (res) {
+      var userLang = navigator.language || navigator.userLanguage;
+      userLang = userLang.replace('-', '_').split('_')[0];
+      $scope.selectedRouteLang = LocalStorageService.get('preferredLanguage') || userLang || 'en';
       $scope.allTrunks = res.data;
       $scope.getOutbounds(true);
     }, function (err) {
       console.log(err);
     });
-
 
   });
