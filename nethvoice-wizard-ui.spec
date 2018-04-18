@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.1.0
+Version: 14.1.1
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,12 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Wed Apr 18 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.1.1-1
+- Set outbound routes as browser language if not selected nethesis/dev#5381
+- Change dashboard titles style nethesis/dev#5380
+- Fix mobile nethvoice logo height nethesis/dev#5380
+- Update css nethesis/dev#5380
+
 * Mon Apr 16 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.1.0-1
 - Add wizard page for bulk operations nethesis/dev#5365
 - Wizard add import from csv file nethesis/dev#5371
