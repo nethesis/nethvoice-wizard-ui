@@ -49,6 +49,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.getCsv = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/csv/csvexport').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    }
+
     this.setCsvImport = function (obj) {
       return $q(function (resolve, reject) {
         RestService.post('/csv/csvimport', obj).then(function (res) {
