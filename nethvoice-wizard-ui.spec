@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.1.1
+Version: 14.1.2
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,11 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Wed May 16 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.1.2-1
+- Remove unused "remote sites" permission nethesis/dev#5397
+- Adjust extensions configuration filter layout
+- Fix users configuration content layout
+
 * Wed Apr 18 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.1.1-1
 - Set outbound routes as browser language if not selected nethesis/dev#5381
 - Change dashboard titles style nethesis/dev#5380
