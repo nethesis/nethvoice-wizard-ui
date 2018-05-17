@@ -1365,6 +1365,10 @@ iframe body {
   margin-bottom: 85px;
 }
 
+#digitsWarning {
+  padding: 0px 21px 0px 10px !important;
+}
+
 .inline-hr {
   display: inline-block;
   margin-top: 0px !important;
@@ -1378,6 +1382,10 @@ iframe body {
   white-space: nowrap;
   margin-bottom: 22px;
   margin-top: 28px;
+}
+
+.form-divider-row .fa {
+  margin-left: 6px !important;
 }
 
 .form-divider-string {
