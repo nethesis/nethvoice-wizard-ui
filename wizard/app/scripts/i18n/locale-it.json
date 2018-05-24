@@ -450,5 +450,6 @@
   "Optional destinations": "Destinazioni opzionali",
   "File format error": "Formato del file errato",
   "File must be a CSV": "Il file deve essere in formato CSV",
+  "Export": "Esporta",
   "Unavail Voicemail if Enabled": "Voicemail Non Disponibile se Abilitata"
 }

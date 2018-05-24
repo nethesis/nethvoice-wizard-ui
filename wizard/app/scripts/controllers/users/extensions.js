@@ -129,6 +129,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
+    $scope.csvExport = function () {
+      UserService.getCsv().then(function (res) {
+        var dlnk = document.getElementById('dlLink');
+        dlnk.href = 'data:application/octet-stream;base64,' + res.data;
+        dlnk.click();
+      }, function (err) {
+        console.log(err);
+      });
+    }
+
     $scope.fileSelectImport = function () {
       $('#importInput').click();
       $('#importInput').change(function(e) {

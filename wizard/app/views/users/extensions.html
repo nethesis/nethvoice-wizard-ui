@@ -52,8 +52,10 @@
       </form>
       <div class="form-group config-row-button">
           <button ng-if="mode.isLegacy" data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg no-margin">{{'Add user' | translate}}</button>
-          <button ng-if="mode.isLegacy" ng-click="fileSelectImport()" class="btn btn-primary btn-lg no-margin">{{'Import' | translate}}</button>
-          <input ng-if="mode.isLegacy" ng-model="temp.importFile" type="file" accept=".csv" id="importInput">
+          <button ng-click="fileSelectImport()" class="btn btn-primary btn-lg no-margin">{{'Import' | translate}}</button>
+          <button ng-click="csvExport()" class="btn btn-primary btn-lg no-margin">{{'Export' | translate}}</button>
+          <input ng-model="temp.importFile" type="file" accept=".csv" id="importInput">
+          <a id="dlLink" download="users.csv" href="" class="hidden"></a>
         </div>
       <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions margin-bottom-lg">
         <div ng-show="selectedUsersFilter == 'configured' ? user.default_extension !== 'none' : (selectedUsersFilter == 'unconfigured' ? user.default_extension == 'none' : true)"
