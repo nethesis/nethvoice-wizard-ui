@@ -1409,3 +1409,41 @@ iframe body {
 .col-brand {
   height: 20px;
 }
+
+.paramurl-descr-label {
+  text-align: left !important;
+}
+
+.paramurl-input {
+  max-width: 390px;
+}
+
+.paramurl-input-span {
+  width: 80%;
+  margin-right: 10px;
+}
+
+.paramurl-url-label {
+  width: 85%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  line-height: 21px;
+}
+
+.vmiddle {
+  vertical-align: middle;
+}
+
+.paramurl-warning {
+  margin-bottom: 0px !important;
+}
+
+.paramurl-input-readonly {
+  width: 93%;
+}
+
+.paramurl-input-span .popover.top {
+  min-width: 50px !important;
+}

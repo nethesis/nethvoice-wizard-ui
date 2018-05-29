@@ -39,6 +39,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.getParamUrls = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/cti/paramurls').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.allTemplates = function () {
       return $q(function (resolve, reject) {
         RestService.get('/cti/customer_card/template').then(function (res) {
@@ -132,6 +142,36 @@ angular.module('nethvoiceWizardUiApp')
     this.createVideoSource = function (obj) {
       return $q(function (resolve, reject) {
         RestService.post('/cti/streaming', obj).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.createParamUrl = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.post('/cti/paramurl', obj).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.updateParamUrl = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.put('/cti/paramurl/' + obj.id, obj).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.deleteParamUrl = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.post('/cti/paramurl/delete', obj).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);

@@ -451,5 +451,19 @@
   "File format error": "Formato del file errato",
   "File must be a CSV": "Il file deve essere in formato CSV",
   "Export": "Esporta",
-  "Unavail Voicemail if Enabled": "Voicemail Non Disponibile se Abilitata"
+  "Unavail Voicemail if Enabled": "Voicemail Non Disponibile se Abilitata",
+  "Parameterized URLs": "URL parametrizzati",
+  "Parameterized URL": "URL parametrizzato",
+  "No URL found": "Nessun URL trovato",
+  "Create new parameterized URL": "Crea un nuovo URL parametrizzato",
+  "URL saved": "URL salvato",
+  "URL saved with success": "URL salvato correttamente",
+  "URL not saved": "URL non salvato",
+  "URL saving error": "Errore nel salvataggio dell'URL",
+  "New parameterized URL": "Nuovo URL parametrizzato",
+  "URL can contains three parameters identifying the caller": "L'URL può contenere tre parametri che identificano il chiamante",
+  "No profile available": "Nessun profilo disponibile",
+  "To have one, free it from an existing URL": "Per averne uno, disassociarlo da un URL esistente",
+  "Copy URL": "Copia URL",
+  "Copied": "Copiato"
 }
