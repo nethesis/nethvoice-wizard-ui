@@ -137,14 +137,14 @@
             <div class="col-sm-9">
               <select multiple required title="-" pf-select="{ width: '180px' }" ng-model="newUrl.profiles">
                 <option ng-repeat="p in tdata.allProfiles" value="{{p.id}}"
-                  ng-disabled="(tdata.busyProfiles.indexOf(p.id) !== -1 && newUrl.profiles.length === 0) ||
-                    (tdata.busyProfiles.indexOf(p.id) !== -1 && newUrl.profiles.indexOf(p.id) === -1)">
+                  ng-disabled="(tdata.busyProfiles.indexOf(p.id) !== -1 && allUrlProfiles[newUrl.id].profiles.indexOf(p.id) === -1) ||
+                    (tdata.busyProfiles.indexOf(p.id) !== -1 && newUrl.id === undefined)">
                   {{p.name}}
                 </option>
               </select>
             </div>
           </div>
-          <div class="form-group" ng-if="newUrl.onMod === false && tdata.busyProfiles.length === tdata.allProfiles.length">
+          <div class="form-group" ng-if="!newUrl.onMod && tdata.busyProfiles.length === tdata.allProfiles.length">
             <label class="col-sm-3 control-label" for="textInput-modal-markup"></label>
             <label class="col-sm-8 control-label paramurl-descr-label" for="textInput-modal-markup">
               <div class="col-sm-12 alert alert-warning paramurl-warning paramurl-descr-label">

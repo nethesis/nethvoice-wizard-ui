@@ -65,7 +65,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.deleteUrl = function (s) {
       s.onSave = true;
-      ApplicationService.deleteParamUrl({ url: s.url, profiles: s.profiles.split(',') }).then(function (res) {
+      ApplicationService.deleteParamUrl({ url: s.url, profiles: s.profiles }).then(function (res) {
         s.onSave = false;
         $scope.cancelParamurl();
         $scope.getParamUrls();
@@ -84,17 +84,19 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.modifyUrl = function (s) {
       s.onMod = true;
-      $scope.newUrl = s;
-      $scope.newUrl.profiles = s.profiles.split(',');
+      $scope.newUrl = angular.copy(s);
     };
 
     $scope.getParamUrls = function () {
       ApplicationService.getParamUrls().then(function (res) {
         $scope.allUrls = res.data;
+        $scope.allUrlProfiles = {}
         $scope.view.changeRoute = false;
         $scope.tdata.busyProfiles = [];
         for (var i = 0; i < $scope.allUrls.length; i++) {
           $scope.tdata.busyProfiles = $scope.tdata.busyProfiles.concat($scope.allUrls[i].profiles.split(','));
+          $scope.allUrlProfiles[$scope.allUrls[i].id] = $scope.allUrls[i];
+          $scope.allUrlProfiles[$scope.allUrls[i].id].profiles = $scope.allUrlProfiles[$scope.allUrls[i].id].profiles.split(',');
         }
         $scope.tdata.dataLoaded = true;
         if(!$scope.$$phase) {
@@ -117,6 +119,10 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.openModal = function() {
+      $scope.newUrl = {
+        url: '',
+        profiles: []
+      };
       $scope.getAllProfiles();
       $scope.getParamUrls();
     };
