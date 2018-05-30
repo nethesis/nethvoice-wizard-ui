@@ -52,13 +52,21 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.delete = function(endpoint) {
+    this.delete = function(endpoint, data) {
       return $q(function(resolve, reject) {
-        $http.delete(customConfig.BASE_API_URL + endpoint).then(function successCallback(response) {
-          resolve(response);
-        }, function errorCallback(response) {
-          reject(response);
-        });
+        if (data) {
+          $http.delete(customConfig.BASE_API_URL + endpoint, { data: data }).then(function successCallback(response) {
+            resolve(response);
+          }, function errorCallback(response) {
+            reject(response);
+          });
+        } else {
+          $http.delete(customConfig.BASE_API_URL + endpoint).then(function successCallback(response) {
+            resolve(response);
+          }, function errorCallback(response) {
+            reject(response);
+          });
+        }
       });
     };
   });

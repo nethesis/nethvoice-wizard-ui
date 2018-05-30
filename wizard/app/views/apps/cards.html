@@ -261,27 +261,27 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database name' | translate}}</label>
             <div class="col-sm-9">
-              <input required ng-model="newSource.name" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+              <input required ng-model="newSource.name" type="text" class="form-control profile-new-name"></div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database address' | translate}}</label>
             <div class="col-sm-9">
-              <input required ng-model="newSource.host" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+              <input required ng-model="newSource.host" type="text" class="form-control profile-new-name"></div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database port' | translate}}</label>
             <div class="col-sm-9">
-              <input required ng-model="newSource.port" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+              <input required ng-model="newSource.port" type="text" class="form-control profile-new-name"></div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database user' | translate}}</label>
             <div class="col-sm-9">
-              <input required ng-model="newSource.user" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+              <input required ng-model="newSource.user" type="text" class="form-control profile-new-name"></div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database password' | translate}}</label>
             <div class="col-sm-9">
-              <input required ng-model="newSource.pass" type="{{newSource.showPass ? 'text' : 'password'}}" id="textInput-modal-markup"
+              <input required ng-model="newSource.pass" type="{{newSource.showPass ? 'text' : 'password'}}"
                 class="form-control profile-new-name">
               <a ng-click="togglePass(newSource)">{{newSource.showPass ? 'Hide' : 'Show' | translate}}</a>
             </div>
@@ -321,7 +321,7 @@
           <div ng-if="newTemplate.custom" class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
             <div class="col-sm-9">
-              <input ng-disabled="newTemplate.onMod" required ng-model="newTemplate.name" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+              <input ng-disabled="newTemplate.onMod" required ng-model="newTemplate.name" type="text" class="form-control profile-new-name"></div>
           </div>
           <div ng-if="newTemplate.custom" class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Real name' | translate}}</label>
@@ -396,7 +396,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
             <div class="col-sm-9">
-              <input required ng-model="newCard.name" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+              <input required ng-model="newCard.name" type="text" class="form-control profile-new-name"></div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Source' | translate}}</label>
@@ -536,7 +536,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
             <div class="col-sm-9">
-              <input required ng-model="duplicated.name" type="text" id="textInput-modal-markup" class="form-control profile-new-name"></div>
+              <input required ng-model="duplicated.name" type="text" class="form-control profile-new-name"></div>
           </div>
           <div ng-show="duplicated.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
           <div class="modal-footer submit">

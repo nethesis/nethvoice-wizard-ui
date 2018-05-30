@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="styles/brand.css">
 </head>
 
-<body ng-class="login.isLogged ? 'cards-pf' : 'login-pf'" ng-controller="InitCtrl">
+<body ng-class="login.isLogged ? 'cards-pf' : 'login-pf'">
   <!-- login -->
   <div ng-if="!login.isLogged">
     <div ng-include="loginUrl">
@@ -163,6 +163,9 @@
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('streaming',2) ? 'active' : ''}}">
             <div ng-click="goTo('apps/streaming')" class="list-group-item-value menu-item-left no-opacity">{{'Video sources' | translate | ellipsis:'1200'}}</div>
           </div>
+          <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('paramurl',2) ? 'active' : ''}}">
+            <div ng-click="goTo('apps/paramurl')" class="list-group-item-value menu-item-left no-opacity">{{'Parameterized URLs' | translate | ellipsis:'1200'}}</div>
+          </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('bulkextensions',2) ? 'active' : ''}}">
             <div ng-click="goTo('apps/bulkextensions')" class="list-group-item-value menu-item-left no-opacity">{{'Bulk extensions' | translate | ellipsis:'1200'}}</div>
           </div>
@@ -255,6 +258,8 @@
   <script src="bower_components/ace-builds/src-min/theme-twilight.js"></script>
   <script src="bower_components/ace-builds/src-min/worker-json.js"></script>
   <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
+  <script src="bower_components/clipboard/dist/clipboard.min.js"></script>
+  <script src="bower_components/bootstrap/js/tooltip.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -314,6 +319,7 @@
   <script src="scripts/filters/tobase64.js"></script>
   <script src="scripts/filters/ejsrender.js"></script>
   <script src="scripts/controllers/apps/streaming.js"></script>
+  <script src="scripts/controllers/apps/paramurl.js"></script>
   <script src="scripts/controllers/admin/languages.js"></script>
   <script src="scripts/controllers/apps/bulkextensions.js"></script>
   <script src="scripts/services/bulkservice.js"></script>

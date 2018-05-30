@@ -123,6 +123,11 @@ angular
         controller: 'AppsStreamingCtrl',
         controllerAs: 'apps/streaming'
       })
+      .when('/apps/paramurl', {
+        templateUrl: 'views/apps/paramurl.html',
+        controller: 'AppsParamurlCtrl',
+        controllerAs: 'apps/paramurl'
+      })
       .when('/admin/languages', {
         templateUrl: 'views/admin/languages.html',
         controller: 'AdminLanguagesCtrl',

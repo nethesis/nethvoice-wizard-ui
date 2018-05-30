@@ -523,9 +523,21 @@ angular.module('nethvoiceWizardUiApp')
       $('#duplicateTemplateModal').modal('hide');
     };
 
-    $scope.getAllDBTypes();
-    $scope.getAllProfiles();
-    $scope.getAllSources(true);
-    $scope.getAllTemplates(true);
-    $scope.getAllCards(true);
+    $scope.$on( "$routeChangeSuccess", function(event, next, current) {
+      if (next.templateUrl === 'views/apps/cards.html') {
+        $scope.getAllDBTypes();
+        $scope.getAllProfiles();
+        $scope.getAllSources(true);
+        $scope.getAllTemplates(true);
+        $scope.getAllCards(true);
+      }
+    });
+
+    $scope.$on('loginCompleted', function (event, args) {
+      $scope.getAllDBTypes();
+      $scope.getAllProfiles();
+      $scope.getAllSources(true);
+      $scope.getAllTemplates(true);
+      $scope.getAllCards(true);
+    });
   });

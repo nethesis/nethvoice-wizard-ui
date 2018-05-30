@@ -149,6 +149,15 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.getUserList();
-    $scope.getAllProfiles();
+    $scope.$on( "$routeChangeSuccess", function(event, next, current) {
+      if (next.templateUrl === 'views/apps/streaming.html') {
+        $scope.getUserList();
+        $scope.getAllProfiles();
+      }
+    });
+
+    $scope.$on('loginCompleted', function (event, args) {
+      $scope.getUserList();
+      $scope.getAllProfiles();
+    });
   });

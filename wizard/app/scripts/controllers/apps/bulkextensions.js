@@ -294,7 +294,15 @@ angular.module('nethvoiceWizardUiApp')
       console.log(err);
     });
 
-    $scope.getUserList();
-    $scope.getAllGroups();
+    $scope.$on( "$routeChangeSuccess", function(event, next, current) {
+      if (next.templateUrl === 'views/apps/bulkextensions.html') {
+        $scope.getUserList();
+        $scope.getAllGroups();
+      }
+    });
 
+    $scope.$on('loginCompleted', function (event, args) {
+      $scope.getUserList();
+      $scope.getAllGroups();
+    });
   });
