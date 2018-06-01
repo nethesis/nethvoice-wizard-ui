@@ -132,6 +132,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.bulkEditSave = function () {
       $scope.temp.context = $scope.bulkEdit.context;
       $scope.temp.onsave = true;
+      if ($scope.bulkEdit.outboundcid === null) {
+        $scope.bulkEdit.outboundcid_fixed = null;
+      }
       for (var c in $scope.contexts) {
         if ($scope.contexts[c] == $scope.bulkEdit.context) {
           $scope.bulkEdit.context = c;
@@ -165,6 +168,10 @@ angular.module('nethvoiceWizardUiApp')
       if ($scope.exts) {
         BulkService.getBulkInfo($scope.exts).then(function (res) {
           $scope.bulkEdit = res.data;
+          if ($scope.bulkEdit.outboundcid) {
+            $scope.bulkEdit.outboundcid_fixed = parseInt($scope.bulkEdit.outboundcid);
+            $scope.bulkEdit.outboundcid = "fixed";
+          }
           $scope.bulkData = angular.copy(res.data);
           if ($scope.bulkEdit.ringtime !== null) {
             $scope.bulkEdit.ringtime = parseInt($scope.bulkEdit.ringtime);
