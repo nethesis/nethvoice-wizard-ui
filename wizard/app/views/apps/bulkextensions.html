@@ -284,7 +284,7 @@
                 <label class="col-sm-3 control-label" for="textInput-didnumber-bulk">{{'CID Root' | translate}}</label>
                 <div class="col-sm-9">
                   <div class="input-group imp-full-size-max right-padding">
-                    <input type="number" ng-model="bulkEdit.outboundcid_fixed" id="textInput-didnumber-bulk" class="form-control">
+                    <input pattern="^(\d+)$" type="text" ng-model="bulkEdit.outboundcid_fixed" id="textInput-didnumber-bulk" class="form-control">
                   </div>
                 </div>
               </div>
@@ -294,13 +294,10 @@
                 <label class="col-sm-3 control-label" for="textInput-didroot-bulk">{{'CID Root' | translate}}</label>
                 <div class="col-sm-9">
                   <div class="input-group imp-full-size-max right-padding">
-                    <input type="number" ng-model="bulkEdit.outboundcid_fixed" id="textInput-didroot-bulk" class="form-control">
+                    <input pattern="^(\d+)$" type="text" ng-model="bulkEdit.outboundcid_fixed" id="textInput-didroot-bulk" class="form-control">
                   </div>
                 </div>
               </div>
-
-
-
               <label class="col-sm-3 control-label" for="textInput-didvariable-bulk"></label>
               <div id="digitsWarning" class="col-sm-9">
                 <div class="alert alert-info">
@@ -308,12 +305,11 @@
                   <strong class="ng-binding">{{"Enter the number of digits of the extension to be queued at the root to obtain the Outbound CID" | translate}}.</strong>
                 </div>
               </div>
-
               <div class="form-group">
                 <label class="col-sm-3 control-label" for="textInput-didvariable-bulk">{{'Digits number' | translate}}</label>
                 <div class="col-sm-9">
                   <div class="input-group imp-full-size-max right-padding">
-                    <input type="number" ng-model="bulkEdit.outboundcid_variable" id="textInput-didvariable-bulk" class="form-control">
+                    <input pattern="^(\d+)$" type="text" ng-model="bulkEdit.outboundcid_variable" id="textInput-didvariable-bulk" class="form-control">
                   </div>
                 </div>
               </div>
