@@ -135,7 +135,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Profile' | translate}}</label>
             <div class="col-sm-9">
-              <select multiple required title="-" pf-select="{ width: '180px' }" ng-model="newUrl.profiles">
+              <select multiple title="-" pf-select="{ width: '180px' }" ng-model="newUrl.profiles">
                 <option ng-repeat="p in tdata.allProfiles" value="{{p.id}}"
                   ng-disabled="(tdata.busyProfiles.indexOf(p.id) !== -1 && allUrlProfiles[newUrl.id].profiles.indexOf(p.id) === -1) ||
                     (tdata.busyProfiles.indexOf(p.id) !== -1 && newUrl.id === undefined)">
