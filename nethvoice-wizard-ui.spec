@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.1.2
+Version: 14.1.3
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,12 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Wed Jun 06 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.1.3-1
+- Add mac addr to gateway configuration push
+- Add Outbound CID to bulk extensions nethesis/dev#5402
+- Add parameterized URLs nethesis/dev#5412
+- Csv add export button and show buttons even in unified communication mode nethesis/dev#5401
+
 * Wed May 16 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.1.2-1
 - Remove unused "remote sites" permission nethesis/dev#5397
 - Adjust extensions configuration filter layout
