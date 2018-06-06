@@ -52,6 +52,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.selectedDevice.netmask_green = network.netmask;
         $scope.selectedDevice.gateway = network.gateway;
         $scope.selectedDevice.ipv4_green = network.ip;
+        $scope.selectedDevice.mac = network.mac;
       }
     };
 
@@ -258,7 +259,8 @@ angular.module('nethvoiceWizardUiApp')
       DeviceService.pushGatewayConfig({
         name: device.name,
         ipv4_green: '',
-        netmask_green: ''
+        netmask_green: '',
+        mac: device.mac
       }).then(function (res) {
         device.onSave = false;
         device.onSaveSuccess = false;
