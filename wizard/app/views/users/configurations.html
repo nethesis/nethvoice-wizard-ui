@@ -41,14 +41,20 @@
           </button>
         </div>
       </form>
-      <div class="user-config-detail">
-        <span ng-if="selectedUser"><span class="weight-plus">{{selectedUser.displayname}}</span> | {{selectedUser.devices.length}}
-        {{selectedUser.devices.length == 1 ? 'device' : 'devices' | translate}}</span>
-        <span ng-if="!selectedUser"><span class="weight-plus">{{'No users configured' | translate}}</span></span>
-      </div>
+      <span>
+        <div class="filter-label-user-order">
+            <span id="label-order" class="filter-label-user adjust-filter-user">  {{'orderBy' | translate}}:</span>
+            <select title="-" pf-select="{ width: '100px' }" ng-model="selectedUserFilterNumbers" ng-options="uf as uf | translate for uf in availableUserFiltersNumbers"></select>
+        </div>
+        <div class="user-config-detail">
+          <span class="selectedUser"><span class="weight-plus">{{selectedUser.displayname}}</span> | {{selectedUser.devices.length}}
+          {{selectedUser.devices.length == 1 ? 'device' : 'devices' | translate}}</span>
+          <span ng-if="!selectedUser"><span class="weight-plus">{{'No users configured' | translate}}</span></span>
+        </div>
+      </span>
       <div class="list-group list-view-pf list-view-pf-view adjust-body-user">
         <div ng-if="user.default_extension !== 'none'" ng-show="selectedUserFilter == 'configured' ? user.devices.length > 0 : (selectedUserFilter == 'unconfigured' ? user.devices.length == 0 : true)"
-          class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users | filter:searchUserUserString"
+          class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-repeat="user in users | filter:searchUserUserString | orderBy:selectedUserFilterNumbers"
           ng-click="selectUser(user)">
           <div class="list-view-pf-actions">
             <span ng-if="user.default_extension == 'none'" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true"

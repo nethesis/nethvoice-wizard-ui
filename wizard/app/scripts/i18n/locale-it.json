@@ -472,5 +472,8 @@
   "To have one, free it from an existing URL": "Per averne uno, disassociarlo da un URL esistente",
   "Copy URL": "Copia URL",
   "Allow to view and manage queues in real time": "Consente di visualizzare ed amministrare le code in tempo reale",
-  "Copied": "Copiato"
+  "Copied": "Copiato",
+  "orderBy": "Ordina",
+  "lname": "Nome",
+  "default_extension": "Interno"
 }

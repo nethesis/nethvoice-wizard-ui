@@ -18,7 +18,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.newDevice = {};
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured'];
+    $scope.availableUserFiltersNumbers = ['lname', 'default_extension'];
     $scope.selectedUserFilter = $scope.availableUserFilters[0];
+    $scope.selectedUserFilterNumbers = $scope.availableUserFiltersNumbers[0];
 
     $scope.availableDeviceFilters = ['all', 'linked', 'unlinked'];
     $scope.selectedDeviceFilter = $scope.availableDeviceFilters[0];

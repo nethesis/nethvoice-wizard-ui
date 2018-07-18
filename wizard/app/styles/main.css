@@ -792,9 +792,8 @@ a {
 }
 
 .user-config-detail {
-  line-height: 30px;
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: 15px;
   margin-bottom: -2px;
 }
 
@@ -866,9 +865,18 @@ a {
 
 .filter-label-user {
   float: left;
-  font-size: 15px;
+  font-size: 16px;
   margin-right: 8px;
   font-weight: 400;
+}
+
+#label-order{
+  margin-top: auto
+}
+
+.filter-label-user-order{
+  margin-top: 15px;
+  float: right;
 }
 
 .menu-item-left {
