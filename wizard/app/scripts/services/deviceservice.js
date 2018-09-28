@@ -141,9 +141,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.downloadConfig = function (name) {
+    this.downloadConfig = function (name, mac) {
       return $q(function (resolve, reject) {
-        RestService.get('/devices/gateways/download/' + name).then(function (res) {
+        RestService.get('/devices/gateways/download/' + name + (mac ? '/' + mac : '')).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
