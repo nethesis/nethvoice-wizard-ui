@@ -870,13 +870,8 @@ a {
   font-weight: 400;
 }
 
-#label-order{
+#label-order {
   margin-top: auto
-}
-
-.filter-label-user-order{
-  margin-top: 15px;
-  float: right;
 }
 
 .menu-item-left {
@@ -1108,6 +1103,19 @@ a {
   padding: 10px 15px;
   position: relative;
   width: 100%;
+}
+
+.filter-label-user-order {
+  vertical-align: bottom;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.filter-label-user-order .fa-sort-alpha-asc {
+  font-size: 15px;
+  margin-left: 5px;
+  vertical-align: bottom;
+  margin-bottom: 6px !important;
 }
 
 .full-size {
