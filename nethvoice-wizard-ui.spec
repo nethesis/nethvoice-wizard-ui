@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.1.4
+Version: 14.1.5
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,10 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Thu Oct 04 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.1.5-1
+- Fix gateway configuration download on trunks nethesis/dev#5472
+- Add order to users list in configuration nethesis/dev#5430
+
 * Fri Jul 27 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.1.4-1
 - Add order to users list in configuration nethesis/dev#5430
 - Queue manager permission translation
