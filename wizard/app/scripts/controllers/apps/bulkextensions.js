@@ -169,7 +169,7 @@ angular.module('nethvoiceWizardUiApp')
         BulkService.getBulkInfo($scope.exts).then(function (res) {
           $scope.bulkEdit = res.data;
           if ($scope.bulkEdit.outboundcid) {
-            $scope.bulkEdit.outboundcid_fixed = parseInt($scope.bulkEdit.outboundcid);
+            $scope.bulkEdit.outboundcid_fixed = $scope.bulkEdit.outboundcid;
             $scope.bulkEdit.outboundcid = "fixed";
           }
           $scope.bulkData = angular.copy(res.data);
