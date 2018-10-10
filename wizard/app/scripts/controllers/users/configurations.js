@@ -15,6 +15,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allProfiles = [];
     $scope.allGroups = [];
     $scope.maxExtensionReached = false;
+    $scope.view.changeRoute = true;
     $scope.newDevice = {};
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured'];
@@ -45,10 +46,10 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.getUserList = function (reload) {
-      $scope.view.changeRoute = reload;
+    $scope.getUserList = function () {
       UserService.list(false).then(function (res) {
         $scope.users = res.data;
+        $scope.getDeviceList();
         var index = 0;
         for (var u in $scope.users) {
           if ($scope.users[u].default_extension !== 'none') {
@@ -58,21 +59,21 @@ angular.module('nethvoiceWizardUiApp')
             continue;
           }
         }
-        $scope.selectUser($scope.currentUserIndex || $scope.users[index]);
+        $scope.selectUser($scope.currentUserIndex || $scope.users[index], true);
         if ($scope.mode.isLegacy && UtilService.isEmpty($scope.users)) {
           $scope.wizard.nextState = false;
         }
-        $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
-        $scope.view.changeRoute = false;
       });
     };
 
-    $scope.getDeviceList = function (key) {
+    $scope.getDeviceList = function () {
       DeviceService.phoneList().then(function (res) {
+        $scope.view.changeRoute = false;
         $scope.devices = res.data;
       }, function (err) {
+        $scope.view.changeRoute = false;
         console.log(err);
       });
     };
@@ -88,7 +89,25 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    $scope.selectUser = function (user) {
+    $scope.resetDeviceSearch = function () {
+      $scope.searchDeviceUserString = '';
+    }
+
+    $scope.selectUser = function (user, first) {
+      if (!first) {
+        if (user.devices.length > 0) {
+          for (var d in user.devices) {
+            if (user.devices[d].type === 'physical') {
+              $scope.searchDeviceUserString = user.username;
+              break;
+            } else {
+              $scope.searchDeviceUserString = '';
+            }
+          }
+        } else {
+          $scope.searchDeviceUserString = '';
+        }
+      }
       if (user.default_extension !== 'none') {
         $scope.currentUserIndex = user;
         $scope.selectedUser = $scope.users.filter(function (obj) {
@@ -187,7 +206,6 @@ angular.module('nethvoiceWizardUiApp')
         device.web_password = '';
         device.web_user = '';
         $scope.getUserList(false);
-        $scope.getDeviceList(false);
       }, function (err) {
         device.setPhysicalInAction = false;
         console.log(err);
@@ -202,7 +220,6 @@ angular.module('nethvoiceWizardUiApp')
       UserService.deletePhysicalExtension(extension).then(function (res) {
         device.setPhysicalInAction = false;
         $scope.getUserList(false);
-        $scope.getDeviceList(false);
         console.log(res);
       }, function (err) {
         device.setPhysicalInAction = false;
@@ -306,8 +323,7 @@ angular.module('nethvoiceWizardUiApp')
       return filter == 'unlinked' ? count == device.lines.length : count != device.lines.length;
     };
 
-    $scope.getUserList(true);
-    $scope.getDeviceList();
+    $scope.getUserList();
     $scope.getAllProfiles();
     $scope.getAllGroups();
   });
