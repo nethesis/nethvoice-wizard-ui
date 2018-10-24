@@ -138,6 +138,26 @@ angular
         controller: 'BulkextensionsCtrl',
         controllerAs: 'bulkextensions'
       })
+      .when('/migration', {
+        templateUrl: 'views/migration.html',
+        controller: 'MigrationCtrl',
+        controllerAs: 'migration'
+      })
+      .when('/migration/users', {
+        templateUrl: 'views/migration/users.html',
+        controller: 'UsersmigrationCtrl',
+        controllerAs: 'usersmigration'
+      })
+      .when('/migration/config', {
+        templateUrl: 'views/migration/config.html',
+        controller: 'ConfigmigrationCtrl',
+        controllerAs: 'configmigration'
+      })
+      .when('/migration/cdr', {
+        templateUrl: 'views/migration/cdr.html',
+        controller: 'CdrmigrationCtrl',
+        controllerAs: 'cdrmigration'
+      })
       .otherwise({
         redirectTo: '/'
       });

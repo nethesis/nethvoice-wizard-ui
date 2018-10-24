@@ -217,5 +217,5 @@ angular.module('nethvoiceWizardUiApp')
       $interval.cancel($scope.taskPromise);
     });
 
-    $scope.getUserList(true);
+    $scope.getUserList();
   });

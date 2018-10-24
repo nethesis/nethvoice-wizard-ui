@@ -9,17 +9,17 @@
     {{'You can choose the users base to use for your PBX installation' | translate}}.
   </p>
   <p>
-    {{'Unified Communication, to get users from an already existing LDAP or Active Directory Server' | translate}}.
+    {{'Local LDAP, to run a new installation of LDAP Server that can be managed directly from your PBX' | translate}}.
   </p>
   <p>
-    {{'Legacy, to run a new installation of LDAP Server that can be managed directly from your PBX' | translate}}.
+    {{'Configure Provider, to setup an already existing local or remote LDAP or Active Directory Server or to setup a new one using NethServer' | translate}}.
   </p>
   <p>
     {{'Learn more about this' | translate}} <a target="_blank" href="{{customConfig.BRAND_DOCS}}">{{'on the documentation' | translate}}</a>.
   </p>
   <div class="blank-slate-pf-main-action">
-    <button id="uc-button" ng-click="makeChoice('uc')" class="btn btn-primary btn-lgg"> {{'Unified Communication' | translate}} </button>
-    <button id="legacy-button" ng-click="makeChoice('legacy')" class="btn btn-primary btn-lgg handle-margin"> {{'Legacy' | translate}} </button>
+    <button id="legacy-button" ng-click="makeChoice('legacy')" class="btn btn-primary btn-lgg handle-margin"> {{'Local LDAP' | translate}} </button>
+    <button id="uc-button" ng-click="goNethserverSssdConfig()" class="btn btn-primary btn-lgg"> {{'Configure Provider' | translate}} </button>
   </div>
   <div ng-if="startInstall" class="progress-content">
     <div class="progress-description">

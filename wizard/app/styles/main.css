@@ -226,6 +226,7 @@ a {
     right: 50px;
     top: 16px;
   }
+
   .resized-list {
     height: 190px;
     overflow-y: auto;
@@ -242,6 +243,7 @@ a {
     margin-top: 4px;
     padding-top: 0px;
   }
+
   /*.absolute-provision {
     position: absolute;
     right: 14px;
@@ -319,9 +321,11 @@ a {
     margin-top: 5px;
     padding-right: 25px;
   }
+
   .adjust-body-gateway {
     display: table-cell;
   }
+
   .adjust-info-gateway {
     clear: both;
     margin-left: 20%;
@@ -335,9 +339,11 @@ a {
     padding-left: 30px;
     margin-bottom: 5px;
   }
+
   .adjust-header {
     margin-bottom: 4px;
   }
+
   .adjust-info-gateway {
     clear: both;
     margin-left: 0px;
@@ -349,11 +355,13 @@ a {
     margin-left: 200px;
     padding-left: 12px;
   }
+
   .right-button {
     float: right;
     margin-top: 16px;
     margin-bottom: 24px;
   }
+
   .big-margin-top {
     margin-top: 60px;
   }
@@ -364,11 +372,13 @@ a {
     margin-left: 76px;
     padding-left: 12px;
   }
+
   .right-button {
     float: right;
     margin-top: 16px;
     margin-bottom: 24px;
   }
+
   .config-adjust-size-gateway {
     margin-bottom: 54px;
     margin-top: -54px;
@@ -380,19 +390,23 @@ a {
     margin-bottom: 0px;
     margin-top: 3px;
   }
+
   .adjust-size {
     margin-top: 16px;
     padding-right: 95px;
     padding-left: 95px;
     margin-bottom: 65px;
   }
+
   .config-title-icon-adjust {
     margin-left: 23px;
   }
+
   .adjust-voip {
     margin-top: 8px;
     margin-bottom: 45px;
   }
+
   .stop-less-config-col {
     min-width: 282px;
     margin-bottom: 100px;
@@ -404,6 +418,7 @@ a {
     margin-left: 1px;
     padding-left: 12px;
   }
+
   #wizardStepBase {
     position: absolute;
     height: 58px;
@@ -413,53 +428,66 @@ a {
     border-top: 1px solid #d1d1d1;
     background: whitesmoke;
   }
+
   .progress {
     margin-bottom: 8px;
     margin-top: 3px;
   }
+
   .adjust-size {
     margin-top: 16px;
     margin-bottom: 70px;
   }
+
   .right-button {
     float: right;
     margin-top: 16px;
     margin-bottom: 24px;
   }
+
   .handle-margin {
     margin-top: 10px;
   }
+
   .row {
     margin-left: 0px;
     margin-right: 0px;
   }
+
   .no-padding {
     padding-left: 0px !important;
     padding-right: 0px !important;
   }
+
   .adjust-search {
     margin-top: 5px;
     padding-right: 8px;
     padding-left: 8px;
     margin-bottom: 8px;
   }
+
   .adjust-header {
     margin-bottom: 4px;
   }
+
   .config-adjust-size-gateway {
     margin-bottom: 30px;
     margin-top: -54px;
   }
+
   .config-title-icon-adjust {
     margin-left: 0px;
   }
+
   .adjust-voip {
     margin-top: 8px;
     margin-bottom: 65px;
   }
+
   .label-selected-bulk {
     margin-top: 15px;
   }
+
   #badge img {
     height: 35px !important;
   }
@@ -563,6 +591,22 @@ a {
 
 .config-row-button {
   margin-top: 15px;
+}
+
+.start-migration-btnicon {
+  margin: 0px 5px 0px 0px;
+}
+
+.form-control[readonly] {
+  color: #363636 !important;
+}
+
+.margin-migration-users {
+  margin-top: 17px !important;
+}
+
+.margin-migration-usersmigration {
+  background-color: #f5f5f5;
 }
 
 .absolute-icon-right {
@@ -695,6 +739,7 @@ a {
     margin-left: 56px;
     margin-top: 6px;
   }
+
   .adjust-search-gateway {
     margin-top: 22px;
   }
@@ -706,6 +751,7 @@ a {
     margin-left: initial;
     margin-top: initial;
   }
+
   .adjust-search-gateway {
     margin-top: 5px;
   }
@@ -715,6 +761,7 @@ a {
   .adjust-body-gateway {
     display: inherit;
   }
+
   .adjust-info-gateway {
     margin-left: initial;
   }
@@ -1090,6 +1137,11 @@ a {
   margin-top: 2px;
 }
 
+.dropdown-user-migration {
+  margin-top: -1px;
+  width: 180px;
+}
+
 .card-pf-view .card-pf-top-element .card-pf-icon-circle {
   border: 2px solid #39a5dc;
   font-size: 26px;
@@ -1353,6 +1405,10 @@ iframe body {
   width: 180px;
 }
 
+.width-180 {
+  width: 180px !important;
+}
+
 .drd-carret {
   float: right;
   margin-top: 5px;
@@ -1518,4 +1574,184 @@ iframe body {
 .padding-left-conf-col {
   padding-left: 0px !important;
   margin-right: -9px;
+}
+
+.width-26 {
+  width: 26px;
+}
+
+.flex-container {
+  flex: 1 0 calc(40% - 20px);
+}
+
+#accordion-markup-usersmig {
+  margin-bottom: 90px;
+}
+
+#users-migration-title {
+  margin-bottom: 20px;
+}
+
+#conf-migration-title {
+  margin-bottom: 20px;
+}
+
+.red-colored {
+  color: #cc0000;
+}
+
+#wizard-container {
+  margin-bottom: 90px;
+}
+
+.disabled-color {
+  color: #999 !important;
+}
+
+.left-column-input-container {
+  min-width: 250px !important;
+}
+
+.select-text-inputs {
+  cursor: pointer;
+  background-color: white !important;
+}
+
+.inprogress-text {
+  font-size: 19px;
+  line-height: 0px;
+  margin-left: 16px;
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  margin-left: 0px;
+  width: 50px;
+  height: 30px;
+}
+
+.lds-ellipsis div {
+  position: absolute;
+  top: 27px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #8d8d8d;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(19px, 0);
+  }
+}
+
+.migration-spinners {
+  margin-top: 12px;
+  height: 21px !important;
+  width: 21px !important;
+}
+
+.success-mig-icon {
+  font-size: 21px !important;
+  margin-top: 5px !important;
+}
+
+.toggle-icon-mig {
+  margin-top: 4px !important;
+}
+
+.simple-hidden {
+  display: none;
+}
+
+.message-icon {
+  float: left;
+  font-size: 38px;
+  margin-right: 0px;
+  margin-left: 13px;
+  margin-top: 5px;
+}
+
+.message-list {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.message-ul {
+  margin-top: 12px;
+  float: left;
+}
+
+.message-subtitle {
+  padding-left: 19px;
+}
+
+.migration-config-container {
+  padding-bottom: 70px;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.not-selectable {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+
+.pf-red {
+  color: #cc0100 !important;
+}
+
+.cdr-entries-num {
+  font-size: 14px;
 }

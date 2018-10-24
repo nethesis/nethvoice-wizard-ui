@@ -13,7 +13,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.appConfig = appConfig;
 
     $scope.view = {
-      changeRoute: false
+      changeRoute: true
     };
 
     $scope.mode = {
@@ -27,6 +27,10 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.wizard = {
       isWizard: true,
+      isMigration: false,
+      isMigrationView: false,
+      usersMigrationDone: false,
+      confMigrationDone: false,
       stepCount: 1
     };
 
@@ -150,6 +154,18 @@ angular.module('nethvoiceWizardUiApp')
       return new Date().getFullYear();
     }
 
+    $scope.toggleMig = function (id) {
+      $("#" + id).slideToggle("fast");
+    }
+
+    $scope.slideDown = function (id) {
+      $("#" + id).slideDown("fast");
+    }
+
+    $scope.slideUp = function (id) {
+      $("#" + id).slideDown("fast");
+    }
+
     // set language
     $scope.changeLanguage({
       key: LocalStorageService.get('preferredLanguage') || 'default'
@@ -181,7 +197,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.menuCount.routesOut = res.data;
       }, function (err) {
         console.log(err);
-      });
+      }); 
 
       //config
       $scope.getConfig();
