@@ -475,5 +475,6 @@
   "Copied": "Copiato",
   "orderBy": "Ordina",
   "lname": "Nome",
-  "default_extension": "Interno"
+  "default_extension": "Interno",
+  "Empty search": "Svuota ricerca"
 }
