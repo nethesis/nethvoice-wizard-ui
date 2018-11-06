@@ -37,7 +37,7 @@
     </div>
     <div class="wizard-pf-contents adjust-size row no-margin-bottom">
       <h1 class="control-label centered" for="textInput-markup">{{'Extensions configurations' | translate}}</h1>
-      <div ng-if="!(users | isEmpty)" class="container-fluid col-lg-5 col-md-6 col-sm-6 col-xs-12">
+      <div ng-if="!(users | isEmpty)" class="container-fluid col-lg-5 col-md-6 col-sm-6 col-xs-12 stop-less-config-col">
         <div>
           <div class="filter-label-user adjust-filter-user">{{'Filter' | translate}}:</div>
           <select class="adjust-filter-user" title="-" pf-select="{ width: '180px' }" ng-model="selectedUserFilter" ng-options="uf as uf | translate for uf in availableUserFilters">
@@ -96,13 +96,13 @@
                   </div>
                   <div class="list-view-pf-additional-info">
                     {{user.default_extension !== 'none' ? user.default_extension : ''}}
-                  </div>
+                  </div> 
                 </div>
               </div>
             </div>
             <div class="configurationSettingsContainers" ng-if="selectedUser.id == user.id">
               <div class="row no-lateral-margins">
-                <div class="col-lg-6 col-xs-12 config-bottom less-margin-left">
+                <div class="col-lg-6 col-xs-12 config-bottom less-margin-left-conf min-width-conf-cols">
                   <div class="list-view-pf-additional-info-item list-view-configuration-settings settings-inputs-configuration">
                     <span class="col-lg-6 col-md-6 col-sm-12 col-xs-12 align-left-important">
                       <span class="fa fa-phone"></span>
@@ -141,9 +141,9 @@
                     <div ng-if="selectedUser.setMobileInAction" class="spinner spinner-sm language-name"></div>
                   </div>
                 </div>
-                <div class="col-lg-6 col-xs-12 config-bottom">
+                <div class="col-lg-6 col-xs-12 config-bottom min-width-conf-cols">
                   <div class="list-view-pf-additional-info-item list-view-configuration-settings">
-                    <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left">
+                    <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left padding-left-conf-col">
                       <span class="fa fa-envelope-o"></span>
                       <span class="config-span">{{'Voicemail' | translate}}</span>
                     </span>
@@ -152,9 +152,9 @@
                     <div ng-if="selectedUser.setVoiceMailInAction" class="spinner spinner-sm language-name"></div>
                   </div>
                 </div>
-                <div class="col-lg-6 col-xs-12 config-bottom">
+                <div class="col-lg-6 col-xs-12 config-bottom min-width-conf-cols">
                   <div class="list-view-pf-additional-info-item list-view-configuration-settings margin-bottom-medium">
-                    <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left">
+                    <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left padding-left-conf-col">
                       <span class="fa fa-headphones"></span>
                       <span class="config-span">{{'WebRTC' | translate}}</span>
                     </span>
