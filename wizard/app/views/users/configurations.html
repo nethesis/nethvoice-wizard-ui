@@ -313,8 +313,8 @@
           </div>
           <div ng-if="!(devices | isEmpty)" class="right config-all-devices">
             <a data-toggle="modal" data-target="#bulkModal" popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true"
-              uib-popover="{{'Provision and reboot all linked phones' | translate}}" class="btn btn-warning bulk-container">
-              <span class="fa fa-magic"></span> {{'Bulk provisioning' | translate}}</a>
+              uib-popover="{{'Configure and reboot the listed phones' | translate}}" class="btn btn-warning bulk-container">
+              <span class="fa fa-magic"></span> {{'Bulk configuration' | translate}}</a>
           </div>
         </div>
         <div ng-if="devices | isEmpty" class="blank-slate-pf ">
@@ -342,13 +342,13 @@
             <div class="modal-body">
               <div class="alert alert-warning alert-dismissable" style="margin-bottom: 0px;">
                 <span class="pficon pficon-warning-triangle-o"></span>
-                <strong>{{'Are you sure that you want to provision and restart all linked phones' | translate}}?</strong>
+                <strong>{{'Are you sure that you want to provision and restart the linked phones' | translate}}?</strong>
               </div>
             </div>
             <div class="modal-footer">
               <button class="btn btn-default" type="button" data-dismiss="modal">{{'Cancel' | translate}}</button>
               <button class="btn btn-warning" type="submit">
-                <span class="fa fa-magic"></span> {{'Start provisioning' | translate}}</button>
+                <span class="fa fa-magic"></span> {{'Configure' | translate}}</button>
             </div>
           </form>
         </div>
