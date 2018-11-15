@@ -99,7 +99,6 @@
   "Bulk configuration": "Configura dispositivi",
   "Configure and reboot the listed phones": "Configura e riavvia i dispositivi mostrati",
   "Warning": "Attenzione",
-  "Start": "Avvia",
   "Configure": "Configura",
   "Are you sure that you want to provision and restart the linked phones": "Sei sicuro di voler configurare e riavviare i dispositivi associati",
   "Main extension not created": "Interno principale non creato",
@@ -501,7 +500,7 @@
   "in progress": "in corso",
   "The users profiles migration was successful": "La migrazione dei profili utente ha avuto successo",
   "The users migration was successful": "La migrazione degli utenti ha avuto successo",
-  "Start": "Inizia",
+  "Start": "Avvia",
   "The users profiles migration was fail": "La migrazione dei profili degli utenti è fallita",
   "Try again": "Riprova",
   "Migration from NethVoice 11 to Nethvoice 14": "Migrazione da NethVoice 11 a NethVoice 14",
@@ -530,5 +529,6 @@
   "entries": "voci",
   "Migration will take a few minutes": "La migrazione richiederà alcuni minuti",
   "inbound routes": "rotte in entrata",
-  "cdr migration fail": "migrazione CDR fallita"
+  "cdr migration fail": "migrazione CDR fallita",
+  "Username already used": "Nome utente già utilizzato"
 }

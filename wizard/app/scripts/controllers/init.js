@@ -79,13 +79,10 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getConfig = function () {
       ConfigService.getConfig().then(function (res) {
-        switch (res.data.result) {
-          case 'legacy':
-            $scope.mode.isLegacy = true;
-            break;
-          case 'uc':
-            $scope.mode.isLegacy = false;
-            break;
+        if (res.data.type === 'ldap') {
+          $scope.mode.isLegacy = true;
+        } else {
+          $scope.mode.isLegacy = false;
         }
       }, function (err) {
         console.log(err);
@@ -206,5 +203,5 @@ angular.module('nethvoiceWizardUiApp')
     });
 
     $scope.setRandomBackground();
-
+    
   });

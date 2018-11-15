@@ -14,23 +14,20 @@ angular.module('nethvoiceWizardUiApp')
     $scope.currentProgress = 0;
     $scope.selectedMode = '';
     $scope.taskPromise = null;
-    $scope.view.changeRoute = true;
     $scope.errorCount = 0;
 
     ConfigService.getConfig().then(function(res) {
-      switch (res.data.result) {
-        case 'unknown':
-          $scope.view.changeRoute = false;
-          $scope.showConfigSwitch = true;
-          break;
-        case 'legacy':
+      if (res.data.configured === 0) {
+        $scope.view.changeRoute = false;
+        $scope.showConfigSwitch = true;
+      } else {
+        if (res.data.type === 'ldap') {
           $scope.mode.isLegacy = true;
           $location.path('/users/extensions');
-          break;
-        case 'uc':
+        } else {
           $scope.mode.isLegacy = false;
           $location.path('/users/extensions');
-          break;
+        }
       }
     }, function(err) {
       console.log(err);

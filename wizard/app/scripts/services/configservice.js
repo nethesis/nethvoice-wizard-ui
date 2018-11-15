@@ -11,7 +11,7 @@ angular.module('nethvoiceWizardUiApp')
   .service('ConfigService', function($q, RestService) {
     this.getConfig = function() {
       return $q(function(resolve, reject) {
-        RestService.get('/configuration/mode').then(function(res) {
+        RestService.get('/configuration/userprovider').then(function(res) {
           resolve(res);
         }, function(err) {
           reject(err);

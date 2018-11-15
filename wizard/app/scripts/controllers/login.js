@@ -21,13 +21,22 @@ angular.module('nethvoiceWizardUiApp')
             $scope.wizard.stepCount = res[0].step;
           }
           if ($scope.wizard.isWizard) {
-
             MigrationService.isMigration().then(function (res) {
               $scope.wizard.isMigration = res.data;
               if ($scope.wizard.isMigration) {
-                $scope.wizard.isMigrationView = true;
-                $scope.wizard.isWizard = false;
-                $location.path('/migration');
+                ConfigService.getConfig().then(function(res) {
+
+                  if (res.data.configured === 0) {
+                    $location.path('/users');
+                  } else {
+                    $scope.wizard.isMigrationView = true;
+                    $scope.wizard.isWizard = false;
+                    $location.path('/migration');
+                  }
+                }, function(err) {
+                  console.log(err);
+                });
+
               } else {
                 var location = appConfig.STEP_MAP_REVERSE[$scope.wizard.stepCount];
                 $location.path('/' + location);

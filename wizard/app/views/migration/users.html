@@ -119,9 +119,10 @@
                       <div class="list-view-pf-body">
                         <div class="list-view-pf-description">
                           <div class="left-column-input-container input-group flex-container">
-                            <div id="{{'selectId' + olduser.extension}}" class="list-group-item-heading imp-full-size-max">
-                              <input ng-click="openSelect('selectId' + olduser.extension)" readonly ng-model="olduser.username"
-                                type="text" class="form-control width-180 float-left select-text-inputs" placeholder="{{'Select user' | translate}}" />
+                            <div class="list-group-item-heading imp-full-size-max">
+                              <button id="{{'selectId' + olduser.extension}}" ng-click="openSelect('selectId' + olduser.extension)" class="form-control width-180 float-left select-text-inputs {{olduser.username ? '' : 'cursive disabled-color'}}" data-toggle="dropdown">
+                                 {{olduser.username || 'Select user' | translate}}
+                              </button>
                               <span id="btnExt-{{olduser.extension}}" data-toggle="dropdown" popover-placement="top-center"
                                 popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Select user' | translate}}"
                                 class="width-26 float-left adjust-button dropdown-toggle btn btn-default">
@@ -140,7 +141,7 @@
                                   <a>{{"Reset field" | translate}}</a>
                                 </li>
                                 <li ng-if="!(users | isEmpty) && !(userz.inuse)" ng-repeat="(keyz, userz) in users" class="not-selectable">
-                                  <a ng-mouseup="associateUser(olduser, userz)">{{userz.username}}</a>
+                                  <a ng-click="associateUser(olduser, userz)">{{userz.username}}</a>
                                 </li>
                                 <li ng-if="!(areUsersAvaible())" class="not-selectable">
                                   <a class="disabled-color">{{"No user available" | translate}}</a>
@@ -260,6 +261,10 @@
       </div>
       <form class="form-horizontal" ng-submit="createUser(newUser)">
         <div class="modal-body">
+          <div ng-if="errorUserCreation" class="alert alert-danger overflow-auto">
+            <span class="pficon pficon-error-circle-o"></span>
+            {{"Username already used" | translate}}.
+          </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Username' | translate}}</label>
             <div class="col-sm-9">

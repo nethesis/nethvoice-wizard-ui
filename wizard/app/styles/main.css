@@ -1585,7 +1585,7 @@ iframe body {
 }
 
 #accordion-markup-usersmig {
-  margin-bottom: 90px;
+  padding-bottom: 90px;
 }
 
 #users-migration-title {
@@ -1615,6 +1615,7 @@ iframe body {
 .select-text-inputs {
   cursor: pointer;
   background-color: white !important;
+  text-align: left;
 }
 
 .inprogress-text {
@@ -1733,7 +1734,7 @@ iframe body {
 }
 
 .migration-config-container {
-  padding-bottom: 70px;
+  padding-bottom: 90px;
 }
 
 .overflow-auto {

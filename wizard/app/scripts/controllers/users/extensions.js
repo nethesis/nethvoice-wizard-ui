@@ -31,18 +31,15 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     ConfigService.getConfig().then(function (res) {
-      switch (res.data.result) {
-        case 'unknown':
-          $scope.view.changeRoute = false;
-          $scope.showConfigSwitch = true;
-          $location.path('/users');
-          break;
-        case 'legacy':
+      if (res.data.configured === 0) {
+        $scope.showConfigSwitch = true;
+        $location.path('/users');
+      } else {
+        if (res.data.type === 'ldap') {
           $scope.mode.isLegacy = true;
-          break;
-        case 'uc':
+        } else {
           $scope.mode.isLegacy = false;
-          break;
+        }
       }
     }, function (err) {
       console.log(err);
@@ -57,8 +54,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.getUserList = function (reload) {
-      $scope.view.changeRoute = reload;
+    $scope.getUserList = function () {
       if (!$scope.lockOnList) {
         $scope.lockOnList = true;
         UserService.list(true).then(function (res) {
@@ -94,7 +90,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.onSave = false;
           $('#createUser').modal('hide');
           $scope.newUser = {};
-          $scope.getUserList(false);
+          $scope.getUserList();
         }, function (err) {
           $scope.onSave = false;
           console.log(err);
@@ -166,7 +162,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.importError = function () {
       $scope.temp.loadingCancel = false;
       $interval.cancel($scope.taskPromise);
-      $scope.getUserList(false);
+      $scope.getUserList();
       $scope.temp.currentProgress = -1;
     }
 
@@ -183,7 +179,7 @@ angular.module('nethvoiceWizardUiApp')
               $interval.cancel($scope.taskPromise);
               $scope.temp.errorCount = 0;
               $scope.temp.currentProgress = 100;
-              $scope.getUserList(false);
+              $scope.getUserList();
               setTimeout(function () {
                 $('#importModal').modal('hide');
                 $scope.temp.errorCount = 0;

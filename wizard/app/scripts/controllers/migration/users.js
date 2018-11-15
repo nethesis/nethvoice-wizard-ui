@@ -29,6 +29,8 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
+    $scope.errorUserCreation = false;
+
     $scope.temp = {
       errorCount: 0,
       currentProgress: 0
@@ -40,11 +42,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.lockOnList = false;
 
     $scope.openSelect = function (id) {
-      if ($("#" + id).hasClass('open')) {
-        $("#" + id).removeClass('open');
-      } else {
         $("#" + id).addClass('open');
-      }
     }
 
     $scope.removeOldExtension = function () {
@@ -69,7 +67,15 @@ angular.module('nethvoiceWizardUiApp')
     $scope.createUser = function (user) {
       var username = user.username;
       var fullname = user.fullname;
+      $scope.errorUserCreation = false;
       $scope.onSave = true;
+      for (var olduser in $scope.oldusers) {
+        if ($scope.oldusers[olduser].username === user.username) {
+          $scope.onSave = false;
+          $scope.errorUserCreation = true;
+          return;
+        }
+      }
       UserService.create(user).then(function (res) {
         UserService.setPassword(user.username, {
           password: UtilService.randomPassword(8)
@@ -167,6 +173,9 @@ angular.module('nethvoiceWizardUiApp')
         $scope.importConfirm();
       }, function (err) {
         console.log(err);
+        $scope.slideDown("collapse-usermig");
+        $scope.migration.users.loading = false;
+        $scope.migration.users.status = "fail";
       });
     }
 

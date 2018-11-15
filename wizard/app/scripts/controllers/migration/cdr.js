@@ -100,6 +100,9 @@ angular.module('nethvoiceWizardUiApp')
         $scope.importConfirm();
       }, function (err) {
         console.log(err);
+        $scope.slideDown("collapse-cdr");
+        $scope.migration.cdr.loading = false;
+        $scope.migration.cdr.status = "fail";
       });
     }
 
