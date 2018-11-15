@@ -17,37 +17,24 @@ angular.module('nethvoiceWizardUiApp')
     $scope.view.changeRoute = true;
     $scope.errorCount = 0;
 
-    $scope.checkIsMigration = function () {
-      MigrationService.isMigration().then(function (res) {
-        $scope.wizard.isMigration = res.data;
-        if ($scope.wizard.isMigration) {
-          $scope.wizard.isMigrationView = true;
-          $scope.wizard.isWizard = false;
-          $location.path('/migration');
-        } else {
-          ConfigService.getConfig().then(function (res) {
-            switch (res.data.result) {
-              case 'unknown':
-                $scope.view.changeRoute = false;
-                $scope.showConfigSwitch = true;
-                break;
-              case 'legacy':
-                $scope.mode.isLegacy = true;
-                $location.path('/users/extensions');
-                break;
-              case 'uc':
-                $scope.mode.isLegacy = false;
-                $location.path('/users/extensions');
-                break;
-            }
-          }, function (err) {
-            console.log(err);
-          });
-        }
-      }, function (err) {
-        console.log(err);
-      });
-    }
+    ConfigService.getConfig().then(function(res) {
+      switch (res.data.result) {
+        case 'unknown':
+          $scope.view.changeRoute = false;
+          $scope.showConfigSwitch = true;
+          break;
+        case 'legacy':
+          $scope.mode.isLegacy = true;
+          $location.path('/users/extensions');
+          break;
+        case 'uc':
+          $scope.mode.isLegacy = false;
+          $location.path('/users/extensions');
+          break;
+      }
+    }, function(err) {
+      console.log(err);
+    });
 
     $scope.$on('$destroy', function () {
       $interval.cancel($scope.taskPromise);
@@ -115,7 +102,5 @@ angular.module('nethvoiceWizardUiApp')
         });
       }
     };
-
-    $scope.checkIsMigration();
 
   });

@@ -8,10 +8,11 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('LoginCtrl', function ($rootScope, $scope, $location, ConfigService, LoginService, LocalStorageService) {
+  .controller('LoginCtrl', function ($rootScope, $scope, $location, ConfigService, LoginService, LocalStorageService, MigrationService) {
     $scope.doLogin = function (secret) {
       LoginService.login($scope.username, $scope.password, secret).then(function (res) {
         ConfigService.getWizard().then(function (res) {
+
           if (res.length == 0) {
             $scope.wizard.isWizard = true;
             $scope.wizard.stepCount = 0;
@@ -20,8 +21,20 @@ angular.module('nethvoiceWizardUiApp')
             $scope.wizard.stepCount = res[0].step;
           }
           if ($scope.wizard.isWizard) {
-            var location = appConfig.STEP_MAP_REVERSE[$scope.wizard.stepCount];
-            $location.path('/' + location);
+
+            MigrationService.isMigration().then(function (res) {
+              $scope.wizard.isMigration = res.data;
+              if ($scope.wizard.isMigration) {
+                $scope.wizard.isMigrationView = true;
+                $scope.wizard.isWizard = false;
+                $location.path('/migration');
+              } else {
+                var location = appConfig.STEP_MAP_REVERSE[$scope.wizard.stepCount];
+                $location.path('/' + location);
+              }
+            }, function (err) {
+              console.log(err);
+            });
           }
           $('body').show();
           $scope.login.isLogged = true;
