@@ -51,7 +51,7 @@
 
       </form>
       <div class="form-group config-row-button">
-          <button ng-if="mode.isLegacy" data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg no-margin">{{'Add user' | translate}}</button>
+          <button ng-if="wizard.config.local === 1" data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg no-margin">{{'Add user' | translate}}</button>
           <button ng-click="fileSelectImport()" class="btn btn-primary btn-lg no-margin">{{'Import' | translate}}</button>
           <button ng-click="csvExport()" class="btn btn-primary btn-lg no-margin">{{'Export' | translate}}</button>
           <input ng-model="temp.importFile" type="file" accept=".csv" id="importInput">
@@ -110,7 +110,7 @@
       <p ng-if="!mode.isLegacy">
         {{'Check your LDAP or Active Directory settings' | translate}}
       </p>
-      <div ng-if="mode.isLegacy" class="blank-slate-pf-main-action">
+      <div ng-if="wizard.config.local === 1" class="blank-slate-pf-main-action">
         <button data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg">{{'Create user' | translate}}</button>
         <button ng-click="fileSelectImport()" class="btn btn-primary btn-lg no-margin">{{'Import' | translate}}</button>
         <input ng-model="temp.importFile" type="file" accept=".csv" id="importInput">

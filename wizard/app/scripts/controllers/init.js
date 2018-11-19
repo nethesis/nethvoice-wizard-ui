@@ -31,6 +31,7 @@ angular.module('nethvoiceWizardUiApp')
       isMigrationView: false,
       usersMigrationDone: false,
       confMigrationDone: false,
+      config: {},
       stepCount: 1
     };
 
@@ -79,6 +80,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getConfig = function () {
       ConfigService.getConfig().then(function (res) {
+        $scope.wizard.config = res.data;
         if (res.data.type === 'ldap') {
           $scope.mode.isLegacy = true;
         } else {
