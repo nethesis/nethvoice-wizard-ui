@@ -107,7 +107,7 @@
       <h1>
         {{'No users found' | translate}}
       </h1>
-      <p ng-if="!mode.isLegacy">
+      <p ng-if="!mode.isLdap">
         {{'Check your LDAP or Active Directory settings' | translate}}
       </p>
       <div ng-if="wizard.config.local === 1" class="blank-slate-pf-main-action">

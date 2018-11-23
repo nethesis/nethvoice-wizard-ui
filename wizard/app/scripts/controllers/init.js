@@ -17,7 +17,7 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.mode = {
-      isLegacy: false
+      isLdap: false
     };
 
     $scope.login = {
@@ -82,9 +82,9 @@ angular.module('nethvoiceWizardUiApp')
       ConfigService.getConfig().then(function (res) {
         $scope.wizard.config = res.data;
         if (res.data.type === 'ldap') {
-          $scope.mode.isLegacy = true;
+          $scope.mode.isLdap = true;
         } else {
-          $scope.mode.isLegacy = false;
+          $scope.mode.isLdap = false;
         }
       }, function (err) {
         console.log(err);

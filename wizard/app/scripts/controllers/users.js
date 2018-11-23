@@ -22,10 +22,10 @@ angular.module('nethvoiceWizardUiApp')
         $scope.showConfigSwitch = true;
       } else {
         if (res.data.type === 'ldap') {
-          $scope.mode.isLegacy = true;
+          $scope.mode.isLdap = true;
           $location.path('/users/extensions');
         } else {
-          $scope.mode.isLegacy = false;
+          $scope.mode.isLdap = false;
           $location.path('/users/extensions');
         }
       }
@@ -71,7 +71,7 @@ angular.module('nethvoiceWizardUiApp')
                   $scope.errorCount = 0;
                   $interval.cancel($scope.taskPromise);
                   $scope.currentProgress = 100;
-                  $scope.mode.isLegacy = true;
+                  $scope.mode.isLdap = true;
 
                   if ($scope.wizard.isMigration) {
                     $scope.wizard.isMigrationView = true;

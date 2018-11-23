@@ -36,9 +36,9 @@ angular.module('nethvoiceWizardUiApp')
         $location.path('/users');
       } else {
         if (res.data.type === 'ldap') {
-          $scope.mode.isLegacy = true;
+          $scope.mode.isLdap = true;
         } else {
-          $scope.mode.isLegacy = false;
+          $scope.mode.isLdap = false;
         }
       }
     }, function (err) {

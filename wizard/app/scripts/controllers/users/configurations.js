@@ -60,7 +60,7 @@ angular.module('nethvoiceWizardUiApp')
           }
         }
         $scope.selectUser($scope.currentUserIndex || $scope.users[index], true);
-        if ($scope.mode.isLegacy && UtilService.isEmpty($scope.users)) {
+        if ($scope.mode.isLdap && UtilService.isEmpty($scope.users)) {
           $scope.wizard.nextState = false;
         }
       }, function (err) {
