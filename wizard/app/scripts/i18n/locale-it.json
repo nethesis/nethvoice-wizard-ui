@@ -530,5 +530,6 @@
   "Migration will take a few minutes": "La migrazione richiederà alcuni minuti",
   "inbound routes": "rotte in entrata",
   "cdr migration fail": "migrazione CDR fallita",
-  "Username already used": "Nome utente già utilizzato"
+  "Username already used": "Nome utente già utilizzato",
+  "Skip migration": "Salta migrazione"
 }

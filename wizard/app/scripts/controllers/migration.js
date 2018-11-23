@@ -10,7 +10,11 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('MigrationCtrl', function ($scope, $location) {
     $scope.view.changeRoute = false;
-    $scope.startUpgrade = function () {
+    $scope.startMigration = function () {
       $location.path('/migration/users');
+    }
+
+    $scope.skipMigration = function () {
+      $location.path('/migration/cdr');
     }
   });

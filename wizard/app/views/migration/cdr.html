@@ -61,6 +61,9 @@
                 {{info | translate}}
               </div>
 
+              <button ng-hide="migration.cdr.status === 'success' || migration.cdr.status === 'fail'" ng-click="exitMigration()" class="btn btn-primary btn-lg profile-button-save">
+                {{'Skip migration' | translate}} CDR
+              </button>
               <button ng-hide="migration.cdr.status === 'success' || migration.cdr.status === 'fail'" data-toggle="modal" data-target="#importModalMig" class="btn btn-primary btn-lg profile-button-save" type="submit">
                 {{'Start migration' | translate}}
               </button>
