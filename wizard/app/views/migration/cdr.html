@@ -6,10 +6,14 @@
           <a><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Utenti' | translate}}</span></a>
         </li>
         <li class="wizard-pf-step {{resolveActiveTab('config',2) ? 'active' : ''}}" data-tabgroup="2">
-          <a><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Configurazioni' | translate}}</span></a>
+          <a><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Configurazioni' |
+              translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('cdr',2) ? 'active' : ''}}" data-tabgroup="2">
+        <li class="wizard-pf-step {{resolveActiveTab('cdr',2) ? 'active' : ''}}" data-tabgroup="3">
           <a><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'CDR' | translate}}</span></a>
+        </li>
+        <li class="wizard-pf-step {{resolveActiveTab('report',2) ? 'active' : ''}}" data-tabgroup="4">
+          <a><span class="wizard-pf-step-number">4</span><span class="wizard-pf-step-title">{{'Report' | translate}}</span></a>
         </li>
       </ul>
     </div>
@@ -61,7 +65,7 @@
                 {{info | translate}}
               </div>
 
-              <button ng-hide="migration.cdr.status === 'success' || migration.cdr.status === 'fail'" ng-click="exitMigration()" class="btn btn-primary btn-lg profile-button-save">
+              <button ng-hide="migration.cdr.status === 'success' || migration.cdr.status === 'fail'" ng-click="goToReport()" class="btn btn-primary btn-lg profile-button-save">
                 {{'Skip migration' | translate}} CDR
               </button>
               <button ng-hide="migration.cdr.status === 'success' || migration.cdr.status === 'fail'" data-toggle="modal" data-target="#importModalMig" class="btn btn-primary btn-lg profile-button-save" type="submit">
@@ -82,7 +86,7 @@
             <button type="button" class="btn btn-default wizard-pf-back disabled">
                 {{'Back' | translate}}
             </button>
-            <button ng-click="migration.cdr.status === 'success' || migration.cdr.status === 'fail' ? exitMigration() : ''" type="button" class="btn btn-primary wizard-pf-next {{migration.cdr.status === 'success' || migration.cdr.status === 'fail' ? '' : 'disabled'}}">
+            <button ng-click="migration.cdr.status === 'success' || migration.cdr.status === 'fail' ? goToReport() : ''" type="button" class="btn btn-primary wizard-pf-next {{migration.cdr.status === 'success' || migration.cdr.status === 'fail' ? '' : 'disabled'}}">
                 {{'Next' | translate}}
             </button>
         </div>

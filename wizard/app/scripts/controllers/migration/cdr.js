@@ -17,7 +17,9 @@ angular.module('nethvoiceWizardUiApp')
         started: false,
         loading: false,
         completed: false,
+        isReport: false,
         status: 'todo',
+        report: {},
         data: {}
       }
     }
@@ -59,6 +61,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.temp.currentProgress = 0;
         $scope.temp.loading = false;
         $scope.temp.loadingCancel = false;
+        $scope.getReport();
       }, 1000);
     }
 
@@ -106,14 +109,8 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    $scope.exitMigration = function () {
-      MigrationService.endMigration().then(function (res) {
-        $scope.wizard.isWizard = true;
-        $scope.wizard.isMigrationView = false;
-        $location.path('/users/extensions');
-      }, function (err) {
-        console.log(err);
-      });
+    $scope.goToReport = function () {
+      $location.path("/migration/report");
     }
 
     MigrationService.getCdrLength().then(function (res) {

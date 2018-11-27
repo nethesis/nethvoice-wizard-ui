@@ -158,6 +158,11 @@ angular
         controller: 'CdrmigrationCtrl',
         controllerAs: 'cdrmigration'
       })
+      .when('/migration/report', {
+        templateUrl: 'views/migration/report.html',
+        controller: 'ReportmigrationCtrl',
+        controllerAs: 'reportmigration'
+      })
       .otherwise({
         redirectTo: '/'
       });

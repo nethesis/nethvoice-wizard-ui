@@ -27,6 +27,7 @@
   "unconfigured": "Not configured",
   "Header Report 1": "Summary table of users created with wizard.",
   "Header Report 2": "Provide credentials to the users to access CTI",
+  "Header Migration Report 1": "Summary table of messages received during migration.",
   "Admins": "Admin",
   "lname": "Name",
   "default_extension": "Extension",

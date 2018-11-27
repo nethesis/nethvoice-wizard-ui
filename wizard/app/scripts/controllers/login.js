@@ -12,7 +12,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.doLogin = function (secret) {
       LoginService.login($scope.username, $scope.password, secret).then(function (res) {
         ConfigService.getWizard().then(function (res) {
-
           if (res.length == 0) {
             $scope.wizard.isWizard = true;
             $scope.wizard.stepCount = 0;
@@ -24,19 +23,18 @@ angular.module('nethvoiceWizardUiApp')
             MigrationService.isMigration().then(function (res) {
               $scope.wizard.isMigration = res.data;
               if ($scope.wizard.isMigration) {
-                ConfigService.getConfig().then(function(res) {
 
+                ConfigService.getConfig().then(function(res) {
                   if (res.data.configured === 0) {
                     $location.path('/users');
                   } else {
                     $scope.wizard.isMigrationView = true;
                     $scope.wizard.isWizard = false;
-                    $location.path('/migration');
+                    $location.path('/migration/report');
                   }
                 }, function(err) {
                   console.log(err);
                 });
-
               } else {
                 var location = appConfig.STEP_MAP_REVERSE[$scope.wizard.stepCount];
                 $location.path('/' + location);

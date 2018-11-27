@@ -191,6 +191,7 @@
   "Final": "Finale",
   "Header Report 1": "Tabella riepilogativa degli utenti creati con il wizard.",
   "Header Report 2": "Fornire agli utenti le loro credenziali di accesso per il CTI",
+  "Header Migration Report 1": "Tabella riepilogativa dei messaggi recevuti durante la migrazione.",
 
   "Dial patterns": "Pattern di chiamata",
   "national_it": "Nazionali",
@@ -531,5 +532,8 @@
   "inbound routes": "rotte in entrata",
   "cdr migration fail": "migrazione CDR fallita",
   "Username already used": "Nome utente già utilizzato",
-  "Skip migration": "Salta migrazione"
+  "Skip migration": "Salta migrazione",
+  "Migration report": "Report migrazione",
+  "Save PDF report": "Salva report PDF",
+  "Type": "Tipo"
 }

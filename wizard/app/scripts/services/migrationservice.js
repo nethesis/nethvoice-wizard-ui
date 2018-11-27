@@ -212,6 +212,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.getReport = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/migration/report').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.endMigration = function () {
       return $q(function (resolve, reject) {
         RestService.post('/migration/endmigration').then(function (res) {

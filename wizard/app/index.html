@@ -133,6 +133,9 @@
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('cdr',2) ? 'active' : ''}}">
             <div class="list-group-item-value  menu-item-left no-opacity">{{'CDR' | translate | ellipsis:'1200'}}</div>
           </div>
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('report',2) ? 'active' : ''}}">
+            <div class="list-group-item-value  menu-item-left no-opacity">{{'Report' | translate | ellipsis:'1200'}}</div>
+          </div>
         </div>
        
         <li data-toggle="collapse" data-parent="#navbar-left" href="#trunksCollapse" ng-if="!wizard.isMigrationView && !wizard.isWizard || wizard.stepCount > appConfig.PART1_STEP"
@@ -347,6 +350,7 @@
   <script src="scripts/controllers/migration/users.js"></script>
   <script src="scripts/controllers/migration/config.js"></script>
   <script src="scripts/controllers/migration/cdr.js"></script>
+  <script src="scripts/controllers/migration/report.js"></script>
   <!-- endbuild -->
 </body>
 
