@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersmigrationCtrl', function ($scope, $location, $interval, ConfigService, UserService, UtilService, MigrationService) {
+  .controller('UsersmigrationCtrl', function ($scope, $location, $interval, UserService, UtilService, MigrationService) {
     
     $scope.migration = {
       oldUserToRemove : '',

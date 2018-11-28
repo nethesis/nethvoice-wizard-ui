@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('CdrmigrationCtrl', function ($scope, $location, $interval, ConfigService, UserService, UtilService, MigrationService) {
+  .controller('CdrmigrationCtrl', function ($scope, $location, $interval, MigrationService) {
 
     $scope.migration = {
       cdr : {

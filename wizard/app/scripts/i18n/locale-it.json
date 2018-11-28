@@ -535,5 +535,11 @@
   "Skip migration": "Salta migrazione",
   "Migration report": "Report migrazione",
   "Save PDF report": "Salva report PDF",
-  "Type": "Tipo"
+  "Type": "Tipo",
+  "profiles": "profili utente",
+  "vtrunks": "fasci VOIP",
+  "gateptrunks": "gateway e fasci fisici",
+  "outroutes": "rotte in uscita",
+  "tgroupstcond": "gruppi temporali e condizioni temporali",
+  "iroutes": "rotte in entrata"
 }

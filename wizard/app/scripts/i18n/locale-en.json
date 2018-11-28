@@ -31,5 +31,11 @@
   "Admins": "Admin",
   "lname": "Name",
   "default_extension": "Extension",
-  "orderBy": "Order"
+  "orderBy": "Order",
+  "profiles": "users profiles",
+  "vtrunks": "VOIP Trunks",
+  "gateptrunks": "gateway and physical trunks",
+  "outroutes": "outbound routes",
+  "tgroupstcond": "temporal groups and temporal conditions",
+  "iroutes": "inbound routes"
 }
