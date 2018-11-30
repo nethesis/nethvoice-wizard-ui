@@ -14,6 +14,7 @@ angular.module('nethvoiceWizardUiApp')
       oldUserToRemove : '',
       newUserForKey : '',
       profiles : {
+        statusDone: false,
         started: false,
         loading: false,
         completed: false,
@@ -21,6 +22,7 @@ angular.module('nethvoiceWizardUiApp')
         data: {}
       },
       users: {
+        statusDone: false,
         started: false,
         loading: false,
         completed: false,
@@ -281,7 +283,26 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    $scope.startProfilesMig();
+    $scope.validateMigrationStatus = function () {
+      MigrationService.getMigrationStatus().then(function (res) {
+        res.data = (res.data === "ready" || res.data === "" || res.data === null || res.data === undefined) ? false : res.data;
+        if (!res.data && $scope.wizard.fromMigrationStart) {
+          $scope.startProfilesMig();
+        } else if (res.data === "profiles") {
+          $scope.migration.profiles.statusDone = true;
+          $scope.slideDown("collapse-usermig");
+        } else if (res.data === "users") {
+          $scope.migration.profiles.statusDone = true;
+          $scope.migration.users.statusDone = true;
+        } else {
+          $scope.redirectOnMigrationStatus(res.data);
+        }
+      }, function (err) {
+        console.log(err);
+      });
+    }
+
+    $scope.validateMigrationStatus();
     $scope.getOldUsers();
 
   });

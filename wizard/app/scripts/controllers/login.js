@@ -23,25 +23,27 @@ angular.module('nethvoiceWizardUiApp')
             MigrationService.isMigration().then(function (res) {
               $scope.wizard.isMigration = res.data;
               if ($scope.wizard.isMigration) {
-
                 ConfigService.getConfig().then(function(res) {
                   if (res.data.configured === 0) {
                     $location.path('/users');
                   } else {
-                    $scope.wizard.isMigrationView = true;
-                    $scope.wizard.isWizard = false;
-                    $location.path('/migration/report');
+                    $scope.pauseWizard();
+                    $scope.redirectOnMigrationStatus();
                   }
                 }, function(err) {
                   console.log(err);
                 });
               } else {
                 var location = appConfig.STEP_MAP_REVERSE[$scope.wizard.stepCount];
-                $location.path('/' + location);
+                if ("/" + location !== $location.path()) {
+                  $location.path('/' + location);
+                }
               }
             }, function (err) {
               console.log(err);
             });
+          } else {
+            $scope.view.changeRoute = false;
           }
           $('body').show();
           $scope.login.isLogged = true;
@@ -61,7 +63,6 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err);
       });
     };
-
     var obj = LoginService.getCredentials();
     if (obj) {
       $('#loginTpl').hide();

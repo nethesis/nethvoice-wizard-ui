@@ -10,6 +10,8 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('ConfigmigrationCtrl', function ($scope, $location, MigrationService) {
 
+    $scope.view.changeRoute = false;
+
     $scope.nextSepMig = function (key) {
       for (var objKey in $scope.migration) {
         if (previous) {
@@ -28,6 +30,7 @@ angular.module('nethvoiceWizardUiApp')
         started: false,
         loading: false,
         completed: false,
+        statusDone: false,
         status: 'todo',
         data: {},
         action: function () {
@@ -50,6 +53,7 @@ angular.module('nethvoiceWizardUiApp')
         started: false,
         loading: false,
         completed: false,
+        statusDone: false,
         status: 'todo',
         data: {},
         action: function () {
@@ -64,11 +68,32 @@ angular.module('nethvoiceWizardUiApp')
           });
         }
       },
-      outroutes: {
+      iax: {
         id : 2,
         started: false,
         loading: false,
         completed: false,
+        statusDone: false,
+        status: 'todo',
+        data: {},
+        action: function () {
+          $scope.startItemMig("iax");
+          MigrationService.importIax().then(function (res) {
+            $scope.successItemMig("iax", res.data);
+            $scope.slideDown("collapse-iax");
+          }, function (err) {
+            $scope.failItemMig("iax", err.data);
+            $scope.slideDown("collapse-iax");
+            console.log(err);
+          });
+        }
+      },
+      outroutes: {
+        id : 3,
+        started: false,
+        loading: false,
+        completed: false,
+        statusDone: false,
         status: 'todo',
         data: {},
         action: function () {
@@ -90,10 +115,11 @@ angular.module('nethvoiceWizardUiApp')
         }
       },
       groups: {
-        id : 3,
+        id : 4,
         started: false,
         loading: false,
         completed: false,
+        statusDone: false,
         status: 'todo',
         data: {},
         action: function () {
@@ -109,10 +135,11 @@ angular.module('nethvoiceWizardUiApp')
         }
       },
       queues: {
-        id : 4,
+        id : 5,
         started: false,
         loading: false,
         completed: false,
+        statusDone: false,
         status: 'todo',
         data: {},
         action: function () {
@@ -128,10 +155,11 @@ angular.module('nethvoiceWizardUiApp')
         }
       },
       ivr: {
-        id : 5,
+        id : 6,
         started: false,
         loading: false,
         completed: false,
+        statusDone: false,
         status: 'todo',
         data: {},
         action: function () {
@@ -147,10 +175,11 @@ angular.module('nethvoiceWizardUiApp')
         }
       },
       cqr: {
-        id : 6,
+        id : 7,
         started: false,
         loading: false,
         completed: false,
+        statusDone: false,
         status: 'todo',
         data: {},
         action: function () {
@@ -166,10 +195,11 @@ angular.module('nethvoiceWizardUiApp')
         }
       },
       recordings: {
-        id : 7,
+        id : 8,
         started: false,
         loading: false,
         completed: false,
+        statusDone: false,
         status: 'todo',
         data: {},
         action: function () {
@@ -185,10 +215,11 @@ angular.module('nethvoiceWizardUiApp')
         }
       },
       announcements: {
-        id : 8,
+        id : 9,
         started: false,
         loading: false,
         completed: false,
+        statusDone: false,
         status: 'todo',
         data: {},
         action: function () {
@@ -203,11 +234,32 @@ angular.module('nethvoiceWizardUiApp')
           });
         }
       },
-      tgroupstcond: {
-        id : 8,
+      daynight: {
+        id : 10,
         started: false,
         loading: false,
         completed: false,
+        statusDone: false,
+        status: 'todo',
+        data: {},
+        action: function () {
+          $scope.startItemMig("daynight");
+          MigrationService.importDaynight().then(function (res) {
+            $scope.successItemMig("daynight", res.data);
+            $scope.slideDown("collapse-daynight");
+          }, function (err) {
+            $scope.failItemMig("daynight", err.data);
+            $scope.slideDown("collapse-daynight");
+            console.log(err);
+          });
+        }
+      },
+      tgroupstcond: {
+        id : 11,
+        started: false,
+        loading: false,
+        completed: false,
+        statusDone: false,
         status: 'todo',
         data: {},
         action: function () {
@@ -229,10 +281,11 @@ angular.module('nethvoiceWizardUiApp')
         }
       },
       iroutes: {
-        id : 9,
+        id : 12,
         started: false,
         loading: false,
         completed: false,
+        statusDone: false,
         status: 'todo',
         data: {},
         action: function () {
@@ -240,10 +293,30 @@ angular.module('nethvoiceWizardUiApp')
           MigrationService.importInRoutes().then(function (res) {
             $scope.successItemMig("iroutes", res.data);
             $scope.slideDown("collapse-iroutes");
-            $scope.wizard.confMigrationDone = true;
           }, function (err) {
             $scope.failItemMig("iroutes", err.data);
             $scope.slideDown("collapse-iroutes");
+            console.log(err);
+          });
+        }
+      },
+      postmig: {
+        id : 13,
+        started: false,
+        loading: false,
+        completed: false,
+        statusDone: false,
+        status: 'todo',
+        data: {},
+        action: function () {
+          $scope.startItemMig("postmig");
+          MigrationService.importPostMig().then(function (res) {
+            $scope.successItemMig("postmig", res.data);
+            $scope.slideDown("collapse-postmig");
+            $scope.wizard.confMigrationDone = true;
+          }, function (err) {
+            $scope.failItemMig("postmig", err.data);
+            $scope.slideDown("collapse-postmig");
             $scope.wizard.confMigrationDone = true;
             console.log(err);
           });
@@ -256,7 +329,9 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.setMigCompletedTimeout = function (key, status) {
-      $scope.nextSepMig(key);
+      if (key !== "postmig") {
+        $scope.nextSepMig(key);
+      }
     }
 
     $scope.startItemMig = function (key) {
@@ -278,6 +353,37 @@ angular.module('nethvoiceWizardUiApp')
       $scope.setMigCompletedTimeout(key, true);
     }
 
-    $scope.migration.vtrunks.action();
+    $scope.disableDoneSteps = function (status) {
+      if (status !== "users") {
+        for (var step in $scope.migration) {
+          $scope.migration[step].statusDone = true;
+          if (status === step) {
+            break;
+          }
+        }
+      }
+    }
+
+    $scope.validateMigrationStatus = function () {
+      MigrationService.getMigrationStatus().then(function (res) {
+        var isLabel = migrationConfig.LABEL_INFO[res.data];
+        if (isLabel) {
+          var nextLabel = migrationConfig.LABEL_INFO[isLabel.next];
+          if (res.data !== "done" && res.data !== "cdr" && nextLabel.route === $location.path()) {
+
+            $scope.migration[isLabel.next].action();
+            $scope.disableDoneSteps(res.data);
+          } else {
+            $scope.redirectOnMigrationStatus(res.data);
+          } 
+        } else {
+          $scope.redirectOnMigrationStatus(res.data);
+        }
+      }, function (err) {
+        console.log(err);
+      });
+    }
+
+    $scope.validateMigrationStatus();
 
   });

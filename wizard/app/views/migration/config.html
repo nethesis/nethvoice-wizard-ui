@@ -23,9 +23,10 @@
     <div ng-repeat="(elemKey, elem) in migration" class="list-group list-view-pf adjust-margin-extensions no-border margin-migration-users">
       <div class="adjust-profile-margin">
         <div>
-          <h1 ng-click="migration[elemKey].started ? toggleMig('collapse-' + elemKey) : ''" class="adjust-header adjust-profile-header">
+          <h1 ng-click="migration[elemKey].started ? toggleMig('collapse-' + elemKey) : ''" class="adjust-header adjust-profile-header {{migration[elemKey].statusDone ? 'disabled' : ''}}">
             <span ng-if="elemKey === 'vtrunks'" class="fa fa-cloud card-pf-icon-circle config-title-icon"></span>
             <span ng-if="elemKey === 'gateptrunks'" class="pficon pficon-topology card-pf-icon-circle config-title-icon"></span>
+            <span ng-if="elemKey === 'iax'" class="pficon pficon-cloud-tenant card-pf-icon-circle config-title-icon"></span>
             <span ng-if="elemKey === 'outroutes'" class="pficon pficon-trend-up card-pf-icon-circle config-title-icon"></span>
             <span ng-if="elemKey === 'groups'" class="fa fa-object-group card-pf-icon-circle config-title-icon"></span>
             <span ng-if="elemKey === 'queues'" class="fa fa-users card-pf-icon-circle config-title-icon"></span>
@@ -33,11 +34,14 @@
             <span ng-if="elemKey === 'cqr'" class="fa fa-database card-pf-icon-circle config-title-icon"></span>
             <span ng-if="elemKey === 'recordings'" class="fa fa-microphone card-pf-icon-circle config-title-icon"></span>
             <span ng-if="elemKey === 'announcements'" class="fa fa-bullhorn card-pf-icon-circle config-title-icon"></span>
+            <span ng-if="elemKey === 'daynight'" class="pficon pficon-service card-pf-icon-circle config-title-icon"></span>
             <span ng-if="elemKey === 'tgroupstcond'" class="fa fa-clock-o card-pf-icon-circle config-title-icon"></span>
             <span ng-if="elemKey === 'iroutes'" class="pficon pficon-trend-down card-pf-icon-circle config-title-icon"></span>
+            <span ng-if="elemKey === 'postmig'" class="fa fa-cog card-pf-icon-circle config-title-icon"></span>
             {{'Migration' | translate}}:
             <span ng-if="elemKey === 'vtrunks'" class="weight">{{"VOIP Trunks" | translate}}</span>
             <span ng-if="elemKey === 'gateptrunks'" class="weight">{{"gateway and physical trunks" | translate}}</span>
+            <span ng-if="elemKey === 'iax'" class="weight">{{"iax" | translate}}</span>
             <span ng-if="elemKey === 'outroutes'" class="weight">{{"outbound routes" | translate}}</span>
             <span ng-if="elemKey === 'groups'" class="weight">{{"groups" | translate}}</span>
             <span ng-if="elemKey === 'queues'" class="weight">{{"queues" | translate}}</span>
@@ -45,8 +49,10 @@
             <span ng-if="elemKey === 'cqr'" class="weight">{{"cqr" | translate}}</span>
             <span ng-if="elemKey === 'recordings'" class="weight">{{"recordings" | translate}}</span>
             <span ng-if="elemKey === 'announcements'" class="weight">{{"announcements" | translate}}</span>
+            <span ng-if="elemKey === 'daynight'" class="weight">{{"daynight" | translate}}</span>
             <span ng-if="elemKey === 'tgroupstcond'" class="weight">{{"temporal groups and temporal conditions" | translate}}</span>
             <span ng-if="elemKey === 'iroutes'" class="weight">{{"inbound routes" | translate}}</span>
+            <span ng-if="elemKey === 'postmig'" class="weight">{{"postmig" | translate}}</span>
             <span ng-if="migration[elemKey].loading" class="inprogress-text">{{"in progress" | translate}}
               <div class="lds-ellipsis">
                 <div></div>

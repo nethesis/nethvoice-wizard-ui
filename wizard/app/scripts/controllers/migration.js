@@ -12,9 +12,12 @@ angular.module('nethvoiceWizardUiApp')
     $scope.view.changeRoute = false;
     $scope.startMigration = function () {
       $location.path('/migration/users');
+      $scope.wizard.fromMigrationStart = true;
     }
 
     $scope.skipMigration = function () {
       $location.path('/migration/cdr');
     }
+
+    $scope.redirectOnMigrationStatus();
   });

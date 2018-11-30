@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('InitCtrl', function ($scope, $translate, $route, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService, TrunkService, RouteService) {
+  .controller('InitCtrl', function ($scope, $translate, $route, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService, MigrationService, TrunkService, RouteService) {
     $scope.customConfig = customConfig;
     $scope.appConfig = appConfig;
 
@@ -31,6 +31,7 @@ angular.module('nethvoiceWizardUiApp')
       isMigrationView: false,
       usersMigrationDone: false,
       confMigrationDone: false,
+      fromMigrationStart: false,
       config: {},
       stepCount: 1
     };
@@ -148,6 +149,52 @@ angular.module('nethvoiceWizardUiApp')
         }
       }
     };
+
+    $scope.pauseWizard = function () {
+      $scope.wizard.isMigrationView = true;
+      $scope.wizard.isWizard = false;
+    }
+
+    $scope.redirectMigrationAction = function (status, configured) {
+      var route = $location.path();
+      if (status && status !== "done" && configured === 1) {
+        $scope.pauseWizard();
+        status = (status === "ready" || status === "" || status === null || status === undefined) ? false : status;
+        if (status && status !== "cdr" && status !== "users") {
+          var nextMigRoute = migrationConfig.LABEL_INFO[migrationConfig.LABEL_INFO[status].next].route;
+          $location.path(nextMigRoute);
+        } else if (status === "users") {
+          $location.path("/migration/users");
+        } else if (status === "cdr") {
+          $location.path("/migration/report");
+        } else if (route != "/migration") {
+          $location.path('/migration');
+        }
+      } else {
+        var location = appConfig.STEP_MAP_REVERSE[$scope.wizard.stepCount];
+        if (location === "admin/settings" && !$scope.wizard.isWizard) {
+          $location.path('/');
+        } else {
+          $location.path('/' + location);
+        }
+      }
+    }
+
+    $scope.redirectOnMigrationStatus = function (status) {
+      ConfigService.getConfig().then(function (res) {
+        if (status) {
+          $scope.redirectMigrationAction(status, res.data.configured);
+        } else {
+          MigrationService.getMigrationStatus().then(function (resb) {
+            $scope.redirectMigrationAction(resb.data, res.data.configured);
+          }, function (err) {
+            console.log(err);
+          });
+        }
+      }, function (err) {
+        console.log(err);
+      });
+    }
 
     $scope.currentYear = function () {
       return new Date().getFullYear();

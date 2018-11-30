@@ -62,7 +62,17 @@ angular.module('nethvoiceWizardUiApp')
 
     this.importOldGateways = function () {
       return $q(function (resolve, reject) {
-        RestService.get('/migration/oldgateways').then(function (res) {
+        RestService.post('/migration/gateways').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.importIax = function () {
+      return $q(function (resolve, reject) {
+        RestService.post('/migration/iax').then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
@@ -151,6 +161,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.importDaynight = function () {
+      return $q(function (resolve, reject) {
+        RestService.post('/migration/daynight').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     // needs importTimeconditions after
     this.importTimegroups = function () {
       return $q(function (resolve, reject) {
@@ -175,6 +195,16 @@ angular.module('nethvoiceWizardUiApp')
     this.importInRoutes = function () {
       return $q(function (resolve, reject) {
         RestService.post('/migration/inboundroutes').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.importPostMig = function () {
+      return $q(function (resolve, reject) {
+        RestService.post('/migration/postmigration').then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
@@ -221,6 +251,26 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
+    this.getMigrationStatus = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/migration/migrationstatus').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.setMigrationStatus = function (str) {
+      return $q(function (resolve, reject) {
+        RestService.post('/migration/migrationstatus', str).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    }
 
     this.endMigration = function () {
       return $q(function (resolve, reject) {

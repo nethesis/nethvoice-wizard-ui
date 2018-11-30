@@ -46,11 +46,11 @@
 
               <div ng-if="migration.cdr.status === 'success'" class="alert alert-success">
                 <span class="pficon pficon-ok"></span>
-                {{"Migration has been completed" | translate}}.
+                <strong>{{"Migration has been started in background" | translate}}.</strong> {{"You can check CDR migration status on file /var/run/nethvoice/cdrmigration" | translate}}
               </div>
               <div ng-if="migration.cdr.status === 'fail' " class="alert alert-danger alert-dismissable">
                 <span class="pficon pficon-error-circle-o"></span>
-                {{"Migration has not been completed" | translate}}.
+                {{"Migration has not been started" | translate}}.
               </div>
               <div ng-repeat="error in migration.cdr.data.errors track by $index" class="alert alert-danger overflow-auto">
                 <span class="pficon pficon-error-circle-o"></span>
@@ -65,7 +65,7 @@
                 {{info | translate}}
               </div>
 
-              <button ng-hide="migration.cdr.status === 'success' || migration.cdr.status === 'fail'" ng-click="goToReport()" class="btn btn-primary btn-lg profile-button-save">
+              <button ng-hide="migration.cdr.status === 'success' || migration.cdr.status === 'fail'" ng-click="goToReport('cdr')" class="btn btn-primary btn-lg profile-button-save">
                 {{'Skip migration' | translate}} CDR
               </button>
               <button ng-hide="migration.cdr.status === 'success' || migration.cdr.status === 'fail'" data-toggle="modal" data-target="#importModalMig" class="btn btn-primary btn-lg profile-button-save" type="submit">
@@ -105,28 +105,12 @@
         <div class="modal-body">
           <div ng-if="!temp.loading" class="alert alert-warning alert-dismissable" style="margin-bottom: 0px;">
             <span class="pficon pficon-warning-triangle-o"></span>
-            <strong>{{'Are you sure you want to start CDR migration' | translate}}?</strong>
-          </div>
-          <div ng-if="temp.loading">
-            <div class="progress-description">
-              <div ng-if="temp.currentProgress < 100 && temp.currentProgress != -1" class="spinner spinner-xs spinner-inline"></div>
-              <span ng-if="temp.currentProgress == 100" class="pficon pficon-ok"></span>
-              <span ng-if="temp.currentProgress == -1" class="pficon pficon-error-circle-o"></span>
-              <span ng-if="temp.currentProgress != -1"><strong>{{'Migrating' | translate}}:</strong> {{'cdr' | translate}}</span>
-              <span ng-if="temp.currentProgress == -1"><strong>{{'Error' | translate}}:</strong> {{'cdr migration fail' | translate}}</span>
-            </div>
-            <div class="progress progress-label-top-right">
-              <div class="progress-bar {{temp.currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}"
-                role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{temp.currentProgress == -1 ? '100' : temp.currentProgress}}%;">
-                <span>{{temp.currentProgress == -1 ? '100' : temp.currentProgress}}%</span>
-              </div>
-            </div>
+            <strong>{{'The CDR will be migrated in background' | translate}}.</strong> {{'Are you sure you want to start the migration' | translate}}?
           </div>
         </div>
         <div class="modal-footer submit">
-          <button class="btn btn-default" ng-click="clearImport()" ng-disabled="temp.loadingCancel" type="button"
-            data-dismiss="modal">{{'Cancel' | translate}}</button>
-          <button class="btn btn-primary" ng-disabled="temp.loading" type="submit">{{'Start' | translate}}</button>
+          <button class="btn btn-default" type="button" data-dismiss="modal">{{'Cancel' | translate}}</button>
+          <button class="btn btn-primary" type="submit">{{'Start' | translate}}</button>
         </div>
       </form>
     </div>

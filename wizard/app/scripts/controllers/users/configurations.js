@@ -97,7 +97,7 @@ angular.module('nethvoiceWizardUiApp')
       if (!first) {
         if (user.devices.length > 0) {
           for (var d in user.devices) {
-            if (user.devices[d].type === 'physical') {
+            if (user.devices[d].type === 'physical'  || user.devices[d].type === 'temporaryphysical') {
               $scope.searchDeviceUserString = user.username;
               break;
             } else {

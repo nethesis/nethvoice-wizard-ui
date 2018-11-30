@@ -87,20 +87,23 @@ var migrationConfig = {
     "2": "users",
     "3": "vtrunks",
     "4": "gateptrunks",
-    "5": "outroutes",
-    "6": "groups",
-    "7": "queues",
-    "8": "ivr",
-    "9": "cqr",
-    "10": "recordings",
-    "11": "announcements",
-    "12": "tgroupstcond",
-    "13": "iroutes",
-    "14": "cdr"
+    "5": "iax",
+    "6": "outroutes",
+    "7": "groups",
+    "8": "queues",
+    "9": "ivr",
+    "10": "cqr",
+    "11": "recordings",
+    "12": "announcements",
+    "13": "daynight",
+    "14": "tgroupstcond",
+    "15": "iroutes",
+    "16": "postmig",
+    "17": "cdr"
   },
   LABEL_INFO: {
     profiles: {
-      route: "migration/users",
+      route: "/migration/users",
       functions: [
         "cloneOldCTIProfile"
       ],
@@ -108,7 +111,7 @@ var migrationConfig = {
       next: "users"
     },
     users: {
-      route: "migration/users",
+      route: "/migration/users",
       functions: [
         "csvimport"
       ],
@@ -116,7 +119,7 @@ var migrationConfig = {
       next: "vtrunks"
     },
     vtrunks: {
-      route: "migration/config",
+      route: "/migration/config",
       functions: [
         "copyOldTrunks"
       ],
@@ -124,15 +127,23 @@ var migrationConfig = {
       next: "gateptrunks"
     },
     gateptrunks: {
-      route: "migration/config",
+      route: "/migration/config",
       functions: [
         "getOldGateways"
       ],
       prev: "vtrunks",
+      next: "iax"
+    },
+    iax: {
+      route: "/migration/config",
+      functions: [
+        "migrateIAX"
+      ],
+      prev: "gateptrunks",
       next: "outroutes"
     },
     outroutes: {
-      route: "migration/config",
+      route: "/migration/config",
       functions: [
         "copyOldOutboundRoutes",
         "migrateRoutesTrunksAssignements"
@@ -141,7 +152,7 @@ var migrationConfig = {
       next: "groups"
     },
     groups: {
-      route: "migration/config",
+      route: "/migration/config",
       functions: [
         "migrateGroups"
       ],
@@ -149,7 +160,7 @@ var migrationConfig = {
       next: "queues"
     },
     queues: {
-      route: "migration/config",
+      route: "/migration/config",
       functions: [
         "migrateQueues"
       ],
@@ -157,7 +168,7 @@ var migrationConfig = {
       next: "ivr"
     },
     ivr: {
-      route: "migration/config",
+      route: "/migration/config",
       functions: [
         "migrateIVRs"
       ],
@@ -165,7 +176,7 @@ var migrationConfig = {
       next: "cqr"
     },
     cqr: {
-      route: "migration/config",
+      route: "/migration/config",
       functions: [
         "migrateCQRs"
       ],
@@ -173,7 +184,7 @@ var migrationConfig = {
       next: "recordings"
     },
     recordings: {
-      route: "migration/config",
+      route: "/migration/config",
       functions: [
         "migrateRecordings"
       ],
@@ -181,15 +192,23 @@ var migrationConfig = {
       next: "announcements"
     },
     announcements: {
-      route: "migration/config",
+      route: "/migration/config",
       functions: [
         "migrateAnnouncements"
       ],
       prev: "recordings",
+      next: "daynight"
+    },
+    daynight: {
+      route: "/migration/config",
+      functions: [
+        "daynight"
+      ],
+      prev: "announcements",
       next: "tgroupstcond"
     },
     tgroupstcond: {
-      route: "migration/config",
+      route: "/migration/config",
       functions: [
         "migrateTimegroups",
         "migrateTimeconditions"
@@ -198,20 +217,28 @@ var migrationConfig = {
       next: "iroutes"
     },
     iroutes: {
-      route: "migration/config",
+      route: "/migration/config",
       functions: [
         "migrateInboundRoutes"
       ],
       prev: "tgroupstcond",
+      next: "postmig"
+    },
+    postmig: {
+      route: "/migration/config",
+      functions: [
+        "postMigration"
+      ],
+      prev: "iroutes",
       next: "cdr"
     },
     cdr: {
-      route: "migration/cdr",
+      route: "/migration/cdr",
       functions: [
         "cdrmigration"
       ],
       prev: "iroutes",
-      next: false
+      next: null
     }
   }
 }

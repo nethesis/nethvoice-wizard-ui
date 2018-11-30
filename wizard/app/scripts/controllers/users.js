@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersCtrl', function ($scope, $location, $interval, ConfigService, UtilService, LocalStorageService, MigrationService) {
+  .controller('UsersCtrl', function ($scope, $location, $interval, ConfigService, UtilService) {
     $scope.showConfigSwitch = false;
     $scope.startInstall = false;
     $scope.currentProgress = 0;
@@ -16,30 +16,42 @@ angular.module('nethvoiceWizardUiApp')
     $scope.taskPromise = null;
     $scope.errorCount = 0;
 
-    ConfigService.getConfig().then(function(res) {
-      if (res.data.configured === 0) {
-        $scope.view.changeRoute = false;
-        $scope.showConfigSwitch = true;
-      } else {
-        if (res.data.type === 'ldap') {
-          $scope.mode.isLdap = true;
-          $location.path('/users/extensions');
-        } else {
-          $scope.mode.isLdap = false;
-          $location.path('/users/extensions');
-        }
+    $scope.nextStepUsers = function () {
+      var step = $scope.wizard.stepCount;
+      $location.path("/users/extensions");
+      if (!step || (step && step == "0")) {
+        ConfigService.setWizard({
+          status: 'true',
+          step: '1'
+        }).then(function (res) {
+        }, function (err) {
+          console.log(err);
+        });
       }
-    }, function(err) {
-      console.log(err);
-    });
+    }
+
+    $scope.getProviderStatus = function () {
+      ConfigService.getConfig().then(function(res) {
+        if (res.data.configured === 0) {
+          $scope.view.changeRoute = false;
+          $scope.showConfigSwitch = true;
+        } else {
+          if (res.data.type === 'ldap') {
+            $scope.mode.isLdap = true;
+            $scope.nextStepUsers();
+          } else {
+            $scope.mode.isLdap = false;
+            $scope.nextStepUsers();
+          }
+        }
+      }, function(err) {
+        console.log(err);
+      });
+    }
 
     $scope.$on('$destroy', function () {
       $interval.cancel($scope.taskPromise);
     });
-
-    $scope.nextStep = function () {
-      $location.path('/users/extensions');
-    }
 
     $scope.goNethserverSssdConfig = function () {
       for (var la in $scope.languagesArr) {
@@ -106,5 +118,7 @@ angular.module('nethvoiceWizardUiApp')
         });
       }
     };
+
+    $scope.getProviderStatus();
 
   });

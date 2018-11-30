@@ -25,12 +25,12 @@
     <div class="list-group list-view-pf adjust-margin-extensions no-border margin-migration-users">
       <div class="adjust-profile-margin">
         <div>
-          <h1 ng-click="migration.profiles.started ? toggleMig('collapse-profilemig') : ''" class="adjust-header adjust-profile-header">
+          <h1 ng-click="migration.profiles.started ? toggleMig('collapse-profilemig') : ''" class="adjust-header adjust-profile-header {{migration.profiles.statusDone ? 'disabled' : ''}}">
             <span class="fa fa-user card-pf-icon-circle config-title-icon"></span>{{'Migration' | translate}}: <span class="weight">{{"users profiles" | translate}}</span>
             <span ng-if="migration.profiles.loading" class="inprogress-text">{{"in progress" | translate}} 
               <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
             </span>
-            <span ng-if="migration.profiles.started && !migration.profiles.loading" class="fa fa-angle-down toggle-icon-mig icon-med-reload profile-open-icon"></span>
+            <span ng-if="!migration.profiles.loading" class="fa fa-angle-down toggle-icon-mig icon-med-reload profile-open-icon"></span>
             <span ng-if="migration.profiles.status === 'success' && !migration.profiles.completed" class="pficon pficon-ok success-mig-icon icon-med-reload profile-open-icon"></span>
             <span ng-if="migration.profiles.status === 'fail' && !migration.profiles.completed" class="pficon pficon-error-circle-o success-mig-icon icon-med-reload profile-open-icon"></span>
             <div ng-if="migration.profiles.loading" class="spinner spinner-sm profile-save-spinner migration-spinners"></div>
@@ -66,13 +66,13 @@
     <div class="list-group list-view-pf adjust-margin-extensions no-border margin-migration-users">
       <div class="adjust-profile-margin">
         <div id="accordion-markup-usersmig">
-          <h1 ng-click="migration.profiles.status === 'success' || migration.profiles.status === 'fail' ? toggleMig('collapse-usermig') : ''" class="adjust-header adjust-profile-header">
+          <h1 ng-click="migration.users.statusDone ? '' : toggleMig('collapse-usermig')" class="adjust-header adjust-profile-header {{migration.users.statusDone ? 'disabled' : ''}}">
             <span class="pficon pficon-users card-pf-icon-circle config-title-icon"></span>{{'Migration' | translate}}:
             <span class="weight">{{"users and extensions" | translate}}</span>
             <span ng-if="migration.users.loading" class="inprogress-text">{{"in progress" | translate}} 
               <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
             </span>
-            <span ng-if="!migration.users.loading" class="fa fa-angle-down toggle-icon-mig icon-med-reload profile-open-icon"></span>
+            <span ng-if="!migration.users.loading && !migration.users.statusDone" class="fa fa-angle-down toggle-icon-mig icon-med-reload profile-open-icon"></span>
             <span ng-if="migration.users.status === 'success' && !migration.users.completed" class="pficon pficon-ok success-mig-icon icon-med-reload profile-open-icon"></span>
             <span ng-if="migration.users.status === 'fail' && !migration.users.completed" class="pficon pficon-error-circle-o success-mig-icon icon-med-reload profile-open-icon"></span>
             <div ng-if="migration.users.loading" class="spinner spinner-sm profile-save-spinner migration-spinners"></div>
@@ -244,7 +244,7 @@
           <button type="button" class="btn btn-default wizard-pf-back disabled">
             {{'Back' | translate}}
           </button>
-          <button ng-click="migration.users.status === 'success' || migration.users.status === 'fail' ? showConfMigAlert() : ''" type="button" class="btn btn-primary wizard-pf-next {{migration.users.status === 'success' || migration.users.status === 'fail' ? '' : 'disabled'}}">
+          <button ng-click="migration.users.status === 'success' || migration.users.status === 'fail' || migration.users.statusDone ? showConfMigAlert() : ''" type="button" class="btn btn-primary wizard-pf-next {{migration.users.status === 'success' || migration.users.status === 'fail' || migration.users.statusDone ? '' : 'disabled'}}">
             {{'Next' | translate}}
           </button>
         </div>
@@ -371,6 +371,9 @@
                     {{'gateway and physical trunks' | translate}}
                   </li>
                   <li>
+                    {{'iax' | translate}}
+                  </li>
+                  <li>
                     {{'outbound routes' | translate}}
                   </li>
                   <li>
@@ -392,10 +395,16 @@
                     {{'announcements' | translate}}
                   </li>
                   <li>
+                    {{'daynight' | translate}}
+                  </li>
+                  <li>
                     {{'temporal groups and temporal conditions' | translate}}
                   </li>
                   <li>
                     {{'inbound routes' | translate}}
+                  </li>
+                  <li>
+                    {{'postmig' | translate}}
                   </li>
                 </ul>
               </span>

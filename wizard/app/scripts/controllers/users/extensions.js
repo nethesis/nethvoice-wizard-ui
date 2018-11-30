@@ -10,11 +10,13 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('UsersExtensionsCtrl', function ($scope, $location, $interval, ConfigService, UserService, UtilService) {
     $scope.users = {};
+    $scope.providerLocal = false;
     $scope.taskPromise = null;
     $scope.onSave = false;
     $scope.lockOnList = false;
     $scope.availableUsersFilters = ['all', 'configured', 'unconfigured'];
     $scope.selectedUsersFilter = $scope.availableUsersFilters[0];
+    $scope.view.changeRoute = true;
 
     $scope.error = {
       file: {
@@ -29,21 +31,6 @@ angular.module('nethvoiceWizardUiApp')
       currentProgress: 0
     };
 
-    ConfigService.getConfig().then(function (res) {
-      if (res.data.configured === 0) {
-        $scope.showConfigSwitch = true;
-        $location.path('/users');
-      } else {
-        if (res.data.type === 'ldap') {
-          $scope.mode.isLdap = true;
-        } else {
-          $scope.mode.isLdap = false;
-        }
-      }
-    }, function (err) {
-      console.log(err);
-    });
-
     $scope.checkDefaultExtensions = function() {
       $scope.wizard.nextState = false;
       for (var u in $scope.users) {
@@ -53,19 +40,43 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.checkUserProviderStatus = function () {
+      ConfigService.getConfig().then(function (res) {
+        $scope.view.changeRoute = false;
+        if (res.data.configured === 0) {
+          $scope.showConfigSwitch = true;
+          $location.path('/users');
+        } else {
+          if (res.data.local === 1) {
+            $scope.providerLocal = true;
+          } else {
+            $scope.providerLocal = true;
+          }
+          if (res.data.type === 'ldap') {
+            $scope.mode.isLdap = true;
+          } else {
+            $scope.mode.isLdap = false;
+          }
+        }
+      }, function (err) {
+        $scope.view.changeRoute = false;
+        console.log(err);
+      });
+    }
+
     $scope.getUserList = function () {
       if (!$scope.lockOnList) {
         $scope.lockOnList = true;
         UserService.list(true).then(function (res) {
           $scope.users = res.data;
-          $scope.view.changeRoute = false;
+          $scope.checkUserProviderStatus();
           if (UtilService.isEmpty($scope.users)) {
             $scope.wizard.nextState = false;
           } else {
             $scope.checkDefaultExtensions();
           }
           $scope.lockOnList = false;
-          // users
+          // count users
           UserService.count().then(function (res) {
             $scope.menuCount.users = res.data;
           }, function (err) {

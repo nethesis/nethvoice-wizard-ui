@@ -191,7 +191,7 @@
   "Final": "Finale",
   "Header Report 1": "Tabella riepilogativa degli utenti creati con il wizard.",
   "Header Report 2": "Fornire agli utenti le loro credenziali di accesso per il CTI",
-  "Header Migration Report 1": "Tabella riepilogativa dei messaggi recevuti durante la migrazione.",
+  "Header Migration Report 1": "Tabella riepilogativa dei messaggi recevuti durante la migrazione:",
 
   "Dial patterns": "Pattern di chiamata",
   "national_it": "Nazionali",
@@ -510,7 +510,8 @@
   "Starting the migration, users profiles will be automatically migrated": "Avviando la migrazione, i profili utente verranno migrati automaticamente",
   "Migration has been completed": "La migrazione è stata completata",
   "Are you sure you want to start users migration": "Sei sicuro di voler iniziare la migrazione utenti",
-  "Are you sure you want to start CDR migration": "Sei sicuro di voler iniziare la migrazione del CDR",
+  "Are you sure you want to start the migration": "Sei sicuro di voler iniziare la migrazione",
+  "The CDR will be migrated in background": "Il CDR verrà migrato in background",
   "Migrating": "Migrazione",
   "Migration has not been completed": "La migrazione non è stata completata",
   "Continue to configurations migration or try again": "Continua con la migrazione delle configurazioni oppure riprova",
@@ -541,5 +542,9 @@
   "gateptrunks": "gateway e fasci fisici",
   "outroutes": "rotte in uscita",
   "tgroupstcond": "gruppi temporali e condizioni temporali",
-  "iroutes": "rotte in entrata"
+  "iroutes": "rotte in entrata",
+  "Migration has been started in background": "La migrazione è stata avviata in background",
+  "You can check CDR migration status on file /var/run/nethvoice/cdrmigration": "Puoi controllare lo stato della migrazione del CDR dal file /var/run/nethvoice/cdrmigration",
+  "daynight": "controllo flusso di chiamata",
+  "postmig": "rubrica e impostazioni"
 }

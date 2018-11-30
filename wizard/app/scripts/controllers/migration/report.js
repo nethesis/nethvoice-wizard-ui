@@ -34,33 +34,42 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.generatePDF = function () {
       var doc = new jsPDF('l', 'pt');
-      for (var elem in $scope.migration) {
-        $scope.migration[elem].rows = [];
-        for (var func in $scope.migration[elem].functions) {
-          for (var type in $scope.report[$scope.migration[elem].functions[func]]) {
-            for (var msgKey in $scope.report[$scope.migration[elem].functions[func]][type]) {
+      doc.text($filter('translate')('Migration report'), 40, 35);
+      doc.setFontSize(11);
+      doc.setTextColor(100);
+      doc.text($filter('translate')('Header Migration Report 1'), 40, 63);
+      doc.setFontSize(11);
+      var n = 0; 
+      $.each($scope.migration, function(elem, value) {
+        value.rows = [];
+        for (var func in value.functions) {
+          for (var type in $scope.report[value.functions[func]]) {
+            for (var msgKey in $scope.report[value.functions[func]][type]) {
               var row = {
-               "msg": $scope.report[$scope.migration[elem].functions[func]][type][msgKey],
+               "msg": $scope.report[value.functions[func]][type][msgKey],
                "case": type === "errors" ? "error" : type === "warnings" ? "warning" : type === "infos" ? "info" : type
               };
-              $scope.migration[elem].rows.push(row);
+              value.rows.push(row);
             }
           }
         }
-        $scope.migration[elem].columns = [{
+        value.columns = [{
           title: $filter('translate')('Migration') + ": " + $filter('translate')(elem),
           dataKey: "msg"
         }, {
           title: $filter('translate')('Type'),
           dataKey: "case"
         }];
-        if ($scope.migration[elem].rows[0]) {
-          doc.autoTable($scope.migration[elem].columns, $scope.migration[elem].rows, {
-            startY: doc.autoTableEndPosY() != 0 ? doc.autoTableEndPosY() + 50 : 80,
+        if (value.rows[0]) {
+          if (n === 0) {
+            var marginTop = 100;
+          } else {
+            var marginTop = 20;
+          }
+          n++;
+          doc.autoTable(value.columns, value.rows, {
+            startY: doc.autoTableEndPosY() + marginTop,
             theme: 'grid',
-            margin: {
-              top: 80
-            },
             styles: {
               fontSize: 11,
               cellPadding: 10,
@@ -76,21 +85,14 @@ angular.module('nethvoiceWizardUiApp')
             },
             headerStyles: {
               fillColor: [63, 156, 53]
-            },
-            addPageContent: function (data) {
-              doc.text($filter('translate')('Migration report'), 40, 30);
-              doc.setFontSize(11);
-              doc.setTextColor(100);
-              doc.text($filter('translate')('Header Migration Report 1'), 40, 60);
-              doc.setFontSize(11);
             }
           });
         }
-
-      }
+      }); 
       doc.save('migration_report.pdf');
     };
 
     $scope.getReport();
+    $scope.redirectOnMigrationStatus();
 
   });
