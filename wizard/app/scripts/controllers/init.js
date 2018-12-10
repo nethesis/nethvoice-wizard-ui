@@ -155,41 +155,68 @@ angular.module('nethvoiceWizardUiApp')
       $scope.wizard.isWizard = false;
     }
 
-    $scope.redirectMigrationAction = function (status, configured) {
-      var route = $location.path();
-      if (status && status !== "done" && configured === 1) {
-        $scope.pauseWizard();
-        status = (status === "ready" || status === "" || status === null || status === undefined) ? false : status;
-        if (status && status !== "cdr" && status !== "users") {
-          var nextMigRoute = migrationConfig.LABEL_INFO[migrationConfig.LABEL_INFO[status].next].route;
-          $location.path(nextMigRoute);
-        } else if (status === "users") {
-          $location.path("/migration/users");
-        } else if (status === "cdr") {
-          $location.path("/migration/report");
-        } else if (route != "/migration") {
+    $scope.redirectMigrationAction = function (migrationStatus, isProviderConfigured) {
+      // isMigration
+      if (isProviderConfigured == 1) {
+        if (migrationStatus == "ready") {
+          // migration_status isEmpty in db
           $location.path('/migration');
+        } else {
+          // migration_status !isEmpty in db
+          if (migrationStatus == "users") {
+            $location.path("/migration/users");
+          } else if (migrationStatus == "cdr") {
+            $location.path("/migration/report");
+          } else {
+            var nextMigRoute = migrationConfig.LABEL_INFO[migrationConfig.LABEL_INFO[migrationStatus].next].route;
+            $location.path(nextMigRoute);
+          }
         }
       } else {
-        var location = appConfig.STEP_MAP_REVERSE[$scope.wizard.stepCount];
-        if (location === "admin/settings" && !$scope.wizard.isWizard) {
-          $location.path('/');
-        } else {
-          $location.path('/' + location);
-        }
+        ConfigService.getWizard().then(function (res) {
+          if (res.length == 0) {
+            var isWizard = true;
+          } else {
+            var isWizard = res[0].status === 'true';
+          }
+          if (isWizard) {
+            // isWizard
+            var location = appConfig.STEP_MAP_REVERSE[$scope.wizard.stepCount];
+            $location.path('/' + location);
+          } else {
+            // !isWizard
+            $location.path('/');
+          }
+        }, function (err) {
+          console.log(err);
+        });
       }
     }
 
-    $scope.redirectOnMigrationStatus = function (status) {
-      ConfigService.getConfig().then(function (res) {
-        if (status) {
-          $scope.redirectMigrationAction(status, res.data.configured);
-        } else {
-          MigrationService.getMigrationStatus().then(function (resb) {
-            $scope.redirectMigrationAction(resb.data, res.data.configured);
+    $scope.redirectOnMigrationStatus = function (migrationStatus) {
+      MigrationService.isMigration().then(function (resIsMigration) {
+        var isMigration = resIsMigration.data;
+        if (isMigration) {
+          // isMigration
+          ConfigService.getConfig().then(function (resProviderConfig) {
+            var isProviderConfigured = resProviderConfig.data.configured;
+            if (migrationStatus) {
+              // migrationStatus
+              $scope.redirectMigrationAction(migrationStatus, isProviderConfigured);
+            } else {
+              // !migrationStatus
+              MigrationService.getMigrationStatus().then(function (migStatus) {
+                $scope.redirectMigrationAction(migStatus.data, isProviderConfigured);
+              }, function (err) {
+                console.log(err);
+              });
+            }
           }, function (err) {
             console.log(err);
           });
+        } else {
+          // !isMigration
+          $location.path('/');
         }
       }, function (err) {
         console.log(err);

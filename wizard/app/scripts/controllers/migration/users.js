@@ -285,8 +285,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.validateMigrationStatus = function () {
       MigrationService.getMigrationStatus().then(function (res) {
-        res.data = (res.data === "ready" || res.data === "" || res.data === null || res.data === undefined) ? false : res.data;
-        if (!res.data && $scope.wizard.fromMigrationStart) {
+        if (res.data == "ready" && $scope.wizard.fromMigrationStart) {
           $scope.startProfilesMig();
         } else if (res.data === "profiles") {
           $scope.migration.profiles.statusDone = true;

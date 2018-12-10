@@ -20,20 +20,27 @@ angular.module('nethvoiceWizardUiApp')
             $scope.wizard.stepCount = res[0].step;
           }
           if ($scope.wizard.isWizard) {
-            MigrationService.isMigration().then(function (res) {
-              $scope.wizard.isMigration = res.data;
-              if ($scope.wizard.isMigration) {
-                ConfigService.getConfig().then(function(res) {
-                  if (res.data.configured === 0) {
-                    $location.path('/users');
+            MigrationService.isMigration().then(function (resIsMigration) {
+              $scope.wizard.isMigration = resIsMigration.data;
+              if (resIsMigration.data) {
+                // isWizard && isMigration
+                ConfigService.getConfig().then(function(resConfig) {
+                  if (resConfig.data.configured === 1) {
+                    // provider is configured
+                    MigrationService.getMigrationStatus().then(function (migStatus) {
+                      $scope.pauseWizard();
+                      $scope.redirectMigrationAction(migStatus.data, 1);
+                    }, function (err) {
+                      console.log(err);
+                    });
                   } else {
-                    $scope.pauseWizard();
-                    $scope.redirectOnMigrationStatus();
+                    $location.path('/users');
                   }
                 }, function(err) {
                   console.log(err);
                 });
               } else {
+                // isWizard && !isMigration
                 var location = appConfig.STEP_MAP_REVERSE[$scope.wizard.stepCount];
                 if ("/" + location !== $location.path()) {
                   $location.path('/' + location);
@@ -43,6 +50,7 @@ angular.module('nethvoiceWizardUiApp')
               console.log(err);
             });
           } else {
+            // !isWizard
             $scope.view.changeRoute = false;
           }
           $('body').show();
