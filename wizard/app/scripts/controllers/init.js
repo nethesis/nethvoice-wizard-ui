@@ -8,16 +8,16 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('InitCtrl', function ($scope, $translate, $route, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService, TrunkService, RouteService) {
+  .controller('InitCtrl', function ($scope, $translate, $route, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService, MigrationService, TrunkService, RouteService) {
     $scope.customConfig = customConfig;
     $scope.appConfig = appConfig;
 
     $scope.view = {
-      changeRoute: false
+      changeRoute: true
     };
 
     $scope.mode = {
-      isLegacy: false
+      isLdap: false
     };
 
     $scope.login = {
@@ -27,6 +27,12 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.wizard = {
       isWizard: true,
+      isMigration: false,
+      isMigrationView: false,
+      usersMigrationDone: false,
+      confMigrationDone: false,
+      fromMigrationStart: false,
+      config: {},
       stepCount: 1
     };
 
@@ -75,13 +81,11 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getConfig = function () {
       ConfigService.getConfig().then(function (res) {
-        switch (res.data.result) {
-          case 'legacy':
-            $scope.mode.isLegacy = true;
-            break;
-          case 'uc':
-            $scope.mode.isLegacy = false;
-            break;
+        $scope.wizard.config = res.data;
+        if (res.data.type === 'ldap') {
+          $scope.mode.isLdap = true;
+        } else {
+          $scope.mode.isLdap = false;
         }
       }, function (err) {
         console.log(err);
@@ -146,8 +150,66 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
+    $scope.pauseWizard = function () {
+      $scope.wizard.isMigrationView = true;
+      $scope.wizard.isWizard = false;
+    }
+
+    $scope.redirectMigrationAction = function (status, configured) {
+      var route = $location.path();
+      if (status && status !== "done" && configured === 1) {
+        $scope.pauseWizard();
+        status = (status === "ready" || status === "" || status === null || status === undefined) ? false : status;
+        if (status && status !== "cdr" && status !== "users") {
+          var nextMigRoute = migrationConfig.LABEL_INFO[migrationConfig.LABEL_INFO[status].next].route;
+          $location.path(nextMigRoute);
+        } else if (status === "users") {
+          $location.path("/migration/users");
+        } else if (status === "cdr") {
+          $location.path("/migration/report");
+        } else if (route != "/migration") {
+          $location.path('/migration');
+        }
+      } else {
+        var location = appConfig.STEP_MAP_REVERSE[$scope.wizard.stepCount];
+        if (location === "admin/settings" && !$scope.wizard.isWizard) {
+          $location.path('/');
+        } else {
+          $location.path('/' + location);
+        }
+      }
+    }
+
+    $scope.redirectOnMigrationStatus = function (status) {
+      ConfigService.getConfig().then(function (res) {
+        if (status) {
+          $scope.redirectMigrationAction(status, res.data.configured);
+        } else {
+          MigrationService.getMigrationStatus().then(function (resb) {
+            $scope.redirectMigrationAction(resb.data, res.data.configured);
+          }, function (err) {
+            console.log(err);
+          });
+        }
+      }, function (err) {
+        console.log(err);
+      });
+    }
+
     $scope.currentYear = function () {
       return new Date().getFullYear();
+    }
+
+    $scope.toggleMig = function (id) {
+      $("#" + id).slideToggle("fast");
+    }
+
+    $scope.slideDown = function (id) {
+      $("#" + id).slideDown("fast");
+    }
+
+    $scope.slideUp = function (id) {
+      $("#" + id).slideDown("fast");
     }
 
     // set language
@@ -181,7 +243,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.menuCount.routesOut = res.data;
       }, function (err) {
         console.log(err);
-      });
+      }); 
 
       //config
       $scope.getConfig();
@@ -190,5 +252,5 @@ angular.module('nethvoiceWizardUiApp')
     });
 
     $scope.setRandomBackground();
-
+    
   });

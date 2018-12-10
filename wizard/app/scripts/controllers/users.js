@@ -8,52 +8,74 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersCtrl', function($scope, $location, $interval, ConfigService, UtilService) {
+  .controller('UsersCtrl', function ($scope, $location, $interval, ConfigService, UtilService) {
     $scope.showConfigSwitch = false;
     $scope.startInstall = false;
     $scope.currentProgress = 0;
     $scope.selectedMode = '';
     $scope.taskPromise = null;
-    $scope.view.changeRoute = true;
     $scope.errorCount = 0;
 
-    ConfigService.getConfig().then(function(res) {
-      switch (res.data.result) {
-        case 'unknown':
+    $scope.nextStepUsers = function () {
+      var step = $scope.wizard.stepCount;
+      $location.path("/users/extensions");
+      if (!step || (step && step == "0")) {
+        ConfigService.setWizard({
+          status: 'true',
+          step: '1'
+        }).then(function (res) {
+        }, function (err) {
+          console.log(err);
+        });
+      }
+    }
+
+    $scope.getProviderStatus = function () {
+      ConfigService.getConfig().then(function(res) {
+        if (res.data.configured === 0) {
           $scope.view.changeRoute = false;
           $scope.showConfigSwitch = true;
-          break;
-        case 'legacy':
-          $scope.mode.isLegacy = true;
-          $location.path('/users/extensions');
-          break;
-        case 'uc':
-          $scope.mode.isLegacy = false;
-          $location.path('/users/extensions');
-          break;
-      }
-    }, function(err) {
-      console.log(err);
-    });
+        } else {
+          if (res.data.type === 'ldap') {
+            $scope.mode.isLdap = true;
+            $scope.nextStepUsers();
+          } else {
+            $scope.mode.isLdap = false;
+            $scope.nextStepUsers();
+          }
+        }
+      }, function(err) {
+        console.log(err);
+      });
+    }
 
-    $scope.$on('$destroy', function() {
+    $scope.$on('$destroy', function () {
       $interval.cancel($scope.taskPromise);
     });
 
-    $scope.nextStep = function() {
-      $location.path('/users/extensions');
-    }
+    $scope.goNethserverSssdConfig = function () {
+      for (var la in $scope.languagesArr) {
+        if ($scope.languagesArr[la].check) {
+          if ($scope.languagesArr[la].key == "it") {
+            var lang = "it-IT";
+          } else {
+            var lang = "en-US";
+          }
+          window.location.href = window.location.origin + ":980/" + lang + "/SssdConfig";
+        }
+      }
+    };
 
-    $scope.makeChoice = function(mode) {
+    $scope.makeChoice = function (mode) {
       if (!$scope.startInstall) {
         $scope.selectedMode = mode;
         $scope.startInstall = true;
 
-        ConfigService.setConfig(mode).then(function(res) {
+        ConfigService.setConfig(mode).then(function (res) {
           if (mode === 'legacy') {
             $('#uc-button').addClass('disabled');
-            $scope.taskPromise = $interval(function() {
-              UtilService.taskStatus(res.data.result).then(function(res) {
+            $scope.taskPromise = $interval(function () {
+              UtilService.taskStatus(res.data.result).then(function (res) {
                 if (res.data.progress < 100) {
                   $scope.errorCount = 0;
                   $scope.currentProgress = res.data.progress;
@@ -61,7 +83,13 @@ angular.module('nethvoiceWizardUiApp')
                   $scope.errorCount = 0;
                   $interval.cancel($scope.taskPromise);
                   $scope.currentProgress = 100;
-                  $scope.mode.isLegacy = true;
+                  $scope.mode.isLdap = true;
+
+                  if ($scope.wizard.isMigration) {
+                    $scope.wizard.isMigrationView = true;
+                    $scope.wizard.isWizard = false;
+                    $location.path('/migration');
+                  }
                 } else {
                   console.log(res.error);
                   if ($scope.errorCount < appConfig.MAX_TRIES) {
@@ -71,7 +99,7 @@ angular.module('nethvoiceWizardUiApp')
                     $scope.currentProgress = -1;
                   }
                 }
-              }, function(err) {
+              }, function (err) {
                 console.log(err);
                 if ($scope.errorCount < appConfig.MAX_TRIES) {
                   $scope.errorCount++;
@@ -85,9 +113,12 @@ angular.module('nethvoiceWizardUiApp')
             $('#legacy-button').addClass('disabled');
             $scope.currentProgress = 100;
           }
-        }, function(err) {
+        }, function (err) {
           console.log(err);
         });
       }
     };
+
+    $scope.getProviderStatus();
+
   });

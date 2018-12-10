@@ -9,4 +9,6 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .controller('MainCtrl', function($scope, $location, $http) {
+
+    $scope.redirectOnMigrationStatus();
   });

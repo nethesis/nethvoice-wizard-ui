@@ -15,7 +15,7 @@
     </div>
     <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions">
       <div class="list-group-item" ng-repeat="user in users | filter:searchUsersString">
-        <div popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="Password" ng-if="mode.isLegacy" class="list-view-pf-actions">
+        <div popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="Password" ng-if="mode.isLdap" class="list-view-pf-actions">
           <strong>{{user.password}}</strong>
         </div>
         <div class="list-view-pf-main-info">

@@ -39,7 +39,7 @@ angular.module('nethvoiceWizardUiApp')
           dataKey: "voicemailpwd"
         },
       ];
-      if ($scope.mode.isLegacy) {
+      if ($scope.mode.isLdap) {
         columns.push({
           title: "Password",
           dataKey: "password"

@@ -10,12 +10,13 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('UsersExtensionsCtrl', function ($scope, $location, $interval, ConfigService, UserService, UtilService) {
     $scope.users = {};
+    $scope.providerLocal = false;
     $scope.taskPromise = null;
     $scope.onSave = false;
     $scope.lockOnList = false;
-    $scope.view.changeRoute = true;
     $scope.availableUsersFilters = ['all', 'configured', 'unconfigured'];
     $scope.selectedUsersFilter = $scope.availableUsersFilters[0];
+    $scope.view.changeRoute = true;
 
     $scope.error = {
       file: {
@@ -30,24 +31,6 @@ angular.module('nethvoiceWizardUiApp')
       currentProgress: 0
     };
 
-    ConfigService.getConfig().then(function (res) {
-      switch (res.data.result) {
-        case 'unknown':
-          $scope.view.changeRoute = false;
-          $scope.showConfigSwitch = true;
-          $location.path('/users');
-          break;
-        case 'legacy':
-          $scope.mode.isLegacy = true;
-          break;
-        case 'uc':
-          $scope.mode.isLegacy = false;
-          break;
-      }
-    }, function (err) {
-      console.log(err);
-    });
-
     $scope.checkDefaultExtensions = function() {
       $scope.wizard.nextState = false;
       for (var u in $scope.users) {
@@ -57,20 +40,43 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.getUserList = function (reload) {
-      $scope.view.changeRoute = reload;
+    $scope.checkUserProviderStatus = function () {
+      ConfigService.getConfig().then(function (res) {
+        $scope.view.changeRoute = false;
+        if (res.data.configured === 0) {
+          $scope.showConfigSwitch = true;
+          $location.path('/users');
+        } else {
+          if (res.data.local === 1) {
+            $scope.providerLocal = true;
+          } else {
+            $scope.providerLocal = true;
+          }
+          if (res.data.type === 'ldap') {
+            $scope.mode.isLdap = true;
+          } else {
+            $scope.mode.isLdap = false;
+          }
+        }
+      }, function (err) {
+        $scope.view.changeRoute = false;
+        console.log(err);
+      });
+    }
+
+    $scope.getUserList = function () {
       if (!$scope.lockOnList) {
         $scope.lockOnList = true;
         UserService.list(true).then(function (res) {
           $scope.users = res.data;
-          $scope.view.changeRoute = false;
+          $scope.checkUserProviderStatus();
           if (UtilService.isEmpty($scope.users)) {
             $scope.wizard.nextState = false;
           } else {
             $scope.checkDefaultExtensions();
           }
           $scope.lockOnList = false;
-          // users
+          // count users
           UserService.count().then(function (res) {
             $scope.menuCount.users = res.data;
           }, function (err) {
@@ -94,7 +100,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.onSave = false;
           $('#createUser').modal('hide');
           $scope.newUser = {};
-          $scope.getUserList(false);
+          $scope.getUserList();
         }, function (err) {
           $scope.onSave = false;
           console.log(err);
@@ -166,7 +172,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.importError = function () {
       $scope.temp.loadingCancel = false;
       $interval.cancel($scope.taskPromise);
-      $scope.getUserList(false);
+      $scope.getUserList();
       $scope.temp.currentProgress = -1;
     }
 
@@ -183,7 +189,7 @@ angular.module('nethvoiceWizardUiApp')
               $interval.cancel($scope.taskPromise);
               $scope.temp.errorCount = 0;
               $scope.temp.currentProgress = 100;
-              $scope.getUserList(false);
+              $scope.getUserList();
               setTimeout(function () {
                 $('#importModal').modal('hide');
                 $scope.temp.errorCount = 0;
@@ -217,5 +223,5 @@ angular.module('nethvoiceWizardUiApp')
       $interval.cancel($scope.taskPromise);
     });
 
-    $scope.getUserList(true);
+    $scope.getUserList();
   });

@@ -10,6 +10,7 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('AdminSettingsCtrl', function ($scope, UserService, RestService) {
     $scope.wizard.isEnd = false;
+    $scope.view.changeRoute = false;
 
     $scope.create = function () {
       if ($scope.admin.password === $scope.admin.confirmPassword) {
