@@ -380,7 +380,7 @@
   "Learn more about this": "Approfondisci leggendo",
   "on the documentation": "la documentazione",
   "You can choose the users base to use for your PBX installation": "Puoi scegliere quale base utenti utilizzare per la tua installazione",
-  "Configure Provider, to setup a LDAP or Active Directory Server using the Server Manager": "Configura Provider, per configurare un LDAP Locale o Active Directory Server tramite il Server Manager",
+  "Configure Provider, to setup an already existing LDAP or Active Directory Server or to setup a new one using the Server Manager": "Configura Provider, per configurare un server LDAP o Active Directory già esistente, oppure per configurarne uno nuovo tramite il Server Manager",
   "Local LDAP, to run a new installation of LDAP Server that can be managed directly from your PBX": "LDAP Locale, per eseguire una nuova installazione di LDAP Server gestibile direttamente dal tuo PBX",
   "system languages": "lingue di sistema",
   "current": "attuale",
