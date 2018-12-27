@@ -38,10 +38,10 @@
                 </form>
                 <div class="col-xs-12" style="margin-top: 23px;">
                   <!-- CARD -->
-                  <div class="card-pf" style="width: 250px; margin-right: 21px; display: inline-block; padding: 2px 19px 0px 19px; border-top: 1px solid #f3f4f3;">
-                    <h2 class="card-pf-title" style="font-size: 15px; margin-top: 15px;">
-                      <span class="pficon pficon-user" style="margin-right: 4px; font-size: 15px; "></span>
-                      Alessandro Polidori
+                  <div ng-repeat="u in view.users track by $index | orderBy:'u.name'"
+                    class="card-pf" style="width: 250px; margin-right: 21px; display: inline-block; padding: 2px 19px 0px 19px; border-top: 1px solid #f3f4f3;">
+                    <h2 class="card-pf-title ng-binding" style="font-size: 15px; margin-top: 15px;">
+                      <span class="pficon pficon-user" style="margin-right: 4px; font-size: 15px; "></span>{{u.name}}
                     </h2>
                     <div class="card-pf-body">
                       <div id="pf-list-standard" class="list-group list-view-pf list-view-pf-view" style="margin-top: -5px;">
@@ -153,33 +153,33 @@
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'Name' | translate}}:</label>
             <div class="col-sm-9">
-              <label class="control-label">{{view.selExten.name}}</label>
+              <label class="control-label">{{view.selExten.name !== '' ? view.selExten.name : '-'}}</label>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'Model' | translate}}:</label>
             <div class="col-sm-9">
-              <label class="control-label">{{view.selExten.sipuseragent}}</label>
+              <label class="control-label">{{view.selExten.sipuseragent !== '' ? view.selExten.sipuseragent : '-'}}</label>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'Type' | translate}}:</label>
             <div class="col-sm-9">
-              <label class="control-label">{{view.selExten.chanType}}</label>
+              <label class="control-label">{{view.selExten.chanType !== '' ? view.selExten.chanType : '-'}}</label>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'IP Address' | translate}}:</label>
             <div class="col-sm-9">
               <label class="control-label">
-                <a target="_blank" ng-href="http://{{view.selExten.ip}}">{{view.selExten.ip}}</a>
+                <a target="_blank" ng-href="http://{{view.selExten.ip}}">{{view.selExten.ip !== '' ? view.selExten.ip : '-'}}</a>
               </label>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Port' | translate}}:</label>
             <div class="col-sm-9">
-              <label class="control-label">{{view.selExten.port}}</label>
+              <label class="control-label">{{view.selExten.port !== '' ? view.selExten.port : '-'}}</label>
             </div>
           </div>
           <div class="form-group">
