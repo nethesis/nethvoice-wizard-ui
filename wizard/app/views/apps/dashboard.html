@@ -13,7 +13,6 @@
   <div class="wizard-pf-contents adjust-size">
     <h1 class="control-label centered" for="textInput-markup">{{'Dashboard' | translate}}</h1>
 
-
     <div class="container-fluid">
       <div class="list-group list-view-pf adjust-margin-extensions no-border">
         <div class="adjust-profile-margin">
@@ -39,10 +38,10 @@
                 </form>
                 <div class="col-xs-12" style="margin-top: 23px;">
                   <!-- CARD -->
-                  <div ng-repeat="u in view.users track by $index | orderBy:'u.name'"
-                    class="card-pf" style="width: 250px; margin-right: 21px; display: inline-block; padding: 2px 19px 0px 19px; border-top: 1px solid #f3f4f3;">
-                    <h2 class="card-pf-title ng-binding" style="font-size: 15px; margin-top: 15px;">
-                      <span class="pficon pficon-user" style="margin-right: 4px; font-size: 15px; "></span>{{u.name}}
+                  <div class="card-pf" style="width: 250px; margin-right: 21px; display: inline-block; padding: 2px 19px 0px 19px; border-top: 1px solid #f3f4f3;">
+                    <h2 class="card-pf-title" style="font-size: 15px; margin-top: 15px;">
+                      <span class="pficon pficon-user" style="margin-right: 4px; font-size: 15px; "></span>
+                      Alessandro Polidori
                     </h2>
                     <div class="card-pf-body">
                       <div id="pf-list-standard" class="list-group list-view-pf list-view-pf-view" style="margin-top: -5px;">
@@ -76,8 +75,8 @@
 
           <!-- TRUNKS -->
           <div id="accordion-markup-1">
-            <h1 style="margin-top: 20px;" data-toggle="collapse" data-parent="#accordion-markup-1" href="#collapse-1" class="adjust-header adjust-profile-header ng-binding"
-              aria-expanded="true"> <span class="pficon pficon-topology card-pf-icon-circle config-title-icon"></span>Fasci
+            <h1 style="margin-top: 20px;" data-toggle="collapse" data-parent="#accordion-markup-1" href="#collapse-1"
+              class="adjust-header adjust-profile-header" aria-expanded="true"> <span class="pficon pficon-topology card-pf-icon-circle config-title-icon"></span>Fasci
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
               <div ng-show="profile.onSave" class="spinner spinner-sm profile-save-spinner ng-hide"></div>
             </h1>
@@ -86,67 +85,57 @@
                 <form role="form" class="search-pf has-button adjust-form ng-pristine ng-valid" id="form-lg-domains-details">
                   <div class="form-group has-clear">
                     <div class="search-pf-input-group" id="filter-domains-details"> <input ng-model="searchUsersString"
-                        type="text" class="form-control input-lg ng-pristine ng-valid ng-touched" placeholder="Cerca utenti...">
+                        type="text" class="form-control input-lg ng-pristine ng-valid ng-touched" placeholder="{{'Search trunks' | translate}}...">
                     </div>
                   </div>
                   <div class="form-group"> <button class="btn btn-default btn-lg" type="submit"> <span class="fa fa-search"></span>
                     </button> </div>
                 </form>
+
                 <div class="col-xs-12" style="margin-top: 23px;">
-                  <div class="card-pf" style="width: 250px; margin-right: 21px; display: inline-block; padding: 2px 19px 0px 19px; border-top: 1px solid #f3f4f3;">
-                    <h2 class="card-pf-title ng-binding" style="font-size: 15px; margin-top: 15px;">
-                      <span class="pficon pficon-user" style="margin-right: 4px; font-size: 15px; "></span>
-                      Alessandro Polidori
+                  <div class="card-pf col-sm-5 col-md-4 col-lg-3 trunks-lg-cards trunks-lg-cards" style="margin-right: 20px; border-top: 1px solid #f3f4f3;">
+                    <h2 class="card-pf-title" style="font-size: 15px; margin-top: 15px;">
+                      <span class="pficon pficon-container-node" style="margin-right: 4px; font-size: 15px; "></span>
+                      Patton
+                      <span ng-if="!g.custom" class="right-only small-font right ng-scope">
+                        <span class="pficon pficon-service icon-trunk-type"></span> pjsip
+                      </span>
                     </h2>
                     <div class="card-pf-body">
                       <div id="pf-list-standard" class="list-group list-view-pf list-view-pf-view" style="margin-top: -5px;">
+
+
                         <div class="list-group-item" style="border: 1px solid #f5f5f5; height: 38px;">
-                          <div class="list-view-pf-actions">
-                            <button class="btn btn-default" style="font-size: 11.5px;">Info</button>
-                          </div>
                           <div class="list-view-pf-main-info">
-                            <div class="list-view-pf-left">
-                              <span class="fa fa-headphones list-view-pf-icon-sm" style="font-size: 1.15em;height: 26px;line-height: 26px;width: 26px;"></span>
-                            </div>
                             <div class="list-view-pf-body">
-                              <div class="list-view-pf-additional-info">
-                                <div class="list-view-pf-additional-info-item">
-                                  <strong style="font-size: 13px;">228</strong></div>
+                              <div class="list-view-pf-additional-info config-info">
+                                <div>IP: <b class="right-only">192.168.1.2</b></div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="list-group-item" style="height: 38px;">
-                          <div class="list-view-pf-actions">
-                            <button class="btn btn-default" style="font-size: 11.5px;">Info</button>
-                          </div>
+
+                        <div class="list-group-item" style="border: 1px solid #f5f5f5; height: 38px;">
                           <div class="list-view-pf-main-info">
-                            <div class="list-view-pf-left">
-                              <span class="fa fa-phone list-view-pf-icon-sm" style="font-size: 1.15em; height: 26px; line-height: 26px; width: 26px; border: 2px solid #adadad;"></span>
-                            </div>
                             <div class="list-view-pf-body">
-                              <div class="list-view-pf-additional-info">
-                                <div class="list-view-pf-additional-info-item">
-                                  <strong style="font-size: 13px;">91228</strong>
-                                </div>
+                              <div class="list-view-pf-additional-info config-info">
+                                <div>MAC: <b class="right-only">00:99:11:22:11:11</b></div>
                               </div>
                             </div>
                           </div>
                         </div>
+
                       </div>
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>
-
-
   </div>
 </div>
 <!-- MODALS -->

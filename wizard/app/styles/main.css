@@ -1767,3 +1767,11 @@ iframe body {
 .user-dashboard-icon::before {
   line-height: 24px !important;
 }
+
+.icon-trunk-type {
+  margin-right: 7px;
+}
+
+.trunks-lg-cards {
+  max-width: 344px;
+}
