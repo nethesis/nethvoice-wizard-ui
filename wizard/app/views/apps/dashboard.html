@@ -1,0 +1,165 @@
+<div class="wizard-pf">
+  <div class="wizard-pf-body clearfix">
+    <div class="wizard-pf-steps">
+      <ul class="wizard-pf-steps-indicator">
+        <li class="wizard-pf-step {{resolveActiveTab('dashboard',2) ? 'active' : ''}}" data-tabgroup="1">
+          <a ng-click="goTo('apps/dashboard')"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Dashboard'
+              | translate}}</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wizard-pf-contents adjust-size">
+    <h1 class="control-label centered" for="textInput-markup">{{'Dashboard' | translate}}</h1>
+
+
+    <div class="container-fluid">
+      <div class="list-group list-view-pf adjust-margin-extensions no-border">
+        <div class="adjust-profile-margin">
+
+          <!-- USERS -->
+          <div id="accordion-markup-0">
+            <h1 data-toggle="collapse" data-parent="#accordion-markup-0" href="#collapse-0" class="adjust-header adjust-profile-header ng-binding"
+              aria-expanded="true"> <span class="pficon pficon-users card-pf-icon-circle config-title-icon"></span>Utenti
+              <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
+              <div ng-show="profile.onSave" class="spinner spinner-sm profile-save-spinner ng-hide"></div>
+            </h1>
+            <div id="collapse-0" class="panel-collapse adjust-profile-body collapse in" aria-expanded="true">
+              <div class="panel-body profile-panel" style="background: #fafafa;">
+                <!-- SEARCH -->
+                <form role="form" class="search-pf has-button adjust-form ng-pristine ng-valid" id="form-lg-domains-details">
+                  <div class="form-group has-clear">
+                    <div class="search-pf-input-group" id="filter-domains-details"> <input ng-model="searchUsersString"
+                        type="text" class="form-control input-lg ng-pristine ng-valid ng-touched" placeholder="Cerca utenti...">
+                    </div>
+                  </div>
+                  <div class="form-group"> <button class="btn btn-default btn-lg" type="submit"> <span class="fa fa-search"></span>
+                    </button> </div>
+                </form>
+
+                <div class="col-xs-12" style="margin-top: 23px;">
+                  <!-- CARD -->
+                  <div class="card-pf" style="width: 250px; margin-right: 21px; display: inline-block; padding: 2px 19px 0px 19px; border-top: 1px solid #f3f4f3;">
+                    <h2 class="card-pf-title ng-binding" style="font-size: 15px; margin-top: 15px;">
+                      <span class="pficon pficon-user" style="margin-right: 4px; font-size: 15px; "></span>
+                      Alessandro Polidori
+                    </h2>
+                    <div class="card-pf-body">
+                      <div id="pf-list-standard" class="list-group list-view-pf list-view-pf-view" style="margin-top: -5px;">
+                        <div class="list-group-item" style="border: 1px solid #f5f5f5; height: 38px;">
+                          <div class="list-view-pf-actions">
+                            <button class="btn btn-default" style="font-size: 11.5px;">Info</button>
+                          </div>
+                          <div class="list-view-pf-main-info">
+                            <div class="list-view-pf-left">
+                              <span class="fa fa-headphones list-view-pf-icon-sm user-dashboard-icon"></span>
+                            </div>
+                            <div class="list-view-pf-body">
+                              <div class="list-view-pf-additional-info">
+                                <div class="list-view-pf-additional-info-item">
+                                  <strong style="font-size: 13px;">228</strong></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-group-item" style="height: 38px;">
+                          <div class="list-view-pf-actions">
+                            <button class="btn btn-default" style="font-size: 11.5px;">Info</button>
+                          </div>
+                          <div class="list-view-pf-main-info">
+                            <div class="list-view-pf-left">
+                              <span class="fa fa-phone list-view-pf-icon-sm user-dashboard-icon"></span>
+                            </div>
+                            <div class="list-view-pf-body">
+                              <div class="list-view-pf-additional-info">
+                                <div class="list-view-pf-additional-info-item">
+                                  <strong style="font-size: 13px;">91228</strong>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TRUNKS -->
+          <div id="accordion-markup-1">
+            <h1 style="margin-top: 20px;" data-toggle="collapse" data-parent="#accordion-markup-1" href="#collapse-1" class="adjust-header adjust-profile-header ng-binding"
+              aria-expanded="true"> <span class="pficon pficon-topology card-pf-icon-circle config-title-icon"></span>Fasci
+              <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
+              <div ng-show="profile.onSave" class="spinner spinner-sm profile-save-spinner ng-hide"></div>
+            </h1>
+            <div id="collapse-1" class="panel-collapse adjust-profile-body collapse in" aria-expanded="true">
+              <div class="panel-body profile-panel" style="background: #fafafa;">
+                <form role="form" class="search-pf has-button adjust-form ng-pristine ng-valid" id="form-lg-domains-details">
+                  <div class="form-group has-clear">
+                    <div class="search-pf-input-group" id="filter-domains-details"> <input ng-model="searchUsersString"
+                        type="text" class="form-control input-lg ng-pristine ng-valid ng-touched" placeholder="Cerca utenti...">
+                    </div>
+                  </div>
+                  <div class="form-group"> <button class="btn btn-default btn-lg" type="submit"> <span class="fa fa-search"></span>
+                    </button> </div>
+                </form>
+                <div class="col-xs-12" style="margin-top: 23px;">
+                  <div class="card-pf" style="width: 250px; margin-right: 21px; display: inline-block; padding: 2px 19px 0px 19px; border-top: 1px solid #f3f4f3;">
+                    <h2 class="card-pf-title ng-binding" style="font-size: 15px; margin-top: 15px;">
+                      <span class="pficon pficon-user" style="margin-right: 4px; font-size: 15px; "></span>
+                      Alessandro Polidori
+                    </h2>
+                    <div class="card-pf-body">
+                      <div id="pf-list-standard" class="list-group list-view-pf list-view-pf-view" style="margin-top: -5px;">
+                        <div class="list-group-item" style="border: 1px solid #f5f5f5; height: 38px;">
+                          <div class="list-view-pf-actions">
+                            <button class="btn btn-default" style="font-size: 11.5px;">Info</button>
+                          </div>
+                          <div class="list-view-pf-main-info">
+                            <div class="list-view-pf-left">
+                              <span class="fa fa-headphones list-view-pf-icon-sm" style="font-size: 1.15em;height: 26px;line-height: 26px;width: 26px;"></span>
+                            </div>
+                            <div class="list-view-pf-body">
+                              <div class="list-view-pf-additional-info">
+                                <div class="list-view-pf-additional-info-item">
+                                  <strong style="font-size: 13px;">228</strong></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-group-item" style="height: 38px;">
+                          <div class="list-view-pf-actions">
+                            <button class="btn btn-default" style="font-size: 11.5px;">Info</button>
+                          </div>
+                          <div class="list-view-pf-main-info">
+                            <div class="list-view-pf-left">
+                              <span class="fa fa-phone list-view-pf-icon-sm" style="font-size: 1.15em; height: 26px; line-height: 26px; width: 26px; border: 2px solid #adadad;"></span>
+                            </div>
+                            <div class="list-view-pf-body">
+                              <div class="list-view-pf-additional-info">
+                                <div class="list-view-pf-additional-info-item">
+                                  <strong style="font-size: 13px;">91228</strong>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

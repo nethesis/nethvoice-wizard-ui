@@ -179,6 +179,9 @@
             </a>
         </li>
         <div id="appsCollapse" class="panel-collapse collapse {{resolveActiveTab('apps',1) ? 'in' : ''}}">
+          <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('dashboard',2) ? 'active' : ''}}">
+            <div ng-click="goTo('apps/dashboard')" class="list-group-item-value menu-item-left no-opacity">{{'Dashboard' | translate | ellipsis:'1200'}}</div>
+          </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('cards',2) ? 'active' : ''}}">
             <div ng-click="goTo('apps/cards')" class="list-group-item-value menu-item-left no-opacity">{{'Customer cards' | translate | ellipsis:'1200'}}</div>
           </div>
@@ -351,6 +354,7 @@
   <script src="scripts/controllers/migration/config.js"></script>
   <script src="scripts/controllers/migration/cdr.js"></script>
   <script src="scripts/controllers/migration/report.js"></script>
+  <script src="scripts/controllers/apps/dashboard.js"></script>
   <!-- endbuild -->
 </body>
 

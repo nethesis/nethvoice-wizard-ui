@@ -163,6 +163,11 @@ angular
         controller: 'ReportmigrationCtrl',
         controllerAs: 'reportmigration'
       })
+      .when('/apps/dashboard', {
+        templateUrl: 'views/apps/dashboard.html',
+        controller: 'DashboardCtrl',
+        controllerAs: 'dashboard'
+      })
       .otherwise({
         redirectTo: '/'
       });
