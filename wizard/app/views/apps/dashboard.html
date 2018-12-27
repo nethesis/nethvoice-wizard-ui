@@ -50,7 +50,7 @@
                         <div ng-repeat="exten in u.endpoints.extension track by $index | orderBy:'exten.id'"
                           class="list-group-item" style="border: 1px solid #f5f5f5; height: 38px;">
                           <div class="list-view-pf-actions">
-                            <button class="btn btn-default" style="font-size: 11.5px;">Info</button>
+                            <button class="btn btn-default" ng-click="showExtenDetails(exten.id)" style="font-size: 11.5px;">Info</button>
                           </div>
                           <div class="list-view-pf-main-info">
                             <div class="list-view-pf-left">
@@ -147,5 +147,69 @@
     </div>
 
 
+  </div>
+</div>
+<!-- MODALS -->
+<div class="modal fade" id="extenDetailsModal" tabindex="-1" role="dialog" aria-labelledby="extenDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{'Extension' | translate}} {{view.selExten.id}}</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'Name' | translate}}:</label>
+            <div class="col-sm-9">
+              <label class="control-label">{{view.selExten.name}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'Model' | translate}}:</label>
+            <div class="col-sm-9">
+              <label class="control-label">{{view.selExten.sipuseragent}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'Type' | translate}}:</label>
+            <div class="col-sm-9">
+              <label class="control-label">{{view.selExten.chanType}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'IP Address' | translate}}:</label>
+            <div class="col-sm-9">
+              <label class="control-label">
+                <a target="_blank" ng-href="http://{{view.selExten.ip}}">{{view.selExten.ip}}</a>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Port' | translate}}:</label>
+            <div class="col-sm-9">
+              <label class="control-label">{{view.selExten.port}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput3-modal-markup">{{'DND' | translate}}:</label>
+            <div class="col-sm-9">
+              <label class="control-label {{view.selExten.dnd === true ? 'text-red': ''}}">{{view.selExten.dnd === true ? 'ON' : 'OFF'}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput3-modal-markup">{{'Call forward' | translate}}:</label>
+            <div class="col-sm-9">
+              <label class="control-label {{view.selExten.cf !== '' ? 'text-red': ''}}">{{view.selExten.cf !== '' ? 'ON - ' + view.selExten.cf : 'OFF'}}</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
   </div>
 </div>

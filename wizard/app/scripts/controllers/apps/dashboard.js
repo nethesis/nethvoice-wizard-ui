@@ -11,7 +11,8 @@ angular.module('nethvoiceWizardUiApp')
   .controller('DashboardCtrl', function ($scope, $interval, DashboardService) {
     $scope.view = {
       users: {},
-      extensions: {}
+      extensions: {},
+      selExten: {}
     };
     $scope.update = function () {
       $scope.getUsers();
@@ -27,6 +28,14 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getExtensions = function (s) {
       DashboardService.getExtensions().then(function (res) {
         $scope.view.extensions = res.data;
+      }, function (err) {
+        console.log(err);
+      });
+    };
+    $scope.showExtenDetails = function (e) {
+      DashboardService.getExtension(e).then(function (res) {
+        $scope.view.selExten = res.data;
+        $('#extenDetailsModal').modal('show');
       }, function (err) {
         console.log(err);
       });
