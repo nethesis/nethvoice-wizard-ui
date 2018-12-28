@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DashboardCtrl', function ($scope, $interval, DashboardService) {
+  .controller('DashboardCtrl', function ($rootScope, $scope, $interval, DashboardService) {
     $scope.view = {
       users: {},
       extensions: {},
@@ -53,7 +53,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.$on('$routeChangeStart', function() {
       $interval.cancel($scope.view.updateInterval);
     });
-    $scope.update();
+    $rootScope.$on('loginCompleted', function (event, args) {
+      $scope.update();
+    });
     $scope.view.updateInterval = $interval(function () {
       $scope.update();
     }, 15000);
