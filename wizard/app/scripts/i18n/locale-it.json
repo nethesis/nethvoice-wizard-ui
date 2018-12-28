@@ -547,5 +547,6 @@
   "Migration has been started in background": "La migrazione è stata avviata in background",
   "You can check CDR migration status on file /var/run/nethvoice/cdrmigration": "Puoi controllare lo stato della migrazione del CDR dal file /var/run/nethvoice/cdrmigration",
   "daynight": "controllo flusso di chiamata",
-  "postmig": "rubrica e impostazioni"
+  "postmig": "rubrica e impostazioni",
+  "Search trunks": "Cerca fasci"
 }

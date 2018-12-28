@@ -1756,22 +1756,3 @@ iframe body {
 .cdr-entries-num {
   font-size: 14px;
 }
-
-.user-dashboard-icon {
-  font-size: 1.15em !important;
-  height: 26px !important;
-  line-height: 26px !important;
-  width: 26px !important;
-}
-
-.user-dashboard-icon::before {
-  line-height: 24px !important;
-}
-
-.icon-trunk-type {
-  margin-right: 7px;
-}
-
-.trunks-lg-cards {
-  max-width: 344px;
-}
