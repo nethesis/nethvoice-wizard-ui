@@ -38,7 +38,7 @@
                 </form>
                 <div class="col-xs-12" style="margin-top: 23px;">
                   <!-- CARD -->
-                  <div ng-repeat="u in view.users track by $index | orderBy:'u.name'"
+                  <div ng-if="u.endpoints.extension[0]" ng-repeat="u in view.users | customFilterMultiple:'name,dashboardUsersSearch':searchUsersString | orderBy:'u.name'"
                     class="card-pf" style="width: 250px; margin-right: 21px; display: inline-block; padding: 2px 19px 0px 19px; border-top: 1px solid #f3f4f3;">
                     <h2 class="card-pf-title ng-binding" style="font-size: 15px; margin-top: 15px;">
                       <span class="pficon pficon-user" style="margin-right: 4px; font-size: 15px; "></span>{{u.name}}
@@ -84,7 +84,7 @@
               <div class="panel-body profile-panel" style="background: #fafafa;">
                 <form role="form" class="search-pf has-button adjust-form ng-pristine ng-valid" id="form-lg-domains-details">
                   <div class="form-group has-clear">
-                    <div class="search-pf-input-group" id="filter-domains-details"> <input ng-model="searchUsersString"
+                    <div class="search-pf-input-group" id="filter-domains-details"> <input ng-model="searchTrunkString"
                         type="text" class="form-control input-lg ng-pristine ng-valid ng-touched" placeholder="{{'Search trunks' | translate}}...">
                     </div>
                   </div>
