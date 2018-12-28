@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('AdminSettingsCtrl', function ($scope, UserService, RestService) {
+  .controller('AdminSettingsCtrl', function ($scope, UserService, RestService, RestServiceCTI) {
     $scope.wizard.isEnd = false;
     $scope.view.changeRoute = false;
 
@@ -19,6 +19,7 @@ angular.module('nethvoiceWizardUiApp')
         }).then(function (res) {
           var hash = RestService.getHash('admin', $scope.admin.password);
           RestService.setAuthHeader('admin', hash);
+          RestServiceCTI.setAuthHeader('admin', hash);
           $scope.onSaveSuccess = true;
           $scope.onSaveError = false;
           $scope.wizard.isEnd = true;

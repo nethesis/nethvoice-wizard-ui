@@ -27,6 +27,15 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+    this.getTrunks = function () {
+      return $q(function (resolve, reject) {
+        RestServiceCTI.get('/astproxy/trunks').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
     this.getExtension = function (exten) {
       return $q(function (resolve, reject) {
         RestServiceCTI.get('/astproxy/extension/' + exten).then(function (res) {

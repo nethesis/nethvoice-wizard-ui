@@ -8,7 +8,7 @@
  * Service in the nethvoiceWizardUiApp.
  */
 angular.module('nethvoiceWizardUiApp')
-  .service('LoginService', function($q, LocalStorageService, RestService) {
+  .service('LoginService', function($q, LocalStorageService, RestService, RestServiceCTI) {
 
     this.removeCredentials = function() {
       LocalStorageService.remove('secretkey');
@@ -23,8 +23,10 @@ angular.module('nethvoiceWizardUiApp')
         if(secret === undefined) {
           var hash = RestService.getHash(username, password);
           RestService.setAuthHeader(username, hash);
+          RestServiceCTI.setAuthHeader(username, hash);
         } else {
            RestService.setAuthHeader(secret.user, secret.hash);
+           RestServiceCTI.setAuthHeader(secret.user, secret.hash);
         }
         RestService.get('/login').then(function(res) {
           res.hash = hash;

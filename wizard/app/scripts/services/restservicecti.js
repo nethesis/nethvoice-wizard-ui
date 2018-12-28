@@ -8,7 +8,14 @@
  * Service in the nethvoiceWizardUiApp.
  */
 angular.module('nethvoiceWizardUiApp')
-  .service('RestServiceCTI', function ($q, $http) {
+  .service('RestServiceCTI', function ($q, $http, LocalStorageService) {
+
+    this.setAuthHeader = function(user, hash) {
+      $http.defaults.headers.common.User = user;
+      $http.defaults.headers.common.Secretkey = hash;
+      LocalStorageService.set('secretkey', { user: user, hash: hash.toString() });
+    };
+
     this.get = function (endpoint) {
       return $q(function (resolve, reject) {
         $http.get(customConfig.BASE_API_URL_CTI + endpoint).then(function successCallback(response) {

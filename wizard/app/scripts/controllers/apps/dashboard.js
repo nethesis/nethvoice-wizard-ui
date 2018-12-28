@@ -12,12 +12,14 @@ angular.module('nethvoiceWizardUiApp')
     $scope.view = {
       users: {},
       extensions: {},
+      trunks: {},
       selExten: {},
       updateInterval: undefined
     };
     $scope.update = function () {
       $scope.getUsers();
       $scope.getExtensions();
+      $scope.getTrunks();
     };
     $scope.getUsers = function (s) {
       DashboardService.getUsers().then(function (res) {
@@ -29,6 +31,13 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getExtensions = function (s) {
       DashboardService.getExtensions().then(function (res) {
         $scope.view.extensions = res.data;
+      }, function (err) {
+        console.log(err);
+      });
+    };
+    $scope.getTrunks = function (s) {
+      DashboardService.getTrunks().then(function (res) {
+        $scope.view.trunks = res.data;
       }, function (err) {
         console.log(err);
       });

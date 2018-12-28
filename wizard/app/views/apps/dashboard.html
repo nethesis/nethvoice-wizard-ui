@@ -92,13 +92,13 @@
                     </button> </div>
                 </form>
 
-                <div class="col-xs-12" style="margin-top: 23px;">
+                <div ng-repeat="t in view.trunks track by $index | orderBy:'t.name'" class="col-xs-12" style="margin-top: 23px;">
                   <div class="card-pf col-sm-5 col-md-4 col-lg-3 trunks-lg-cards trunks-lg-cards" style="margin-right: 20px; border-top: 1px solid #f3f4f3;">
                     <h2 class="card-pf-title" style="font-size: 15px; margin-top: 15px;">
                       <span class="pficon pficon-container-node" style="margin-right: 4px; font-size: 15px; "></span>
-                      Patton
+                      {{t.name}}
                       <span ng-if="!g.custom" class="right-only small-font right ng-scope">
-                        <span class="pficon pficon-service icon-trunk-type"></span> pjsip
+                        <span class="pficon pficon-service icon-trunk-type"></span>{{t.chanType}}
                       </span>
                     </h2>
                     <div class="card-pf-body">
@@ -109,7 +109,7 @@
                           <div class="list-view-pf-main-info">
                             <div class="list-view-pf-body">
                               <div class="list-view-pf-additional-info config-info">
-                                <div>IP: <b class="right-only">192.168.1.2</b></div>
+                                <div>IP: <b class="right-only">{{t.ip}}</b></div>
                               </div>
                             </div>
                           </div>
@@ -119,7 +119,7 @@
                           <div class="list-view-pf-main-info">
                             <div class="list-view-pf-body">
                               <div class="list-view-pf-additional-info config-info">
-                                <div>MAC: <b class="right-only">00:99:11:22:11:11</b></div>
+                                <div>{{'Port' | translate}}: <b class="right-only">{{t.port}}</b></div>
                               </div>
                             </div>
                           </div>
