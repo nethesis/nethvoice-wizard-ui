@@ -12,7 +12,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.view = {
       users: {},
       extensions: {},
-      selExten: {}
+      selExten: {},
+      updateInterval: undefined
     };
     $scope.update = function () {
       $scope.getUsers();
@@ -40,8 +41,11 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err);
       });
     };
+    $scope.$on('$routeChangeStart', function() {
+      $interval.cancel($scope.view.updateInterval);
+    });
     $scope.update();
-    $interval(function () {
+    $scope.view.updateInterval = $interval(function () {
       $scope.update();
     }, 15000);
   });
