@@ -40,6 +40,14 @@
                     <h2 class="card-pf-title ng-binding dashboard-cards-h2">
                       <span class="pficon pficon-user dashboard-cards-icon"></span>{{u.name}}
                     </h2>
+                    <h2 ng-if="u.presence === 'dnd'" class="card-pf-title ng-binding dashboard-cards-h2">
+                      <span class="pficon-resources-full dnd-color valign-middle"></span>
+                      <span class="valign-middle">{{"Do Not Disturb" | translate}}</span>
+                    </h2>
+                    <h2 ng-if="u.presence === 'callforward' || u.presence === 'cellphone' || u.presence === 'voicemail'" class="card-pf-title ng-binding dashboard-cards-h2">
+                      <span class="pficon-resources-full callforward-color valign-middle"></span>
+                      <span class="valign-middle">{{"Call Forward" | translate}}</span>
+                    </h2>
                     <div class="card-pf-body">
                       <div id="pf-list-standard" class="list-group list-view-pf list-view-pf-view dashboard-list-margin-top">
                         <!-- EXTENSIONS -->

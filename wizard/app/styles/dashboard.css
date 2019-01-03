@@ -14,6 +14,14 @@
   color: red;
 }
 
+.dnd-color {
+  color: #DB2828!important;
+}
+
+.callforward-color {
+  color: #FBBD08!important;
+}
+
 .user-dashboard-icon {
   font-size: 1.15em !important;
   height: 26px !important;
@@ -33,6 +41,10 @@
   max-width: 344px;
   margin-right: 20px;
   border-top: 1px solid #f3f4f3;
+}
+
+.valign-middle {
+  vertical-align: middle;
 }
 
 .exten-dashboard-label {
