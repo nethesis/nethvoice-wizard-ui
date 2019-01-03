@@ -14,7 +14,8 @@ angular.module('nethvoiceWizardUiApp')
       extensions: {},
       trunks: {},
       selExten: {},
-      updateInterval: undefined
+      updateInterval: undefined,
+      userChangingPresence: undefined
     };
     $scope.update = function () {
       $scope.getUsers();
@@ -54,6 +55,20 @@ angular.module('nethvoiceWizardUiApp')
       }, function (err) {
         console.log(err);
       });
+    };
+    $scope.setPresenceOnline = function (username) {
+      DashboardService.setPresenceOnline(username).then(function (res) {
+        $('#presenceSetupConfirmation').modal('hide');
+        $scope.update();
+      }, function (err) {
+        console.log(err);
+        $('#presenceSetupConfirmation').modal('hide');
+        $scope.update();
+      });
+    };
+    $scope.showSetPresenceConfirmation = function (username) {
+      $scope.view.userChangingPresence = username;
+      $('#presenceSetupConfirmation').modal('show');
     };
     $scope.$on('$routeChangeStart', function() {
       $interval.cancel($scope.view.updateInterval);

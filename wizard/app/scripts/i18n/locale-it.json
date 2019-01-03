@@ -451,6 +451,7 @@
   "Deselect search results": "Deseleziona i risultati della ricerca",
   "From": "Da",
   "To": "A",
+  "to_m": "a",
   "of": "di",
   "selected": "selezionati",
   "Locked fields will be left untouched": "I campi bloccati non verranno modificati",
@@ -517,6 +518,7 @@
   "Migrating": "Migrazione",
   "Migration has not been completed": "La migrazione non è stata completata",
   "Continue to configurations migration or try again": "Continua con la migrazione delle configurazioni oppure riprova",
+  "Continue": "Continua",
   "some users migration failed": "la migrazione di alcuni utenti è fallita",
   "Configurations migration": "Migrazione configurazioni",
   "Continuing the following configurations will be automatically migrated": "Continuando, le seguenti configurazioni verranno migrate automaticamente",
@@ -549,5 +551,8 @@
   "You can check CDR migration status on file /var/run/nethvoice/cdrmigration": "Puoi controllare lo stato della migrazione del CDR dal file /var/run/nethvoice/cdrmigration",
   "daynight": "controllo flusso di chiamata",
   "postmig": "rubrica e impostazioni",
-  "Search trunks": "Cerca fasci"
+  "Search trunks": "Cerca fasci",
+  "You are going to change the presence of user": "Stai per modificare la presence dell'utente",
+  "online": "disponibile",
+  "status: are you sure ?": ": vuoi continuare ?"
 }

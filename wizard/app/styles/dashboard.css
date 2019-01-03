@@ -121,3 +121,23 @@
   overflow: hidden;
   white-space: nowrap;
 }
+
+.pos-right{
+  float: right;
+}
+
+.u-presence-row:hover {
+  background: #ededed;
+}
+
+.u-presence-row {
+  padding: 3px 3px;
+}
+
+.cur-pointer {
+  cursor: pointer;
+}
+
+.text-bold {
+  font-weight: bold;
+}

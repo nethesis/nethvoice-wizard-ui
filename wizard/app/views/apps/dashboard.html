@@ -40,14 +40,16 @@
                     <h2 class="card-pf-title ng-binding dashboard-cards-h2">
                       <span class="pficon pficon-user dashboard-cards-icon"></span>{{u.name}}
                     </h2>
-                    <h2 ng-if="u.presence === 'dnd'" class="card-pf-title ng-binding dashboard-cards-h2">
+                    <div ng-if="u.presence === 'dnd'" class="u-presence-row">
                       <span class="pficon-resources-full dnd-color valign-middle"></span>
                       <span class="valign-middle">{{"Do Not Disturb" | translate}}</span>
-                    </h2>
-                    <h2 ng-if="u.presence === 'callforward' || u.presence === 'cellphone' || u.presence === 'voicemail'" class="card-pf-title ng-binding dashboard-cards-h2">
+                      <span class="pficon-close valign-middle pos-right cur-pointer" ng-click="showSetPresenceConfirmation(u.username)"></span>
+                    </div>
+                    <div ng-if="u.presence === 'callforward' || u.presence === 'cellphone' || u.presence === 'voicemail'" class="u-presence-row">
                       <span class="pficon-resources-full callforward-color valign-middle"></span>
                       <span class="valign-middle">{{"Call Forward" | translate}}</span>
-                    </h2>
+                      <span class="pficon-close valign-middle pos-right cur-pointer" ng-click="showSetPresenceConfirmation(u.username)"></span>
+                    </div>
                     <div class="card-pf-body">
                       <div id="pf-list-standard" class="list-group list-view-pf list-view-pf-view dashboard-list-margin-top">
                         <!-- EXTENSIONS -->
@@ -151,6 +153,34 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MODAL FOR PRESENCE SETUP CONFIRMATION -->
+<div class="modal fade" id="presenceSetupConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="Close">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{'Warning' | translate}}</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="form-group col-sm-12">
+            <label class="control-label">{{'You are going to change the presence of user' | translate}}</label>
+            <label class="control-label text-bold">"{{view.userChangingPresence}}"</label>
+            <label class="control-label">{{'to_m' | translate}}</label>
+            <label class="control-label text-online-green">{{'online' | translate}}</label>
+            <label class="control-label">{{'status: are you sure ?' | translate}}</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+        <button type="button" ng-click="setPresenceOnline(view.userChangingPresence)" class="btn btn-primary">{{'Continue' | translate}}</button>
       </div>
     </div>
   </div>

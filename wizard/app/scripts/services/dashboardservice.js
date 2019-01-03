@@ -18,6 +18,18 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+    this.setPresenceOnline = function (username) {
+      return $q(function (resolve, reject) {
+        RestServiceCTI.post('/user/presence', {
+          username: username,
+          status: 'online'
+        }).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
     this.getExtensions = function () {
       return $q(function (resolve, reject) {
         RestServiceCTI.get('/astproxy/extensions').then(function (res) {
