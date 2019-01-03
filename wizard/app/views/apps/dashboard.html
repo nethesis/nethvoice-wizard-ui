@@ -89,7 +89,7 @@
                 </form>
                 <div class="col-xs-12 dashboard-cards-margin-top">
                   <!-- CARD -->
-                  <div ng-repeat="t in view.trunks | customFilterMultiple:'name,ip':searchTrunkString | orderBy:'t.name'" class="card-pf col-sm-5 col-md-4 col-lg-3 trunks-lg-cards trunks-lg-cards">
+                  <div ng-repeat="t in view.trunks | customFilterMultiple:'name,ip':searchTrunkString | orderBy:'t.name'" class="card-pf col-sm-5 col-md-4 col-lg-4 trunks-lg-cards trunks-lg-cards">
                     <h2 class="card-pf-title dashboard-cards-h2">
                       <span class="pficon pficon-container-node dashboard-cards-icon"></span>
                       {{t.name}}
@@ -122,6 +122,15 @@
                             <div class="list-view-pf-body">
                               <div class="list-view-pf-additional-info config-info">
                                 <div>{{'Status' | translate}}: <b class="right-only {{t.status === 'online' ? 'text-online-green' : ''}}">{{t.status !== '' ? t.status : '-'}}</b></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div ng-if="t.codecs.length > 0" class="list-group-item cursor-default dashboard-list-item trunk-row-width">
+                          <div class="list-view-pf-main-info">
+                            <div class="list-view-pf-body">
+                              <div class="list-view-pf-additional-info config-info">
+                                <div>{{'Codecs' | translate}}: <b title="{{t.codecs.toString()}}" class="right-only">{{t.codecs.toString()}}</b></div>
                               </div>
                             </div>
                           </div>
