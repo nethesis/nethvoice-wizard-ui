@@ -24,9 +24,9 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardCtrl',
+        controllerAs: 'dashboard'
       })
       .when('/users', {
         templateUrl: 'views/users.html',
@@ -162,11 +162,6 @@ angular
         templateUrl: 'views/migration/report.html',
         controller: 'ReportmigrationCtrl',
         controllerAs: 'reportmigration'
-      })
-      .when('/apps/dashboard', {
-        templateUrl: 'views/apps/dashboard.html',
-        controller: 'DashboardCtrl',
-        controllerAs: 'dashboard'
       })
       .otherwise({
         redirectTo: '/'
