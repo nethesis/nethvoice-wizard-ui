@@ -147,7 +147,7 @@
     </div>
   </div>
 </div>
-<!-- MODALS -->
+<!-- MODALS 4 EXTENSION DETAILS -->
 <div class="modal fade" id="extenDetailsModal" tabindex="-1" role="dialog" aria-labelledby="extenDetailsModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -189,6 +189,12 @@
             <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Port' | translate}}:</label>
             <div class="col-sm-9">
               <label class="control-label">{{view.selExten.port !== '' ? view.selExten.port : '-'}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Codecs' | translate}}:</label>
+            <div class="col-sm-9">
+              <label class="control-label">{{view.selExten.codecs !== '' ? view.selExten.codecs.toString() : '-'}}</label>
             </div>
           </div>
           <div class="form-group">
