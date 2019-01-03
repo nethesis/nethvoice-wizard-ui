@@ -42,9 +42,14 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err);
       });
     };
-    $scope.showExtenDetails = function (e) {
+    $scope.showExtenDetails = function (e, u) {
       DashboardService.getExtension(e).then(function (res) {
         $scope.view.selExten = res.data;
+        for (var i = 0; i < $scope.view.users[u].endpoints.extension.length; i++) {
+          if ($scope.view.users[u].endpoints.extension[i].id === res.data.exten) {
+            $scope.view.selExten.type = $scope.view.users[u].endpoints.extension[i].type;
+          }
+        }
         $('#extenDetailsModal').modal('show');
       }, function (err) {
         console.log(err);

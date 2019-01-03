@@ -46,11 +46,11 @@
                         <div ng-repeat="exten in u.endpoints.extension track by $index | orderBy:'exten.id'"
                           class="list-group-item cursor-default dashboard-list-item">
                           <div class="list-view-pf-actions exten-dashboard-action">
-                            <button class="btn btn-default dashboard-info-fontsize" ng-click="showExtenDetails(exten.id)">Info</button>
+                            <button class="btn btn-default dashboard-info-fontsize" ng-click="showExtenDetails(exten.id, u.username)">Info</button>
                           </div>
                           <div class="list-view-pf-main-info exten-dashboard-label">
                             <div class="list-view-pf-left">
-                              <span class="fa {{exten.type.indexOf('webrtc') === 0 ? 'fa-headphones' : 'fa-phone'}}
+                              <span class="fa {{exten.type.indexOf('webrtc') === 0 ? 'fa-headphones' : 'fa-phone'}} 
                                 {{view.extensions[exten.id].status === 'online' ? 'online-green' : 'offline-gray'}}
                                 list-view-pf-icon-sm user-dashboard-icon"></span>
                             </div>
@@ -171,13 +171,13 @@
               <label class="control-label">{{view.selExten.sipuseragent !== '' ? view.selExten.sipuseragent : '-'}}</label>
             </div>
           </div>
-          <div class="form-group">
+          <div ng-show="view.selExten.type.indexOf('webrtc') === -1" class="form-group">
             <label class="col-sm-3 control-label">{{'Type' | translate}}:</label>
             <div class="col-sm-9">
               <label class="control-label">{{view.selExten.chanType !== '' ? view.selExten.chanType : '-'}}</label>
             </div>
           </div>
-          <div class="form-group">
+          <div ng-if="view.selExten.type.indexOf('webrtc') === -1" class="form-group">
             <label class="col-sm-3 control-label">{{'IP Address' | translate}}:</label>
             <div class="col-sm-9">
               <label class="control-label">
@@ -185,7 +185,7 @@
               </label>
             </div>
           </div>
-          <div class="form-group">
+          <div ng-if="view.selExten.type.indexOf('webrtc') === -1" class="form-group">
             <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Port' | translate}}:</label>
             <div class="col-sm-9">
               <label class="control-label">{{view.selExten.port !== '' ? view.selExten.port : '-'}}</label>
