@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/login.css">
   <link rel="stylesheet" href="styles/trunks.css">
+  <link rel="stylesheet" href="styles/dashboard.css">
   <!-- endbuild -->
   <link rel="stylesheet" href="styles/brand.css">
 </head>
@@ -90,6 +91,13 @@
     <!-- left menu -->
     <nav id="navbar-left" class="nav-pf-vertical-alt">
       <ul class="list-group panel">
+        <li ng-click="goTo('/')" ng-if="!wizard.isWizard && !wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('',1) ? 'active' : ''}}"
+          id="apps-item-menu">
+          <a>
+              <span class="fa fa-tachometer" title="{{'Dashboard' | translate}}" data-toggle="tooltip" data-placement="right"></span>
+              <span class="list-group-item-value">{{'Dashboard' | translate | ellipsis:'1200'}}</span>
+            </a>
+        </li>
         <li data-toggle="collapse" data-parent="#navbar-left" href="#usersCollapse" ng-if="!wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('users',1) ? 'active' : ''}}"
           id="users-item-menu">
           <a>
@@ -179,6 +187,9 @@
             </a>
         </li>
         <div id="appsCollapse" class="panel-collapse collapse {{resolveActiveTab('apps',1) ? 'in' : ''}}">
+          <!-- <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('dashboard',2) ? 'active' : ''}}">
+            <div ng-click="goTo('apps/dashboard')" class="list-group-item-value menu-item-left no-opacity">{{'Dashboard' | translate | ellipsis:'1200'}}</div>
+          </div> -->
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('cards',2) ? 'active' : ''}}">
             <div ng-click="goTo('apps/cards')" class="list-group-item-value menu-item-left no-opacity">{{'Customer cards' | translate | ellipsis:'1200'}}</div>
           </div>
@@ -293,7 +304,6 @@
   <script src="scripts/utils/md5.js"></script>
   <script src="scripts/utils/ejs.min.js"></script>
   <script src="scripts/i18n/lang.js"></script>
-  <script src="scripts/controllers/main.js"></script>
   <script src="scripts/controllers/users.js"></script>
   <script src="scripts/controllers/trunks.js"></script>
   <script src="scripts/controllers/routes.js"></script>
@@ -316,6 +326,7 @@
   <script src="scripts/filters/isempty.js"></script>
   <script src="scripts/services/utilservice.js"></script>
   <script src="scripts/filters/capitalize.js"></script>
+  <script src="scripts/services/dashboardservice.js"></script>
   <script src="scripts/services/deviceservice.js"></script>
   <script src="scripts/filters/masktocidr.js"></script>
   <script src="scripts/filters/objcount.js"></script>
@@ -340,6 +351,7 @@
   <script src="scripts/filters/regexpparse.js"></script>
   <script src="scripts/filters/tobase64.js"></script>
   <script src="scripts/filters/ejsrender.js"></script>
+  <script src="scripts/filters/customfiltermultiple.js"></script>
   <script src="scripts/controllers/apps/streaming.js"></script>
   <script src="scripts/controllers/apps/paramurl.js"></script>
   <script src="scripts/controllers/admin/languages.js"></script>
@@ -351,6 +363,7 @@
   <script src="scripts/controllers/migration/config.js"></script>
   <script src="scripts/controllers/migration/cdr.js"></script>
   <script src="scripts/controllers/migration/report.js"></script>
+  <script src="scripts/controllers/dashboard.js"></script>
   <!-- endbuild -->
 </body>
 
