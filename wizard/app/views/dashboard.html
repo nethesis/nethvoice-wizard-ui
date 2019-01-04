@@ -32,13 +32,15 @@
                     </h2>
                     <div ng-if="u.presence === 'dnd'" class="u-presence-row">
                       <span class="pficon-resources-full dnd-color valign-middle"></span>
-                      <span class="valign-middle">{{"Do Not Disturb" | translate}}</span>
-                      <span class="pficon-close valign-middle pos-right cur-pointer" ng-click="showSetPresenceConfirmation(u.username)"></span>
+                      <span class="valign-middle label-presence-user">{{"Do Not Disturb" | translate}}</span>
+                      <span class="fa fa-eraser valign-middle presence-reset-icon" ng-click="showSetPresenceConfirmation(u)"
+                        popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Reset' | translate}}"></span>
                     </div>
                     <div ng-if="u.presence === 'callforward' || u.presence === 'cellphone' || u.presence === 'voicemail'" class="u-presence-row">
                       <span class="pficon-resources-full callforward-color valign-middle"></span>
-                      <span class="valign-middle">{{"Call Forward" | translate}}</span>
-                      <span class="pficon-close valign-middle pos-right cur-pointer" ng-click="showSetPresenceConfirmation(u.username)"></span>
+                      <span class="valign-middle label-presence-user">{{"Call Forward" | translate}}</span>
+                      <span class="fa fa-eraser valign-middle presence-reset-icon" ng-click="showSetPresenceConfirmation(u)"
+                        popover-placement="left" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Reset' | translate}}"></span>
                     </div>
                     <div class="card-pf-body">
                       <div id="pf-list-standard" class="list-group list-view-pf list-view-pf-view dashboard-list-margin-top">
@@ -89,10 +91,11 @@
                 </form>
                 <div class="col-xs-12 dashboard-cards-margin-top">
                   <!-- CARD -->
-                  <div ng-repeat="t in data.trunks | customFilterMultiple:'name,ip':searchTrunkString | orderBy:'t.name'" class="card-pf col-sm-5 col-md-4 col-lg-4 trunks-lg-cards trunks-lg-cards">
+                  <div ng-repeat="t in data.trunks | customFilterMultiple:'name,ip':searchTrunkString | orderBy:'t.name'"
+                    class="card-pf col-sm-12 col-md-6 col-lg-5 trunks-lg-cards trunks-lg-cards">
                     <h2 class="card-pf-title dashboard-cards-h2">
                       <span class="pficon pficon-container-node dashboard-cards-icon"></span>
-                      {{t.name}}
+                      <span title="{{t.name}}" class="trunk-name">{{t.name}}</span>
                       <span ng-if="!g.custom" class="right-only small-font right ng-scope">
                         <span class="pficon pficon-service icon-trunk-type"></span>{{t.chanType}}
                       </span>
@@ -161,7 +164,7 @@
         <form class="form-horizontal">
           <div class="form-group col-sm-12">
             <label class="control-label">{{'You are going to change the presence of user' | translate}}</label>
-            <label class="control-label text-bold">"{{data.userChangingPresence}}"</label>
+            <label class="control-label text-bold">{{data.userChangingPresenceName}}</label>
             <label class="control-label">{{'to_m' | translate}}</label>
             <label class="control-label text-online-green">{{'online' | translate}}</label>
             <label class="control-label">{{'status: are you sure ?' | translate}}</label>
@@ -170,7 +173,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
-        <button type="button" ng-click="setPresenceOnline(data.userChangingPresence)" class="btn btn-primary">{{'Continue' | translate}}</button>
+        <button type="button" ng-click="setPresenceOnline(data.userChangingPresenceUsername)" class="btn btn-primary">{{'Continue' | translate}}</button>
       </div>
     </div>
   </div>

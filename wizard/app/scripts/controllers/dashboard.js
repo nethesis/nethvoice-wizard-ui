@@ -15,7 +15,8 @@ angular.module('nethvoiceWizardUiApp')
       trunks: {},
       selExten: {},
       updateInterval: undefined,
-      userChangingPresence: undefined
+      userChangingPresenceUsername: undefined,
+      userChangingPresenceName: undefined
     };
     $scope.view.changeRoute = true;
 
@@ -69,8 +70,9 @@ angular.module('nethvoiceWizardUiApp')
         $scope.update();
       });
     };
-    $scope.showSetPresenceConfirmation = function (username) {
-      $scope.data.userChangingPresence = username;
+    $scope.showSetPresenceConfirmation = function (u) {
+      $scope.data.userChangingPresenceUsername = u.username;
+      $scope.data.userChangingPresenceName = u.name;
       $('#presenceSetupConfirmation').modal('show');
     };
     $scope.$on('$routeChangeStart', function() {

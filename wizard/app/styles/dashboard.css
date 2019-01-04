@@ -122,22 +122,32 @@
   white-space: nowrap;
 }
 
-.pos-right{
-  float: right;
-}
-
 .u-presence-row:hover {
   background: #ededed;
 }
 
 .u-presence-row {
-  padding: 3px 3px;
-}
-
-.cur-pointer {
-  cursor: pointer;
+  padding: 3px 5px 4px 5px;
 }
 
 .text-bold {
   font-weight: bold;
+}
+
+.presence-reset-icon {
+  float: right;
+  padding-top: 6px;
+  cursor: pointer;
+}
+
+.label-presence-user {
+  margin-left: 5px;
+}
+
+.trunk-name {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
 }
