@@ -71,6 +71,8 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.initCdr();
-    $scope.redirectOnMigrationStatus();
+    if (!$scope.wizard.isMigrationSkip) {
+      $scope.redirectOnMigrationStatus();
+    }
 
   });

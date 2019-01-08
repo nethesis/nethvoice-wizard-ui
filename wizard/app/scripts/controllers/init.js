@@ -32,6 +32,7 @@ angular.module('nethvoiceWizardUiApp')
       usersMigrationDone: false,
       confMigrationDone: false,
       fromMigrationStart: false,
+      isMigrationSkip: false,
       config: {},
       stepCount: 1
     };
@@ -218,6 +219,16 @@ angular.module('nethvoiceWizardUiApp')
           // !isMigration
           $location.path('/');
         }
+      }, function (err) {
+        console.log(err);
+      });
+    }
+
+    $scope.exitMigration = function () {
+      MigrationService.endMigration().then(function (res) {
+        $scope.wizard.isWizard = true;
+        $scope.wizard.isMigrationView = false;
+        $location.path('/users/extensions');
       }, function (err) {
         console.log(err);
       });

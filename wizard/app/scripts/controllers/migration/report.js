@@ -13,16 +13,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.migration = migrationConfig.LABEL_INFO;
     $scope.report = {};
 
-    $scope.exitMigration = function () {
-      MigrationService.endMigration().then(function (res) {
-        $scope.wizard.isWizard = true;
-        $scope.wizard.isMigrationView = false;
-        $location.path('/users/extensions');
-      }, function (err) {
-        console.log(err);
-      });
-    }
-
     $scope.getReport = function () {
       MigrationService.getReport().then(function (res) {
         $scope.view.changeRoute = false;
