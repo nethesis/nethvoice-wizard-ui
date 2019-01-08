@@ -17,6 +17,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.skipMigration = function () {
       $location.path('/migration/cdr');
+      $scope.wizard.isMigrationSkip = true;
     }
 
     $scope.redirectOnMigrationStatus();
