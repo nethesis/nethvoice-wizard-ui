@@ -51,6 +51,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.oldusers.splice($scope.oldUserToRemove, 1);
       $('#confirmDelete').modal('hide');
       $scope.oldUserToRemove = '';
+      $scope.reloadAvaibleUsers();
     } 
 
     $scope.showConfMigAlert = function () {

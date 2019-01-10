@@ -35,6 +35,7 @@ angular.module('nethvoiceWizardUiApp')
                       console.log(err);
                     });
                   } else {
+                    $scope.view.navbarLeftReady = true;
                     $location.path('/users');
                   }
                 }, function(err) {
