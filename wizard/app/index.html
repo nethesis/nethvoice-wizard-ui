@@ -90,7 +90,12 @@
     <!-- end navbar-->
     <!-- left menu -->
     <nav id="navbar-left" class="nav-pf-vertical-alt">
-      <ul class="list-group panel">
+      <ul ng-if="!view.navbarLeftReady" class="list-group panel">
+        <li class="list-group-item collapse-menu spinner-in-navbar-container">
+          <div class="spinner spinner-inverse pageLoader"></div>
+        </li>
+      </ul>
+      <ul ng-if="view.navbarLeftReady" class="list-group panel">
         <li ng-click="goTo('/')" ng-if="!wizard.isWizard && !wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('',1) ? 'active' : ''}}"
           id="apps-item-menu">
           <a>
@@ -101,12 +106,12 @@
         <li data-toggle="collapse" data-parent="#navbar-left" href="#usersCollapse" ng-if="!wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('users',1) ? 'active' : ''}}"
           id="users-item-menu">
           <a>
-              <span class="pficon pficon-users" title="{{'Users' | translate}}" data-toggle="tooltip" data-placement="right"></span>
-              <span class="list-group-item-value">{{'Users' | translate}}</span>
-              <span class="badge notifications">{{menuCount.users}}</span>
-            </a>
+            <span class="pficon pficon-users" title="{{'Users' | translate}}" data-toggle="tooltip" data-placement="right"></span>
+            <span class="list-group-item-value">{{'Users' | translate}}</span>
+            <span class="badge notifications">{{menuCount.users}}</span>
+          </a>
         </li>
-        <div id="usersCollapse" class="panel-collapse collapse {{resolveActiveTab('users',1) ? 'in' : ''}}">
+        <div id="usersCollapse" class="panel-collapse collapse {{resolveActiveTab('users',1) ? 'in' : ''}}" ng-if="!wizard.isMigrationView">
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('extensions',2) ? 'active' : ''}}">
             <div ng-click="goTo('users/extensions')" class="list-group-item-value menu-item-left no-opacity">{{'Extensions' | translate | ellipsis:'1200'}}</div>
           </div>
@@ -131,7 +136,7 @@
               <span class="list-group-item-value">{{'Migration' | translate }}</span>
             </a>
         </li>
-        <div id="migrationCollapse" class="panel-collapse collapse {{resolveActiveTab('migration',1) ? 'in' : ''}}">
+        <div id="migrationCollapse" ng-if="!wizard.isWizard && wizard.isMigrationView" class="panel-collapse collapse {{resolveActiveTab('migration',1) ? 'in' : ''}}">
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('users',2) ? 'active' : ''}}">
             <div class="list-group-item-value menu-item-left no-opacity">{{'Users' | translate | ellipsis:'1200'}}</div>
           </div>
@@ -235,8 +240,8 @@
     <!-- end left menu -->
     <!-- content -->
     <div class="container-fluid container-cards-pf container-pf-alt-nav-pf-vertical-alt">
-      <div ng-show="view.changeRoute" class="spinner spinner-lg pageLoader"></div>
-      <div ng-show="!view.changeRoute" ng-view></div>
+      <div ng-show="(view.changeRoute && !view.navbarLeftReady) || (!view.changeRoute && !view.navbarLeftReady)" class="spinner spinner-lg pageLoader"></div>
+      <div ng-show="!view.changeRoute && view.navbarLeftReady" ng-view></div>
     </div>
     <!-- end content -->
     <!-- footer -->

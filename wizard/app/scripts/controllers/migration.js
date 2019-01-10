@@ -10,6 +10,7 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('MigrationCtrl', function ($scope, $location) {
     $scope.view.changeRoute = false;
+
     $scope.startMigration = function () {
       $location.path('/migration/users');
       $scope.wizard.fromMigrationStart = true;

@@ -13,7 +13,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.appConfig = appConfig;
 
     $scope.view = {
-      changeRoute: true
+      changeRoute: true,
+      navbarLeftReady: false
     };
 
     $scope.mode = {
