@@ -28,7 +28,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getUsers = function (s) {
       DashboardService.getUsers().then(function (res) {
         $scope.data.users = res.data;
-        $scope.view.changeRoute = false;
+        if (!$scope.wizard.isWizard) {
+          $scope.view.changeRoute = false;
+        }
       }, function (err) {
         console.log(err);
       });
