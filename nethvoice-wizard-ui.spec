@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.1.6
+Version: 14.2.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,10 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Fri Jan 11 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.2.0-1
+- Add dashboard wizard nethesis/dev#5544
+- Add migration from NethVoice 11 to 14 nethesis/dev#5454
+
 * Mon Nov 12 2018 Stefano Fancello <stefano.fancello@nethesis.it> - 14.1.6-1
 - Fix bulk extension outcid nethesis/dev#5493
 - Better user and device UI nethesis/dev#5493
