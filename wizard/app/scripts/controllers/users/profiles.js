@@ -96,7 +96,16 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    $scope.saveProfile = function (profile) {
+    $scope.saveProfile = function (profile, obj_permissions, permission, macro) {
+      //turn off all permissions in macro without the one selected
+      if (macro == "operator_panel") {
+        for (var p in obj_permissions.permissions) {
+          if (permission.id != obj_permissions.permissions[p].id) {
+            obj_permissions.permissions[p].value = false;
+          }
+        }
+      }
+      //start saving
       profile.onSave = true;
       if (profile.id) {
         ProfileService.update(profile.id, profile).then(function (res) {
