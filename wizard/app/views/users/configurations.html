@@ -71,7 +71,7 @@
           </div>
         </span>
         <div class="list-group list-view-pf list-view-pf-view adjust-body-user">
-          <div ng-repeat="user in users | filter:searchUserUserString | orderBy:selectedUserFilterNumbers">
+          <div ng-repeat="user in users | customFilterMultiple:'displayname,username,default_extension':searchUserUserString | orderBy:selectedUserFilterNumbers">
             <div ng-if="user.default_extension !== 'none'" ng-show="selectedUserFilter == 'configured' ? user.devices.length > 0 : (selectedUserFilter == 'unconfigured' ? user.devices.length == 0 : true)"
               class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-click="selectUser(user)">
               <div class="list-view-pf-actions">
