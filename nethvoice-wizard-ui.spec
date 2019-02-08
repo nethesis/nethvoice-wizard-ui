@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.2.0
+Version: 14.2.1
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,11 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Fri Feb 08 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.2.1-1
+- Fix brand logo for rebranding Nethesis/dev#5574
+- Enhance all search filtering on objects Nethesis/dev#5572
+- Allow only one queue turned on in Operator Panel permissions Nethesis/dev#5549
+
 * Fri Jan 11 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.2.0-1
 - Add dashboard wizard nethesis/dev#5544
 - Add migration from NethVoice 11 to 14 nethesis/dev#5454
