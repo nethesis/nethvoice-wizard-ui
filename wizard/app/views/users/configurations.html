@@ -1,6 +1,6 @@
 <div class="wizard-pf">
     <div class="wizard-pf-body clearfix">
-      <div class="wizard-pf-steps">
+      <div ng-if="wizard.isWizard" class="wizard-pf-steps">
         <ul class="wizard-pf-steps-indicator">
           <li class="wizard-pf-step {{resolveActiveTab('extensions',2) ? 'active' : ''}}" data-tabgroup="1">
             <a ng-click="goTo('users/extensions')">
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="wizard-pf-contents adjust-size row no-margin-bottom">
-      <h1 class="control-label centered" for="textInput-markup">{{'Extensions configurations' | translate}}</h1>
+      <h1 class="control-label centered configuration-title-margin-top" for="textInput-markup">{{'Extensions configurations' | translate}}</h1>
       <div ng-if="!(users | isEmpty)" class="container-fluid col-lg-5 col-md-6 col-sm-6 col-xs-12 stop-less-config-col">
         <div>
           <div class="filter-label-user adjust-filter-user">{{'Filter' | translate}}:</div>

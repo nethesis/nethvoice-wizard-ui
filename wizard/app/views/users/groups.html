@@ -1,6 +1,6 @@
 <div class="wizard-pf">
   <div class="wizard-pf-body clearfix">
-    <div class="wizard-pf-steps">
+    <div ng-if="wizard.isWizard" class="wizard-pf-steps">
       <ul class="wizard-pf-steps-indicator">
         <li class="wizard-pf-step {{resolveActiveTab('extensions',2) ? 'active' : ''}}" data-tabgroup="1">
           <a ng-click="goTo('users/extensions')"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Extensions' | translate}}</span></a>
@@ -36,7 +36,7 @@
       <span class="pficon pficon-error-circle-o"></span>
       <strong>{{'Group not saved' | translate}}.</strong> {{'Group saving error' | translate}}
     </div>
-    <div ng-if="!(allGroups | isEmpty)" class="row row-cards-pf adjust-card">
+    <div ng-if="!(allGroups | isEmpty)" class="row row-cards-pf adjust-card groups-margin-top">
       <div ng-repeat="g in allGroups | orderBy:'name'" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <div class="card-pf">
           <h2 class="card-pf-title">

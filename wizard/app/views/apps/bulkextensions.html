@@ -1,6 +1,6 @@
 <div class="wizard-pf">
   <div class="wizard-pf-body clearfix">
-    <div class="wizard-pf-steps">
+    <div ng-if="wizard.isWizard" class="wizard-pf-steps">
       <ul class="wizard-pf-steps-indicator">
         <li class="wizard-pf-step {{resolveActiveTab('bulkextensions',2) ? 'active' : ''}}" data-tabgroup="1">
           <a ng-click="goTo('apps/bulkextensions')">
@@ -14,7 +14,7 @@
   <div class="wizard-pf-contents adjust-size no-margin-bottom">
     <h1 class="control-label centered" for="textInput-markup">{{'Bulk extensions configuration' | translate}}</h1>
     <div ng-if="!(users | isEmpty)" class="container-fluid">
-      <div class="row margin-top-lg">
+      <div class="row bulk-margin-top">
         <div class="col-sm-9 no-padding">
           <div class="filter-label-bulk">{{'Select' | translate}}:</div>
           <div class="dropdown inline-display">
@@ -115,7 +115,7 @@
         </div>
       </div>
     </div>
-    <div ng-if="users | isEmpty" class="blank-slate-pf ">
+    <div ng-if="users | isEmpty" class="blank-slate-pf bulk-margin-top">
       <div class="blank-slate-pf-icon">
         <span class="pficon pficon-users"></span>
       </div>

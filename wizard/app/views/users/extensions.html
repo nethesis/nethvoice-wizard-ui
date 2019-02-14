@@ -1,6 +1,6 @@
 <div class="wizard-pf">
   <div class="wizard-pf-body clearfix">
-    <div class="wizard-pf-steps">
+    <div ng-if="wizard.isWizard" class="wizard-pf-steps">
       <ul class="wizard-pf-steps-indicator">
         <li class="wizard-pf-step {{resolveActiveTab('extensions',2) ? 'active' : ''}}" data-tabgroup="1">
           <a ng-click="goTo('users/extensions')"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Extensions' | translate}}</span></a>
@@ -23,7 +23,6 @@
   <div class="wizard-pf-contents adjust-size no-margin-bottom">
     <h1 class="control-label centered" for="textInput-markup">{{'Users configuration' | translate}}</h1>
     <div ng-if="!(users | isEmpty)" class="container-fluid margin-top-lg">
-
       <div ng-if="error.file.status" class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
           <span class="pficon pficon-close"></span>
@@ -31,7 +30,6 @@
         <span class="pficon pficon-error-circle-o"></span>
         <strong>{{error.file.title | translate}}.</strong> {{error.file.content | translate}}
       </div>
-
       <div>
         <div class="filter-label-user">{{'Filter' | translate}}:</div>
         <select title="-" pf-select="{ width: '180px' }" ng-model="selectedUsersFilter" ng-options="uf as uf | translate for uf in availableUsersFilters">
