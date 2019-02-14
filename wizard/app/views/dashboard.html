@@ -24,8 +24,17 @@
                     </button> </div>
                 </form>
                 <div class="col-xs-12 dashboard-cards-margin-top">
+                  <!-- EMPTY USERS -->
+                  <div ng-if="true" class="blank-slate-pf empty-dashboard ng-scope">
+                    <div class="blank-slate-pf-icon">
+                      <span class="pficon pficon-users"></span>
+                    </div>
+                    <h1 class="ng-binding">
+                      {{'No users found' | translate}}
+                    </h1>
+                  </div>
                   <!-- CARD -->
-                  <div ng-if="u.endpoints.extension[0]" ng-repeat="u in data.users | customFilterMultiple:'name,dashboardUsersSearch':searchUsersString | orderBy:'u.name'"
+                  <div ng-if="false" ng-repeat="u in data.users | customFilterMultiple:'name,dashboardUsersSearch':searchUsersString | orderBy:'u.name'"
                     class="card-pf user-dashboard-card">
                     <h2 class="card-pf-title ng-binding dashboard-cards-h2">
                       <span class="pficon pficon-user dashboard-cards-icon"></span>{{u.name}}
@@ -90,6 +99,15 @@
                     </button> </div>
                 </form>
                 <div class="col-xs-12 dashboard-cards-margin-top">
+                  <!-- EMPTY TRUNKS -->
+                  <div ng-if="data.trunks | isEmpty" class="blank-slate-pf empty-dashboard ng-scope">
+                    <div class="blank-slate-pf-icon">
+                      <span class="pficon pficon-topology"></span>
+                    </div>
+                    <h1 class="ng-binding">
+                      {{'No trunks found' | translate}}
+                    </h1>
+                  </div>
                   <!-- CARD -->
                   <div ng-repeat="t in data.trunks | customFilterMultiple:'name,ip':searchTrunkString | orderBy:'t.name'"
                     class="card-pf col-sm-12 col-md-6 col-lg-5 trunks-lg-cards trunks-lg-cards">
