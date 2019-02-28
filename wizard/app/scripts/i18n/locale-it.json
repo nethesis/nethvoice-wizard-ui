@@ -555,5 +555,6 @@
   "Search trunks": "Cerca fasci",
   "You are going to change the presence of user": "Stai per modificare la presence dell'utente",
   "online": "disponibile",
-  "status: are you sure ?": ": vuoi continuare ?"
+  "status: are you sure ?": ": vuoi continuare ?",
+  "No trunks found": "Nessun fascio trovato"
 }

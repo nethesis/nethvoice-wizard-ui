@@ -403,7 +403,7 @@ a {
   }
 
   .adjust-voip {
-    margin-top: 8px;
+    margin-top: 28px;
     margin-bottom: 45px;
   }
 
@@ -1761,4 +1761,57 @@ iframe body {
   padding-top: 20px !important;
   padding-bottom: 20px !important;
   border: 0px !important;
+}
+
+.groups-margin-top {
+  margin-top: 40px;
+}
+
+.profiles-margin-top {
+  margin-top: 29px;
+}
+
+.devices-margin-top {
+  margin-top: 10px;
+}
+
+.physical-margin-top {
+  margin-top: 10px;
+}
+
+.inbound-margin-top {
+  margin-top: 28px;
+}
+
+.configuration-title-margin-top {
+  margin-top: 6px;
+  margin-bottom: 14px;
+}
+
+.costumer-cards-margin-top {
+  margin-top: 38px;
+}
+
+.video-sources-margin-top {
+  margin-top: 38px;
+}
+
+.urls-margin-top {
+  margin-top: 38px;
+}
+
+.bulk-margin-top {
+  margin-top: 27px;
+}
+
+.report-margin-top {
+  margin-top: 38px;
+}
+
+.dashboard-margin-top {
+  margin-top: 27px;
+}
+
+.empty-dashboard {
+  padding: 40px 10px;
 }

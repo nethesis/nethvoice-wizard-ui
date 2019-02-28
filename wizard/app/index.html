@@ -240,8 +240,8 @@
     <!-- end left menu -->
     <!-- content -->
     <div class="container-fluid container-cards-pf container-pf-alt-nav-pf-vertical-alt">
-      <div ng-show="(view.changeRoute && !view.navbarLeftReady) || (!view.changeRoute && !view.navbarLeftReady)" class="spinner spinner-lg pageLoader"></div>
-      <div ng-show="!view.changeRoute && view.navbarLeftReady" ng-view></div>
+      <div ng-show="view.changeRoute" class="spinner spinner-lg pageLoader"></div>
+      <div ng-show="!view.changeRoute" ng-view></div>
     </div>
     <!-- end content -->
     <!-- footer -->

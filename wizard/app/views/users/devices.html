@@ -1,6 +1,6 @@
 <div class="wizard-pf">
   <div class="wizard-pf-body clearfix">
-    <div class="wizard-pf-steps">
+    <div ng-if="wizard.isWizard" class="wizard-pf-steps">
       <ul class="wizard-pf-steps-indicator">
         <li class="wizard-pf-step {{resolveActiveTab('extensions',2) ? 'active' : ''}}" data-tabgroup="1">
           <a ng-click="goTo('users/extensions')"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Extensions' | translate}}</span></a>
@@ -20,12 +20,10 @@
       </ul>
     </div>
   </div>
-
   <div class="wizard-pf-contents adjust-size">
     <h1 class="control-label centered" for="textInput-markup">{{'Devices configuration' | translate}}</h1>
-
     <div ng-if="!(networks | isEmpty)" class="container-fluid">
-      <div class="col-xs-12 col-sm-6 col-md-{{12/networkLength}} col-lg-{{12/networkLength}}" ng-repeat="(key, network) in networks">
+      <div class="col-xs-12 col-sm-6 col-md-{{12/networkLength}} col-lg-{{12/networkLength}} devices-margin-top" ng-repeat="(key, network) in networks">
         <div class="card-pf card-pf-view adjust-card">
           <div class="card-pf-body">
             <div class="card-pf-top-element">
@@ -57,7 +55,6 @@
         </div>
       </div>
     </div>
-
     <div ng-if="!(allDevices | isEmpty: true)" class="container-fluid scanned-lists">
       <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)">
         <div class="row">
@@ -110,7 +107,6 @@
         </div>
       </div>
     </div>
-
     <div ng-if="networks | isEmpty" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
         <span class="pficon pficon-network"></span>
@@ -122,7 +118,6 @@
         {{'There are problems to get networks configurations' | translate}}
       </p>
     </div>
-
     <div ng-if="!(networks | isEmpty) && (allDevices | isEmpty: true) && scanned == true" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
         <span class="fa fa-phone"></span>
@@ -135,6 +130,5 @@
       </p>
     </div>
   </div>
-
   <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>
 </div>
