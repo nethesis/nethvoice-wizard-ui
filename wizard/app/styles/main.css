@@ -1815,3 +1815,9 @@ iframe body {
 .empty-dashboard {
   padding: 40px 10px;
 }
+
+#navbar-left .panel-collapse .list-group-item {
+  overflow: hidden;
+  padding-right: 5px;
+  text-overflow: ellipsis;
+}
