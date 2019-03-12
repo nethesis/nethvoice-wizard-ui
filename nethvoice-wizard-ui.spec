@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.2.1
+Version: 14.2.2
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,12 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Tue Mar 12 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.2.2-1
+- Fix page names overflow on expanded collapse nethesis/dev#5582
+- Fix dashboard not found messages nethesis/dev#5582
+- Fix spinner behaviour on route change
+- Remove wizard steps if is not wizard nethesis/dev#5582
+
 * Fri Feb 08 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.2.1-1
 - Fix brand logo for rebranding Nethesis/dev#5574
 - Enhance all search filtering on objects Nethesis/dev#5572
