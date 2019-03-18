@@ -297,7 +297,7 @@
                             <span class="fa fa-eye"></span>
                           </div>
                           <h1 class="empty-preview-text">
-                            {{"Anteprima" | translate}}
+                            {{"Preview" | translate}}
                           </h1>
                         </div>
                         <div ng-if="!(querySelect | isEmpty)" ng-repeat="item in querySelect" class="oriziontal-segment-phonebook">
@@ -305,7 +305,7 @@
                               <div ng-if="(v !== '') && (phonebookIcons[newSource.mapping[k]])" 
                               ng-repeat="(k, v) in item" class="orizontal-segment-phonebook-row">
                                 <i class="fa fa-{{phonebookIcons[newSource.mapping[k]].icon}} orizontal-segment-phonebook-icon"></i>
-                                <span class="orizontal-segment-phonebook-label">{{phonebookIcons[newSource.mapping[k]].label}}</span>
+                                <span class="orizontal-segment-phonebook-label">{{phonebookIcons[newSource.mapping[k]].label | translate}}</span>
                                 <span class="orizontal-segment-phonebook-values">{{v}}</span>
                               </div>
                               <div class="align-center">
@@ -409,7 +409,7 @@
                                               <span class="fa fa-eye"></span>
                                             </div>
                                             <h1 class="empty-preview-text">
-                                              {{"Anteprima" | translate}}
+                                              {{"Preview" | translate}}
                                             </h1>
                                           </div>
                                           <div ng-if="!(querySelect | isEmpty)" ng-repeat="item in querySelect" class="oriziontal-segment-phonebook">

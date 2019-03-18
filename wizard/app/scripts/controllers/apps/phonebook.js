@@ -69,6 +69,10 @@ angular.module('nethvoiceWizardUiApp')
       "url": {
         "icon": "world",
         "label": "Site"
+      },
+      "name": {
+        "icon": "user",
+        "label": "Name"
       }
     }
 
