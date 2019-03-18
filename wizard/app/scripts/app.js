@@ -163,6 +163,11 @@ angular
         controller: 'ReportmigrationCtrl',
         controllerAs: 'reportmigration'
       })
+      .when('/apps/phonebook', {
+        templateUrl: 'views/apps/phonebook.html',
+        controller: 'PhonebookCtrl',
+        controllerAs: 'phonebook'
+      })
       .otherwise({
         redirectTo: '/'
       });

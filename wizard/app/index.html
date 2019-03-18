@@ -201,6 +201,9 @@
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('streaming',2) ? 'active' : ''}}">
             <div ng-click="goTo('apps/streaming')" class="list-group-item-value menu-item-left no-opacity">{{'Video sources' | translate | ellipsis:'1200'}}</div>
           </div>
+          <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('phonebook',2) ? 'active' : ''}}">
+            <div ng-click="goTo('apps/phonebook')" class="list-group-item-value menu-item-left no-opacity">{{'Phonebook sources' | translate | ellipsis:'1200'}}</div>
+          </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('paramurl',2) ? 'active' : ''}}">
             <div ng-click="goTo('apps/paramurl')" class="list-group-item-value menu-item-left no-opacity">{{'Parameterized URLs' | translate | ellipsis:'1200'}}</div>
           </div>
@@ -369,6 +372,8 @@
   <script src="scripts/controllers/migration/cdr.js"></script>
   <script src="scripts/controllers/migration/report.js"></script>
   <script src="scripts/controllers/dashboard.js"></script>
+  <script src="scripts/controllers/apps/phonebook.js"></script>
+  <script src="scripts/services/phonebookservice.js"></script>
   <!-- endbuild -->
 </body>
 

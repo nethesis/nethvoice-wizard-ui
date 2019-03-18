@@ -647,6 +647,10 @@ a {
   margin-bottom: 0px !important;
 }
 
+.no-margin-top {
+  margin-top: 0px !important;
+}
+
 .anchor-sortable {
   font-size: 16px;
   margin-right: 8px;
@@ -917,6 +921,10 @@ a {
 
 .margin-top-lg {
   margin-top: 38px;
+}
+
+.margin-top-md {
+  margin-top: 20px;
 }
 
 .filter-label-user {
@@ -1238,6 +1246,10 @@ a {
   margin-top: 5px;
 }
 
+.middle-margin-bottom {
+  margin-bottom: 20px;
+}
+
 .adjust-margin-bottom {
   margin-bottom: 4px !important;
 }
@@ -1409,6 +1421,10 @@ iframe body {
   width: 180px !important;
 }
 
+.width-160 {
+  width: 160px !important;
+}
+
 .drd-carret {
   float: right;
   margin-top: 5px;
@@ -1446,6 +1462,10 @@ iframe body {
   border-color: #d1d1d1 !important;
 }
 
+.inline-text {
+  display: inline !important;
+}
+
 .form-divider-row {
   overflow: hidden;
   white-space: nowrap;
@@ -1460,6 +1480,10 @@ iframe body {
 .form-divider-string {
   font-size: 13px;
   margin: 0px 2px;
+}
+
+.sm-font {
+  font-size: 15px !important;
 }
 
 .cursive {
@@ -1742,11 +1766,12 @@ iframe body {
 }
 
 .not-selectable {
-  user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
+  -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -o-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .pf-red {
@@ -1816,8 +1841,394 @@ iframe body {
   padding: 40px 10px;
 }
 
+.wizard-modal {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px 0px !important;
+}
+
+.wizard-modal .wizard-pf-footer {
+  margin-left: 0px !important;
+}
+
+.wizard-modal .wizard-pf-steps-indicator {
+  padding: 38px 0px !important;
+  margin-bottom: 9px !important;
+}
+
+.wizard-modal .wizard-pf-step a {
+  font-size: 13px !important;
+}
+
+.wizard-modal .modal-header {
+  border-bottom: solid 1px #d1d1d1 !important;
+}
+
+.wizard-modal .wizard-pf-sidebar {
+  position: relative !important;
+}
+
+.wizard-modal #sidebarColl {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  background: #fafafa;
+}
+
+.wizard-modal .wizard-pf-main {
+  margin-left: -10px !important;
+  margin-right: -30px;
+  padding-right: 50px;
+  overflow: visible !important;
+}
+
+.wizard-modal .wizard-pf-row {
+  margin-left: 0px !important;
+  position: relative !important;
+  top: 0px !important;
+}
+
+.wizard-modal .modal-content {
+  height: auto !important;
+  margin-bottom: 34px;
+}
+
+.wizard-modal .wizard-pf-sidebar {
+  border-right: none !important;
+}
+
+.wizard-modal #bodyCall {
+  border-left: 1px solid #d1d1d1;
+  min-height: 159px;
+  margin-bottom: 57px;
+}
+
+.wizard-modal .wizard-pf-sidebar .list-group-item>a {
+  width: 100% !important;
+}
+
+.wizard-modal .form-horizontal .control-label {
+  padding-left: 0px !important;
+}
+
+.wizard-modal .modal-body {
+  padding: 0px !important;
+}
+
+.source-form .modal-body .form-group {
+  margin-left: -9px !important;
+  margin-right: -13px !important;
+}
+
+.wizard-modal .form-horizontal .input-container {
+  padding-right: 20px;
+}
+
+.wizard-modal #bodyCall .list-view-pf .list-group-item-text {
+  margin: 0px 0px 0px 0px !important;
+}
+
+.wizard-modal #bodyCall .list-view-pf .list-group-item {
+  border: 1px solid #e8e8e8;
+  margin-bottom: -1px !important;
+  background: #fafafa !important;
+}
+
+#creationWizardModal {
+  overflow-y: hidden !important;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.map-view-in-card {
+  border-top: 1px solid #d1d1d1;
+  margin: 20px -20px -2px -20px;
+}
+
+.phonebook-sources-title-size {
+  font-size: 14px !important;
+}
+
+.source-card-bottomside-title {
+  padding-left: 20px;
+}
+
+.list-front-row-phonebook {
+  border-color: #d1d1d1 !important;
+  background-color: #fafafa;
+  border-top-color: #d1d1d1 !important;
+  box-shadow: none !important;
+}
+
+.list-front-row-header-phonebook {
+  background: #fafafa;
+  border-color: #e8e8e8;
+}
+
+.list-map-container-phonebook {
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 30px;
+}
+
+.wizard-modal #bodyCall .list-group-item-text {
+  margin: 0px 0px 0px 0px !important;
+  color: #7b7b7b !important;
+}
+
+.list-tablefrom-phonebook {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.list-tablefrom-phonebook .fa {
+  margin-right: 5px;
+}
+
+.tables-named-divider {
+  margin: 0px 8px;
+}
+
+.right-margin-fine {
+  margin-right: 5px !important;
+}
+
+.phonebook-table-left-border {
+  border-color: whitesmoke !important;
+}
+
+.list-item-header-phonebook {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.phonebook-title-subheader {
+  height: 1px;
+}
+
+.phone-sources-phonebook {
+  margin-bottom: 30px !important;
+}
+
 #navbar-left .panel-collapse .list-group-item {
   overflow: hidden;
   padding-right: 5px;
   text-overflow: ellipsis;
+}
+
+.editor-form-phonebook {
+  width: 100% !important;
+  height: 145px !important;
+}
+
+.phonebook-source-title {
+  font-size: 16px;
+}
+
+.phonebook-source-title-container {
+  background: #f5f5f5;
+}
+
+.phonebook-source-border {
+  border: 1px solid #e8e8e8 !important;
+}
+
+.phonebook-sources-map {
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+
+.selection-query-prev {
+  min-height: 125px;
+  padding-right: 14px;
+  padding-left: 14px;
+  padding-top: 8px;
+  padding-bottom: 5px;
+}
+
+.empty-preview-phonebook {
+  padding: 30px 10px !important; 
+}
+
+#creationsourceModal {
+  padding-right: 15px !important;
+  padding-left: 15px !important;
+}
+
+.oriziontal-segment-phonebook {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding: 0;
+  background-color: #FFF;
+  box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+  margin: 1rem 0;
+  border: 1px solid rgba(34,36,38,.15);
+  border-radius: .28571429rem;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  margin-bottom: 4px!important;
+  margin-top: 0!important;
+  position: relative;
+}
+
+.orizontal-segment-phonebook-content {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border: none;
+  background: 0 0;
+  margin: 0;
+  padding: 1em;
+  box-shadow: none;
+  font-size: 1em;
+  border-radius: 0;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.orizontal-segment-phonebook-label {
+  display: inline-block;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 11px;
+  margin: 0 .14285714em;
+  background-color: #E8E8E8;
+  background-image: none;
+  padding: .5833em .833em;
+  color: rgba(0,0,0,.6);
+  text-transform: none;
+  font-weight: 600;
+  border: 0 solid transparent;
+  border-radius: .28571429rem;
+}
+
+.orizontal-segment-phonebook-row {
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.orizontal-segment-phonebook-values {
+  color: #666;
+}
+
+.source-icon-container {
+  padding: 13px 3px;
+  margin-top: 18px;
+  border-top: 1px solid #f2f3f2;
+}
+
+.source-icon-container i {
+  color: #36b5ad;
+  font-size: 12px;
+}
+
+.orizontal-segment-phonebook-content:hover {
+  background-color: #f3f3f4;
+}
+
+.preview-icon-phonebook {
+  font-size: 17px;
+  color: #9c9c9c;
+}
+
+.preview-icon-container {
+  text-align: right;
+  margin-top: -11px;
+  margin-right: -11px;
+  margin-bottom: 7px;
+}
+
+.preview-bigicon-container {
+  margin-top: 6px;
+}
+
+.big-icon-phonebook {
+  font-size: 56px;
+}
+
+.empty-preview-text {
+  font-size: 22px;
+  margin-top: 14px;
+  margin-bottom: 3px;
+  color: gray;
+}
+
+.orizontal-segment-phonebook-icon {
+  margin-right: 5px;
+  width: 1.18em;
+  height: 1em;
+  text-align: center;
+}
+
+.sync-settings-string {
+  margin-top: 27px;
+  margin-bottom: 10px;
+}
+
+.phonebook-settings-rows {
+  margin-bottom: 65px;
+}
+
+.settings-title {
+  margin-top: 16px;
+}
+
+.onof-button-phonebook {
+  margin-bottom: 0px !important;
+}
+
+.onof-string {
+  line-height: 27px;
+  margin-left: 22px;
+  color: gray;
+}
+
+#dbInfoSqlSource {
+  margin-top: 15px;
+}
+
+.view-settings-string-phonebook {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.phonebook-badge {
+  margin-left: 0px !important;
+  font-size: 12px !important;
+}
+
+.active-a-interval {
+  background-color: #0088ce !important;
+  border-color: #0088ce !important;
+  color: #fff !important;
+}
+
+.sync-phonebook-icon {
+  margin: 0px 3px 0px 4px;
+}
+
+.phonebook-footer-card-buttons {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.phonebook-card-footer {
+  padding: 12px 20px !important;
+}
+
+#phonebookSyncSpinner {
+  margin: 7px 12px 0px 0px;
+}
+
+.sync-source-res {
+  font-size: 18px;
+  margin: 7px 12px 0px 0px;
 }
