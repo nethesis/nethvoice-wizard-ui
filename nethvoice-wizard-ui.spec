@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.2.2
+Version: 14.3.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,9 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Tue Mar 26 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.3.0-1
+- Add phonebook sources page nethesis/dev#5557
+
 * Tue Mar 12 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.2.2-1
 - Fix page names overflow on expanded collapse nethesis/dev#5582
 - Fix dashboard not found messages nethesis/dev#5582
