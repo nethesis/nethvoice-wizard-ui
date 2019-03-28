@@ -50,6 +50,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.logoutFreePBX = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/logout').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.getCurrentLoggeduser = function() {
       return LocalStorageService.get('currentLoggedUser');
     };

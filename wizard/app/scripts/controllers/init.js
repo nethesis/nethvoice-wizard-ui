@@ -46,7 +46,11 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.doLogout = function () {
-      LoginService.removeCredentials();
+      LoginService.removeCredentials().then(function () {
+          LoginService.logoutFreePBX();
+      }, function (err) {
+        console.log(err);
+      });
       $location.path('/');
       $('#loginTpl').show();
       $scope.login.isLogged = false;
