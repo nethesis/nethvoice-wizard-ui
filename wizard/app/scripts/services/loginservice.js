@@ -11,7 +11,14 @@ angular.module('nethvoiceWizardUiApp')
   .service('LoginService', function($q, LocalStorageService, RestService, RestServiceCTI) {
 
     this.removeCredentials = function() {
-      LocalStorageService.remove('secretkey');
+      return $q(function (resolve, reject) {
+        RestService.get('/logout').then(function (res) {
+          LocalStorageService.remove('secretkey');
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
     };
 
     this.getCredentials = function() {
@@ -45,16 +52,6 @@ angular.module('nethvoiceWizardUiApp')
           $securityService.reset();
           resolve(data);
         }, function(err) {
-          reject(err);
-        });
-      });
-    };
-
-    this.logoutFreePBX = function () {
-      return $q(function (resolve, reject) {
-        RestService.get('/logout').then(function (res) {
-          resolve(res);
-        }, function (err) {
           reject(err);
         });
       });
