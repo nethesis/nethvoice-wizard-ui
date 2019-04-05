@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.3.0
+Version: 14.3.1
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,9 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Fri Apr 05 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.3.1-1
+- Call /logout API on logout nethesis/dev#5598
+
 * Tue Mar 26 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.3.0-1
 - Add phonebook sources page nethesis/dev#5557
 
