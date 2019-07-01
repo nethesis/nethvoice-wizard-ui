@@ -61,9 +61,7 @@
                           </div>
                           <div class="list-view-pf-main-info exten-dashboard-label">
                             <div class="list-view-pf-left">
-                              <span class="fa {{exten.type.indexOf('webrtc') === 0 ? 'fa-headphones' : 'fa-phone'}}
-                                {{data.extensions[exten.id].status === 'online' ? 'online-green' : 'offline-gray'}}
-                                list-view-pf-icon-sm user-dashboard-icon"></span>
+                              <span class="fa {{exten.type.indexOf('webrtc') === 0 ? 'fa-headphones' : 'fa-phone'}} {{data.extensions[exten.id].status === 'online' ? 'online-green' : data.extensions[exten.id].status === 'offline' ? 'offline-gray' : 'online-red'}} list-view-pf-icon-sm user-dashboard-icon"></span>
                             </div>
                             <div class="list-view-pf-body">
                               <div class="list-view-pf-additional-info">
