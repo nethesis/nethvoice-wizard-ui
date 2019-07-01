@@ -6,6 +6,10 @@
   border-color: #6ec664 !important;
 }
 
+.online-red {
+  border-color: #DB2828 !important;
+}
+
 .text-online-green {
   color: #6ec664 !important;
 }
