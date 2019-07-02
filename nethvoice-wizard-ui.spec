@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.3.1
+Version: 14.3.2
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,9 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Tue Jul 02 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.3.2-1
+- Fix extens colors into the wizard dashboard (#57) nethesis/dev#5659
+
 * Fri Apr 05 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.3.1-1
 - Call /logout API on logout nethesis/dev#5598
 
