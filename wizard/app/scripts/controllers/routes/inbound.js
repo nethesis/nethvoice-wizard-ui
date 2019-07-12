@@ -25,6 +25,9 @@ angular.module('nethvoiceWizardUiApp')
         $scope.destinations = res.data.destinations;
         $scope.view.changeRoute = false;
         $scope.menuCount.routesIn = $scope.routes.length;
+        for (var r in $scope.routes) {
+          $scope.routes[r].url = encodeURIComponent($scope.routes[r].extension + ' / ' + $scope.routes[r].cidnum);
+        }
       }, function (err) {
         console.log(err);
         $scope.view.changeRoute = false;
