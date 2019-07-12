@@ -46,7 +46,7 @@
           <div class="list-group-item" ng-repeat="route in routes">
             <div class="list-view-pf-actions">
               <div class="dropdown  dropdown-kebab-pf">
-                <a target="_blank" href="{{customConfig.VPLAN_URL + '/?did=' + route.extension + '+%2F+' + route.cidnum}}" class="btn btn-default">{{'Modify' | translate}}</a>
+                <a target="_blank" ng-href="{{customConfig.VPLAN_URL + '/?did=' + route.url}}" class="btn btn-default">{{'Modify' | translate}}</a>
                 <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebab" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="true">
                     <span class="fa fa-ellipsis-v"></span>
