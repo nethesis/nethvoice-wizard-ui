@@ -279,10 +279,11 @@ angular.module('nethvoiceWizardUiApp')
     $scope.downConfig = function (device) {
       device.onSave = true;
       DeviceService.downloadConfig(device.name, device.mac).then(function (res) {
-        var config = 'data:text/plain;charset=utf-8,' + res.data;
-        var encodedUri = encodeURI(config);
         var link = document.getElementById('dlLink');
-        link.setAttribute('href', encodedUri);
+        var data = atob(res.data);
+        var config = new Blob([data], { type: 'application/octet-stream;charset=utf-8;' });
+        var url = URL.createObjectURL(config);
+        link.setAttribute('href', url);
         link.setAttribute('download', device.name + '.cfg');
         link.click();
         device.onSave = false;
