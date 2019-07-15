@@ -65,7 +65,10 @@ angular.module('nethvoiceWizardUiApp')
     // Delete inbounds routes
     this.deleteInboundRoute = function (extension, cid) {
       return $q(function (resolve, reject) {
-        RestService.delete('/inboundroutes/' + extension + '-' + cid).then(function (res) {
+        RestService.post('/inboundroutes/delete', {
+          'extension': extension,
+          'cid': cid
+        }).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
