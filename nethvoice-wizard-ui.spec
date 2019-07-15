@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.3.2
+Version: 14.4.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,10 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Mon Jul 15 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.4.0-1
+- Fix the deletion of routes containing symbols nethesis/dev#5674
+- Fix physical trunks configuration download nethesis/dev#5678
+
 * Tue Jul 02 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.3.2-1
 - Fix extens colors into the wizard dashboard (#57) nethesis/dev#5659
 
