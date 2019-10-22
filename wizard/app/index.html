@@ -213,9 +213,9 @@
         <li data-toggle="collapse" data-parent="#navbar-left" href="#appsCollapse" ng-if="!wizard.isWizard && !wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('apps',1) ? 'active' : ''}}"
           id="apps-item-menu">
           <a>
-              <span class="pficon pficon-bundle" title="{{'Apps' | translate}}" data-toggle="tooltip" data-placement="right"></span>
-              <span class="list-group-item-value">{{'Apps' | translate }}</span>
-            </a>
+            <span class="pficon pficon-bundle" title="{{'Apps' | translate}}" data-toggle="tooltip" data-placement="right"></span>
+            <span class="list-group-item-value">{{'Apps' | translate }}</span>
+          </a>
         </li>
         <div id="appsCollapse" class="panel-collapse collapse {{resolveActiveTab('apps',1) ? 'in' : ''}}">
           <!-- <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('dashboard',2) ? 'active' : ''}}">
@@ -235,6 +235,9 @@
           </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('bulkextensions',2) ? 'active' : ''}}">
             <div ng-click="goTo('apps/bulkextensions')" class="list-group-item-value menu-item-left no-opacity">{{'Bulk extensions' | translate | ellipsis:'1200'}}</div>
+          </div>
+          <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('bulkdevices',2) ? 'active' : ''}}">
+            <div ng-click="goTo('apps/bulkdevices')" class="list-group-item-value menu-item-left no-opacity">{{'Bulk devices' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
         <li data-toggle="collapse" data-parent="#navbar-left" href="#adminCollapse" ng-if="!wizard.isMigrationView && !wizard.isWizard || wizard.stepCount > appConfig.PART3_STEP"
@@ -401,7 +404,10 @@
   <script src="scripts/controllers/dashboard.js"></script>
   <script src="scripts/controllers/apps/phonebook.js"></script>
   <script src="scripts/services/phonebookservice.js"></script>
-  <script src="scripts/controllers/inventory.js"></script>
+  <script src="scripts/controllers/devices/inventory.js"></script>
+  <script src="scripts/controllers/devices/templates.js"></script>
+  <script src="scripts/controllers/configurations.js"></script>
+  <script src="scripts/controllers/apps/bulkdevices.js"></script>
   <!-- endbuild -->
 </body>
 

@@ -154,7 +154,7 @@ angular
         controllerAs: 'bulkextensions'
       })
       .when('/apps/bulkdevices', {
-        templateUrl: 'views/bulkdevices.html',
+        templateUrl: 'views/apps/bulkdevices.html',
         controller: 'BulkdevicesCtrl',
         controllerAs: 'Bulkdevices'
       })
@@ -187,6 +187,21 @@ angular
         templateUrl: 'views/apps/phonebook.html',
         controller: 'PhonebookCtrl',
         controllerAs: 'phonebook'
+      })
+      .when('/templates', {
+        templateUrl: 'views/templates.html',
+        controller: 'TemplatesCtrl',
+        controllerAs: 'templates'
+      })
+      .when('/configurations', {
+        templateUrl: 'views/configurations.html',
+        controller: 'ConfigurationsCtrl',
+        controllerAs: 'configurations'
+      })
+      .when('/bulkdevices', {
+        templateUrl: 'views/bulkdevices.html',
+        controller: 'BulkdevicesCtrl',
+        controllerAs: 'bulkdevices'
       })
       .otherwise({
         redirectTo: '/'
