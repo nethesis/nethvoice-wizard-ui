@@ -63,6 +63,21 @@ angular
         controller: 'UsersConfigurationsCtrl',
         controllerAs: 'users/configurations'
       })
+      .when('/devices/inventory', {
+        templateUrl: 'views/devices/inventory.html',
+        controller: 'DevicesInventoryCtrl',
+        controllerAs: 'devices/inventory'
+      })
+      .when('/devices/templates', {
+        templateUrl: 'views/devices/templates.html',
+        controller: 'DevicesTemplatesCtrl',
+        controllerAs: 'devices/templates'
+      })
+      .when('/configurations', {
+        templateUrl: 'views/configurations.html',
+        controller: 'ConfigurationsCtrl',
+        controllerAs: 'configurations'
+      })
       .when('/trunks/physical', {
         templateUrl: 'views/trunks/physical.html',
         controller: 'TrunksPhysicalCtrl',
@@ -137,6 +152,11 @@ angular
         templateUrl: 'views/apps/bulkextensions.html',
         controller: 'BulkextensionsCtrl',
         controllerAs: 'bulkextensions'
+      })
+      .when('/apps/bulkdevices', {
+        templateUrl: 'views/bulkdevices.html',
+        controller: 'BulkdevicesCtrl',
+        controllerAs: 'Bulkdevices'
       })
       .when('/migration', {
         templateUrl: 'views/migration.html',

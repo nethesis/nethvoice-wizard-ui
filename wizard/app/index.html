@@ -129,6 +129,32 @@
           </div>
         </div>
        
+
+        <li data-toggle="collapse" data-parent="#navbar-left" href="#devicesCollapse" ng-if="!wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('devices',1) ? 'active' : ''}}"
+          id="users-item-menu">
+          <a>
+            <span class="fa fa-phone" title="{{'Devices' | translate}}" data-toggle="tooltip" data-placement="right"></span>
+            <span class="list-group-item-value">{{'Devices' | translate}}</span>
+            <span class="badge notifications">{{menuCount.devices}}</span>
+          </a>
+        </li>
+        <div id="devicesCollapse" class="panel-collapse collapse {{resolveActiveTab('users',1) ? 'in' : ''}}" ng-if="!wizard.isMigrationView">
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('inventory',2) ? 'active' : ''}}">
+            <div ng-click="goTo('devices/inventory')" class="list-group-item-value menu-item-left no-opacity">{{'Inventory' | translate | ellipsis:'1200'}}</div>
+          </div>
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('templates',2) ? 'active' : ''}}">
+            <div ng-click="goTo('devices/templates')" class="list-group-item-value menu-item-left no-opacity">{{'Templates' | translate | ellipsis:'1200'}}</div>
+          </div>
+        </div>
+
+        <li ng-click="goTo('/configurations')" ng-if="!wizard.isWizard && !wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('configurations',1) ? 'active' : ''}}"
+          id="apps-item-menu">
+          <a>
+              <span class="fa fa-tachometer" title="{{'Configurations' | translate}}" data-toggle="tooltip" data-placement="right"></span>
+              <span class="list-group-item-value">{{'Configurations' | translate | ellipsis:'1200'}}</span>
+            </a>
+        </li>
+
         <li data-toggle="collapse" data-parent="#navbar-left" href="#migrationCollapse" ng-if="!wizard.isWizard && wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('migration',1) ? 'active' : ''}}"
           id="apps-item-menu">
           <a>
@@ -318,6 +344,7 @@
   <script src="scripts/controllers/users/extensions.js"></script>
   <script src="scripts/controllers/users/devices.js"></script>
   <script src="scripts/controllers/users/configurations.js"></script>
+  <script src="scripts/controllers/devices/inventory.js"></script>
   <script src="scripts/controllers/trunks/physical.js"></script>
   <script src="scripts/controllers/trunks/voip.js"></script>
   <script src="scripts/controllers/routes/inbound.js"></script>
@@ -374,6 +401,7 @@
   <script src="scripts/controllers/dashboard.js"></script>
   <script src="scripts/controllers/apps/phonebook.js"></script>
   <script src="scripts/services/phonebookservice.js"></script>
+  <script src="scripts/controllers/inventory.js"></script>
   <!-- endbuild -->
 </body>
 
