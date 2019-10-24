@@ -34,18 +34,18 @@
         <div class="list-view-pf-body">
           <div class="list-view-pf-description">
             <div class="list-group-item-heading {{phone.model ? '' : 'disabled'}}">
-              {{phone.display_name}}
+              {{ phone.display_name ? phone.display_name : '-'}}
             </div>
             <div class="list-group-item-text">
               <div class="form-group">
-                <!-- <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)" ng-model="phone.model"
+                <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)" ng-model="phone.modelObj"
                   ng-options="model.display_name for model in filteredModels(phone.mac) | orderBy:orderByValue">
                   <option value="">-</option>
-                </select> -->
-                <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)" ng-model="phone.model"
+                </select>
+                <!-- <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)" ng-model="phone.model"
                   ng-options="model for model in filteredModels(phone.mac) | orderBy:orderByValue">
                   <option value="">-</option>
-                </select>
+                </select> -->
               </div>
             </div>
           </div>

@@ -55,6 +55,11 @@ angular.module('nethvoiceWizardUiApp')
       //   console.log(err);
       // });
 
+      //// getModels() must be invoked AFTER a successful call to GET /phones
+      $scope.getModels();
+
+      linkModelsToPhones();
+
       console.log('getPhones():'); ////
       console.log($scope.phones); ////
     };
@@ -63,25 +68,49 @@ angular.module('nethvoiceWizardUiApp')
       // ModelService.getModels().then(function(res) {
       
       ////
-      var res = JSON.parse(' \
-        [{ \
-          "name": "snom100", \
-          "display_name": "Snom IP phone v100", \
-          "model_url": "/tancredi/api/v1/models/snom100" \
-        },{ \
-          "name": "snom200", \
-          "display_name": "Snom IP phone v200", \
-          "model_url": "/tancredi/api/v1/models/snom200" \
-        },{ \
-          "name": "fanvil-600", \
-          "display_name": "Fanvil IP phone v600", \
-          "model_url": "/tancredi/api/v1/models/fanvil600" \
-        },{ \
-          "name": "fanvil-700", \
-          "display_name": "Fanvil IP phone v700", \
-          "model_url": "/tancredi/api/v1/models/fanvil700" \
-        }]'
-      );
+      // var res = JSON.parse(' \
+      //   [{ \
+      //     "name": "snom100", \
+      //     "display_name": "Snom IP phone v100", \
+      //     "model_url": "/tancredi/api/v1/models/snom100" \
+      //   },{ \
+      //     "name": "snom200", \
+      //     "display_name": "Snom IP phone v200", \
+      //     "model_url": "/tancredi/api/v1/models/snom200" \
+      //   },{ \
+      //     "name": "fanvil-600", \
+      //     "display_name": "Fanvil IP phone v600", \
+      //     "model_url": "/tancredi/api/v1/models/fanvil600" \
+      //   },{ \
+      //     "name": "fanvil-700", \
+      //     "display_name": "Fanvil IP phone v700", \
+      //     "model_url": "/tancredi/api/v1/models/fanvil700" \
+      //   }]'
+      // );
+
+      var res = [
+        {
+          "name": "snom100",
+          "display_name": "Snom IP phone v100",
+          "model_url": "/tancredi/api/v1/models/snom100"
+        },{
+          "name": "snom200",
+          "display_name": "Snom IP phone v200",
+          "model_url": "/tancredi/api/v1/models/snom200"
+        },{
+          "name": "fanvil-600",
+          "display_name": "Fanvil IP phone v600",
+          "model_url": "/tancredi/api/v1/models/fanvil600"
+        },{
+          "name": "fanvil-700",
+          "display_name": "Fanvil IP phone v700",
+          "model_url": "/tancredi/api/v1/models/fanvil700"
+        },{
+          "name": "yealink-1000",
+          "display_name": "Yealink IP phone v1000",
+          "model_url": "/tancredi/api/v1/models/yealink1000"
+        }
+      ];
 
       // var res = []; ////
 
@@ -113,6 +142,14 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.updateManualModelSelect = function() {
+
+      console.log('updateManualModelSelect()'); ////
+
+      if (!$scope.manualMac) {
+        $scope.manualVendor = null;
+        $scope.manualFilteredModels = [];
+        return;
+      }
       var vendor = $scope.macVendorMap[$scope.manualMac.substring(0, 8)];
 
       if (vendor) {
@@ -157,7 +194,7 @@ angular.module('nethvoiceWizardUiApp')
         addPhone(mac, model, vendor);
       }
 
-      // $scope.hideAddPhonesModal(); //// uncomment
+      $scope.hideAddPhonesModal();
       $scope.getPhones();
     }
 
@@ -198,6 +235,7 @@ angular.module('nethvoiceWizardUiApp')
 
       $scope.manualMac = "";
       $scope.manualModel = null;
+      $scope.manualFilteredModels = [];
       $('#manual-mac').focus();
     }
 
@@ -236,12 +274,17 @@ angular.module('nethvoiceWizardUiApp')
       //// RestService by now doesn't have a patch method
 
       // PhoneService.setPhoneModel({
-      //   model: phone.model
+      //   model: phone.modelObj.name
       // }).then(function (res) {}, function (err) {
       //   console.log(err);
       // });
 
+      if (phone.modelObj) {
+        phone.model = phone.modelObj.name;
+      }
+
       console.log('setPhoneModel()'); ////
+      console.log($scope.phones); ////
     };
 
     $scope.filteredModels = function(mac) {
@@ -251,18 +294,26 @@ angular.module('nethvoiceWizardUiApp')
         var filteredModels = $scope.models.filter(function(model) {
           return model.name.toLowerCase().startsWith(vendor.toLowerCase());
         });        
-        // return filteredModels; ////
+        return filteredModels;
 
-        var filteredModelNames = []; ////
-        for (var model of filteredModels) {
-          filteredModelNames.push(model.name);
-        }
-        return filteredModelNames;
+        // var filteredModelNames = []; ////
+        // for (var model of filteredModels) {
+        //   filteredModelNames.push(model.name);
+        // }
+        // return filteredModelNames;
       } else {
         return [];
       }
     }
 
+    function linkModelsToPhones() {
+      for (var phone of $scope.phones) {
+        var modelObj = $scope.models.find(function(modelObj) {
+          return modelObj.name === phone.model;
+        });
+        phone.modelObj = modelObj;
+      }
+    }
+
     $scope.getPhones();
-    $scope.getModels();
   });
