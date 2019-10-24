@@ -1,1 +1,209 @@
-<p>This is the inventory view.</p>
+<h1 class="control-label centered" for="textInput-markup">
+  {{'Phones' | translate}}
+</h1>
+<div ng-show="phones.length == 0" class="blank-slate-pf">
+  <div class="blank-slate-pf-icon">
+    <span class="pficon pficon pficon-add-circle-o"></span>
+  </div>
+  <h1>
+    {{'No phone found' | translate}}
+  </h1>
+  <p>
+    {{'add_phones_empty_state' | translate}}
+  </p>
+  <div class="blank-slate-pf-main-action">
+    <button class="btn btn-primary btn-lg wizard-pf-open wizard-pf-add-phone"
+      ng-click="showAddPhonesModal()">{{'Add phones' | translate}}</button>
+  </div>
+</div>
+<div ng-show="phones.length != 0">
+  <div class="mg-top-bottom-15">
+    <button class="btn btn-primary wizard-pf-open wizard-pf-add-phone"
+      ng-click="showAddPhonesModal()">{{'Add phones' | translate}}</button>
+  </div>
+  <!-- check and fix -->
+  <div class="list-group list-view-pf">
+    <div class="list-group-item cursor-default" ng-repeat="phone in phones | orderBy: 'display_name'">
+      <div class="list-view-pf-actions">
+        <!-- delete phone button -->
+      </div>
+      <div class="list-view-pf-main-info">
+        <div class="list-view-pf-left">
+          <span class="fa fa-phone list-view-pf-icon-sm {{phone.model ? '' : 'disabled'}}"></span>
+        </div>
+        <div class="list-view-pf-body">
+          <div class="list-view-pf-description">
+            <div class="list-group-item-heading {{phone.model ? '' : 'disabled'}}">
+              {{phone.display_name}}
+            </div>
+            <div class="list-group-item-text">
+              <div class="form-group">
+                <!-- <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)" ng-model="phone.model"
+                  ng-options="model.display_name for model in filteredModels(phone.mac) | orderBy:orderByValue">
+                  <option value="">-</option>
+                </select> -->
+                <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)" ng-model="phone.model"
+                  ng-options="model for model in filteredModels(phone.mac) | orderBy:orderByValue">
+                  <option value="">-</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="list-view-pf-additional-info config-info {{phone.model ? '' : 'disabled'}}">
+            <div>MAC: <b>{{phone.mac}}</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- add phones wizard -->
+<div class="modal" id="add-phone" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg wizard-pf modal-wizard">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="Close">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title">{{'Add phones' | translate}}</h4>
+      </div>
+      <div class="modal-body wizard-pf-body clearfix center-v width-100p">
+        <div class="wizard-pf-main mg-left-0">
+          <!-- step 1 -->
+          <div ng-show="addPhonesStep == 1" class="wizard-pf-contents">
+            <form class="form-horizontal mg-left-350">
+              <div class="form-group">
+                <div class="pf-c-radio">
+                  <input type="radio" id="radio-scan" ng-model="addPhonesType" value="scan">
+                  <label for="radio-scan">
+                    {{ 'Scan your networks' | translate }}
+                  </label>
+                </div>
+                <div>
+                  <input type="radio" id="radio-paste" ng-model="addPhonesType" value="paste">
+                  <label for="radio-paste">
+                    {{ 'Paste a list of MAC addresses' | translate }}
+                  </label>
+                </div>
+                <div>
+                  <input type="radio" id="radio-manual" ng-model="addPhonesType" value="manual">
+                  <label for="radio-manual">
+                    {{ 'Add phone manually' | translate }}
+                  </label>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- step 2 - manual -->
+          <div ng-show="addPhonesStep == 2 && addPhonesType === 'manual'" class="wizard-pf-contents">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="manual-mac">{{ 'MAC address' | translate }}</label>
+                <div class="col-sm-9">
+                  <input type="text" id="manual-mac" class="form-control" ng-model="manualMac"
+                    ng-change="updateManualModelSelect()" maxlength="17" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="manual-model">{{ 'Model' | translate }}</label>
+                <div class="col-sm-9">
+                  <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="manualModel"
+                    ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue"
+                    id="manual-model">
+                    <option value="">-</option>
+                  </select>
+                </div>
+              </div>
+              <!-- add phone button -->
+              <div class="form-group">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-9">
+                  <button type="submit" class="btn btn-primary wizard-pf-next"
+                    ng-show="addPhonesStep == addPhonesTotalSteps" ng-click="addPhonesManual()"
+                    ng-disabled="addPhonesType === 'manual' && !manualMac">
+                    <span class="wizard-pf-button-text">
+                      {{ 'Add phone' | translate }}
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- step 2 - paste MAC list -->
+          <div ng-show="addPhonesStep == 2 && addPhonesType === 'paste'" class="wizard-pf-contents">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <!-- paste textarea -->
+                <label class="col-sm-3 control-label" for="paste-textarea">
+                  {{ 'Copy a list of MAC addresses and paste it here' | translate }}
+                </label>
+                <div class="col-sm-9">
+                  <textarea id="paste-textarea" class="form-control pasted-mac-area" ng-model="pastedMacsText"
+                    ng-change="parsePastedMacs()"></textarea>
+                </div>
+              </div>
+              <div class="pasted-macs">
+                <div ng-repeat="mac in pastedMacs track by $index">
+                  <div class="form-group">
+                    <!-- MAC -->
+                    <label class="col-sm-3 control-label" for="paste-mac-{{$index}}">
+                      {{ 'MAC address' | translate }}
+                    </label>
+                    <div class="col-sm-3">
+                      <input type="text" id="paste-mac-{{$index}}" class="form-control" ng-model="pastedMacs[$index]"
+                        ng-change="updatePasteModelSelect({{$index}})" maxlength="17" required>
+                    </div>
+                    <!-- model -->
+                    <label class="col-sm-1 control-label" for="paste-model-{{$index}}">
+                      {{ 'Model' | translate }}
+                    </label>
+                    <div class="col-sm-4">
+                      <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="pastedModels[$index]"
+                        ng-options="model.display_name for model in pasteFilteredModels[$index] | orderBy:orderByValue"
+                        id="paste-model-{{$index}}">
+                        <option value="">-</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer wizard-pf-footer modal-wizard-footer">
+        <!-- next button -->
+        <button type="submit" class="btn btn-primary wizard-pf-next" ng-show="addPhonesStep < addPhonesTotalSteps"
+          ng-click="addPhonesNextStep()">
+          <span class="wizard-pf-button-text">
+            {{ 'Next' | translate }}
+          </span>
+          <span class="i fa fa-angle-right"></span>
+        </button>
+        <!-- finish button -->
+        <button type="button" class="btn btn-primary wizard-pf-next" ng-show="addPhonesStep == addPhonesTotalSteps"
+          ng-click="addPhonesFinish()">
+          <span class="wizard-pf-button-text">
+            {{ 'Finish' | translate }}
+          </span>
+        </button>
+        <!-- back button -->
+        <button type="button" class="btn btn-default wizard-pf-back" ng-disabled="addPhonesStep == 1"
+          ng-click="addPhonesPreviousStep()">
+          <span class="i fa fa-angle-left"></span>
+          <span class="wizard-pf-button-text">
+            {{ 'Back' | translate }}
+          </span>
+        </button>
+        <!-- cancel -->
+        <button type="button" class="btn btn-default btn-cancel wizard-pf-cancel wizard-pf-dismiss"
+          ng-click="hideAddPhonesModal()">
+          {{ 'Cancel' | translate }}
+        </button>
+        <button type="button"
+          class="btn btn-primary hidden wizard-pf-close wizard-pf-dismiss">{{ 'Close' | translate }}</button>
+      </div><!-- /.wizard-pf-footer -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

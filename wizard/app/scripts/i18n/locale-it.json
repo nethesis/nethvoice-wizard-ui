@@ -593,5 +593,13 @@
   "1 hour": "1 ora",
   "6 hours": "6 ore",
   "24 hours": "24 ore",
-  "Inventory": "Inventario"
+  "Inventory": "Inventario",
+  "No phone found": "Nessun telefono trovato",
+  "Add phone": "Aggiungi telefono",
+  "Add phones": "Aggiungi telefoni",
+  "add_phones_empty_state": "Aggiungi telefoni scansionando la rete, incollando una lista di indirizzi MAC o inserendo i dati del telefono manualmente",
+  "Phones": "Telefoni",
+  "Add phone manually": "Aggiungi telefono manualmente",
+  "Paste a list of MAC addresses": "Incolla una lista di indirizzi MAC",
+  "Copy a list of MAC addresses and paste it here": "Copia una lista di indirizzi MAC e incollala qui"
 }

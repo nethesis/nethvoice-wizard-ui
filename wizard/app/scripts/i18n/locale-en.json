@@ -40,5 +40,6 @@
   "tgroupstcond": "temporal groups and temporal conditions",
   "iroutes": "inbound routes",
   "daynight": "call flow control",
-  "postmig": "phonebook and settings"
+  "postmig": "phonebook and settings",
+  "add_phones_empty_state": "Add phones by scanning the network, pasting a list of MAC addresses or entering phone data manually"
 }

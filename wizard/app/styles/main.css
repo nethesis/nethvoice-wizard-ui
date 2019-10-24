@@ -2232,3 +2232,51 @@ iframe body {
   font-size: 18px;
   margin: 7px 12px 0px 0px;
 }
+
+.mg-top-bottom-15 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.modal-wizard {
+  width: 900px;
+  padding: 30px;
+}
+
+.modal-wizard-footer {
+  margin-left: 0;
+}
+
+.mg-left-0 {
+  margin-left: 0;
+}
+
+.mg-left-350 {
+  margin-left: 350px;
+}
+
+.center-v {
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.width-100p {
+  width: 100%;
+}
+
+.pasted-mac-area {
+  height: 6em !important;
+  margin-bottom: 20px;
+}
+
+.pasted-macs {
+  height: 550px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.cursor-default {
+  cursor: default;
+}

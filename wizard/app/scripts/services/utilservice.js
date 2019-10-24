@@ -72,4 +72,24 @@ angular.module('nethvoiceWizardUiApp')
         }).length == 0
       });
     };
+
+    this.macVendorMap = function () {
+      return {
+        "0C:38:3E": "fanvil",
+        "7C:2F:80": "gigaset",
+        "00:50:58": "sangoma",
+        "00:04:13": "snom",
+        "00:15:65": "yealink",
+        "80:5E:0C": "yealink",
+        "80:5E:C0": "yealink",
+        "9C:75:14": "yealink"
+      }
+    };
+
+    this.capitalize = function (s) {
+      if (typeof s !== 'string') {
+        return '';
+      }
+      return s.charAt(0).toUpperCase() + s.slice(1)
+    };
   });
