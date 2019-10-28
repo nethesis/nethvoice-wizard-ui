@@ -287,7 +287,12 @@ angular.module('nethvoiceWizardUiApp')
         return;
       }
 
+      // remove separators (if any)
+      $scope.pastedMacsText = $scope.pastedMacsText.replace(/,|;/g, ' ')
+
+      // split MAC addresses on whitespace
       $scope.pastedMacs = $scope.pastedMacsText.split(/\s+/);
+
       $scope.pastedVendors = [];
       $scope.pastedModels = [];
       $scope.pasteFilteredModels = [];
@@ -399,6 +404,14 @@ angular.module('nethvoiceWizardUiApp')
       $scope.pastedModels.splice(index, 1);
       $scope.pasteFilteredModels.splice(index, 1);
     }
+
+    $scope.orderByValue = function (value) {
+      return value;
+    };
+
+    $scope.setAddPhonesType = function (value) {
+      $scope.addPhonesType = value;
+    };
 
     $scope.getPhones();
   });

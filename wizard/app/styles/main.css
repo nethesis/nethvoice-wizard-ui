@@ -2237,9 +2237,8 @@ iframe body {
   margin: 7px 12px 0px 0px;
 }
 
-.mg-top-bottom-15 {
-  margin-top: 15px;
-  margin-bottom: 15px;
+.mg-top-0 {
+  margin-top: 0;
 }
 
 .modal-wizard {
@@ -2297,3 +2296,42 @@ iframe body {
   clear: both;
 }
 
+.no-margin-left-right {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.border-top-list {
+  border-top: 1px #ededed solid !important;
+}
+
+.small-size-wizard {
+  font-size: 20px!important;
+  line-height: 20px!important;
+}
+
+.no-pad {
+  padding: 0;
+}
+
+.option-card {
+  float: left;
+  height: 124px;
+  border: 1px solid #d1d1d1;
+  margin: 0;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.active-choose-green {
+  border: 2px solid #3f9c35!important;
+  margin-top: -1px!important;
+}
+
+.card-row {
+  margin: auto;
+}
+
+.width-33p {
+  width: 33%;
+}
