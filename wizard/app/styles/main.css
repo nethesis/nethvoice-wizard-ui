@@ -1587,6 +1587,10 @@ iframe body {
   float: left !important;
 }
 
+.float-right {
+  float: right !important;
+}
+
 .less-margin-left-conf {
   margin-left: -21px !important;
 }
@@ -2288,3 +2292,8 @@ iframe body {
 .border-color-bbb button {
   border-color: #bbb !important;
 }
+
+.clear {
+  clear: both;
+}
+

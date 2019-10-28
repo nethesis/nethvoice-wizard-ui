@@ -17,12 +17,27 @@
   </div>
 </div>
 <div ng-show="phones.length != 0">
+  <!-- filter phone list -->
+  <div class="form-group float-right">
+    <button class="btn btn-default btn-lg" type="button">
+      <span class="fa fa-search"></span>
+    </button>
+  </div>
+  <div class="form-group float-right">
+    <div class="search-pf-input-group">
+      <input ng-model="searchPhoneString" type="text" class="form-control input-lg"
+        placeholder="{{ 'Search' | translate }}..."></input>
+    </div>
+  </div>
+  <!-- add phones button -->
   <div class="mg-top-bottom-15">
-    <button class="btn btn-primary wizard-pf-open wizard-pf-add-phone"
+    <button class="btn btn-lg btn-primary wizard-pf-open wizard-pf-add-phone"
       ng-click="showAddPhonesModal()">{{'Add phones' | translate}}</button>
   </div>
-  <div class="list-group list-view-pf">
-    <div class="list-group-item cursor-default" ng-repeat="phone in phones | orderBy: 'display_name'">
+
+  <div class="list-group list-view-pf clear">
+    <div class="list-group-item cursor-default"
+      ng-repeat="phone in phones | filter:searchPhoneString | orderBy: 'display_name'">
       <div class="list-view-pf-actions">
         <!-- delete phone -->
         <button type="button" class="btn btn-danger" ng-click="showDeletePhoneModal(phone)" data-toggle="modal"
