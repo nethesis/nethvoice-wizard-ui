@@ -31,4 +31,15 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
+    // Remove a phone from the inventory
+    this.deletePhone = function(mac) {
+      return $q(function (resolve, reject) {
+        RestService.delete('/phones/' + mac).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    }
   });

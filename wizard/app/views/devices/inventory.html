@@ -6,7 +6,7 @@
     <span class="pficon pficon pficon-add-circle-o"></span>
   </div>
   <h1>
-    {{'No phone found' | translate}}
+    {{'No phone in inventory' | translate}}
   </h1>
   <p>
     {{'add_phones_empty_state' | translate}}
@@ -21,11 +21,14 @@
     <button class="btn btn-primary wizard-pf-open wizard-pf-add-phone"
       ng-click="showAddPhonesModal()">{{'Add phones' | translate}}</button>
   </div>
-  <!-- check and fix -->
   <div class="list-group list-view-pf">
     <div class="list-group-item cursor-default" ng-repeat="phone in phones | orderBy: 'display_name'">
       <div class="list-view-pf-actions">
-        <!-- delete phone button -->
+        <!-- delete phone -->
+        <button type="button" class="btn btn-danger" ng-click="showDeletePhoneModal(phone)" data-toggle="modal"
+          data-target="#deletePhoneModal">
+          {{ 'Delete' | translate }}
+        </button>
       </div>
       <div class="list-view-pf-main-info">
         <div class="list-view-pf-left">
@@ -43,9 +46,9 @@
                   <option value="">-</option>
                 </select>
                 <!-- <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)" ng-model="phone.model"
-                  ng-options="model for model in filteredModels(phone.mac) | orderBy:orderByValue">
-                  <option value="">-</option>
-                </select> -->
+                    ng-options="model for model in filteredModels(phone.mac) | orderBy:orderByValue">
+                    <option value="">-</option>
+                  </select> -->
               </div>
             </div>
           </div>
@@ -57,7 +60,8 @@
     </div>
   </div>
 </div>
-<!-- add phones wizard -->
+
+<!-- add phones modal -->
 <div class="modal" id="add-phone" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg wizard-pf modal-wizard">
     <div class="modal-content">
@@ -75,19 +79,19 @@
               <div class="form-group">
                 <div class="pf-c-radio">
                   <input type="radio" id="radio-scan" ng-model="addPhonesType" value="scan">
-                  <label for="radio-scan">
+                  <label for="radio-scan" class="mg-left-5">
                     {{ 'Scan your networks' | translate }}
                   </label>
                 </div>
                 <div>
                   <input type="radio" id="radio-paste" ng-model="addPhonesType" value="paste">
-                  <label for="radio-paste">
+                  <label for="radio-paste" class="mg-left-5">
                     {{ 'Paste a list of MAC addresses' | translate }}
                   </label>
                 </div>
                 <div>
                   <input type="radio" id="radio-manual" ng-model="addPhonesType" value="manual">
-                  <label for="radio-manual">
+                  <label for="radio-manual" class="mg-left-5">
                     {{ 'Add phone manually' | translate }}
                   </label>
                 </div>
@@ -96,12 +100,14 @@
           </div>
           <!-- step 2 - manual -->
           <div ng-show="addPhonesStep == 2 && addPhonesType === 'manual'" class="wizard-pf-contents">
-            <form class="form-horizontal">
-              <div class="form-group">
+            <form class="form-horizontal" ng-submit="addPhonesManual()">
+              <div class="form-group" ng-class="{ 'has-error': showManualMacError }">
                 <label class="col-sm-3 control-label" for="manual-mac">{{ 'MAC address' | translate }}</label>
                 <div class="col-sm-9">
-                  <input type="text" id="manual-mac" class="form-control" ng-model="manualMac"
-                    ng-change="updateManualModelSelect()" maxlength="17" required>
+                  <input type="text" id="manual-mac" name="manualMac" class="form-control" ng-model="manualMac"
+                    ng-change="inputMacManualChanged()" maxlength="17" required>
+                  <span ng-show="showManualMacError"
+                    class="help-block">{{ 'Enter a valid MAC address' | translate }}</span>
                 </div>
               </div>
               <div class="form-group">
@@ -118,9 +124,7 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label"></label>
                 <div class="col-sm-9">
-                  <button type="submit" class="btn btn-primary wizard-pf-next"
-                    ng-show="addPhonesStep == addPhonesTotalSteps" ng-click="addPhonesManual()"
-                    ng-disabled="addPhonesType === 'manual' && !manualMac">
+                  <button type="submit" class="btn btn-primary wizard-pf-next">
                     <span class="wizard-pf-button-text">
                       {{ 'Add phone' | translate }}
                     </span>
@@ -144,25 +148,35 @@
               </div>
               <div class="pasted-macs">
                 <div ng-repeat="mac in pastedMacs track by $index">
-                  <div class="form-group">
+                  <div class="form-group" ng-class="{ 'has-error': showPasteMacError[$index] }">
                     <!-- MAC -->
-                    <label class="col-sm-3 control-label" for="paste-mac-{{$index}}">
+                    <label class="col-sm-2 control-label" for="paste-mac-{{$index}}">
                       {{ 'MAC address' | translate }}
                     </label>
                     <div class="col-sm-3">
-                      <input type="text" id="paste-mac-{{$index}}" class="form-control" ng-model="pastedMacs[$index]"
-                        ng-change="updatePasteModelSelect({{$index}})" maxlength="17" required>
+                      <input type="text" id="paste-mac-{{$index}}" name="pasteMac{{$index}}" class="form-control"
+                        ng-model="pastedMacs[$index]" ng-change="inputMacPasteChanged({{$index}})" maxlength="17"
+                        required>
+                      <span ng-show="showPasteMacError[$index]"
+                        class="help-block">{{ 'Enter a valid MAC address' | translate }}</span>
                     </div>
                     <!-- model -->
                     <label class="col-sm-1 control-label" for="paste-model-{{$index}}">
                       {{ 'Model' | translate }}
                     </label>
                     <div class="col-sm-4">
-                      <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="pastedModels[$index]"
+                      <select class="form-control border-color-bbb" pf-select="{ noneSelectedText: '-' }"
+                        ng-model="pastedModels[$index]"
                         ng-options="model.display_name for model in pasteFilteredModels[$index] | orderBy:orderByValue"
                         id="paste-model-{{$index}}">
                         <option value="">-</option>
                       </select>
+                    </div>
+                    <div class="col-sm-1">
+                      <!-- delete pasted MAC -->
+                      <button type="button" class="btn btn-danger" ng-click="deletePastedMac($index)">
+                        {{ 'Delete' | translate }}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -171,7 +185,6 @@
           </div>
         </div>
       </div>
-
       <div class="modal-footer wizard-pf-footer modal-wizard-footer">
         <!-- next button -->
         <button type="submit" class="btn btn-primary wizard-pf-next" ng-show="addPhonesStep < addPhonesTotalSteps"
@@ -181,6 +194,7 @@
           </span>
           <span class="i fa fa-angle-right"></span>
         </button>
+
         <!-- finish button -->
         <button type="button" class="btn btn-primary wizard-pf-next" ng-show="addPhonesStep == addPhonesTotalSteps"
           ng-click="addPhonesFinish()">
@@ -207,3 +221,44 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!-- delete phone modal -->
+<div class="modal fade" id="deletePhoneModal" tabindex="-1" role="dialog" aria-labelledby="deletePhoneModal"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title">
+          {{ 'Delete phone' | translate }}
+        </h4>
+      </div>
+      <form class="form-horizontal">
+        <div class="modal-body">
+          <div class="alert alert-warning alert-dismissable">
+            <span class="pficon pficon-warning-triangle-o"></span>
+            <span class="margin-left-5">
+              {{ 'You are about to delete phone' | translate }}{{ phoneToDelete.display_name ? ' ' + phoneToDelete.display_name : ''}}
+              {{ phoneToDelete.mac }}
+            </span>
+          </div>
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">
+                {{ 'Are you sure' | translate }}?
+              </label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
+          <button type="submit" class="btn btn-danger" ng-click="deletePhone()">
+            {{ 'Delete' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -2251,6 +2251,10 @@ iframe body {
   margin-left: 0;
 }
 
+.mg-left-5 {
+  margin-left: 5px;
+}
+
 .mg-left-350 {
   margin-left: 350px;
 }
@@ -2279,4 +2283,8 @@ iframe body {
 
 .cursor-default {
   cursor: default;
+}
+
+.border-color-bbb button {
+  border-color: #bbb !important;
 }

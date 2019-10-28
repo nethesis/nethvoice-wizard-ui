@@ -594,12 +594,15 @@
   "6 hours": "6 ore",
   "24 hours": "24 ore",
   "Inventory": "Inventario",
-  "No phone found": "Nessun telefono trovato",
+  "No phone in inventory": "Nessun telefono nell'inventario",
   "Add phone": "Aggiungi telefono",
   "Add phones": "Aggiungi telefoni",
   "add_phones_empty_state": "Aggiungi telefoni scansionando la rete, incollando una lista di indirizzi MAC o inserendo i dati del telefono manualmente",
   "Phones": "Telefoni",
   "Add phone manually": "Aggiungi telefono manualmente",
   "Paste a list of MAC addresses": "Incolla una lista di indirizzi MAC",
-  "Copy a list of MAC addresses and paste it here": "Copia una lista di indirizzi MAC e incollala qui"
+  "Copy a list of MAC addresses and paste it here": "Copia una lista di indirizzi MAC e incollala qui",
+  "Delete phone": "Elimina telefono",
+  "You are about to delete phone": "Stai per eliminare il telefono",
+  "Enter a valid MAC address": "Inserire un indirizzo MAC valido"
 }

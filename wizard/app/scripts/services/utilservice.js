@@ -92,4 +92,9 @@ angular.module('nethvoiceWizardUiApp')
       }
       return s.charAt(0).toUpperCase() + s.slice(1)
     };
+
+    this.checkMacAddress = function (macAddress) {
+      var regExp = /^[a-f0-9:]{17}|[a-f0-9-]{17}|[a-f0-9]{12}$/i;
+      return regExp.test(macAddress);
+    }
   });
