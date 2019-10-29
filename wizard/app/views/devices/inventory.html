@@ -20,22 +20,24 @@
     </div>
     <div ng-show="phones.length != 0">
       <!-- filter phone list -->
-      <div class="form-group float-right">
-        <button class="btn btn-default btn-lg" type="button">
-          <span class="fa fa-search"></span>
-        </button>
-      </div>
-      <div class="form-group float-right">
-        <div class="search-pf-input-group">
-          <input ng-model="searchPhoneString" type="text" class="form-control input-lg"
-            placeholder="{{ 'Search' | translate }}..."></input>
+      <form role="form" class="search-pf has-button">
+        <div class="form-group">
+          <div class="search-pf-input-group">
+            <input ng-model="searchPhoneString" type="text" class="form-control input-lg"
+              placeholder="{{ 'Search' | translate }}..."></input>
+          </div>
         </div>
-      </div>
+        <div class="form-group">
+          <button class="btn btn-default btn-lg" type="submit">
+            <span class="fa fa-search"></span>
+          </button>
+        </div>
+      </form>
       <!-- add phones button -->
-      <div class="form-group config-row-button mg-top-0">
-        <button class="btn btn-lg btn-primary wizard-pf-open wizard-pf-add-phone"
-          ng-click="showAddPhonesModal()">{{'Add phones' | translate}}</button>
+      <div class="form-group config-row-button">
+        <button class="btn btn-lg btn-primary" ng-click="showAddPhonesModal()">{{'Add phones' | translate}}</button>
       </div>
+      <!-- phone list -->
       <div class="list-group list-view-pf clear">
         <div class="list-group-item cursor-default"
           ng-repeat="phone in phones | filter:searchPhoneString | orderBy: 'display_name'">
@@ -230,7 +232,7 @@
                     <label class="col-sm-4 control-label" for="manual-model">{{ 'Network to scan' | translate }}</label>
                     <div class="col-sm-8">
                       <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="networkToScan"
-                        ng-options="network.network for network in networks | orderBy:orderByValue"
+                        ng-options="network as (network.name + ' | ' + network.network) for network in networks | orderBy:orderByValue"
                         ng-change="networkToScanChanged()">
                         <option value="">-</option>
                       </select>
@@ -238,6 +240,14 @@
                         class="help-block">{{ 'Select a network' | translate }}</span>
                       <span ng-show="showNetworkScanInProgressError"
                         class="help-block">{{ 'This network is already being scanned' | translate }}</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label" for="manual-model">{{ 'IP Address' | translate }}</label>
+                    <div class="col-sm-8">
+                      <input ng-model="networkToScan.ip" type="text" class="form-control" disabled></input>
+                      <span ng-show="showNetmaskToScanError"
+                        class="help-block">{{ 'Enter a valid netmask' | translate }}</span>
                     </div>
                   </div>
                   <div class="form-group" ng-class="{ 'has-error': showNetmaskToScanError }">

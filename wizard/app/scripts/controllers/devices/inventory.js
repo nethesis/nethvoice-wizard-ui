@@ -24,7 +24,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.macVendorMap = UtilService.macVendorMap();
     $scope.addPhonesTotalSteps = 2;
 
-    $scope.allDevices = {}; ////
     $scope.tasks = {}; ////
     $scope.networkScans = 0;
 
@@ -93,7 +92,7 @@ angular.module('nethvoiceWizardUiApp')
       //   }]'
       // );
 
-      var res = [
+      var res = [ ////
         {
           "name": "snom100",
           "display_name": "Snom IP phone v100",
@@ -530,9 +529,6 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.deletePastedMac = function (index) {
-
-      console.log('deletePastedMac(), index', index); ////
-
       $scope.pastedMacs.splice(index, 1);
       $scope.showPasteMacError.splice(index, 1);
       $scope.pastedVendors.splice(index, 1);
@@ -552,7 +548,7 @@ angular.module('nethvoiceWizardUiApp')
       // ConfigService.getNetworks().then(function (res) { ////
       //   $scope.networks = res.data;
 
-      var networks = {
+      var networks = { ////
         "enp0s3": {
           "network": "192.168.5.0",
           "ip": "192.168.5.92",
@@ -580,7 +576,6 @@ angular.module('nethvoiceWizardUiApp')
 
       for (var eth in $scope.networks) {
         $scope.tasks[eth] = {}; ////
-        $scope.allDevices[eth] = {}; ////
       }
       // }, function (err) { ////
       //   console.log(err);
