@@ -38,7 +38,7 @@
   "Finish": "Termina",
   "Wizard completed": "Wizard completato",
   "Go to Home": "Vai alla Home",
-  "Scan your networks": "Scansiona le tue reti",
+  "Scan a network": "Scansiona una rete",
   "Provision and reboot phone": "Configura e riavvia telefono",
   "Provision error, try again": "Errore configurazione, riprova",
   "Cancel": "Annulla",
@@ -603,5 +603,11 @@
   "Copy a list of MAC addresses and paste it here": "Copia una lista di indirizzi MAC e incollala qui",
   "Delete phone": "Elimina telefono",
   "You are about to delete phone": "Stai per eliminare il telefono",
-  "Enter a valid MAC address": "Inserire un indirizzo MAC valido"
+  "Enter a valid MAC address": "Inserire un indirizzo MAC valido",
+  "Network to scan": "Rete da scansionare",
+  "Select a network": "Selezionare una rete",
+  "This network is already being scanned": "La scansione di questa rete è già in corso",
+  "Enter a valid netmask": "Inserire una maschera di rete valida",
+  "Scanning network for phones": "Scansione rete in corso",
+  "Network scan successfully completed": "Scansione rete completata con successo"
 }

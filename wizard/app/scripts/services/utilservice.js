@@ -96,5 +96,10 @@ angular.module('nethvoiceWizardUiApp')
     this.checkMacAddress = function (macAddress) {
       var regExp = /^[a-f0-9:]{17}|[a-f0-9-]{17}|[a-f0-9]{12}$/i;
       return regExp.test(macAddress);
-    }
+    };
+
+    this.checkNetmask = function (netmask) {
+      var regExp = /^(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))$/;
+      return regExp.test(netmask)
+    };
   });

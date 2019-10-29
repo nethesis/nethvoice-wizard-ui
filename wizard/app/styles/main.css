@@ -2335,3 +2335,12 @@ iframe body {
 .width-33p {
   width: 33%;
 }
+
+.toast-pf-top-right {
+  top: 74px;
+}
+
+.spinner-notification {
+  float: right;
+  margin-left: 6px;
+}

@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesInventoryCtrl', function ($scope, PhoneService, ModelService, UtilService) {
+  .controller('DevicesInventoryCtrl', function ($scope, $interval, PhoneService, ModelService, UtilService, ConfigService, DeviceService) {
     // $scope.phones = []; //// uncomment
     $scope.phones = [ //// delete
       { mac: "00:04:13:11:22:31", model: "snom100", display_name: "Snom" },
@@ -23,6 +23,10 @@ angular.module('nethvoiceWizardUiApp')
     $scope.models = [];
     $scope.macVendorMap = UtilService.macVendorMap();
     $scope.addPhonesTotalSteps = 2;
+
+    $scope.allDevices = {}; ////
+    $scope.tasks = {}; ////
+    $scope.networkScans = 0;
 
     $scope.pastedMacs = []; //// uncomment
     $scope.showPasteMacError = [];
@@ -168,10 +172,10 @@ angular.module('nethvoiceWizardUiApp')
     $scope.addPhonesFinish = function () {
       switch ($scope.addPhonesType) {
         case "scan":
-          addPhonesScan();
+          startNetworkScan();
           break;
         case "paste":
-          addPhonesPaste();
+          addPhonesPasted();
           break;
         case "manual":
           $scope.hideAddPhonesModal();
@@ -180,9 +184,108 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    function addPhonesScan() {
-      ////
-      console.log('addPhonesScan()'); ////
+    $scope.networkToScanChanged = function () {
+      $scope.showSelectNetworkToScanError = false;
+    }
+
+    $scope.netmaskToScanChanged = function () {
+      $scope.showNetmaskToScanError = false;
+    }
+
+    function startNetworkScan() {
+
+      console.log('startNetworkScan()', $scope.networkToScan); ////
+
+      // input validation
+
+      $scope.showSelectNetworkToScanError = false;
+      $scope.showNetworkScanInProgressError = false;
+      $scope.showNetmaskToScanError = false;
+
+      if (!$scope.networkToScan) {
+        $scope.showSelectNetworkToScanError = true;
+        return;
+      }
+
+      var netName = $scope.networkToScan.name;
+
+      if ($scope.tasks[netName].currentProgress > 0 && $scope.tasks[netName].currentProgress < 100) {
+        $scope.showNetworkScanInProgressError = true;
+      }
+
+      if ($scope.networkToScan && (!$scope.networkToScan.netmask || !UtilService.checkNetmask($scope.networkToScan.netmask))) {
+        $scope.showNetmaskToScanError = true;
+      }
+
+      if ($scope.showSelectNetworkToScanError || $scope.showNetworkScanInProgressError || $scope.showNetmaskToScanError) {
+        return;
+      }
+
+      // start scan
+      $scope.networkScans++;
+      $scope.hideAddPhonesModal();
+      $scope.tasks[netName].currentProgress = Math.floor((Math.random() * 50) + 10);
+      DeviceService.startScan($scope.networkToScan).then(function (res) {
+        $scope.tasks[netName].promise = $interval(function () {
+          UtilService.taskStatus(res.data.result).then(function (res) {
+            if (res.data.progress < 100) {
+              console.log('progress < 100, res.data', res.data); ////
+              $scope.tasks[netName].currentProgress = res.data.progress;
+              $scope.tasks[netName].errorCount = 0;
+            } else if (res.data.progress == 100) {
+              console.log('progress == 100, res.data', res.data); ////
+              $scope.tasks[netName].currentProgress = res.data.progress;
+              $scope.tasks[netName].errorCount = 0;
+              $interval.cancel($scope.tasks[netName].promise);
+              $scope.networkScans--;
+
+              // scan complete notification
+              $scope.networkScanCompleted = true;
+              setTimeout(function () {
+                $scope.networkScanCompleted = false;
+                $scope.$apply();
+              }, 3000);
+
+              //// todo: add the phones to the inventory
+
+              //// var phones = res.data.phones
+              var phones = [ ////
+                { mac: "00:04:13:11:22:91", model: "snom100" },
+                { mac: "0C:38:3E:99:88:92", model: "fanvil-600" },
+                { mac: "00:15:65:55:55:93", model: "yealink-1000" },
+                { mac: "00:04:13:11:22:94", model: null }
+              ];
+
+              // add all phones
+              for (var phone of phones) {
+                addPhone(phone);
+              }
+              $scope.getPhones();
+            } else {
+              console.log(res.error);
+              if ($scope.tasks[netName].errorCount < appConfig.MAX_TRIES) {
+                $scope.tasks[netName].errorCount++;
+              } else {
+                $interval.cancel($scope.tasks[netName].promise);
+                $scope.networkScans--;
+                $scope.tasks[netName].currentProgress = -1;
+              }
+            }
+          }, function (err) {
+            console.log(err);
+            if ($scope.tasks[netName].errorCount < appConfig.MAX_TRIES) {
+              $scope.tasks[netName].errorCount++;
+            } else {
+              $interval.cancel($scope.tasks[netName].promise);
+              $scope.networkScans--;
+              $scope.tasks[netName].currentProgress = -1;
+            }
+          });
+        }, appConfig.INTERVAL_POLLING);
+      }, function (err) {
+        $scope.tasks[netName].currentProgress = -1;
+        console.log(err);
+      });
     }
 
     $scope.clearValidationErrorsManual = function () {
@@ -199,7 +302,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    function addPhonesPaste() {
+    function addPhonesPasted() {
       $scope.clearValidationErrorsPaste();
       var firstErrorIndex = null;
 
@@ -225,21 +328,53 @@ angular.module('nethvoiceWizardUiApp')
         var mac = $scope.pastedMacs[index];
         var model = $scope.pastedModels[index];
         var vendor = $scope.pastedVendors[index];
-        addPhone(mac, model, vendor);
+        addPhoneWithParams(mac, model, vendor);
       }
 
       $scope.hideAddPhonesModal();
       $scope.getPhones();
     }
 
-    function addPhone(mac, model, vendor) {
+    function addPhone(phone) {
+      var mac = phone.mac;
+      var model = phone.model;
+
+      // if model variable is structured extract its name
+      if (model && model.hasOwnProperty('name')) {
+        model = model.name;
+      }
+
+      var vendor = $scope.macVendorMap[mac.substring(0, 8)];
+
+      if (vendor) {
+        vendor = UtilService.capitalize(vendor);
+      }
+
+      var phone = {
+        "mac": mac,
+        "model": model,
+        "display_name": vendor
+      }
+
+      console.log('addPhone()', phone); ////
+
+      $scope.phones.push(phone); //// remove
+
+      // PhoneService.createPhone(phone).then(function(res) { ////
+      //   ////
+      // }, function(err) {
+      //   console.log(err);
+      // });
+    }
+
+    function addPhoneWithParams(mac, model, vendor) {
       var phone = {
         "mac": mac,
         "model": model ? model.name : null,
         "display_name": vendor
       }
 
-      console.log('addPhone()', phone); ////
+      console.log('addPhoneWithParams()', phone); ////
 
       $scope.phones.push(phone); //// remove
 
@@ -413,5 +548,45 @@ angular.module('nethvoiceWizardUiApp')
       $scope.addPhonesType = value;
     };
 
+    $scope.getNetworks = function () {
+      // ConfigService.getNetworks().then(function (res) { ////
+      //   $scope.networks = res.data;
+
+      var networks = {
+        "enp0s3": {
+          "network": "192.168.5.0",
+          "ip": "192.168.5.92",
+          "netmask": "255.255.255.0",
+          "gateway": "192.168.5.92"
+        },
+        "enp0s8": {
+          "network": "10.3.0.0",
+          "ip": "10.3.3.15",
+          "netmask": "255.255.0.0",
+          "gateway": "10.3.3.15"
+        }
+      };
+
+      // assign network names
+      for (var key in networks) {
+        if (networks.hasOwnProperty(key)) {
+          networks[key].name = key;
+        }
+      }
+
+      $scope.networks = networks;
+
+      console.log("$scope.networks", $scope.networks); ////
+
+      for (var eth in $scope.networks) {
+        $scope.tasks[eth] = {}; ////
+        $scope.allDevices[eth] = {}; ////
+      }
+      // }, function (err) { ////
+      //   console.log(err);
+      // });
+    };
+
     $scope.getPhones();
+    $scope.getNetworks();
   });

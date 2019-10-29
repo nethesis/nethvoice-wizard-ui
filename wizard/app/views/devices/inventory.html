@@ -72,6 +72,19 @@
       </div>
     </div>
 
+    <!-- network scan in progress -->
+    <div ng-show="networkScans > 0" class="toast-pf toast-pf-top-right alert alert-info">
+      <span class="pficon pficon-info"></span>
+      <span class="spinner spinner-sm spinner-notification"></span>
+      {{ 'Scanning network for phones' | translate }}...
+    </div>
+
+    <!-- network scan completed -->
+    <div ng-show="networkScanCompleted && networkScans < 1" class="toast-pf toast-pf-top-right alert alert-success">
+      <span class="pficon pficon-ok"></span>
+      {{ 'Network scan successfully completed' | translate }}
+    </div>
+
     <!-- add phones modal -->
     <div class="modal" id="add-phone" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-lg wizard-pf modal-wizard">
@@ -93,7 +106,7 @@
                       <div class="blank-slate-pf-icon small-size-wizard">
                         <span class="pficon pficon-network"></span>
                       </div>
-                      <h3>{{ 'Scan your networks' | translate }}</h3>
+                      <h3>{{ 'Scan a network' | translate }}</h3>
                     </div>
                   </div>
                   <div class="card-pf option-card width-33p"
@@ -122,17 +135,17 @@
               <div ng-show="addPhonesStep == 2 && addPhonesType === 'manual'" class="wizard-pf-contents">
                 <form class="form-horizontal" ng-submit="addPhonesManual()">
                   <div class="form-group" ng-class="{ 'has-error': showManualMacError }">
-                    <label class="col-sm-3 control-label" for="manual-mac">{{ 'MAC address' | translate }}</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-4 control-label" for="manual-mac">{{ 'MAC address' | translate }}</label>
+                    <div class="col-sm-8">
                       <input type="text" id="manual-mac" name="manualMac" class="form-control" ng-model="manualMac"
-                        ng-change="inputMacManualChanged()" maxlength="17" required>
+                        ng-change="inputMacManualChanged()" maxlength="17">
                       <span ng-show="showManualMacError"
                         class="help-block">{{ 'Enter a valid MAC address' | translate }}</span>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label" for="manual-model">{{ 'Model' | translate }}</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-4 control-label" for="manual-model">{{ 'Model' | translate }}</label>
+                    <div class="col-sm-8">
                       <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="manualModel"
                         ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue"
                         id="manual-model">
@@ -142,8 +155,8 @@
                   </div>
                   <!-- add phone button -->
                   <div class="form-group">
-                    <label class="col-sm-3 control-label"></label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-4 control-label"></label>
+                    <div class="col-sm-8">
                       <button type="submit" class="btn btn-primary wizard-pf-next">
                         <span class="wizard-pf-button-text">
                           {{ 'Add phone' | translate }}
@@ -188,7 +201,7 @@
                                 <!-- MAC -->
                                 <input type="text" id="paste-mac-{{$index}}" name="pasteMac{{$index}}"
                                   class="form-control" ng-model="pastedMacs[$index]"
-                                  ng-change="inputMacPasteChanged({{$index}})" maxlength="17" required>
+                                  ng-change="inputMacPasteChanged({{$index}})" maxlength="17">
                                 <span ng-show="showPasteMacError[$index]"
                                   class="help-block">{{ 'Enter a valid MAC address' | translate }}</span>
                               </div>
@@ -205,6 +218,35 @@
                           </div>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- step 2 - scan networks -->
+              <div ng-show="addPhonesStep == 2 && addPhonesType === 'scan'" class="wizard-pf-contents">
+                <form class="form-horizontal" ng-submit="addPhonesManual()">
+                  <div class="form-group"
+                    ng-class="{ 'has-error': showSelectNetworkToScanError || showNetworkScanInProgressError }">
+                    <label class="col-sm-4 control-label" for="manual-model">{{ 'Network to scan' | translate }}</label>
+                    <div class="col-sm-8">
+                      <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="networkToScan"
+                        ng-options="network.network for network in networks | orderBy:orderByValue"
+                        ng-change="networkToScanChanged()">
+                        <option value="">-</option>
+                      </select>
+                      <span ng-show="showSelectNetworkToScanError"
+                        class="help-block">{{ 'Select a network' | translate }}</span>
+                      <span ng-show="showNetworkScanInProgressError"
+                        class="help-block">{{ 'This network is already being scanned' | translate }}</span>
+                    </div>
+                  </div>
+                  <div class="form-group" ng-class="{ 'has-error': showNetmaskToScanError }">
+                    <label class="col-sm-4 control-label" for="manual-model">{{ 'Netmask' | translate }}</label>
+                    <div class="col-sm-8">
+                      <input ng-model="networkToScan.netmask" type="text" class="form-control"
+                        ng-change="netmaskToScanChanged()"></input>
+                      <span ng-show="showNetmaskToScanError"
+                        class="help-block">{{ 'Enter a valid netmask' | translate }}</span>
                     </div>
                   </div>
                 </form>
