@@ -237,7 +237,7 @@
             <div ng-click="goTo('apps/bulkextensions')" class="list-group-item-value menu-item-left no-opacity">{{'Bulk extensions' | translate | ellipsis:'1200'}}</div>
           </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('bulkdevices',2) ? 'active' : ''}}">
-            <div ng-click="goTo('apps/bulkdevices')" class="list-group-item-value menu-item-left no-opacity">{{'Bulk devices' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('apps/bulkdevices')" class="list-group-item-value menu-item-left no-opacity">{{'Bulk phones' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
         <li data-toggle="collapse" data-parent="#navbar-left" href="#adminCollapse" ng-if="!wizard.isMigrationView && !wizard.isWizard || wizard.stepCount > appConfig.PART3_STEP"

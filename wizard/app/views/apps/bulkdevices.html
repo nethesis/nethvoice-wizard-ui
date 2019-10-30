@@ -1,1 +1,158 @@
-<p>This is the bulkdevices view.</p>
+<div class="wizard-pf-contents adjust-size no-margin-bottom">
+  <h1 class="control-label centered" for="textInput-markup">
+    {{ 'Bulk phones configuration' | translate }}
+  </h1>
+  <div class="container-fluid margin-top-lg">
+    <div ng-show="phones.length == 0" class="blank-slate-pf">
+      <div class="blank-slate-pf-icon">
+        <span class="pficon pficon pficon-add-circle-o"></span>
+      </div>
+      <h1>
+        {{ 'No phone in inventory' | translate }}
+      </h1>
+      <p>
+        {{ 'Go to inventory to add phones' | translate }}
+      </p>
+      <div class="blank-slate-pf-main-action">
+        <button class="btn btn-primary btn-lg wizard-pf-open wizard-pf-add-phone"
+          ng-click="goTo('devices/inventory')">{{ 'Go to inventory' | translate }}</button>
+      </div>
+    </div>
+    <div ng-show="phones.length != 0">
+      <!-- bulk select combobox -->
+      <div class="row mg-bottom-15">
+        <div class="col-sm-9 no-padding">
+          <div class="dropdown inline-display">
+            <button class="btn btn-lg btn-default dropdown-toggle drd-button" type="button" id="dropdownMenu1"
+              data-toggle="dropdown">
+              <span class="filter-option pull-left">
+                {{ 'Select phones' | translate }}
+              </span>
+              <span class="caret drd-carret"></span>
+            </button>
+            <ul class="dropdown-menu drd-ul" role="menu" aria-labelledby="dropdownMenu1">
+              <li>
+                <a ng-click="selectAll(true)">{{'All' | translate}}</a>
+              </li>
+              <li>
+                <a ng-click="selectAll(false)">{{'None' | translate}}</a>
+              </li>
+
+              <li class="divider"></li>
+              <li>
+                <a>Commerciale</a>
+              </li>
+              <li>
+                <a>Assistenza</a>
+              </li>
+              <li>
+                <a>Marketing</a>
+              </li>
+
+              <li ng-if="!(allGroups | isEmpty)" class="divider"></li>
+              <li ng-repeat="group in allGroups">
+                <a ng-click="selectGroup(group.id)">{{'Group' | translate}} {{group.name}}</a>
+              </li>
+            </ul>
+          </div>
+          <!-- edit select phones button -->
+          <button class="btn btn-lg btn-primary"
+            ng-click="showEditModal()">{{ 'Edit selected phones' | translate }}</button>
+        </div>
+        <div class="col-sm-3 label-selected-bulk no-padding">
+          <strong>{{num.selected}}</strong> {{'of' | translate}}
+          <strong>{{num.tot}}</strong> {{'selected' | translate}}
+        </div>
+      </div>
+    </div>
+    <!-- filter phone list -->
+    <form role="form" class="search-pf has-button mg-bottom-8">
+      <div class="form-group">
+        <div class="search-pf-input-group">
+          <input ng-model="searchPhoneString" type="text" class="form-control input-lg"
+            placeholder="{{ 'Filter phones' | translate }}..."></input>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default btn-lg" type="submit">
+          <span class="fa fa-search"></span>
+        </button>
+      </div>
+    </form>
+    <!-- phone list -->
+    <div class="list-group list-view-pf clear">
+      <div class="list-group-item cursor-default"
+        ng-repeat="phone in phones | filter:searchPhoneString | orderBy: 'display_name'">
+        <div class="list-view-pf-actions">
+          <!-- //// -->
+        </div>
+        <!-- checkbox -->
+        <div class="list-view-pf-checkbox">
+          <input type="checkbox" ng-click="phone.selected == true ? phone.selected = false : phone.selected = true"
+            ng-model="phone.selected">
+        </div>
+        <div class="list-view-pf-main-info">
+          <div class="list-view-pf-left">
+            <span class="fa fa-phone list-view-pf-icon-sm {{phone.model ? '' : 'disabled'}}"></span>
+          </div>
+          <div class="list-view-pf-body">
+            <div class="list-view-pf-description">
+              <div class="list-group-item-heading-narrow {{phone.model ? '' : 'disabled'}}">
+                {{ phone.display_name ? phone.display_name : '-'}}
+              </div>
+              <!-- model -->
+              <div class="list-group-item-text-narrow">
+                <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)" ng-model="phone.modelObj"
+                  ng-options="model.display_name for model in filteredModels(phone.mac) | orderBy:orderByValue">
+                  <option value="">-</option>
+                </select>
+              </div>
+              <div class="list-group-item-text-narrow">
+                <!-- template -->
+                <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneTemplate(phone)"
+                  ng-model="phone.template" ng-options="template for template in templates | orderBy:orderByValue">
+                  <option value="">-</option>
+                </select>
+              </div>
+            </div>
+            <div class="list-view-pf-additional-info config-info {{phone.model ? '' : 'disabled'}}">
+              <div>MAC: <b>{{phone.mac}}</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- edit modal -->
+<div class="modal fade" id="bulkEdit" tabindex="-1" role="dialog" aria-labelledby="bulkEditLabel" aria-hidden="true"
+  data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="bulkEditLabel">{{ 'Edit selected phones' | translate }}</h4>
+      </div>
+      <form class="form-horizontal" ng-submit="bulkEditSave()">
+        <div class="modal-body">
+          <!-- //// -->
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+        </div>
+        <!-- <div ng-show="temp.onsave" class="spinner spinner-sm adjust-margin loader-modal"></div> //// -->
+        <div class="modal-footer submit">
+          <button type="button" class="btn btn-default" ng-click="closeEditModal()">{{ 'Cancel' | translate }}</button>
+          <button type="submit" class="btn btn-primary">{{ 'Save' | translate }}</button>
+        </div>
+    </div>
+    </form>
+  </div>
+</div>
+</div>
