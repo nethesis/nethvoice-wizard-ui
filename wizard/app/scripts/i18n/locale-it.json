@@ -609,5 +609,11 @@
   "This network is already being scanned": "La scansione di questa rete è già in corso",
   "Enter a valid netmask": "Inserire una maschera di rete valida",
   "Scanning network for phones": "Scansione rete in corso",
-  "Network scan successfully completed": "Scansione rete completata con successo"
+  "Network scan successfully completed": "Scansione rete completata con successo",
+  "Bulk phones configuration": "Gestione multipla telefoni",
+  "Go to inventory to add phones": "Accedi all'inventario per aggiungere telefoni",
+  "Go to inventory": "Vai all'inventario",
+  "Edit selected phones": "Modifica i telefoni selezionati",
+  "Filter phones": "Filtra telefoni",
+  "Select phones": "Seleziona telefoni"
 }

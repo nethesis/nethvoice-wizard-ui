@@ -19,12 +19,16 @@
       </div>
     </div>
     <div ng-show="phones.length != 0">
+      <!-- add phones button -->
+      <div class="form-group">
+        <button class="btn btn-lg btn-primary" ng-click="showAddPhonesModal()">{{'Add phones' | translate}}</button>
+      </div>
       <!-- filter phone list -->
-      <form role="form" class="search-pf has-button">
+      <form role="form" class="search-pf has-button mg-bottom-8">
         <div class="form-group">
           <div class="search-pf-input-group">
             <input ng-model="searchPhoneString" type="text" class="form-control input-lg"
-              placeholder="{{ 'Search' | translate }}..."></input>
+              placeholder="{{ 'Filter phones' | translate }}..."></input>
           </div>
         </div>
         <div class="form-group">
@@ -33,10 +37,6 @@
           </button>
         </div>
       </form>
-      <!-- add phones button -->
-      <div class="form-group config-row-button">
-        <button class="btn btn-lg btn-primary" ng-click="showAddPhonesModal()">{{'Add phones' | translate}}</button>
-      </div>
       <!-- phone list -->
       <div class="list-group list-view-pf clear">
         <div class="list-group-item cursor-default"

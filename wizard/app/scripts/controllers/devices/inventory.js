@@ -422,7 +422,7 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       // remove separators (if any)
-      $scope.pastedMacsText = $scope.pastedMacsText.replace(/,|;/g, ' ')
+      $scope.pastedMacsText = $scope.pastedMacsText.replace(/,|;/g, ' ').trim();
 
       // split MAC addresses on whitespace
       $scope.pastedMacs = $scope.pastedMacsText.split(/\s+/);
@@ -478,7 +478,7 @@ angular.module('nethvoiceWizardUiApp')
       console.log($scope.phones); ////
     };
 
-    $scope.filteredModels = function (mac) {
+    $scope.filteredModels = function (mac) { //// move inside UtilService?
       var vendor = $scope.macVendorMap[mac.substring(0, 8)];
 
       if (vendor) {

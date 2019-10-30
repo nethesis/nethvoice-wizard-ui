@@ -2237,10 +2237,6 @@ iframe body {
   margin: 7px 12px 0px 0px;
 }
 
-.mg-top-0 {
-  margin-top: 0;
-}
-
 .modal-wizard {
   width: 900px;
   padding: 30px;
@@ -2343,4 +2339,21 @@ iframe body {
 .spinner-notification {
   float: right;
   margin-left: 6px;
+}
+
+.list-view-pf .list-group-item-text-narrow {
+  width: calc(50% - 80px);
+}
+
+.list-view-pf .list-group-item-heading-narrow {
+  flex: 1 0 calc(30% - 20px);
+}
+
+.mg-top-bottom-15 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.mg-bottom-8 {
+  margin-bottom: 8px;
 }
