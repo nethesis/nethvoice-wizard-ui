@@ -8,18 +8,18 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesInventoryCtrl', function ($scope, $interval, PhoneService, ModelService, UtilService, ConfigService, DeviceService) {
-    // $scope.phones = []; //// uncomment
-    $scope.phones = [ //// delete
-      { mac: "00:04:13:11:22:31", model: "snom100", display_name: "Snom" },
-      { mac: "0C:38:3E:99:88:72", model: "fanvil-600", display_name: "Fanvil" },
-      { mac: "00:15:65:55:55:53", model: null, display_name: "Yealink" },
-      { mac: "00:04:13:11:22:34", model: "snom200", display_name: "Snom" },
-      { mac: "00:04:13:11:22:35", model: "snom100", display_name: "Snom" },
-      { mac: "00:04:13:11:22:36", model: null, display_name: "Snom" },
-      { mac: "0C:38:3E:99:88:77", model: null, display_name: "Fanvil" },
-      { mac: "00:15:65:55:55:58", model: null, display_name: "Yealink" }
-    ];
+  .controller('DevicesInventoryCtrl', function ($scope, $interval, $q, PhoneService, ModelService, UtilService, ConfigService, DeviceService) {
+    $scope.phones = [];
+    // $scope.phones = [ //// mockup
+    //   { mac: "00:04:13:11:22:31", model: "snom100", display_name: "Snom" },
+    //   { mac: "0C:38:3E:99:88:72", model: "fanvil-600", display_name: "Fanvil" },
+    //   { mac: "00:15:65:55:55:53", model: null, display_name: "Yealink" },
+    //   { mac: "00:04:13:11:22:34", model: "snom200", display_name: "Snom" },
+    //   { mac: "00:04:13:11:22:35", model: "snom100", display_name: "Snom" },
+    //   { mac: "00:04:13:11:22:36", model: null, display_name: "Snom" },
+    //   { mac: "0C:38:3E:99:88:77", model: null, display_name: "Fanvil" },
+    //   { mac: "00:15:65:55:55:58", model: null, display_name: "Yealink" }
+    // ];
     $scope.models = [];
     $scope.macVendorMap = UtilService.macVendorMap();
     $scope.addPhonesTotalSteps = 2;
@@ -27,72 +27,31 @@ angular.module('nethvoiceWizardUiApp')
     $scope.tasks = {}; ////
     $scope.networkScans = 0;
 
-    $scope.pastedMacs = []; //// uncomment
+    $scope.pastedMacs = [];
     $scope.showPasteMacError = [];
-    // $scope.pastedMacs = ["00:04:13:11:22:33", "0C:38:3E:11:22:33"]; //// delete
+    $scope.pastedMacUnknownVendors = [];
+
+    $scope.successfulAddPhones = [];
+    $scope.failedAddPhones = [];
 
     $scope.getPhones = function () {
-      // PhoneService.getPhones().then(function(res) {
-
-      ////
-      // var res = JSON.parse(' \
-      //   [{ \
-      //     "mac": "01-23-45-67-89-AB", \
-      //     "model": "acme19.2", \
-      //     "display_name": "Acme", \
-      //     "model_url": "/tancredi/api/v1/models/acme19.2", \
-      //     "phone_url": "/tancredi/api/v1/phones/01-23-45-67-89-AB" \
-      //   },{ \
-      //     "mac": "01-23-45-76-98-DE", \
-      //     "model": "acme15.0", \
-      //     "display_name": "Acme", \
-      //     "model_url": "/tancredi/api/v1/models/acme15.0", \
-      //     "phone_url": "/tancredi/api/v1/phones/01-23-45-76-98-DE" \
-      //   }]'
-      // );
-      // var res = []; ////
-
-      // $scope.phones = res;
-      // console.log("$scope.phones", $scope.phones); ////
-
+      // PhoneService.getPhones().then(function(res) { ////
+      //
       // }, function(err) {
       //   console.log(err);
       // });
 
-      //// getModels() must be invoked AFTER a successful call to GET /phones
+      //// getModels() must be invoked after a successful call to GET /phones
       $scope.getModels();
-
       linkModelsToPhones();
 
-      console.log('getPhones():'); ////
-      console.log($scope.phones); ////
+      console.log("getPhones()", $scope.phones); ////
     };
 
     $scope.getModels = function () {
-      // ModelService.getModels().then(function(res) {
+      // ModelService.getModels().then(function(res) { ////
 
-      ////
-      // var res = JSON.parse(' \
-      //   [{ \
-      //     "name": "snom100", \
-      //     "display_name": "Snom IP phone v100", \
-      //     "model_url": "/tancredi/api/v1/models/snom100" \
-      //   },{ \
-      //     "name": "snom200", \
-      //     "display_name": "Snom IP phone v200", \
-      //     "model_url": "/tancredi/api/v1/models/snom200" \
-      //   },{ \
-      //     "name": "fanvil-600", \
-      //     "display_name": "Fanvil IP phone v600", \
-      //     "model_url": "/tancredi/api/v1/models/fanvil600" \
-      //   },{ \
-      //     "name": "fanvil-700", \
-      //     "display_name": "Fanvil IP phone v700", \
-      //     "model_url": "/tancredi/api/v1/models/fanvil700" \
-      //   }]'
-      // );
-
-      var res = [ ////
+      var res = [ //// mockup
         {
           "name": "snom100",
           "display_name": "Snom IP phone v100",
@@ -116,13 +75,11 @@ angular.module('nethvoiceWizardUiApp')
         }
       ];
 
-      // var res = []; ////
-
       $scope.models = res;
 
       console.log("$scope.models", $scope.models); ////
 
-      // }, function(err) {
+      // }, function(err) { ////
       //   console.log(err);
       // });
     }
@@ -135,26 +92,51 @@ angular.module('nethvoiceWizardUiApp')
       $scope.addPhonesStep--;
     }
 
-    $scope.showAddPhonesModal = function () {
+    $scope.showPasteModal = function () {
+      $scope.pastedMacs = [];
+      $scope.successfulAddPhones = [];
+      $scope.failedAddPhones = [];
+      $scope.pendingRequestsAddPhones = 0;
+      $scope.showResultsAddPhones = false;
+      $('#paste-modal').modal("show");
+    }
+
+    $scope.showManualModal = function () {
+      $scope.successfulAddPhones = [];
+      $scope.failedAddPhones = [];
+      $scope.pendingRequestsAddPhones = 0;
+      $scope.showResultsAddPhones = false;
+      $('#manual-modal').modal("show");
+    }
+
+    $scope.showScanModal = function () {
+      $scope.successfulAddPhones = [];
+      $scope.failedAddPhones = [];
+      $scope.pendingRequestsAddPhones = 0;
+      $scope.showResultsAddPhones = false;
+      $('#scan-modal').modal("show");
+    }
+
+    $scope.showAddPhonesModal = function () { ////
       $scope.addPhonesStep = 1;
       $scope.addPhonesType = 'scan';
       $('#add-phone').modal("show");
     }
 
-    $scope.hideAddPhonesModal = function () {
+    $scope.hideAddPhonesModal = function () { ////
       $('#add-phone').modal("hide");
     }
 
     $scope.inputMacManualChanged = function () {
       $scope.clearValidationErrorsManual();
 
-      // update model list
-
       if (!$scope.manualMac) {
         $scope.manualVendor = null;
         $scope.manualFilteredModels = [];
         return;
       }
+
+      // update model list
       var vendor = $scope.macVendorMap[$scope.manualMac.substring(0, 8)];
 
       if (vendor) {
@@ -165,16 +147,21 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         $scope.manualVendor = null;
         $scope.manualFilteredModels = [];
+
+        // unknown vendor warning
+        if ($scope.manualMac.length >= 8) {
+          $scope.manualMacUnknownVendor = true;
+        }
       }
     }
 
-    $scope.addPhonesFinish = function () {
+    $scope.addPhonesFinish = function () { ////
       switch ($scope.addPhonesType) {
         case "scan":
           startNetworkScan();
           break;
         case "paste":
-          addPhonesPasted();
+          addPhonesPaste();
           break;
         case "manual":
           $scope.hideAddPhonesModal();
@@ -245,10 +232,10 @@ angular.module('nethvoiceWizardUiApp')
                 $scope.$apply();
               }, 3000);
 
-              //// todo: add the phones to the inventory
+              //// todo: add the phones to the inventory (similar to addPhonesPaste() )
 
               //// var phones = res.data.phones
-              var phones = [ ////
+              var phones = [ //// mockup
                 { mac: "00:04:13:11:22:91", model: "snom100" },
                 { mac: "0C:38:3E:99:88:92", model: "fanvil-600" },
                 { mac: "00:15:65:55:55:93", model: "yealink-1000" },
@@ -257,7 +244,7 @@ angular.module('nethvoiceWizardUiApp')
 
               // add all phones
               for (var phone of phones) {
-                addPhone(phone);
+                addPhone(phone); ////
               }
               $scope.getPhones();
             } else {
@@ -289,62 +276,120 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.clearValidationErrorsManual = function () {
       $scope.showManualMacError = false;
+      $scope.manualMacUnknownVendor = false;
     }
 
     $scope.clearValidationErrorsPaste = function (index) {
       if (typeof index !== 'undefined') {
-        // clear error at index
+        // clear errors at index
         $scope.showPasteMacError[index] = false;
+        $scope.pastedMacUnknownVendors[index] = false;
       } else {
         // clear all errors
         $scope.showPasteMacError = [];
+        $scope.macDuplicates = [];
+        $scope.pastedMacUnknownVendors = [];
       }
     }
 
-    function addPhonesPasted() {
+    function validateAddPhonesPaste() {
       $scope.clearValidationErrorsPaste();
       var firstErrorIndex = null;
 
-      // check validation errors
       for (var index = 0; index < $scope.pastedMacs.length; index++) {
-        if (!UtilService.checkMacAddress($scope.pastedMacs[index])) {
+        var mac = $scope.pastedMacs[index];
+        // check MAC address 
+        if (!UtilService.checkMacAddress(mac)) {
           $scope.showPasteMacError[index] = true;
 
           if (firstErrorIndex === null) {
             firstErrorIndex = index;
           }
         }
+
+        // check vendor
+        var vendor = $scope.macVendorMap[mac.substring(0, 8)];
+        if (!vendor) {
+          $scope.pastedMacUnknownVendors[index] = true;
+        }
+      }
+
+      // check duplicates
+      $scope.macDuplicates = UtilService.findDuplicates($scope.pastedMacs);
+
+      if (firstErrorIndex === null && $scope.macDuplicates.length) {
+        firstErrorIndex = $scope.pastedMacs.indexOf($scope.macDuplicates[0]);
       }
 
       // if there are validation errors, focus the first and return
       if (firstErrorIndex !== null) {
-        $('#paste-mac-' + firstErrorIndex).focus();
+        setTimeout(function () {
+          $('#paste-mac-' + firstErrorIndex).focus();
+        }, 200);
+
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    $scope.addPhonesPaste = function () {
+      var validationOk = validateAddPhonesPaste();
+
+      if (!validationOk) {
         return;
       }
+
+      $scope.pendingRequestsAddPhones = $scope.pastedMacs.length;
+      $scope.failedAddPhones = [];
 
       // add all phones
       for (var index = 0; index < $scope.pastedMacs.length; index++) {
         var mac = $scope.pastedMacs[index];
         var model = $scope.pastedModels[index];
-        var vendor = $scope.pastedVendors[index];
-        addPhoneWithParams(mac, model, vendor);
-      }
+        var phone = buildPhone(mac, model); ////
 
-      $scope.hideAddPhonesModal();
+        PhoneService.createPhoneMock(phone, $scope.phones, 0.7).then(function (res) {
+          console.log("success", res.mac); ////
+          $scope.pendingRequestsAddPhones--;
+          $scope.successfulAddPhones.push(res);
+
+          if ($scope.pendingRequestsAddPhones == 0) {
+            showResultsAddPhones();
+          }
+        }, function (err) {
+          console.log("fail", err); ////
+          console.log(err.error.title);
+          $scope.pendingRequestsAddPhones--;
+          $scope.failedAddPhones.push(err.phone);
+
+          if ($scope.pendingRequestsAddPhones == 0) {
+            showResultsAddPhones();
+          }
+        });
+      }
+    }
+
+    function showResultsAddPhones() {
+      console.log("showResultsAddPhones()"); ////
+
+      $scope.showResultsAddPhones = true;
+
+      for (var phone of $scope.successfulAddPhones) {
+        console.log("deleting succesful mac", phone.mac); ////
+        deletePastedMacStr(phone.mac);
+      }
       $scope.getPhones();
     }
 
-    function addPhone(phone) {
-      var mac = phone.mac;
-      var model = phone.model;
-
+    // builds a phone object that can be passed to Tancredi
+    function buildPhone(mac, model) {
       // if model variable is structured extract its name
       if (model && model.hasOwnProperty('name')) {
         model = model.name;
       }
 
       var vendor = $scope.macVendorMap[mac.substring(0, 8)];
-
       if (vendor) {
         vendor = UtilService.capitalize(vendor);
       }
@@ -354,42 +399,31 @@ angular.module('nethvoiceWizardUiApp')
         "model": model,
         "display_name": vendor
       }
-
-      console.log('addPhone()', phone); ////
-
-      $scope.phones.push(phone); //// remove
-
-      // PhoneService.createPhone(phone).then(function(res) { ////
-      //   ////
-      // }, function(err) {
-      //   console.log(err);
-      // });
+      return phone;
     }
 
-    function addPhoneWithParams(mac, model, vendor) {
-      var phone = {
-        "mac": mac,
-        "model": model ? model.name : null,
-        "display_name": vendor
-      }
-
-      console.log('addPhoneWithParams()', phone); ////
-
-      $scope.phones.push(phone); //// remove
-
-      // PhoneService.createPhone(phone).then(function(res) { ////
-      //   ////
-      // }, function(err) {
-      //   console.log(err);
-      // });
-    }
-
-    $scope.addPhonesManual = function () {
+    function validateAddPhonesManual() {
       $scope.clearValidationErrorsManual();
+
+      // check vendor
+      var vendor = $scope.macVendorMap[$scope.manualMac.substring(0, 8)];
+      if (!vendor) {
+        $scope.manualMacUnknownVendor = true;
+      }
 
       if (!UtilService.checkMacAddress($scope.manualMac)) {
         $scope.showManualMacError = true;
         $('#manual-mac').focus();
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    $scope.addPhonesManual = function () {
+      var validationOk = validateAddPhonesManual();
+
+      if (!validationOk) {
         return;
       }
 
@@ -401,7 +435,7 @@ angular.module('nethvoiceWizardUiApp')
 
       console.log('addPhonesManual()', phone); ////
 
-      $scope.phones.push(phone); //// remove
+      $scope.phones.push(phone); //// mockup
 
       // PhoneService.createPhone(phone).then(function(res) { ////
       //   ////
@@ -421,6 +455,8 @@ angular.module('nethvoiceWizardUiApp')
         return;
       }
 
+      // todo: set maxlength attribute to <textarea> to limit user input
+
       // remove separators (if any)
       $scope.pastedMacsText = $scope.pastedMacsText.replace(/,|;/g, ' ').trim();
 
@@ -436,6 +472,9 @@ angular.module('nethvoiceWizardUiApp')
         // update model list
         $scope.inputMacPasteChanged(index);
       }
+
+      // perform validation
+      validateAddPhonesPaste();
     }
 
     $scope.inputMacPasteChanged = function (index) {
@@ -456,11 +495,16 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         $scope.pastedVendors[index] = null;
         $scope.pasteFilteredModels[index] = [];
+
+        // unknown vendor warning
+        if ($scope.pastedMacs[index].length >= 8) {
+          $scope.pastedMacUnknownVendors[index] = true;
+        }
       }
     }
 
     $scope.setPhoneModel = function (phone) {
-      //// RestService by now doesn't have a patch method
+      //// RestService by now doesn't have a patch method!
 
       // PhoneService.setPhoneModel({
       //   model: phone.modelObj.name
@@ -474,8 +518,7 @@ angular.module('nethvoiceWizardUiApp')
         phone.model = null;
       }
 
-      console.log('setPhoneModel()'); ////
-      console.log($scope.phones); ////
+      console.log('setPhoneModel()', phone); ////
     };
 
     $scope.filteredModels = function (mac) { //// move inside UtilService?
@@ -486,12 +529,6 @@ angular.module('nethvoiceWizardUiApp')
           return model.name.toLowerCase().startsWith(vendor.toLowerCase());
         });
         return filteredModels;
-
-        // var filteredModelNames = []; ////
-        // for (var model of filteredModels) {
-        //   filteredModelNames.push(model.name);
-        // }
-        // return filteredModelNames;
       } else {
         return [];
       }
@@ -520,12 +557,20 @@ angular.module('nethvoiceWizardUiApp')
       //   console.log(err);
       // });
 
-      $scope.phones = $scope.phones.filter(function (phone) { ////
+      $scope.phones = $scope.phones.filter(function (phone) { //// mockup
         return phone.mac !== $scope.phoneToDelete.mac;
       });
 
       $('#deletePhoneModal').modal('hide');
       $scope.getPhones();
+    }
+
+    function deletePastedMacStr(mac) {
+      var index = $scope.pastedMacs.indexOf(mac);
+
+      if (index != -1) {
+        $scope.deletePastedMac(index);
+      }
     }
 
     $scope.deletePastedMac = function (index) {
@@ -534,6 +579,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.pastedVendors.splice(index, 1);
       $scope.pastedModels.splice(index, 1);
       $scope.pasteFilteredModels.splice(index, 1);
+      $scope.pastedMacUnknownVendors.splice(index, 1);
     }
 
     $scope.orderByValue = function (value) {
@@ -548,7 +594,7 @@ angular.module('nethvoiceWizardUiApp')
       // ConfigService.getNetworks().then(function (res) { ////
       //   $scope.networks = res.data;
 
-      var networks = { ////
+      var networks = { //// mockup
         "enp0s3": {
           "network": "192.168.5.0",
           "ip": "192.168.5.92",

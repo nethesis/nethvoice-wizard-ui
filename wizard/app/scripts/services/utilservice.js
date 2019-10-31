@@ -102,4 +102,9 @@ angular.module('nethvoiceWizardUiApp')
       var regExp = /^(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))$/;
       return regExp.test(netmask)
     };
+
+    this.findDuplicates = function (array) {
+      let findDuplicatesInArray = arr => arr.filter((item, index) => arr.indexOf(item) != index)
+      return [...new Set(findDuplicatesInArray(array))];
+    }
   });

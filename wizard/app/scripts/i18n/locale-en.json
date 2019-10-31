@@ -41,5 +41,11 @@
   "iroutes": "inbound routes",
   "daynight": "call flow control",
   "postmig": "phonebook and settings",
-  "add_phones_empty_state": "Add phones by scanning the network, pasting a list of MAC addresses or entering phone data manually"
+  "add_phones_empty_state": "Add phones by scanning the network, pasting a list of MAC addresses or entering phone data manually",
+  "inventory_help_p_1": "The inventory manages the list of phones configured in Nethvoice",
+  "inventory_help_p_2": "You can add phones to the inventory by",
+  "inventory_help_li_1": "Scanning a network",
+  "inventory_help_li_2": "Copying and pasting a list of MAC address from a spreadsheet or a text file",
+  "inventory_help_li_3": "Entering phone data manually",
+  "inventory_help_p_3": "You can add phones to the inventory by scanning a network, copying a list of MAC address from a spreadsheet (or a text file) or entering phone data manually"
 }

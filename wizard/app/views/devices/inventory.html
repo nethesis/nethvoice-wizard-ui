@@ -1,8 +1,16 @@
 <div class="wizard-pf-contents adjust-size no-margin-bottom">
   <h1 class="control-label centered" for="textInput-markup">
-    {{'Inventory' | translate}}
+    {{ 'Inventory' | translate }}
   </h1>
-  <div class="container-fluid margin-top-lg">
+  <div class="container-fluid mg-top-20">
+    <div class="page-help" ng-show="phones.length != 0">
+      <p>{{ 'inventory_help_p_1' | translate }}. {{ 'inventory_help_p_2' | translate }}:</p>
+      <ul>
+        <li>{{ 'inventory_help_li_1' | translate }}</li>
+        <li>{{ 'inventory_help_li_2' | translate }}</li>
+        <li>{{ 'inventory_help_li_3' | translate }}</li>
+      </ul>
+    </div>
     <div ng-show="phones.length == 0" class="blank-slate-pf">
       <div class="blank-slate-pf-icon">
         <span class="pficon pficon pficon-add-circle-o"></span>
@@ -10,18 +18,26 @@
       <h1>
         {{'No phone in inventory' | translate}}
       </h1>
-      <p>
-        {{'add_phones_empty_state' | translate}}
-      </p>
+      <p>{{ 'inventory_help_p_1' | translate }}.</p>
+      <p>{{ 'inventory_help_p_3' | translate }}</p>
       <div class="blank-slate-pf-main-action">
-        <button class="btn btn-primary btn-lg wizard-pf-open wizard-pf-add-phone"
-          ng-click="showAddPhonesModal()">{{'Add phones' | translate}}</button>
+        <button class="btn btn-lg btn-primary" ng-click="showAddPhonesModal()">{{'Add phones' | translate}}
+          ////</button> &nbsp;
+        <button class="btn btn-lg btn-primary" ng-click="showScanModal">{{'Scan a network' | translate}}</button>
+        <button class="btn btn-lg btn-primary"
+          ng-click="showPasteModal()">{{'Add with copy/paste' | translate}}</button>
+        <button class="btn btn-lg btn-primary" ng-click="showManualModal">{{'Add manually' | translate}}</button>
       </div>
     </div>
     <div ng-show="phones.length != 0">
-      <!-- add phones button -->
+      <!-- add phones button //// delete-->
       <div class="form-group">
-        <button class="btn btn-lg btn-primary" ng-click="showAddPhonesModal()">{{'Add phones' | translate}}</button>
+        <button class="btn btn-lg btn-primary" ng-click="showAddPhonesModal()">{{'Add phones' | translate}}
+          ////</button> &nbsp;
+        <button class="btn btn-lg btn-primary" ng-click="showScanModal">{{'Scan a network' | translate}}</button>
+        <button class="btn btn-lg btn-primary"
+          ng-click="showPasteModal()">{{'Add with copy/paste' | translate}}</button>
+        <button class="btn btn-lg btn-primary" ng-click="showManualModal">{{'Add manually' | translate}}</button>
       </div>
       <!-- filter phone list -->
       <form role="form" class="search-pf has-button mg-bottom-8">
@@ -87,7 +103,121 @@
       {{ 'Network scan successfully completed' | translate }}
     </div>
 
-    <!-- add phones modal -->
+    <!-- paste modal -->
+    <div class="modal fade" id="paste-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog width-700">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="Close">
+              <span class="pficon pficon-close"></span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">{{'Add with copy/paste' | translate}}</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div ng-show="!showResultsAddPhones" class="form-group no-margin-bottom">
+                <!-- paste textarea -->
+                <label class="col-sm-4 control-label" for="paste-textarea">
+                  {{ 'Copy a list of MAC addresses and paste it here' | translate }}
+                </label>
+                <div class="col-sm-8">
+                  <textarea id="paste-textarea" class="form-control pasted-mac-area" ng-model="pastedMacsText"
+                    ng-change="parsePastedMacs()"></textarea>
+                </div>
+              </div>
+              <!-- results of add phones operation -->
+              <div ng-show="showResultsAddPhones">
+                <!-- error notification -->
+                <div class="alert alert-danger" ng-show="successfulAddPhones.length == 0">
+                  <span class="pficon pficon-error-circle-o"></span>
+                  <strong>{{ 'Error' | translate }}:</strong> {{ 'No phones added' | translate }}.
+                </div>
+                <!-- warning notification -->
+                <div class="alert alert-warning" ng-show="successfulAddPhones.length > 0 && failedAddPhones.length > 0">
+                  <span class="pficon pficon-warning-triangle-o"></span>
+                  <strong>{{ 'Warning' | translate }}:</strong> {{ failedAddPhones.length }}
+                  {{ 'phones could not be added' | translate }}.
+                </div>
+                <!-- success notification -->
+                <div class="alert alert-success" ng-show="failedAddPhones.length == 0">
+                  <span class="pficon pficon-ok"></span>
+                  {{ 'All phones have been successfully added' | translate }}.
+                </div>
+                <!-- number of phones added -->
+                <div class="pasted-mac-indicator">{{ successfulAddPhones.length }}
+                  {{ 'phones successfully added' | translate }}</div>
+                <div class="results-add-phones">
+                  <ul>
+                    <li ng-repeat="phone in successfulAddPhones">{{ phone.mac }}</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- number of phones to add -->
+              <div class="pasted-mac-indicator" ng-show="pastedMacs.length > 0">{{ pastedMacs.length }}
+                {{ 'phones to add' | translate }}</div>
+              <!-- phones to add -->
+              <div class="pasted-macs">
+                <div class="list-group list-view-pf clear">
+                  <div class="list-group-item cursor-default form-group no-margin-left-right align-items-stretch"
+                    ng-class="{ 'has-error': (showPasteMacError[$index] || macDuplicates.includes(mac)), 'border-top-list': $index == 0 }"
+                    ng-repeat="mac in pastedMacs track by $index">
+                    <div class="list-view-pf-actions">
+                      <!-- delete pasted MAC -->
+                      <button type="button" class="btn btn-danger" ng-click="deletePastedMac($index)">
+                        {{ 'Delete' | translate }}
+                      </button>
+                    </div>
+                    <div class="list-view-pf-main-info align-items-stretch">
+                      <div class="list-view-pf-left">
+                        <span
+                          class="fa fa-phone list-view-pf-icon-sm {{pastedModels[$index] ? '' : 'disabled'}}"></span>
+                      </div>
+                      <div class="list-view-pf-body">
+                        <div class="list-view-pf-description align-items-stretch">
+                          <div class="list-group-item-heading {{pastedModels[$index] ? '' : 'disabled'}}">
+                            <!-- MAC -->
+                            <input type="text" id="paste-mac-{{$index}}" name="pasteMac{{$index}}" class="form-control"
+                              ng-model="pastedMacs[$index]" ng-change="inputMacPasteChanged({{$index}})" maxlength="17">
+                            <span ng-show="showPasteMacError[$index]"
+                              class="help-block">{{ 'Invalid MAC address' | translate }}</span>
+                            <span ng-show="macDuplicates.includes(mac)"
+                              class="help-block">{{ 'Duplicated MAC address' | translate }}</span>
+                            <span ng-show="pastedMacUnknownVendors[$index]" class="help-block warning">
+                              <span
+                                class="pficon pficon-warning-triangle-o mg-right-5"></span>{{ 'Unknown vendor' | translate }}</span>
+                          </div>
+                          <div class="list-group-item-text">
+                            <!-- model -->
+                            <select class="form-control border-color-bbb" pf-select="{ noneSelectedText: '-' }"
+                              ng-model="pastedModels[$index]"
+                              ng-options="model.display_name for model in pasteFilteredModels[$index] | orderBy:orderByValue"
+                              id="paste-model-{{$index}}">
+                              <option value="">-</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
+            <!-- add phones button -->
+            <button type="button" class="btn btn-primary" ng-show="!(showResultsAddPhones && pastedMacs.length == 0)"
+              ng-click="addPhonesPaste()">{{ 'Add phones' | translate }}</button>
+            <!-- done button -->
+            <button type="button" class="btn btn-primary" ng-show="showResultsAddPhones && pastedMacs.length == 0"
+              data-dismiss="modal">{{ 'Done' | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- add phones modal //// todo: delete wizard -->
     <div class="modal" id="add-phone" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-lg wizard-pf modal-wizard">
         <div class="modal-content">
@@ -111,7 +241,7 @@
                       <h3>{{ 'Scan a network' | translate }}</h3>
                     </div>
                   </div>
-                  <div class="card-pf option-card width-33p"
+                  <!-- <div class="card-pf option-card width-33p" ////
                     ng-class="{ 'active-choose-green': addPhonesType === 'paste' }"
                     ng-click="setAddPhonesType('paste')">
                     <div class="blank-slate-pf no-pad margin-top-md white-background">
@@ -120,7 +250,7 @@
                       </div>
                       <h3>{{ 'Paste a list of MAC addresses' | translate }}</h3>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="card-pf option-card width-33p"
                     ng-class="{ 'active-choose-green': addPhonesType === 'manual' }"
                     ng-click="setAddPhonesType('manual')">
@@ -142,7 +272,10 @@
                       <input type="text" id="manual-mac" name="manualMac" class="form-control" ng-model="manualMac"
                         ng-change="inputMacManualChanged()" maxlength="17">
                       <span ng-show="showManualMacError"
-                        class="help-block">{{ 'Enter a valid MAC address' | translate }}</span>
+                        class="help-block">{{ 'Invalid MAC address' | translate }}</span>
+                      <span ng-show="manualMacUnknownVendor" class="help-block warning">
+                        <span
+                          class="pficon pficon-warning-triangle-o mg-right-5"></span>{{ 'Unknown vendor' | translate }}</span>
                     </div>
                   </div>
                   <div class="form-group">
@@ -168,62 +301,6 @@
                   </div>
                 </form>
               </div>
-              <!-- step 2 - paste MAC list -->
-              <div ng-show="addPhonesStep == 2 && addPhonesType === 'paste'" class="wizard-pf-contents">
-                <form class="form-horizontal">
-                  <div class="form-group">
-                    <!-- paste textarea -->
-                    <label class="col-sm-3 control-label" for="paste-textarea">
-                      {{ 'Copy a list of MAC addresses and paste it here' | translate }}
-                    </label>
-                    <div class="col-sm-9">
-                      <textarea id="paste-textarea" class="form-control pasted-mac-area" ng-model="pastedMacsText"
-                        ng-change="parsePastedMacs()"></textarea>
-                    </div>
-                  </div>
-                  <div class="pasted-macs">
-                    <div class="list-group list-view-pf clear">
-                      <div class="list-group-item cursor-default form-group no-margin-left-right"
-                        ng-class="{ 'has-error': showPasteMacError[$index], 'border-top-list': $index == 0 }"
-                        ng-repeat="mac in pastedMacs track by $index">
-                        <div class="list-view-pf-actions">
-                          <!-- delete pasted MAC -->
-                          <button type="button" class="btn btn-danger" ng-click="deletePastedMac($index)">
-                            {{ 'Delete' | translate }}
-                          </button>
-                        </div>
-                        <div class="list-view-pf-main-info">
-                          <div class="list-view-pf-left">
-                            <span
-                              class="fa fa-phone list-view-pf-icon-sm {{pastedModels[$index] ? '' : 'disabled'}}"></span>
-                          </div>
-                          <div class="list-view-pf-body">
-                            <div class="list-view-pf-description">
-                              <div class="list-group-item-heading {{pastedModels[$index] ? '' : 'disabled'}}">
-                                <!-- MAC -->
-                                <input type="text" id="paste-mac-{{$index}}" name="pasteMac{{$index}}"
-                                  class="form-control" ng-model="pastedMacs[$index]"
-                                  ng-change="inputMacPasteChanged({{$index}})" maxlength="17">
-                                <span ng-show="showPasteMacError[$index]"
-                                  class="help-block">{{ 'Enter a valid MAC address' | translate }}</span>
-                              </div>
-                              <div class="list-group-item-text">
-                                <!-- model -->
-                                <select class="form-control border-color-bbb" pf-select="{ noneSelectedText: '-' }"
-                                  ng-model="pastedModels[$index]"
-                                  ng-options="model.display_name for model in pasteFilteredModels[$index] | orderBy:orderByValue"
-                                  id="paste-model-{{$index}}">
-                                  <option value="">-</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
               <!-- step 2 - scan networks -->
               <div ng-show="addPhonesStep == 2 && addPhonesType === 'scan'" class="wizard-pf-contents">
                 <form class="form-horizontal" ng-submit="addPhonesManual()">
@@ -240,14 +317,6 @@
                         class="help-block">{{ 'Select a network' | translate }}</span>
                       <span ng-show="showNetworkScanInProgressError"
                         class="help-block">{{ 'This network is already being scanned' | translate }}</span>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label" for="manual-model">{{ 'IP Address' | translate }}</label>
-                    <div class="col-sm-8">
-                      <input ng-model="networkToScan.ip" type="text" class="form-control" disabled></input>
-                      <span ng-show="showNetmaskToScanError"
-                        class="help-block">{{ 'Enter a valid netmask' | translate }}</span>
                     </div>
                   </div>
                   <div class="form-group" ng-class="{ 'has-error': showNetmaskToScanError }">
@@ -272,11 +341,11 @@
               </span>
               <span class="i fa fa-angle-right"></span>
             </button>
-            <!-- finish button -->
+            <!-- add phones button -->
             <button type="button" class="btn btn-primary wizard-pf-next" ng-show="addPhonesStep == addPhonesTotalSteps"
               ng-click="addPhonesFinish()">
               <span class="wizard-pf-button-text">
-                {{ 'Finish' | translate }}
+                {{ 'Add phones' | translate }}
               </span>
             </button>
             <!-- back button -->

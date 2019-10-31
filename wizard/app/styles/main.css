@@ -2271,13 +2271,21 @@ iframe body {
 
 .pasted-mac-area {
   height: 6em !important;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .pasted-macs {
-  height: 550px;
+  height: 400px;
   overflow: auto;
   overflow-x: hidden;
+}
+
+.results-add-phones {
+  border: 1px solid #ededed;
+  height: 100px;
+  overflow: auto;
+  overflow-x: hidden;
+  margin-bottom: 10px;
 }
 
 .cursor-default {
@@ -2349,10 +2357,42 @@ iframe body {
   flex: 1 0 calc(30% - 20px);
 }
 
+.mg-top-20 {
+  margin-top: 20px;
+}
+
 .mg-bottom-15 {
   margin-bottom: 15px;
 }
 
 .mg-bottom-8 {
   margin-bottom: 8px;
+}
+
+.mg-right-5 {
+  margin-right: 5px;
+}
+
+.pasted-mac-indicator {
+  margin-bottom: 10px;
+}
+
+.align-items-stretch {
+  align-items: stretch !important;
+}
+
+.warning {
+  color: #ec7a08 !important;
+}
+
+.page-help {
+  margin-bottom: 25px;
+}
+
+.page-help ul {
+  margin-bottom: 0;
+}
+
+.width-700 {
+  width: 700px;
 }
