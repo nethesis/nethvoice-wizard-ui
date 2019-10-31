@@ -68,10 +68,10 @@ angular
         controller: 'DevicesInventoryCtrl',
         controllerAs: 'devices/inventory'
       })
-      .when('/devices/templates', {
-        templateUrl: 'views/devices/templates.html',
-        controller: 'DevicesTemplatesCtrl',
-        controllerAs: 'devices/templates'
+      .when('/devices/models', {
+        templateUrl: 'views/devices/models.html',
+        controller: 'DevicesModelsCtrl',
+        controllerAs: 'devices/models'
       })
       .when('/configurations', {
         templateUrl: 'views/configurations.html',
@@ -187,11 +187,6 @@ angular
         templateUrl: 'views/apps/phonebook.html',
         controller: 'PhonebookCtrl',
         controllerAs: 'phonebook'
-      })
-      .when('/templates', {
-        templateUrl: 'views/templates.html',
-        controller: 'TemplatesCtrl',
-        controllerAs: 'templates'
       })
       .when('/configurations', {
         templateUrl: 'views/configurations.html',

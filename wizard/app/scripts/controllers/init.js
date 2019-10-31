@@ -53,6 +53,13 @@ angular.module('nethvoiceWizardUiApp')
       $scope.setRandomBackground();
     };
 
+    $scope.isEmpty = function (obj) {
+      for (var prop in obj) {
+        return false;
+      }
+      return true;
+    }
+
     $scope.goTo = function (route, exception, external) {
       if (external) {
         window.open(route, '_blank');

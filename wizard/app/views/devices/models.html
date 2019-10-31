@@ -1,0 +1,329 @@
+<div class="wizard-pf">
+  <div class="wizard-pf-body clearfix">
+    <div ng-if="wizard.isWizard" class="wizard-pf-steps">
+      <ul class="wizard-pf-steps-indicator">
+        <li class="wizard-pf-step {{resolveActiveTab('inventory',2) ? 'active' : ''}}" data-tabgroup="1">
+          <a ng-click="goTo('devices/inventory')"><span class="wizard-pf-step-number">1</span><span
+              class="wizard-pf-step-title">{{'Inventory' | translate}}</span></a>
+        </li>
+        <li class="wizard-pf-step {{resolveActiveTab('models',2) ? 'active' : ''}}" data-tabgroup="2">
+          <a ng-click="goTo('devices/models')"><span class="wizard-pf-step-number">2</span><span
+              class="wizard-pf-step-title">{{'Models' | translate}}</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="wizard-pf-contents adjust-size">
+    <h1 class="control-label centered" for="textInput-markup">{{'Models' | translate}}</h1>
+    <div class="mt-40 mb-10">
+      <button data-toggle="modal" data-target="#newModelModal"
+        class="btn btn-primary btn-lg">{{'Create new model' | translate}}
+      </button>
+      <button class="btn btn-default btn-lg right-align no-margin ng-binding ng-scope">
+        <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
+        {{"Default Settings" | translate}}
+      </button>
+        <!-- <button ng-if="!(allModels | isEmpty)" data-toggle="modal" data-target="#newProfileModal" -->
+
+    </div>
+    <div ng-if="!(allModels | isEmpty)" class="container-fluid">
+      <div class="list-group list-view-pf adjust-margin-extensions no-border">
+        <div ng-repeat="model in allModels" class="adjust-profile-margin">
+          <div id="accordion-markup-{{$index}}">
+            <h1 ng-click="showModel(model.name)" data-toggle="collapse"
+              data-parent="#accordion-markup-{{$index}}" href="#collapse-{{$index}}"
+              class="adjust-header adjust-profile-header">
+              <span class="fa fa-cube card-pf-icon-circle config-title-icon"></span>{{'Model' | translate}}
+              <span class="weight">{{model.name | translate}}</span>
+              <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
+              <div ng-show="model.onSave" class="spinner spinner-sm profile-save-spinner"></div>
+            </h1>
+            <div id="collapse-{{$index}}" ng-if="selectedModel == model.name"
+              class="panel-collapse collapse adjust-profile-body model-container">
+              <div class="panel-body profile-panel">
+                <div class="col-lg-12 profile-list-container mb-0 no-border-bottom">
+                  <div ng-show="loadingVars[model.name]" class="spinner mt-14"></div>
+                  <form ng-show="!loadingVars[model.name]">
+                    <h2>
+                      {{"Settings"| translate}}
+                    </h2>
+                    <div class="form-group mt-30">
+                      <label class="col-sm-12 control-label">{{'Language' | translate}}</label>
+                      <div class="col-sm-12">
+                        <select class="combobox form-control" autocomplete="off">
+                          <option value="" selected="selected">{{'Select Language' | translate}}</option>
+                          <option ng-repeat="(langkey, lang) in uiUtils.language_map" value="{{langkey}}"
+                            on-finish-render="comboboxRepeatEnd">{{langkey | translate}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'Time Zone' | translate}}</label>
+                      <div class="col-sm-12">
+                        <select class="combobox form-control" autocomplete="off">
+                          <option value="" selected="selected">{{'Select Time Zone' | translate}}</option>
+                          <option ng-repeat="(zonekey, zone) in uiUtils.timezone_map" value="{{zonekey}}"
+                            on-finish-render="comboboxRepeatEnd">{{zonekey | translate}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'Time Format' | translate}}</label>
+                      <div class="col-sm-12">
+                        <select class="selectpicker">
+                          <option on-finish-render="selectpickerRepeatEnd" ng-repeat="(timeformatkey, timeformat) in uiUtils.time_format">{{timeformatkey}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'Date Format' | translate}}</label>
+                      <div class="col-sm-12">
+                        <select class="selectpicker">
+                          <option on-finish-render="selectpickerRepeatEnd" ng-repeat="(dateformatkey, dateformat) in uiUtils.date_format">{{dateformatkey}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'Tone Zone' | translate}}</label>
+                      <div class="col-sm-12">
+                        <select class="combobox form-control" autocomplete="off">
+                          <option value="" selected="selected">{{'Select Tone Zone' | translate}}</option>
+                          <option ng-repeat="(tonekey, tone) in uiUtils.tonezone_map" value="{{tonekey}}"
+                            on-finish-render="comboboxRepeatEnd">{{tonekey | translate}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'Phone Web Interface Password' | translate}}</label>
+                      <div class="col-sm-12">
+                        <input ng-model="model.admin_mode_login" placeholder="{{'Insert Web Interface Password' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'Admin Mode Enable' | translate}}</label>
+                      <div class="col-sm-12">
+                        <select class="selectpicker">
+                          <option on-finish-render="selectpickerRepeatEnd" ng-repeat="(adminmodekey, adminmode) in uiUtils.admin_mode">{{adminmodekey}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'Admin Mode Password' | translate}}</label>
+                      <div class="col-sm-12 mb-35">
+                        <input ng-model="model.admin_mode_password" placeholder="{{'Insert Admin Mode Password' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+
+                    <h2>
+                      {{"Preference"| translate}}
+                    </h2>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'Call Waiting' | translate}}</label>
+                      <div class="col-sm-12">
+                        <select class="selectpicker">
+                          <option on-finish-render="selectpickerRepeatEnd" ng-repeat="(callwaitingkey, callwaitingmode) in uiUtils.call_waiting">{{callwaitingkey}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'Default Ringer' | translate}}</label>
+                      <div class="col-sm-12">
+                        <select class="combobox form-control" autocomplete="off">
+                          <option value="" selected="selected">{{'Select Default Ringer' | translate}}</option>
+                          <option ng-repeat="(defaultringerkey, defaultringer) in uiUtils.default_ringer" value="{{defaultringer}}"
+                            on-finish-render="comboboxRepeatEnd">{{defaultringerkey | translate}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'Server LDAP' | translate}}</label>
+                      <div class="col-sm-12">
+                        <input ng-model="model.ldap_server" placeholder="{{'Insert LDAP Server IP ' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'BaseDN LDAP' | translate}}</label>
+                      <div class="col-sm-12">
+                        <input ng-model="model.ldap_base" placeholder="{{'Insert BaseDN LDAP' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'LDAP Server Port' | translate}}</label>
+                      <div class="col-sm-12">
+                        <input ng-model="model.ldap_port" placeholder="{{'Insert LDAP Server Port' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'LDAP Name Filter' | translate}}</label>
+                      <div class="col-sm-12">
+                        <input ng-model="model.ldap_name_filter" placeholder="{{'Insert LDAP Name Filter' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'LDAP Name Attributes' | translate}}</label>
+                      <div class="col-sm-12">
+                        <input ng-model="model.ldap_name_attr" placeholder="{{'Insert LDAP Name Attributes' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'LDAP Display Name' | translate}}</label>
+                      <div class="col-sm-12">
+                        <input ng-model="model.ldap_name_display" placeholder="{{'Insert LDAP Display Name' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'LDAP Number Filter' | translate}}</label>
+                      <div class="col-sm-12">
+                        <input ng-model="model.ldap_number_filter" placeholder="{{'Insert LDAP Number Filter' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'LDAP Number Attributes' | translate}}</label>
+                      <div class="col-sm-12 mb-35">
+                        <input ng-model="model.ldap_number_attr" placeholder="{{'Insert LDAP Number Attributes' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+
+                    <h2>
+                      {{"Network"| translate}}
+                    </h2>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'VLAN Id' | translate}}</label>
+                      <div class="col-sm-12">
+                        <input ng-model="model.svlan_id" placeholder="{{'Insert VLAN Id' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'VLAN Priority' | translate}}</label>
+                      <div class="col-sm-12">
+                        <select class="selectpicker">
+                          <option on-finish-render="selectpickerRepeatEnd" ng-repeat="(vlanprioritykey, vlanprioritymode) in uiUtils.vlan_priority">{{vlanprioritykey}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'VLAN Priority' | translate}}</label>
+                      <div class="col-sm-12">
+                        <select class="selectpicker">
+                          <option on-finish-render="selectpickerRepeatEnd" ng-repeat="(vlanporttaggingkey,vlanporttaggingmode) in uiUtils.vlan_port_tagging">{{vlanporttaggingkey}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'PC port VLAN Id' | translate}}</label>
+                      <div class="col-sm-12">
+                        <input ng-model="model.vlan_pc_id" placeholder="{{'Insert PC port VLAN Id' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-12 mt-22 control-label">{{'PC vlan VLAN Priority' | translate}}</label>
+                      <div class="col-sm-12">
+                        <input ng-model="model.vlan_pc_priority" placeholder="{{'Insert PC vlan VLAN Priority' | translate}}" type="text" class="form-control"></input>
+                      </div>
+                    </div>
+
+                    <!-- <pf-form-group pf-label="Name" required pf-label-class="col-sm-12 mt-10" pf-input-class="col-sm-12">
+                      <input id="name" name="name" ng-model="item.name" type="text" required />
+                    </pf-form-group>
+                    <pf-form-group pf-label="Name" required pf-label-class="col-sm-12 mt-10" pf-input-class="col-sm-12">
+                      <input id="name" name="name" ng-model="item.name" type="text" required />
+                    </pf-form-group>
+                    <pf-form-group pf-label="Name" required pf-label-class="col-sm-12 mt-10" pf-input-class="col-sm-12">
+                      <input id="name" name="name" ng-model="item.name" type="text" required />
+                    </pf-form-group>
+                    <pf-form-group pf-label="Description" pf-label-class="col-sm-12 mt-15"
+                      pf-input-class="col-sm-12 mb-20">
+                      <textarea id="description" name="description" ng-model="item.description">
+                        {{ item.description }}
+                      </textarea>
+                    </pf-form-group> -->
+
+                  </form>
+
+                </div>
+                <button ng-show="!loadingVars[model.name]" ng-click="resetModel(model)" class="btn btn-primary btn-lg profile-button-save mt-35" type="submit">
+                  {{'Save' | translate}}
+                </button>
+                <button ng-show="!loadingVars[model.name]" ng-click="resetModel(model)" class="btn btn-default btn-lg profile-button-save mt-35" type="submit">
+                  {{'Reset' | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- <div ng-if="allModels | isEmpty" class="blank-slate-pf "> -->
+    <div ng-if="false" class="blank-slate-pf ">
+      <div class="blank-slate-pf-icon">
+        <span class="pficon pficon-users"></span>
+      </div>
+      <h1>
+        {{'No models found' | translate}}
+      </h1>
+      <div class="blank-slate-pf-main-action">
+        <button data-toggle="modal" data-target="#newModelModal"
+          class="btn btn-primary btn-lg">{{'Create new model' | translate}}</button>
+      </div>
+    </div>
+  </div>
+
+  <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>
+</div>
+<!-- <div class="modal fade" id="newProfileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{'New profile' | translate}}</h4>
+      </div>
+      <form class="form-horizontal" ng-submit="createNewProfile(newProfile)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
+            <div class="col-sm-9">
+              <input required ng-model="newProfile.name" type="text" class="form-control profile-new-name"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Duplicate from' | translate}}</label>
+            <div class="col-sm-9">
+              <select title="-" pf-select="{ width: '180px' }" ng-model="newProfile.duplicateProfile"
+                ng-options="p as p.name for p in allProfiles | profileList">
+              </select>
+            </div>
+          </div>
+          <div ng-show="newProfile.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
+          <div class="modal-footer submit">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+            <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div> -->

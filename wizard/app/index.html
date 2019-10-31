@@ -133,7 +133,7 @@
         <li data-toggle="collapse" data-parent="#navbar-left" href="#devicesCollapse" ng-if="!wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('devices',1) ? 'active' : ''}}"
           id="users-item-menu">
           <a>
-            <span class="fa fa-phone" title="{{'Devices' | translate}}" data-toggle="tooltip" data-placement="right"></span>
+            <span class="fa fa-cubes" title="{{'Devices' | translate}}" data-toggle="tooltip" data-placement="right"></span>
             <span class="list-group-item-value">{{'Devices' | translate}}</span>
             <span class="badge notifications">{{menuCount.devices}}</span>
           </a>
@@ -142,15 +142,15 @@
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('inventory',2) ? 'active' : ''}}">
             <div ng-click="goTo('devices/inventory')" class="list-group-item-value menu-item-left no-opacity">{{'Inventory' | translate | ellipsis:'1200'}}</div>
           </div>
-          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('templates',2) ? 'active' : ''}}">
-            <div ng-click="goTo('devices/templates')" class="list-group-item-value menu-item-left no-opacity">{{'Templates' | translate | ellipsis:'1200'}}</div>
+          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('models',2) ? 'active' : ''}}">
+            <div ng-click="goTo('devices/models')" class="list-group-item-value menu-item-left no-opacity">{{'Modelli' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
 
         <li ng-click="goTo('/configurations')" ng-if="!wizard.isWizard && !wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('configurations',1) ? 'active' : ''}}"
           id="apps-item-menu">
           <a>
-              <span class="fa fa-tachometer" title="{{'Configurations' | translate}}" data-toggle="tooltip" data-placement="right"></span>
+              <span class="fa fa-wrench" title="{{'Configurations' | translate}}" data-toggle="tooltip" data-placement="right"></span>
               <span class="list-group-item-value">{{'Configurations' | translate | ellipsis:'1200'}}</span>
             </a>
         </li>
@@ -357,7 +357,11 @@
   <script src="scripts/services/languageservice.js"></script>
   <script src="scripts/services/localstorageservice.js"></script>
   <script src="scripts/directives/wizardstep.js"></script>
+  <script src="scripts/directives/repeat_complete.js"></script>
   <script src="scripts/services/loginservice.js"></script>
+  <script src="scripts/services/provisioning/uiservice.js"></script>
+  <script src="scripts/services/provisioning/modelservice.js"></script>
+  <script src="scripts/services/provisioning/phoneservice.js"></script>
   <script src="scripts/services/restservice.js"></script>
   <script src="scripts/services/userservice.js"></script>
   <script src="scripts/services/configservice.js"></script>
@@ -405,7 +409,7 @@
   <script src="scripts/controllers/apps/phonebook.js"></script>
   <script src="scripts/services/phonebookservice.js"></script>
   <script src="scripts/controllers/devices/inventory.js"></script>
-  <script src="scripts/controllers/devices/templates.js"></script>
+  <script src="scripts/controllers/devices/models.js"></script>
   <script src="scripts/controllers/configurations.js"></script>
   <script src="scripts/controllers/apps/bulkdevices.js"></script>
   <!-- endbuild -->
