@@ -8,70 +8,111 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesModelsCtrl', function ($scope, ProvUiService, ModelService, PhoneService, $translate) {
+  .controller('DevicesModelsCtrl', function ($scope, ModelService, ProvFanvilService, $translate) {
 
-    $scope.allModels = {}
-    $scope.uiUtils = {}
-    $scope.loadingVars = {}
-    var defaults
+    $scope.inventoryModels = {}
+    $scope.loadingModels = {}
+    $scope.currentModel = {}
 
-    var getUiUtils = function () {
-      $scope.uiUtils = ProvUiService.uiUtils()
+    var getModelUI = function (model) {
+      switch (model.brand.toLowerCase()) {
+
+        case "fanvil":
+          var map = getModelMap(ProvFanvilService.map(), model.name)
+          return {
+            map: map,
+            settings: ProvFanvilService.settingsUI(map),
+            preference: ProvFanvilService.preferenceUI(map),
+            network: ProvFanvilService.networkUI(map),
+            provisioning: ProvFanvilService.provisioningUI(map),
+            softKeys: ProvFanvilService.softKeysUI(map),
+            lineKeys: ProvFanvilService.lineKeysUI(map),
+            expKeys: ProvFanvilService.expKeysUI(map),
+          }
+          break;
+      
+        case "gigaset":
+          return {}
+          break;
+      
+        case "sangoma":
+          return {}
+          break;
+          
+        case "snom":
+          return {}
+          break;
+
+        case "yealink":
+          return {}
+          break;
+
+        default:
+          return null
+          break;
+      }
+
     }
 
-    var initDefaults = function () {
-      ModelService.getDefaults().then(function (res) {
-        defaults = res.data
-      }, function (err) {
-        console.log(err)
-      })
+    var getModelMap = function (map, name) {
+      for (var fam in map) {
+        if (map[fam][name] != null) {
+          return map[fam][name]
+        }
+      }
     }
 
+    // get all models
     var getModels = function () {
       ModelService.getModels().then(function (res) {
-        for (var m in res.data) {
-          $scope.allModels[res.data[m].name] = res.data[m]
-        }
+        $scope.inventoryModels = res.data
       }, function (err) {
         console.log(err)
       })
     }
 
-    var initModelVars = function (name) {
-      if ($scope.selectedModel != name) {
-        $scope.loadingVars[name] = true
+    $scope.isKeysSection = function (keyName) {
+      if (keyName.toLowerCase().includes("keys")) {
+        return true
+      } else {
+        return false
       }
-      ModelService.getModel(name).then(function (res) {
-        if (res.data.variables && !$scope.isEmpty(res.data.variables)) {
-          $scope.allModels[name].variables = res.data.variables
-        } else {
-          $scope.allModels[name].variables = angular.copy(defaults)
+    }
+
+    $scope.setCurrentModel = function (name) {
+      var nameSplit = name.split("-"),
+          modelName = nameSplit[1],
+          modelBrand = nameSplit[0],
+          modelUI = getModelUI({
+            name: modelName,
+            brand: modelBrand
+          })
+
+      if ($scope.currentModel.name != name) {
+        $scope.loadingModels[name] = true
+      }
+      ModelService.getModel(modelName).then(function (res) {
+        $scope.currentModel = {
+          ui: modelUI,
+          variables: res.data.variables,
+          name: name
         }
+
+        console.log("CURRENT MODEL", $scope.currentModel);
+
         setTimeout(function () {
-          $scope.loadingVars[name] = false
+          $scope.loadingModels[name] = false
           $scope.$apply()
         }, 1000)
-
-        console.log("ALL MODELS", $scope.allModels);
-
       }, function (err) {
         console.log(err)
       })
-    }
-
-    $scope.showModel = function (name) {
-      initModelVars(name)
-      $scope.selectedModel = name
     }
 
     // initialisation
-    var init = function () {
-      getUiUtils()
-      initDefaults()
-      getModels()
-    }
-    init()
+    getModels()
 
+    // dom events
     $scope.$on('comboboxRepeatEnd', function(event, elem) {
       elem.parent().combobox()
     })

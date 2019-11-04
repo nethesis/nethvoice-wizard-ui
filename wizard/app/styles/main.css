@@ -1117,6 +1117,10 @@ a {
   margin-top: 5px;
 }
 
+.grid {
+  display: grid;
+}
+
 .divider {
   border-bottom: 1px solid #d1d1d1;
   width: 100%;

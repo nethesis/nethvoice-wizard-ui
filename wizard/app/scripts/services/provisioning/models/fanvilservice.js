@@ -10,7 +10,7 @@
 angular.module('nethvoiceWizardUiApp')
   .service('ProvFanvilService', function ($q, RestService) {
 
-    this.settingsUi = function () {
+    this.settingsUI = function (modelMap) {
       return {
         "name": "Settings",
         "items": [{
@@ -18,7 +18,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "it",
             "description": "Language",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "English",
                 "value": "en"
               },
@@ -101,7 +101,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "7",
             "description": "Language",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "English",
                 "value": "0"
               },
@@ -201,7 +201,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "4",
             "description": "Time Zone",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "American Samoa",
                 "value": "-44"
               },
@@ -373,7 +373,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "UTC+1",
             "description": "Time Zone Name",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "UTC-11",
                 "value": "UTC-11"
               },
@@ -537,7 +537,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "2",
             "description": "Date Display Format",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "DD MMM WW",
                 "value": "0"
               },
@@ -585,7 +585,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "0",
             "description": "Time Display Format",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "24-hour clock",
                 "value": "0"
               },
@@ -601,7 +601,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "21",
             "description": "Country Tones",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "Australia",
                 "value": "15"
               },
@@ -755,7 +755,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.preferenceUI = function () {
+    this.preferenceUI = function (modelMap) {
       return {
         "name": "Preference",
         "items": [{
@@ -764,7 +764,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "0",
             "description": "Call Waiting",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "Off",
                 "value": "0"
               },
@@ -780,7 +780,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "0",
             "description": "Ring in Headset",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "Disable",
                 "value": "0"
               },
@@ -800,7 +800,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "Type 1",
             "description": "Ring Tones",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "Type 1",
                 "value": "Type 1"
               },
@@ -844,7 +844,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "2",
             "description": "Transfer Mode via DSSkey",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "Blind Transfer",
                 "value": "1"
               },
@@ -912,7 +912,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.networkUI = function () {
+    this.networkUI = function (modelMap) {
       return {
         "name": "Network",
         "items": [{
@@ -920,7 +920,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "0",
             "description": "Enable VLAN",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "OFF",
                 "value": "0"
               },
@@ -941,7 +941,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "0",
             "description": "LAN VLAN Mode",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "follow WAN",
                 "value": "0"
               },
@@ -983,7 +983,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.provisioningUI = function () {
+    this.provisioningUI = function (modelMap) {
       return {
         "name": "Provisioning",
         "items": [{
@@ -991,7 +991,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "66",
             "description": "DHCP Active",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "Option 66",
                 "value": "66"
               },
@@ -1010,7 +1010,7 @@ angular.module('nethvoiceWizardUiApp')
             "default_value": "0",
             "description": "PNP Active",
             "type": "list",
-            "data": [{
+            "options": [{
                 "text": "On",
                 "value": "1"
               },
@@ -1024,7 +1024,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.softKeysUI = function () {
+    this.softKeysUI = function (modelMap) {
       var options = [{
           "text": "Dsskey1",
           "value": "dsskey1"
@@ -1102,28 +1102,28 @@ angular.module('nethvoiceWizardUiApp')
                   "default_value": "dsskey1",
                   "description": "SoftKey 1",
                   "type": "list",
-                  "data": options
+                  "options": options
                 },
                 {
                   "variable": "soft_key2",
                   "default_value": "dss2",
                   "description": "SoftKey 2",
                   "type": "list",
-                  "data": options
+                  "options": options
                 },
                 {
                   "variable": "soft_key3",
                   "default_value": "dnd",
                   "description": "SoftKey 3",
                   "type": "list",
-                  "data": options
+                  "options": options
                 },
                 {
                   "variable": "soft_key4",
                   "default_value": "menu",
                   "description": "SoftKey 4",
                   "type": "list",
-                  "data": options
+                  "options": options
                 }
               ]
             }
@@ -1139,7 +1139,7 @@ angular.module('nethvoiceWizardUiApp')
                   "default_value": "0",
                   "description": "DSS Key {$count} Type",
                   "type": "list",
-                  "data": [{
+                  "options": [{
                       "text": "None",
                       "value": "0"
                     },
@@ -1178,7 +1178,7 @@ angular.module('nethvoiceWizardUiApp')
                   "default_value": "",
                   "description": "DSS Key {$count} SubType",
                   "type": "list",
-                  "data": [{
+                  "options": [{
                       "text": "None",
                       "value": ""
                     },
@@ -1225,7 +1225,7 @@ angular.module('nethvoiceWizardUiApp')
                   "default_value": "",
                   "description": "DSS Key {$count} Line",
                   "type": "list",
-                  "data": [{
+                  "options": [{
                       "text": "None",
                       "value": ""
                     },
@@ -1262,21 +1262,21 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.lineKeysUI = function (model) {
+    this.lineKeysUI = function (modelMap) {
       return {
         "name": "LineKeys",
         "items": [{
           "description": "Line Keys",
           "type": "loop",
           "loop_start": "1",
-          "loop_end": model.linekeys,
+          "loop_end": modelMap.linekeys,
           "data": {
             "items": [{
                 "variable": "linekey_type",
                 "default_value": "0",
                 "description": "Line Key {$count} Type",
                 "type": "list",
-                "data": [{
+                "options": [{
                     "text": "None",
                     "value": "0"
                   },
@@ -1315,7 +1315,7 @@ angular.module('nethvoiceWizardUiApp')
                 "default_value": "",
                 "description": "Line Key {$count} SubType",
                 "type": "list",
-                "data": [{
+                "options": [{
                     "text": "None",
                     "value": ""
                   },
@@ -1370,7 +1370,7 @@ angular.module('nethvoiceWizardUiApp')
                 "default_value": "",
                 "description": "Line Key {$count} Line",
                 "type": "list",
-                "data": [{
+                "options": [{
                     "text": "None",
                     "value": ""
                   },
@@ -1406,10 +1406,143 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    this.expKeysUI = function (modelMap) {
+      return {
+        "name": "ExpKeys",
+        "items": [{
+          "description": "Exp Keys",
+          "type": "loop",
+          "loop_start": "1",
+          "loop_end": modelMap.expkeys.total,
+          "data": {
+            "items": [{
+                "variable": "$exp{{$loop}}key_type",
+                "default_value": "0",
+                "description": "Exp Key {$count} Type",
+                "type": "list",
+                "options": [{
+                    "text": "None",
+                    "value": "0"
+                  },
+                  {
+                    "text": "Memory Key",
+                    "value": "1"
+                  },
+                  {
+                    "text": "Line",
+                    "value": "2"
+                  },
+                  {
+                    "text": "Key Event",
+                    "value": "4"
+                  },
+                  {
+                    "text": "DTMF",
+                    "value": "4"
+                  }
+                ]
+              },
+              {
+                "variable": "$exp{{$loop}}key_label",
+                "default_value": "",
+                "description": "Exp Key {$count} Name",
+                "type": "input"
+              },
+              {
+                "variable": "$exp{{$loop}}key_value",
+                "default_value": "",
+                "description": "Exp Key {$count} Value",
+                "type": "input"
+              },
+              {
+                "variable": "$exp{{$loop}}key_subtype",
+                "default_value": "",
+                "description": "Exp Key {$count} SubType",
+                "type": "list",
+                "options": [{
+                    "text": "None",
+                    "value": ""
+                  },
+                  {
+                    "text": "BLF",
+                    "value": "/bc**"
+                  },
+                  {
+                    "text": "Speed Dial",
+                    "value": "/f"
+                  },
+                  {
+                    "text": "MWI",
+                    "value": "F_MWI"
+                  },
+                  {
+                    "text": "DND",
+                    "value": "F_DND"
+                  },
+                  {
+                    "text": "Redial",
+                    "value": "F_REDIAL"
+                  },
+                  {
+                    "text": "Prefix",
+                    "value": "F_PREFIX:"
+                  },
+                  {
+                    "text": "LDAP",
+                    "value": "F_LDAPCONTACTS:0"
+                  },
+                  {
+                    "text": "Headset",
+                    "value": "F_HEADSET"
+                  },
+                  {
+                    "text": "Call Forward",
+                    "value": "F_CFWD"
+                  }
+                ]
+              },
+              {
+                "variable": "$exp{{$loop}}key_line",
+                "default_value": "",
+                "description": "Exp Key {$count} Line",
+                "type": "list",
+                "options": [{
+                    "text": "None",
+                    "value": ""
+                  },
+                  {
+                    "text": "Line 1",
+                    "value": "@1"
+                  },
+                  {
+                    "text": "Line 2",
+                    "value": "@2"
+                  },
+                  {
+                    "text": "Line 3",
+                    "value": "@3"
+                  }, {
+                    "text": "Line 4",
+                    "value": "@4"
+                  }, {
+                    "text": "Line 5",
+                    "value": "@5"
+                  }, {
+                    "text": "Line 6",
+                    "value": "@6"
+                  }
+                ]
+              }
+            ]
+          }
+        }]
+      }
+    }
+
     this.map = function () {
       return {
-        "xSeries" : {
-          "X1" : {
+        "xSeries": {
+          "X1": {
             "model": "X1",
             "softkeys": true,
             "linekeys": false,
@@ -1418,7 +1551,7 @@ angular.module('nethvoiceWizardUiApp')
               "language_fanvil"
             ]
           },
-         "X3S" : {
+          "X3S": {
             "model": "X1",
             "softkeys": true,
             "linekeys": "2",
@@ -1427,7 +1560,7 @@ angular.module('nethvoiceWizardUiApp')
               "language_fanvil"
             ]
           },
-          "X4" : {
+          "X4": {
             "model": "X4",
             "softkeys": true,
             "linekeys": "30",
@@ -1437,26 +1570,26 @@ angular.module('nethvoiceWizardUiApp')
             ]
           }
         },
-        "XSeries" : {
+        "XSeries": {
           "X5S": {
             "model": "X5S",
             "softkeys": true,
             "linekeys": "40",
             "expkeys": {
               "total": "20",
-              "series": "5"
+              "loops": "5"
             },
             "hidden_variables": [
               "language_fanvil2"
             ]
           },
-          "X6" : {
+          "X6": {
             "model": "X6",
             "softkeys": true,
             "linekey": "60",
             "expkeys": {
               "total": "20",
-              "series": "5"
+              "loops": "5"
             },
             "hidden_variables": [
               "language_fanvil2"
