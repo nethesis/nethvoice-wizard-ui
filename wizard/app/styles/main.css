@@ -2396,3 +2396,21 @@ iframe body {
 .width-700 {
   width: 700px;
 }
+
+/* Inventory */
+#paste-textarea {
+  resize: none;
+}
+
+#inv-new-phone-dialog .popover {
+  width: 500px;
+  max-width: none;
+}
+
+#inv-new-phone-dialog pre {
+  width: 50%;
+}
+
+#inv-new-phone-dialog {
+  text-align: justify;
+}

@@ -107,7 +107,7 @@
     <div class="modal fade" id="paste-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
       aria-hidden="true">
       <div class="modal-dialog width-700">
-        <div class="modal-content">
+        <div class="modal-content" id="inv-new-phone-dialog">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="Close">
               <span class="pficon pficon-close"></span>
@@ -119,6 +119,34 @@
               <div ng-show="!showResultsAddPhones" class="form-group no-margin-bottom">
                 <!-- paste textarea -->
                 <label class="col-sm-4 control-label" for="paste-textarea">
+                  <!-- inline help of mac address format -->
+                  <i class="fa fa-info-circle pointer"
+                    data-toggle="popover"
+                    data-html="true"
+                    data-title='<div class="inv-style-info-mac">{{ "MAC addresses format" | translate }}</div>'
+                    data-placement="bottom"
+                    data-trigger="hover click"
+                    data-viewport='{ "selector": "#inv-new-phone-dialog", "padding": 10 }'
+                    data-content='<div class="inv-style-info-mac">
+                      {{ "inv_help_mac_1" | translate }}.
+                      {{ "inv_help_mac_2" | translate }}.
+                      {{ "inv_help_mac_3" | translate }}.
+                    <p>&nbsp;</p><p>{{ "Example" | translate }}:</p>
+                    <p><pre>
+00:04:13:11:22:31
+0C:38:3E:99:88:72
+00:15:65:55:55:53
+<!-- do not remove this comment -->
+00-04-13-11-22-31
+0C-38-3E-99-88-72
+00-15-65-55-55-53
+<!-- do not remove this comment -->
+000413112231
+0C383E998872
+001565555553
+                    </pre></p>
+                    </div>'>
+                  </i>
                   {{ 'Copy a list of MAC addresses and paste it here' | translate }}
                 </label>
                 <div class="col-sm-8">

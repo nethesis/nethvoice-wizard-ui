@@ -99,7 +99,18 @@ angular.module('nethvoiceWizardUiApp')
       $scope.pendingRequestsAddPhones = 0;
       $scope.showResultsAddPhones = false;
       $('#paste-modal').modal("show");
+      initCopyPasteMacUI();
     }
+
+    let initCopyPasteMacUI = () => {
+      $('[data-toggle=popover]').popovers()
+        .on('hidden.bs.popover', function (e) {
+          $(e.target).data('bs.popover').inState.click = false;
+        });
+        $("#paste-modal").on('shown.bs.modal', function(){
+          $('#paste-textarea').focus();
+      });
+    };
 
     $scope.showManualModal = function () {
       $scope.successfulAddPhones = [];

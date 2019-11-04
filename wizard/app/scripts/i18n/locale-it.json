@@ -630,5 +630,10 @@
   "No phones added": "Nessun telefono aggiunto",
   "phones could not be added": "telefoni non stati aggiunti",
   "All phones have been successfully added": "Tutti i telefoni sono stati aggiunti con successo",
-  "Done": "Fatto"
+  "Done": "Fatto",
+  "MAC addresses format": "Formato indirizzi MAC",
+  "Example": "Esempio",
+  "inv_help_mac_1": "Puoi effettuare il copia/incolla di una lista d'indirizzi MAC da un foglio di calcolo o da un file di testo",
+  "inv_help_mac_2": "La lista deve essere composta da un solo indirizzo MAC per linea",
+  "inv_help_mac_3": "Ogni singolo indirizzo MAC può usare il carattere \"-\" o \":\" o niente come separatore"
 }
