@@ -10,9 +10,743 @@
 angular.module('nethvoiceWizardUiApp')
   .service('ProvFanvilService', function ($q, RestService) {
 
-    this.settingsUI = function (modelMap) {
+    this.map = function () {
       return {
-        "name": "Settings",
+        "xSeries": {
+          "X1": {
+            "model": "X1",
+            "softKeys": true,
+            "lineKeys": false,
+            "expKeys": false,
+            "hidden_variables": [
+              "language_fanvil"
+            ]
+          },
+          "X3S": {
+            "model": "X1",
+            "softKeys": true,
+            "lineKeys": 2,
+            "expKeys": false,
+            "hidden_variables": [
+              "language_fanvil"
+            ]
+          },
+          "X4": {
+            "model": "X4",
+            "softKeys": true,
+            "lineKeys": 30,
+            "expKeys": false,
+            "hidden_variables": [
+              "language_fanvil"
+            ]
+          }
+        },
+        "XSeries": {
+          "X5S": {
+            "model": "X5S",
+            "softKeys": true,
+            "lineKeys": 40,
+            "expKeys": {
+              "total": 20,
+              "loops": 5
+            },
+            "hidden_variables": [
+              "language_fanvil2"
+            ]
+          },
+          "X6": {
+            "model": "X6",
+            "softKeys": true,
+            "lineKeys": 60,
+            "expKeys": {
+              "total": 20,
+              "loops": 5
+            },
+            "hidden_variables": [
+              "language_fanvil2"
+            ]
+          }
+        }
+      }
+
+    }
+
+    this.softKeysUI = function (modelMap) {
+      var options = [{
+          "text": "Dsskey1",
+          "value": "dsskey1"
+        },
+        {
+          "text": "Dsskey2",
+          "value": "dsskey2"
+        },
+        {
+          "text": "Dsskey3",
+          "value": "dsskey3"
+        },
+        {
+          "text": "Dsskey4",
+          "value": "dsskey4"
+        },
+        {
+          "text": "Dsskey5",
+          "value": "dsskey5"
+        },
+        {
+          "text": "Dsskey6",
+          "value": "dsskey6"
+        },
+        {
+          "text": "Dsskey7",
+          "value": "dsskey7"
+        },
+        {
+          "text": "Dsskey8",
+          "value": "dsskey8"
+        },
+        {
+          "text": "Dsskey9",
+          "value": "dsskey9"
+        },
+        {
+          "text": "Dsskey10",
+          "value": "dsskey10"
+        },
+        {
+          "text": "MWI",
+          "value": "mwi"
+        },
+        {
+          "text": "Redial",
+          "value": "redial"
+        },
+        {
+          "text": "Headset",
+          "value": "headset"
+        },
+        {
+          "text": "Call Forward",
+          "value": "cfwd"
+        },
+        {
+          "text": "Menu",
+          "value": "menu"
+        },
+        {
+          "text": "DND",
+          "value": "dnd"
+        }
+      ]
+
+      return {
+        "name": "SoftKeys",
+        "items": [{
+            "description": "SoftKeys",
+            "type": "static",
+            "data": {
+              "items": [{
+                  "variable": "soft_key1",
+                  "default_value": "dsskey1",
+                  "description": "Soft Key 1",
+                  "type": "list",
+                  "options": options
+                },
+                {
+                  "variable": "soft_key2",
+                  "default_value": "dss2",
+                  "description": "Soft Key 2",
+                  "type": "list",
+                  "options": options
+                },
+                {
+                  "variable": "soft_key3",
+                  "default_value": "dnd",
+                  "description": "Soft Key 3",
+                  "type": "list",
+                  "options": options
+                },
+                {
+                  "variable": "soft_key4",
+                  "default_value": "menu",
+                  "description": "Soft Key 4",
+                  "type": "list",
+                  "options": options
+                }
+              ]
+            }
+          },
+          {
+            "description": "DSS Key",
+            "type": "loop",
+            "loop_start": 3,
+            "loop_end": 10,
+            "data": {
+              "items": [{
+                  "variable": "softkey_type",
+                  "default_value": "0",
+                  "description": "DSS Key Type",
+                  "type": "list",
+                  "options": [{
+                      "text": "None",
+                      "value": "0"
+                    },
+                    {
+                      "text": "Memory Key",
+                      "value": "1"
+                    },
+                    {
+                      "text": "Line",
+                      "value": "2"
+                    },
+                    {
+                      "text": "Key Event",
+                      "value": "4"
+                    },
+                    {
+                      "text": "DTMF",
+                      "value": "4"
+                    }
+                  ]
+                },
+                {
+                  "variable": "softkey_label",
+                  "default_value": "",
+                  "description": "DSS Key Name",
+                  "type": "input"
+                },
+                {
+                  "variable": "softkey_value",
+                  "default_value": "",
+                  "description": "DSS Key Value",
+                  "type": "input"
+                },
+                {
+                  "variable": "softkey_subtype",
+                  "default_value": "",
+                  "description": "DSS Key SubType",
+                  "type": "list",
+                  "options": [{
+                      "text": "None",
+                      "value": ""
+                    },
+                    {
+                      "text": "BLF",
+                      "value": "/bc**"
+                    },
+                    {
+                      "text": "Speed Dial",
+                      "value": "/f"
+                    },
+                    {
+                      "text": "MWI",
+                      "value": "F_MWI"
+                    },
+                    {
+                      "text": "DND",
+                      "value": "F_DND"
+                    },
+                    {
+                      "text": "Redial",
+                      "value": "F_REDIAL"
+                    },
+                    {
+                      "text": "Prefix",
+                      "value": "F_PREFIX:"
+                    },
+                    {
+                      "text": "LDAP",
+                      "value": "F_LDAPCONTACTS:0"
+                    },
+                    {
+                      "text": "Headset",
+                      "value": "F_HEADSET"
+                    },
+                    {
+                      "text": "Call Forward",
+                      "value": "F_CFWD"
+                    }
+                  ]
+                },
+                {
+                  "variable": "softkey_line",
+                  "default_value": "",
+                  "description": "DSS Key Line",
+                  "type": "list",
+                  "options": [{
+                      "text": "None",
+                      "value": ""
+                    },
+                    {
+                      "text": "Line 1",
+                      "value": "@1"
+                    },
+                    {
+                      "text": "Line 2",
+                      "value": "@2"
+                    },
+                    {
+                      "text": "Line 3",
+                      "value": "@3"
+                    },
+                    {
+                      "text": "Line 4",
+                      "value": "@4"
+                    },
+                    {
+                      "text": "Line 5",
+                      "value": "@5"
+                    },
+                    {
+                      "text": "Line 6",
+                      "value": "@6"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+
+    this.lineKeysUI = function (modelMap) {
+      return {
+        "name": "LineKey",
+        "items": [{
+          "description": "Line Key",
+          "type": "loop",
+          "loop_start": 1,
+          "loop_end": modelMap.lineKeys,
+          "data": {
+            "items": [{
+                "variable": "linekey_type",
+                "default_value": "0",
+                "description": "Line Key Type",
+                "type": "list",
+                "options": [{
+                    "text": "None",
+                    "value": "0"
+                  },
+                  {
+                    "text": "Memory Key",
+                    "value": "1"
+                  },
+                  {
+                    "text": "Line",
+                    "value": "2"
+                  },
+                  {
+                    "text": "Key Event",
+                    "value": "4"
+                  },
+                  {
+                    "text": "DTMF",
+                    "value": "4"
+                  }
+                ]
+              },
+              {
+                "variable": "linekey_label",
+                "default_value": "",
+                "description": "Line Key Name",
+                "type": "input"
+              },
+              {
+                "variable": "linekey_value",
+                "default_value": "",
+                "description": "Line Key Value",
+                "type": "input"
+              },
+              {
+                "variable": "linekey_subtype",
+                "default_value": "",
+                "description": "Line Key SubType",
+                "type": "list",
+                "options": [{
+                    "text": "None",
+                    "value": ""
+                  },
+                  {
+                    "text": "BLF-BXFER",
+                    "value": "/bb**"
+                  },
+                  {
+                    "text": "BLF-NEWCALL",
+                    "value": "/bc**"
+                  },
+                  {
+                    "text": "BLF-AXFER",
+                    "value": "/ba**"
+                  },
+                  {
+                    "text": "Speed Dial",
+                    "value": "/f"
+                  },
+                  {
+                    "text": "MWI",
+                    "value": "F_MWI"
+                  },
+                  {
+                    "text": "DND",
+                    "value": "F_DND"
+                  },
+                  {
+                    "text": "Redial",
+                    "value": "F_REDIAL"
+                  },
+                  {
+                    "text": "Prefix",
+                    "value": "F_PREFIX:"
+                  },
+                  {
+                    "text": "LDAP",
+                    "value": "F_LDAPCONTACTS:0"
+                  },
+                  {
+                    "text": "Headset",
+                    "value": "F_HEADSET"
+                  },
+                  {
+                    "text": "Call Forward",
+                    "value": "F_CFWD"
+                  }
+                ]
+              },
+              {
+                "variable": "linekey_line",
+                "default_value": "",
+                "description": "Line Key Line",
+                "type": "list",
+                "options": [{
+                    "text": "None",
+                    "value": ""
+                  },
+                  {
+                    "text": "Line 1",
+                    "value": "@1"
+                  },
+                  {
+                    "text": "Line 2",
+                    "value": "@2"
+                  },
+                  {
+                    "text": "Line 3",
+                    "value": "@3"
+                  },
+                  {
+                    "text": "Line 4",
+                    "value": "@4"
+                  },
+                  {
+                    "text": "Line 5",
+                    "value": "@5"
+                  },
+                  {
+                    "text": "Line 6",
+                    "value": "@6"
+                  }
+                ]
+              }
+            ]
+          }
+        }]
+      }
+    }
+
+    this.expKeysUI = function (modelMap) {
+      return {
+        "name": "ExpKeys",
+        "items": [{
+          "description": "Exp Key",
+          "type": "loop",
+          "loop_start": 1,
+          "loop_end": modelMap.expKeys.total,
+          "loops": modelMap.expKeys.loops,
+          "data": {
+            "items": [{
+                "variable": "$exp{{$loop}}key_type",
+                "default_value": "0",
+                "description": "Exp Key Type",
+                "type": "list",
+                "options": [{
+                    "text": "None",
+                    "value": "0"
+                  },
+                  {
+                    "text": "Memory Key",
+                    "value": "1"
+                  },
+                  {
+                    "text": "Line",
+                    "value": "2"
+                  },
+                  {
+                    "text": "Key Event",
+                    "value": "4"
+                  },
+                  {
+                    "text": "DTMF",
+                    "value": "4"
+                  }
+                ]
+              },
+              {
+                "variable": "$exp{{$loop}}key_label",
+                "default_value": "",
+                "description": "Exp Key Name",
+                "type": "input"
+              },
+              {
+                "variable": "$exp{{$loop}}key_value",
+                "default_value": "",
+                "description": "Exp Key Value",
+                "type": "input"
+              },
+              {
+                "variable": "$exp{{$loop}}key_subtype",
+                "default_value": "",
+                "description": "Exp Key SubType",
+                "type": "list",
+                "options": [{
+                    "text": "None",
+                    "value": ""
+                  },
+                  {
+                    "text": "BLF",
+                    "value": "/bc**"
+                  },
+                  {
+                    "text": "Speed Dial",
+                    "value": "/f"
+                  },
+                  {
+                    "text": "MWI",
+                    "value": "F_MWI"
+                  },
+                  {
+                    "text": "DND",
+                    "value": "F_DND"
+                  },
+                  {
+                    "text": "Redial",
+                    "value": "F_REDIAL"
+                  },
+                  {
+                    "text": "Prefix",
+                    "value": "F_PREFIX:"
+                  },
+                  {
+                    "text": "LDAP",
+                    "value": "F_LDAPCONTACTS:0"
+                  },
+                  {
+                    "text": "Headset",
+                    "value": "F_HEADSET"
+                  },
+                  {
+                    "text": "Call Forward",
+                    "value": "F_CFWD"
+                  }
+                ]
+              },
+              {
+                "variable": "$exp{{$loop}}key_line",
+                "default_value": "",
+                "description": "Exp Key Line",
+                "type": "list",
+                "options": [{
+                    "text": "None",
+                    "value": ""
+                  },
+                  {
+                    "text": "Line 1",
+                    "value": "@1"
+                  },
+                  {
+                    "text": "Line 2",
+                    "value": "@2"
+                  },
+                  {
+                    "text": "Line 3",
+                    "value": "@3"
+                  }, {
+                    "text": "Line 4",
+                    "value": "@4"
+                  }, {
+                    "text": "Line 5",
+                    "value": "@5"
+                  }, {
+                    "text": "Line 6",
+                    "value": "@6"
+                  }
+                ]
+              }
+            ]
+          }
+        }]
+      }
+    }
+
+    this.preferenceUI = function (modelMap) {
+      return {
+        "name": "Preference",
+        "items": [{
+            "category": "features",
+            "variable": "call_waiting",
+            "default_value": "0",
+            "description": "Call Waiting",
+            "type": "list",
+            "options": [{
+                "text": "Off",
+                "value": "0"
+              },
+              {
+                "text": "On",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "category": "preference",
+            "variable": "audio_fanvil",
+            "default_value": "0",
+            "description": "Ring in Headset",
+            "type": "list",
+            "options": [{
+                "text": "Disable",
+                "value": "0"
+              },
+              {
+                "text": "Enable",
+                "value": "1"
+              },
+              {
+                "text": "Group Ring",
+                "value": "2"
+              }
+            ]
+          },
+          {
+            "category": "preference",
+            "variable": "default_ringtone",
+            "default_value": "Type 1",
+            "description": "Ring Tones",
+            "type": "list",
+            "options": [{
+                "text": "Type 1",
+                "value": "Type 1"
+              },
+              {
+                "text": "Type 2",
+                "value": "Type 2"
+              },
+              {
+                "text": "Type 3",
+                "value": "Type 3"
+              },
+              {
+                "text": "Type 4",
+                "value": "Type 4"
+              },
+              {
+                "text": "Type 5",
+                "value": "Type 5"
+              },
+              {
+                "text": "Type 6",
+                "value": "Type 6"
+              },
+              {
+                "text": "Type 7",
+                "value": "Type 7"
+              },
+              {
+                "text": "Type 8",
+                "value": "Type 8"
+              },
+              {
+                "text": "Type 9",
+                "value": "Type 9"
+              }
+            ]
+          },
+          {
+            "category": "features",
+            "variable": "dss_transfer",
+            "default_value": "2",
+            "description": "Transfer Mode via DSSkey",
+            "type": "list",
+            "options": [{
+                "text": "Blind Transfer",
+                "value": "1"
+              },
+              {
+                "text": "Attended Transfer",
+                "value": "2"
+              },
+              {
+                "text": "Make a new Call",
+                "value": "3"
+              },
+              {
+                "text": "Conference Call",
+                "value": "4"
+              },
+              {
+                "text": "New Call",
+                "value": "5"
+              }
+            ]
+          },
+          {
+            "variable": "ldap_server",
+            "default_value": "{$server.ip.1}",
+            "description": "Server LDAP",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_base",
+            "default_value": "dc=phonebook,dc=nh",
+            "description": "BaseDN LDAP",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_port",
+            "default_value": "10389",
+            "description": "LDAP Server Port",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_name_filter",
+            "default_value": "(|(cn=%)(o=%))",
+            "description": "LDAP Name Filter",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_name_attr",
+            "default_value": "cn o",
+            "description": "LDAP Name Attributes",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_name_display",
+            "default_value": "cn",
+            "description": "LDAP Display Name",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_number_filter",
+            "default_value": "(|(telephoneNumber=%)(mobile=%)(homePhone=%))",
+            "description": "LDAP Number Filter",
+            "type": "input"
+          }
+        ]
+      }
+    }
+
+    this.generalUI = function (modelMap) {
+      return {
+        "name": "General",
         "items": [{
             "variable": "language_fanvil",
             "default_value": "it",
@@ -755,163 +1489,6 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.preferenceUI = function (modelMap) {
-      return {
-        "name": "Preference",
-        "items": [{
-            "category": "features",
-            "variable": "call_waiting",
-            "default_value": "0",
-            "description": "Call Waiting",
-            "type": "list",
-            "options": [{
-                "text": "Off",
-                "value": "0"
-              },
-              {
-                "text": "On",
-                "value": "1"
-              }
-            ]
-          },
-          {
-            "category": "preference",
-            "variable": "audio_fanvil",
-            "default_value": "0",
-            "description": "Ring in Headset",
-            "type": "list",
-            "options": [{
-                "text": "Disable",
-                "value": "0"
-              },
-              {
-                "text": "Enable",
-                "value": "1"
-              },
-              {
-                "text": "Group Ring",
-                "value": "2"
-              }
-            ]
-          },
-          {
-            "category": "preference",
-            "variable": "default_ringtone",
-            "default_value": "Type 1",
-            "description": "Ring Tones",
-            "type": "list",
-            "options": [{
-                "text": "Type 1",
-                "value": "Type 1"
-              },
-              {
-                "text": "Type 2",
-                "value": "Type 2"
-              },
-              {
-                "text": "Type 3",
-                "value": "Type 3"
-              },
-              {
-                "text": "Type 4",
-                "value": "Type 4"
-              },
-              {
-                "text": "Type 5",
-                "value": "Type 5"
-              },
-              {
-                "text": "Type 6",
-                "value": "Type 6"
-              },
-              {
-                "text": "Type 7",
-                "value": "Type 7"
-              },
-              {
-                "text": "Type 8",
-                "value": "Type 8"
-              },
-              {
-                "text": "Type 9",
-                "value": "Type 9"
-              }
-            ]
-          },
-          {
-            "category": "features",
-            "variable": "dss_transfer",
-            "default_value": "2",
-            "description": "Transfer Mode via DSSkey",
-            "type": "list",
-            "options": [{
-                "text": "Blind Transfer",
-                "value": "1"
-              },
-              {
-                "text": "Attended Transfer",
-                "value": "2"
-              },
-              {
-                "text": "Make a new Call",
-                "value": "3"
-              },
-              {
-                "text": "Conference Call",
-                "value": "4"
-              },
-              {
-                "text": "New Call",
-                "value": "5"
-              }
-            ]
-          },
-          {
-            "variable": "ldap_server",
-            "default_value": "{$server.ip.1}",
-            "description": "Server LDAP",
-            "type": "input"
-          },
-          {
-            "variable": "ldap_base",
-            "default_value": "dc=phonebook,dc=nh",
-            "description": "BaseDN LDAP",
-            "type": "input"
-          },
-          {
-            "variable": "ldap_port",
-            "default_value": "10389",
-            "description": "LDAP Server Port",
-            "type": "input"
-          },
-          {
-            "variable": "ldap_name_filter",
-            "default_value": "(|(cn=%)(o=%))",
-            "description": "LDAP Name Filter",
-            "type": "input"
-          },
-          {
-            "variable": "ldap_name_attr",
-            "default_value": "cn o",
-            "description": "LDAP Name Attributes",
-            "type": "input"
-          },
-          {
-            "variable": "ldap_name_display",
-            "default_value": "cn",
-            "description": "LDAP Display Name",
-            "type": "input"
-          },
-          {
-            "variable": "ldap_number_filter",
-            "default_value": "(|(telephoneNumber=%)(mobile=%)(homePhone=%))",
-            "description": "LDAP Number Filter",
-            "type": "input"
-          }
-        ]
-      }
-    }
-
     this.networkUI = function (modelMap) {
       return {
         "name": "Network",
@@ -1022,582 +1599,6 @@ angular.module('nethvoiceWizardUiApp')
           }
         ]
       }
-    }
-
-    this.softKeysUI = function (modelMap) {
-      var options = [{
-          "text": "Dsskey1",
-          "value": "dsskey1"
-        },
-        {
-          "text": "Dsskey2",
-          "value": "dsskey2"
-        },
-        {
-          "text": "Dsskey3",
-          "value": "dsskey3"
-        },
-        {
-          "text": "Dsskey4",
-          "value": "dsskey4"
-        },
-        {
-          "text": "Dsskey5",
-          "value": "dsskey5"
-        },
-        {
-          "text": "Dsskey6",
-          "value": "dsskey6"
-        },
-        {
-          "text": "Dsskey7",
-          "value": "dsskey7"
-        },
-        {
-          "text": "Dsskey8",
-          "value": "dsskey8"
-        },
-        {
-          "text": "Dsskey9",
-          "value": "dsskey9"
-        },
-        {
-          "text": "Dsskey10",
-          "value": "dsskey10"
-        },
-        {
-          "text": "MWI",
-          "value": "mwi"
-        },
-        {
-          "text": "Redial",
-          "value": "redial"
-        },
-        {
-          "text": "Headset",
-          "value": "headset"
-        },
-        {
-          "text": "Call Forward",
-          "value": "cfwd"
-        },
-        {
-          "text": "Menu",
-          "value": "menu"
-        },
-        {
-          "text": "DND",
-          "value": "dnd"
-        }
-      ]
-
-      return {
-        "name": "SoftKeys",
-        "items": [{
-            "description": "SoftKeys (1-4)",
-            "type": "static",
-            "data": {
-              "items": [{
-                  "variable": "soft_key1",
-                  "default_value": "dsskey1",
-                  "description": "SoftKey 1",
-                  "type": "list",
-                  "options": options
-                },
-                {
-                  "variable": "soft_key2",
-                  "default_value": "dss2",
-                  "description": "SoftKey 2",
-                  "type": "list",
-                  "options": options
-                },
-                {
-                  "variable": "soft_key3",
-                  "default_value": "dnd",
-                  "description": "SoftKey 3",
-                  "type": "list",
-                  "options": options
-                },
-                {
-                  "variable": "soft_key4",
-                  "default_value": "menu",
-                  "description": "SoftKey 4",
-                  "type": "list",
-                  "options": options
-                }
-              ]
-            }
-          },
-          {
-            "description": "DSS Keys (3-10)",
-            "type": "loop",
-            "loop_start": "3",
-            "loop_end": "10",
-            "data": {
-              "items": [{
-                  "variable": "softkey_type",
-                  "default_value": "0",
-                  "description": "DSS Key {$count} Type",
-                  "type": "list",
-                  "options": [{
-                      "text": "None",
-                      "value": "0"
-                    },
-                    {
-                      "text": "Memory Key",
-                      "value": "1"
-                    },
-                    {
-                      "text": "Line",
-                      "value": "2"
-                    },
-                    {
-                      "text": "Key Event",
-                      "value": "4"
-                    },
-                    {
-                      "text": "DTMF",
-                      "value": "4"
-                    }
-                  ]
-                },
-                {
-                  "variable": "softkey_label",
-                  "default_value": "",
-                  "description": "DSS Key {$count} Name",
-                  "type": "input"
-                },
-                {
-                  "variable": "softkey_value",
-                  "default_value": "",
-                  "description": "DSS Key {$count} Value",
-                  "type": "input"
-                },
-                {
-                  "variable": "softkey_subtype",
-                  "default_value": "",
-                  "description": "DSS Key {$count} SubType",
-                  "type": "list",
-                  "options": [{
-                      "text": "None",
-                      "value": ""
-                    },
-                    {
-                      "text": "BLF",
-                      "value": "/bc**"
-                    },
-                    {
-                      "text": "Speed Dial",
-                      "value": "/f"
-                    },
-                    {
-                      "text": "MWI",
-                      "value": "F_MWI"
-                    },
-                    {
-                      "text": "DND",
-                      "value": "F_DND"
-                    },
-                    {
-                      "text": "Redial",
-                      "value": "F_REDIAL"
-                    },
-                    {
-                      "text": "Prefix",
-                      "value": "F_PREFIX:"
-                    },
-                    {
-                      "text": "LDAP",
-                      "value": "F_LDAPCONTACTS:0"
-                    },
-                    {
-                      "text": "Headset",
-                      "value": "F_HEADSET"
-                    },
-                    {
-                      "text": "Call Forward",
-                      "value": "F_CFWD"
-                    }
-                  ]
-                },
-                {
-                  "variable": "softkey_line",
-                  "default_value": "",
-                  "description": "DSS Key {$count} Line",
-                  "type": "list",
-                  "options": [{
-                      "text": "None",
-                      "value": ""
-                    },
-                    {
-                      "text": "Line 1",
-                      "value": "@1"
-                    },
-                    {
-                      "text": "Line 2",
-                      "value": "@2"
-                    },
-                    {
-                      "text": "Line 3",
-                      "value": "@3"
-                    },
-                    {
-                      "text": "Line 4",
-                      "value": "@4"
-                    },
-                    {
-                      "text": "Line 5",
-                      "value": "@5"
-                    },
-                    {
-                      "text": "Line 6",
-                      "value": "@6"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-
-    this.lineKeysUI = function (modelMap) {
-      return {
-        "name": "LineKeys",
-        "items": [{
-          "description": "Line Keys",
-          "type": "loop",
-          "loop_start": "1",
-          "loop_end": modelMap.linekeys,
-          "data": {
-            "items": [{
-                "variable": "linekey_type",
-                "default_value": "0",
-                "description": "Line Key {$count} Type",
-                "type": "list",
-                "options": [{
-                    "text": "None",
-                    "value": "0"
-                  },
-                  {
-                    "text": "Memory Key",
-                    "value": "1"
-                  },
-                  {
-                    "text": "Line",
-                    "value": "2"
-                  },
-                  {
-                    "text": "Key Event",
-                    "value": "4"
-                  },
-                  {
-                    "text": "DTMF",
-                    "value": "4"
-                  }
-                ]
-              },
-              {
-                "variable": "linekey_label",
-                "default_value": "",
-                "description": "Line Key {$count} Name",
-                "type": "input"
-              },
-              {
-                "variable": "linekey_value",
-                "default_value": "",
-                "description": "Line Key {$count} Value",
-                "type": "input"
-              },
-              {
-                "variable": "linekey_subtype",
-                "default_value": "",
-                "description": "Line Key {$count} SubType",
-                "type": "list",
-                "options": [{
-                    "text": "None",
-                    "value": ""
-                  },
-                  {
-                    "text": "BLF-BXFER",
-                    "value": "/bb**"
-                  },
-                  {
-                    "text": "BLF-NEWCALL",
-                    "value": "/bc**"
-                  },
-                  {
-                    "text": "BLF-AXFER",
-                    "value": "/ba**"
-                  },
-                  {
-                    "text": "Speed Dial",
-                    "value": "/f"
-                  },
-                  {
-                    "text": "MWI",
-                    "value": "F_MWI"
-                  },
-                  {
-                    "text": "DND",
-                    "value": "F_DND"
-                  },
-                  {
-                    "text": "Redial",
-                    "value": "F_REDIAL"
-                  },
-                  {
-                    "text": "Prefix",
-                    "value": "F_PREFIX:"
-                  },
-                  {
-                    "text": "LDAP",
-                    "value": "F_LDAPCONTACTS:0"
-                  },
-                  {
-                    "text": "Headset",
-                    "value": "F_HEADSET"
-                  },
-                  {
-                    "text": "Call Forward",
-                    "value": "F_CFWD"
-                  }
-                ]
-              },
-              {
-                "variable": "linekey_line",
-                "default_value": "",
-                "description": "Line Key {$count} Line",
-                "type": "list",
-                "options": [{
-                    "text": "None",
-                    "value": ""
-                  },
-                  {
-                    "text": "Line 1",
-                    "value": "@1"
-                  },
-                  {
-                    "text": "Line 2",
-                    "value": "@2"
-                  },
-                  {
-                    "text": "Line 3",
-                    "value": "@3"
-                  },
-                  {
-                    "text": "Line 4",
-                    "value": "@4"
-                  },
-                  {
-                    "text": "Line 5",
-                    "value": "@5"
-                  },
-                  {
-                    "text": "Line 6",
-                    "value": "@6"
-                  }
-                ]
-              }
-            ]
-          }
-        }]
-      }
-    }
-
-    this.expKeysUI = function (modelMap) {
-      return {
-        "name": "ExpKeys",
-        "items": [{
-          "description": "Exp Keys",
-          "type": "loop",
-          "loop_start": "1",
-          "loop_end": modelMap.expkeys.total,
-          "data": {
-            "items": [{
-                "variable": "$exp{{$loop}}key_type",
-                "default_value": "0",
-                "description": "Exp Key {$count} Type",
-                "type": "list",
-                "options": [{
-                    "text": "None",
-                    "value": "0"
-                  },
-                  {
-                    "text": "Memory Key",
-                    "value": "1"
-                  },
-                  {
-                    "text": "Line",
-                    "value": "2"
-                  },
-                  {
-                    "text": "Key Event",
-                    "value": "4"
-                  },
-                  {
-                    "text": "DTMF",
-                    "value": "4"
-                  }
-                ]
-              },
-              {
-                "variable": "$exp{{$loop}}key_label",
-                "default_value": "",
-                "description": "Exp Key {$count} Name",
-                "type": "input"
-              },
-              {
-                "variable": "$exp{{$loop}}key_value",
-                "default_value": "",
-                "description": "Exp Key {$count} Value",
-                "type": "input"
-              },
-              {
-                "variable": "$exp{{$loop}}key_subtype",
-                "default_value": "",
-                "description": "Exp Key {$count} SubType",
-                "type": "list",
-                "options": [{
-                    "text": "None",
-                    "value": ""
-                  },
-                  {
-                    "text": "BLF",
-                    "value": "/bc**"
-                  },
-                  {
-                    "text": "Speed Dial",
-                    "value": "/f"
-                  },
-                  {
-                    "text": "MWI",
-                    "value": "F_MWI"
-                  },
-                  {
-                    "text": "DND",
-                    "value": "F_DND"
-                  },
-                  {
-                    "text": "Redial",
-                    "value": "F_REDIAL"
-                  },
-                  {
-                    "text": "Prefix",
-                    "value": "F_PREFIX:"
-                  },
-                  {
-                    "text": "LDAP",
-                    "value": "F_LDAPCONTACTS:0"
-                  },
-                  {
-                    "text": "Headset",
-                    "value": "F_HEADSET"
-                  },
-                  {
-                    "text": "Call Forward",
-                    "value": "F_CFWD"
-                  }
-                ]
-              },
-              {
-                "variable": "$exp{{$loop}}key_line",
-                "default_value": "",
-                "description": "Exp Key {$count} Line",
-                "type": "list",
-                "options": [{
-                    "text": "None",
-                    "value": ""
-                  },
-                  {
-                    "text": "Line 1",
-                    "value": "@1"
-                  },
-                  {
-                    "text": "Line 2",
-                    "value": "@2"
-                  },
-                  {
-                    "text": "Line 3",
-                    "value": "@3"
-                  }, {
-                    "text": "Line 4",
-                    "value": "@4"
-                  }, {
-                    "text": "Line 5",
-                    "value": "@5"
-                  }, {
-                    "text": "Line 6",
-                    "value": "@6"
-                  }
-                ]
-              }
-            ]
-          }
-        }]
-      }
-    }
-
-    this.map = function () {
-      return {
-        "xSeries": {
-          "X1": {
-            "model": "X1",
-            "softkeys": true,
-            "linekeys": false,
-            "expkeys": false,
-            "hidden_variables": [
-              "language_fanvil"
-            ]
-          },
-          "X3S": {
-            "model": "X1",
-            "softkeys": true,
-            "linekeys": "2",
-            "expkeys": false,
-            "hidden_variables": [
-              "language_fanvil"
-            ]
-          },
-          "X4": {
-            "model": "X4",
-            "softkeys": true,
-            "linekeys": "30",
-            "expkeys": false,
-            "hidden_variables": [
-              "language_fanvil"
-            ]
-          }
-        },
-        "XSeries": {
-          "X5S": {
-            "model": "X5S",
-            "softkeys": true,
-            "linekeys": "40",
-            "expkeys": {
-              "total": "20",
-              "loops": "5"
-            },
-            "hidden_variables": [
-              "language_fanvil2"
-            ]
-          },
-          "X6": {
-            "model": "X6",
-            "softkeys": true,
-            "linekey": "60",
-            "expkeys": {
-              "total": "20",
-              "loops": "5"
-            },
-            "hidden_variables": [
-              "language_fanvil2"
-            ]
-          }
-        }
-      }
-
     }
 
   })

@@ -8,11 +8,17 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesModelsCtrl', function ($scope, ModelService, ProvFanvilService, $translate) {
+  .controller('DevicesModelsCtrl', function ($scope, ModelService, ProvFanvilService, $translate, $timeout) {
 
     $scope.inventoryModels = {}
     $scope.loadingModels = {}
-    $scope.currentModel = {}
+    $scope.currentModel = {
+      ui: {},
+      variables: {},
+      name: {},
+      loadingSections: {},
+      openedSection: ""
+    }
 
     var getModelUI = function (model) {
       switch (model.brand.toLowerCase()) {
@@ -21,13 +27,13 @@ angular.module('nethvoiceWizardUiApp')
           var map = getModelMap(ProvFanvilService.map(), model.name)
           return {
             map: map,
-            settings: ProvFanvilService.settingsUI(map),
-            preference: ProvFanvilService.preferenceUI(map),
-            network: ProvFanvilService.networkUI(map),
-            provisioning: ProvFanvilService.provisioningUI(map),
             softKeys: ProvFanvilService.softKeysUI(map),
             lineKeys: ProvFanvilService.lineKeysUI(map),
             expKeys: ProvFanvilService.expKeysUI(map),
+            preference: ProvFanvilService.preferenceUI(map),
+            general: ProvFanvilService.generalUI(map),
+            network: ProvFanvilService.networkUI(map),
+            provisioning: ProvFanvilService.provisioningUI(map),
           }
           break;
       
@@ -79,6 +85,26 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.isExpKeysSection = function (keyName) {
+      if (keyName.toLowerCase().includes("exp")) {
+        return true
+      } else {
+        return false
+      }
+    }
+
+    $scope.openSection = function (sectionkey) {
+      delete $scope.currentModel.ui[sectionkey].showingKeys
+      if ($scope.currentModel.openedSection != sectionkey) {
+        $scope.currentModel.loadingSections[sectionkey] = true
+      }
+      $scope.currentModel.openedSection = sectionkey
+      $timeout(function () {
+        $scope.currentModel.loadingSections[sectionkey] = false
+        $scope.$apply()
+      }, 1000)
+    }
+
     $scope.setCurrentModel = function (name) {
       var nameSplit = name.split("-"),
           modelName = nameSplit[1],
@@ -92,14 +118,11 @@ angular.module('nethvoiceWizardUiApp')
         $scope.loadingModels[name] = true
       }
       ModelService.getModel(modelName).then(function (res) {
-        $scope.currentModel = {
-          ui: modelUI,
-          variables: res.data.variables,
-          name: name
-        }
-
-        console.log("CURRENT MODEL", $scope.currentModel);
-
+        $scope.currentModel.ui = modelUI
+        $scope.currentModel.variables = res.data.variables
+        $scope.currentModel.name = name
+        $scope.currentModel.openedSection = ""
+        $scope.currentModel.loadingSections = {}
         setTimeout(function () {
           $scope.loadingModels[name] = false
           $scope.$apply()

@@ -25,86 +25,231 @@
     </div>
     <div ng-if="!(inventoryModels | isEmpty)" class="container-fluid">
       <div class="list-group list-view-pf adjust-margin-extensions no-border">
-        <div ng-repeat="model in inventoryModels" class="adjust-profile-margin">
-          <div id="accordion-markup-{{$index}}">
-            <h1 ng-click="setCurrentModel(model.name)" data-toggle="collapse" data-parent="#accordion-markup-{{$index}}"
-              href="#collapse-{{$index}}" class="adjust-header adjust-profile-header">
+        <div ng-repeat="model in inventoryModels track by model.name" class="adjust-profile-margin">
+          <div id="accordion-models-{{$index}}">
+            <h1 ng-click="setCurrentModel(model.name)" data-toggle="collapse" data-parent="#accordion-model-{{$index}}"
+              href="#collapse-model-{{$index}}" class="adjust-header adjust-profile-header">
               <span class="fa fa-cube card-pf-icon-circle config-title-icon"></span>{{'Model' | translate}}
-              <span class="weight">{{model.name | translate}}</span>
+              <span class="weight">{{::model.name | translate}}</span>
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
-              <div ng-show="model.onSave" class="spinner spinner-sm profile-save-spinner"></div>
             </h1>
-            <div id="collapse-{{$index}}" ng-if="currentModel.name == model.name"
+            <div id="collapse-model-{{$index}}" ng-if="currentModel.name == model.name"
               class="panel-collapse collapse adjust-profile-body model-container">
               <div class="panel-body profile-panel">
                 <div class="col-lg-12 profile-list-container mb-0 no-border-bottom">
                   <div ng-show="loadingModels[model.name]" class="spinner mt-14"></div>
-                  <form ng-show="!loadingModels[model.name]">
+                  <div ng-show="!loadingModels[model.name]">
+                    <!-- start reusable parte of the ui -->
+                    <form id="currentModelForm">
+                      <!-- sections -->
+                      <div ng-repeat="(sectionkey, section) in currentModel.ui track by sectionkey">
+                        <!-- if is a key section -->
+                        <div class="mt-30" ng-if="isKeysSection(sectionkey) && currentModel.ui.map[sectionkey]">
+                          <h2 ng-click="openSection(sectionkey)" data-toggle="collapse"
+                            data-parent="#accordion-section-{{$index}}" href="#collapse-section-{{$index}}"
+                            class="adjust-header adjust-profile-header pl-20 ng-binding pointer" aria-expanded="true">
+                            {{::section.name}}
+                            <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
+                            <div ng-show="model.onSave" class="spinner spinner-sm profile-save-spinner ng-hide"></div>
+                          </h2>
+                          <div id="collapse-section-{{$index}}"
+                            class="panel-collapse collapse model-container adjust-profile-body"
+                            ng-if="currentModel.openedSection == sectionkey">
+                            <div class="panel-body profile-panel">
+                              <div ng-show="currentModel.loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
+                              <div ng-show="!currentModel.loadingSections[sectionkey]" class="col-lg-12 mt-20 no-border-bottom">
+                                <div class="col-lg-12 no-lateral-borders {{isExpKeysSection(sectionkey) ? 'padding-lateral-null' : ''}}
+                                  {{item.type == 'loop' ? 'mb-20' : ''}}"
+                                  ng-repeat="item in currentModel.ui[sectionkey].items track by $index">
+                                  <div ng-repeat="keys in item.data track by $index">
+                                    <!-- if the item type is a loop -->
+                                    <div ng-if="item.type == 'loop'">
+                                      <!-- if exp keys -->
+                                      <div ng-if="isExpKeysSection(sectionkey)">
 
-                    <!-- sections -->
-                    <div ng-repeat="(sectionkey, section) in currentModel.ui">
-                      <div ng-if="!isKeysSection(sectionkey)">
-                        <h2 class="mb-20">
-                          {{section.name | translate}}
-                        </h2>
-                        <div class="grid" ng-repeat="item in currentModel.ui[sectionkey].items track by item.variable">
-                          <!-- list -->
-                          <div
-                            ng-if="item.type == 'list' && !currentModel.ui.map.hidden_variables.includes(item.variable)"
-                            class="form-group">
-                            <label class="col-sm-12 mt-10 control-label">{{item.description | translate}}</label>
-                            <div class="col-sm-12">
-                              <select class="combobox form-control" autocomplete="off" name="{{item.variable}}">
-                                <option value="" selected="selected">{{('Select ') | translate}} {{item.description | translate}}</option>
-                                <option ng-repeat="option in item.options" value="{{option.value}}"
-                                  on-finish-render="comboboxRepeatEnd">{{option.text | translate}}</option>
-                              </select>
+                                        <div class="mt-20" ng-repeat="expKeyIndex in [] | range: item.loops track by expKeyIndex">
+
+                                          <h2 ng-click="openExpKey('expkey-' + $index)" data-toggle="collapse"
+                                            data-parent="#accordion-expkey-{{$index}}" href="#collapse-expkey-{{$index}}"
+                                            class="adjust-header adjust-profile-header pl-20 ng-binding pointer" aria-expanded="true">
+                                              {{"ExpKey" | translate}} {{expKeyIndex + 1}}
+                                            <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
+                                            <div ng-show="model.onSave" class="spinner spinner-sm profile-save-spinner ng-hide"></div>
+                                          </h2>
+                                          
+                                        </div>
+
+
+                                        <div ng-if="count < (4 * (!currentModel.ui[sectionkey].showingKeys ? 1 :
+                                          currentModel.ui[sectionkey].showingKeys))"
+                                          ng-repeat="count in [] | range: (item.loop_end - item.loop_start + 1) track by count">
+                                          <div class="no-lateral-padding col-lg-12">
+                                            <div class="col-lg-2 loop-keys-index">
+                                              {{::item.description | translate}} {{count + item.loop_start}}
+                                            </div>
+                                            <div class="col-lg-2" ng-repeat="key in keys track by $index">
+                                              <!-- list -->
+                                              <div ng-if="key.type == 'list'" class="form-group">
+                                                <label class="mt-10 control-label"> {{::key.description | translate}}
+                                                </label>
+                                                <select class="combobox form-control" autocomplete="off"
+                                                  name="{{key.variable}}">
+                                                  <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                                                  <!-- combobox -->
+                                                  <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
+                                                    value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                                                  <!-- selectpicker -->
+                                                  <option ng-if="key.options.length <= 10" ng-repeat="option in key.options"
+                                                    value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                                                </select>
+                                              </div>
+                                              <!-- input -->
+                                              <div ng-if="key.type == 'input'" class="form-group">
+                                                <label class="mt-10 control-label"> {{::key.description | translate}}
+                                                </label>
+                                                <input placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
+                                                  type="text" class="form-control">
+                                                </input>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- if no exp keys -->
+                                      <div ng-if="!isExpKeysSection(sectionkey)">
+                                        <div ng-if="item.type == 'loop' && (count < (4 * (!currentModel.ui[sectionkey].showingKeys ? 1 :
+                                          currentModel.ui[sectionkey].showingKeys)))"
+                                          ng-repeat="count in [] | range: (item.loop_end - item.loop_start + 1) track by count">
+                                          <div class="no-lateral-padding col-lg-12">
+                                            <div class="col-lg-2 loop-keys-index">
+                                              {{::item.description | translate}} {{count + item.loop_start}}
+                                            </div>
+                                            <div class="col-lg-2" ng-repeat="key in keys track by $index">
+                                              <!-- list -->
+                                              <div ng-if="key.type == 'list'" class="form-group">
+                                                <label class="mt-10 control-label"> {{::key.description | translate}}
+                                                </label>
+                                                <select class="combobox form-control" autocomplete="off"
+                                                  name="{{key.variable}}">
+                                                  <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                                                  <!-- combobox -->
+                                                  <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
+                                                    value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                                                  <!-- selectpicker -->
+                                                  <option ng-if="key.options.length <= 10" ng-repeat="option in key.options"
+                                                    value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                                                </select>
+                                              </div>
+                                              <!-- input -->
+                                              <div ng-if="key.type == 'input'" class="form-group">
+                                                <label class="mt-10 control-label"> {{::key.description | translate}}
+                                                </label>
+                                                <input placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
+                                                  type="text" class="form-control">
+                                                </input>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <button ng-click="!currentModel.ui[sectionkey].showingKeys ? currentModel.ui[sectionkey].showingKeys = 2 :
+                                    currentModel.ui[sectionkey].showingKeys = currentModel.ui[sectionkey].showingKeys + 1"
+                                     ng-if="item.type == 'loop' && !isExpKeysSection(sectionkey)"
+                                     class="btn btn-default btn-lg mt-30">
+                                      {{"View more" | translate}}
+                                    </button>
+                                    <!-- if item type is static -->
+                                    <div ng-if="item.type == 'static'" class="col-lg-6 mb-15"
+                                      ng-repeat="key in keys track by $index">
+                                      <!-- list -->
+                                      <div ng-if="key.type == 'list'" class="form-group">
+                                        <label class="mt-10 control-label">{{::key.description | translate}}</label>
+                                        <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
+                                          <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                                          <!-- combobox -->
+                                          <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
+                                            value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                                          <!-- selectpicker -->
+                                          <option ng-if="key.options.length <= 10" ng-repeat="option in key.options"
+                                            value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                                        </select>
+                                      </div>
+                                      <!-- input -->
+                                      <div ng-if="key.type == 'input'" class="form-group">
+                                        <label class="mt-10 control-label">{{::key.description | translate}}</label>
+                                        <input placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
+                                          type="text" class="form-control">
+                                        </input>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                          <!-- input -->
-                          <div ng-if="item.type == 'input'" class="form-group">
-                            <label class="col-sm-12 mt-5 control-label">{{item.description | translate}}</label>
-                            <div class="col-sm-12">
-                              <input placeholder="{{'Insert ' | translate}} {{item.description | translate}}" type="text"
-                                class="form-control">
-                              </input>
+                        </div>
+                        <!-- if isn't a key section -->
+                        <div class="mt-30" ng-if="!isKeysSection(sectionkey) && ($index > 0)">
+                          <h2 ng-click="openSection(sectionkey)" data-toggle="collapse"
+                            data-parent="#accordion-section-{{$index}}" href="#collapse-section-{{$index}}"
+                            class="adjust-header adjust-profile-header pl-20 ng-binding pointer" aria-expanded="true">
+                            {{::section.name}}
+                            <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
+                          </h2>
+                          <div id="collapse-section-{{$index}}"
+                            class="panel-collapse collapse adjust-profile-body model-container"
+                            ng-if="currentModel.openedSection == sectionkey">
+                            <div class="panel-body">
+                              <div ng-show="currentModel.loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
+                              <div ng-show="!currentModel.loadingSections[sectionkey]" class="col-lg-12 mt-25 no-border-bottom">
+                                <div ng-if="!currentModel.ui.map.hidden_variables.includes(item.variable)"
+                                  ng-repeat="item in currentModel.ui[sectionkey].items track by item.variable"
+                                  class="col-lg-6 mb-15">
+                                  <!-- list -->
+                                  <div ng-if="item.type == 'list'" class="form-group">
+                                    <label class="control-label">{{::item.description | translate}}</label>
+                                    <select class="combobox form-control" autocomplete="off" name="{{item.variable}}">
+                                      <option ng-if="item.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::item.description | translate}}</option>
+                                      <!-- combobox -->
+                                      <option ng-if="item.options.length > 10" ng-repeat="option in item.options"
+                                        value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                                      <!-- selectpicker -->
+                                      <option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
+                                        value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                                    </select>
+                                  </div>
+                                  <!-- input -->
+                                  <div ng-if="item.type == 'input'" class="form-group">
+                                    <label class="control-label">{{::item.description | translate}}</label>
+                                    <input placeholder="{{'Insert ' | translate}} {{::item.description | translate}}"
+                                      type="text" class="form-control">
+                                    </input>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="mt-20" ng-if="isKeysSection(sectionkey)">
-                          <h2 ng-click="setCurrentModel(model.name)" data-toggle="collapse" data-parent="#accordion-markup-1" href="#collapse-1" class="adjust-header adjust-profile-header ng-binding" aria-expanded="true" style="
-                          padding-left: 20px;
-                          margin-top: 25px;
-                          margin-bottom: 20px;
-                      ">{{section.name}}<span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
-                                    <div ng-show="model.onSave" class="spinner spinner-sm profile-save-spinner ng-hide"></div>
-                                  </h2>
-                      </div>
-                    </div>
-
-
-
-                  </form>
-
+                    </form>
+                  </div>
                 </div>
                 <button ng-show="!loadingModels[model.name]" ng-click="resetModel(model)"
-                  class="btn btn-primary btn-lg profile-button-save mb-10 mt-10" type="submit">
+                  class="btn btn-primary btn-lg profile-button-save mb-10 mt-30" type="submit">
                   {{'Save' | translate}}
                 </button>
                 <button ng-show="!loadingModels[model.name]" ng-click="resetModel(model)"
-                  class="btn btn-default btn-lg profile-button-save mb-10 mt-10" type="submit">
+                  class="btn btn-default btn-lg profile-button-save mb-10 mt-30" type="submit">
                   {{'Reset' | translate}}
                 </button>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
-    <!-- <div ng-if="inventoryModels | isEmpty" class="blank-slate-pf "> -->
-    <div ng-if="false" class="blank-slate-pf ">
+    <div ng-if="inventoryModels | isEmpty" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
         <span class="pficon pficon-users"></span>
       </div>
@@ -117,7 +262,6 @@
       </div>
     </div>
   </div>
-
   <!-- <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step> -->
 </div>
 <!-- <div class="modal fade" id="newProfileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
