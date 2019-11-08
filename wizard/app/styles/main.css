@@ -255,8 +255,48 @@ a {
   border: none;
 }
 
+.no-border-radius {
+  border-radius: 0px !important;
+}
+
 .no-border-bottom {
   border-bottom: none !important;
+}
+
+.no-border-top {
+  border-top: none !important;
+}
+
+.no-border-left {
+  border-left: none !important;
+}
+
+.no-border-right {
+  border-right: none !important;
+}
+
+.pt-12 {
+  padding-top: 12px !important;
+}
+
+.pb-12 {
+  padding-bottom: 12px !important;
+}
+
+.back-whitesmoke {
+  background: whitesmoke !important;
+}
+
+.border-bottom-color-grey {
+  border-color: #bababa !important;
+}
+
+.border-color-whitesmoke {
+  border-color: whitesmoke !important;
+}
+
+.cursor-default {
+  cursor: default;
 }
 
 .no-top-pad {
@@ -1796,6 +1836,10 @@ iframe body {
   margin-left: 20px !important;
 }
 
+.ml-15 {
+  margin-left: 15px !important;
+}
+
 .mr-20 {
   margin-right: 20px !important;
 }
@@ -1814,6 +1858,14 @@ iframe body {
 
 .pb-20 {
   padding-bottom: 20px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pb-40 {
+  padding-bottom: 40px !important;
 }
 
 .model-container .bootstrap-select {
@@ -2355,10 +2407,15 @@ iframe body {
   font-weight: 600;
   margin-top: 35px;
   margin-bottom: 10px;
-  font-size: 15px;
+  font-size: 15.2px;
 }
 
 .padding-lateral-null {
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
+
+.list-view-pf .list-group-item.list-view-pf-expand-active {
+  border: solid 1px #6ec664 !important;
+}
+

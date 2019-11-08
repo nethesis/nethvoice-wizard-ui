@@ -16,8 +16,10 @@ angular.module('nethvoiceWizardUiApp')
       ui: {},
       variables: {},
       name: {},
-      loadingSections: {},
-      openedSection: ""
+      openedSection: "",
+      openedExpKeys: "",
+      showingKeys: "",
+      showingExpKeys: ""
     }
 
     var getModelUI = function (model) {
@@ -95,14 +97,12 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.openSection = function (sectionkey) {
       delete $scope.currentModel.ui[sectionkey].showingKeys
-      if ($scope.currentModel.openedSection != sectionkey) {
-        $scope.currentModel.loadingSections[sectionkey] = true
-      }
       $scope.currentModel.openedSection = sectionkey
-      $timeout(function () {
-        $scope.currentModel.loadingSections[sectionkey] = false
-        $scope.$apply()
-      }, 1000)
+    }
+
+    $scope.openExpKeys = function (expkeyk, sectionkey) {
+      delete $scope.currentModel.ui[sectionkey].showingExpKeys
+      $scope.currentModel.openedExpKeys = expkeyk
     }
 
     $scope.setCurrentModel = function (name) {
@@ -122,7 +122,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.currentModel.variables = res.data.variables
         $scope.currentModel.name = name
         $scope.currentModel.openedSection = ""
-        $scope.currentModel.loadingSections = {}
+        $scope.currentModel.openedExpKeys = ""
         setTimeout(function () {
           $scope.loadingModels[name] = false
           $scope.$apply()
