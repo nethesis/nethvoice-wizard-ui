@@ -619,7 +619,6 @@
   "phones": "telefoni",
   "Duplicated MAC address": "Indirizzo MAC duplicato",
   "Unknown vendor": "Produttore sconosciuto",
-  "Add with copy/paste": "Aggiungi con copia/incolla",
   "inventory_help_p_1": "L'inventario gestisce l'elenco dei telefoni configurati in Nethvoice",
   "inventory_help_p_2": "È possibile aggiungere telefoni all'inventario",
   "inventory_help_li_1": "Scansionando una rete",

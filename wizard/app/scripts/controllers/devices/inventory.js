@@ -94,13 +94,19 @@ angular.module('nethvoiceWizardUiApp')
       $scope.addPhonesStep--;
     }
 
-    $scope.showPasteModal = function () {
+    // modal used to add mac using different methods
+    $scope.showGenericAddingModal = val => {
+      $scope.addModalType = val;
+      $('#adding-modal').modal("show");
+    };
+
+    $scope.showPasteModal = () => {
       $scope.pastedMacs = [];
       $scope.successfulAddPhones = [];
       $scope.failedAddPhones = [];
       $scope.pendingRequestsAddPhones = 0;
       $scope.showResultsAddPhones = false;
-      $('#paste-modal').modal("show");
+      $scope.showGenericAddingModal('copypaste');
       initCopyPasteMacUI();
     }
 
@@ -109,7 +115,7 @@ angular.module('nethvoiceWizardUiApp')
         .on('hidden.bs.popover', function (e) {
           $(e.target).data('bs.popover').inState.click = false;
         });
-        $("#paste-modal").on('shown.bs.modal', function(){
+        $("#adding-modal").on('shown.bs.modal', function(){
           $('#paste-textarea').focus();
       });
     };
@@ -119,7 +125,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.failedAddPhones = [];
       $scope.pendingRequestsAddPhones = 0;
       $scope.showResultsAddPhones = false;
-      $('#manual-modal').modal("show");
+      $scope.showGenericAddingModal('manual');
     }
 
     $scope.showScanModal = function () {
@@ -346,6 +352,16 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    // used to add phones with different methods
+    $scope.addPhonesGeneric = () => {
+      if ($scope.addModalType === 'copypaste') {
+        $scope.addPhonesPaste();
+      } else if ($scope.addModalType === 'manual') {
+        $scope.addPhonesManual();
+        showResultsAddPhones();
+      }
+    };
+
     $scope.addPhonesPaste = function () {
       var validationOk = validateAddPhonesPaste();
 
@@ -433,28 +449,27 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.getManualFilteredModelsCount = () => {
+      return $scope.manualFilteredModels && $scope.manualFilteredModels.length > 0 ? false : true;
+    };
+
     $scope.addPhonesManual = function () {
       var validationOk = validateAddPhonesManual();
 
       if (!validationOk) {
         return;
       }
-
-      var phone = {
-        "mac": $scope.manualMac,
-        "model": $scope.manualModel ? $scope.manualModel.name : null,
-        "display_name": $scope.manualVendor
-      }
-
-      console.log('addPhonesManual()', phone); ////
-
-      $scope.phones.push(phone); //// mockup
-
-      // PhoneService.createPhone(phone).then(function(res) { ////
-      //   ////
-      // }, function(err) {
-      //   console.log(err);
-      // });
+      let phone = buildPhone($scope.manualMac, $scope.manualModel ? $scope.manualModel.name : null);
+      PhoneService.createPhoneMock(phone, $scope.phones, 0.7).then(function (res) {
+        console.log("success", res.mac); ////
+        $scope.successfulAddPhones.push(res);
+        showResultsAddPhones();
+      }, function (err) {
+        console.log("fail", err); ////
+        console.log(err.error.title);
+        $scope.failedAddPhones.push(err.phone);
+        showResultsAddPhones();
+      });
 
       $scope.manualMac = "";
       $scope.manualModel = null;
