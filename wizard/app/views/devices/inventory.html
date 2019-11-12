@@ -3,7 +3,7 @@
     {{ 'Inventory' | translate }}
   </h1>
   <div class="container-fluid mg-top-20">
-    <div class="page-help" ng-show="phones.length != 0">
+    <div class="page-help" ng-show="phones.length !== 0">
       <p>{{ 'inventory_help_p_1' | translate }}. {{ 'inventory_help_p_2' | translate }}:</p>
       <ul>
         <li>{{ 'inventory_help_li_1' | translate }}</li>
@@ -21,23 +21,27 @@
       <p>{{ 'inventory_help_p_1' | translate }}.</p>
       <p>{{ 'inventory_help_p_3' | translate }}</p>
       <div class="blank-slate-pf-main-action">
-        <button class="btn btn-lg btn-primary" ng-click="showAddPhonesModal()">{{'Add phones' | translate}}
-          ////</button> &nbsp;
-        <button class="btn btn-lg btn-primary" ng-click="showScanModal()">{{'Scan a network' | translate}}</button>
-        <button class="btn btn-lg btn-primary" ng-click="showPasteModal()">{{'Add with copy/paste' | translate}}</button>
-        <button class="btn btn-lg btn-primary" ng-click="showManualModal()">{{'Add manually' | translate}}</button>
+        <span>
+          <button class="btn btn-lg btn-primary" ng-click="showScanModal()">{{'Scan a network' | translate}}</button>
+          <button class="btn btn-lg btn-primary" ng-click="showPasteModal()">{{'Add with copy/paste' | translate}}</button>
+          <button class="btn btn-lg btn-primary" ng-click="showManualModal()">{{'Add manually' | translate}}</button>
+        </span>
       </div>
     </div>
-    <div ng-show="phones.length != 0">
-      <!-- add phones button //// delete-->
-      <div class="form-group">
-        <button class="btn btn-lg btn-primary" ng-click="showAddPhonesModal()">{{'Add phones' | translate}}
-          ////</button> &nbsp;
-        <button class="btn btn-lg btn-primary" ng-click="showScanModal">{{'Scan a network' | translate}}</button>
-        <button class="btn btn-lg btn-primary"
-          ng-click="showPasteModal()">{{'Add with copy/paste' | translate}}</button>
-        <button class="btn btn-lg btn-primary" ng-click="showManualModal">{{'Add manually' | translate}}</button>
+    <div ng-show="phones.length !== 0" class="mg-bottom-15">
+      <div class="dropdown">
+        <button class="btn btn-lg btn-primary dropdown-toggle" type="button" id="invDropdownMenu1" data-toggle="dropdown">
+          {{'Add phones' | translate}}
+        <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="invDropdownMenu1">
+          <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="showScanModal()">{{'Scan a network' | translate}}</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="showPasteModal()">{{'Add with copy/paste' | translate}}</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="showManualModal()">{{'Add manually' | translate}}</a></li>
+        </ul>
       </div>
+    </div>
+    <div ng-show="phones.length !== 0">
       <!-- filter phone list -->
       <form role="form" class="search-pf has-button mg-bottom-8">
         <div class="form-group">
@@ -113,7 +117,7 @@
           <div class="modal-body">
             <form class="form-horizontal">
               <!-- section showed on copy/paste method -->
-              <div ng-show="!showResultsAddPhones && addModalType === 'copypaste'" class="form-group no-margin-bottom">aa
+              <div ng-show="!showResultsAddPhones && addModalType === 'copypaste'" class="form-group no-margin-bottom">
                 <!-- paste textarea -->
                 <label class="col-sm-4 control-label" for="paste-textarea">
                   <!-- inline help of mac address format -->
