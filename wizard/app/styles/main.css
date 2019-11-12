@@ -2397,7 +2397,7 @@ iframe body {
   width: 700px;
 }
 
-/* Inventory */
+/* Start Inventory */
 #paste-textarea {
   resize: none;
 }
@@ -2414,3 +2414,8 @@ iframe body {
 #inv-new-phone-dialog {
   text-align: justify;
 }
+
+.mg-right-10 {
+  margin-right: 10px;
+}
+/* end Inventory */

@@ -34,6 +34,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.successfulAddPhones = [];
     $scope.failedAddPhones = [];
 
+    $scope.cpApplyAllSelModelDisabled = true; // used by copy/paste addition gui
+
     $scope.getPhones = function () {
       // PhoneService.getPhones().then(function(res) { ////
       //
@@ -486,7 +488,86 @@ angular.module('nethvoiceWizardUiApp')
 
       // perform validation
       validateAddPhonesPaste();
+
+      // get all pasted brands
+      $scope.getAllPastedBrands();
     }
+
+    // section for mac copy/paste addition - start
+    //
+    // copy/paste addition: extract all brands and models
+    $scope.getAllPastedBrands = () => {
+      $scope.cpAllModels = {}; // all models
+      for (let i = 0; i < $scope.pasteFilteredModels.length; i++) {
+        for (let k = 0; k < $scope.pasteFilteredModels[i].length; k++) {
+          if (!$scope.cpAllModels[$scope.pasteFilteredModels[i][k].name]) {
+            $scope.cpAllModels[$scope.pasteFilteredModels[i][k].name] = $scope.pasteFilteredModels[i][k];
+          }
+        }
+      }
+      let tempBrand;
+      $scope.cpAllBrands = {}; // all brands
+      for (let i = 0; i < $scope.pastedMacs.length; i++) {
+        tempBrand = UtilService.macVendorMap()[$scope.pastedMacs[i].substring(0,8)];
+        if (tempBrand) { // controlla il formato del mac, se contiene i : o meno
+          $scope.cpAllBrands[tempBrand] = [];
+          for (const key in $scope.cpAllModels) {
+            if (key.indexOf(tempBrand) !== -1) {
+              $scope.cpAllBrands[tempBrand].push($scope.cpAllModels[key]);
+            }
+          }
+        }
+      }
+    };
+
+    $scope.getCpAllBrandsLenght = () => {
+      if ($scope.cpAllBrands) {
+        return Object.keys($scope.cpAllBrands).length;
+      } else {
+        return 0;
+      }
+    };
+
+    // copy/paste addition: user has selected one brand
+    $scope.cpAllBrandsChanged = () => {
+      $scope.cpAllSelModels = [];
+      for (const b in $scope.cpAllBrands) {
+        if (b === $scope.cpAllBrandsValue) {
+          $scope.cpAllSelModels = $scope.cpAllBrands[b];
+        }
+      }
+    };
+
+    // copy/paste addition: user has selected one model
+    $scope.cpAllModelsChanged = () => {
+      if ($scope.cpAllSelModelsValue !== null && $scope.cpAllSelModelsValue !== '') {
+        $scope.cpApplyAllSelModelDisabled = false;
+      } else {
+        $scope.cpApplyAllSelModelDisabled = true;
+      }
+    };
+
+    // copy/paste addition: apply the selected model to all devices of that type
+    $scope.cpApplyAllSelModel = () => {
+      let tempBrand;
+      let indexToSet = {}; // indexes of combobox array models
+      for (let i = 0; i < $scope.pastedMacs.length; i++) {
+        tempBrand = UtilService.macVendorMap()[$scope.pastedMacs[i].substring(0,8)];
+        if (!indexToSet[tempBrand]) {
+          indexToSet[tempBrand] = [];
+        }
+        indexToSet[tempBrand].push(i);
+      }
+      for (let i = 0; i < $scope.cpAllSelModels.length; i++) { // set model for combobox array models
+        if ($scope.cpAllSelModels[i].name === $scope.cpAllSelModelsValue) {
+          for (let k = 0; k < indexToSet[$scope.cpAllBrandsValue].length; k++) {
+            $scope.pastedModels[indexToSet[$scope.cpAllBrandsValue][k]] = $scope.cpAllSelModels[i];
+          }
+          return;
+        }
+      }
+    };
+    // section for mac copy/paste addition - end
 
     $scope.inputMacPasteChanged = function (index) {
       $scope.clearValidationErrorsPaste(index);
@@ -591,6 +672,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.pastedModels.splice(index, 1);
       $scope.pasteFilteredModels.splice(index, 1);
       $scope.pastedMacUnknownVendors.splice(index, 1);
+      $scope.getAllPastedBrands();
     }
 
     $scope.orderByValue = function (value) {

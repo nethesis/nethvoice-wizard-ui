@@ -181,11 +181,36 @@
                   </ul>
                 </div>
               </div>
+              <!-- copy/paste addition: toolbar to apply model to all -->
+              <div class="col-sm-12 mg-top-20" ng-show="pastedMacs.length > 0">
+                <p class="mg-bottom-15"><label>{{ 'inv_help_mac_4' | translate }}</label></p>
+                <select class="mg-right-10"
+                  pf-select="{ noneSelectedText: ('Select brand' | translate) }"
+                  ng-model="cpAllBrandsValue"
+                  ng-change="cpAllBrandsChanged()"
+                  ng-disabled="getCpAllBrandsLenght() === 0"
+                  ng-options="k as k for (k,v) in cpAllBrands">
+                </select>
+                <select class="mg-right-10"
+                  pf-select="{ noneSelectedText: ('Select model' | translate) }"
+                  ng-model="cpAllSelModelsValue"
+                  ng-change="cpAllModelsChanged()"
+                  ng-disabled="cpAllSelModels.length === 0 || cpAllSelModels === undefined"
+                  ng-options="v.name as v.display_name for v in cpAllSelModels">
+                </select>
+                <button type="button" class="btn btn-default" ng-click="cpApplyAllSelModel()" ng-disabled="cpApplyAllSelModelDisabled">
+                  {{ 'Apply' | translate }}
+                </button>
+              </div>
+              <div class="col-sm-12 mg-top-20" ng-show="pastedMacs.length > 0">
+                <li class="divider"></li>
+              </div>
               <!-- number of phones to add -->
-              <div class="pasted-mac-indicator" ng-show="pastedMacs.length > 0">{{ pastedMacs.length }}
-                {{ 'phones to add' | translate }}</div>
+              <div class="col-sm-12 pasted-mac-indicator" ng-show="pastedMacs.length > 0">
+                <strong class="float-right">{{ pastedMacs.length }} {{ 'phones' | translate }}</strong>
+              </div>
               <!-- phones to add -->
-              <div class="pasted-macs">
+              <div class="pasted-macs col-sm-12">
                 <div class="list-group list-view-pf clear">
                   <div class="list-group-item cursor-default form-group no-margin-left-right align-items-stretch"
                     ng-class="{ 'has-error': (showPasteMacError[$index] || macDuplicates.includes(mac)), 'border-top-list': $index == 0 }"
