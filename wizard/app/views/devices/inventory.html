@@ -150,7 +150,8 @@
                   {{ 'Copy a list of MAC addresses and paste it here' | translate }}
                 </label>
                 <div class="col-sm-8">
-                  <textarea id="paste-textarea" class="form-control pasted-mac-area" ng-model="pastedMacsText"
+                  <!-- maxlength=3600 -> copy/paste max 200 mac at time -->
+                  <textarea maxlength='3600' id="paste-textarea" class="form-control pasted-mac-area" ng-model="pastedMacsText"
                     ng-change="parsePastedMacs()"></textarea>
                 </div>
               </div>
