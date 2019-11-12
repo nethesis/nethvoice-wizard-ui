@@ -133,7 +133,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.failedAddPhones = [];
       $scope.pendingRequestsAddPhones = 0;
       $scope.showResultsAddPhones = false;
-      $('#scan-modal').modal("show");
+      $scope.showGenericAddingModal('scanning');
     }
 
     $scope.showAddPhonesModal = function () { ////
