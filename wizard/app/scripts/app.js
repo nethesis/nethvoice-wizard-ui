@@ -63,6 +63,11 @@ angular
         controller: 'UsersConfigurationsCtrl',
         controllerAs: 'users/configurations'
       })
+      .when('/devices', {
+        templateUrl: 'views/devices.html',
+        controller: 'DevicesCtrl',
+        controllerAs: 'devices'
+      })
       .when('/devices/inventory', {
         templateUrl: 'views/devices/inventory.html',
         controller: 'DevicesInventoryCtrl',

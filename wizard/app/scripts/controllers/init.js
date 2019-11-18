@@ -297,6 +297,18 @@ angular.module('nethvoiceWizardUiApp')
       $('body').css('background', '');
     });
 
+    $scope.$on('comboboxRepeatEnd', function(event, elem) {
+      elem.parent().combobox()
+    })
+
+    $scope.$on('selectpickerRepeatEnd', function(event, elem) {
+      elem.parent().selectpicker()
+    })
+
+    $scope.$on('switchRenderEnd', function(event, elem) {
+      elem.bootstrapSwitch()
+    })
+
     $scope.setRandomBackground();
     
   });

@@ -128,11 +128,13 @@
             <div ng-click="goTo('users/configurations')" class="list-group-item-value  menu-item-left no-opacity">{{'Configurations' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
-       
 
-        <li data-toggle="collapse" data-parent="#navbar-left" href="#devicesCollapse" ng-if="!wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('devices',1) ? 'active' : ''}}"
+        <li data-toggle="collapse"
+          data-parent="#navbar-left"
+          href="#devicesCollapse"
+          ng-if="!wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('devices',1) ? 'active' : ''}}"
           id="users-item-menu">
-          <a>
+          <a ng-click="goTo('devices')">
             <span class="fa fa-cubes" title="{{'Devices' | translate}}" data-toggle="tooltip" data-placement="right"></span>
             <span class="list-group-item-value">{{'Devices' | translate}}</span>
             <span class="badge notifications">{{menuCount.devices}}</span>
@@ -348,6 +350,7 @@
   <script src="scripts/controllers/users/devices.js"></script>
   <script src="scripts/controllers/users/configurations.js"></script>
   <script src="scripts/controllers/devices/inventory.js"></script>
+  <script src="scripts/controllers/devices.js"></script>
   <script src="scripts/controllers/trunks/physical.js"></script>
   <script src="scripts/controllers/trunks/voip.js"></script>
   <script src="scripts/controllers/routes/inbound.js"></script>
@@ -358,6 +361,7 @@
   <script src="scripts/services/localstorageservice.js"></script>
   <script src="scripts/directives/wizardstep.js"></script>
   <script src="scripts/directives/repeat_complete.js"></script>
+  <script src="scripts/directives/element_render.js"></script>
   <script src="scripts/services/loginservice.js"></script>
   <script src="scripts/services/provisioning/uiservice.js"></script>
   <script src="scripts/services/provisioning/modelservice.js"></script>

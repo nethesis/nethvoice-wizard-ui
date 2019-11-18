@@ -589,6 +589,10 @@ a {
   flex: 1 0 calc(40% - 20px);
 }
 
+.configDevices-item-heading {
+  flex: 1 0 calc(40% - 80px) !important;
+}
+
 .selected {
   background: #d5ecf9;
 }
@@ -1080,6 +1084,10 @@ a {
 .adjust-list {
   flex: initial;
   width: 60%;
+}
+
+.display-flex {
+  display: flex;
 }
 
 .adjust-form {
@@ -1804,6 +1812,10 @@ iframe body {
   margin-top: 10px !important;
 }
 
+.mtn-1 {
+  margin-top: -1px !important;
+}
+
 .mb-10 {
   margin-bottom: 10px !important;
 }
@@ -1838,6 +1850,18 @@ iframe body {
 
 .ml-15 {
   margin-left: 15px !important;
+}
+
+.ml-10 {
+  margin-left: 10px !important;
+}
+
+.mr-7 {
+  margin-right: 7px !important;
+}
+
+.mr-10 {
+  margin-right: 10px !important;
 }
 
 .mr-20 {
@@ -2419,3 +2443,31 @@ iframe body {
   border: solid 1px #6ec664 !important;
 }
 
+.background-white {
+  background-color: white !important;
+}
+
+.main-extension-icon {
+  font-size: 17px;
+  margin-top: -7px;
+  margin-left: 2px;
+  position: absolute;
+  font-weight: bold;
+}
+
+.plateral-10 {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.mln-1 {
+  margin-left: -1px !important;
+}
+
+#configurationList>.list-group-item:hover {
+  border: solid 1px #6ec664 !important;
+}
+
+.margin-10 {
+  margin: 10px !important;
+}

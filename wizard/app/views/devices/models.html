@@ -4,11 +4,11 @@
       <ul class="wizard-pf-steps-indicator">
         <li class="wizard-pf-step {{resolveActiveTab('inventory',2) ? 'active' : ''}}" data-tabgroup="1">
           <a ng-click="goTo('devices/inventory')"><span class="wizard-pf-step-number">1</span><span
-              class="wizard-pf-step-title">{{'Inventory' | translate}}</span></a>
+            class="wizard-pf-step-title">{{'Inventory' | translate}}</span></a>
         </li>
         <li class="wizard-pf-step {{resolveActiveTab('models',2) ? 'active' : ''}}" data-tabgroup="2">
           <a ng-click="goTo('devices/models')"><span class="wizard-pf-step-number">2</span><span
-              class="wizard-pf-step-title">{{'Models' | translate}}</span></a>
+            class="wizard-pf-step-title">{{'Models' | translate}}</span></a>
         </li>
       </ul>
     </div>
@@ -19,7 +19,8 @@
       <button data-toggle="modal" data-target="#newModelModal"
         class="btn btn-primary btn-lg">{{'Create new model' | translate}}
       </button>
-      <button class="btn btn-default btn-lg right-align no-margin ng-binding ng-scope">
+      <button data-toggle="modal" data-target="#defaultSettingsModal"
+        class="btn btn-default btn-lg right-align no-margin ng-binding ng-scope">
         {{"Default Settings" | translate}}
       </button>
     </div>
@@ -56,7 +57,7 @@
                             ng-if="currentModel.openedSection == sectionkey">
                             <div class="panel-body profile-panel">
                               <div class="col-lg-12 {{!isExpKeysSection(sectionkey) ? 'mt-20' : ''}} no-border-bottom">
-                                <div class="col-lg-12 no-lateral-borders {{isExpKeysSection(sectionkey) ? 'padding-lateral-null' : ''}}
+                                <div class="col-lg-12 no-lateral-padding {{isExpKeysSection(sectionkey) ? 'padding-lateral-null' : ''}}
                                     {{item.type == 'loop' ? 'mb-20' : ''}}"
                                   ng-repeat="item in currentModel.ui[sectionkey].items track by $index">
                                   <div ng-repeat="keys in item.data track by $index">
@@ -275,7 +276,8 @@
   </div>
   <!-- <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step> -->
 </div>
-<!-- <div class="modal fade" id="newProfileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+
+<div class="modal fade" id="newModelModal" tabindex="-1" role="dialog" aria-labelledby="nModelMLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -283,29 +285,142 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
           <span class="pficon pficon-close"></span>
         </button>
-        <h4 class="modal-title" id="myModalLabel">{{'New profile' | translate}}</h4>
+        <h4 class="modal-title" id="nModelMLabel">{{'New model' | translate}}</h4>
       </div>
-      <form class="form-horizontal" ng-submit="createNewProfile(newProfile)">
+      <form class="form-horizontal" ng-submit="">
         <div class="modal-body">
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
-            <div class="col-sm-9">
-              <input required ng-model="newProfile.name" type="text" class="form-control profile-new-name"></div>
+            <div class="col-sm-8">
+              <input required type="text" class="form-control">
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Duplicate from' | translate}}</label>
-            <div class="col-sm-9">
-              <select title="-" pf-select="{ width: '180px' }" ng-model="newProfile.duplicateProfile"
-                ng-options="p as p.name for p in allProfiles | profileList">
+            <div class="col-sm-8">
+              <select class="combobox form-control" autocomplete="off">
+                <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
+                  on-finish-render="selectpickerRepeatEnd">{{"CIAO" | translate}}</option>
               </select>
             </div>
           </div>
-          <div ng-show="newProfile.onSave" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
+          <div ng-if="false" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
           <div class="modal-footer submit">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
             <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
           </div>
+        </div>
       </form>
     </div>
   </div>
-</div> -->
+</div>
+
+<div class="modal fade" id="defaultSettingsModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+  <div class="wizard-modal">
+    <div class="modal-dialog wizard-pf margin-10">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+          <h4 class="modal-title" id="dfSettingsMLabel">{{'Default Settings' | translate}}</h4>
+        </div>
+        <form class="form-horizontal">
+          <div class="modal-body">
+            <div class="col-lg-12 mb-30">
+              
+              <div class="col-lg-6">
+                <div class="col-lg-12">
+
+
+                  <div class="form-group">
+                    <label class="mt-10 control-label">{{"IP address of phone server" | translate}}</label>
+                    <div class="col-lg-12 display-flex no-lateral-padding">
+                      <input type="text" class="form-control" placeholder="{{'IP address' | translate}}">
+                      <button type="button" class="btn btn-default adjust-button" aria-haspopup="true" aria-expanded="false">
+                        {{"Use me" | translate}}
+                      </button>  
+                    </div>
+                  </div>
+
+                  <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
+                    <option value="" selected="selected">{{('Select ') | translate}} {{"Configuration Type" | translate}}</option>
+                    <!-- selectpicker -->
+                    <option ng-repeat="configType in globalUi"
+                      value="{{count}}" on-finish-render="selectpickerRepeatEnd">{{::count | translate}}</option>
+                  </select>
+
+                  <!-- list -->
+                  <div class="form-group">
+                    <label class="mt-10 control-label">{{"Description1" | translate}}</label>
+                    <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
+                      <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                      <!-- combobox -->
+                      <option ng-repeat="count in [] | range: 10 track by count"
+                        value="{{count}}" on-finish-render="comboboxRepeatEnd">{{::count | translate}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="mt-10 control-label">{{"Description2" | translate}}</label>
+                    <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
+                      <option value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                      <!-- selectpicker -->
+                      <option ng-repeat="count in [] | range: 10 track by count"
+                        value="{{count}}" on-finish-render="selectpickerRepeatEnd">{{::count | translate}}</option>
+                    </select>
+                  </div>
+                  <!-- input -->
+                  <div class="form-group">
+                    <label class="mt-10 control-label">{{"Description3" | translate}}</label>
+                    <input placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
+                      type="text" class="form-control">
+                    </input>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="col-lg-12">
+                  <!-- list -->
+                  <div class="form-group">
+                    <label class="mt-10 control-label">{{"Description1" | translate}}</label>
+                    <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
+                      <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                      <!-- combobox -->
+                      <option ng-repeat="count in [] | range: 10 track by count"
+                        value="{{count}}" on-finish-render="comboboxRepeatEnd">{{::count | translate}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="mt-10 control-label">{{"Description2" | translate}}</label>
+                    <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
+                      <option value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                      <!-- selectpicker -->
+                      <option ng-repeat="count in [] | range: 10 track by count"
+                        value="{{count}}" on-finish-render="selectpickerRepeatEnd">{{::count | translate}}</option>
+                    </select>
+                  </div>
+                  <!-- input -->
+                  <div class="form-group">
+                    <label class="mt-10 control-label">{{"Description3" | translate}}</label>
+                    <input placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
+                      type="text" class="form-control">
+                    </input>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer submit">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+              <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  

@@ -10,6 +10,51 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('DevicesModelsCtrl', function ($scope, ModelService, ProvFanvilService, $translate, $timeout) {
 
+    $scope.globalUi = {
+      "name": "Default Settings",
+      "data": [{
+          "variable": "id_addr",
+          "default_value": "",
+          "description": "IP address of phone server",
+          "type": "text"
+        },
+        {
+          "variable": "id_addr",
+          "default_value": "",
+          "description": "Configuration Type",
+          "type": "list",
+          "options": [
+            {
+              "text": "TFTP/FTP",
+              "value": "tftp"
+            },
+            {
+              "text": "Web",
+              "value": "http"
+            }
+          ]
+        },
+        {
+          "variable": "config_firm_dir",
+          "default_value": "/var/lib/tftpnethvoice/",
+          "description": "Global Final Config & Firmware Directory",
+          "type": "text"
+        },
+        {
+          "variable": "time_zone",
+          "default_value": "",
+          "description": "Time Zone",
+          "type": "list",
+          "options": [
+            {
+              "text": "Italian/Italy",
+              "value": "it"
+            }
+          ]
+        }
+      ]
+    }
+
     $scope.inventoryModels = {}
     $scope.loadingModels = {}
     $scope.currentModel = {
@@ -134,15 +179,6 @@ angular.module('nethvoiceWizardUiApp')
 
     // initialisation
     getModels()
-
-    // dom events
-    $scope.$on('comboboxRepeatEnd', function(event, elem) {
-      elem.parent().combobox()
-    })
-
-    $scope.$on('selectpickerRepeatEnd', function(event, elem) {
-      elem.parent().selectpicker()
-    })
 
   })
 
