@@ -21,8 +21,7 @@ angular.module('nethvoiceWizardUiApp')
     //   { mac: "00:15:65:55:55:58", model: null, display_name: "Yealink" }
     // ];
     $scope.models = [];
-    $scope.macVendorMap = UtilService.macVendorMap();
-    $scope.addPhonesTotalSteps = 2;
+    $scope.addPhonesTotalSteps = 2; //// todo delete
 
     $scope.tasks = {}; ////
     $scope.networkScans = 0;
@@ -156,7 +155,7 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       // update model list
-      var vendor = $scope.macVendorMap[$scope.manualMac.substring(0, 8)];
+      var vendor = UtilService.getVendor($scope.manualMac);
 
       if (vendor) {
         $scope.manualVendor = UtilService.capitalize(vendor);
@@ -327,7 +326,7 @@ angular.module('nethvoiceWizardUiApp')
         }
 
         // check vendor
-        var vendor = $scope.macVendorMap[mac.substring(0, 8)];
+        var vendor = UtilService.getVendor(mac);
         if (!vendor) {
           $scope.pastedMacUnknownVendors[index] = true;
         }
@@ -418,7 +417,7 @@ angular.module('nethvoiceWizardUiApp')
         model = model.name;
       }
 
-      var vendor = $scope.macVendorMap[mac.substring(0, 8)];
+      var vendor = UtilService.getVendor(mac);
       if (vendor) {
         vendor = UtilService.capitalize(vendor);
       }
@@ -435,7 +434,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.clearValidationErrorsManual();
 
       // check vendor
-      var vendor = $scope.macVendorMap[$scope.manualMac.substring(0, 8)];
+      var vendor = UtilService.getVendor($scope.manualMac);
       if (!vendor) {
         $scope.manualMacUnknownVendor = true;
       }
@@ -523,19 +522,20 @@ angular.module('nethvoiceWizardUiApp')
       let tempBrand;
       $scope.cpAllBrands = {}; // all brands
       for (let i = 0; i < $scope.pastedMacs.length; i++) {
-        tempBrand = UtilService.macVendorMap()[$scope.pastedMacs[i].substring(0,8)];
+        tempBrand = UtilService.getVendor($scope.pastedMacs[i]);
         if (tempBrand) { // controlla il formato del mac, se contiene i : o meno
-          $scope.cpAllBrands[tempBrand] = [];
+          var tempBrandCapitalized = UtilService.capitalize(tempBrand);
+          $scope.cpAllBrands[tempBrandCapitalized] = [];
           for (const key in $scope.cpAllModels) {
             if (key.indexOf(tempBrand) !== -1) {
-              $scope.cpAllBrands[tempBrand].push($scope.cpAllModels[key]);
+              $scope.cpAllBrands[tempBrandCapitalized].push($scope.cpAllModels[key]);
             }
           }
         }
       }
     };
 
-    $scope.getCpAllBrandsLenght = () => {
+    $scope.getCpAllBrandsLength = () => {
       if ($scope.cpAllBrands) {
         return Object.keys($scope.cpAllBrands).length;
       } else {
@@ -567,7 +567,12 @@ angular.module('nethvoiceWizardUiApp')
       let tempBrand;
       let indexToSet = {}; // indexes of combobox array models
       for (let i = 0; i < $scope.pastedMacs.length; i++) {
-        tempBrand = UtilService.macVendorMap()[$scope.pastedMacs[i].substring(0,8)];
+        tempBrand = UtilService.getVendor($scope.pastedMacs[i]);
+
+        if (tempBrand) {
+          tempBrand = UtilService.capitalize(tempBrand);
+        }
+
         if (!indexToSet[tempBrand]) {
           indexToSet[tempBrand] = [];
         }
@@ -592,7 +597,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.pasteFilteredModels[index] = [];
         return;
       }
-      var vendor = $scope.macVendorMap[$scope.pastedMacs[index].substring(0, 8)];
+      var vendor = UtilService.getVendor($scope.pastedMacs[index]);
 
       if (vendor) {
         $scope.pastedVendors[index] = UtilService.capitalize(vendor);
@@ -629,7 +634,7 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.filteredModels = function (mac) { //// move inside UtilService?
-      var vendor = $scope.macVendorMap[mac.substring(0, 8)];
+      var vendor = UtilService.getVendor(mac);
 
       if (vendor) {
         var filteredModels = $scope.models.filter(function (model) {

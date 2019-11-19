@@ -2418,4 +2418,15 @@ iframe body {
 .mg-right-10 {
   margin-right: 10px;
 }
+
+.reset-padding {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  display: inline-block !important;
+  margin-left: 5px !important;
+}
+
+.info-general {
+  font-size: 14px;
+}
 /* end Inventory */

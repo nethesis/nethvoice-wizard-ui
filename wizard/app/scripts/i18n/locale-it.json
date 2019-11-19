@@ -634,9 +634,9 @@
   "Example": "Esempio",
   "inv_help_mac_1": "Puoi effettuare il copia/incolla di una lista d'indirizzi MAC da un foglio di calcolo o da un file di testo",
   "inv_help_mac_2": "La lista deve essere composta da un solo indirizzo MAC per linea",
-  "inv_help_mac_3": "Ogni singolo indirizzo MAC può usare il carattere \"-\" o \":\" o niente come separatore",
-  "inv_help_mac_4": "Applica lo stesso modello a più dispositivi della stessa famiglia",
+  "inv_help_mac_3": "Ogni indirizzo MAC può usare il carattere \"-\" o \":\" o niente come separatore",
+  "inv_help_mac_4": "Applica lo stesso modello a tutti i telefoni dello stesso produttore",
   "Apply": "Applica",
-  "Select brand": "Seleziona la marca",
+  "Select vendor": "Seleziona il produttore",
   "Select model": "Seleziona il modello"
 }

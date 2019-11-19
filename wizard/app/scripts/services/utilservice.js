@@ -73,17 +73,22 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.macVendorMap = function () {
-      return {
-        "0C:38:3E": "fanvil",
-        "7C:2F:80": "gigaset",
-        "00:50:58": "sangoma",
-        "00:04:13": "snom",
-        "00:15:65": "yealink",
-        "80:5E:0C": "yealink",
-        "80:5E:C0": "yealink",
-        "9C:75:14": "yealink"
-      }
+    this.macVendorMap = {
+      "0C383E": "fanvil",
+      "7C2F80": "gigaset",
+      "005058": "sangoma",
+      "000413": "snom",
+      "001565": "yealink",
+      "805E0C": "yealink",
+      "805EC0": "yealink",
+      "9C7514": "yealink"
+    };
+
+    this.getVendor = function (macAddress) {
+      // remove separators
+      macAddress = macAddress.toUpperCase().replace(/:/g, "").replace(/-/g, "");
+      var vendor = this.macVendorMap[macAddress.substring(0, 6)];
+      return vendor;
     };
 
     this.capitalize = function (s) {
