@@ -77,6 +77,7 @@ angular.module('nethvoiceWizardUiApp')
       ];
 
       $scope.models = res;
+      $scope.modelsMap = getModelsMap($scope.models);
 
       console.log("$scope.models", $scope.models); ////
 
@@ -84,6 +85,18 @@ angular.module('nethvoiceWizardUiApp')
       //   console.log(err);
       // });
     }
+
+    function getModelsMap(models) {
+      var modelsMap = {};
+
+      for (var model of models) {
+        modelsMap[model.name] = {
+          "display_name": model.display_name,
+          "model_url": model.model_url
+        };
+      }
+      return modelsMap;
+    };
 
     $scope.addPhonesNextStep = function () {
       $scope.addPhonesStep++;
@@ -114,8 +127,8 @@ angular.module('nethvoiceWizardUiApp')
         .on('hidden.bs.popover', function (e) {
           $(e.target).data('bs.popover').inState.click = false;
         });
-        $("#adding-modal").on('shown.bs.modal', function(){
-          $('#paste-textarea').focus();
+      $("#adding-modal").on('shown.bs.modal', function () {
+        $('#paste-textarea').focus();
       });
     };
 
@@ -380,6 +393,10 @@ angular.module('nethvoiceWizardUiApp')
         PhoneService.createPhoneMock(phone, $scope.phones, 0.7).then(function (res) {
           console.log("success", res.mac); ////
           $scope.pendingRequestsAddPhones--;
+
+          if (res.model) {
+            res.modelData = $scope.modelsMap[res.model];
+          }
           $scope.successfulAddPhones.push(res);
 
           if ($scope.pendingRequestsAddPhones == 0) {
@@ -481,8 +498,6 @@ angular.module('nethvoiceWizardUiApp')
         $scope.pastedMacsText = "";
         return;
       }
-
-      // todo: set maxlength attribute to <textarea> to limit user input
 
       // remove separators (if any)
       $scope.pastedMacsText = $scope.pastedMacsText.replace(/,|;/g, ' ').trim();

@@ -2275,17 +2275,20 @@ iframe body {
 }
 
 .pasted-macs {
-  height: 400px;
+  border: 1px solid #ededed;
+  max-height: 250px;
   overflow: auto;
   overflow-x: hidden;
 }
 
 .results-add-phones {
-  border: 1px solid #ededed;
-  height: 100px;
+  background-color: #e9f4e9;
+  max-height: 150px;
   overflow: auto;
   overflow-x: hidden;
   margin-bottom: 10px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .cursor-default {
@@ -2357,6 +2360,10 @@ iframe body {
   flex: 1 0 calc(30% - 20px);
 }
 
+.mg-top-10 {
+  margin-top: 10px;
+}
+
 .mg-top-20 {
   margin-top: 20px;
 }
@@ -2369,12 +2376,12 @@ iframe body {
   margin-bottom: 8px;
 }
 
-.mg-right-5 {
-  margin-right: 5px;
+.mg-bottom-6 {
+  margin-bottom: 6px;
 }
 
-.pasted-mac-indicator {
-  margin-bottom: 10px;
+.mg-right-5 {
+  margin-right: 5px;
 }
 
 .align-items-stretch {
@@ -2428,5 +2435,15 @@ iframe body {
 
 .info-general {
   font-size: 14px;
+}
+
+.pad-top-bottom-6 {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+.success {
+  background-color: #e9f4e9;
+  border-color: #3f9c35 !important;
 }
 /* end Inventory */

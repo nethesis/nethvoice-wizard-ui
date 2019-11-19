@@ -616,7 +616,7 @@
   "Edit selected phones": "Modifica i telefoni selezionati",
   "Filter phones": "Filtra telefoni",
   "Select phones": "Seleziona telefoni",
-  "phones": "telefoni",
+  "phones to add": "telefoni da aggiungere",
   "Duplicated MAC address": "Indirizzo MAC duplicato",
   "Unknown vendor": "Produttore sconosciuto",
   "inventory_help_p_1": "L'inventario gestisce l'elenco dei telefoni configurati in Nethvoice",
@@ -627,7 +627,7 @@
   "inventory_help_p_3": "È possibile aggiungere telefoni all'inventario scansionando una rete, copiando e incollando una lista di indirizzi MAC da un foglio di calcolo (o da un file di testo) oppure inserendo i dati del telefono manualmente",
   "phones successfully added": "telefoni aggiunti con successo",
   "No phones added": "Nessun telefono aggiunto",
-  "phones could not be added": "telefoni non stati aggiunti",
+  "phones could not be added": "telefoni non sono stati aggiunti",
   "All phones have been successfully added": "Tutti i telefoni sono stati aggiunti con successo",
   "Done": "Fatto",
   "MAC addresses format": "Formato indirizzi MAC",
@@ -635,8 +635,9 @@
   "inv_help_mac_1": "Puoi effettuare il copia/incolla di una lista d'indirizzi MAC da un foglio di calcolo o da un file di testo",
   "inv_help_mac_2": "La lista deve essere composta da un solo indirizzo MAC per linea",
   "inv_help_mac_3": "Ogni indirizzo MAC può usare il carattere \"-\" o \":\" o niente come separatore",
-  "inv_help_mac_4": "Applica lo stesso modello a tutti i telefoni dello stesso produttore",
-  "Apply": "Applica",
+  "inv_help_mac_4": "Applica lo stesso modello a tutti i telefoni di un produttore",
+  "Apply to all": "Applica a tutti",
   "Select vendor": "Seleziona il produttore",
-  "Select model": "Seleziona il modello"
+  "Select model": "Seleziona il modello",
+  "Add with copy/paste": "Aggiungi con copia/incolla"
 }
