@@ -32,24 +32,28 @@
         </div>
       </form>
     </div>
-
     <div id="configurationList" class="list-group list-view-pf list-view-pf-view mt-20">
-
       <!-- repeat  -->
       <div ng-repeat="user in allUsers track by user.username"
         class="list-group-item {{user.username == currentUser.username ? 'list-view-pf-expand-active' : ''}}">
         <div class="list-group-item-header">
           <div class="list-view-pf-actions">
             <div>
-              <button ng-click="associateDevice()" type="button" class="btn btn-primary">Associa dispositivo</button>
+              <button ng-click="openDevice()"
+                data-toggle="modal"
+                data-target="#devicesAssociation"
+                type="button"
+                class="btn btn-primary">
+                  {{"Associa dispositivo" | translate}}
+              </button>
             </div>
           </div>
-          <div ng-click="selectUser(user)" class="list-view-pf-main-info">
+          <div ng-click="setCurrentUser(user)" class="list-view-pf-main-info">
             <div class="list-view-pf-left"><span aria-hidden="true" class="fa fa-user list-view-pf-icon-sm"></span>
             </div>
             <div class="list-view-pf-body">
               <div class="list-view-pf-description">
-                <div class="list-group-item-heading">username 202</div>
+                <div class="list-group-item-heading">username - 202</div>
                 <div class="list-group-item-text">User Name</div>
               </div>
               <div class="list-view-pf-additional-info">
@@ -59,9 +63,9 @@
             </div>
           </div>
         </div>
-        <div ng-if="currentUser.username == user.username" class="list-group-item-container container-fluid cursor-default">
-          <div class="col-lg-12 plateral-10">
-
+        <div ng-show="!hiddenUser[user.username]" ng-if="currentUser.username == user.username" class="list-group-item-container container-fluid cursor-default">
+          <div ng-show="loadingUser[user.username]" class="spinner mt-14 mb-14"></div>
+          <div ng-show="!loadingUser[user.username]" class="col-lg-12 plateral-10">
             <div class="settings-container">
               <div class="list-group-item back-whitesmoke cursor-default border-color-whitesmoke mt-20">
                 <div class="list-group-item-header back-whitesmoke cursor-default">
@@ -137,9 +141,7 @@
                 </div>
               </div>
             </div>
-
             <div id="configDevices" class="devices-container mb-20">
-
               <div class="list-group-item back-whitesmoke cursor-default border-color-whitesmoke mt-20">
                 <div class="list-group-item-header back-whitesmoke cursor-default">
                   <div class="list-view-pf-main-info pb-12 pt-12">
@@ -156,6 +158,51 @@
                   </div>
                 </div>
               </div>
+              <!-- devices -->
+              <div class="list-group-item cursor-default ng-scope">
+                <div class="list-view-pf-actions">
+                  <div class="display-flex">
+                    <button class="btn btn-default">
+                      {{"Disassocia" | translate}}
+                    </button>
+                    <button class="btn btn-default">
+                      <i class="fa fa-retweet"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="list-view-pf-main-info">
+                  <div class="list-view-pf-left">
+                    <span class="fa fa-phone list-view-pf-icon-sm "></span>
+                  </div>
+                  <div class="list-view-pf-body">
+                    <div class="list-view-pf-description">
+                      <div class="list-group-item-heading configDevices-item-heading">
+                        Sangoma 500 - <span>201</span>
+                      </div>
+                      <span class="weight-plus mr-20">
+                      </span>
+                      <div class="list-group-item-text">
+                        <div class="col-lg-7">
+                          <div class="form-group no-margin-bottom">
+                            <div class="display-flex">
+                              <select class="combobox form-control" autocomplete="off">
+                                <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
+                                  on-finish-render="selectpickerRepeatEnd">{{"Default" | translate}}</option>
+                              </select>
+                              <button class="btn btn-default mln-1">
+                                <i class="fa fa-pencil"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-view-pf-additional-info config-info ">
+                      <div>MAC: <b class="ng-binding">00:50:58:50:3E:70</b></div>
+                    </div>
+                  </div>
+                </div>
+              </div>  
               <!-- webrtc -->
               <div class="list-group-item cursor-default ng-scope">
                 <div class="list-view-pf-actions">
@@ -169,7 +216,7 @@
                   <div class="list-view-pf-body">
                     <div class="list-view-pf-description">
                       <div class="list-group-item-heading configDevices-item-heading">
-                        {{"Web Phone" | translate}}
+                        {{"Web Phone" | translate}} - <span>91201</span>
                       </div>
                       <span class="weight-plus">
                       </span>
@@ -201,7 +248,7 @@
                   <div class="list-view-pf-body">
                     <div class="list-view-pf-description">
                       <div class="list-group-item-heading configDevices-item-heading">
-                        {{"Mobile App" | translate}}
+                        {{"Mobile App" | translate}} - <span>92202</span>
                       </div>
                       <span class="weight-plus">
                       </span>
@@ -219,60 +266,13 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- devices -->
-              <div class="list-group-item cursor-default ng-scope">
-                <div class="list-view-pf-actions">
-                  <div class="display-flex">
-                    <button class="btn btn-default">
-                      {{"Disassocia" | translate}}
-                    </button>
-                    <button class="btn btn-default">
-                      <i class="fa fa-retweet"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="list-view-pf-main-info">
-                  <div class="list-view-pf-left">
-                    <span class="fa fa-phone list-view-pf-icon-sm "></span>
-                  </div>
-                  <div class="list-view-pf-body">
-                    <div class="list-view-pf-description">
-                      <div class="list-group-item-heading configDevices-item-heading">
-                        Sangoma
-                      </div>
-                      <span class="weight-plus mr-20">
-                      </span>
-                      <div class="list-group-item-text">
-                        <div class="col-lg-7">
-                          <div class="form-group no-margin-bottom">
-                            <div class="display-flex">
-                              <select class="combobox form-control" autocomplete="off">
-                                <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
-                                  on-finish-render="selectpickerRepeatEnd">{{"T29" | translate}}</option>
-                              </select>
-                              <button class="btn btn-default mln-1">
-                                <i class="fa fa-pencil"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="list-view-pf-additional-info config-info ">
-                      <div>MAC: <b class="ng-binding">00:50:58:50:3E:70</b></div>
-                    </div>
-                  </div>
-                </div>
-              </div>              
+              </div>            
             </div>
           </div>
         </div>
       </div>
       <!-- end repeat -->
-
     </div>
-
     <div ng-if="false" class="blank-slate-pf ">
       <div class="blank-slate-pf-icon">
         <span class="pficon pficon-users"></span>
@@ -295,75 +295,84 @@
   <!-- <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step> -->
 </div>
 
-<div class="modal fade" id="createUser" tabindex="-1" role="dialog" aria-labelledby="createUserLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="createUserLabel">{{'Add user' | translate}}</h4>
-      </div>
-      <form class="form-horizontal" ng-submit="createUser(newUser)">
-        <div class="modal-body">
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Username' | translate}}</label>
-            <div class="col-sm-9">
-              <input required ng-model="newUser.username" type="text" class="form-control"></div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Fullname' | translate}}</label>
-            <div class="col-sm-9">
-              <input required ng-model="newUser.fullname" type="text" id="textInput2-modal-markup" class="form-control">
-            </div>
-          </div>
+<div class="modal fade" id="devicesAssociation" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+  <div class="wizard-modal">
+    <div class="modal-dialog wizard-pf margin-10">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+          <h4 class="modal-title" id="dfSettingsMLabel">{{'Default Settings' | translate}}</h4>
         </div>
-        <div ng-show="onSave" class="spinner spinner-sm adjust-margin loader-modal"></div>
-        <div class="modal-footer submit">
-          <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
-          <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+        <form class="form-horizontal">
+          <div class="modal-body">
+            <div class="col-lg-12 mb-30 mt-20">
 
-<div id="importModal" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">{{'Import users from CSV' | translate}}</h4>
+
+                <h1 class="control-label config-title-user" for="textInput-markup">
+                  <div>
+                    <div class="filter-label ng-binding">Filtra:</div>
+                    <div class="btn-group bootstrap-select adjust-filter ng-pristine ng-untouched ng-valid ng-isolate-scope" style="width: 180px;"><button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" title="Tutti"><span class="filter-option pull-left">Tutti</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open"><ul class="dropdown-menu inner" role="menu"><li data-original-index="1" class="selected"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Tutti</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Associati</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="3"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Non associati</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select class="adjust-filter ng-pristine ng-untouched ng-valid ng-isolate-scope" title="-" pf-select="{ width: '180px' }" ng-model="selectedDeviceFilter" ng-options="df as df | translate for df in availableDeviceFilters" tabindex="-98"><option class="bs-title-option" value="" selected="selected">-</option><option value="string:all" label="Tutti" selected="selected">Tutti</option><option value="string:linked" label="Associati">Associati</option><option value="string:unlinked" label="Non associati">Non associati</option></select></div>
+                  </div>
+                  <form role="form" class="search-pf has-button adjust-form ng-pristine ng-valid" id="form-lg-domains-details">
+                    <div class="form-group has-clear">
+                      <div class="search-pf-input-group" id="filter-domains-details">
+                        <input ng-model="searchDeviceUserString" type="text" class="form-control input-lg adjust-weight ng-pristine ng-valid ng-touched" placeholder="Cerca dispositivi...">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-default btn-lg" type="submit">
+                        <span class="fa fa-search"></span>
+                      </button>
+                    </div>
+                  </form>
+                  <div class="device-config-detail">
+                    <!-- ngIf: searchDeviceUserString -->
+                    <span class="weight-plus ng-binding">15 dispositivi</span>
+                  </div>
+                </h1>
+
+              <!-- devices -->
+              <div ng-repeat="count in [] | range: 10 track by count" class="list-group-item cursor-default back-whitesmoke">
+                <div class="list-view-pf-actions">
+                  <button class="btn btn-primary">
+                    {{"Associa a username" | translate}}
+                  </button>
+                </div>
+                <div class="list-view-pf-main-info">
+                  <div class="list-view-pf-left">
+                    <span class="fa fa-phone list-view-pf-icon-sm "></span>
+                  </div>
+                  <div class="list-view-pf-body">
+                    <div class="list-view-pf-description">
+                      <div class="list-group-item-heading configDevices-item-heading">
+                        Sangoma 500 - <span>201</span>
+                      </div>
+                      <span class="weight-plus mr-20">
+                          Default
+
+                      </span>
+                      <div class="list-group-item-text">
+                        <div class="col-lg-7">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-view-pf-additional-info config-info ">
+                      <div>MAC: <b class="ng-binding">00:50:58:50:3E:70</b></div>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+
+            </div>
+            <div class="modal-footer submit">
+              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button> -->
+              <!-- <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button> -->
+            </div>
+          </div>
+        </form>
       </div>
-      <form class="form-horizontal" ng-submit="importConfirm(temp.file64)">
-        <div class="modal-body">
-          <div ng-if="!temp.loading" class="alert alert-warning alert-dismissable" style="margin-bottom: 0px;">
-            <span class="pficon pficon-warning-triangle-o"></span>
-            <strong>{{'Start import users from' | translate}} {{temp.csvFileName}}?</strong>
-          </div>
-          <div ng-if="temp.loading">
-            <div class="progress-description">
-              <div ng-if="temp.currentProgress < 100 && temp.currentProgress != -1"
-                class="spinner spinner-xs spinner-inline"></div>
-              <span ng-if="temp.currentProgress == 100" class="pficon pficon-ok"></span>
-              <span ng-if="temp.currentProgress == -1" class="pficon pficon-error-circle-o"></span>
-              <span ng-if="temp.currentProgress != -1"><strong>{{'Creating' | translate}}:</strong>
-                {{'users' | translate}}</span>
-              <span ng-if="temp.currentProgress == -1"><strong>{{'Error' | translate}}:</strong>
-                {{'some users creation failed' | translate}}</span>
-            </div>
-            <div class="progress progress-label-top-right">
-              <div class="progress-bar {{temp.currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}"
-                role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
-                style="width: {{temp.currentProgress == -1 ? '100' : temp.currentProgress}}%;">
-                <span>{{temp.currentProgress == -1 ? '100' : temp.currentProgress}}%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer submit">
-          <button class="btn btn-default" ng-disabled="temp.loadingCancel" ng-click="clearImport()" type="button"
-            data-dismiss="modal">{{'Cancel' | translate}}</button>
-          <button class="btn btn-primary" ng-disabled="temp.loading" type="submit">{{'Import' | translate}}</button>
-        </div>
-      </form>
     </div>
   </div>
 </div>

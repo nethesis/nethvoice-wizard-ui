@@ -172,19 +172,25 @@ angular.module('nethvoiceWizardUiApp')
       "profile": "3"
     }]
 
-    $scope.currentUser = {
-      username: ""
-    }
+    $scope.loadingUser = {}
+    $scope.hiddenUser = {}
+    $scope.currentUser = {}
 
-    $scope.selectUser = function (user) {
+    $scope.setCurrentUser = function (user) {
       if (user.username == $scope.currentUser.username) {
-        $scope.currentUser = {}
+        $scope.hiddenUser[user.username] = !$scope.hiddenUser[user.username]
       } else {
         $scope.currentUser = user
+        $scope.loadingUser[user.username] = true
+        $scope.hiddenUser = {}
       }
+      setTimeout(function () {
+        $scope.loadingUser[user.username] = false
+        $scope.$apply()
+      }, 1000)
     }
 
-    $scope.associateDevice = function () {
+    $scope.openDevices = function () {
       console.log("Open association modal");
     }
 

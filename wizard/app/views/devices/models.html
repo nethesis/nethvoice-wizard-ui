@@ -287,21 +287,25 @@
         </button>
         <h4 class="modal-title" id="nModelMLabel">{{'New model' | translate}}</h4>
       </div>
-      <form class="form-horizontal" ng-submit="">
+      <form class="form-horizontal mt-10" ng-submit="">
         <div class="modal-body">
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
-            <div class="col-sm-8">
-              <input required type="text" class="form-control">
+            <div class="col-sm-9">
+              <div class="col-sm-12">
+                <input required type="text" class="form-control">
+              </div>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Duplicate from' | translate}}</label>
-            <div class="col-sm-8">
-              <select class="combobox form-control" autocomplete="off">
-                <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
-                  on-finish-render="selectpickerRepeatEnd">{{"CIAO" | translate}}</option>
-              </select>
+            <div class="col-sm-9">
+              <div class="col-sm-12">
+                <select class="combobox form-control" autocomplete="off">
+                  <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
+                    on-finish-render="selectpickerRepeatEnd">{{"CIAO" | translate}}</option>
+                </select>
+              </div>
             </div>
           </div>
           <div ng-if="false" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
@@ -327,83 +331,28 @@
         </div>
         <form class="form-horizontal">
           <div class="modal-body">
-            <div class="col-lg-12 mb-30">
+            <div class="col-lg-12 mb-30 mt-20">
               
-              <div class="col-lg-6">
+              <div ng-repeat="item in globalUi.data track by $index"
+                class="col-lg-6 mb-15 ">
                 <div class="col-lg-12">
-
-
-                  <div class="form-group">
-                    <label class="mt-10 control-label">{{"IP address of phone server" | translate}}</label>
-                    <div class="col-lg-12 display-flex no-lateral-padding">
-                      <input type="text" class="form-control" placeholder="{{'IP address' | translate}}">
-                      <button type="button" class="btn btn-default adjust-button" aria-haspopup="true" aria-expanded="false">
-                        {{"Use me" | translate}}
-                      </button>  
-                    </div>
-                  </div>
-
-                  <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
-                    <option value="" selected="selected">{{('Select ') | translate}} {{"Configuration Type" | translate}}</option>
-                    <!-- selectpicker -->
-                    <option ng-repeat="configType in globalUi"
-                      value="{{count}}" on-finish-render="selectpickerRepeatEnd">{{::count | translate}}</option>
-                  </select>
-
                   <!-- list -->
-                  <div class="form-group">
-                    <label class="mt-10 control-label">{{"Description1" | translate}}</label>
-                    <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
-                      <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                  <div ng-if="item.type == 'list'" class="form-group">
+                    <label class="control-label">{{::item.description | translate}}</label>
+                    <select class="combobox form-control" autocomplete="off" name="{{item.variable}}">
+                      <option ng-if="item.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::item.text | translate}}</option>
                       <!-- combobox -->
-                      <option ng-repeat="count in [] | range: 10 track by count"
-                        value="{{count}}" on-finish-render="comboboxRepeatEnd">{{::count | translate}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label class="mt-10 control-label">{{"Description2" | translate}}</label>
-                    <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
-                      <option value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                      <option ng-if="item.options.length > 10" ng-repeat="option in item.options"
+                        value="{{$index}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                       <!-- selectpicker -->
-                      <option ng-repeat="count in [] | range: 10 track by count"
-                        value="{{count}}" on-finish-render="selectpickerRepeatEnd">{{::count | translate}}</option>
+                      <option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
+                        value="{{$index}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
                     </select>
                   </div>
                   <!-- input -->
-                  <div class="form-group">
-                    <label class="mt-10 control-label">{{"Description3" | translate}}</label>
-                    <input placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
-                      type="text" class="form-control">
-                    </input>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-6">
-                <div class="col-lg-12">
-                  <!-- list -->
-                  <div class="form-group">
-                    <label class="mt-10 control-label">{{"Description1" | translate}}</label>
-                    <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
-                      <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
-                      <!-- combobox -->
-                      <option ng-repeat="count in [] | range: 10 track by count"
-                        value="{{count}}" on-finish-render="comboboxRepeatEnd">{{::count | translate}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label class="mt-10 control-label">{{"Description2" | translate}}</label>
-                    <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
-                      <option value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
-                      <!-- selectpicker -->
-                      <option ng-repeat="count in [] | range: 10 track by count"
-                        value="{{count}}" on-finish-render="selectpickerRepeatEnd">{{::count | translate}}</option>
-                    </select>
-                  </div>
-                  <!-- input -->
-                  <div class="form-group">
-                    <label class="mt-10 control-label">{{"Description3" | translate}}</label>
-                    <input placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
+                  <div ng-if="item.type == 'input'" class="form-group">
+                    <label class="control-label">{{::item.description | translate}}</label>
+                    <input placeholder="{{'Insert ' | translate}} {{::item.description | translate}}"
                       type="text" class="form-control">
                     </input>
                   </div>
