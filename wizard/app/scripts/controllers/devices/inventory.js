@@ -122,6 +122,7 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.showPasteModal = () => {
+      $scope.phonesToAdd = [];
       $scope.pastedMacs = [];
       $scope.successfulAddPhones = [];
       $scope.failedAddPhones = [];
@@ -142,14 +143,19 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.showManualModal = function () {
+      $scope.phonesToAdd = [];
       $scope.successfulAddPhones = [];
       $scope.failedAddPhones = [];
       $scope.pendingRequestsAddPhones = 0;
       $scope.showResultsAddPhones = false;
       $scope.showGenericAddingModal('manual');
+      setTimeout(function () {
+        $('#manual-mac').focus();
+      }, 500);
     }
 
     $scope.showScanModal = function () {
+      $scope.phonesToAdd = [];
       $scope.successfulAddPhones = [];
       $scope.failedAddPhones = [];
       $scope.pendingRequestsAddPhones = 0;
@@ -167,6 +173,31 @@ angular.module('nethvoiceWizardUiApp')
       $('#add-phone').modal("hide");
     }
 
+    $scope.addPhoneManual = function () {
+      console.log("addPhoneManual"); ////
+
+      var validationOk = validateAddPhonesManual();
+
+      if (!validationOk) {
+        return;
+      }
+
+      var phone = {
+        "mac": $scope.manualMac,
+        "model": $scope.manualModel,
+        "vendor": $scope.manualVendor,
+        "filteredModels": $scope.manualFilteredModels
+      };
+
+      $scope.phonesToAdd.push(phone);
+      $scope.getVendorApplyToAllList();
+
+      $scope.manualMac = "";
+      $scope.manualModel = null;
+      $scope.manualFilteredModels = [];
+      $('#manual-mac').focus();
+    }
+
     $scope.inputMacManualChanged = function () {
       $scope.clearValidationErrorsManual();
 
@@ -180,7 +211,6 @@ angular.module('nethvoiceWizardUiApp')
       var vendor = UtilService.getVendor($scope.manualMac);
 
       if (vendor) {
-        $scope.manualVendor = UtilService.capitalize(vendor);
         $scope.manualFilteredModels = $scope.models.filter(function (model) {
           return model.name.toLowerCase().startsWith(vendor.toLowerCase());
         });
@@ -317,6 +347,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.clearValidationErrorsManual = function () {
       $scope.showManualMacError = false;
       $scope.manualMacUnknownVendor = false;
+      $scope.manualMacDuplicated = false;
     }
 
     $scope.clearValidationErrorsPaste = function (phone) {
@@ -383,16 +414,16 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     // used to add phones with different methods
-    $scope.addPhonesGeneric = () => {
-      if ($scope.addModalType === 'copypaste') {
-        $scope.addPhonesPaste();
-      } else if ($scope.addModalType === 'manual') {
-        $scope.addPhonesManual();
-        showResultsAddPhones();
-      }
-    };
+    // $scope.addPhonesGeneric = () => { ////
+    //   if ($scope.addModalType === 'copypaste') {
+    //     $scope.addPhonesPaste();
+    //   } else if ($scope.addModalType === 'manual') {
+    //     $scope.addPhonesManual();
+    //     showResultsAddPhones();
+    //   }
+    // };
 
-    $scope.addPhonesPaste = function () { //// should become addPhones(), used by all add methods
+    $scope.addPhones = function () {
       if (!$scope.phonesToAdd || $scope.phonesToAdd.length == 0) {
         return;
       }
@@ -492,10 +523,6 @@ angular.module('nethvoiceWizardUiApp')
 
       if (!vendor) {
         vendor = UtilService.getVendor(mac);
-
-        if (vendor) {
-          vendor = UtilService.capitalize(vendor);
-        }
       }
 
       var phone = {
@@ -518,8 +545,20 @@ angular.module('nethvoiceWizardUiApp')
         $scope.manualMacUnknownVendor = true;
       }
 
+      // check duplicated MAC
+      var duplicatedPhone = $scope.phonesToAdd.find(function (phone) { //// mockup
+        return phone.mac === $scope.manualMac;
+      });
+
+      if (duplicatedPhone) {
+        $scope.manualMacDuplicated = true;
+      }
+
       if (!UtilService.checkMacAddress($scope.manualMac)) {
         $scope.showManualMacError = true;
+      }
+
+      if ($scope.manualMacDuplicated || $scope.showManualMacError) {
         $('#manual-mac').focus();
         return false;
       } else {
@@ -531,7 +570,7 @@ angular.module('nethvoiceWizardUiApp')
       return $scope.manualFilteredModels && $scope.manualFilteredModels.length > 0 ? false : true;
     };
 
-    $scope.addPhonesManual = function () {
+    $scope.addPhonesManual = function () { //// delete?
       var validationOk = validateAddPhonesManual();
 
       if (!validationOk) {
@@ -586,9 +625,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.macPhoneToAddChanged(phone);
       }
 
-      // perform validation
       validatePhonesToAdd();
-
       $scope.getVendorApplyToAllList();
     }
 
@@ -735,7 +772,7 @@ angular.module('nethvoiceWizardUiApp')
       var vendor = UtilService.getVendor(phone.mac);
 
       if (vendor) {
-        phone.vendor = UtilService.capitalize(vendor);
+        phone.vendor = vendor;
         phone.filteredModels = $scope.models.filter(function (model) {
           return model.name.toLowerCase().startsWith(vendor.toLowerCase());
         });
@@ -819,6 +856,11 @@ angular.module('nethvoiceWizardUiApp')
         return phone.mac.toUpperCase() !== phoneToDelete.mac.toUpperCase();
       });
 
+      $scope.getVendorApplyToAllList();
+    }
+
+    $scope.deletePhoneToAddIndex = function (index) {
+      $scope.phonesToAdd.splice(index, 1);
       $scope.getVendorApplyToAllList();
     }
 

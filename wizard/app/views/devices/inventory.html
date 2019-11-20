@@ -161,7 +161,7 @@
               </div>
               <!-- section shown on manual method -->
               <div ng-show="!showResultsAddPhones && addModalType === 'manual'">
-                <div class="form-group" ng-class="{ 'has-error': showManualMacError }">
+                <div class="form-group" ng-class="{ 'has-error': showManualMacError || manualMacDuplicated }">
                   <label class="col-sm-4 control-label" for="manual-mac">{{ 'MAC address' | translate }}</label>
                   <div class="col-sm-8">
                     <input type="text" id="manual-mac" name="manualMac" class="form-control" ng-model="manualMac"
@@ -170,6 +170,8 @@
                     <span ng-show="manualMacUnknownVendor" class="help-block warning">
                       <span
                         class="pficon pficon-warning-triangle-o mg-right-5"></span>{{ 'Unknown vendor' | translate }}</span>
+                    <span ng-show="manualMacDuplicated"
+                      class="help-block">{{ 'Duplicated MAC address' | translate }}</span>
                   </div>
                 </div>
                 <div class="form-group">
@@ -185,7 +187,7 @@
                 <div class="form-group">
                   <label class="col-sm-4 control-label"></label>
                   <div class="col-sm-8">
-                    <button type="submit" class="btn btn-primary" ng-click="todo()">
+                    <button type="submit" class="btn btn-primary" ng-disabled="!manualMac" ng-click="addPhoneManual()">
                       {{ 'Add' | translate }}
                     </button>
                   </div>
@@ -315,7 +317,7 @@
                       ng-repeat="phone in phonesToAdd track by $index">
                       <div class="list-view-pf-actions">
                         <!-- delete phone to add -->
-                        <button type="button" class="btn btn-danger" ng-click="deletePhoneToAdd(phone)">
+                        <button type="button" class="btn btn-danger" ng-click="deletePhoneToAddIndex($index)">
                           {{ 'Delete' | translate }}
                         </button>
                       </div>
@@ -362,7 +364,8 @@
             <!-- add phones button -->
             <button type="button" class="btn btn-primary mg-top-20"
               ng-show="!(showResultsAddPhones && phonesToAdd.length == 0)"
-              ng-click="addPhonesGeneric()">{{ 'Add phones' | translate }}</button>
+              ng-disabled="phonesToAdd.length === 0"
+              ng-click="addPhones()">{{ 'Add phones' | translate }}</button>
             <!-- done button -->
             <button type="button" class="btn btn-primary mg-top-20"
               ng-show="showResultsAddPhones && phonesToAdd.length == 0"
