@@ -12,8 +12,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.phones = [];
     $scope.phonesTancredi = []; //// mockup, delete
 
-    //// UtilService.getVendor() restituisce sempre il vendor già maiuscolo, rimuovere tutti i capitalize()
-
     // $scope.phones = [ //// mockup
     //   { mac: "00:04:13:11:22:31", model: "snom100", display_name: "Snom" },
     //   { mac: "0C:38:3E:99:88:72", model: "fanvil-600", display_name: "Fanvil" },
@@ -31,13 +29,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.networkScans = 0;
 
     $scope.pastedMacs = [];
-    // $scope.showPasteMacError = []; ////
-    // $scope.pastedMacUnknownVendors = []; ////
 
     $scope.successfulAddPhones = [];
     $scope.failedAddPhones = [];
-
-    // $scope.cpApplyAllSelModelDisabled = true; // used by copy/paste addition gui ////
 
     $scope.getPhones = function () {
       console.log("getPhones(), phonesTancredi", $scope.phonesTancredi); ////
@@ -93,19 +87,6 @@ angular.module('nethvoiceWizardUiApp')
       //   console.log(err);
       // });
     }
-
-    // function getModelsMap(models) { /////
-    //   var modelsMap = {};
-
-    //   for (var model of models) {
-    //     modelsMap[model.name] = {
-    //       "name": model.name,
-    //       "display_name": model.display_name,
-    //       "model_url": model.model_url
-    //     };
-    //   }
-    //   return modelsMap;
-    // };
 
     $scope.addPhonesNextStep = function () {
       $scope.addPhonesStep++;
@@ -413,16 +394,6 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    // used to add phones with different methods
-    // $scope.addPhonesGeneric = () => { ////
-    //   if ($scope.addModalType === 'copypaste') {
-    //     $scope.addPhonesPaste();
-    //   } else if ($scope.addModalType === 'manual') {
-    //     $scope.addPhonesManual();
-    //     showResultsAddPhones();
-    //   }
-    // };
-
     $scope.addPhones = function () {
       if (!$scope.phonesToAdd || $scope.phonesToAdd.length == 0) {
         return;
@@ -490,7 +461,6 @@ angular.module('nethvoiceWizardUiApp')
       var filteredModels = $scope.filteredModels(mac);
 
       if (phoneTancredi.model) {
-        // model = $scope.modelsMap[phoneTancredi.model]; ////
         model = filteredModels.find(function (m) {
           return phoneTancredi.model === m.name;
         });
@@ -610,10 +580,6 @@ angular.module('nethvoiceWizardUiApp')
       // split MAC addresses on whitespace
       $scope.pastedMacs = $scope.pastedMacsText.split(/\s+/);
 
-      // $scope.pastedVendors = []; //// delete?
-      $scope.pastedModels = []; //// delete?
-      $scope.pasteFilteredModels = []; //// delete?
-
       $scope.pastedMacsText = "";
       $scope.phonesToAdd = [];
 
@@ -642,10 +608,6 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    $scope.modelApplyToAllChanged = () => { //// delete?
-      console.log("modelApplyToAllChanged, modelApplyToAll", $scope.modelApplyToAll); ////
-    }
-
     $scope.getVendorApplyToAllList = () => {
       var vendorApplyToAllSet = new Set();
 
@@ -664,62 +626,6 @@ angular.module('nethvoiceWizardUiApp')
       $scope.vendorApplyToAllList = [...vendorApplyToAllSet];
     }
 
-    // section for mac copy/paste addition - start
-    //
-    // copy/paste addition: extract all brands and models
-    // $scope.linkVendorsToModels = () => {
-    //   /////// delete?
-    //   $scope.cpAllModels = {}; // all models
-    //   for (let i = 0; i < $scope.phonesToAdd.length; i++) {
-    //     for (let k = 0; k < $scope.phonesToAdd[i].filteredModels.length; k++) {
-    //       if (!$scope.cpAllModels[$scope.phonesToAdd[i].filteredModels[k].name]) {
-    //         $scope.cpAllModels[$scope.phonesToAdd[i].filteredModels[k].name] = $scope.phonesToAdd[i].filteredModels[k];
-    //       }
-    //     }
-    //   }
-    //   let tempBrand;
-    //   $scope.cpAllBrands = {}; // all brands
-    //   for (let i = 0; i < $scope.phonesToAdd.length; i++) {
-    //     tempBrand = UtilService.getVendor($scope.phonesToAdd[i].mac);
-    //     if (tempBrand) { // controlla il formato del mac, se contiene i : o meno
-    //       var tempBrandCapitalized = UtilService.capitalize(tempBrand);
-    //       $scope.cpAllBrands[tempBrandCapitalized] = [];
-    //       for (const key in $scope.cpAllModels) {
-    //         if (key.indexOf(tempBrand) !== -1) {
-    //           $scope.cpAllBrands[tempBrandCapitalized].push($scope.cpAllModels[key]);
-    //         }
-    //       }
-    //     }
-    //   }
-    // };
-
-    // $scope.getCpAllBrandsLength = () => { ////
-    //   if ($scope.cpAllBrands) {
-    //     return Object.keys($scope.cpAllBrands).length;
-    //   } else {
-    //     return 0;
-    //   }
-    // };
-
-    // copy/paste addition: user has selected one brand
-    // $scope.cpAllBrandsChanged = () => { ////
-    //   $scope.cpAllSelModels = [];
-    //   for (const b in $scope.cpAllBrands) {
-    //     if (b === $scope.cpAllBrandsValue) {
-    //       $scope.cpAllSelModels = $scope.cpAllBrands[b];
-    //     }
-    //   }
-    // };
-
-    // copy/paste addition: user has selected one model
-    // $scope.cpAllModelsChanged = () => { ////
-    //   if ($scope.cpAllSelModelsValue !== null && $scope.cpAllSelModelsValue !== '') {
-    //     $scope.cpApplyAllSelModelDisabled = false;
-    //   } else {
-    //     $scope.cpApplyAllSelModelDisabled = true;
-    //   }
-    // };
-
     $scope.applyModelToAll = () => {
       for (var phone of $scope.phonesToAdd) {
         var vendor = phone.vendor;
@@ -733,33 +639,6 @@ angular.module('nethvoiceWizardUiApp')
         }
       }
     }
-
-    // copy/paste addition: apply the selected model to all devices of that type
-    // $scope.cpApplyAllSelModel = () => { /////////
-    //   let tempBrand;
-    //   let indexToSet = {}; // indexes of combobox array models
-    //   for (let i = 0; i < $scope.phonesToAdd.length; i++) {
-    //     tempBrand = UtilService.getVendor($scope.phonesToAdd[i].mac);
-
-    //     if (tempBrand) {
-    //       tempBrand = UtilService.capitalize(tempBrand);
-    //     }
-
-    //     if (!indexToSet[tempBrand]) {
-    //       indexToSet[tempBrand] = [];
-    //     }
-    //     indexToSet[tempBrand].push(i);
-    //   }
-    //   for (let i = 0; i < $scope.cpAllSelModels.length; i++) { // set model for combobox array models
-    //     if ($scope.cpAllSelModels[i].name === $scope.cpAllSelModelsValue) {
-    //       for (let k = 0; k < indexToSet[$scope.cpAllBrandsValue].length; k++) {
-    //         $scope.pastedModels[indexToSet[$scope.cpAllBrandsValue][k]] = $scope.cpAllSelModels[i];
-    //       }
-    //       return;
-    //     }
-    //   }
-    // };
-    // section for mac copy/paste addition - end
 
     $scope.macPhoneToAddChanged = function (phone) {
       $scope.clearValidationErrorsPaste(phone);
@@ -845,13 +724,6 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.deletePhoneToAdd = function (phoneToDelete) {
-      // $scope.pastedMacs.splice(index, 1); //// delete
-      // $scope.showPasteMacError.splice(index, 1);
-      // $scope.pastedVendors.splice(index, 1);
-      // $scope.pastedModels.splice(index, 1);
-      // $scope.pasteFilteredModels.splice(index, 1);
-      // $scope.pastedMacUnknownVendors.splice(index, 1);
-
       $scope.phonesToAdd = $scope.phonesToAdd.filter(function (phone) {
         return phone.mac.toUpperCase() !== phoneToDelete.mac.toUpperCase();
       });
