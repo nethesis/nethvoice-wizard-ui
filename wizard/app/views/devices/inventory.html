@@ -79,12 +79,11 @@
             <div class="list-view-pf-body">
               <div class="list-view-pf-description">
                 <div class="list-group-item-heading {{phone.model ? '' : 'disabled'}}">
-                  {{ phone.display_name ? phone.display_name : '-'}}
+                  {{ phone.vendor ? phone.vendor : '-'}}
                 </div>
                 <div class="list-group-item-text">
-                  <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)"
-                    ng-model="phone.modelObj"
-                    ng-options="model.display_name for model in filteredModels(phone.mac) | orderBy:orderByValue">
+                  <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)" ng-model="phone.model"
+                    ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue">
                     <option value="">-</option>
                   </select>
                 </div>
@@ -259,8 +258,8 @@
                               {{ phone.mac }}
                             </div>
                             <div class="list-group-item-text">
-                              <span ng-show="phone.modelData">{{ phone.modelData.display_name }}</span>
-                              <span ng-show="!phone.modelData">{{ phone.display_name }}</span>
+                              <span ng-show="phone.model">{{ phone.model.display_name }}</span>
+                              <span ng-show="!phone.model">{{ phone.vendor }}</span>
                             </div>
                           </div>
                         </div>
@@ -269,71 +268,82 @@
                   </div>
                 </div>
 
-                <div class="mg-top-10" ng-show="pastedMacs.length > 0">
+                <div class="mg-top-10" ng-show="phonesToAdd.length > 0">
                   <li class="divider"></li>
                 </div>
               </div>
               <!-- toolbar to apply model to all -->
-              <div ng-show="pastedMacs.length > 0">
+              <div ng-show="phonesToAdd.length > 0">
                 <div class="mg-top-10"><label>{{ 'inv_help_mac_4' | translate }}</label></div>
-                <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select vendor' | translate) }"
+                <!-- //// <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select vendor' | translate) }"
                   ng-model="cpAllBrandsValue" ng-change="cpAllBrandsChanged()"
                   ng-disabled="getCpAllBrandsLength() === 0" ng-options="k as k for (k,v) in cpAllBrands">
+                </select> -->
+
+                <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select vendor' | translate) }"
+                  ng-model="vendorApplyToAll" ng-change="vendorApplyToAllChanged()"
+                  ng-disabled="vendorApplyToAllList.size === 0" ng-options="v as v for v in vendorApplyToAllList">
                 </select>
-                <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select model' | translate) }"
+
+                <!-- //// <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select model' | translate) }"
                   ng-model="cpAllSelModelsValue" ng-change="cpAllModelsChanged()"
                   ng-disabled="cpAllSelModels.length === 0 || cpAllSelModels === undefined"
                   ng-options="v.name as v.display_name for v in cpAllSelModels">
+                </select> -->
+
+                <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select model' | translate) }"
+                  ng-model="modelApplyToAll" ng-change="modelApplyToAllChanged()"
+                  ng-options="m as m.display_name for m in modelApplyToAllList">
                 </select>
-                <button type="button" class="btn btn-default" ng-click="cpApplyAllSelModel()"
-                  ng-disabled="cpApplyAllSelModelDisabled">
+
+                <button type="button" class="btn btn-default" ng-click="applyModelToAll()"
+                  ng-disabled="!modelApplyToAll">
                   {{ 'Apply to all' | translate }}
                 </button>
               </div>
 
-              <div ng-show="pastedMacs.length > 0">
+              <div ng-show="phonesToAdd.length > 0">
                 <!-- number of phones to add -->
                 <div class="mg-top-20">
-                  <label class="mg-bottom-6">{{ pastedMacs.length }} {{ 'phones to add' | translate }}</strong>
+                  <label class="mg-bottom-6">{{ phonesToAdd.length }} {{ 'phones to add' | translate }}</strong>
                 </div>
                 <!-- phones to add -->
-                <div class="pasted-macs">
+                <div class="phones-to-add">
                   <div class="list-group list-view-pf clear">
                     <div class="list-group-item cursor-default form-group no-margin-left-right align-items-stretch"
-                      ng-class="{ 'has-error': (showPasteMacError[$index] || macDuplicates.includes(mac)), 'border-top-list': $index == 0 }"
-                      ng-repeat="mac in pastedMacs track by $index">
+                      ng-class="{ 'has-error': (phone.error || macDuplicates.includes(phone.mac)), 'border-top-list': $index == 0 }"
+                      ng-repeat="phone in phonesToAdd track by $index">
                       <div class="list-view-pf-actions">
-                        <!-- delete pasted MAC -->
-                        <button type="button" class="btn btn-danger" ng-click="deletePastedMac($index)">
+                        <!-- delete phone to add -->
+                        <button type="button" class="btn btn-danger" ng-click="deletePhoneToAdd(phone)">
                           {{ 'Delete' | translate }}
                         </button>
                       </div>
                       <div class="list-view-pf-main-info align-items-stretch">
                         <div class="list-view-pf-left">
-                          <span
-                            class="fa fa-phone list-view-pf-icon-sm {{pastedModels[$index] ? '' : 'disabled'}}"></span>
+                          <span class="fa fa-phone list-view-pf-icon-sm {{ phone.model ? '' : 'disabled' }}"></span>
                         </div>
                         <div class="list-view-pf-body">
                           <div class="list-view-pf-description align-items-stretch">
-                            <div class="list-group-item-heading {{pastedModels[$index] ? '' : 'disabled'}}">
+                            <div class="list-group-item-heading {{ phone.model ? '' : 'disabled' }}">
                               <!-- MAC -->
-                              <input type="text" id="paste-mac-{{$index}}" name="pasteMac{{$index}}"
-                                class="form-control" ng-model="pastedMacs[$index]"
-                                ng-change="inputMacPasteChanged({{$index}})" maxlength="17">
-                              <span ng-show="showPasteMacError[$index]"
+                              <input type="text" id="mac-phone-to-add-{{$index}}" name="mac{{$index}}"
+                                class="form-control" ng-model="phone.mac" ng-change="macPhoneToAddChanged(phone)"
+                                maxlength="17">
+                              <span ng-show="phone.error"
                                 class="help-block">{{ 'Invalid MAC address' | translate }}</span>
-                              <span ng-show="macDuplicates.includes(mac)"
+                              <span ng-show="macDuplicates.includes(phone.mac)"
                                 class="help-block">{{ 'Duplicated MAC address' | translate }}</span>
-                              <span ng-show="pastedMacUnknownVendors[$index]" class="help-block warning">
+                              <span ng-show="phone.unknownVendor" class="help-block warning">
                                 <span
                                   class="pficon pficon-warning-triangle-o mg-right-5"></span>{{ 'Unknown vendor' | translate }}</span>
                             </div>
                             <div class="list-group-item-text">
                               <!-- model -->
                               <select class="form-control border-color-bbb" pf-select="{ noneSelectedText: '-' }"
-                                ng-model="pastedModels[$index]"
-                                ng-options="model.display_name for model in pasteFilteredModels[$index] | orderBy:orderByValue"
-                                id="paste-model-{{$index}}">
+                                ng-model="phone.model"
+                                ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
+                                id="model-phone-to-add-{{$index}}">
                                 <option value="">-</option>
                               </select>
                             </div>
@@ -351,16 +361,17 @@
               data-dismiss="modal">{{ 'Cancel' | translate }}</button>
             <!-- add phones button -->
             <button type="button" class="btn btn-primary mg-top-20"
-              ng-show="!(showResultsAddPhones && pastedMacs.length == 0)"
+              ng-show="!(showResultsAddPhones && phonesToAdd.length == 0)"
               ng-click="addPhonesGeneric()">{{ 'Add phones' | translate }}</button>
             <!-- done button -->
             <button type="button" class="btn btn-primary mg-top-20"
-              ng-show="showResultsAddPhones && pastedMacs.length == 0"
+              ng-show="showResultsAddPhones && phonesToAdd.length == 0"
               data-dismiss="modal">{{ 'Done' | translate }}</button>
           </div>
         </div>
       </div>
     </div>
+
 
     <!-- add phones modal //// todo: delete wizard -->
     <div class="modal" id="add-phone" tabindex="-1" role="dialog">
@@ -512,6 +523,7 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
 
     <!-- delete phone modal -->
     <div class="modal fade" id="deletePhoneModal" tabindex="-1" role="dialog" aria-labelledby="deletePhoneModal"

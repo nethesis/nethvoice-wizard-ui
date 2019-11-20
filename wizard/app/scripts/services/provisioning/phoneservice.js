@@ -21,6 +21,19 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    // Mock: retrieve the complete phone inventory
+    this.getPhonesMock = function (mockPhones) {
+      return $q(function (resolve, reject) {
+        if (mockPhones) {
+          // return the input phones list
+          resolve(mockPhones);
+        } else {
+          // return an empty list
+          resolve([]);
+        }
+      });
+    };
+
     // Create a new phone instance and add it to the phone inventory
     this.createPhone = function (phone) {
       return $q(function (resolve, reject) {
@@ -33,7 +46,7 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     // Mock: create a new phone instance and add it to the phone inventory; it succeeds with probability prob
-    this.createPhoneMock = function (phone, phones, prob) {
+    this.createPhoneMock = function (phone, prob) {
       // if probability is not passed, always succeeds
       if (!prob) {
         prob = 1;
@@ -54,7 +67,6 @@ angular.module('nethvoiceWizardUiApp')
               "var2": "value2"
             }
           }
-          phones.push(phone);
           resolve(res);
         } else {
           var err = {
@@ -65,7 +77,7 @@ angular.module('nethvoiceWizardUiApp')
         }
       });
     };
-    
+
     // Remove a phone from the inventory
     this.deletePhone = function (mac) {
       return $q(function (resolve, reject) {

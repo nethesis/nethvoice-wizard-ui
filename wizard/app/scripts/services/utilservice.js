@@ -88,6 +88,11 @@ angular.module('nethvoiceWizardUiApp')
       // remove separators
       macAddress = macAddress.toUpperCase().replace(/:/g, "").replace(/-/g, "");
       var vendor = this.macVendorMap[macAddress.substring(0, 6)];
+
+      if (vendor) {
+        vendor = this.capitalize(vendor);
+      }
+
       return vendor;
     };
 
