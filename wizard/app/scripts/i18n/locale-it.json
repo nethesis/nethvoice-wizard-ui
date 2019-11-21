@@ -93,6 +93,7 @@
   "Go": "Vai",
   "Netmask": "Maschera di rete",
   "Scan": "Scansiona",
+  "Stop scan": "Interrompi scansione",
   "Search": "Cerca",
   "Search users": "Cerca utenti",
   "Search devices": "Cerca dispositivi",
@@ -605,8 +606,6 @@
   "You are about to delete phone": "Stai per eliminare il telefono",
   "Invalid MAC address": "Indirizzo MAC non valido",
   "Network to scan": "Rete da scansionare",
-  "Select a network": "Selezionare una rete",
-  "This network is already being scanned": "La scansione di questa rete è già in corso",
   "Enter a valid netmask": "Inserire una maschera di rete valida",
   "Scanning network for phones": "Scansione rete in corso",
   "Network scan successfully completed": "Scansione rete completata con successo",
@@ -627,7 +626,7 @@
   "inventory_help_p_3": "È possibile aggiungere telefoni all'inventario scansionando una rete, copiando e incollando una lista di indirizzi MAC da un foglio di calcolo (o da un file di testo) oppure inserendo i dati del telefono manualmente",
   "phones successfully added": "telefoni aggiunti con successo",
   "No phones added": "Nessun telefono aggiunto",
-  "phones could not be added": "telefoni non sono stati aggiunti",
+  "phones could not be added because of a server error": "telefoni non sono stati aggiunti a causa di un errore del server",
   "All phones have been successfully added": "Tutti i telefoni sono stati aggiunti con successo",
   "Done": "Fatto",
   "MAC addresses format": "Formato indirizzi MAC",
@@ -639,5 +638,6 @@
   "Apply to all": "Applica a tutti",
   "Select vendor": "Seleziona il produttore",
   "Select model": "Seleziona il modello",
-  "Add with copy/paste": "Aggiungi con copia/incolla"
+  "Add with copy/paste": "Aggiungi con copia/incolla",
+  "Server error": "Errore del server"
 }

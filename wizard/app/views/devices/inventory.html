@@ -96,17 +96,6 @@
         </div>
       </div>
     </div>
-    <!-- network scan in progress -->
-    <div ng-show="networkScans > 0" class="toast-pf toast-pf-top-right alert alert-info">
-      <span class="pficon pficon-info"></span>
-      <span class="spinner spinner-sm spinner-notification"></span>
-      {{ 'Scanning network for phones' | translate }}...
-    </div>
-    <!-- network scan completed -->
-    <div ng-show="networkScanCompleted && networkScans < 1" class="toast-pf toast-pf-top-right alert alert-success">
-      <span class="pficon pficon-ok"></span>
-      {{ 'Network scan successfully completed' | translate }}
-    </div>
 
     <!-- generic modal used by scan, copy/paste and manual add -->
     <div class="modal fade" id="adding-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -121,237 +110,254 @@
           </div>
           <div class="modal-body">
             <form class="form-horizontal">
-              <!-- section shown on copy/paste method -->
-              <div ng-show="!showResultsAddPhones && addModalType === 'copypaste'" class="form-group no-margin-bottom">
-                <!-- paste textarea -->
-                <label class="col-sm-4 control-label" for="paste-textarea">
-                  {{ 'Copy a list of MAC addresses and paste it here' | translate }}
-                  <!-- inline help for mac address format -->
-                  <div class="reset-padding">
-                    <a href="#" class="info-general" data-toggle="popover" data-html="true" data-placement="bottom"
-                      data-close="false" data-trigger="click" data-container="body"
-                      title='{{ "MAC addresses format" | translate }}' data-content='<div class="inv-style-info-mac">
-                        {{ "inv_help_mac_1" | translate }}.
-                        {{ "inv_help_mac_2" | translate }}.
-                        {{ "inv_help_mac_3" | translate }}.
-                      <p>&nbsp;</p><p>{{ "Example" | translate }}:</p>
-                      <p><pre>
-  00:04:13:11:22:31
-  0C:38:3E:99:88:72
-  00:15:65:55:55:53
-  <!-- do not remove this comment -->
-  00-04-13-11-22-31
-  0C-38-3E-99-88-72
-  00-15-65-55-55-53
-  <!-- do not remove this comment -->
-  000413112231
-  0C383E998872
-  001565555553
-                      </pre></p>
-                      </div>'>
-                      <span class="pficon pficon-info"></span>
-                    </a>
-                  </div>
-                </label>
-                <div class="col-sm-8">
-                  <!-- maxlength=3600 -> copy/paste max 200 mac at time -->
-                  <textarea maxlength='3600' id="paste-textarea" class="form-control pasted-mac-area"
-                    ng-model="pastedMacsText" ng-change="parsePastedMacs()"></textarea>
-                </div>
+              <!-- add phones loader -->
+              <div ng-show="addPhonesInProgress" class="centered">
+                <span class="spinner spinner-add-phones"></span>
               </div>
-              <!-- section shown on manual method -->
-              <div ng-show="!showResultsAddPhones && addModalType === 'manual'">
-                <div class="form-group" ng-class="{ 'has-error': showManualMacError || manualMacDuplicated }">
-                  <label class="col-sm-4 control-label" for="manual-mac">{{ 'MAC address' | translate }}</label>
+              <div ng-show="!addPhonesInProgress">
+                <!-- section shown on copy/paste method -->
+                <div ng-show="!showResultsAddPhones && addModalType === 'copypaste'"
+                  class="form-group no-margin-bottom">
+                  <!-- paste textarea -->
+                  <label class="col-sm-4 control-label" for="paste-textarea">
+                    {{ 'Copy a list of MAC addresses and paste it here' | translate }}
+                    <!-- inline help for mac address format -->
+                    <div class="reset-padding">
+                      <a href="#" class="info-general" data-toggle="popover" data-html="true" data-placement="bottom"
+                        data-close="false" data-trigger="click" data-container="body"
+                        title='{{ "MAC addresses format" | translate }}' data-content='<div class="inv-style-info-mac">
+                          {{ "inv_help_mac_1" | translate }}.
+                          {{ "inv_help_mac_2" | translate }}.
+                          {{ "inv_help_mac_3" | translate }}.
+                        <p>&nbsp;</p><p>{{ "Example" | translate }}:</p>
+                        <p><pre>
+    00:04:13:11:22:31
+    0C:38:3E:99:88:72
+    00:15:65:55:55:53
+    <!-- do not remove this comment -->
+    00-04-13-11-22-31
+    0C-38-3E-99-88-72
+    00-15-65-55-55-53
+    <!-- do not remove this comment -->
+    000413112231
+    0C383E998872
+    001565555553
+                        </pre></p>
+                        </div>'>
+                        <span class="pficon pficon-info"></span>
+                      </a>
+                    </div>
+                  </label>
                   <div class="col-sm-8">
-                    <input type="text" id="manual-mac" name="manualMac" class="form-control" ng-model="manualMac"
-                      ng-change="inputMacManualChanged()" maxlength="17">
-                    <span ng-show="showManualMacError" class="help-block">{{ 'Invalid MAC address' | translate }}</span>
-                    <span ng-show="manualMacUnknownVendor" class="help-block warning">
-                      <span
-                        class="pficon pficon-warning-triangle-o mg-right-5"></span>{{ 'Unknown vendor' | translate }}</span>
-                    <span ng-show="manualMacDuplicated"
-                      class="help-block">{{ 'Duplicated MAC address' | translate }}</span>
+                    <!-- maxlength=3600 -> copy/paste max 200 mac at time -->
+                    <textarea maxlength='3600' id="paste-textarea" class="form-control pasted-mac-area"
+                      ng-model="pastedMacsText" ng-change="parsePastedMacs()"></textarea>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="col-sm-4 control-label" for="manual-model">{{ 'Model' | translate }}</label>
-                  <div class="col-sm-8">
-                    <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="manualModel"
-                      ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue"
-                      ng-disabled="getManualFilteredModelsCount()" id="manual-model">
-                      <!-- <option value="">-</option> -->
-                    </select>
+                <!-- section shown on manual method -->
+                <div ng-show="!showResultsAddPhones && addModalType === 'manual'">
+                  <div class="form-group" ng-class="{ 'has-error': showManualMacError || manualMacDuplicated }">
+                    <label class="col-sm-4 control-label" for="manual-mac">{{ 'MAC address' | translate }}</label>
+                    <div class="col-sm-8">
+                      <input type="text" id="manual-mac" name="manualMac" class="form-control" ng-model="manualMac"
+                        ng-change="inputMacManualChanged()" maxlength="17">
+                      <span ng-show="showManualMacError"
+                        class="help-block">{{ 'Invalid MAC address' | translate }}</span>
+                      <span ng-show="manualMacUnknownVendor" class="help-block warning">
+                        <span
+                          class="pficon pficon-warning-triangle-o mg-right-5"></span>{{ 'Unknown vendor' | translate }}</span>
+                      <span ng-show="manualMacDuplicated"
+                        class="help-block">{{ 'Duplicated MAC address' | translate }}</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label" for="manual-model">{{ 'Model' | translate }}</label>
+                    <div class="col-sm-8">
+                      <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="manualModel"
+                        ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue"
+                        ng-disabled="getManualFilteredModelsCount()" id="manual-model">
+                        <!-- <option value="">-</option> -->
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label"></label>
+                    <div class="col-sm-8">
+                      <button type="submit" class="btn btn-primary" ng-disabled="!manualMac"
+                        ng-click="addPhoneManual()">
+                        {{ 'Add' | translate }}
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="col-sm-4 control-label"></label>
-                  <div class="col-sm-8">
-                    <button type="submit" class="btn btn-primary" ng-disabled="!manualMac" ng-click="addPhoneManual()">
-                      {{ 'Add' | translate }}
-                    </button>
+                <!-- section shown on scanning method -->
+                <div ng-show="!showResultsAddPhones && addModalType === 'scanning'">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label" for="manual-model">{{ 'Network to scan' | translate }}</label>
+                    <div class="col-sm-8">
+                      <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="networkToScan"
+                        ng-options="network as (network.name + ' | ' + network.network) for network in networks |   orderBy:orderByValue">
+                        <option value="">-</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group" ng-class="{ 'has-error': showNetmaskToScanError }">
+                    <label class="col-sm-4 control-label" for="manual-model">{{ 'Netmask' | translate }}</label>
+                    <div class="col-sm-8">
+                      <input ng-model="networkToScan.netmask" type="text" class="form-control"
+                        ng-change="netmaskToScanChanged()"></input>
+                      <span ng-show="showNetmaskToScanError"
+                        class="help-block">{{ 'Enter a valid netmask' | translate }}</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label"></label>
+                    <div class="col-sm-4">
+                      <button type="submit" class="btn btn-primary" ng-show="!networkScanInProgress"
+                        ng-disabled="!networkToScan" ng-click="startNetworkScan()">
+                        {{ 'Scan' | translate }}
+                      </button>
+                      <button type="submit" class="btn btn-primary" ng-show="networkScanInProgress"
+                        ng-disabled="!networkToScan" ng-click="cancelAllNetworkScans()">
+                        {{ 'Stop scan' | translate }}
+                      </button>
+                      <span class="spinner inline-block right-only" ng-show="networkScanInProgress"></span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <!-- section shown on scanning method -->
-              <div ng-show="!showResultsAddPhones && addModalType === 'scanning'">
-                <div class="form-group"
-                  ng-class="{ 'has-error': showSelectNetworkToScanError || showNetworkScanInProgressError }">
-                  <label class="col-sm-4 control-label" for="manual-model">{{ 'Network to scan' | translate }}</label>
-                  <div class="col-sm-8">
-                    <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="networkToScan"
-                      ng-options="network as (network.name + ' | ' + network.network) for network in networks |   orderBy:orderByValue"
-                      ng-change="networkToScanChanged()">
-                      <option value="">-</option>
-                    </select>
-                    <span ng-show="showSelectNetworkToScanError"
-                      class="help-block">{{ 'Select a network' | translate }}</span>
-                    <span ng-show="showNetworkScanInProgressError"
-                      class="help-block">{{ 'This network is already being scanned' | translate }}</span>
+                <!-- results of add phones operation -->
+                <div ng-show="showResultsAddPhones">
+                  <!-- error notification -->
+                  <div class="alert alert-danger" ng-show="successfulAddPhones.length == 0">
+                    <span class="pficon pficon-error-circle-o"></span>
+                    <strong>{{ 'Error' | translate }}:</strong> {{ 'No phones added' | translate }}.
                   </div>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error': showNetmaskToScanError }">
-                  <label class="col-sm-4 control-label" for="manual-model">{{ 'Netmask' | translate }}</label>
-                  <div class="col-sm-8">
-                    <input ng-model="networkToScan.netmask" type="text" class="form-control"
-                      ng-change="netmaskToScanChanged()"></input>
-                    <span ng-show="showNetmaskToScanError"
-                      class="help-block">{{ 'Enter a valid netmask' | translate }}</span>
+                  <!-- warning notification -->
+                  <div class="alert alert-warning"
+                    ng-show="successfulAddPhones.length > 0 && failedAddPhones.length > 0">
+                    <span class="pficon pficon-warning-triangle-o"></span>
+                    <strong>{{ 'Warning' | translate }}:</strong> {{ failedAddPhones.length }}
+                    {{ 'phones could not be added because of a server error' | translate }}.
                   </div>
-                </div>
-              </div>
-              <!-- results of add phones operation -->
-              <div ng-show="showResultsAddPhones">
-                <!-- error notification -->
-                <div class="alert alert-danger" ng-show="successfulAddPhones.length == 0">
-                  <span class="pficon pficon-error-circle-o"></span>
-                  <strong>{{ 'Error' | translate }}:</strong> {{ 'No phones added' | translate }}.
-                </div>
-                <!-- warning notification -->
-                <div class="alert alert-warning" ng-show="successfulAddPhones.length > 0 && failedAddPhones.length > 0">
-                  <span class="pficon pficon-warning-triangle-o"></span>
-                  <strong>{{ 'Warning' | translate }}:</strong> {{ failedAddPhones.length }}
-                  {{ 'phones could not be added' | translate }}.
-                </div>
-                <!-- success notification -->
-                <div class="alert alert-success" ng-show="failedAddPhones.length == 0">
-                  <span class="pficon pficon-ok"></span>
-                  {{ 'All phones have been successfully added' | translate }}.
-                </div>
-                <!-- number of phones added -->
-                <label>{{ successfulAddPhones.length }}
-                  {{ 'phones successfully added' | translate }}</label>
-                <div class="results-add-phones col-sm-12">
-                  <div class="list-group list-view-pf clear">
-                    <div
-                      class="list-group-item cursor-default form-group no-margin-left-right align-items-stretch success"
-                      ng-class="{ 'border-top-list': $index == 0 }"
-                      ng-repeat="phone in successfulAddPhones track by $index">
-                      <div class="list-view-pf-actions">
-                      </div>
-                      <div class="list-view-pf-main-info align-items-stretch pad-top-bottom-6">
-                        <div class="list-view-pf-left">
-                          <span class="fa fa-phone list-view-pf-icon-sm"></span>
+                  <!-- success notification -->
+                  <div class="alert alert-success" ng-show="failedAddPhones.length == 0">
+                    <span class="pficon pficon-ok"></span>
+                    {{ 'All phones have been successfully added' | translate }}.
+                  </div>
+                  <!-- number of phones added -->
+                  <label>{{ successfulAddPhones.length }}
+                    {{ 'phones successfully added' | translate }}</label>
+                  <div class="results-add-phones col-sm-12">
+                    <div class="list-group list-view-pf clear mg-bottom-0">
+                      <div
+                        class="list-group-item cursor-default form-group no-margin-left-right align-items-stretch success"
+                        ng-class="{ 'border-top-list': $index == 0 }"
+                        ng-repeat="phone in successfulAddPhones track by $index">
+                        <div class="list-view-pf-actions">
                         </div>
-                        <div class="list-view-pf-body">
-                          <div class="list-view-pf-description align-items-stretch">
-                            <div class="list-group-item-heading">
-                              <!-- MAC -->
-                              {{ phone.mac }}
-                            </div>
-                            <div class="list-group-item-text">
-                              <span ng-show="phone.model">{{ phone.model.display_name }}</span>
-                              <span ng-show="!phone.model">{{ phone.vendor }}</span>
+                        <div class="list-view-pf-main-info align-items-stretch pad-top-bottom-6">
+                          <div class="list-view-pf-left">
+                            <span class="fa fa-phone list-view-pf-icon-sm"></span>
+                          </div>
+                          <div class="list-view-pf-body">
+                            <div class="list-view-pf-description align-items-stretch">
+                              <div class="list-group-item-heading">
+                                <!-- MAC -->
+                                {{ phone.mac }}
+                              </div>
+                              <div class="list-group-item-text">
+                                <span ng-show="phone.model">{{ phone.model.display_name }}</span>
+                                <span ng-show="!phone.model">{{ phone.vendor }}</span>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+
+                  <div class="mg-top-10" ng-show="phonesToAdd.length > 0">
+                    <li class="divider"></li>
+                  </div>
+                </div>
+                <!-- toolbar to apply model to all -->
+                <div ng-show="phonesToAdd.length > 0">
+                  <div class="mg-top-10"><label>{{ 'inv_help_mac_4' | translate }}</label></div>
+                  <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select vendor' | translate) }"
+                    ng-model="vendorApplyToAll" ng-change="vendorApplyToAllChanged()"
+                    ng-disabled="vendorApplyToAllList.size === 0" ng-options="v as v for v in vendorApplyToAllList">
+                  </select>
+                  <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select model' | translate) }"
+                    ng-model="modelApplyToAll" ng-options="m as m.display_name for m in modelApplyToAllList">
+                  </select>
+
+                  <button type="button" class="btn btn-default" ng-click="applyModelToAll()"
+                    ng-disabled="!modelApplyToAll">
+                    {{ 'Apply to all' | translate }}
+                  </button>
                 </div>
 
-                <div class="mg-top-10" ng-show="phonesToAdd.length > 0">
-                  <li class="divider"></li>
-                </div>
-              </div>
-              <!-- toolbar to apply model to all -->
-              <div ng-show="phonesToAdd.length > 0">
-                <div class="mg-top-10"><label>{{ 'inv_help_mac_4' | translate }}</label></div>
-                <!-- //// <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select vendor' | translate) }"
-                  ng-model="cpAllBrandsValue" ng-change="cpAllBrandsChanged()"
-                  ng-disabled="getCpAllBrandsLength() === 0" ng-options="k as k for (k,v) in cpAllBrands">
-                </select> -->
-
-                <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select vendor' | translate) }"
-                  ng-model="vendorApplyToAll" ng-change="vendorApplyToAllChanged()"
-                  ng-disabled="vendorApplyToAllList.size === 0" ng-options="v as v for v in vendorApplyToAllList">
-                </select>
-
-                <!-- //// <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select model' | translate) }"
-                  ng-model="cpAllSelModelsValue" ng-change="cpAllModelsChanged()"
-                  ng-disabled="cpAllSelModels.length === 0 || cpAllSelModels === undefined"
-                  ng-options="v.name as v.display_name for v in cpAllSelModels">
-                </select> -->
-
-                <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select model' | translate) }"
-                  ng-model="modelApplyToAll" ng-options="m as m.display_name for m in modelApplyToAllList">
-                </select>
-
-                <button type="button" class="btn btn-default" ng-click="applyModelToAll()"
-                  ng-disabled="!modelApplyToAll">
-                  {{ 'Apply to all' | translate }}
-                </button>
-              </div>
-
-              <div ng-show="phonesToAdd.length > 0">
-                <!-- number of phones to add -->
-                <div class="mg-top-20">
-                  <label class="mg-bottom-6">{{ phonesToAdd.length }} {{ 'phones to add' | translate }}</strong>
-                </div>
-                <!-- phones to add -->
-                <div class="phones-to-add">
-                  <div class="list-group list-view-pf clear">
-                    <div class="list-group-item cursor-default form-group no-margin-left-right align-items-stretch"
-                      ng-class="{ 'has-error': (phone.error || macDuplicates.includes(phone.mac)), 'border-top-list': $index == 0 }"
-                      ng-repeat="phone in phonesToAdd track by $index">
-                      <div class="list-view-pf-actions">
-                        <!-- delete phone to add -->
-                        <button type="button" class="btn btn-danger" ng-click="deletePhoneToAddIndex($index)">
-                          {{ 'Delete' | translate }}
-                        </button>
-                      </div>
-                      <div class="list-view-pf-main-info align-items-stretch">
-                        <div class="list-view-pf-left">
-                          <span class="fa fa-phone list-view-pf-icon-sm {{ phone.model ? '' : 'disabled' }}"></span>
+                <div ng-show="phonesToAdd.length > 0">
+                  <!-- number of phones to add -->
+                  <div class="mg-top-20">
+                    <label class="mg-bottom-6">{{ phonesToAdd.length }} {{ 'phones to add' | translate }}</strong>
+                  </div>
+                  <!-- phones to add -->
+                  <div class="phones-to-add">
+                    <div class="list-group list-view-pf clear">
+                      <div class="list-group-item cursor-default form-group no-margin-left-right align-items-stretch"
+                        ng-class="{ 'has-error': (phone.error || macDuplicates.includes(phone.mac)), 'border-top-list': $index == 0 }"
+                        ng-repeat="phone in phonesToAdd track by $index">
+                        <div class="list-view-pf-actions">
+                          <!-- delete phone to add -->
+                          <button type="button" class="btn btn-danger" ng-click="deletePhoneToAddIndex($index)">
+                            {{ 'Delete' | translate }}
+                          </button>
                         </div>
-                        <div class="list-view-pf-body align-items-flex-start">
-                          <div class="list-view-pf-description align-items-stretch">
-                            <div class="list-group-item-heading {{ phone.model ? '' : 'disabled' }}">
-                              <!-- MAC -->
-                              <input type="text" id="mac-phone-to-add-{{$index}}" name="mac{{$index}}"
-                                class="form-control width-85p" ng-model="phone.mac"
-                                ng-change="macPhoneToAddChanged(phone)" maxlength="17">
-                              <span ng-show="phone.error"
-                                class="help-block">{{ 'Invalid MAC address' | translate }}</span>
-                              <span ng-show="macDuplicates.includes(phone.mac)"
-                                class="help-block">{{ 'Duplicated MAC address' | translate }}</span>
-                              <span ng-show="phone.unknownVendor" class="help-block warning">
-                                <span
-                                  class="pficon pficon-warning-triangle-o mg-right-5"></span>{{ 'Unknown vendor' | translate }}</span>
-                            </div>
-                            <div class="list-group-item-text width-10p">
-                              {{ phone.vendor ? phone.vendor : '-'}}
-                            </div>
+                        <div class="list-view-pf-main-info align-items-stretch">
+                          <div class="list-view-pf-left">
+                            <span class="fa fa-phone list-view-pf-icon-sm {{ phone.model ? '' : 'disabled' }}"></span>
                           </div>
-                          <div
-                            class="list-view-pf-additional-info config-info width-28p {{phone.model ? '' : 'disabled'}}">
-                            <!-- model -->
-                            <select class="form-control border-color-bbb" pf-select="{ noneSelectedText: '-' }"
-                              ng-model="phone.model"
-                              ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
-                              id="model-phone-to-add-{{$index}}">
-                              <option value="">-</option>
-                            </select>
+                          <div class="list-view-pf-body align-items-flex-start">
+                            <div class="list-view-pf-description align-items-stretch">
+                              <div class="list-group-item-heading {{ phone.model ? '' : 'disabled' }}">
+                                <!-- MAC -->
+                                <input type="text" id="mac-phone-to-add-{{$index}}" name="mac{{$index}}"
+                                  class="form-control width-85p" ng-model="phone.mac"
+                                  ng-disabled="addModalType === 'scanning'" ng-change="macPhoneToAddChanged(phone)"
+                                  maxlength="17">
+                                <span ng-show="phone.validationError"
+                                  class="help-block">{{ 'Invalid MAC address' | translate }}</span>
+                                <span ng-show="macDuplicates.includes(phone.mac)"
+                                  class="help-block">{{ 'Duplicated MAC address' | translate }}</span>
+                                <span ng-show="phone.serverError" class="help-block warning"><span
+                                    class="pficon pficon-warning-triangle-o mg-right-5"></span>{{ 'Server error' | translate }}
+                                  <!-- server error popover -->
+                                  <span class="reset-padding">
+                                    <a href="#" class="info-general" data-toggle="popover" data-html="true"
+                                      data-placement="top" data-close="false" data-trigger="hover" data-container="body"
+                                      title='{{ "Server error" | translate }}' data-content='{{ phone.serverError }}'>
+                                      <span class="pficon pficon-info"></span>
+                                    </a>
+                                  </span></span>
+                                <span ng-show="phone.unknownVendor" class="help-block warning">
+                                  <span
+                                    class="pficon pficon-warning-triangle-o mg-right-5"></span>{{ 'Unknown vendor' | translate }}</span>
+                              </div>
+                              <div class="list-group-item-text width-10p">
+                                {{ phone.vendor ? phone.vendor : '-'}}
+                              </div>
+                            </div>
+                            <div
+                              class="list-view-pf-additional-info config-info width-28p {{phone.model ? '' : 'disabled'}}">
+                              <!-- model -->
+                              <select class="form-control border-color-bbb" pf-select="{ noneSelectedText: '-' }"
+                                ng-model="phone.model"
+                                ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
+                                id="model-phone-to-add-{{$index}}">
+                                <option value="">-</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -363,10 +369,12 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default mg-top-20"
+              ng-show="!(showResultsAddPhones && phonesToAdd.length == 0)"
               data-dismiss="modal">{{ 'Cancel' | translate }}</button>
             <!-- add phones button -->
             <button type="button" class="btn btn-primary mg-top-20"
-              ng-show="!(showResultsAddPhones && phonesToAdd.length == 0)" ng-disabled="phonesToAdd.length === 0"
+              ng-show="!(showResultsAddPhones && phonesToAdd.length == 0)"
+              ng-disabled="phonesToAdd.length === 0 || addPhonesInProgress"
               ng-click="addPhones()">{{ 'Add phones' | translate }}</button>
             <!-- done button -->
             <button type="button" class="btn btn-primary mg-top-20"

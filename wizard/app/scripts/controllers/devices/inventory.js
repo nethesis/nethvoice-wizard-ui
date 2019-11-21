@@ -24,8 +24,8 @@ angular.module('nethvoiceWizardUiApp')
     // ];
 
     $scope.models = [];
-    $scope.tasks = {}; ////
-    $scope.networkScans = 0;
+    $scope.tasks = {};
+    $scope.networkScanInProgress = false;
 
     $scope.pastedMacs = [];
 
@@ -78,7 +78,6 @@ angular.module('nethvoiceWizardUiApp')
       ];
 
       $scope.models = res;
-      // $scope.modelsMap = getModelsMap($scope.models); //// remove? issues when comparing with filteredModels
 
       console.log("$scope.models", $scope.models); ////
 
@@ -105,14 +104,19 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     let initCopyPasteMacUI = () => {
-      $('[data-toggle=popover]').popovers()
-        .on('hidden.bs.popover', function (e) {
-          $(e.target).data('bs.popover').inState.click = false;
-        });
+      initPopovers();
+
       $("#adding-modal").on('shown.bs.modal', function () {
         $('#paste-textarea').focus();
       });
     };
+
+    function initPopovers() {
+      $('[data-toggle=popover]').popovers()
+        .on('hidden.bs.popover', function (e) {
+          $(e.target).data('bs.popover').inState.click = false;
+        });
+    }
 
     $scope.showManualModal = function () {
       $scope.phonesToAdd = [];
@@ -137,8 +141,6 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.addPhoneManual = function () {
-      console.log("addPhoneManual"); ////
-
       var validationOk = validateAddPhonesManual();
 
       if (!validationOk) {
@@ -163,8 +165,6 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.inputMacManualChanged = function () {
-      console.log("inputMacManualChanged"); //////
-
       $scope.clearValidationErrorsManual();
 
       if (!$scope.manualMac) {
@@ -191,46 +191,27 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.networkToScanChanged = function () {
-      $scope.showSelectNetworkToScanError = false;
-    }
-
     $scope.netmaskToScanChanged = function () {
       $scope.showNetmaskToScanError = false;
     }
 
-    function startNetworkScan() {
-
-      console.log('startNetworkScan()', $scope.networkToScan); ////
-
+    $scope.startNetworkScan = function () {
       // input validation
-
-      $scope.showSelectNetworkToScanError = false;
-      $scope.showNetworkScanInProgressError = false;
       $scope.showNetmaskToScanError = false;
 
-      if (!$scope.networkToScan) {
-        $scope.showSelectNetworkToScanError = true;
-        return;
-      }
-
       var netName = $scope.networkToScan.name;
-
-      if ($scope.tasks[netName].currentProgress > 0 && $scope.tasks[netName].currentProgress < 100) {
-        $scope.showNetworkScanInProgressError = true;
-      }
 
       if ($scope.networkToScan && (!$scope.networkToScan.netmask || !UtilService.checkNetmask($scope.networkToScan.netmask))) {
         $scope.showNetmaskToScanError = true;
       }
 
-      if ($scope.showSelectNetworkToScanError || $scope.showNetworkScanInProgressError || $scope.showNetmaskToScanError) {
+      if ($scope.showNetmaskToScanError) {
         return;
       }
 
       // start scan
-      $scope.networkScans++;
-      $scope.hideAddPhonesModal();
+      $scope.phonesToAdd = [];
+      $scope.networkScanInProgress = true;
       $scope.tasks[netName].currentProgress = Math.floor((Math.random() * 50) + 10);
       DeviceService.startScan($scope.networkToScan).then(function (res) {
         $scope.tasks[netName].promise = $interval(function () {
@@ -244,37 +225,35 @@ angular.module('nethvoiceWizardUiApp')
               $scope.tasks[netName].currentProgress = res.data.progress;
               $scope.tasks[netName].errorCount = 0;
               $interval.cancel($scope.tasks[netName].promise);
-              $scope.networkScans--;
-
-              // scan complete notification
-              $scope.networkScanCompleted = true;
-              setTimeout(function () {
-                $scope.networkScanCompleted = false;
-                $scope.$apply();
-              }, 3000);
-
-              //// todo: add the phones to the inventory (similar to addPhonesPaste() )
+              $scope.networkScanInProgress = false;
 
               //// var phones = res.data.phones
-              var phones = [ //// mockup
-                { mac: "00:04:13:11:22:91", model: "snom100" },
-                { mac: "0C:38:3E:99:88:92", model: "fanvil-600" },
-                { mac: "00:15:65:55:55:93", model: "yealink-1000" },
-                { mac: "00:04:13:11:22:94", model: null }
+
+              var phonesFromScan = [ //// mockup
+                { "mac": "00:04:13:11:22:91" },
+                { "mac": "0C:38:3E:99:88:92" },
+                { "mac": "00:15:65:55:55:93" },
+                { "mac": "00:15:65:55:55:94" },
+                { "mac": "00:15:65:55:55:95" },
+                { "mac": "00:15:65:55:55:96" },
+                { "mac": "00:15:65:55:55:97" },
+                { "mac": "00:04:13:11:22:98" }
               ];
 
-              // add all phones
-              for (var phone of phones) {
-                addPhone(phone); ////
+              for (var phoneFromScan of phonesFromScan) { //// mockup
+                $scope.phonesToAdd.push(phoneFromScan);
+
+                // update model list
+                $scope.macPhoneToAddChanged(phoneFromScan);
               }
-              $scope.getPhones();
+              $scope.getVendorApplyToAllList();
             } else {
               console.log(res.error);
               if ($scope.tasks[netName].errorCount < appConfig.MAX_TRIES) {
                 $scope.tasks[netName].errorCount++;
               } else {
                 $interval.cancel($scope.tasks[netName].promise);
-                $scope.networkScans--;
+                $scope.networkScanInProgress = false;
                 $scope.tasks[netName].currentProgress = -1;
               }
             }
@@ -284,7 +263,7 @@ angular.module('nethvoiceWizardUiApp')
               $scope.tasks[netName].errorCount++;
             } else {
               $interval.cancel($scope.tasks[netName].promise);
-              $scope.networkScans--;
+              $scope.networkScanInProgress = false;
               $scope.tasks[netName].currentProgress = -1;
             }
           });
@@ -295,9 +274,14 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    $scope.clearValidationErrorsManual = function () {
-      console.log("clearValidationErrorsManual"); /////
+    $scope.cancelAllNetworkScans = function (netName) {
+      for (var netName in $scope.tasks) {
+        $interval.cancel($scope.tasks[netName].promise);
+        $scope.networkScanInProgress = false;
+      }
+    }
 
+    $scope.clearValidationErrorsManual = function () {
       $scope.showManualMacError = false;
       $scope.manualMacUnknownVendor = false;
       $scope.manualMacDuplicated = false;
@@ -306,14 +290,14 @@ angular.module('nethvoiceWizardUiApp')
     $scope.clearValidationErrorsPhonesToAdd = function (phone) {
       if (typeof phone !== 'undefined') {
         // clear errors for a phone
-        phone.error = false;
+        phone.validationError = false;
         phone.unknownVendor = false;
       } else {
         // clear all errors
         $scope.macDuplicates = [];
 
         for (var phone of $scope.phonesToAdd) {
-          phone.error = false;
+          phone.validationError = false;
           phone.unknownVendor = false;
         }
       }
@@ -331,7 +315,7 @@ angular.module('nethvoiceWizardUiApp')
 
         // check MAC address 
         if (!UtilService.checkMacAddress(mac)) {
-          phone.error = true;
+          phone.validationError = true;
 
           if (firstErrorIndex === null) {
             firstErrorIndex = index;
@@ -351,11 +335,13 @@ angular.module('nethvoiceWizardUiApp')
       $scope.macDuplicates = UtilService.findDuplicates(macsPhonesToAdd);
 
       if (firstErrorIndex === null && $scope.macDuplicates.length) {
-        firstErrorIndex = $scope.phonesToAdd.indexOf($scope.macDuplicates[0]);
+        firstErrorIndex = $scope.phonesToAdd.findIndex(function (phone) {
+          return phone.mac === $scope.macDuplicates[0];
+        });
       }
 
       // if there are validation errors, focus the first and return
-      if (firstErrorIndex !== null) {
+      if (firstErrorIndex !== null && firstErrorIndex >= 0) {
         setTimeout(function () {
           $('#mac-phone-to-add-' + firstErrorIndex).focus();
         }, 400);
@@ -371,8 +357,6 @@ angular.module('nethvoiceWizardUiApp')
         return;
       }
 
-      console.log("addPhones(), $scope.phonesToAdd", $scope.phonesToAdd); ////
-
       var validationOk = validatePhonesToAdd();
 
       if (!validationOk) {
@@ -382,7 +366,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.pendingRequestsAddPhones = $scope.phonesToAdd.length;
       $scope.failedAddPhones = [];
 
-      //// show loader on UI?
+      $scope.addPhonesInProgress = true;
 
       // add all phones
       for (var phone of $scope.phonesToAdd) {
@@ -405,7 +389,7 @@ angular.module('nethvoiceWizardUiApp')
           console.log("fail", err); ////
           console.log(err.error.title);
           $scope.pendingRequestsAddPhones--;
-          $scope.failedAddPhones.push(err.phone); //// todo show error description in UI?
+          $scope.failedAddPhones.push(err);
 
           if ($scope.pendingRequestsAddPhones == 0) {
             showResultsAddPhones();
@@ -415,14 +399,36 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     function showResultsAddPhones() {
-      console.log("showResultsAddPhones()"); ////
+
+      //// mock server delay: remove setTimeout()
+      setTimeout(function () {
+        $scope.addPhonesInProgress = false;
+        console.log("addPhonesInProgress", $scope.addPhonesInProgress); ////
+        $scope.$apply();
+      }, 2000);
 
       $scope.showResultsAddPhones = true;
 
       for (var phone of $scope.successfulAddPhones) {
-        console.log("deleting succesful mac", phone.mac); ////
         $scope.deletePhoneToAdd(phone);
       }
+
+      // show server errors on UI
+      for (var error of $scope.failedAddPhones) {
+        var errorPhone = error.phone;
+
+        var phone = $scope.phonesToAdd.find(function (p) {
+          return p.mac === errorPhone.mac;
+        });
+
+        phone.serverError = error.error.title;
+      }
+
+      // server error popovers
+      setTimeout(function () {
+        initPopovers();
+      }, 500);
+
       $scope.getPhones();
     }
 
@@ -472,23 +478,14 @@ angular.module('nethvoiceWizardUiApp')
         "model": model,
         "display_name": vendor
       }
-
-      console.log("buildPhoneTancredi(): built phone", phone); ////
-
       return phone;
     }
 
     function validateAddPhonesManual() {
       $scope.clearValidationErrorsManual();
 
-      // check vendor
-      // var vendor = UtilService.getVendor($scope.manualMac); ////
-      // if (!vendor) {
-      //   $scope.manualMacUnknownVendor = true;
-      // }
-
       // check duplicated MAC
-      var duplicatedPhone = $scope.phonesToAdd.find(function (phone) { //// mockup
+      var duplicatedPhone = $scope.phonesToAdd.find(function (phone) {
         return phone.mac === $scope.manualMac;
       });
 
@@ -540,8 +537,6 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.vendorApplyToAllChanged = () => {
-      console.log("vendorApplyToAllChanged(), vendorApplyToAll", $scope.vendorApplyToAll); ////
-
       if (!$scope.vendorApplyToAll) {
         $scope.modelApplyToAllList = [];
         return;
@@ -579,7 +574,13 @@ angular.module('nethvoiceWizardUiApp')
         }
 
         if (vendor && $scope.modelApplyToAll.name.toLowerCase().startsWith(vendor.toLowerCase())) {
-          phone.model = $scope.modelApplyToAll;
+          var model = phone.filteredModels.find(function (m) {
+            return m.name === $scope.modelApplyToAll.name;
+          })
+
+          if (model) {
+            phone.model = model;
+          }
         }
       }
     }
@@ -642,7 +643,7 @@ angular.module('nethvoiceWizardUiApp')
       console.log('setPhoneModel()', phone); ////
     };
 
-    $scope.filteredModels = function (mac) { //// move inside UtilService?
+    $scope.filteredModels = function (mac) {
       var vendor = UtilService.getVendor(mac);
 
       if (vendor) {
@@ -660,9 +661,6 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.deletePhone = function () {
-
-      console.log('deletePhone()'); ////
-
       // PhoneService.deletePhone($scope.phoneToDelete.mac).then(function(res) { ////
       //   ////
       // }, function(err) {
@@ -725,7 +723,7 @@ angular.module('nethvoiceWizardUiApp')
       console.log("$scope.networks", $scope.networks); ////
 
       for (var eth in $scope.networks) {
-        $scope.tasks[eth] = {}; ////
+        $scope.tasks[eth] = {};
       }
       // }, function (err) { ////
       //   console.log(err);
