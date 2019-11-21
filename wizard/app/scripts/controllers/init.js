@@ -8,7 +8,8 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('InitCtrl', function ($scope, $translate, $route, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService, MigrationService, TrunkService, RouteService) {
+  .controller('InitCtrl', function ($scope, $translate, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService,
+    MigrationService, TrunkService, RouteService, ProvFanvilService, ModelService, $q) {
     $scope.customConfig = customConfig;
     $scope.appConfig = appConfig;
 
@@ -25,6 +26,7 @@ angular.module('nethvoiceWizardUiApp')
       isLogged: false
     };
     $scope.loginUrl = 'views/login.html';
+    $scope.modelsUIUrl = 'views/templates/models-ui.html';
 
     $scope.wizard = {
       isWizard: true,
@@ -310,5 +312,75 @@ angular.module('nethvoiceWizardUiApp')
     })
 
     $scope.setRandomBackground();
+
+    // provisining build models start
+
+    var getModelMap = function (map, name) {
+      for (var fam in map) {
+        if (map[fam][name] != null) {
+          return map[fam][name]
+        }
+      }
+    }
+
+    $scope.buildModel = function (name) {
+      return $q(function (resolve, reject) {
+        var nameSplit = name.split("-"),
+            modelName = nameSplit[1],
+            modelBrand = nameSplit[0]
+        ModelService.getModel(modelName).then(function (res) {
+          $scope.currentModel = {
+            ui : $scope.getModelUI(modelName, modelBrand),
+            variables : res.data.variables,
+            name : name,
+            openedSection : "",
+            openedExpKeys: "",
+            showingKeys: "",
+            showingExpKeys: ""
+          }
+          resolve(true)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    $scope.getModelUI = function (name, brand) {
+      switch (brand.toLowerCase()) {
+        case "fanvil":
+          var map = getModelMap(ProvFanvilService.map(), name)
+          return {
+            map: map,
+            softKeys: ProvFanvilService.softKeysUI(map),
+            lineKeys: ProvFanvilService.lineKeysUI(map),
+            expKeys: ProvFanvilService.expKeysUI(map),
+            preference: ProvFanvilService.preferenceUI(map),
+            general: ProvFanvilService.generalUI(map),
+            network: ProvFanvilService.networkUI(map),
+            provisioning: ProvFanvilService.provisioningUI(map),
+          }
+          break;
+      
+        case "gigaset":
+          return {}
+          break;
+      
+        case "sangoma":
+          return {}
+          break;
+          
+        case "snom":
+          return {}
+          break;
+
+        case "yealink":
+          return {}
+          break;
+
+        default:
+          return null
+          break;
+      }
+    }
     
   });

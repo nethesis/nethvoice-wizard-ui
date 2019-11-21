@@ -18,6 +18,10 @@ span p {
   height: 100%;
 }
 
+.full-width {
+  width: 100%;
+}
+
 p {
   margin: 0;
 }
@@ -1772,6 +1776,10 @@ iframe body {
   }
 }
 
+.mt-3 {
+  margin-top: 3px !important;
+}
+
 .mt-15 {
   margin-top: 15px !important;
 }
@@ -1810,6 +1818,14 @@ iframe body {
 
 .mt-40 {
   margin-top: 40px !important;
+}
+
+.mt-48 {
+  margin-top: 48px !important;
+}
+
+.mt-43 {
+  margin-top: 43px !important;
 }
 
 .mt-10 {
@@ -1854,6 +1870,10 @@ iframe body {
 
 .ml-15 {
   margin-left: 15px !important;
+}
+
+.mb-5 {
+  margin-bottom: 5px !important;
 }
 
 .ml-10 {
@@ -2028,6 +2048,26 @@ iframe body {
 
 .empty-dashboard {
   padding: 40px 10px;
+}
+
+.wizard-model-modal {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 0px !important;
+}
+
+.wizard-model-modal .form-group {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+#configSettings .form-group {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+#configDevices .abstract-item .list-view-pf-actions {
+  min-width: 140px !important;
 }
 
 .wizard-modal {
@@ -2474,4 +2514,17 @@ iframe body {
 
 .margin-10 {
   margin: 10px !important;
+}
+
+#devicesAssociation .list-group-item {
+  border: 1px solid whitesmoke;
+  padding: 0px 15px !important;
+}
+
+.fz-16 {
+  font-size: 16px !important;
+}
+
+.fz-15 {
+  font-size: 15px !important;
 }

@@ -173,6 +173,7 @@ angular.module('nethvoiceWizardUiApp')
     }]
 
     $scope.loadingUser = {}
+    $scope.loadingModel = {}
     $scope.hiddenUser = {}
     $scope.currentUser = {}
 
@@ -188,6 +189,24 @@ angular.module('nethvoiceWizardUiApp')
         $scope.loadingUser[user.username] = false
         $scope.$apply()
       }, 1000)
+    }
+
+    // function for the currentModel creation
+    $scope.setCurrentModelConf = function (name) {
+      $scope.buildModel(name).then(function (cm) {
+        if ($scope.currentModel.name != name) {
+          $scope.loadingModel[name] = true
+        }
+        setTimeout(function () {
+          $scope.loadingModel[name] = false
+          $scope.$apply()
+        }, 1000)
+
+        console.log($scope.currentModel);
+        
+      }, function (err) {
+        console.log(err)
+      })
     }
 
     $scope.openDevices = function () {

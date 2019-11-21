@@ -11,7 +11,6 @@
   </div>
   <div class="wizard-pf-contents adjust-size no-margin-bottom">
     <h1 class="control-label centered" for="textInput-markup">{{'Configurations' | translate}}</h1>
-
     <div ng-if="true" class="container-fluid margin-top-lg">
       <div>
         <div class="filter-label-user">{{'Filter' | translate}}:</div>
@@ -66,8 +65,8 @@
         <div ng-show="!hiddenUser[user.username]" ng-if="currentUser.username == user.username" class="list-group-item-container container-fluid cursor-default">
           <div ng-show="loadingUser[user.username]" class="spinner mt-14 mb-14"></div>
           <div ng-show="!loadingUser[user.username]" class="col-lg-12 plateral-10">
-            <div class="settings-container">
-              <div class="list-group-item back-whitesmoke cursor-default border-color-whitesmoke mt-20">
+            <div id="configSettings" class="settings-container">
+              <div class="list-group-item back-whitesmoke cursor-default border-color-whitesmoke mt-15">
                 <div class="list-group-item-header back-whitesmoke cursor-default">
                   <div class="list-view-pf-main-info pb-12 pt-12">
                     <div class="list-view-pf-left">
@@ -85,41 +84,39 @@
               </div>
               <div class="list-group-item">
                 <div class="list-group-item-header background-white">
-                  <div class="list-view-pf-main-info cursor-default background-white mt-15">
-                    <div class="col-lg-12 ml-15">
+                  <div class="list-view-pf-main-info cursor-default background-white mt-10">
+                    <div class="col-lg-12">
                       <div class="col-lg-6">
                         <form class="form-horizontal">
                           <div class="form-group">
-                            <label class="col-sm-2 control-label" for="textInputDisabled-markup">
-                              <i class="fa fa-user mr-7"></i>
-                              Profile</label>
-                            <div class="col-sm-9">
-                              <select class="combobox form-control" autocomplete="off" multiple>
-                                <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
-                                  on-finish-render="selectpickerRepeatEnd">{{"CIAO" | translate}}</option>
-                              </select>
-                            </div>
+                            <label class="control-label" for="textInputDisabled-markup">
+                            <!-- <i class="fa fa-user mr-7"></i> -->
+                            Profile</label>
+                            <select class="combobox form-control mt-3" autocomplete="off" multiple>
+                              <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
+                                on-finish-render="selectpickerRepeatEnd">{{"CIAO" | translate}}</option>
+                            </select>
                           </div>
                           <div class="form-group">
-                            <label class="col-sm-2 control-label" for="textInput-markup">
-                              <i class="fa fa-users mr-7"></i>
-                              Group</label>
-                            <div class="col-sm-9">
-                              <select class="combobox form-control" autocomplete="off">
-                                <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
-                                  on-finish-render="selectpickerRepeatEnd">{{"CIAO" | translate}}</option>
-                              </select>
-                            </div>
+                            <label class="control-label" for="textInput-markup">
+                              <!-- <i class="fa fa-users mr-7"></i> -->
+                              Group
+                            </label>
+                            <select class="combobox form-control mt-3" autocomplete="off">
+                              <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
+                                on-finish-render="selectpickerRepeatEnd">{{"CIAO" | translate}}</option>
+                            </select>
                           </div>
                         </form>
                       </div>
                       <div class="col-lg-6">
                         <form class="form-horizontal">
                           <div class="form-group">
-                            <label class="col-sm-2 control-label" for="textInput-markup">
-                              <i class="fa fa-phone mr-7"></i>
-                              {{"Phone" | translate}}</label>
-                            <div class="col-sm-9 display-flex">
+                            <label class="control-label" for="textInput-markup">
+                              <!-- <i class="fa fa-phone mr-7"></i> -->
+                              {{"Phone" | translate}}
+                            </label>
+                            <div class="display-flex mt-3">
                               <input type="text" class="form-control" placeholder="{{'Phone' | translate}}">
                               <button type="button" class="btn btn-default adjust-button" aria-haspopup="true" aria-expanded="false">
                                 {{"Imposta" | translate}}
@@ -127,10 +124,11 @@
                             </div>
                           </div>
                           <div class="form-group">
-                            <label class="col-sm-2 control-label" for="textInputDisabled-markup">
-                              <i class="fa fa-envelope mr-7"></i>
-                              {{"Voicemail" | translate}}</label>
-                            <div class="col-sm-9">
+                            <label class="control-label" for="textInputDisabled-markup">
+                              <!-- <i class="fa fa-envelope mr-7"></i> -->
+                              {{"Voicemail" | translate}}
+                            </label>
+                            <div class="mt-3">
                               <input on-element-render="switchRenderEnd" class="bootstrap-switch" type="checkbox" checked>
                             </div>
                           </div>
@@ -141,8 +139,8 @@
                 </div>
               </div>
             </div>
-            <div id="configDevices" class="devices-container mb-20">
-              <div class="list-group-item back-whitesmoke cursor-default border-color-whitesmoke mt-20">
+            <div id="configDevices" class="devices-container mb-15">
+              <div class="list-group-item back-whitesmoke cursor-default border-color-whitesmoke mt-25">
                 <div class="list-group-item-header back-whitesmoke cursor-default">
                   <div class="list-view-pf-main-info pb-12 pt-12">
                     <div class="list-view-pf-left">
@@ -189,7 +187,9 @@
                                 <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
                                   on-finish-render="selectpickerRepeatEnd">{{"Default" | translate}}</option>
                               </select>
-                              <button class="btn btn-default mln-1">
+                              <button ng-click="setCurrentModelConf('Fanvil-X5S')" data-toggle="modal"
+                                data-target="#singleModelModal"
+                                class="btn btn-default mln-1">
                                 <i class="fa fa-pencil"></i>
                               </button>
                             </div>
@@ -204,7 +204,7 @@
                 </div>
               </div>  
               <!-- webrtc -->
-              <div class="list-group-item cursor-default ng-scope">
+              <div class="list-group-item abstract-item cursor-default ng-scope">
                 <div class="list-view-pf-actions">
                   <div class="display-flex">
                   </div>
@@ -230,13 +230,13 @@
                         </div>
                       </div>
                     </div>
-                    <div class="list-view-pf-additional-info config-info ">
+                    <div class="list-view-pf-additional-info config-info">
                     </div>
                   </div>
                 </div>
               </div>
               <!-- mobile app -->
-              <div class="list-group-item cursor-default ng-scope">
+              <div class="list-group-item abstract-item cursor-default ng-scope">
                 <div class="list-view-pf-actions">
                   <div class="display-flex">
                   </div>
@@ -295,7 +295,7 @@
   <!-- <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step> -->
 </div>
 
-<div class="modal fade" id="devicesAssociation" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+<div class="modal fade" id="devicesAssociation" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="wizard-modal">
     <div class="modal-dialog wizard-pf margin-10">
       <div class="modal-content">
@@ -307,40 +307,64 @@
         </div>
         <form class="form-horizontal">
           <div class="modal-body">
-            <div class="col-lg-12 mb-30 mt-20">
-
-
-                <h1 class="control-label config-title-user" for="textInput-markup">
-                  <div>
-                    <div class="filter-label ng-binding">Filtra:</div>
-                    <div class="btn-group bootstrap-select adjust-filter ng-pristine ng-untouched ng-valid ng-isolate-scope" style="width: 180px;"><button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" title="Tutti"><span class="filter-option pull-left">Tutti</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open"><ul class="dropdown-menu inner" role="menu"><li data-original-index="1" class="selected"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Tutti</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Associati</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="3"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">Non associati</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select class="adjust-filter ng-pristine ng-untouched ng-valid ng-isolate-scope" title="-" pf-select="{ width: '180px' }" ng-model="selectedDeviceFilter" ng-options="df as df | translate for df in availableDeviceFilters" tabindex="-98"><option class="bs-title-option" value="" selected="selected">-</option><option value="string:all" label="Tutti" selected="selected">Tutti</option><option value="string:linked" label="Associati">Associati</option><option value="string:unlinked" label="Non associati">Non associati</option></select></div>
+            <div class="col-lg-12 mb-5 mt-5">
+              <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
+                <div class="form-group has-clear mt-10 no-lateral-margins display-flex">
+                  <div class="search-pf-input-group full-width" id="filter-domains-details">
+                    <input ng-model="searchUsersString" type="text" class="form-control input-lg ng-pristine ng-valid ng-touched" placeholder="Cerca dispositivo...">
                   </div>
-                  <form role="form" class="search-pf has-button adjust-form ng-pristine ng-valid" id="form-lg-domains-details">
-                    <div class="form-group has-clear">
-                      <div class="search-pf-input-group" id="filter-domains-details">
-                        <input ng-model="searchDeviceUserString" type="text" class="form-control input-lg adjust-weight ng-pristine ng-valid ng-touched" placeholder="Cerca dispositivi...">
+                  <button class="btn btn-default btn-lg mln-1" type="submit">
+                    <span class="fa fa-search"></span>
+                  </button>
+                </div>
+              </form>
+              <h1 class="control-label config-title-user mt-10" for="textInput-markup">
+                <div class="fz-15 mb-10">
+                  <span class="weight-plus ng-binding">15 dispositivi</span>
+                </div>
+              </h1>
+              <!-- custom device -->
+              <div class="list-group-item cursor-default">
+                <div class="list-view-pf-actions mt-48">
+                  <button class="btn btn-primary">
+                    {{"Link to" | translate}} username
+                  </button>
+                </div>
+                <div class="list-view-pf-main-info ">
+                  <div class="list-view-pf-left">
+                    <span class="fa fa-phone list-view-pf-icon-sm "></span>
+                  </div>
+                  <div class="list-view-pf-body">
+                    <div class="list-view-pf-description">
+                      <div class="list-group-item-heading configDevices-item-heading">
+                        {{'Custom device' | translate}}
+                      </div>
+                      <span class="weight-plus mr-20">
+                      </span>
+                      <div class="list-group-item-text">
+                        <div class="col-lg-7">
+                        </div>
                       </div>
                     </div>
-                    <div class="form-group">
-                      <button class="btn btn-default btn-lg" type="submit">
-                        <span class="fa fa-search"></span>
-                      </button>
+                    <div class="list-view-pf-additional-info config-info">
+                      <div>{{'Web user' | translate}}:
+                        <input class="form-control" placeholder="admin" ng-model="newDevice.web_user">
+                      </div>
+                      <div>{{'Web password' | translate}}:
+                        <input class="form-control" placeholder="admin" ng-model="newDevice.web_password">
+                      </div>
                     </div>
-                  </form>
-                  <div class="device-config-detail">
-                    <!-- ngIf: searchDeviceUserString -->
-                    <span class="weight-plus ng-binding">15 dispositivi</span>
                   </div>
-                </h1>
-
+                </div>
+              </div>  
               <!-- devices -->
-              <div ng-repeat="count in [] | range: 10 track by count" class="list-group-item cursor-default back-whitesmoke">
+              <div ng-repeat="count in [] | range: 10 track by count" class="list-group-item cursor-default">
                 <div class="list-view-pf-actions">
                   <button class="btn btn-primary">
                     {{"Associa a username" | translate}}
                   </button>
                 </div>
-                <div class="list-view-pf-main-info">
+                <div class="list-view-pf-main-info ">
                   <div class="list-view-pf-left">
                     <span class="fa fa-phone list-view-pf-icon-sm "></span>
                   </div>
@@ -364,11 +388,31 @@
                   </div>
                 </div>
               </div>  
-
             </div>
             <div class="modal-footer submit">
-              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button> -->
-              <!-- <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button> -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="singleModelModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="wizard-model-modal">
+    <div class="modal-dialog wizard-pf margin-10">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+          <h4 class="modal-title" id="dfSettingsMLabel">{{'Single Model Editing' | translate}}</h4>
+        </div>
+        <form class="form-horizontal">
+          <div class="modal-body">
+            <div class="mb-10 mt-5">
+              <!-- start model ui -->
+              <div ng-include="modelsUIUrl"></div>
             </div>
           </div>
         </form>
