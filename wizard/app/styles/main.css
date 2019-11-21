@@ -2446,4 +2446,20 @@ iframe body {
   background-color: #e9f4e9;
   border-color: #3f9c35 !important;
 }
+
+.width-10p {
+  width: 10% !important;
+}
+
+.width-28p {
+  width: 28% !important;
+}
+
+.width-85p {
+  width: 85% !important;
+}
+
+.align-items-flex-start {
+  align-items: flex-start;
+}
 /* end Inventory */

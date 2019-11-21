@@ -294,8 +294,7 @@
                 </select> -->
 
                 <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select model' | translate) }"
-                  ng-model="modelApplyToAll"
-                  ng-options="m as m.display_name for m in modelApplyToAllList">
+                  ng-model="modelApplyToAll" ng-options="m as m.display_name for m in modelApplyToAllList">
                 </select>
 
                 <button type="button" class="btn btn-default" ng-click="applyModelToAll()"
@@ -325,13 +324,13 @@
                         <div class="list-view-pf-left">
                           <span class="fa fa-phone list-view-pf-icon-sm {{ phone.model ? '' : 'disabled' }}"></span>
                         </div>
-                        <div class="list-view-pf-body">
+                        <div class="list-view-pf-body align-items-flex-start">
                           <div class="list-view-pf-description align-items-stretch">
                             <div class="list-group-item-heading {{ phone.model ? '' : 'disabled' }}">
                               <!-- MAC -->
                               <input type="text" id="mac-phone-to-add-{{$index}}" name="mac{{$index}}"
-                                class="form-control" ng-model="phone.mac" ng-change="macPhoneToAddChanged(phone)"
-                                maxlength="17">
+                                class="form-control width-85p" ng-model="phone.mac"
+                                ng-change="macPhoneToAddChanged(phone)" maxlength="17">
                               <span ng-show="phone.error"
                                 class="help-block">{{ 'Invalid MAC address' | translate }}</span>
                               <span ng-show="macDuplicates.includes(phone.mac)"
@@ -340,15 +339,19 @@
                                 <span
                                   class="pficon pficon-warning-triangle-o mg-right-5"></span>{{ 'Unknown vendor' | translate }}</span>
                             </div>
-                            <div class="list-group-item-text">
-                              <!-- model -->
-                              <select class="form-control border-color-bbb" pf-select="{ noneSelectedText: '-' }"
-                                ng-model="phone.model"
-                                ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
-                                id="model-phone-to-add-{{$index}}">
-                                <option value="">-</option>
-                              </select>
+                            <div class="list-group-item-text width-10p">
+                              {{ phone.vendor ? phone.vendor : '-'}}
                             </div>
+                          </div>
+                          <div
+                            class="list-view-pf-additional-info config-info width-28p {{phone.model ? '' : 'disabled'}}">
+                            <!-- model -->
+                            <select class="form-control border-color-bbb" pf-select="{ noneSelectedText: '-' }"
+                              ng-model="phone.model"
+                              ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
+                              id="model-phone-to-add-{{$index}}">
+                              <option value="">-</option>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -363,8 +366,7 @@
               data-dismiss="modal">{{ 'Cancel' | translate }}</button>
             <!-- add phones button -->
             <button type="button" class="btn btn-primary mg-top-20"
-              ng-show="!(showResultsAddPhones && phonesToAdd.length == 0)"
-              ng-disabled="phonesToAdd.length === 0"
+              ng-show="!(showResultsAddPhones && phonesToAdd.length == 0)" ng-disabled="phonesToAdd.length === 0"
               ng-click="addPhones()">{{ 'Add phones' | translate }}</button>
             <!-- done button -->
             <button type="button" class="btn btn-primary mg-top-20"
@@ -374,159 +376,6 @@
         </div>
       </div>
     </div>
-
-
-    <!-- add phones modal //// todo: delete wizard -->
-    <div class="modal" id="add-phone" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-lg wizard-pf modal-wizard">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="Close">
-              <span class="pficon pficon-close"></span>
-            </button>
-            <h4 class="modal-title">{{'Add phones' | translate}}</h4>
-          </div>
-          <div class="modal-body wizard-pf-body clearfix center-v width-100p">
-            <div class="wizard-pf-main mg-left-0">
-              <!-- step 1 -->
-              <div ng-show="addPhonesStep == 1" class="wizard-pf-contents">
-                <div class="blank-slate-pf-main-action row card-row">
-                  <div class="card-pf option-card width-33p"
-                    ng-class="{ 'active-choose-green': addPhonesType === 'scan' }" ng-click="setAddPhonesType('scan')">
-                    <div class="blank-slate-pf no-pad margin-top-md white-background">
-                      <div class="blank-slate-pf-icon small-size-wizard">
-                        <span class="pficon pficon-network"></span>
-                      </div>
-                      <h3>{{ 'Scan a network' | translate }}</h3>
-                    </div>
-                  </div>
-                  <!-- <div class="card-pf option-card width-33p" ////
-                    ng-class="{ 'active-choose-green': addPhonesType === 'paste' }"
-                    ng-click="setAddPhonesType('paste')">
-                    <div class="blank-slate-pf no-pad margin-top-md white-background">
-                      <div class="blank-slate-pf-icon small-size-wizard">
-                        <span class="fa fa-paste"></span>
-                      </div>
-                      <h3>{{ 'Paste a list of MAC addresses' | translate }}</h3>
-                    </div>
-                  </div> -->
-                  <div class="card-pf option-card width-33p"
-                    ng-class="{ 'active-choose-green': addPhonesType === 'manual' }"
-                    ng-click="setAddPhonesType('manual')">
-                    <div class="blank-slate-pf no-pad margin-top-md white-background">
-                      <div class="blank-slate-pf-icon small-size-wizard">
-                        <span class="pficon pficon-edit"></span>
-                      </div>
-                      <h3>{{ 'Add phones manually' | translate }}</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- step 2 - manual -->
-              <div ng-show="addPhonesStep == 2 && addPhonesType === 'manual'" class="wizard-pf-contents">
-                <form class="form-horizontal" ng-submit="addPhonesManual()">
-                  <div class="form-group" ng-class="{ 'has-error': showManualMacError }">
-                    <label class="col-sm-4 control-label" for="manual-mac">{{ 'MAC address' | translate }}</label>
-                    <div class="col-sm-8">
-                      <input type="text" id="manual-mac" name="manualMac" class="form-control" ng-model="manualMac"
-                        ng-change="inputMacManualChanged()" maxlength="17">
-                      <span ng-show="showManualMacError"
-                        class="help-block">{{ 'Invalid MAC address' | translate }}</span>
-                      <span ng-show="manualMacUnknownVendor" class="help-block warning">
-                        <span
-                          class="pficon pficon-warning-triangle-o mg-right-5"></span>{{ 'Unknown vendor' | translate }}</span>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label" for="manual-model">{{ 'Model' | translate }}</label>
-                    <div class="col-sm-8">
-                      <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="manualModel"
-                        ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue"
-                        id="manual-model">
-                        <option value="">-</option>
-                      </select>
-                    </div>
-                  </div>
-                  <!-- add phone button -->
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label"></label>
-                    <div class="col-sm-8">
-                      <button type="submit" class="btn btn-primary wizard-pf-next">
-                        <span class="wizard-pf-button-text">
-                          {{ 'Add phone' | translate }}
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <!-- step 2 - scan networks -->
-              <div ng-show="addPhonesStep == 2 && addPhonesType === 'scan'" class="wizard-pf-contents">
-                <form class="form-horizontal" ng-submit="addPhonesManual()">
-                  <div class="form-group"
-                    ng-class="{ 'has-error': showSelectNetworkToScanError || showNetworkScanInProgressError }">
-                    <label class="col-sm-4 control-label" for="manual-model">{{ 'Network to scan' | translate }}</label>
-                    <div class="col-sm-8">
-                      <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="networkToScan"
-                        ng-options="network as (network.name + ' | ' + network.network) for network in networks | orderBy:orderByValue"
-                        ng-change="networkToScanChanged()">
-                        <option value="">-</option>
-                      </select>
-                      <span ng-show="showSelectNetworkToScanError"
-                        class="help-block">{{ 'Select a network' | translate }}</span>
-                      <span ng-show="showNetworkScanInProgressError"
-                        class="help-block">{{ 'This network is already being scanned' | translate }}</span>
-                    </div>
-                  </div>
-                  <div class="form-group" ng-class="{ 'has-error': showNetmaskToScanError }">
-                    <label class="col-sm-4 control-label" for="manual-model">{{ 'Netmask' | translate }}</label>
-                    <div class="col-sm-8">
-                      <input ng-model="networkToScan.netmask" type="text" class="form-control"
-                        ng-change="netmaskToScanChanged()"></input>
-                      <span ng-show="showNetmaskToScanError"
-                        class="help-block">{{ 'Enter a valid netmask' | translate }}</span>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer wizard-pf-footer modal-wizard-footer">
-            <!-- next button -->
-            <button type="submit" class="btn btn-primary wizard-pf-next" ng-show="addPhonesStep < addPhonesTotalSteps"
-              ng-click="addPhonesNextStep()">
-              <span class="wizard-pf-button-text">
-                {{ 'Next' | translate }}
-              </span>
-              <span class="i fa fa-angle-right"></span>
-            </button>
-            <!-- add phones button -->
-            <button type="button" class="btn btn-primary wizard-pf-next" ng-show="addPhonesStep == addPhonesTotalSteps"
-              ng-click="addPhonesFinish()">
-              <span class="wizard-pf-button-text">
-                {{ 'Add phones' | translate }}
-              </span>
-            </button>
-            <!-- back button -->
-            <button type="button" class="btn btn-default wizard-pf-back" ng-disabled="addPhonesStep == 1"
-              ng-click="addPhonesPreviousStep()">
-              <span class="i fa fa-angle-left"></span>
-              <span class="wizard-pf-button-text">
-                {{ 'Back' | translate }}
-              </span>
-            </button>
-            <!-- cancel -->
-            <button type="button" class="btn btn-default btn-cancel wizard-pf-cancel wizard-pf-dismiss"
-              ng-click="hideAddPhonesModal()">
-              {{ 'Cancel' | translate }}
-            </button>
-            <button type="button"
-              class="btn btn-primary hidden wizard-pf-close wizard-pf-dismiss">{{ 'Close' | translate }}</button>
-          </div><!-- /.wizard-pf-footer -->
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
 
     <!-- delete phone modal -->
     <div class="modal fade" id="deletePhoneModal" tabindex="-1" role="dialog" aria-labelledby="deletePhoneModal"
