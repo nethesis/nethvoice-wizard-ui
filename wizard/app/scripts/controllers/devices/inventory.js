@@ -40,7 +40,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.phones = [];
 
         for (var phoneTancredi of phonesTancredi) {
-          var phone = buildPhone(phoneTancredi);
+          var phone = PhoneService.buildPhone(phoneTancredi, $scope.models);
           $scope.phones.push(phone);
         }
 
@@ -174,7 +174,7 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       // update model list
-      var vendor = UtilService.getVendor($scope.manualMac);
+      var vendor = PhoneService.getVendor($scope.manualMac);
 
       if (vendor) {
         $scope.manualFilteredModels = $scope.models.filter(function (model) {
@@ -201,7 +201,7 @@ angular.module('nethvoiceWizardUiApp')
 
       var netName = $scope.networkToScan.name;
 
-      if ($scope.networkToScan && (!$scope.networkToScan.netmask || !UtilService.checkNetmask($scope.networkToScan.netmask))) {
+      if ($scope.networkToScan && (!$scope.networkToScan.netmask || !PhoneService.checkNetmask($scope.networkToScan.netmask))) {
         $scope.showNetmaskToScanError = true;
       }
 
@@ -221,7 +221,7 @@ angular.module('nethvoiceWizardUiApp')
               $scope.tasks[netName].currentProgress = res.data.progress;
               $scope.tasks[netName].errorCount = 0;
             } else if (res.data.progress == 100) {
-              console.log('progress == 100, res.data', res.data); ////
+              console.log('progress == 100, res', res); ////
               $scope.tasks[netName].currentProgress = res.data.progress;
               $scope.tasks[netName].errorCount = 0;
               $interval.cancel($scope.tasks[netName].promise);
@@ -314,7 +314,7 @@ angular.module('nethvoiceWizardUiApp')
         macsPhonesToAdd.push(mac);
 
         // check MAC address 
-        if (!UtilService.checkMacAddress(mac)) {
+        if (!PhoneService.checkMacAddress(mac)) {
           phone.validationError = true;
 
           if (firstErrorIndex === null) {
@@ -323,7 +323,7 @@ angular.module('nethvoiceWizardUiApp')
         }
 
         // check vendor
-        var vendor = UtilService.getVendor(mac);
+        var vendor = PhoneService.getVendor(mac);
         if (!vendor) {
           phone.unknownVendor = true;
         } else {
@@ -370,12 +370,12 @@ angular.module('nethvoiceWizardUiApp')
 
       // add all phones
       for (var phone of $scope.phonesToAdd) {
-        var phoneTancredi = buildPhoneTancredi(phone.mac, phone.model, phone.vendor);
+        var phoneTancredi = PhoneService.buildPhoneTancredi(phone.mac, phone.model, phone.vendor);
 
         PhoneService.createPhoneMock(phoneTancredi, 0.7).then(function (phoneTancrediResult) {
           $scope.phonesTancredi.push(phoneTancrediResult); //// mockup
 
-          var phone = buildPhone(phoneTancrediResult);
+          var phone = PhoneService.buildPhone(phoneTancrediResult, $scope.models);
 
           console.log("success", phone.mac); ////
           $scope.pendingRequestsAddPhones--;
@@ -432,55 +432,6 @@ angular.module('nethvoiceWizardUiApp')
       $scope.getPhones();
     }
 
-    // builds a phone object starting from a phone object got from Tancredi
-    function buildPhone(phoneTancredi) {
-      var mac = phoneTancredi.mac;
-      var model;
-      var filteredModels = $scope.filteredModels(mac);
-
-      if (phoneTancredi.model) {
-        model = filteredModels.find(function (m) {
-          return phoneTancredi.model === m.name;
-        });
-      }
-
-      var vendor = phoneTancredi.display_name;
-      if (!vendor) {
-        vendor = UtilService.getVendor(mac);
-      }
-
-      if (vendor) {
-        vendor = UtilService.capitalize(vendor);
-      }
-
-      var phone = {
-        "mac": mac,
-        "model": model,
-        "vendor": vendor,
-        "filteredModels": filteredModels
-      }
-
-      return phone;
-    }
-
-    // builds a phone object that can be passed to Tancredi
-    function buildPhoneTancredi(mac, model, vendor) {
-      if (model) {
-        model = model.name;
-      }
-
-      if (!vendor) {
-        vendor = UtilService.getVendor(mac);
-      }
-
-      var phone = {
-        "mac": mac,
-        "model": model,
-        "display_name": vendor
-      }
-      return phone;
-    }
-
     function validateAddPhonesManual() {
       $scope.clearValidationErrorsManual();
 
@@ -493,7 +444,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.manualMacDuplicated = true;
       }
 
-      if (!UtilService.checkMacAddress($scope.manualMac)) {
+      if (!PhoneService.checkMacAddress($scope.manualMac)) {
         $scope.showManualMacError = true;
       }
 
@@ -553,7 +504,7 @@ angular.module('nethvoiceWizardUiApp')
       for (var phone of $scope.phonesToAdd) {
         var vendor = phone.vendor;
         if (!vendor) {
-          vendor = UtilService.getVendor(phone.mac);
+          vendor = PhoneService.getVendor(phone.mac);
           phone.vendor = vendor;
         }
 
@@ -569,7 +520,7 @@ angular.module('nethvoiceWizardUiApp')
       for (var phone of $scope.phonesToAdd) {
         var vendor = phone.vendor;
         if (!vendor) {
-          vendor = UtilService.getVendor(phone.mac);
+          vendor = PhoneService.getVendor(phone.mac);
           phone.vendor = vendor;
         }
 
@@ -603,7 +554,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.macDuplicates = UtilService.findDuplicates(macsPhonesToAdd);
 
       // check vendor
-      var vendor = UtilService.getVendor(phone.mac);
+      var vendor = PhoneService.getVendor(phone.mac);
 
       if (vendor) {
         phone.vendor = vendor;
@@ -642,19 +593,6 @@ angular.module('nethvoiceWizardUiApp')
 
       console.log('setPhoneModel()', phone); ////
     };
-
-    $scope.filteredModels = function (mac) {
-      var vendor = UtilService.getVendor(mac);
-
-      if (vendor) {
-        var filteredModels = $scope.models.filter(function (model) {
-          return model.name.toLowerCase().startsWith(vendor.toLowerCase());
-        });
-        return filteredModels;
-      } else {
-        return [];
-      }
-    }
 
     $scope.showDeletePhoneModal = function (phone) {
       $scope.phoneToDelete = phone;

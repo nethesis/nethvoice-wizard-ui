@@ -112,7 +112,7 @@
             <form class="form-horizontal">
               <!-- add phones loader -->
               <div ng-show="addPhonesInProgress" class="centered">
-                <span class="spinner spinner-add-phones"></span>
+                <span class="spinner spinner-large"></span>
               </div>
               <div ng-show="!addPhonesInProgress">
                 <!-- section shown on copy/paste method -->
@@ -212,7 +212,7 @@
                   </div>
                   <div class="form-group">
                     <label class="col-sm-4 control-label"></label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-8">
                       <button type="submit" class="btn btn-primary" ng-show="!networkScanInProgress"
                         ng-disabled="!networkToScan" ng-click="startNetworkScan()">
                         {{ 'Scan' | translate }}
@@ -221,8 +221,10 @@
                         ng-disabled="!networkToScan" ng-click="cancelAllNetworkScans()">
                         {{ 'Stop scan' | translate }}
                       </button>
-                      <span class="spinner inline-block right-only" ng-show="networkScanInProgress"></span>
                     </div>
+                  </div>
+                  <div class="centered">
+                    <span class="spinner spinner-large" ng-show="networkScanInProgress"></span>
                   </div>
                 </div>
                 <!-- results of add phones operation -->
