@@ -19,38 +19,65 @@
       </div>
     </div>
     <div ng-show="phones.length != 0">
-      <!-- bulk select combobox -->
       <div class="row mg-bottom-15">
-        <div class="col-sm-9 no-padding">
+        <div class="col-sm-12 no-padding">
+          <!-- select all or none combobox -->
           <div class="dropdown inline-display">
-            <button class="btn btn-lg btn-default dropdown-toggle drd-button" type="button" id="dropdownMenu1"
-              data-toggle="dropdown">
+            <button class="btn btn-lg btn-default dropdown-toggle drd-button width-210" type="button"
+              id="select-all-or-none" data-toggle="dropdown">
               <span class="filter-option pull-left">
-                {{ 'Select phones' | translate }}
+                {{ getNumSelected() }} {{ 'of' | translate }} {{ phones.length }} {{ 'selected' | translate }}
               </span>
               <span class="caret drd-carret"></span>
             </button>
-            <ul class="dropdown-menu drd-ul" role="menu" aria-labelledby="dropdownMenu1">
+            <ul class="dropdown-menu drd-ul" role="menu" aria-labelledby="select-all-or-none">
               <li>
-                <a ng-click="selectAll(true)">{{'All' | translate}}</a>
+                <a ng-click="selectAllOrNone(true)">{{'Select all' | translate}}</a>
               </li>
               <li>
-                <a ng-click="selectAll(false)">{{'None' | translate}}</a>
-              </li>
-              <li class="divider"></li>
-              <li ng-if="!(allGroups | isEmpty)" class="divider"></li>
-              <li ng-repeat="group in allGroups">
-                <a ng-click="selectGroup(group.id)">{{'Group' | translate}} {{group.name}}</a>
+                <a ng-click="selectAllOrNone(false)">{{'Select none' | translate}}</a>
               </li>
             </ul>
           </div>
-          <!-- edit select phones button -->
-          <button class="btn btn-lg btn-primary"
-            ng-click="showEditModal()">{{ 'Edit selected phones' | translate }}</button>
-        </div>
-        <div class="col-sm-3 label-selected-bulk no-padding">
-          <strong>{{num.selected}}</strong> {{'of' | translate}}
-          <strong>{{num.tot}}</strong> {{'selected' | translate}}
+          <!-- select by group combobox -->
+          <div class="dropdown inline-display">
+            <button class="btn btn-lg btn-default dropdown-toggle drd-button width-240" type="button"
+              id="select-by-group" data-toggle="dropdown">
+              <span class="filter-option pull-left">
+                {{ selectedGroup ? selectedGroup : ('Select by group' | translate) }}
+              </span>
+              <span class="caret drd-carret"></span>
+            </button>
+            <ul class="dropdown-menu drd-ul" role="menu" aria-labelledby="select-by-group">
+              <li>
+                <a ng-click="selectByGroup(null)">-</a>
+              </li>
+              <li ng-repeat="group in groups">
+                <a ng-click="selectByGroup(group)">{{group}}</a>
+              </li>
+            </ul>
+          </div>
+          <!-- select by model combobox -->
+          <div class="dropdown inline-display">
+            <button class="btn btn-lg btn-default dropdown-toggle drd-button width-240" type="button"
+              id="select-by-model" data-toggle="dropdown">
+              <span class="filter-option pull-left">
+                {{ selectedModel ? selectedModel.display_name : ('Select by model' | translate) }}
+              </span>
+              <span class="caret drd-carret"></span>
+            </button>
+            <ul class="dropdown-menu drd-ul" role="menu" aria-labelledby="select-by-model">
+              <li>
+                <a ng-click="selectModel(null)">-</a>
+              </li>
+              <li ng-repeat="model in models">
+                <a ng-click="selectModel(model)">{{ model.display_name }}</a>
+              </li>
+            </ul>
+          </div>
+          <!-- edit selected phones button -->
+          <button class="btn btn-lg btn-primary" ng-click="showEditModal()"
+            ng-disabled="getNumSelected() == 0">{{ 'Edit selected phones' | translate }}</button>
         </div>
       </div>
     </div>
@@ -70,15 +97,15 @@
     </form>
     <!-- phone list -->
     <div class="list-group list-view-pf clear">
-      <div class="list-group-item cursor-default"
+      <div class="list-group-item cursor-default {{phone.selected ? 'selected' : ''}}"
         ng-repeat="phone in phones | filter:searchPhoneString | orderBy: 'display_name'">
         <div class="list-view-pf-actions">
-          <!-- //// -->
+          <div>{{ 'Next reboot' | translate }}:</div>
+          <div><span class="pficon pficon-restart mg-right-5"></span>{{ phone.nextReboot }}</div>
         </div>
         <!-- checkbox -->
         <div class="list-view-pf-checkbox">
-          <input type="checkbox" ng-click="phone.selected == true ? phone.selected = false : phone.selected = true"
-            ng-model="phone.selected">
+          <input type="checkbox" ng-model="phone.selected" ng-change="manualSelectionChanged(phone)">
         </div>
         <div class="list-view-pf-main-info">
           <div class="list-view-pf-left">
@@ -87,25 +114,29 @@
           <div class="list-view-pf-body">
             <div class="list-view-pf-description">
               <div class="list-group-item-heading-narrow {{phone.model ? '' : 'disabled'}}">
-                {{ phone.display_name ? phone.display_name : '-'}}
+                {{ phone.vendor ? phone.vendor : '-'}}
               </div>
-              <!-- model -->
-              <div class="list-group-item-text-narrow">
-                <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)" ng-model="phone.modelObj"
-                  ng-options="model.display_name for model in filteredModels(phone.mac) | orderBy:orderByValue">
-                  <option value="">-</option>
-                </select>
-              </div>
-              <div class="list-group-item-text-narrow">
-                <!-- template -->
-                <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneTemplate(phone)"
-                  ng-model="phone.template" ng-options="template for template in templates | orderBy:orderByValue">
-                  <option value="">-</option>
-                </select>
+              <div class="list-group-item-text-narrow width-65p">
+                <!-- model -->
+                <div>
+                  <select pf-select="{ noneSelectedText: '-' }" ng-model="phone.model" disabled
+                    ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue">
+                    <option value="">-</option>
+                  </select>
+                </div>
+                <div class="mg-top-10">
+                  <!-- template -->
+                  <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneTemplate(phone)"
+                    ng-model="phone.template" ng-options="template for template in templates | orderBy:orderByValue">
+                    <option value="">-</option>
+                  </select>
+                </div>
               </div>
             </div>
             <div class="list-view-pf-additional-info config-info {{phone.model ? '' : 'disabled'}}">
               <div>MAC: <b>{{phone.mac}}</b></div>
+              <div>
+                <span class="fa fa-user mg-right-5"></span>{{ phone.user ? phone.user.username : '-' }}</div>
             </div>
           </div>
         </div>
@@ -127,17 +158,40 @@
       </div>
       <form class="form-horizontal" ng-submit="bulkEditSave()">
         <div class="modal-body">
-          <!-- //// -->
-          <p>&nbsp;</p>
-          <p>&nbsp;</p>
-          <p>&nbsp;</p>
-          <p>&nbsp;</p>
-          <p>&nbsp;</p>
-          <p>&nbsp;</p>
+          <!-- bulk template -->
+          <div class="form-group">
+            <label class="col-sm-4 control-label">{{ 'Template' | translate }}</label>
+            <div class="col-sm-6">
+              <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="bulkTemplate"
+                ng-options="template for template in templates | orderBy:orderByValue"
+                ng-disabled="!allSelectedSameModel()">
+                <option value="">-</option>
+              </select>
+            </div>
+          </div>
+          <!-- bulk web phone -->
+          <div class="form-group">
+            <label class="col-sm-4 control-label">{{ 'Web phone' | translate }}</label>
+            <div class="col-sm-6">
+              <input bs-switch ng-model="bulkWebPhone"
+                class="bootstrap-switch bootstrap-switch-webrtc col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
+            </div>
+          </div>
+          <!-- bulk delayed reboot -->
+          <div class="form-group">
+            <label class="col-sm-4 control-label">{{ 'Delayed reboot' | translate }}</label>
+            <div class="col-sm-6">
+              <div class="input-group date-time-picker-pf" id="delayed-reboot-datetimepicker">
+                <input type="text" class="form-control" />
+                <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- <div ng-show="temp.onsave" class="spinner spinner-sm adjust-margin loader-modal"></div> //// -->
         <div class="modal-footer submit">
-          <button type="button" class="btn btn-default" ng-click="closeEditModal()">{{ 'Cancel' | translate }}</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
           <button type="submit" class="btn btn-primary">{{ 'Save' | translate }}</button>
         </div>
     </div>

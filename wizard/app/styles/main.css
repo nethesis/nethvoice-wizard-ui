@@ -2477,4 +2477,16 @@ iframe body {
 .mg-bottom-0 {
   margin-bottom: 0;
 }
+
+.width-65p {
+  width: 65% !important;
+}
+
+.width-210 {
+  width: 210px;
+}
+
+.width-240 {
+  width: 240px;
+}
 /* end Inventory */
