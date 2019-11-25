@@ -177,12 +177,12 @@
                 class="bootstrap-switch bootstrap-switch-webrtc col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
             </div>
           </div>
-          <!-- bulk delayed reboot -->
+          <!-- bulk Next reboot -->
           <div class="form-group">
-            <label class="col-sm-4 control-label">{{ 'Delayed reboot' | translate }}</label>
+            <label class="col-sm-4 control-label">{{ 'Next reboot' | translate }}</label>
             <div class="col-sm-6">
-              <div class="input-group date-time-picker-pf" id="delayed-reboot-datetimepicker">
-                <input type="text" class="form-control" />
+              <div class="input-group date-time-picker-pf" id="next-reboot-datetimepicker">
+                <input type="text" class="form-control" id="next-reboot-datetimepicker-value" ng-model="bulkNextReboot" />
                 <span class="input-group-addon">
                   <span class="fa fa-calendar"></span>
                 </span>

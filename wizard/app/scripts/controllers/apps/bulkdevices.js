@@ -23,6 +23,26 @@ angular.module('nethvoiceWizardUiApp')
     ];
     $scope.models = [];
 
+    $scope.$watch("phones", function (newValue, oldValue) {
+      $scope.firstPhoneSelected = null;
+
+      for (var phone of $scope.phones) {
+        if (phone.selected) {
+          $scope.firstPhoneSelected = phone;
+          $scope.bulkTemplate = phone.template;
+          $scope.bulkNextReboot = phone.nextReboot;
+
+          console.log("watch phones, $scope.bulkNextReboot", $scope.bulkNextReboot); /////
+
+          if (phone.user) {
+            $scope.bulkWebPhone = phone.user.webPhone;
+          }
+          break;
+        }
+      }
+      console.log("$scope.firstPhoneSelected", $scope.firstPhoneSelected); ////
+    }, true);
+
     $scope.getPhones = function () {
       console.log("getPhones(), phonesTancredi", $scope.phonesTancredi); ////
 
@@ -107,7 +127,7 @@ angular.module('nethvoiceWizardUiApp')
           phone.user = phoneUser;
         }
 
-        //// mockup: set reboot date
+        //// mockup: set next reboot date
         phone.nextReboot = moment().format('YYYY/MM/DD HH:mm');
       }
 
@@ -150,7 +170,6 @@ angular.module('nethvoiceWizardUiApp')
       for (var phone of $scope.phones) {
         phone.selected = false;
       }
-      $scope.firstPhoneSelected = null; //// delete firstPhoneSelected ?
 
       if (!$scope.selectedGroup && !$scope.selectedModel) {
         // no group or model selected
@@ -174,18 +193,10 @@ angular.module('nethvoiceWizardUiApp')
               // group and model selected
               if (phone.model && phone.model.name === $scope.selectedModel.name) {
                 phone.selected = true;
-
-                if (!$scope.firstPhoneSelected) { //// delete firstPhoneSelected ?
-                  $scope.firstPhoneSelected = phone;
-                }
               }
             } else {
               // group selected only
               phone.selected = true;
-
-              if (!$scope.firstPhoneSelected) { //// delete firstPhoneSelected ?
-                $scope.firstPhoneSelected = phone;
-              }
             }
           }
         }
@@ -194,10 +205,6 @@ angular.module('nethvoiceWizardUiApp')
         for (var phone of $scope.phones) {
           if (phone.model && phone.model.name === $scope.selectedModel.name) {
             phone.selected = true;
-
-            if (!$scope.firstPhoneSelected) { //// delete firstPhoneSelected ?
-              $scope.firstPhoneSelected = phone;
-            }
           }
         }
       }
@@ -259,26 +266,27 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.bulkEditSave = function () {
       console.log("bulkEditSave"); ////
-      //// ...
+
+      // workaround to handle bulk next reboot value
+      $scope.bulkNextReboot = $('#next-reboot-datetimepicker-value').val();
+      $('#next-reboot-datetimepicker').datetimepicker('setDate', $scope.bulkNextReboot);
+
+      console.log("bulkEditSave, $scope.bulkNextReboot", $scope.bulkNextReboot); /////
+
+      for (var phone of $scope.phones) {
+        if (phone.selected) {
+          phone.template = $scope.bulkTemplate;
+          phone.nextReboot = $scope.bulkNextReboot;
+          if (phone.user) {
+            phone.user.webPhone = $scope.bulkWebPhone;
+          }
+        }
+      }
       $('#bulkEdit').modal('hide');
     }
 
     $scope.showEditModal = function () {
       $('#bulkEdit').modal('show');
-
-      // prepare delayed-reboot-datetimepicker
-      $(function () {
-        $('#delayed-reboot-datetimepicker').datetimepicker({
-          allowInputToggle: true,
-          showTodayButton: false,
-          toolbarPlacement: 'bottom',
-          sideBySide: true,
-          format: 'YYYY/MM/DD HH:mm',
-          icons: {
-            today: 'today-button-pf'
-          }
-        });
-      });
     }
 
     $scope.selectAllOrNone = function (value) {
@@ -293,16 +301,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.manualSelectionChanged = function (phone) {
       $scope.selectedGroup = null;
       $scope.selectedModel = null;
-
-      // set firstPhoneSelected
-      $scope.firstPhoneSelected = null; //// delete firstPhoneSelected ?
-
-      for (var phone of $scope.phones) {
-        if (phone.selected) {
-          $scope.firstPhoneSelected = phone; //// delete firstPhoneSelected ?
-          return;
-        }
-      }
     }
 
     // returns if all selected phones have the same model
@@ -323,6 +321,34 @@ angular.module('nethvoiceWizardUiApp')
       return true;
     }
 
+    function initDateTimePicker() {
+      // initialize next-reboot-datetimepicker
+      $(function () {
+        $('#next-reboot-datetimepicker').datetimepicker({
+          minDate: new Date(),
+          allowInputToggle: true,
+          showTodayButton: false,
+          toolbarPlacement: 'bottom',
+          sideBySide: true,
+          format: 'YYYY/MM/DD HH:mm',
+          icons: {
+            today: 'today-button-pf'
+          }
+        });
+
+        $('#next-reboot-datetimepicker').click(function() {
+          console.log("dp.click, value", $('#next-reboot-datetimepicker').val(), "  $scope.bulkNextReboot: ", $scope.bulkNextReboot);
+
+          // workaround for first click clear
+          if (!$('#next-reboot-datetimepicker').val()) {
+            $('#next-reboot-datetimepicker').val($scope.bulkNextReboot);
+            console.log("setttt", $scope.bulkNextReboot); /////
+          }
+        });
+      });
+    }
+
+    initDateTimePicker();
     $scope.getPhones();
     $scope.getTemplates();
   });
