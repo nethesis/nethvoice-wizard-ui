@@ -3,7 +3,9 @@
     {{ 'Inventory' | translate }}
   </h1>
   <div class="container-fluid mg-top-20">
-    <div class="page-help" ng-show="phones.length !== 0">
+    <!-- inventory help notification -->
+    <div class="alert alert-info" ng-show="phones.length !== 0">
+      <span class="pficon pficon-info"></span>
       <p>{{ 'inventory_help_p_1' | translate }}. {{ 'inventory_help_p_2' | translate }}:</p>
       <ul>
         <li>{{ 'inventory_help_li_1' | translate }}</li>
@@ -11,6 +13,7 @@
         <li>{{ 'inventory_help_li_3' | translate }}</li>
       </ul>
     </div>
+    <!-- empty state -->
     <div ng-show="phones.length == 0" class="blank-slate-pf">
       <div class="blank-slate-pf-icon">
         <span class="pficon pficon pficon-add-circle-o"></span>
@@ -350,8 +353,7 @@
                                 {{ phone.vendor ? phone.vendor : '-'}}
                               </div>
                             </div>
-                            <div
-                              class="list-view-pf-additional-info config-info width-28p">
+                            <div class="list-view-pf-additional-info config-info width-28p">
                               <!-- model -->
                               <select class="form-control border-color-bbb" pf-select="{ noneSelectedText: '-' }"
                                 ng-model="phone.model"

@@ -41,7 +41,6 @@
   "iroutes": "inbound routes",
   "daynight": "call flow control",
   "postmig": "phonebook and settings",
-  "add_phones_empty_state": "Add phones by scanning the network, pasting a list of MAC addresses or entering phone data manually",
   "inventory_help_p_1": "The inventory manages the list of phones configured in Nethvoice",
   "inventory_help_p_2": "You can add phones to the inventory by",
   "inventory_help_li_1": "Scanning a network",
