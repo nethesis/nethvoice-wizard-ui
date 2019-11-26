@@ -10,80 +10,40 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('DevicesInventoryCtrl', function ($scope, $interval, $q, PhoneService, ModelService, UtilService, ConfigService, DeviceService) {
     $scope.phones = [];
-    $scope.phonesTancredi = []; //// mockup, delete
-
-    // $scope.phones = [ //// mockup
-    //   { mac: "00:04:13:11:22:31", model: "snom100", display_name: "Snom" },
-    //   { mac: "0C:38:3E:99:88:72", model: "fanvil-600", display_name: "Fanvil" },
-    //   { mac: "00:15:65:55:55:53", model: null, display_name: "Yealink" },
-    //   { mac: "00:04:13:11:22:34", model: "snom200", display_name: "Snom" },
-    //   { mac: "00:04:13:11:22:35", model: "snom100", display_name: "Snom" },
-    //   { mac: "00:04:13:11:22:36", model: null, display_name: "Snom" },
-    //   { mac: "0C:38:3E:99:88:77", model: null, display_name: "Fanvil" },
-    //   { mac: "00:15:65:55:55:58", model: null, display_name: "Yealink" }
-    // ];
-
     $scope.models = [];
     $scope.tasks = {};
     $scope.networkScanInProgress = false;
+    $scope.uiLoaded = false;
 
     $scope.pastedMacs = [];
-
     $scope.successfulAddPhones = [];
     $scope.failedAddPhones = [];
 
     $scope.getPhones = function () {
-      console.log("getPhones(), phonesTancredi", $scope.phonesTancredi); ////
-
-      PhoneService.getPhonesMock($scope.phonesTancredi).then(function (phonesTancredi) { ////
-        $scope.getModels();
+      $scope.uiLoaded = false;
+      
+      PhoneService.getPhones().then(function (success) {
         $scope.phones = [];
 
-        for (var phoneTancredi of phonesTancredi) {
+        for (var phoneTancredi of success.data) {
           var phone = PhoneService.buildPhone(phoneTancredi, $scope.models);
           $scope.phones.push(phone);
         }
-
-        console.log("getPhones()", $scope.phones); ////
+        $scope.uiLoaded = true;
       }, function (err) {
         console.log(err);
+        $scope.uiLoaded = true;
       });
     };
 
     $scope.getModels = function () {
-      // ModelService.getModels().then(function(res) { ////
-
-      var res = [ //// mockup
-        {
-          "name": "snom100",
-          "display_name": "Snom IP phone v100",
-          "model_url": "/tancredi/api/v1/models/snom100"
-        }, {
-          "name": "snom200",
-          "display_name": "Snom IP phone v200",
-          "model_url": "/tancredi/api/v1/models/snom200"
-        }, {
-          "name": "fanvil-600",
-          "display_name": "Fanvil IP phone v600",
-          "model_url": "/tancredi/api/v1/models/fanvil600"
-        }, {
-          "name": "fanvil-700",
-          "display_name": "Fanvil IP phone v700",
-          "model_url": "/tancredi/api/v1/models/fanvil700"
-        }, {
-          "name": "yealink-1000",
-          "display_name": "Yealink IP phone v1000",
-          "model_url": "/tancredi/api/v1/models/yealink1000"
-        }
-      ];
-
-      $scope.models = res;
-
-      console.log("$scope.models", $scope.models); ////
-
-      // }, function(err) { ////
-      //   console.log(err);
-      // });
+      ModelService.getModels().then(function (res) {
+        $scope.models = res.data;
+        $scope.getPhones();
+      }, function (err) {
+        console.log(err);
+        $scope.uiLoaded = true;
+      });
     }
 
     // modal used to add mac using different methods
@@ -372,10 +332,9 @@ angular.module('nethvoiceWizardUiApp')
       for (var phone of $scope.phonesToAdd) {
         var phoneTancredi = PhoneService.buildPhoneTancredi(phone.mac, phone.model, phone.vendor);
 
-        PhoneService.createPhoneMock(phoneTancredi, 0.7).then(function (phoneTancrediResult) {
-          $scope.phonesTancredi.push(phoneTancrediResult); //// mockup
-
-          var phone = PhoneService.buildPhone(phoneTancrediResult, $scope.models);
+        // PhoneService.createPhoneMock(phoneTancredi, 0.7).then(function (phoneTancrediResult) { ////
+        PhoneService.createPhone(phoneTancredi).then(function (success) {
+          var phone = PhoneService.buildPhone(success.data, $scope.models);
 
           console.log("success", phone.mac); ////
           $scope.pendingRequestsAddPhones--;
@@ -387,7 +346,7 @@ angular.module('nethvoiceWizardUiApp')
           }
         }, function (err) {
           console.log("fail", err); ////
-          console.log(err.error.title);
+          console.log(err.error.data.title);
           $scope.pendingRequestsAddPhones--;
           $scope.failedAddPhones.push(err);
 
@@ -399,13 +358,14 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     function showResultsAddPhones() {
+      $scope.addPhonesInProgress = false;
 
       //// mock server delay: remove setTimeout()
-      setTimeout(function () {
-        $scope.addPhonesInProgress = false;
-        console.log("addPhonesInProgress", $scope.addPhonesInProgress); ////
-        $scope.$apply();
-      }, 2000);
+      // setTimeout(function () {
+      //   $scope.addPhonesInProgress = false;
+      //   console.log("addPhonesInProgress", $scope.addPhonesInProgress); ////
+      //   $scope.$apply();
+      // }, 2000);
 
       $scope.showResultsAddPhones = true;
 
@@ -421,7 +381,7 @@ angular.module('nethvoiceWizardUiApp')
           return p.mac === errorPhone.mac;
         });
 
-        phone.serverError = error.error.title;
+        phone.serverError = error.error.data.title;
       }
 
       // server error popovers
@@ -573,25 +533,16 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.setPhoneModel = function (phone) {
-      //// RestService by now doesn't have a patch method!
-
-      // PhoneService.setPhoneModel({
-      //   model: phone.modelObj.name
-      // }).then(function (res) {}, function (err) {
-      //   console.log(err);
-      // });
-
-      var phoneTancredi = $scope.phonesTancredi.find(function (phoneTancredi) { //// mockup
-        return phoneTancredi.mac === phone.mac;
-      });
-
-      if (phone.model) { //// mockup
-        phoneTancredi.model = phone.model.name;
-      } else {
-        phoneTancredi.model = null;
+      var model = null;
+      if (phone.model) {
+        model = phone.model.name
       }
 
-      console.log('setPhoneModel()', phone); ////
+      PhoneService.setPhoneModel(phone.mac, model).then(function (res) {
+        $scope.getPhones();
+      }, function (err) {
+        console.log(err);
+      });
     };
 
     $scope.showDeletePhoneModal = function (phone) {
@@ -599,18 +550,12 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.deletePhone = function () {
-      // PhoneService.deletePhone($scope.phoneToDelete.mac).then(function(res) { ////
-      //   ////
-      // }, function(err) {
-      //   console.log(err);
-      // });
-
-      $scope.phonesTancredi = $scope.phonesTancredi.filter(function (phone) { //// mockup
-        return phone.mac !== $scope.phoneToDelete.mac;
+      PhoneService.deletePhone($scope.phoneToDelete.mac).then(function (res) {
+        $scope.getPhones();
+        $('#deletePhoneModal').modal('hide');
+      }, function (err) {
+        console.log(err);
       });
-
-      $('#deletePhoneModal').modal('hide');
-      $scope.getPhones();
     }
 
     $scope.deletePhoneToAdd = function (phoneToDelete) {
@@ -668,6 +613,37 @@ angular.module('nethvoiceWizardUiApp')
       // });
     };
 
-    $scope.getPhones();
+    $scope.postModels = function () { //// mockup
+      var models = [
+        {
+          "name": "snom100",
+          "display_name": "Snom IP phone v100"
+        }, {
+          "name": "snom200",
+          "display_name": "Snom IP phone v200"
+        }, {
+          "name": "fanvil-600",
+          "display_name": "Fanvil IP phone v600"
+        }, {
+          "name": "fanvil-700",
+          "display_name": "Fanvil IP phone v700"
+        }, {
+          "name": "yealink-1000",
+          "display_name": "Yealink IP phone v1000"
+        }
+      ];
+
+      for (var model of models) {
+        ModelService.createModel(model).then(function (success) {
+          console.log("postModels", success); ////
+        }, function (err) {
+          console.log(err);
+        });
+      }
+    }
+
+    // $scope.postModels(); ////
+
+    $scope.getModels();
     $scope.getNetworks();
   });

@@ -623,6 +623,7 @@
   "inventory_help_li_3": "Inserendo i dati di uno o più telefoni manualmente",
   "inventory_help_p_3": "È possibile aggiungere telefoni all'inventario scansionando una rete, copiando e incollando una lista di indirizzi MAC da un foglio di calcolo (o da un file di testo) oppure inserendo i dati di uno o più telefoni manualmente",
   "phones successfully added": "telefoni aggiunti con successo",
+  "phone successfully added": "telefono aggiunto con successo",
   "No phones added": "Nessun telefono aggiunto",
   "phones could not be added because of a server error": "telefoni non sono stati aggiunti a causa di un errore del server",
   "All phones have been successfully added": "Tutti i telefoni sono stati aggiunti con successo",

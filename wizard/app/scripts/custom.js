@@ -7,5 +7,4 @@ var customConfig = {
   VPLAN_URL: '/freepbx/visualplan',
   OUTBOUNDS_URL: '/freepbx/admin/config.php?display=routing&view=form&id=',
   SECRET_KEY: 'Nethesis,1234',
-  BASE_API_TANCREDI: '/tancredi/api/v1',
 };

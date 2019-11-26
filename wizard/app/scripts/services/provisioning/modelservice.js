@@ -13,7 +13,17 @@ angular.module('nethvoiceWizardUiApp')
     // Retrieve the complete (phone) models collection
     this.getModels = function () {
       return $q(function (resolve, reject) {
-        RestService.get('/models').then(function (res) {
+        RestService.tget('/tancredi/api/v1/models').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.createModel = function (model) {
+      return $q(function (resolve, reject) {
+        RestService.tpost('/tancredi/api/v1/models', model).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);

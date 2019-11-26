@@ -24,7 +24,7 @@ angular.module('nethvoiceWizardUiApp')
     // Retrieve the complete phone inventory
     this.getPhones = function () {
       return $q(function (resolve, reject) {
-        RestService.get('/phones').then(function (res) {
+        RestService.tget('/tancredi/api/v1/phones').then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
@@ -48,10 +48,10 @@ angular.module('nethvoiceWizardUiApp')
     // Create a new phone instance and add it to the phone inventory
     this.createPhone = function (phone) {
       return $q(function (resolve, reject) {
-        RestService.post('/phones', phone).then(function (res) {
+        RestService.tpost('/tancredi/api/v1/phones', phone).then(function (res) {
           resolve(res);
         }, function (err) {
-          reject(err);
+          reject({ "error": err, "phone": phone });
         });
       });
     };
@@ -89,10 +89,20 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.setPhoneModel = function (mac, model) {
+      return $q(function (resolve, reject) {
+        RestService.tpatch('/tancredi/api/v1/phones/' + mac, { "model": model }).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject({ "error": err, "phone": phone });
+        });
+      });
+    };
+
     // Remove a phone from the inventory
     this.deletePhone = function (mac) {
       return $q(function (resolve, reject) {
-        RestService.delete('/phones/' + mac).then(function (res) {
+        RestService.tdelete('/tancredi/api/v1/phones/' + mac).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
