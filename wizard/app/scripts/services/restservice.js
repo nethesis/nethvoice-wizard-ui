@@ -69,4 +69,24 @@ angular.module('nethvoiceWizardUiApp')
         }
       });
     };
+
+    this.tget = function(endpoint) {
+      return $q(function(resolve, reject) {
+        $http.get(endpoint).then(function successCallback(response) {
+          resolve(response);
+        }, function errorCallback(response) {
+          reject(response);
+        });
+      });
+    };
+
+    this.tpost = function(endpoint, data) {
+      return $q(function(resolve, reject) {
+        $http.post(endpoint, data).then(function successCallback(response) {
+          resolve(response);
+        }, function errorCallback(response) {
+          reject(response);
+        });
+      });
+    };
   });

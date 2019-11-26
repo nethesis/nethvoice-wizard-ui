@@ -2254,6 +2254,14 @@ iframe body {
   margin-left: 5px;
 }
 
+.mg-left-10 {
+  margin-left: 10px;
+}
+
+.mg-left-15 {
+  margin-left: 15px;
+}
+
 .mg-left-350 {
   margin-left: 350px;
 }
@@ -2368,6 +2376,10 @@ iframe body {
   margin-top: 20px;
 }
 
+.mg-bottom-10 {
+  margin-bottom: 10px;
+}
+
 .mg-bottom-15 {
   margin-bottom: 15px;
 }
@@ -2463,10 +2475,6 @@ iframe body {
   align-items: flex-start;
 }
 
-.inline-block {
-  display: inline-block;
-}
-
 .spinner-large {
   display: inline-block;
   width: 40px;
@@ -2482,11 +2490,16 @@ iframe body {
   width: 65% !important;
 }
 
-.width-210 {
-  width: 210px;
-}
-
 .width-240 {
   width: 240px;
+}
+
+.black {
+  color: black;
+}
+
+.filter {
+  display: inline-block;
+  margin-right: 10px;
 }
 /* end Inventory */

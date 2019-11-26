@@ -14,188 +14,320 @@
         {{ 'Go to inventory to add phones' | translate }}
       </p>
       <div class="blank-slate-pf-main-action">
-        <button class="btn btn-primary btn-lg wizard-pf-open wizard-pf-add-phone"
+        <button class="btn btn-primary wizard-pf-open wizard-pf-add-phone"
           ng-click="goTo('devices/inventory')">{{ 'Go to inventory' | translate }}</button>
       </div>
     </div>
     <div ng-show="phones.length != 0">
-      <div class="row mg-bottom-15">
-        <div class="col-sm-12 no-padding">
-          <!-- select all or none combobox -->
-          <div class="dropdown inline-display">
-            <button class="btn btn-lg btn-default dropdown-toggle drd-button width-210" type="button"
-              id="select-all-or-none" data-toggle="dropdown">
-              <span class="filter-option pull-left">
-                {{ getNumSelected() }} {{ 'of' | translate }} {{ phones.length }} {{ 'selected' | translate }}
-              </span>
-              <span class="caret drd-carret"></span>
-            </button>
-            <ul class="dropdown-menu drd-ul" role="menu" aria-labelledby="select-all-or-none">
-              <li>
-                <a ng-click="selectAllOrNone(true)">{{'Select all' | translate}}</a>
-              </li>
-              <li>
-                <a ng-click="selectAllOrNone(false)">{{'Select none' | translate}}</a>
-              </li>
-            </ul>
+      <div class="row mg-bottom-10">
+        <div class="col-sm-12 no-padding mg-bottom-6">
+          <!-- filter by group combobox -->
+          <div class="filter">
+            <div>{{ 'Group' | translate }}:</div>
+            <select pf-select="{ noneSelectedText: '' }" class="width-240" ng-change="filterPhones()"
+              ng-model="filteredGroup" ng-options="group for group in groups | orderBy:orderByValue">
+              <option value="">{{ 'All' | translate }}</option>
+            </select>
           </div>
-          <!-- select by group combobox -->
-          <div class="dropdown inline-display">
-            <button class="btn btn-lg btn-default dropdown-toggle drd-button width-240" type="button"
-              id="select-by-group" data-toggle="dropdown">
-              <span class="filter-option pull-left">
-                {{ selectedGroup ? selectedGroup : ('Select by group' | translate) }}
-              </span>
-              <span class="caret drd-carret"></span>
-            </button>
-            <ul class="dropdown-menu drd-ul" role="menu" aria-labelledby="select-by-group">
-              <li>
-                <a ng-click="selectByGroup(null)">-</a>
-              </li>
-              <li ng-repeat="group in groups">
-                <a ng-click="selectByGroup(group)">{{group}}</a>
-              </li>
-            </ul>
+          <!-- filter by model combobox -->
+          <div class="filter">
+            <div>{{ 'Model' | translate }}:</div>
+            <select pf-select="{ noneSelectedText: '' }" class="width-240" ng-change="filterPhones()"
+              ng-model="filteredModel" ng-options="model.display_name for model in models | orderBy:orderByValue">
+              <option value="">{{ 'All' | translate }}</option>
+            </select>
           </div>
-          <!-- select by model combobox -->
-          <div class="dropdown inline-display">
-            <button class="btn btn-lg btn-default dropdown-toggle drd-button width-240" type="button"
-              id="select-by-model" data-toggle="dropdown">
-              <span class="filter-option pull-left">
-                {{ selectedModel ? selectedModel.display_name : ('Select by model' | translate) }}
-              </span>
-              <span class="caret drd-carret"></span>
-            </button>
-            <ul class="dropdown-menu drd-ul" role="menu" aria-labelledby="select-by-model">
-              <li>
-                <a ng-click="selectModel(null)">-</a>
-              </li>
-              <li ng-repeat="model in models">
-                <a ng-click="selectModel(model)">{{ model.display_name }}</a>
-              </li>
-            </ul>
-          </div>
-          <!-- edit selected phones button -->
-          <button class="btn btn-lg btn-primary" ng-click="showEditModal()"
-            ng-disabled="getNumSelected() == 0">{{ 'Edit selected phones' | translate }}</button>
+          <!-- clear filters -->
+          <a href="" ng-click="clearFilters()" class="card-pf-link-with-icon ng-binding mg-left-10 black">
+            <span class="pficon pficon-close"></span>
+            {{ 'Clear filters' | translate }}
+          </a>
         </div>
       </div>
     </div>
-    <!-- filter phone list -->
-    <form role="form" class="search-pf has-button mg-bottom-8">
-      <div class="form-group">
-        <div class="search-pf-input-group">
-          <input ng-model="searchPhoneString" type="text" class="form-control input-lg"
-            placeholder="{{ 'Filter phones' | translate }}..."></input>
-        </div>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-default btn-lg" type="submit">
-          <span class="fa fa-search"></span>
+    <!-- actions button -->
+    <div class="mg-bottom-15">
+      <!-- <div class="dropdown"> ////
+        <button class="btn btn-lg btn-primary dropdown-toggle" type="button" id="actions-bulk" data-toggle="dropdown"
+          ng-disabled="numSelected == 0">
+          {{'Actions' | translate}}
+          <span class="caret"></span>
         </button>
-      </div>
-    </form>
-    <!-- phone list -->
-    <div class="list-group list-view-pf clear">
-      <div class="list-group-item cursor-default {{phone.selected ? 'selected' : ''}}"
-        ng-repeat="phone in phones | filter:searchPhoneString | orderBy: 'display_name'">
-        <div class="list-view-pf-actions">
-          <div>{{ 'Next reboot' | translate }}:</div>
-          <div><span class="pficon pficon-restart mg-right-5"></span>{{ phone.nextReboot }}</div>
-        </div>
-        <!-- checkbox -->
-        <div class="list-view-pf-checkbox">
-          <input type="checkbox" ng-model="phone.selected" ng-change="manualSelectionChanged(phone)">
-        </div>
-        <div class="list-view-pf-main-info">
-          <div class="list-view-pf-left">
-            <span class="fa fa-phone list-view-pf-icon-sm {{phone.model ? '' : 'disabled'}}"></span>
-          </div>
-          <div class="list-view-pf-body">
-            <div class="list-view-pf-description">
-              <div class="list-group-item-heading-narrow {{phone.model ? '' : 'disabled'}}">
-                {{ phone.vendor ? phone.vendor : '-'}}
-              </div>
-              <div class="list-group-item-text-narrow width-65p">
-                <!-- model -->
-                <div>
-                  <select pf-select="{ noneSelectedText: '-' }" ng-model="phone.model" disabled
-                    ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue">
-                    <option value="">-</option>
-                  </select>
-                </div>
-                <div class="mg-top-10">
-                  <!-- template -->
-                  <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneTemplate(phone)"
-                    ng-model="phone.template" ng-options="template for template in templates | orderBy:orderByValue">
-                    <option value="">-</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="list-view-pf-additional-info config-info {{phone.model ? '' : 'disabled'}}">
-              <div>MAC: <b>{{phone.mac}}</b></div>
-              <div>
-                <span class="fa fa-user mg-right-5"></span>{{ phone.user ? phone.user.username : '-' }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="actions-bulk">
+          <li role="presentation"><a role="menuitem" tabindex="-1"
+              ng-click="showSetTemplateModal()" ng-disabled="!allSelectedSameModel">{{'Set template' | translate}}</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1"
+              ng-click="showSetWebPhoneModal()">{{'Set web phone' | translate}}</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1"
+              ng-click="showSetRebootModal()">{{'Set delayed reboot' | translate}}</a></li>
+        </ul>
+      </div> -->
+      <button class="btn btn-primary" ng-click="showSetTemplateModal()"
+        ng-disabled="numSelected == 0 || !allSelectedSameModel">{{ 'Set template' | translate }}</button>
+      <button class="btn btn-primary" ng-click="showSetWebPhoneModal()"
+        ng-disabled="numSelected == 0">{{ 'Set web phone' | translate }}</button>
+      <button class="btn btn-primary" ng-click="showSetRebootModal()"
+        ng-disabled="numSelected == 0">{{ 'Set delayed reboot' | translate }}</button>
     </div>
-  </div>
-</div>
 
-<!-- edit modal -->
-<div class="modal fade" id="bulkEdit" tabindex="-1" role="dialog" aria-labelledby="bulkEditLabel" aria-hidden="true"
-  data-backdrop="static">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          <span class="pficon pficon-close"></span>
-        </button>
-        <h4 class="modal-title" id="bulkEditLabel">{{ 'Edit selected phones' | translate }}</h4>
+    <div ng-show="numFiltered != 0">
+      <!-- selection indicator -->
+      <label class="right-only">
+        {{ numSelected }} {{ 'of' | translate }} {{ numFiltered }} {{ 'selected' | translate }}
+      </label>
+      <!-- select all checkbox -->
+      <input type="checkbox" ng-click="selectAllOrNoneToggle()" id="select-all-none-checkbox"
+        ng-checked="numSelected === numFiltered">
+      <label for="select-all-none-checkbox">{{ 'Select all' | translate }}</label>
+    </div>
+    <!-- empty state for active filters -->
+    <div ng-show="numFiltered == 0" class="blank-slate-pf">
+      <div class="blank-slate-pf-icon">
+        <span class="fa fa-filter"></span>
       </div>
-      <form class="form-horizontal" ng-submit="bulkEditSave()">
-        <div class="modal-body">
-          <!-- bulk template -->
-          <div class="form-group">
-            <label class="col-sm-4 control-label">{{ 'Template' | translate }}</label>
-            <div class="col-sm-6">
-              <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="bulkTemplate"
-                ng-options="template for template in templates | orderBy:orderByValue"
-                ng-disabled="!allSelectedSameModel()">
-                <option value="">-</option>
-              </select>
+      <h1>
+        {{ 'No phone' | translate }}
+      </h1>
+      <p>
+        {{ 'Please change or clear active filters' | translate }}
+      </p>
+    </div>
+    <!-- phone list -->
+    <div class="list-group list-view-pf clear" ng-show="numFiltered != 0">
+      <div class="list-group-item cursor-default {{phone.selected ? 'selected' : ''}}"
+        ng-repeat="phone in phones track by $index | orderBy: 'display_name'" ng-show="phone.filtered">
+        <label for="checkbox-phone-{{$index}}" class="width-100p">
+          <div class="list-view-pf-actions">
+            <div>
+              <span class="pficon pficon-cpu mg-right-5"></span>
+              <span class="adjust-weight">MAC:</span>
+              <b>{{phone.mac}}</b>
+            </div>
+            <div>
+              <span class="pficon pficon-restart mg-right-5"></span>
+              <span class="adjust-weight">{{ 'Reboot' | translate }}:</span>
+              <b>{{ phone.nextReboot ? phone.nextReboot : '-' }}</b>
             </div>
           </div>
-          <!-- bulk web phone -->
-          <div class="form-group">
-            <label class="col-sm-4 control-label">{{ 'Web phone' | translate }}</label>
-            <div class="col-sm-6">
-              <input bs-switch ng-model="bulkWebPhone"
-                class="bootstrap-switch bootstrap-switch-webrtc col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
-            </div>
+          <!-- checkbox -->
+          <div class="list-view-pf-checkbox">
+            <input type="checkbox" ng-model="phone.selected" id="checkbox-phone-{{$index}}">
           </div>
-          <!-- bulk Next reboot -->
-          <div class="form-group">
-            <label class="col-sm-4 control-label">{{ 'Next reboot' | translate }}</label>
-            <div class="col-sm-6">
-              <div class="input-group date-time-picker-pf" id="next-reboot-datetimepicker">
-                <input type="text" class="form-control" id="next-reboot-datetimepicker-value" ng-model="bulkNextReboot" />
-                <span class="input-group-addon">
-                  <span class="fa fa-calendar"></span>
-                </span>
+          <div class="list-view-pf-main-info">
+            <div class="list-view-pf-left">
+              <span class="fa fa-phone list-view-pf-icon-sm"></span>
+            </div>
+            <div class="list-view-pf-body">
+              <div class="list-view-pf-description">
+                <div class="list-group-item-heading-narrow adjust-weight">
+                  {{ phone.vendor ? phone.vendor : '-' }}
+                </div>
+                <div class="list-group-item-text-narrow width-65p">
+                  <!-- model -->
+                  <div>
+                    <span class="fa fa-phone mg-right-5"></span>
+                    <span class="adjust-weight">{{ 'Model' | translate }}:</span>
+                    <b>{{ phone.model ? phone.model.display_name : '-' }}</b>
+                  </div>
+                  <!-- template -->
+                  <div>
+                    <span class="pficon pficon-blueprint mg-right-5"></span>
+                    <span class="adjust-weight">{{ 'Template' | translate }}:</span>
+                    <b>{{ phone.template ? phone.template : '-' }}</b>
+                  </div>
+                </div>
+              </div>
+              <div class="list-view-pf-additional-info config-info">
+                <div>
+                  <span class="fa fa-user mg-right-5"></span>
+                  <span class="adjust-weight">{{ 'User' | translate }}:</span>
+                  <b>{{ phone.user ? phone.user.username : '-' }}</b>
+                </div>
+                <div>
+                  <span class="fa fa-microphone mg-right-5"></span>
+                  <span class="adjust-weight">{{ 'Web phone' | translate }}:</span>
+                  <span ng-show="phone.user.webPhone" class="pficon-ok"></span>
+                  <span ng-show="phone.user.webPhone !== true" class="pficon-error-circle-o">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer submit">
-          <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
-          <button type="submit" class="btn btn-primary">{{ 'Save' | translate }}</button>
-        </div>
+        </label>
+      </div>
     </div>
-    </form>
   </div>
-</div>
+
+  <!-- set template modal -->
+  <div class="modal fade" id="bulkTemplateModal" tabindex="-1" role="dialog" aria-labelledby="bulkTemplateModalLabel"
+    aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+          <h4 class="modal-title" id="bulkTemplateModalLabel">{{ 'Set template' | translate }}</h4>
+        </div>
+        <form class="form-horizontal" ng-submit="bulkTemplateSave()">
+          <div class="modal-body">
+            <!-- bulk notification -->
+            <div class="alert alert-info">
+              <span class="pficon pficon-info"></span>
+              <span>{{ 'This change will be applied to' | translate }} {{ numSelected }}
+                {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }} </span>
+            </div>
+            <!-- bulk template -->
+            <div class="form-group">
+              <label class="col-sm-4 control-label">{{ 'Template' | translate }}</label>
+              <div class="col-sm-6">
+                <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="bulkTemplate"
+                  ng-disabled="!allSelectedSameModel"
+                  ng-options="template for template in templates | orderBy:orderByValue">
+                  <option value="">-</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer submit">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
+            <button type="submit" class="btn btn-primary">{{ 'Save' | translate }}</button>
+          </div>
+      </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- set web phone modal -->
+  <div class="modal fade" id="bulkWebPhoneModal" tabindex="-1" role="dialog" aria-labelledby="bulkWebPhoneModalLabel"
+    aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+          <h4 class="modal-title" id="bulkWebPhoneModalLabel">{{ 'Set web phone' | translate }}</h4>
+        </div>
+        <form class="form-horizontal" ng-submit="bulkWebPhoneSave()">
+          <div class="modal-body">
+            <!-- bulk notification -->
+            <div class="alert alert-info">
+              <span class="pficon pficon-info"></span>
+              <span>{{ 'This change will be applied to' | translate }} {{ numSelected }}
+                {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }} </span>
+            </div>
+            <!-- bulk web phone -->
+            <div class="form-group">
+              <label class="col-sm-4 control-label">{{ 'Web phone' | translate }}</label>
+              <div class="col-sm-6">
+                <input bs-switch ng-model="bulkWebPhone" class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                  type="checkbox">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer submit">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
+            <button type="submit" class="btn btn-primary">{{ 'Save' | translate }}</button>
+          </div>
+      </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- set reboot modal -->
+  <div class="modal fade" id="bulkRebootModal" tabindex="-1" role="dialog" aria-labelledby="bulkRebootModalLabel"
+    aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+          <h4 class="modal-title" id="bulkRebootModalLabel">{{ 'Set web phone' | translate }}</h4>
+        </div>
+        <form class="form-horizontal" ng-submit="bulkRebootSave()">
+          <div class="modal-body">
+            <!-- bulk notification -->
+            <div class="alert alert-info">
+              <span class="pficon pficon-info"></span>
+              <span>{{ 'This change will be applied to' | translate }} {{ numSelected }}
+                {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }} </span>
+            </div>
+            <!-- bulk next reboot -->
+            <div class="form-group">
+              <label class="col-sm-4 control-label">{{ 'Delayed reboot' | translate }}</label>
+              <div class="col-sm-6">
+                <div class="input-group date-time-picker-pf" id="reboot-datetimepicker">
+                  <input type="text" class="form-control" id="reboot-datetimepicker-value" />
+                  <span class="input-group-addon">
+                    <span class="fa fa-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer submit">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
+            <button type="submit" class="btn btn-primary">{{ 'Save' | translate }}</button>
+          </div>
+      </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- edit modal //// -->
+  <!-- <div class="modal fade" id="bulkEdit" tabindex="-1" role="dialog" aria-labelledby="bulkEditLabel" aria-hidden="true"
+    data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+          <h4 class="modal-title" id="bulkEditLabel">{{ 'Edit selected phones' | translate }}</h4>
+        </div>
+        <form class="form-horizontal" ng-submit="bulkEditSave()">
+          <div class="modal-body">
+            !-- bulk template --
+            <div class="form-group">
+              <label class="col-sm-4 control-label">{{ 'Template' | translate }}</label>
+              <div class="col-sm-6">
+                <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="bulkTemplate"
+                  ng-options="template for template in templates | orderBy:orderByValue"
+                  ng-disabled="!allSelectedSameModel">
+                  <option value="">-</option>
+                </select>
+              </div>
+            </div>
+            !-- bulk web phone --
+            <div class="form-group">
+              <label class="col-sm-4 control-label">{{ 'Web phone' | translate }}</label>
+              <div class="col-sm-6">
+                <input bs-switch ng-model="bulkWebPhone"
+                  class="bootstrap-switch bootstrap-switch-webrtc col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                  type="checkbox">
+              </div>
+            </div>
+            !-- bulk next reboot --
+            <div class="form-group">
+              <label class="col-sm-4 control-label">{{ 'Reboot' | translate }}</label>
+              <div class="col-sm-6">
+                <div class="input-group date-time-picker-pf" id="reboot-datetimepicker">
+                  <input type="text" class="form-control" id="reboot-datetimepicker-value"
+                    ng-model="bulkNextReboot" />
+                  <span class="input-group-addon">
+                    <span class="fa fa-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer submit">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
+            <button type="submit" class="btn btn-primary">{{ 'Save' | translate }}</button>
+          </div>
+      </div>
+      </form>
+    </div>
+  </div> -->
 </div>
