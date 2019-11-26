@@ -30,12 +30,20 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.openSection = function (sectionkey) {
       delete $scope.currentModel.ui[sectionkey].showingKeys
-      $scope.currentModel.openedSection = sectionkey
+      if ($scope.currentModel.openedSection != sectionkey) {
+        $scope.currentModel.openedSection = sectionkey
+      } else {
+        $scope.currentModel.openedSection = ""
+      }
     }
 
     $scope.openExpKeys = function (expkeyk, sectionkey) {
       delete $scope.currentModel.ui[sectionkey].showingExpKeys
-      $scope.currentModel.openedExpKeys = expkeyk
+      if ($scope.currentModel.openedExpKeys != expkeyk) {
+        $scope.currentModel.openedExpKeys = expkeyk
+      } else {
+        $scope.currentModel.openedExpKeys = ""
+      }
     }
 
   })

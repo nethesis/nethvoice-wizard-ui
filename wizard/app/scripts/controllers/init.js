@@ -300,20 +300,32 @@ angular.module('nethvoiceWizardUiApp')
     });
 
     $scope.$on('comboboxRepeatEnd', function(event, elem) {
-      elem.parent().combobox()
+      elem.parent().combobox().parent().removeClass("hidden")
     })
 
     $scope.$on('selectpickerRepeatEnd', function(event, elem) {
-      elem.parent().selectpicker()
+      elem.parent().selectpicker().parent().parent().removeClass("hidden")
     })
 
     $scope.$on('switchRenderEnd', function(event, elem) {
       elem.bootstrapSwitch()
     })
 
+    $scope.$on('$routeChangeStart', function() {
+
+      console.log("LOCATION", $location);
+      
+
+      if ($location.path() == '/models' || $location.path() == 'configurations'){
+        $scope.currentModel = {}
+      }
+    })
+
     $scope.setRandomBackground();
 
     // provisining build models start
+
+    $scope.currentModel = {}
 
     var getModelMap = function (map, name) {
       for (var fam in map) {
@@ -328,7 +340,7 @@ angular.module('nethvoiceWizardUiApp')
         var nameSplit = name.split("-"),
             modelName = nameSplit[1],
             modelBrand = nameSplit[0]
-        ModelService.getModel(modelName).then(function (res) {
+        ModelService.getModel(name).then(function (res) {
           $scope.currentModel = {
             ui : $scope.getModelUI(modelName, modelBrand),
             variables : res.data.variables,
@@ -336,7 +348,8 @@ angular.module('nethvoiceWizardUiApp')
             openedSection : "",
             openedExpKeys: "",
             showingKeys: "",
-            showingExpKeys: ""
+            showingExpKeys: "",
+            hidden: false
           }
           resolve(true)
         }, function (err) {

@@ -8,14 +8,13 @@
         <div ng-repeat="(sectionkey, section) in currentModel.ui track by sectionkey">
           <!-- if is a key section -->
           <div class="mt-20" ng-if="isKeysSection(sectionkey) && currentModel.ui.map[sectionkey]">
-            <h2 ng-click="openSection(sectionkey)" data-toggle="collapse"
-              data-parent="#accordion-section-{{$index}}" href="#collapse-section-{{$index}}"
-              class="adjust-header adjust-profile-header pl-20 ng-binding pointer" aria-expanded="true">
+            <h2 ng-click="openSection(sectionkey)"
+              class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
               {{::section.name}}
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
             </h2>
             <div id="collapse-section-{{$index}}"
-              class="panel-collapse collapse model-container adjust-profile-body"
+              class="panel-collapse model-container adjust-profile-body"
               ng-if="currentModel.openedSection == sectionkey">
               <div class="panel-body profile-panel">
                 <div class="col-lg-12 {{!isExpKeysSection(sectionkey) ? 'mt-20' : ''}} no-border-bottom">
@@ -27,17 +26,14 @@
                       <div ng-if="item.type == 'loop'">
                         <!-- if exp keys -->
                         <div ng-if="isExpKeysSection(sectionkey)">
-
                           <div class="mt-20" ng-repeat="expKeyIndex in [] | range: item.loops track by expKeyIndex">
-
-                            <h2 ng-click="openExpKeys('expkeys-' + (expKeyIndex + 1), sectionkey)" data-toggle="collapse"
-                              data-parent="#accordion-expkey-{{expKeyIndex}}" href="#collapse-expkey-{{expKeyIndex}}"
-                              class="adjust-header adjust-profile-header pl-20 ng-binding pointer" aria-expanded="true">
+                            <h2 ng-click="openExpKeys('expkeys-' + (expKeyIndex + 1), sectionkey)"
+                              class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
                                 {{"ExpKeys" | translate}} <spam class="weight">{{expKeyIndex + 1}}</spam>
                               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
                             </h2>
                             <div id="collapse-expkey-{{expKeyIndex}}"
-                              class="panel-collapse collapse model-container adjust-profile-body"
+                              class="panel-collapse model-container adjust-profile-body"
                               ng-if="currentModel.openedExpKeys == ('expkeys-' + (expKeyIndex + 1))">
                               <div class="panel-body profile-panel pb-30">
                                 <div class="col-lg-12 mt-20 mb-8 no-border-bottom">
@@ -53,16 +49,18 @@
                                         <div ng-if="key.type == 'list'" class="form-group">
                                           <label class="mt-10 control-label"> {{::key.description | translate}}
                                           </label>
-                                          <select class="combobox form-control" autocomplete="off"
-                                            name="{{key.variable}}">
-                                            <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
-                                            <!-- combobox -->
-                                            <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
-                                              value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
-                                            <!-- selectpicker -->
-                                            <option ng-if="key.options.length <= 10" ng-repeat="option in key.options"
-                                              value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
-                                          </select>
+                                          <div class="hidden">
+                                            <select class="combobox form-control" autocomplete="off"
+                                              name="{{key.variable}}">
+                                              <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                                              <!-- combobox -->
+                                              <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
+                                                value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                                              <!-- selectpicker -->
+                                              <option ng-if="key.options.length <= 10" ng-repeat="option in key.options"
+                                                value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                                            </select>
+                                          </div>
                                         </div>
                                         <!-- input -->
                                         <div ng-if="key.type == 'input'" class="form-group">
@@ -101,16 +99,18 @@
                                 <div ng-if="key.type == 'list'" class="form-group">
                                   <label class="mt-10 control-label"> {{::key.description | translate}}
                                   </label>
-                                  <select class="combobox form-control" autocomplete="off"
-                                    name="{{key.variable}}">
-                                    <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
-                                    <!-- combobox -->
-                                    <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
-                                      value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
-                                    <!-- selectpicker -->
-                                    <option ng-if="key.options.length <= 10" ng-repeat="option in key.options"
-                                      value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
-                                  </select>
+                                  <div class="hidden">
+                                    <select class="combobox form-control" autocomplete="off"
+                                      name="{{key.variable}}">
+                                      <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                                      <!-- combobox -->
+                                      <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
+                                        value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                                      <!-- selectpicker -->
+                                      <option ng-if="key.options.length <= 10" ng-repeat="option in key.options"
+                                        value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                                    </select>
+                                  </div>
                                 </div>
                                 <!-- input -->
                                 <div ng-if="key.type == 'input'" class="form-group">
@@ -139,15 +139,17 @@
                         <!-- list -->
                         <div ng-if="key.type == 'list'" class="form-group">
                           <label class="mt-10 control-label">{{::key.description | translate}}</label>
-                          <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
-                            <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
-                            <!-- combobox -->
-                            <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
-                              value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
-                            <!-- selectpicker -->
-                            <option ng-if="key.options.length <= 10" ng-repeat="option in key.options"
-                              value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
-                          </select>
+                          <div class="hidden">
+                            <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
+                              <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                              <!-- combobox -->
+                              <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
+                                value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                              <!-- selectpicker -->
+                              <option ng-if="key.options.length <= 10" ng-repeat="option in key.options"
+                                value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                            </select>
+                          </div>
                         </div>
                         <!-- input -->
                         <div ng-if="key.type == 'input'" class="form-group">
@@ -165,14 +167,13 @@
           </div>
           <!-- if isn't a key section -->
           <div class="mt-20" ng-if="!isKeysSection(sectionkey) && ($index > 0)">
-            <h2 ng-click="openSection(sectionkey)" data-toggle="collapse"
-              data-parent="#accordion-section-{{$index}}" href="#collapse-section-{{$index}}"
-              class="adjust-header adjust-profile-header pl-20 ng-binding pointer" aria-expanded="true">
+            <h2 ng-click="openSection(sectionkey)"
+              class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
               {{::section.name}}
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
             </h2>
             <div id="collapse-section-{{$index}}"
-              class="panel-collapse collapse adjust-profile-body model-container"
+              class="panel-collapse adjust-profile-body model-container"
               ng-if="currentModel.openedSection == sectionkey">
               <div class="panel-body">
                 <div ng-show="currentModel.loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
@@ -183,15 +184,17 @@
                     <!-- list -->
                     <div ng-if="item.type == 'list'" class="form-group">
                       <label class="control-label">{{::item.description | translate}}</label>
-                      <select class="combobox form-control" autocomplete="off" name="{{item.variable}}">
-                        <option ng-if="item.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::item.description | translate}}</option>
-                        <!-- combobox -->
-                        <option ng-if="item.options.length > 10" ng-repeat="option in item.options"
-                          value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
-                        <!-- selectpicker -->
-                        <option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
-                          value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
-                      </select>
+                      <div class="hidden">
+                        <select class="combobox form-control" autocomplete="off" name="{{item.variable}}">
+                          <option ng-if="item.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::item.description | translate}}</option>
+                          <!-- combobox -->
+                          <option ng-if="item.options.length > 10" ng-repeat="option in item.options"
+                            value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                          <!-- selectpicker -->
+                          <option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
+                            value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                        </select>
+                      </div>
                     </div>
                     <!-- input -->
                     <div ng-if="item.type == 'input'" class="form-group">

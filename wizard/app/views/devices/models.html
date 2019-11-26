@@ -19,6 +19,11 @@
       <button data-toggle="modal" data-target="#newModelModal"
         class="btn btn-primary btn-lg">{{'Create new model' | translate}}
       </button>
+
+      <button ng-click="createModel()"
+        class="btn btn-primary btn-lg">{{'Add model' | translate}}
+      </button>
+
       <button data-toggle="modal" data-target="#defaultSettingsModal"
         class="btn btn-default btn-lg right-align no-margin ng-binding ng-scope">
         {{"Default Settings" | translate}}
@@ -28,14 +33,13 @@
       <div class="list-group list-view-pf adjust-margin-extensions no-border">
         <div ng-repeat="model in inventoryModels track by model.name" class="adjust-profile-margin">
           <div id="accordion-models-{{$index}}">
-            <h1 ng-click="setCurrentModel(model.name)" data-toggle="collapse" data-parent="#accordion-model-{{$index}}"
-              href="#collapse-model-{{$index}}" class="adjust-header adjust-profile-header">
+            <h1 ng-click="setCurrentModel(model.name)" class="adjust-header adjust-profile-header">
               <span class="fa fa-cube card-pf-icon-circle config-title-icon"></span>{{'Model' | translate}}
               <span class="weight">{{::model.name | translate}}</span>
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
             </h1>
-            <div id="collapse-model-{{$index}}" ng-if="currentModel.name == model.name"
-              class="panel-collapse collapse adjust-profile-body model-container">
+            <div id="collapse-model-{{$index}}" ng-hide="currentModel.hidden" ng-if="currentModel.name == model.name"
+              class="panel-collapse adjust-profile-body model-container">
               <!-- start models templates -->
               <div ng-include="modelsUIUrl"></div>
 

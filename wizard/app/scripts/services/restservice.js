@@ -22,6 +22,26 @@ angular.module('nethvoiceWizardUiApp')
       return hash;
     };
 
+    this.tget = function(endpoint) {
+      return $q(function(resolve, reject) {
+        $http.get(endpoint).then(function successCallback(response) {
+          resolve(response);
+        }, function errorCallback(response) {
+          reject(response);
+        });
+      });
+    };
+
+    this.tpost = function(endpoint, data) {
+      return $q(function(resolve, reject) {
+        $http.post(endpoint, data).then(function successCallback(response) {
+          resolve(response);
+        }, function errorCallback(response) {
+          reject(response);
+        });
+      });
+    };
+
     this.get = function(endpoint) {
       return $q(function(resolve, reject) {
         $http.get(customConfig.BASE_API_URL + endpoint).then(function successCallback(response) {
