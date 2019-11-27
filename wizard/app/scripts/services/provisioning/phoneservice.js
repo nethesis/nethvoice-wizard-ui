@@ -123,8 +123,9 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     this.checkMacAddress = function (macAddress) {
-      var regExp = /^[a-f0-9:]{17}|[a-f0-9-]{17}|[a-f0-9]{12}$/i;
-      return regExp.test(macAddress);
+      // remove all but alphanumeric characters
+      macAddress = macAddress.replace(/\W/ig, '');
+      return macAddress.length == 12;
     };
 
     this.checkNetmask = function (netmask) {
@@ -185,11 +186,25 @@ angular.module('nethvoiceWizardUiApp')
         vendor = this.getVendor(mac);
       }
 
+      mac = this.formatMac(mac);
+
       var phone = {
         "mac": mac,
         "model": model,
         "display_name": vendor
       }
       return phone;
+    }
+
+    // Format a MAC address using hyphens as separators
+    this.formatMac = function (mac) {
+      mac = mac.toUpperCase();
+      // remove all but alphanumeric characters
+      mac = mac.replace(/\W/ig, '');
+      // append an hyphen after every two characters
+      mac = mac.replace(/(.{2})/g, "$1-");
+      // remove trailing hyphen
+      mac = mac.substring(0, mac.length - 1);
+      return mac;
     }
   });

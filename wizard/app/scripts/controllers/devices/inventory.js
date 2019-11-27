@@ -21,7 +21,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getPhones = function () {
       $scope.uiLoaded = false;
-      
+
       PhoneService.getPhones().then(function (success) {
         $scope.phones = [];
 
@@ -187,7 +187,7 @@ angular.module('nethvoiceWizardUiApp')
               $interval.cancel($scope.tasks[netName].promise);
               $scope.networkScanInProgress = false;
 
-              //// var phones = res.data.phones
+              // DeviceService.phoneListByNetwork(network).then(function (res) { //// old implementation (devices.js)
 
               var phonesFromScan = [ //// mockup
                 { "mac": "00:04:13:11:22:91" },
@@ -200,7 +200,7 @@ angular.module('nethvoiceWizardUiApp')
                 { "mac": "00:04:13:11:22:98" }
               ];
 
-              for (var phoneFromScan of phonesFromScan) { //// mockup
+              for (var phoneFromScan of phonesFromScan) {
                 $scope.phonesToAdd.push(phoneFromScan);
 
                 // update model list
@@ -331,6 +331,8 @@ angular.module('nethvoiceWizardUiApp')
       // add all phones
       for (var phone of $scope.phonesToAdd) {
         var phoneTancredi = PhoneService.buildPhoneTancredi(phone.mac, phone.model, phone.vendor);
+        // set formatted MAC
+        phone.mac = phoneTancredi.mac;
 
         // PhoneService.createPhoneMock(phoneTancredi, 0.7).then(function (phoneTancrediResult) { ////
         PhoneService.createPhone(phoneTancredi).then(function (success) {
@@ -359,14 +361,6 @@ angular.module('nethvoiceWizardUiApp')
 
     function showResultsAddPhones() {
       $scope.addPhonesInProgress = false;
-
-      //// mock server delay: remove setTimeout()
-      // setTimeout(function () {
-      //   $scope.addPhonesInProgress = false;
-      //   console.log("addPhonesInProgress", $scope.addPhonesInProgress); ////
-      //   $scope.$apply();
-      // }, 2000);
-
       $scope.showResultsAddPhones = true;
 
       for (var phone of $scope.successfulAddPhones) {
@@ -576,41 +570,26 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.getNetworks = function () {
-      // ConfigService.getNetworks().then(function (res) { ////
-      //   $scope.networks = res.data;
+      ConfigService.getNetworks().then(function (res) {
+        var networks = res.data;
 
-      var networks = { //// mockup
-        "enp0s3": {
-          "network": "192.168.5.0",
-          "ip": "192.168.5.92",
-          "netmask": "255.255.255.0",
-          "gateway": "192.168.5.92"
-        },
-        "enp0s8": {
-          "network": "10.3.0.0",
-          "ip": "10.3.3.15",
-          "netmask": "255.255.0.0",
-          "gateway": "10.3.3.15"
+        // assign network names
+        for (var key in networks) {
+          if (networks.hasOwnProperty(key)) {
+            networks[key].name = key;
+          }
         }
-      };
 
-      // assign network names
-      for (var key in networks) {
-        if (networks.hasOwnProperty(key)) {
-          networks[key].name = key;
+        $scope.networks = networks;
+
+        console.log("$scope.networks", $scope.networks); ////
+
+        for (var eth in $scope.networks) {
+          $scope.tasks[eth] = {};
         }
-      }
-
-      $scope.networks = networks;
-
-      console.log("$scope.networks", $scope.networks); ////
-
-      for (var eth in $scope.networks) {
-        $scope.tasks[eth] = {};
-      }
-      // }, function (err) { ////
-      //   console.log(err);
-      // });
+      }, function (err) {
+        console.log(err);
+      });
     };
 
     $scope.postModels = function () { //// mockup

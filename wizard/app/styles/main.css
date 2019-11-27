@@ -2498,6 +2498,10 @@ iframe body {
   color: black;
 }
 
+a.black:focus, a.black:hover, a.black:active {
+  color: black;
+}
+
 .filter {
   display: inline-block;
   margin-right: 10px;

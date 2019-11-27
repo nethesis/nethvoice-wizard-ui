@@ -631,7 +631,6 @@
   "MAC addresses format": "Formato indirizzi MAC",
   "Example": "Esempio",
   "inv_help_mac_1": "Puoi effettuare il copia/incolla di una lista d'indirizzi MAC da un foglio di calcolo o da un file di testo",
-  "inv_help_mac_2": "La lista deve essere composta da un solo indirizzo MAC per linea",
   "inv_help_mac_3": "Ogni indirizzo MAC può usare il carattere \"-\" o \":\" o niente come separatore",
   "inv_help_mac_4": "Applica lo stesso modello a tutti i telefoni di un produttore",
   "Apply to all": "Applica a tutti",
