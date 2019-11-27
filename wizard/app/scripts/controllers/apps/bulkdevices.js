@@ -13,6 +13,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.numFiltered = 0;
     $scope.numSelected = 0;
     $scope.uiLoaded = false;
+    $scope.errors = [];
 
     $scope.phonesTancredi = [ //// mockup
       { mac: "00:04:13:11:22:31", model: "snom100", display_name: "Snom" },
@@ -52,24 +53,29 @@ angular.module('nethvoiceWizardUiApp')
       }
     }, true);
 
-    function clearErrorNotification() {
-      $scope.error = null;
-      $scope.errorMessage = null;
-    }
+    // function clearErrorNotification() { ////
+    //   $scope.error = null;
+    //   $scope.errorMessage = null;
+    // }
 
-    function setErrorNotification(error, errorMessage) {
-      $scope.error = error;
-      $scope.errorMessage = errorMessage;
+    // function setErrorNotification(error, errorMessage) { ////
+    //   $scope.error = error;
+    //   $scope.errorMessage = errorMessage;
+    // }
+
+    function addErrorNotification(error, errorMessage) {
+      error.message = errorMessage;
+      $scope.errors.push(error);
     }
 
     $scope.getPhones = function () {
       $scope.uiLoaded = false;
-      clearErrorNotification();
 
       PhoneService.getPhones().then(function (success) {
         $scope.phones = [];
 
-        for (var phoneTancredi of success.data) {
+        // for (var phoneTancredi of success.data) { //// uncomment
+        for (var phoneTancredi of $scope.phonesTancredi) { //// mockup
           var phone = PhoneService.buildPhone(phoneTancredi, $scope.models);
           phone.filtered = true;
           $scope.phones.push(phone);
@@ -78,90 +84,95 @@ angular.module('nethvoiceWizardUiApp')
         $scope.uiLoaded = true;
       }, function (err) {
         console.log(err);
-        setErrorNotification(err.data, "Error retrieving phones");
+        addErrorNotification(err.data, "Error retrieving phones");
         $scope.uiLoaded = true;
       });
     };
 
     $scope.getUsers = function () {
       $scope.uiLoaded = false;
-      clearErrorNotification();
 
-      UserService.list(true).then(function (res) {
-        $scope.users = res.data;
+      // UserService.list(true).then(function (res) { //// uncomment
+      //   $scope.users = res.data;
 
-        console.log("users", $scope.users); ////
-
-        // $scope.users = [ ///// mockup
-        //   {
-        //     "username": "user1",
-        //     "webPhone": true,
-        //     "devices": [
-        //       {
-        //         "extension": 201,
-        //         "mac": "00:04:13:11:22:31"
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     "username": "user2",
-        //     "webPhone": false,
-        //     "devices": [
-        //       {
-        //         "extension": 202,
-        //         "mac": "0C:38:3E:99:88:72"
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     "username": "user3",
-        //     "webPhone": true,
-        //     "devices": [
-        //       {
-        //         "extension": 203,
-        //         "mac": "00:15:65:55:55:53"
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     "username": "user4",
-        //     "webPhone": false,
-        //     "devices": [
-        //       {
-        //         "extension": 204,
-        //         "mac": "00:04:13:11:22:34"
-        //       }
-        //     ]
-        //   }
-        // ];
-
-        // set phone.user
-        for (var phone of $scope.phones) {
-          var phoneUser = $scope.users.find(function (user) {
-            for (var device of user.devices) {
-              if (device.mac === phone.mac) {
-                return true;
-              }
+      $scope.users = [ ///// mockup
+        {
+          "username": "user1",
+          "webPhone": true,
+          "devices": [
+            {
+              "extension": 201,
+              "mac": "00:04:13:11:22:31"
             }
-          });
+          ]
+        },
+        {
+          "username": "user2",
+          "webPhone": false,
+          "devices": [
+            {
+              "extension": 202,
+              "mac": "0C:38:3E:99:88:72"
+            }
+          ]
+        },
+        {
+          "username": "user3",
+          "webPhone": true,
+          "devices": [
+            {
+              "extension": 203,
+              "mac": "00:15:65:55:55:53"
+            }
+          ]
+        },
+        {
+          "username": "user4",
+          "webPhone": false,
+          "devices": [
+            {
+              "extension": 204,
+              "mac": "00:04:13:11:22:34"
+            }
+          ]
+        }
+      ];
 
-          if (phoneUser) {
-            phone.user = phoneUser;
+      console.log("users", $scope.users); ////
+
+      // set phone.user
+      for (var phone of $scope.phones) {
+        var phoneUser = $scope.users.find(function (user) {
+          for (var device of user.devices) {
+            if (device.mac === phone.mac) {
+              return true;
+            }
           }
+        });
 
-          //// mockup: set next reboot date
-          phone.nextReboot = moment().format('YYYY/MM/DD HH:mm');
-
-          //// mockup: set phone template
-          phone.template = "template2";
+        if (phoneUser) {
+          phone.user = phoneUser;
         }
 
-        $scope.getGroups();
-      }, function (err) {
-        console.log(err);
-        setErrorNotification(err.data, "Error retrieving users");
-        $scope.uiLoaded = true;
-      });
+        //// mockup: set phone to user
+        $scope.phones[0].user = $scope.users[0];
+        $scope.phones[1].user = $scope.users[1];
+        $scope.phones[2].user = $scope.users[2];
+        $scope.phones[3].user = $scope.users[3];
+
+        //// mockup: set next reboot date
+        phone.nextReboot = moment().format('YYYY/MM/DD HH:mm');
+
+        //// mockup: set phone template
+        phone.template = "template2";
+      }
+      $scope.uiLoaded = true;
+      $scope.getGroups();
+      // }, function (err) { //// uncomment
+      //   console.log(err);
+      //   addErrorNotification(err.data, "Error retrieving users");
+      //   $scope.uiLoaded = true;
+      // });
     }
 
     $scope.getGroups = function () {
@@ -223,14 +234,16 @@ angular.module('nethvoiceWizardUiApp')
               return phone.mac === device.mac;
             });
 
-            if ($scope.filteredModel) {
-              // group and model selected
-              if (phone.model && phone.model.name === $scope.filteredModel.name) {
+            if (phone) {
+              if ($scope.filteredModel) {
+                // group and model selected
+                if (phone.model && phone.model.name === $scope.filteredModel.name) {
+                  phone.filtered = true;
+                }
+              } else {
+                // group selected only
                 phone.filtered = true;
               }
-            } else {
-              // group selected only
-              phone.filtered = true;
             }
           }
         }
@@ -250,14 +263,13 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getModels = function () {
       $scope.uiLoaded = false;
-      clearErrorNotification();
 
       ModelService.getModels().then(function (res) {
         $scope.models = res.data;
         $scope.getPhones();
       }, function (err) {
         console.log(err);
-        setErrorNotification(err.data, "Error retrieving models");
+        addErrorNotification(err.data, "Error retrieving models");
         $scope.uiLoaded = true;
       });
     }
