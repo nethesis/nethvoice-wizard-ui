@@ -3,6 +3,14 @@
     {{ 'Bulk phones configuration' | translate }}
   </h1>
   <div class="container-fluid mg-top-20">
+    <!-- error message -->
+    <div class="alert alert-danger" ng-show="error">
+      <span class="pficon pficon-error-circle-o"></span>
+      <strong ng-show="errorMessage">{{ errorMessage | translate }}:</strong>
+      <span ng-show="error.error">{{ error.error }}.</span>
+      <span ng-show="error.title">{{ error.title }}.</span>
+      <span ng-show="error.detail">{{ error.detail }}.</span>
+    </div>
     <div ng-show="phones.length == 0" class="blank-slate-pf">
       <div class="blank-slate-pf-icon">
         <span class="pficon pficon pficon-add-circle-o"></span>

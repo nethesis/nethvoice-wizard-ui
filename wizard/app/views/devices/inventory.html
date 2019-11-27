@@ -3,6 +3,14 @@
     {{ 'Inventory' | translate }}
   </h1>
   <div class="container-fluid mg-top-20">
+    <!-- error message -->
+    <div class="alert alert-danger" ng-show="error">
+      <span class="pficon pficon-error-circle-o"></span>
+      <strong ng-show="errorMessage">{{ errorMessage | translate }}:</strong>
+      <span ng-show="error.error">{{ error.error }}.</span>
+      <span ng-show="error.title">{{ error.title }}.</span>
+      <span ng-show="error.detail">{{ error.detail }}.</span>
+    </div>
     <!-- loading UI -->
     <div class="centered" ng-show="!uiLoaded">
       <span class="spinner spinner-large"></span>
@@ -347,7 +355,7 @@
                                       <a href="#" class="info-general" data-toggle="popover" data-html="true"
                                         data-placement="top" data-close="false" data-trigger="hover"
                                         data-container="body" title='{{ "Server error" | translate }}'
-                                        data-content='{{ phone.serverError }}'>
+                                        data-content='{{ phone.serverError | translate }}'>
                                         <span class="pficon pficon-info"></span>
                                       </a>
                                     </span></span>
@@ -356,7 +364,7 @@
                                       class="pficon pficon-warning-triangle-o mg-right-5"></span>{{ 'Unknown vendor' | translate }}</span>
                                 </div>
                                 <div class="list-group-item-text width-10p">
-                                  {{ phone.vendor ? phone.vendor : '-'}}
+                                  {{ phone.vendor ? phone.vendor : '-' }}
                                 </div>
                               </div>
                               <div class="list-view-pf-additional-info config-info width-28p">

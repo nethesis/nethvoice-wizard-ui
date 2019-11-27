@@ -14,13 +14,13 @@ angular.module('nethvoiceWizardUiApp')
     $scope.tasks = {};
     $scope.networkScanInProgress = false;
     $scope.uiLoaded = false;
-
     $scope.pastedMacs = [];
     $scope.successfulAddPhones = [];
     $scope.failedAddPhones = [];
 
     $scope.getPhones = function () {
       $scope.uiLoaded = false;
+      clearErrorNotification();
 
       PhoneService.getPhones().then(function (success) {
         $scope.phones = [];
@@ -32,16 +32,21 @@ angular.module('nethvoiceWizardUiApp')
         $scope.uiLoaded = true;
       }, function (err) {
         console.log(err);
+        setErrorNotification(err.data, "Error retrieving phones");
         $scope.uiLoaded = true;
       });
     };
 
     $scope.getModels = function () {
+      $scope.uiLoaded = false;
+      clearErrorNotification();
+
       ModelService.getModels().then(function (res) {
         $scope.models = res.data;
         $scope.getPhones();
       }, function (err) {
         console.log(err);
+        setErrorNotification(err.data, "Error retrieving models");
         $scope.uiLoaded = true;
       });
     }
@@ -347,7 +352,6 @@ angular.module('nethvoiceWizardUiApp')
             showResultsAddPhones();
           }
         }, function (err) {
-          console.log("fail", err); ////
           console.log(err.error.data.title);
           $scope.pendingRequestsAddPhones--;
           $scope.failedAddPhones.push(err);
@@ -533,8 +537,10 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       PhoneService.setPhoneModel(phone.mac, model).then(function (res) {
+        clearErrorNotification();
         $scope.getPhones();
       }, function (err) {
+        setErrorNotification(err.data, "Error setting phone model");
         console.log(err);
       });
     };
@@ -544,10 +550,13 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.deletePhone = function () {
+      clearErrorNotification();
+
       PhoneService.deletePhone($scope.phoneToDelete.mac).then(function (res) {
         $scope.getPhones();
         $('#deletePhoneModal').modal('hide');
       }, function (err) {
+        setErrorNotification(err.data, "Error deleting phone");
         console.log(err);
       });
     }
@@ -570,6 +579,8 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.getNetworks = function () {
+      clearErrorNotification();
+
       ConfigService.getNetworks().then(function (res) {
         var networks = res.data;
 
@@ -589,8 +600,19 @@ angular.module('nethvoiceWizardUiApp')
         }
       }, function (err) {
         console.log(err);
+        setErrorNotification(err.data, "Error retrieving network interfaces");
       });
     };
+
+    function clearErrorNotification() {
+      $scope.error = null;
+      $scope.errorMessage = null;
+    }
+
+    function setErrorNotification(error, errorMessage) {
+      $scope.error = error;
+      $scope.errorMessage = errorMessage;
+    }
 
     $scope.postModels = function () { //// mockup
       var models = [

@@ -653,5 +653,12 @@
   "Please change or clear active filters": "Modificare o rimuovere i filtri attivi",
   "This change will be applied to": "Questa modifica sarà applicata a",
   "phone": "telefono",
-  "phones": "telefoni"
+  "phones": "telefoni",
+  "Error retrieving phones": "Errore durante il recupero dei telefoni",
+  "Error retrieving models": "Errore durante il recupero dei modelli",
+  "Error setting phone model": "Errore durante l'assegnazione del modello al telefono",
+  "Error deleting phone": "Errore durante l'eliminazione del telefono",
+  "Error retrieving network interfaces": "Errore durante il recupero delle interfacce di rete",
+  "The phone mac address is already registered": "L'indirizzo MAC del telefono è già registrato",
+  "Error retrieving users": "Errore durante il recupero degli utenti"
 }
