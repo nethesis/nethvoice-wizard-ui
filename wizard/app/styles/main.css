@@ -2486,8 +2486,12 @@ iframe body {
   margin-bottom: 0;
 }
 
-.width-65p {
-  width: 65% !important;
+.width-40p {
+  width: 40% !important;
+}
+
+.width-55p {
+  width: 55% !important;
 }
 
 .width-240 {

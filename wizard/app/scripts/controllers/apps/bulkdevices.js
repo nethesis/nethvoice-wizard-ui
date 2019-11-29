@@ -8,12 +8,19 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('BulkdevicesCtrl', function ($scope, PhoneService, ModelService, UserService) {
+  .controller('BulkdevicesCtrl', function ($scope, $filter, PhoneService, ModelService, UserService, ProfileService) {
+    $scope.models = [];
     $scope.phones = [];
+    $scope.templates = [];
     $scope.numFiltered = 0;
     $scope.numSelected = 0;
     $scope.uiLoaded = false;
     $scope.errors = [];
+
+    var chooseTemplate = {
+      "id": 0,
+      "name": $filter('translate')('Choose') + "..."
+    };
 
     $scope.phonesTancredi = [ //// mockup
       { mac: "00:04:13:11:22:31", model: "snom100", display_name: "Snom" },
@@ -25,14 +32,18 @@ angular.module('nethvoiceWizardUiApp')
       { mac: "0C:38:3E:99:88:77", model: null, display_name: "Fanvil" },
       { mac: "00:15:65:55:55:58", model: null, display_name: "Yealink" }
     ];
-    $scope.models = [];
 
     $scope.$watch("phones", function (newValue, oldValue) {
-      // count phones filtered, phones selected and check if all selected phones have the same model
       $scope.numFiltered = 0;
       $scope.numSelected = 0;
-      $scope.allSelectedSameModel = true;
-      var sameModel = null;
+      $scope.allSelectedSameModel = null;
+      $scope.allSelectedSameTemplate = "";
+      $scope.allSelectedSameReboot = "";
+
+      // remove 'Choose' option from templates
+      $scope.templates = $scope.templates.filter(function (template) {
+        return template.id !== 0;
+      });
 
       for (var phone of $scope.phones) {
         if (phone.filtered) {
@@ -42,26 +53,34 @@ angular.module('nethvoiceWizardUiApp')
         if (phone.selected) {
           $scope.numSelected++;
 
-          if (sameModel == null) {
-            sameModel = phone.model;
-          } else {
-            if (phone.model !== sameModel) {
-              $scope.allSelectedSameModel = false;
-            }
+          // check if all phones selected have the same model
+          if ($scope.allSelectedSameModel == null && phone.model) {
+            $scope.allSelectedSameModel = phone.model;
+          } else if (phone.model !== $scope.allSelectedSameModel || !phone.model) {
+            $scope.allSelectedSameModel = false;
+          }
+
+          // check if all phones selected have the same template
+          if ($scope.allSelectedSameTemplate === "") {
+            $scope.allSelectedSameTemplate = phone.template;
+          } else if (phone.template !== $scope.allSelectedSameTemplate) {
+            $scope.allSelectedSameTemplate = false;
+          }
+
+          // check if all phones selected have the same reboot datetime
+          if ($scope.allSelectedSameReboot === "") {
+            $scope.allSelectedSameReboot = phone.nextReboot;
+          } else if (phone.nextReboot !== $scope.allSelectedSameReboot) {
+            $scope.allSelectedSameReboot = false;
           }
         }
       }
+
+      // if not all phones selected have the same template, add 'Choose' option
+      if (!$scope.allSelectedSameTemplate) {
+        $scope.templates.push(chooseTemplate);
+      }
     }, true);
-
-    // function clearErrorNotification() { ////
-    //   $scope.error = null;
-    //   $scope.errorMessage = null;
-    // }
-
-    // function setErrorNotification(error, errorMessage) { ////
-    //   $scope.error = error;
-    //   $scope.errorMessage = errorMessage;
-    // }
 
     function addErrorNotification(error, errorMessage) {
       error.message = errorMessage;
@@ -89,111 +108,153 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    function setPhysicalExtension(user, device) { //// mockup, remove
+      var model = null;
+      if (device.model) {
+        model = device.model.name;
+      }
+
+      UserService.createPhysicalExtension({
+        mainextension: user.default_extension,
+        mac: device.mac || null,
+        model: model,
+        line: null,
+        web_user: 'admin',
+        web_password: 'admin'
+      }).then(function (res) {
+        console.log("associated", user, device); ////
+      }, function (err) {
+        console.log(err);
+      });
+    };
+
     $scope.getUsers = function () {
       $scope.uiLoaded = false;
 
-      // UserService.list(true).then(function (res) { //// uncomment
-      //   $scope.users = res.data;
+      UserService.list(true).then(function (res) { //// uncomment
+        $scope.users = res.data;
 
-      $scope.users = [ ///// mockup
-        {
-          "username": "user1",
-          "webPhone": true,
-          "devices": [
-            {
-              "extension": 201,
-              "mac": "00:04:13:11:22:31"
-            }
-          ]
-        },
-        {
-          "username": "user2",
-          "webPhone": false,
-          "devices": [
-            {
-              "extension": 202,
-              "mac": "0C:38:3E:99:88:72"
-            }
-          ]
-        },
-        {
-          "username": "user3",
-          "webPhone": true,
-          "devices": [
-            {
-              "extension": 203,
-              "mac": "00:15:65:55:55:53"
-            }
-          ]
-        },
-        {
-          "username": "user4",
-          "webPhone": false,
-          "devices": [
-            {
-              "extension": 204,
-              "mac": "00:04:13:11:22:34"
-            }
-          ]
-        }
-      ];
+        // $scope.users = [ ///// mockup
+        //   {
+        //     "username": "user1",
+        //     "devices": [
+        //       {
+        //         "extension": 201,
+        //         "mac": "00:04:13:11:22:31"
+        //       }
+        //     ]
+        //   },
+        //   {
+        //     "username": "user2",
+        //     "devices": [
+        //       {
+        //         "extension": 202,
+        //         "mac": "0C:38:3E:99:88:72"
+        //       }
+        //     ]
+        //   },
+        //   {
+        //     "username": "user3",
+        //     "devices": [
+        //       {
+        //         "extension": 203,
+        //         "mac": "00:15:65:55:55:53"
+        //       }
+        //     ]
+        //   },
+        //   {
+        //     "username": "user4",
+        //     "devices": [
+        //       {
+        //         "extension": 204,
+        //         "mac": "00:04:13:11:22:34"
+        //       }
+        //     ]
+        //   }
+        // ];
 
-      console.log("users", $scope.users); ////
+        console.log("users", $scope.users); ////
 
-      // set phone.user
-      for (var phone of $scope.phones) {
-        var phoneUser = $scope.users.find(function (user) {
-          for (var device of user.devices) {
-            if (device.mac === phone.mac) {
-              return true;
+        //// mockup associate users and phones
+        // for (var i = 0; i < $scope.users.length; i++) {
+        //   setPhysicalExtension($scope.users[i], $scope.phones[i]);
+        // }
+
+        // set phone.user
+        for (var phone of $scope.phones) {
+          var phoneUser = $scope.users.find(function (user) {
+            for (var device of user.devices) {
+              if (device.mac === phone.mac) {
+                return true;
+              }
             }
+          });
+
+          if (phoneUser) {
+            phone.user = phoneUser;
           }
-        });
 
-        if (phoneUser) {
-          phone.user = phoneUser;
+          //// mockup: set next reboot date
+          phone.nextReboot = moment().format('YYYY/MM/DD HH:mm');
+
+          //// mockup: set phone template
+          phone.template = $scope.templates[0];
         }
-
-        //// mockup: set phone to user
-        $scope.phones[0].user = $scope.users[0];
-        $scope.phones[1].user = $scope.users[1];
-        $scope.phones[2].user = $scope.users[2];
-        $scope.phones[3].user = $scope.users[3];
-
-        //// mockup: set next reboot date
-        phone.nextReboot = moment().format('YYYY/MM/DD HH:mm');
-
-        //// mockup: set phone template
-        phone.template = "template2";
-      }
-      $scope.uiLoaded = true;
-      $scope.getGroups();
-      // }, function (err) { //// uncomment
-      //   console.log(err);
-      //   addErrorNotification(err.data, "Error retrieving users");
-      //   $scope.uiLoaded = true;
-      // });
+        $scope.uiLoaded = true;
+        $scope.getGroups();
+      }, function (err) { //// uncomment
+        console.log(err);
+        addErrorNotification(err.data, "Error retrieving users");
+        $scope.uiLoaded = true;
+      });
     }
 
     $scope.getGroups = function () {
-      $scope.groups = ["Assistenza", "Commerciale", "Sviluppo"]; //// mockup
+      $scope.uiLoaded = false;
 
-      ///// mockup
-      $scope.groupUserMap = {
-        "Assistenza": [
-          "user1",
-          "user2"
-        ],
-        "Commerciale": [
-          "user2",
-          "user3"
-        ],
-        "Sviluppo": [
-          "user1",
-          "user2",
-          "user3"
-        ]
+      ProfileService.allGroups().then(function (res) {
+        $scope.groups = res.data;
+        $scope.uiLoaded = true;
+      }, function (err) {
+        console.log(err);
+        addErrorNotification(err.data, "Error retrieving groups");
+        $scope.uiLoaded = true;
+      });
+
+      // $scope.groups = ["Assistenza", "Commerciale", "Sviluppo"]; //// mockup
+
+      // ///// mockup
+      // $scope.groupUserMap = {
+      //   "Assistenza": [
+      //     "user1",
+      //     "user2"
+      //   ],
+      //   "Commerciale": [
+      //     "user2",
+      //     "user3"
+      //   ],
+      //   "Sviluppo": [
+      //     "user1",
+      //     "user2",
+      //     "user3"
+      //   ]
+      // }
+
+
+      // associate users and groups
+      for (var user of $scope.users) {
+        setUserGroups(user);
       }
+    }
+
+    function setUserGroups(user) {
+      ProfileService.getUserGroup(user.id).then(function (res) {
+        user.groups = res.data;
+      }, function (err) {
+        if (err.status != 404) {
+          console.log(err);
+        }
+      });
     }
 
     $scope.clearFilters = function () {
@@ -222,13 +283,13 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       if ($scope.filteredGroup) {
-        var groupUsernames = $scope.groupUserMap[$scope.filteredGroup];
+        var users = $scope.users.filter(function (user) {
+          return user.groups.includes($scope.filteredGroup.id);
+        })
 
-        for (var username of groupUsernames) {
-          var user = $scope.users.find(function (user) {
-            return user.username === username;
-          });
+        // var groupUsernames = $scope.groupUserMap[$scope.filteredGroup];
 
+        for (var user of users) {
           for (var device of user.devices) {
             var phone = $scope.phones.find(function (phone) {
               return phone.mac === device.mac;
@@ -258,7 +319,22 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.getTemplates = function (model) {
-      $scope.templates = ["template1", "template2", "template3"]; ///// mockup
+      $scope.templates = [ ///// mockup
+        {
+          "id": 1,
+          "name": "template1"
+        },
+        {
+          "id": 2,
+          "name": "template2"
+        },
+        {
+          "id": 3,
+          "name": "template3"
+        }
+      ];
+
+      $scope.getPhones();
     }
 
     $scope.getModels = function () {
@@ -266,7 +342,7 @@ angular.module('nethvoiceWizardUiApp')
 
       ModelService.getModels().then(function (res) {
         $scope.models = res.data;
-        $scope.getPhones();
+        $scope.getTemplates();
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving models");
@@ -283,17 +359,12 @@ angular.module('nethvoiceWizardUiApp')
       $('#bulkTemplateModal').modal('hide');
     }
 
-    $scope.bulkWebPhoneSave = function () {
-      for (var phone of $scope.phones) {
-        if (phone.selected && phone.user) {
-          phone.user.webPhone = $scope.bulkWebPhone;
-        }
-      }
-      $('#bulkWebPhoneModal').modal('hide');
-    }
-
     $scope.bulkRebootSave = function () {
-      $scope.bulkReboot = $('#reboot-datetimepicker-value').val();
+      if ($scope.bulkRebootSwitch) {
+        $scope.bulkReboot = $('#reboot-datetimepicker-value').val();
+      } else {
+        $scope.bulkReboot = null;
+      }
 
       for (var phone of $scope.phones) {
         if (phone.selected) {
@@ -303,76 +374,40 @@ angular.module('nethvoiceWizardUiApp')
       $('#bulkRebootModal').modal('hide');
     }
 
-    // $scope.bulkEditSave = function () { ////
-    //   console.log("bulkEditSave"); ////
-
-    //   // workaround to handle bulk next reboot value
-    //   $scope.bulkReboot = $('#reboot-datetimepicker-value').val();
-    //   // $('#reboot-datetimepicker').datetimepicker('setDate', $scope.bulkReboot);
-
-    //   console.log("bulkEditSave, $scope.bulkReboot", $scope.bulkReboot); /////
-
-    //   for (var phone of $scope.phones) {
-    //     if (phone.selected) {
-    //       phone.template = $scope.bulkTemplate;
-    //       phone.nextReboot = $scope.bulkReboot;
-    //       if (phone.user) {
-    //         phone.user.webPhone = $scope.bulkWebPhone;
-    //       }
-    //     }
-    //   }
-    //   $('#bulkEdit').modal('hide');
-    // }
-
-    // $scope.showEditModal = function () { ////
-    //   $('#bulkEdit').modal('show');
-    // }
-
     $scope.showSetTemplateModal = function () {
-      $scope.bulkTemplate = null;
-
-      if ($scope.numSelected == 1) {
-        // show current template in modal
-        for (var phone of $scope.phones) {
-          if (phone.selected) {
-            $scope.bulkTemplate = phone.template;
-            break;
-          }
-        }
+      if ($scope.allSelectedSameTemplate !== false) {
+        $scope.bulkTemplate = $scope.allSelectedSameTemplate;
+      } else {
+        $scope.bulkTemplate = chooseTemplate;
       }
+
+      // remove 'Choose...' option if it's not the initial value
+      if ($scope.bulkTemplate !== chooseTemplate) {
+        $scope.templates = $scope.templates.filter(function (template) {
+          return template.id !== 0;
+        });
+      }
+      $scope.initialBulkTemplate = $scope.bulkTemplate;
       $('#bulkTemplateModal').modal('show');
     }
 
-    $scope.showSetWebPhoneModal = function () {
-      $scope.bulkWebPhone = null;
-
-      if ($scope.numSelected == 1) {
-        // show current web phone status in modal
-        for (var phone of $scope.phones) {
-          if (phone.selected) {
-            if (phone.user) {
-              $scope.bulkWebPhone = phone.user.webPhone;
-            }
-            break;
-          }
-        }
-      }
-      $('#bulkWebPhoneModal').modal('show');
-    }
-
     $scope.showSetRebootModal = function () {
-      $scope.bulkReboot = null;
+      $scope.bulkReboot = $scope.allSelectedSameReboot;
 
-      if ($scope.numSelected == 1) {
-        // show current reboot value in modal
-        for (var phone of $scope.phones) {
-          if (phone.selected) {
-            $scope.bulkReboot = phone.nextReboot;
-            break;
-          }
+      if ($scope.bulkReboot != false || $scope.bulkReboot === "") {
+        // phonese selected have the same reboot value
+        if ($scope.bulkReboot) {
+          $scope.bulkRebootSwitch = true;
+        } else {
+          // same none reboot value
+          $scope.bulkRebootSwitch = false;
         }
+        $('#reboot-datetimepicker-value').val($scope.bulkReboot);
+      } else {
+        // phonese selected have different reboot values
+        $scope.bulkRebootSwitch = false;
+        $('#reboot-datetimepicker-value').val(null);
       }
-      $('#reboot-datetimepicker-value').val($scope.bulkReboot);
       $('#bulkRebootModal').modal('show');
     }
 
@@ -411,5 +446,4 @@ angular.module('nethvoiceWizardUiApp')
 
     initDateTimePicker();
     $scope.getModels();
-    $scope.getTemplates();
   });

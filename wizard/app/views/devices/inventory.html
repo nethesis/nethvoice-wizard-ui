@@ -115,7 +115,7 @@
                     <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)"
                       ng-model="phone.model"
                       ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue">
-                      <option value="">-</option>
+                      <option value="">{{ 'No model' | translate }}</option>
                     </select>
                   </div>
                 </div>
@@ -205,7 +205,7 @@
                         <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="manualModel"
                           ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue"
                           ng-disabled="getManualFilteredModelsCount()" id="manual-model">
-                          <!-- <option value="">-</option> -->
+                          <option value="">{{ 'No model' | translate }}</option>
                         </select>
                       </div>
                     </div>
@@ -387,7 +387,7 @@
                                   ng-model="phone.model"
                                   ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
                                   id="model-phone-to-add-{{$index}}">
-                                  <option value="">-</option>
+                                  <option value="">{{ 'No model' | translate }}</option>
                                 </select>
                               </div>
                             </div>

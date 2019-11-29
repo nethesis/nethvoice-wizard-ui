@@ -639,7 +639,8 @@
   "Add with copy/paste": "Aggiungi con copia/incolla",
   "Server error": "Errore del server",
   "Reboot": "Riavvio",
-  "Delayed reboot": "Riavvio ritardato",
+  "Enable delayed reboot": "Abilita riavvio ritardato",
+  "Reboot date and time": "Data e ora riavvio",
   "Select all": "Seleziona tutti",
   "Select none": "Deseleziona tutti",
   "selected of": "selezionati su",
@@ -647,7 +648,6 @@
   "User": "Utente",
   "Clear filters": "Rimuovi filtri",
   "Set template": "Modifica template",
-  "Set web phone": "Modifica web phone",
   "Set delayed reboot": "Modifica riavvio ritardato",
   "No phone": "Nessun telefono",
   "Please change or clear active filters": "Modificare o rimuovere i filtri attivi",
@@ -659,6 +659,10 @@
   "Error setting phone model": "Errore durante l'assegnazione del modello al telefono",
   "Error deleting phone": "Errore durante l'eliminazione del telefono",
   "Error retrieving network interfaces": "Errore durante il recupero delle interfacce di rete",
+  "Error retrieving users": "Errore durante il recupero degli utenti",
+  "Error retrieving groups": "Errore durante il recupero dei gruppi",
   "The phone mac address is already registered": "L'indirizzo MAC del telefono è già registrato",
-  "Error retrieving users": "Errore durante il recupero degli utenti"
+  "No template": "Nessun template",
+  "No model": "Nessun modello",
+  "Choose": "Scegli"
 }
