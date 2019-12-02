@@ -21,7 +21,6 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getPhones = function () {
       $scope.uiLoaded = false;
-      // clearErrorNotification(); ////
 
       PhoneService.getPhones().then(function (success) {
         $scope.phones = [];
@@ -33,7 +32,6 @@ angular.module('nethvoiceWizardUiApp')
         $scope.uiLoaded = true;
       }, function (err) {
         console.log(err);
-        // setErrorNotification(err.data, "Error retrieving phones"); ////
         addErrorNotification(err.data, "Error retrieving phones");
         $scope.uiLoaded = true;
       });
@@ -41,14 +39,12 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getModels = function () {
       $scope.uiLoaded = false;
-      // clearErrorNotification(); ////
 
       ModelService.getModels().then(function (res) {
         $scope.models = res.data;
         $scope.getPhones();
       }, function (err) {
         console.log(err);
-        // setErrorNotification(err.data, "Error retrieving models"); ////
         addErrorNotification(err.data, "Error retrieving models");
         $scope.uiLoaded = true;
       });
