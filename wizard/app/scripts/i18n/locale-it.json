@@ -661,8 +661,11 @@
   "Error retrieving network interfaces": "Errore durante il recupero delle interfacce di rete",
   "Error retrieving users": "Errore durante il recupero degli utenti",
   "Error retrieving groups": "Errore durante il recupero dei gruppi",
+  "Error retrieving network scan results": "Errore durante il recupero dei risultati della scansione della rete",
+  "Error scanning network": "Errore durante la scansione della rete",
   "The phone mac address is already registered": "L'indirizzo MAC del telefono è già registrato",
   "No template": "Nessun template",
   "No model": "Nessun modello",
-  "Choose": "Scegli"
+  "Choose": "Scegli",
+  "No phone to add from this network": "In questa rete non è presente alcun telefono da aggiungere"
 }

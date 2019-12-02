@@ -59,7 +59,11 @@
           </span>
         </div>
       </div>
-      <div ng-show="phones.length !== 0" class="mg-bottom-15">
+      <div ng-show="phones.length !== 0" class="mg-bottom-10 pos-relative">
+        <!-- number of phones in inventory -->
+        <label class="num-phones-indicator">
+          {{ phones.length }} {{ (phones.length > 1 ? 'phones' : 'phone') | translate }}
+        </label>
         <div class="dropdown">
           <button class="btn btn-lg btn-primary dropdown-toggle" type="button" id="invDropdownMenu1"
             data-toggle="dropdown">
@@ -255,6 +259,11 @@
                     <div class="centered">
                       <span class="spinner spinner-large" ng-show="networkScanInProgress"></span>
                     </div>
+                    <!-- no phone to add notification -->
+                    <div class="alert alert-info" ng-show="showNoPhoneToAddFromNetwork">
+                      <span class="pficon pficon-info"></span>
+                      {{ 'No phone to add from this network' | translate }}
+                    </div>
                   </div>
                   <!-- results of add phones operation -->
                   <div ng-show="showResultsAddPhones">
@@ -358,6 +367,8 @@
                                     class="form-control width-85p" ng-model="phone.mac"
                                     ng-disabled="addModalType === 'scanning'" ng-change="macPhoneToAddChanged(phone)"
                                     maxlength="17">
+                                  <span ng-show="phone.ipv4" class="help-block">{{ 'IP Address' | translate }}:
+                                    {{ phone.ipv4 }}</span>
                                   <span ng-show="phone.validationError"
                                     class="help-block">{{ 'Invalid MAC address' | translate }}</span>
                                   <span ng-show="macDuplicates.includes(phone.mac)"

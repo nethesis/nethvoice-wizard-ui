@@ -101,6 +101,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.failedAddPhones = [];
       $scope.pendingRequestsAddPhones = 0;
       $scope.showResultsAddPhones = false;
+      $scope.showNoPhoneToAddFromNetwork = false;
       $scope.showGenericAddingModal('scanning');
     }
 
@@ -160,8 +161,8 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.startNetworkScan = function () {
-      // input validation
       $scope.showNetmaskToScanError = false;
+      $scope.showNoPhoneToAddFromNetwork = false;
 
       var netName = $scope.networkToScan.name;
 
@@ -189,28 +190,7 @@ angular.module('nethvoiceWizardUiApp')
               $scope.tasks[netName].currentProgress = res.data.progress;
               $scope.tasks[netName].errorCount = 0;
               $interval.cancel($scope.tasks[netName].promise);
-              $scope.networkScanInProgress = false;
-
-              // DeviceService.phoneListByNetwork(network).then(function (res) { //// old implementation (devices.js)
-
-              var phonesFromScan = [ //// mockup
-                { "mac": "00:04:13:11:22:91" },
-                { "mac": "0C:38:3E:99:88:92" },
-                { "mac": "00:15:65:55:55:93" },
-                { "mac": "00:15:65:55:55:94" },
-                { "mac": "00:15:65:55:55:95" },
-                { "mac": "00:15:65:55:55:96" },
-                { "mac": "00:15:65:55:55:97" },
-                { "mac": "00:04:13:11:22:98" }
-              ];
-
-              for (var phoneFromScan of phonesFromScan) {
-                $scope.phonesToAdd.push(phoneFromScan);
-
-                // update model list
-                $scope.macPhoneToAddChanged(phoneFromScan);
-              }
-              $scope.getVendorApplyToAllList();
+              networkScanCompleted($scope.networkToScan);
             } else {
               console.log(res.error);
               if ($scope.tasks[netName].errorCount < appConfig.MAX_TRIES) {
@@ -233,8 +213,57 @@ angular.module('nethvoiceWizardUiApp')
           });
         }, appConfig.INTERVAL_POLLING);
       }, function (err) {
-        $scope.tasks[netName].currentProgress = -1;
         console.log(err);
+        addErrorNotification(err.data, "Error scanning network");
+        $scope.tasks[netName].currentProgress = -1;
+
+      });
+    }
+
+    function networkScanCompleted(network) {
+      DeviceService.phoneListByNetwork(network).then(function (res) {
+        // var phonesFromScan = [ //// mockup
+        //   { "mac": "00:04:13:11:22:91" },
+        //   { "mac": "0C:38:3E:99:88:92" },
+        //   { "mac": "00:15:65:55:55:93" },
+        //   { "mac": "00:15:65:55:55:94" },
+        //   { "mac": "00:15:65:55:55:95" },
+        //   { "mac": "00:15:65:55:55:96" },
+        //   { "mac": "00:15:65:55:55:97" },
+        //   { "mac": "00:04:13:11:22:98" }
+        // ];
+
+        // skip phones already present in inventory
+        var phonesFromScan = res.data.filter(function (phoneFromScan) {
+          var macFromScan = phoneFromScan.mac.replace(/:/g, "-");
+
+          var alreadyPresent = $scope.phones.find(function (phone) {
+            return phone.mac === macFromScan;
+          });
+
+          return !alreadyPresent;
+        });
+
+        if (phonesFromScan.length == 0) {
+          $scope.showNoPhoneToAddFromNetwork = true;
+        }
+
+        for (var phoneFromScan of phonesFromScan) {
+          var phoneToAdd = {
+            "mac": phoneFromScan.mac.replace(/:/g, "-"),
+            "ipv4": phoneFromScan.ipv4
+          }
+          $scope.phonesToAdd.push(phoneToAdd);
+
+          // update model list
+          $scope.macPhoneToAddChanged(phoneToAdd);
+        }
+        $scope.getVendorApplyToAllList();
+        $scope.networkScanInProgress = false;
+      }, function (err) {
+        console.log(err);
+        addErrorNotification(err.data, "Error retrieving network scan results");
+        $scope.networkScanInProgress = false;
       });
     }
 

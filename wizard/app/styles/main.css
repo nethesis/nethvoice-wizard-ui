@@ -2510,4 +2510,15 @@ a.black:focus, a.black:hover, a.black:active {
   display: inline-block;
   margin-right: 10px;
 }
+
+.pos-relative {
+  position: relative;
+}
+
+.num-phones-indicator {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 0;
+}
 /* end Inventory */
