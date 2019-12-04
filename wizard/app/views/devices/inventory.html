@@ -112,7 +112,7 @@
               </div>
               <div class="list-view-pf-body">
                 <div class="list-view-pf-description">
-                  <div class="list-group-item-heading">
+                  <div class="list-group-item-heading adjust-weight">
                     {{ phone.vendor ? phone.vendor : '-'}}
                   </div>
                   <div class="list-group-item-text">
@@ -124,7 +124,10 @@
                   </div>
                 </div>
                 <div class="list-view-pf-additional-info config-info">
-                  <div>MAC: <b>{{phone.mac}}</b></div>
+                  <div>
+                    <span class="fa fa-server mg-right-5"></span>
+                    MAC: <b>{{phone.mac}}</b>
+                  </div>
                 </div>
               </div>
             </div>

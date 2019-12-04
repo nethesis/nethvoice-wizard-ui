@@ -11,15 +11,14 @@ angular.module('nethvoiceWizardUiApp')
   .controller('BulkdevicesCtrl', function ($scope, $filter, PhoneService, ModelService, UserService, ProfileService) {
     $scope.models = [];
     $scope.phones = [];
-    $scope.templates = [];
     $scope.numFiltered = 0;
     $scope.numSelected = 0;
     $scope.uiLoaded = false;
     $scope.errors = [];
 
-    var chooseTemplate = {
+    var chooseModel = {
       "id": 0,
-      "name": $filter('translate')('Choose') + "..."
+      "display_name": $filter('translate')('Choose') + "..."
     };
 
     $scope.phonesTancredi = [ //// mockup
@@ -30,19 +29,20 @@ angular.module('nethvoiceWizardUiApp')
       { mac: "00:04:13:11:22:35", model: "snom100", display_name: "Snom" },
       { mac: "00:04:13:11:22:36", model: "snom200", display_name: "Snom" },
       { mac: "0C:38:3E:99:88:77", model: null, display_name: "Fanvil" },
-      { mac: "00:15:65:55:55:58", model: null, display_name: "Yealink" }
+      { mac: "00:15:65:55:55:58", model: null, display_name: "Yealink" },
+      { mac: "11:22:33:44:55:66", model: null, display_name: null }
     ];
 
     $scope.$watch("phones", function (newValue, oldValue) {
       $scope.numFiltered = 0;
       $scope.numSelected = 0;
-      $scope.allSelectedSameModel = null;
-      $scope.allSelectedSameTemplate = "";
+      $scope.allSelectedSameVendor = null;
+      $scope.allSelectedSameModel = "";
       $scope.allSelectedSameReboot = "";
 
-      // remove 'Choose' option from templates
-      $scope.templates = $scope.templates.filter(function (template) {
-        return template.id !== 0;
+      // remove 'Choose' option from models
+      $scope.models = $scope.models.filter(function (model) {
+        return model.id !== 0;
       });
 
       for (var phone of $scope.phones) {
@@ -53,32 +53,27 @@ angular.module('nethvoiceWizardUiApp')
         if (phone.selected) {
           $scope.numSelected++;
 
+          // check if all phones selected have the same vendor
+          if ($scope.allSelectedSameVendor == null && phone.vendor) {
+            $scope.allSelectedSameVendor = phone.vendor;
+          } else if (phone.vendor !== $scope.allSelectedSameVendor || !phone.vendor) {
+            $scope.allSelectedSameVendor = false;
+          }
+
           // check if all phones selected have the same model
-          if ($scope.allSelectedSameModel == null && phone.model) {
+          if ($scope.allSelectedSameModel === "") {
             $scope.allSelectedSameModel = phone.model;
-          } else if (phone.model !== $scope.allSelectedSameModel || !phone.model) {
+          } else if (phone.model !== $scope.allSelectedSameModel) {
             $scope.allSelectedSameModel = false;
           }
 
-          // check if all phones selected have the same template
-          if ($scope.allSelectedSameTemplate === "") {
-            $scope.allSelectedSameTemplate = phone.template;
-          } else if (phone.template !== $scope.allSelectedSameTemplate) {
-            $scope.allSelectedSameTemplate = false;
-          }
-
-          // check if all phones selected have the same reboot datetime
+          // check if all phones selected have the same reboot time
           if ($scope.allSelectedSameReboot === "") {
             $scope.allSelectedSameReboot = phone.nextReboot;
           } else if (phone.nextReboot !== $scope.allSelectedSameReboot) {
             $scope.allSelectedSameReboot = false;
           }
         }
-      }
-
-      // if not all phones selected have the same template, add 'Choose' option
-      if (!$scope.allSelectedSameTemplate) {
-        $scope.templates.push(chooseTemplate);
       }
     }, true);
 
@@ -194,11 +189,8 @@ angular.module('nethvoiceWizardUiApp')
             phone.user = phoneUser;
           }
 
-          //// mockup: set next reboot date
-          phone.nextReboot = moment().format('YYYY/MM/DD HH:mm');
-
-          //// mockup: set phone template
-          phone.template = $scope.templates[0];
+          //// mockup: get next reboot date
+          phone.nextReboot = moment().format('HH:mm');
         }
         $scope.uiLoaded = true;
         $scope.getGroups();
@@ -318,31 +310,12 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.getTemplates = function (model) {
-      $scope.templates = [ ///// mockup
-        {
-          "id": 1,
-          "name": "template1"
-        },
-        {
-          "id": 2,
-          "name": "template2"
-        },
-        {
-          "id": 3,
-          "name": "template3"
-        }
-      ];
-
-      $scope.getPhones();
-    }
-
     $scope.getModels = function () {
       $scope.uiLoaded = false;
 
       ModelService.getModels().then(function (res) {
         $scope.models = res.data;
-        $scope.getTemplates();
+        $scope.getPhones();
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving models");
@@ -350,18 +323,18 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    $scope.bulkTemplateSave = function () {
+    $scope.bulkModelSave = function () {
       for (var phone of $scope.phones) {
         if (phone.selected) {
-          phone.template = $scope.bulkTemplate;
+          phone.model = $scope.bulkModel;
         }
       }
-      $('#bulkTemplateModal').modal('hide');
+      $('#bulkModelModal').modal('hide');
     }
 
     $scope.bulkRebootSave = function () {
       if ($scope.bulkRebootSwitch) {
-        $scope.bulkReboot = $('#reboot-datetimepicker-value').val();
+        $scope.bulkReboot = $('#reboot-timepicker-value').val();
       } else {
         $scope.bulkReboot = null;
       }
@@ -374,21 +347,18 @@ angular.module('nethvoiceWizardUiApp')
       $('#bulkRebootModal').modal('hide');
     }
 
-    $scope.showSetTemplateModal = function () {
-      if ($scope.allSelectedSameTemplate !== false) {
-        $scope.bulkTemplate = $scope.allSelectedSameTemplate;
-      } else {
-        $scope.bulkTemplate = chooseTemplate;
-      }
+    $scope.showSetModelModal = function () {
+      $scope.filteredModels = $scope.models.filter(function (model) {
+        return model.name.toLowerCase().startsWith($scope.allSelectedSameVendor.toLowerCase());
+      });
 
-      // remove 'Choose...' option if it's not the initial value
-      if ($scope.bulkTemplate !== chooseTemplate) {
-        $scope.templates = $scope.templates.filter(function (template) {
-          return template.id !== 0;
-        });
+      if ($scope.allSelectedSameModel != false) {
+        $scope.bulkModel = $scope.allSelectedSameModel;
+      } else {
+        $scope.bulkModel = chooseModel;
+        $scope.filteredModels.push(chooseModel);
       }
-      $scope.initialBulkTemplate = $scope.bulkTemplate;
-      $('#bulkTemplateModal').modal('show');
+      $('#bulkModelModal').modal('show');
     }
 
     $scope.showSetRebootModal = function () {
@@ -402,11 +372,11 @@ angular.module('nethvoiceWizardUiApp')
           // same none reboot value
           $scope.bulkRebootSwitch = false;
         }
-        $('#reboot-datetimepicker-value').val($scope.bulkReboot);
+        $('#reboot-timepicker-value').val($scope.bulkReboot);
       } else {
         // phonese selected have different reboot values
         $scope.bulkRebootSwitch = false;
-        $('#reboot-datetimepicker-value').val(null);
+        $('#reboot-timepicker-value').val(null);
       }
       $('#bulkRebootModal').modal('show');
     }
@@ -430,16 +400,15 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     function initDateTimePicker() {
-      // initialize reboot-datetimepicker
-      $('#reboot-datetimepicker').datetimepicker({
+      // initialize reboot-timepicker
+      $('#reboot-timepicker').datetimepicker({
         minDate: new Date(),
         allowInputToggle: true,
-        showTodayButton: false,
-        toolbarPlacement: 'bottom',
-        sideBySide: true,
-        format: 'YYYY/MM/DD HH:mm',
-        icons: {
-          today: 'today-button-pf'
+        format: 'HH:mm',
+        keyBinds: {
+          enter: function () {
+            this.hide();
+          }
         }
       });
     }

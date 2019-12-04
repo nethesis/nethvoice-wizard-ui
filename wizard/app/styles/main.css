@@ -2351,6 +2351,10 @@ iframe body {
   width: 33%;
 }
 
+.width-30p {
+  width: 30%;
+}
+
 .toast-pf-top-right {
   top: 74px;
 }
@@ -2486,8 +2490,8 @@ iframe body {
   margin-bottom: 0;
 }
 
-.width-40p {
-  width: 40% !important;
+.width-25p {
+  width: 25% !important;
 }
 
 .width-55p {
@@ -2520,5 +2524,9 @@ a.black:focus, a.black:hover, a.black:active {
   right: 0;
   bottom: 0;
   margin-bottom: 0;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
 }
 /* end Inventory */
