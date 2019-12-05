@@ -94,7 +94,7 @@ angular.module('nethvoiceWizardUiApp')
         RestService.tpatch('/tancredi/api/v1/phones/' + mac, { "model": model }).then(function (res) {
           resolve(res);
         }, function (err) {
-          reject({ "error": err, "phone": phone });
+          reject(err);
         });
       });
     };

@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesInventoryCtrl', function ($scope, $interval, $q, PhoneService, ModelService, UtilService, ConfigService, DeviceService) {
+  .controller('DevicesInventoryCtrl', function ($scope, $interval, $q, $timeout, PhoneService, ModelService, UtilService, ConfigService, DeviceService) {
     $scope.phones = [];
     $scope.models = [];
     $scope.tasks = {};
@@ -55,7 +55,10 @@ angular.module('nethvoiceWizardUiApp')
         gotModels(res[0].data);
         gotPhones(res[1].data);
         gotNetworks(res[2].data);
-        $scope.uiLoaded = true;
+
+        $scope.$apply(function () {
+          $scope.uiLoaded = true;
+        });
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving data");
@@ -67,8 +70,8 @@ angular.module('nethvoiceWizardUiApp')
       $scope.uiLoaded = false;
 
       PhoneService.getPhones().then(function (success) {
-        gotPhones(success.data);
         $scope.uiLoaded = true;
+        gotPhones(success.data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving phones");
@@ -80,8 +83,8 @@ angular.module('nethvoiceWizardUiApp')
       $scope.uiLoaded = false;
 
       ModelService.getModels().then(function (success) {
-        gotModels(success.data);
         $scope.uiLoaded = true;
+        gotModels(success.data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving models");
@@ -129,7 +132,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.showResultsAddPhones = false;
       $scope.showGenericAddingModal('manual');
 
-      setTimeout(function () {
+      $timeout(function () {
         $('#manual-mac').focus();
       }, 500);
     }
@@ -255,7 +258,6 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err);
         addErrorNotification(err.data, "Error scanning network");
         $scope.tasks[netName].currentProgress = -1;
-
       });
     }
 
@@ -362,7 +364,7 @@ angular.module('nethvoiceWizardUiApp')
 
       // if there are validation errors, focus the first and return
       if (firstErrorIndex !== null && firstErrorIndex >= 0) {
-        setTimeout(function () {
+        $timeout(function () {
           $('#mac-phone-to-add-' + firstErrorIndex).focus();
         }, 400);
 
@@ -435,7 +437,7 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       // server error popovers
-      setTimeout(function () {
+      $timeout(function () {
         initPopovers();
       }, 500);
 
@@ -583,18 +585,20 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.setPhoneModel = function (phone) {
+      $scope.uiLoaded = false;
+
       var model = null;
       if (phone.model) {
-        model = phone.model.name
+        model = phone.model.name;
       }
 
       PhoneService.setPhoneModel(phone.mac, model).then(function (res) {
-        // clearErrorNotification(); ////
+        $scope.uiLoaded = true;
         $scope.getPhones();
       }, function (err) {
         console.log(err);
-        // setErrorNotification(err.data, "Error setting phone model"); ////
         addErrorNotification(err.data, "Error setting phone model");
+        $scope.uiLoaded = true;
       });
     };
 
@@ -603,19 +607,24 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.deletePhone = function () {
+      $scope.uiLoaded = false;
+
       PhoneService.deletePhone($scope.phoneToDelete.mac).then(function (res) {
         $scope.getPhones();
 
         // delete delayed reboot (if present)
         PhoneService.deletePhoneDelayedReboot($scope.phoneToDelete.mac).then(function (res) {
+          $scope.uiLoaded = true;
         }, function (err) {
           console.log(err);
           addErrorNotification(err.data, "Error canceling delayed reboot");
+          $scope.uiLoaded = true;
         });
         $('#deletePhoneModal').modal('hide');
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error deleting phone");
+        $scope.uiLoaded = true;
       });
     }
 
@@ -640,11 +649,12 @@ angular.module('nethvoiceWizardUiApp')
       $scope.uiLoaded = false;
 
       ConfigService.getNetworks().then(function (success) {
-        gotNetworks(success.data);
         $scope.uiLoaded = true;
+        gotNetworks(success.data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving network interfaces");
+        $scope.uiLoaded = true;
       });
     };
 
