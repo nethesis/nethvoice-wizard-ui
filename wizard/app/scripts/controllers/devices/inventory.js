@@ -624,10 +624,7 @@ angular.module('nethvoiceWizardUiApp')
             networks[key].name = key;
           }
         }
-
         $scope.networks = networks;
-
-        console.log("$scope.networks", $scope.networks); ////
 
         for (var eth in $scope.networks) {
           $scope.tasks[eth] = {};

@@ -3,17 +3,19 @@
     {{ 'Bulk phones configuration' | translate }}
   </h1>
   <div class="container-fluid mg-top-20">
-    <!-- toast error message -->
-    <div class="toast-pf toast-pf-max-width toast-pf-top-right alert alert-danger alert-dismissable"
-      ng-repeat="error in errors">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-        <span class="pficon pficon-close"></span>
-      </button>
-      <span class="pficon pficon-error-circle-o"></span>
-      <strong ng-show="error.message">{{ error.message | translate }}:</strong>
-      <span ng-show="error.error">{{ error.error }}.</span>
-      <span ng-show="error.title">{{ error.title }}.</span>
-      <p ng-show="error.detail"><i>{{ error.detail }}.</i></p>
+    <!-- toast error messages -->
+    <div class="toast-notifications-list-pf">
+      <div class="toast-pf alert alert-danger alert-dismissable mg-bottom-5"
+        ng-repeat="error in errors track by $index">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <span class="pficon pficon-error-circle-o"></span>
+        <strong ng-show="error.message">{{ error.message | translate }}:</strong>
+        <span ng-show="error.error">{{ error.error }}.</span>
+        <span ng-show="error.title">{{ error.title }}.</span>
+        <span ng-show="error.detail"><i>{{ error.detail }}.</i></span>
+      </div>
     </div>
     <!-- loading UI -->
     <div class="centered" ng-show="!uiLoaded">

@@ -32,7 +32,6 @@ angular.module('nethvoiceWizardUiApp')
         ProfileService.allGroups(),
         PhoneService.getDelayedReboot()
       ]).then(function (res) {
-        console.log("promise all res", res); ////
         gotModels(res[0].data);
         gotPhones(res[1].data);
         gotUsers(res[2].data);
@@ -102,6 +101,10 @@ angular.module('nethvoiceWizardUiApp')
       }
     }, true);
 
+    $scope.$watch("errors", function (newValue, oldValue) { //// delete
+      console.log("errors", $scope.errors); //// delete
+    }, true);
+
     function addErrorNotification(error, errorMessage) {
       error.message = errorMessage;
       $scope.errors.push(error);
@@ -117,14 +120,11 @@ angular.module('nethvoiceWizardUiApp')
 
       // set updated reboot times
       for (const [mac, time] of Object.entries(rebootData)) {
-        console.log(mac, time); ////
-
         var phone = $scope.phones.find(function (phone) {
           return phone.mac === mac;
         });
 
         if (phone) {
-          console.log("read delayed reboot", phone.mac, time.hours, time.minutes); ////
           phone.delayedReboot = time.hours + ":" + time.minutes;
         }
       }
@@ -160,17 +160,6 @@ angular.module('nethvoiceWizardUiApp')
       PhoneService.getPhones().then(function (success) {
         gotPhones(success.data);
         $scope.uiLoaded = true;
-
-        // $scope.phones = []; ////
-
-        // // for (var phoneTancredi of success.data) { //// uncomment
-        // for (var phoneTancredi of $scope.phonesTancredi) { //// mockup
-        //   var phone = PhoneService.buildPhone(phoneTancredi, $scope.models);
-        //   phone.filtered = true;
-        //   $scope.phones.push(phone);
-        // }
-        // $scope.getUsers();
-        // $scope.uiLoaded = true;
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving phones");
@@ -223,7 +212,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getUsers = function () {
       $scope.uiLoaded = false;
 
-      UserService.list(true).then(function (res) { //// uncomment
+      UserService.list(true).then(function (res) {
         gotUsers(res.data);
         $scope.uiLoaded = true;
 
@@ -294,7 +283,7 @@ angular.module('nethvoiceWizardUiApp')
         // }
         // $scope.uiLoaded = true;
         // $scope.getGroups(); /////
-      }, function (err) { //// uncomment
+      }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving users");
         $scope.uiLoaded = true;
@@ -362,8 +351,6 @@ angular.module('nethvoiceWizardUiApp')
         var users = $scope.users.filter(function (user) {
           return user.groups.includes($scope.filteredGroup.id);
         })
-
-        // var groupUsernames = $scope.groupUserMap[$scope.filteredGroup];
 
         for (var user of users) {
           for (var device of user.devices) {
@@ -450,7 +437,6 @@ angular.module('nethvoiceWizardUiApp')
       $scope.uiLoaded = false;
 
       Promise.all(delayedRebootPromises).then(function (res) {
-        console.log("promise all res", res); ////
         // reload updated data
         getDelayedReboot();
         $scope.uiLoaded = true;
