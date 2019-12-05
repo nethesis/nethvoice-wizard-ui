@@ -579,14 +579,18 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.deletePhone = function () {
-      // clearErrorNotification(); ////
-
       PhoneService.deletePhone($scope.phoneToDelete.mac).then(function (res) {
         $scope.getPhones();
+
+        // delete delayed reboot (if present)
+        PhoneService.deletePhoneDelayedReboot($scope.phoneToDelete.mac).then(function (res) {
+        }, function (err) {
+          console.log(err);
+          addErrorNotification(err.data, "Error canceling delayed reboot");
+        });
         $('#deletePhoneModal').modal('hide');
       }, function (err) {
         console.log(err);
-        // setErrorNotification(err.data, "Error deleting phone"); ////
         addErrorNotification(err.data, "Error deleting phone");
       });
     }

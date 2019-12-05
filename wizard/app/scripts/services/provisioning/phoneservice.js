@@ -33,7 +33,7 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     // Mock: retrieve the complete phone inventory
-    this.getPhonesMock = function (mockPhones) {
+    this.getPhonesMock = function (mockPhones) { //// remove
       return $q(function (resolve, reject) {
         if (mockPhones) {
           // return the input phones list
@@ -57,7 +57,7 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     // Mock: create a new phone instance and add it to the phone inventory; it succeeds with probability prob
-    this.createPhoneMock = function (phone, prob) {
+    this.createPhoneMock = function (phone, prob) { //// remove
       // if probability is not passed, always succeeds
       if (!prob) {
         prob = 1;
@@ -110,6 +110,36 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
+    this.getDelayedReboot = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/phones/reboot').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    }
+
+    this.setPhoneDelayedReboot = function (mac, hours, minutes) {
+      return $q(function (resolve, reject) {
+        RestService.post('/phones/reboot/' + mac + "/" + hours + "/" + minutes).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    }
+
+    this.deletePhoneDelayedReboot = function (mac) {
+      return $q(function (resolve, reject) {
+        RestService.delete('/phones/reboot/' + mac).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    }
+
     this.getVendor = function (macAddress) {
       // remove separators
       macAddress = macAddress.toUpperCase().replace(/:/g, "").replace(/-/g, "");
@@ -123,9 +153,10 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     this.checkMacAddress = function (macAddress) {
-      // remove all but alphanumeric characters
-      macAddress = macAddress.replace(/\W/ig, '');
-      return macAddress.length == 12;
+      // remove separators
+      var macAddressNoSep = macAddress.replace(/:/g, "").replace(/-/g, "");
+      var regExp = /^[0-9a-fA-F]{12}$/;
+      return regExp.test(macAddressNoSep);
     };
 
     this.checkNetmask = function (netmask) {
