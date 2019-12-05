@@ -142,19 +142,18 @@ angular.module('nethvoiceWizardUiApp')
 
     this.getVendor = function (macAddress) {
       // remove separators
-      macAddress = macAddress.toUpperCase().replace(/:/g, "").replace(/-/g, "");
+      macAddress = macAddress.toUpperCase().replace(/:|-/g, "");
       var vendor = this.macVendorMap[macAddress.substring(0, 6)];
 
       if (vendor) {
         vendor = UtilService.capitalize(vendor);
       }
-
       return vendor;
     };
 
     this.checkMacAddress = function (macAddress) {
       // remove separators
-      var macAddressNoSep = macAddress.replace(/:/g, "").replace(/-/g, "");
+      var macAddressNoSep = macAddress.replace(/:|-/g, "");
       var regExp = /^[0-9a-fA-F]{12}$/;
       return regExp.test(macAddressNoSep);
     };
