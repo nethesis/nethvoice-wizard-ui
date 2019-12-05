@@ -311,16 +311,6 @@ angular.module('nethvoiceWizardUiApp')
       elem.bootstrapSwitch()
     })
 
-    $scope.$on('$routeChangeStart', function() {
-
-      console.log("LOCATION", $location);
-      
-
-      if ($location.path() == '/models' || $location.path() == 'configurations'){
-        $scope.currentModel = {}
-      }
-    })
-
     $scope.setRandomBackground();
 
     // provisining build models start
@@ -344,6 +334,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.currentModel = {
             ui : $scope.getModelUI(modelName, modelBrand),
             variables : res.data.variables,
+            changedVariables: [],
             name : name,
             openedSection : "",
             openedExpKeys: "",
@@ -351,7 +342,14 @@ angular.module('nethvoiceWizardUiApp')
             showingExpKeys: "",
             hidden: false
           }
-          resolve(true)
+          ModelService.getDefaults().then(function (res) {
+            for (var varKey in res.data) {
+              if (!$scope.currentModel.variables[varKey]) {
+                $scope.currentModel.variables[varKey] = res.data[varKey]
+              }
+            }
+            resolve(true)
+          })
         }, function (err) {
           reject(err)
         })
@@ -395,5 +393,11 @@ angular.module('nethvoiceWizardUiApp')
           break;
       }
     }
+
+    $scope.$on('$routeChangeStart', function() {
+      if ($location.path() == '/devices/models' || $location.path() == '/configurations'){
+        $scope.currentModel = {}
+      }
+    })
     
   });

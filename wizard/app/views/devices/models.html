@@ -19,21 +19,16 @@
       <button data-toggle="modal" data-target="#newModelModal"
         class="btn btn-primary btn-lg">{{'Create new model' | translate}}
       </button>
-
-      <button ng-click="createModel()"
-        class="btn btn-primary btn-lg">{{'Add model' | translate}}
-      </button>
-
       <button data-toggle="modal" data-target="#defaultSettingsModal"
         class="btn btn-default btn-lg right-align no-margin ng-binding ng-scope">
-        {{"Default Settings" | translate}}
+        {{"Default settings" | translate}}
       </button>
     </div>
     <div ng-if="!(inventoryModels | isEmpty)" class="container-fluid">
       <div class="list-group list-view-pf adjust-margin-extensions no-border">
         <div ng-repeat="model in inventoryModels track by model.name" class="adjust-profile-margin">
           <div id="accordion-models-{{$index}}">
-            <h1 ng-click="setCurrentModel(model.name)" class="adjust-header adjust-profile-header">
+            <h1 ng-click="checkCurrentModelStatus(model.name)" class="adjust-header adjust-profile-header">
               <span class="fa fa-cube card-pf-icon-circle config-title-icon"></span>{{'Model' | translate}}
               <span class="weight">{{::model.name | translate}}</span>
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
@@ -75,32 +70,59 @@
         </button>
         <h4 class="modal-title" id="nModelMLabel">{{'New model' | translate}}</h4>
       </div>
-      <form class="form-horizontal mt-10" ng-submit="">
+      <form class="form-horizontal" ng-submit="">
         <div class="modal-body">
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
             <div class="col-sm-9">
-              <div class="col-sm-12">
-                <input required type="text" class="form-control">
-              </div>
+              <input required type="text" class="form-control">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Duplicate from' | translate}}</label>
             <div class="col-sm-9">
-              <div class="col-sm-12">
-                <select class="combobox form-control" autocomplete="off">
-                  <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
-                    on-finish-render="selectpickerRepeatEnd">{{"CIAO" | translate}}</option>
-                </select>
-              </div>
+              <select class="combobox form-control" autocomplete="off">
+                <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
+                  on-finish-render="selectpickerRepeatEnd">{{"CIAO" | translate}}</option>
+              </select>
             </div>
           </div>
           <div ng-if="false" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
-          <div class="modal-footer submit">
-            <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
-            <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
+        </div>
+        <div class="modal-footer submit">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+          <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modelChangeConfirm" tabindex="-1" role="dialog" aria-labelledby="modelChangeConfirm"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="nModelMLabel">{{"Changes not saved" | translate}}</h4>
+      </div>
+      <form class="form-horizontal mt-10" ng-submit="onModelSetContinue()">
+        <div class="modal-body">
+          <div class="alert alert-danger alert-dismissable">
+            <span class="pficon pficon-error-circle-o"></span>
+            <strong>
+              {{"Changes on the current model will be lost" | translate}}.
+            </strong>
+            <p>
+              {{"Save the changes before continuing" | translate}}!
+            </p>
           </div>
+        </div>
+        <div class="modal-footer submit">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+          <button type="submit" class="btn btn-primary">{{'Continue' | translate}}</button>
         </div>
       </form>
     </div>

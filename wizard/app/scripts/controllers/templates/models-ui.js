@@ -10,8 +10,6 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('ModelsUICtrl', function ($scope) {
 
-    console.log("MODELS UI")
-
     $scope.isKeysSection = function (keyName) {
       if (keyName.toLowerCase().includes("keys")) {
         return true
@@ -45,6 +43,10 @@ angular.module('nethvoiceWizardUiApp')
         $scope.currentModel.openedExpKeys = ""
       }
     }
+
+
+    
+    
 
   })
 

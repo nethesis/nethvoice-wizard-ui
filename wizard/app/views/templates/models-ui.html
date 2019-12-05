@@ -50,7 +50,12 @@
                                           <label class="mt-10 control-label"> {{::key.description | translate}}
                                           </label>
                                           <div class="hidden">
-                                            <select class="combobox form-control" autocomplete="off"
+                                            <select
+                                              id="{{sectionkey}}-select-{{count+1}}-{{$index+1}}"
+                                              ng-model="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start)]"
+                                              ng-change="onVariableChanged('exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start))"
+                                              class="combobox form-control"
+                                              autocomplete="off"
                                               name="{{key.variable}}">
                                               <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
                                               <!-- combobox -->
@@ -66,7 +71,11 @@
                                         <div ng-if="key.type == 'input'" class="form-group">
                                           <label class="mt-10 control-label"> {{::key.description | translate}}
                                           </label>
-                                          <input placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
+                                          <input
+                                            id="{{sectionkey}}-input-{{count+1}}-{{$index+1}}"
+                                            ng-model="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start)]"
+                                            ng-change="onVariableChanged('exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start))"
+                                            placeholder="{{}}"
                                             type="text" class="form-control">
                                           </input>
                                         </div>
@@ -100,7 +109,12 @@
                                   <label class="mt-10 control-label"> {{::key.description | translate}}
                                   </label>
                                   <div class="hidden">
-                                    <select class="combobox form-control" autocomplete="off"
+                                    <select
+                                      id="{{sectionkey}}-select-{{count+1}}-{{$index+1}}"
+                                      class="combobox form-control"
+                                      ng-model="currentModel.variables[key.variable + (count + item.loop_start)]"
+                                      ng-change="onVariableChanged(key.variable + (count + item.loop_start))"
+                                      autocomplete="off"
                                       name="{{key.variable}}">
                                       <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
                                       <!-- combobox -->
@@ -116,8 +130,13 @@
                                 <div ng-if="key.type == 'input'" class="form-group">
                                   <label class="mt-10 control-label"> {{::key.description | translate}}
                                   </label>
-                                  <input placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
-                                    type="text" class="form-control">
+                                  <input
+                                    id="{{sectionkey}}-input-{{count+1}}-{{$index+1}}"
+                                    ng-model="currentModel.variables[key.variable + (count + item.loop_start)]"
+                                    ng-change="onVariableChanged(key.variable + (count + item.loop_start))"
+                                    placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
+                                    type="text"
+                                    class="form-control">
                                   </input>
                                 </div>
                               </div>
@@ -140,7 +159,12 @@
                         <div ng-if="key.type == 'list'" class="form-group">
                           <label class="mt-10 control-label">{{::key.description | translate}}</label>
                           <div class="hidden">
-                            <select class="combobox form-control" autocomplete="off" name="{{key.variable}}">
+                            <select
+                              id="{{sectionkey}}-select-{{$index+1}}"
+                              ng-model="currentModel.variables[key.variable]"
+                              ng-change="onVariableChanged(key.variable)"
+                              class="combobox form-control"
+                              autocomplete="off">
                               <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
                               <!-- combobox -->
                               <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
@@ -154,8 +178,13 @@
                         <!-- input -->
                         <div ng-if="key.type == 'input'" class="form-group">
                           <label class="mt-10 control-label">{{::key.description | translate}}</label>
-                          <input placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
-                            type="text" class="form-control">
+                          <input
+                            id="{{sectionkey}}-input-{{$index+1}}"
+                            ng-model="currentModel.variables[key.variable]"
+                            ng-change="onVariableChanged(key.variable)"
+                            placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
+                            type="text"
+                            class="form-control">
                           </input>
                         </div>
                       </div>
@@ -183,9 +212,14 @@
                     class="col-lg-6 mb-15">
                     <!-- list -->
                     <div ng-if="item.type == 'list'" class="form-group">
-                      <label class="control-label">{{::item.description | translate}}</label>
+                      <label class="control-label">{{::item.description | translate}} {{item.variable}}</label>
                       <div class="hidden">
-                        <select class="combobox form-control" autocomplete="off" name="{{item.variable}}">
+                        <select 
+                          id="{{sectionkey}}-select-{{$index}}"
+                          class="combobox form-control"
+                          ng-model="currentModel.variables[item.variable]"
+                          ng-change="onVariableChanged(item.variable)"
+                          autocomplete="off">
                           <option ng-if="item.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::item.description | translate}}</option>
                           <!-- combobox -->
                           <option ng-if="item.options.length > 10" ng-repeat="option in item.options"
@@ -199,8 +233,13 @@
                     <!-- input -->
                     <div ng-if="item.type == 'input'" class="form-group">
                       <label class="control-label">{{::item.description | translate}}</label>
-                      <input placeholder="{{'Insert ' | translate}} {{::item.description | translate}}"
-                        type="text" class="form-control">
+                      <input 
+                        id="{{sectionkey}}-input-{{$index}}"
+                        ng-model="currentModel.variables[item.variable]"
+                        ng-change="onVariableChanged(item.variable)"
+                        placeholder="{{'Insert ' | translate}} {{::item.description | translate}}"
+                        type="text"
+                        class="form-control">
                       </input>
                     </div>
                   </div>
@@ -216,8 +255,47 @@
     class="btn btn-primary btn-lg profile-button-save mb-10 mt-30" type="submit">
     {{'Save' | translate}}
   </button>
-  <button ng-show="!loadingModels[model.name]" ng-click="resetModel(model)"
-    class="btn btn-default btn-lg profile-button-save mb-10 mt-30" type="submit">
-    {{'Reset' | translate}}
-  </button>
+  <div ng-show="!loadingModels[model.name]" class="dropdown profile-button-save mb-10 mt-30">
+    <button class="btn btn-default btn-lg dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+      {{'More actions' | translate}}
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Annulla le modifiche</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Ripristina i valori originali</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation" class="red-colored"><a role="menuitem" tabindex="-1" href="#">{{"Delete" | translate}}</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal fade" id="cancelChangesConfirm" tabindex="-1" role="dialog" aria-labelledby="cancelChangesConfirm"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="nModelMLabel">{{"Cancel changes" | translate}}</h4>
+      </div>
+      <form class="form-horizontal mt-10" ng-submit="onModelSetContinue()">
+        <div class="modal-body">
+          <div class="alert alert-danger alert-dismissable">
+            <span class="pficon pficon-error-circle-o"></span>
+            <strong>
+              {{"Changes on the current model will be cancel" | translate}}.
+            </strong>
+            <p>
+              {{"Are you sure" | translate}}?
+            </p>
+          </div>
+        </div>
+        <div class="modal-footer submit">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+          <button type="submit" class="btn btn-primary">{{'Yes' | translate}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

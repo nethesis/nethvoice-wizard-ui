@@ -146,7 +146,7 @@ angular.module('nethvoiceWizardUiApp')
             "data": {
               "items": [{
                   "variable": "soft_key1",
-                  "default_value": "dsskey1",
+                  "default_value": "dsskey2",
                   "description": "Soft Key 1",
                   "type": "list",
                   "options": options
@@ -182,9 +182,9 @@ angular.module('nethvoiceWizardUiApp')
             "loop_end": 10,
             "data": {
               "items": [{
-                  "variable": "softkey_type",
+                  "variable": "softkey_type_",
                   "default_value": "0",
-                  "description": "DSS Key Type",
+                  "description": "Type",
                   "type": "list",
                   "options": [{
                       "text": "None",
@@ -209,21 +209,21 @@ angular.module('nethvoiceWizardUiApp')
                   ]
                 },
                 {
-                  "variable": "softkey_label",
+                  "variable": "softkey_label_",
                   "default_value": "",
-                  "description": "DSS Key Name",
+                  "description": "Name",
                   "type": "input"
                 },
                 {
-                  "variable": "softkey_value",
+                  "variable": "softkey_value_",
                   "default_value": "",
-                  "description": "DSS Key Value",
+                  "description": "Value",
                   "type": "input"
                 },
                 {
-                  "variable": "softkey_subtype",
+                  "variable": "softkey_subtype_",
                   "default_value": "",
-                  "description": "DSS Key SubType",
+                  "description": "SubType",
                   "type": "list",
                   "options": [{
                       "text": "None",
@@ -268,9 +268,9 @@ angular.module('nethvoiceWizardUiApp')
                   ]
                 },
                 {
-                  "variable": "softkey_line",
+                  "variable": "softkey_line_",
                   "default_value": "",
-                  "description": "DSS Key Line",
+                  "description": "Line",
                   "type": "list",
                   "options": [{
                       "text": "None",
@@ -319,9 +319,9 @@ angular.module('nethvoiceWizardUiApp')
           "loop_end": modelMap.lineKeys,
           "data": {
             "items": [{
-                "variable": "linekey_type",
+                "variable": "linekey_type_",
                 "default_value": "0",
-                "description": "Line Key Type",
+                "description": "Type",
                 "type": "list",
                 "options": [{
                     "text": "None",
@@ -346,21 +346,21 @@ angular.module('nethvoiceWizardUiApp')
                 ]
               },
               {
-                "variable": "linekey_label",
+                "variable": "linekey_label_",
                 "default_value": "",
-                "description": "Line Key Name",
+                "description": "Name",
                 "type": "input"
               },
               {
                 "variable": "linekey_value",
                 "default_value": "",
-                "description": "Line Key Value",
+                "description": "Value",
                 "type": "input"
               },
               {
                 "variable": "linekey_subtype",
                 "default_value": "",
-                "description": "Line Key SubType",
+                "description": "SubType",
                 "type": "list",
                 "options": [{
                     "text": "None",
@@ -413,9 +413,9 @@ angular.module('nethvoiceWizardUiApp')
                 ]
               },
               {
-                "variable": "linekey_line",
+                "variable": "linekey_line_",
                 "default_value": "",
-                "description": "Line Key Line",
+                "description": "Line",
                 "type": "list",
                 "options": [{
                     "text": "None",
@@ -464,9 +464,9 @@ angular.module('nethvoiceWizardUiApp')
           "loops": modelMap.expKeys.loops,
           "data": {
             "items": [{
-                "variable": "$exp{{$loop}}key_type",
+                "variable": "key_type_",
                 "default_value": "0",
-                "description": "Exp Key Type",
+                "description": "Type",
                 "type": "list",
                 "options": [{
                     "text": "None",
@@ -491,21 +491,21 @@ angular.module('nethvoiceWizardUiApp')
                 ]
               },
               {
-                "variable": "$exp{{$loop}}key_label",
+                "variable": "key_name_",
                 "default_value": "",
-                "description": "Exp Key Name",
+                "description": "Name",
                 "type": "input"
               },
               {
-                "variable": "$exp{{$loop}}key_value",
+                "variable": "key_value_",
                 "default_value": "",
-                "description": "Exp Key Value",
+                "description": "Value",
                 "type": "input"
               },
               {
-                "variable": "$exp{{$loop}}key_subtype",
+                "variable": "key_subtype_",
                 "default_value": "",
-                "description": "Exp Key SubType",
+                "description": "SubType",
                 "type": "list",
                 "options": [{
                     "text": "None",
@@ -550,9 +550,9 @@ angular.module('nethvoiceWizardUiApp')
                 ]
               },
               {
-                "variable": "$exp{{$loop}}key_line",
+                "variable": "key_line_",
                 "default_value": "",
-                "description": "Exp Key Line",
+                "description": "Line",
                 "type": "list",
                 "options": [{
                     "text": "None",
@@ -591,7 +591,6 @@ angular.module('nethvoiceWizardUiApp')
       return {
         "name": "Preference",
         "items": [{
-            "category": "features",
             "variable": "call_waiting",
             "default_value": "0",
             "description": "Call Waiting",
@@ -607,7 +606,6 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "category": "preference",
             "variable": "audio_fanvil",
             "default_value": "0",
             "description": "Ring in Headset",
@@ -627,7 +625,6 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "category": "preference",
             "variable": "default_ringtone",
             "default_value": "Type 1",
             "description": "Ring Tones",
@@ -671,7 +668,6 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "category": "features",
             "variable": "dss_transfer",
             "default_value": "2",
             "description": "Transfer Mode via DSSkey",
@@ -930,7 +926,6 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "category": "date&time",
             "variable": "timezone_fanvil",
             "default_value": "4",
             "description": "Time Zone",
@@ -1102,7 +1097,6 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "category": "date&time",
             "variable": "timezone_name_fanvil",
             "default_value": "UTC+1",
             "description": "Time Zone Name",
@@ -1266,7 +1260,6 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "category": "date&time",
             "variable": "date_format",
             "default_value": "2",
             "description": "Date Display Format",
@@ -1314,7 +1307,6 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "category": "date&time",
             "variable": "time_format",
             "default_value": "0",
             "description": "Time Display Format",
@@ -1330,7 +1322,6 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "category": "tones",
             "variable": "tones_fanvil",
             "default_value": "21",
             "description": "Country Tones",
@@ -1474,13 +1465,13 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "variable": "$adminpw",
+            "variable": "adminpw",
             "default_value": "admin",
             "description": "Web administration password",
             "type": "input"
           },
           {
-            "variable": "$userpw",
+            "variable": "userpw",
             "default_value": "guest",
             "description": "Web user password",
             "type": "input"

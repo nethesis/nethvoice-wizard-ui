@@ -15,6 +15,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.inventoryModels = {}
     $scope.loadingModels = {}
 
+    var modelNameChecking = "",
+        currentModelChanged = false
+
     // get all models
     var getModels = function () {
       ModelService.getModels().then(function (res) {
@@ -27,8 +30,12 @@ angular.module('nethvoiceWizardUiApp')
     // function for the currentModel creation
     $scope.setCurrentModel = function (name) {
       if ($scope.currentModel.name != name) {
+        currentModelChanged = false
         $scope.loadingModels[name] = true
         $scope.buildModel(name).then(function (res) {
+
+          console.log("CURRENT MODEL", $scope.currentModel)
+
           setTimeout(function () {
             $scope.loadingModels[name] = false
             $scope.$apply()
@@ -39,6 +46,32 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         $scope.currentModel.hidden = !$scope.currentModel.hidden
       }
+    }
+
+    $scope.checkCurrentModelStatus = function (name) {
+      if ($scope.currentModel.name != name) {
+        if (currentModelChanged) {
+          console.log("CURRENT MODEL CHANGED ")
+          modelNameChecking = name
+          $("#modelChangeConfirm").modal("show")
+        } else {
+          $scope.setCurrentModel(name)
+        }
+      } else {
+        $scope.currentModel.hidden = !$scope.currentModel.hidden
+      }
+    }
+
+    $scope.onModelSetContinue = function () {
+      $("#modelChangeConfirm").modal("hide")
+      $scope.setCurrentModel(modelNameChecking)
+    }
+
+    $scope.onVariableChanged = function () {
+      if (!currentModelChanged) {
+        currentModelChanged = true
+      }
+      console.log("CURRENT MODEL", $scope.currentModel)
     }
 
     $scope.createPhone = function () {
@@ -53,29 +86,57 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.listPhones = function () {
       ModelService.getPhones().then(function (res) {
-        console.log("RES GET", res);
+        console.log("RES GET", res)
       }, function (err) {
         console.log(err)
       })
     }
 
-    $scope.createModel = function () {
-      ModelService.addModel({
-        "name": "X6",
-        "display_name": "Fanvil-X6",
-        "variables": {
-            "call_waiting": "0",
-            "audio_fanvil": "1",
-            "default_ringtone": "Type 1",
-            "dss_transfer": "2",
-            "ldap_server": "192.168.5.89"
-        }
-      }).then(function (res) {
-        console.log("RES GET", res);
-      }, function (err) {
-        console.log(err)
-      })
-    }
+    // $scope.createModel = function () {
+    //   ModelService.addModel({
+    //     "name": "Fanvil-X5S",
+    //     "display_name": "Fanvil-X5S",
+    //     "variables": {
+    //       "language_fanvil" : "English",
+    //       "language_fanvil2" : "English",
+    //       "soft_key1" : "dsskey2",
+    //       "call_waiting" : 0,
+    //       "audio_fanvil" : 0,
+    //       "default_ringtone": "Type 1",
+    //       "dss_transfer": "2",
+    //       "time_format": "0",
+    //       "date_format" : "off",
+    //       "soft_key3" : "dnd",
+    //       "ldap_base" : "dc:phonebook,dc:nh",
+    //       "ldap_name_attr" : "cn o",
+    //       "ldap_name_display" : "%cn %o",
+    //       "ldap_name_filter" : "(|(cn:%)(o:%))",
+    //       "ldap_number_filter" : "(|(telephoneNumber:%)(mobile:%)(homePhone:%))",
+    //       "ldap_server" : "192.168.11.1",
+    //       "provisioning_type" : "https",
+    //       "timezone_fanvil" : "Europe/Rome",
+    //       "timezone_name_fanvil" : "UTC-10",
+    //       "adminpw" : "admin",
+    //       "userpw" : "guest",
+    //       "tones_fanvil" : "15",
+    //       "voice_vlan_enable" : "0",
+    //       "voice_vlan_id" : "0",
+    //       "data_vlan_id" : "0",
+    //       "voice_vlan_signalling" : "0",
+    //       "voice_vlan_voice_priority" : "0",
+    //       "data_vlan_priority" : "0",
+    //       "dhcp_enable" : "66",
+    //       "pnp_enable" : "0",
+    //       "call_waiting" : 0,
+    //       "model" : "X5S",
+    //       "model_template" : "snom-MODEL.tmpl"
+    //     }
+    //   }).then(function (res) {
+    //     console.log("RES GET", res);
+    //   }, function (err) {
+    //     console.log(err)
+    //   })
+    // }
 
     $scope.listModels = function () {
       ModelService.getModels().then(function (res) {
@@ -84,6 +145,14 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err)
       })
     }
+
+    // $scope.getDefaults = function () {
+    //   ModelService.getDefaults().then(function (res) {
+    //     console.log("RES", res);
+    //   }, function (err) {
+    //     console.log("RES", res);
+    //   })
+    // }
 
     // initialisation
     getModels()
