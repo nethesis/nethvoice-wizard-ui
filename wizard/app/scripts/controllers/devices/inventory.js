@@ -19,16 +19,55 @@ angular.module('nethvoiceWizardUiApp')
     $scope.failedAddPhones = [];
     $scope.errors = [];
 
+    function gotModels(models) {
+      $scope.models = models;
+    }
+
+    function gotPhones(phonesTancredi) {
+      $scope.phones = [];
+
+      for (var phoneTancredi of phonesTancredi) {
+        var phone = PhoneService.buildPhone(phoneTancredi, $scope.models);
+        $scope.phones.push(phone);
+      }
+    }
+
+    function gotNetworks(networks) {
+      // assign network names
+      for (const [networkName, network] of Object.entries(networks)) {
+        network.name = networkName;
+      }
+      $scope.networks = networks;
+
+      for (var eth in $scope.networks) {
+        $scope.tasks[eth] = {};
+      }
+    }
+
+    function init() {
+      $scope.uiLoaded = false;
+
+      Promise.all([
+        ModelService.getModels(),
+        PhoneService.getPhones(),
+        ConfigService.getNetworks()
+      ]).then(function (res) {
+        gotModels(res[0].data);
+        gotPhones(res[1].data);
+        gotNetworks(res[2].data);
+        $scope.uiLoaded = true;
+      }, function (err) {
+        console.log(err);
+        addErrorNotification(err.data, "Error retrieving data");
+        $scope.uiLoaded = true;
+      });
+    }
+
     $scope.getPhones = function () {
       $scope.uiLoaded = false;
 
       PhoneService.getPhones().then(function (success) {
-        $scope.phones = [];
-
-        for (var phoneTancredi of success.data) {
-          var phone = PhoneService.buildPhone(phoneTancredi, $scope.models);
-          $scope.phones.push(phone);
-        }
+        gotPhones(success.data);
         $scope.uiLoaded = true;
       }, function (err) {
         console.log(err);
@@ -40,9 +79,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getModels = function () {
       $scope.uiLoaded = false;
 
-      ModelService.getModels().then(function (res) {
-        $scope.models = res.data;
-        $scope.getPhones();
+      ModelService.getModels().then(function (success) {
+        gotModels(success.data);
+        $scope.uiLoaded = true;
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving models");
@@ -222,17 +261,6 @@ angular.module('nethvoiceWizardUiApp')
 
     function networkScanCompleted(network) {
       DeviceService.phoneListByNetwork(network).then(function (res) {
-        // var phonesFromScan = [ //// mockup
-        //   { "mac": "00:04:13:11:22:91" },
-        //   { "mac": "0C:38:3E:99:88:92" },
-        //   { "mac": "00:15:65:55:55:93" },
-        //   { "mac": "00:15:65:55:55:94" },
-        //   { "mac": "00:15:65:55:55:95" },
-        //   { "mac": "00:15:65:55:55:96" },
-        //   { "mac": "00:15:65:55:55:97" },
-        //   { "mac": "00:04:13:11:22:98" }
-        // ];
-
         // skip phones already present in inventory
         var phonesFromScan = res.data.filter(function (phoneFromScan) {
           var macFromScan = phoneFromScan.mac.replace(/:/g, "-");
@@ -240,7 +268,6 @@ angular.module('nethvoiceWizardUiApp')
           var alreadyPresent = $scope.phones.find(function (phone) {
             return phone.mac === macFromScan;
           });
-
           return !alreadyPresent;
         });
 
@@ -370,10 +397,7 @@ angular.module('nethvoiceWizardUiApp')
         // PhoneService.createPhoneMock(phoneTancredi, 0.7).then(function (phoneTancrediResult) { ////
         PhoneService.createPhone(phoneTancredi).then(function (success) {
           var phone = PhoneService.buildPhone(success.data, $scope.models);
-
-          console.log("success", phone.mac); ////
           $scope.pendingRequestsAddPhones--;
-
           $scope.successfulAddPhones.push(phone);
 
           if ($scope.pendingRequestsAddPhones == 0) {
@@ -613,38 +637,16 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.getNetworks = function () {
-      // clearErrorNotification(); ////
+      $scope.uiLoaded = false;
 
-      ConfigService.getNetworks().then(function (res) {
-        var networks = res.data;
-
-        // assign network names
-        for (var key in networks) {
-          if (networks.hasOwnProperty(key)) {
-            networks[key].name = key;
-          }
-        }
-        $scope.networks = networks;
-
-        for (var eth in $scope.networks) {
-          $scope.tasks[eth] = {};
-        }
+      ConfigService.getNetworks().then(function (success) {
+        gotNetworks(success.data);
+        $scope.uiLoaded = true;
       }, function (err) {
         console.log(err);
-        // setErrorNotification(err.data, "Error retrieving network interfaces"); ////
         addErrorNotification(err.data, "Error retrieving network interfaces");
       });
     };
-
-    // function clearErrorNotification() { ////
-    //   $scope.error = null;
-    //   $scope.errorMessage = null;
-    // }
-
-    // function setErrorNotification(error, errorMessage) { ////
-    //   $scope.error = error;
-    //   $scope.errorMessage = errorMessage;
-    // }
 
     function addErrorNotification(error, errorMessage) {
       error.message = errorMessage;
@@ -681,7 +683,5 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     // $scope.postModels(); ////
-
-    $scope.getModels();
-    $scope.getNetworks();
+    init();
   });

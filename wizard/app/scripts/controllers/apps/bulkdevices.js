@@ -39,7 +39,7 @@ angular.module('nethvoiceWizardUiApp')
         gotDelayedReboot(res[4].data);
         $scope.uiLoaded = true;
       }, function (err) {
-        console.log("err", err);
+        console.log(err);
         addErrorNotification(err.data, "Error retrieving data");
         $scope.uiLoaded = true;
       });
@@ -391,9 +391,6 @@ angular.module('nethvoiceWizardUiApp')
       ModelService.getModels().then(function (res) {
         gotModels(res.data);
         $scope.uiLoaded = true;
-
-        // $scope.models = res.data;
-        // $scope.getPhones();
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving models");
@@ -441,7 +438,7 @@ angular.module('nethvoiceWizardUiApp')
         getDelayedReboot();
         $scope.uiLoaded = true;
       }, function (err) {
-        console.log("err", err);
+        console.log(err);
         addErrorNotification(err.data, "Error setting delayed reboot");
         $scope.uiLoaded = true;
       });
