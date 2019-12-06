@@ -115,9 +115,14 @@
               <div class="list-view-pf-body">
                 <div class="list-view-pf-description">
                   <div class="list-group-item-heading adjust-weight">
-                    {{ phone.vendor ? phone.vendor : '-'}}
+                    <div>
+                      {{ phone.vendor ? phone.vendor : '-'}}
+                    </div>
+                    <div>
+                      <b>{{ phone.mac }}</b>
+                    </div>
                   </div>
-                  <div class="list-group-item-text">
+                  <div class="list-group-item-text width-55p">
                     <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)"
                       ng-model="phone.model"
                       ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue">
@@ -125,12 +130,12 @@
                     </select>
                   </div>
                 </div>
-                <div class="list-view-pf-additional-info config-info">
+                <!-- <div class="list-view-pf-additional-info config-info"> ////
                   <div>
                     <span class="fa fa-server mg-right-5"></span>
                     MAC: <b>{{phone.mac}}</b>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -451,8 +456,8 @@
                 <div class="alert alert-warning alert-dismissable">
                   <span class="pficon pficon-warning-triangle-o"></span>
                   <span class="margin-left-5">
-                    {{ 'You are about to delete phone' | translate }}{{ phoneToDelete.display_name ? ' ' + phoneToDelete.display_name : ''}}
-                    <b>{{ phoneToDelete.mac }}</b>
+                    {{ 'You are about to delete phone' | translate }}
+                    <b>{{ phoneToDelete.vendor ? phoneToDelete.vendor : ''}} {{ phoneToDelete.mac }}</b>
                   </span>
                 </div>
                 <form class="form-horizontal">

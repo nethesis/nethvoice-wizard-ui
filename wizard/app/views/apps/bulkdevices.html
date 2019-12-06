@@ -114,13 +114,7 @@
         <div class="list-group-item cursor-default {{phone.selected ? 'selected' : ''}}"
           ng-repeat="phone in phones track by $index | orderBy: 'display_name'" ng-show="phone.filtered">
           <label for="checkbox-phone-{{$index}}" class="width-100p">
-            <div class="list-view-pf-actions width-25p">
-              <!-- user -->
-              <div>
-                <span class="fa fa-user mg-right-5"></span>
-                <span class="adjust-weight">{{ 'User' | translate }}:</span>
-                <b>{{ phone.user ? phone.user.username : '-' }}</b>
-              </div>
+            <div class="list-view-pf-actions width-15p">
               <!-- reboot -->
               <div>
                 <span class="pficon pficon-restart mg-right-5"></span>
@@ -138,24 +132,33 @@
               </div>
               <div class="list-view-pf-body">
                 <div class="list-view-pf-description">
-                  <div class="list-group-item-heading-narrow adjust-weight">
-                    <!-- vendor  -->
-                    {{ phone.vendor ? phone.vendor : '-'}}
-                  </div>
-                  <div class="list-group-item-text-narrow width-55p flex-grow-1">
-                    <!-- MAC -->
+                  <div class="list-group-item-heading adjust-weight">
                     <div>
+                      {{ phone.vendor ? phone.vendor : '-'}}
+                    </div>
+                    <div>
+                      <b>{{ phone.mac }}</b>
+                    </div>
+                  </div>
+                  <div class="list-group-item-text width-55p">
+                    <!-- MAC -->
+                    <!-- <div> ////
                       <span class="fa fa-server mg-right-5"></span>
                       <span class="adjust-weight">MAC:</span>
                       <b>{{phone.mac}}</b>
-                    </div>
+                    </div> -->
                     <!-- model -->
-                    <div>
+                    <div class="line-height-normal">
                       <span class="fa fa-phone mg-right-5"></span>
                       <span class="adjust-weight">{{ 'Model' | translate }}:</span>
                       <b>{{ phone.model ? phone.model.display_name : '-' }}</b>
                     </div>
-
+                    <!-- user -->
+                    <div class="line-height-normal">
+                      <span class="fa fa-user mg-right-5"></span>
+                      <span class="adjust-weight">{{ 'User' | translate }}:</span>
+                      <b>{{ phone.user ? phone.user.username : '-' }}</b>
+                    </div>
                   </div>
                 </div>
               </div>

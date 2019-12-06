@@ -2494,8 +2494,8 @@ iframe body {
   margin-bottom: 0;
 }
 
-.width-25p {
-  width: 25% !important;
+.width-15p {
+  width: 15% !important;
 }
 
 .width-55p {
@@ -2532,5 +2532,9 @@ a.black:focus, a.black:hover, a.black:active {
 
 .flex-grow-1 {
   flex-grow: 1;
+}
+
+.line-height-normal {
+  line-height: 1.66666667;
 }
 /* end Inventory */
