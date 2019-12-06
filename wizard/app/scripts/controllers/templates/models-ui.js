@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('ModelsUICtrl', function ($scope) {
+  .controller('ModelsUICtrl', function ($scope, ModelService) {
 
     $scope.isKeysSection = function (keyName) {
       if (keyName.toLowerCase().includes("keys")) {
@@ -44,9 +44,17 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.saveCurrentModel = function () {
+      ModelService.patchModel($scope.currentModel.name, {
+          "display_name": $scope.currentModel.name,
+          "variables": $scope.currentModel.variables
+        }).then(function (res) {
+        $scope.hideModal("saveChangesConfirm")
+      }, function (err) {
+        console.log(err)
+      })
+    }
 
-    
-    
 
   })
 

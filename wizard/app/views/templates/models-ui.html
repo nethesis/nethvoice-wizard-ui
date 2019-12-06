@@ -251,7 +251,7 @@
       </form>
     </div>
   </div>
-  <button ng-show="!loadingModels[model.name]" ng-click="resetModel(model)"
+  <button ng-show="!loadingModels[model.name]" ng-click="showModal('saveChangesConfirm')"
     class="btn btn-primary btn-lg profile-button-save mb-10 mt-30" type="submit">
     {{'Save' | translate}}
   </button>
@@ -261,41 +261,86 @@
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Annulla le modifiche</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Ripristina i valori originali</a></li>
+      <li role="presentation">
+        <a ng-click="showModal('cancelChangesConfirm')" role="menuitem">
+          Annulla le modifiche
+        </a>
+      </li>
+      <li role="presentation">
+        <a>
+          Ripristina i valori originali
+        </a>
+      </li>
       <li role="presentation" class="divider"></li>
       <li role="presentation" class="red-colored"><a role="menuitem" tabindex="-1" href="#">{{"Delete" | translate}}</a></li>
     </ul>
   </div>
-</div>
 
-<div class="modal fade" id="cancelChangesConfirm" tabindex="-1" role="dialog" aria-labelledby="cancelChangesConfirm"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          <span class="pficon pficon-close"></span>
-        </button>
-        <h4 class="modal-title" id="nModelMLabel">{{"Cancel changes" | translate}}</h4>
-      </div>
-      <form class="form-horizontal mt-10" ng-submit="onModelSetContinue()">
-        <div class="modal-body">
-          <div class="alert alert-danger alert-dismissable">
-            <span class="pficon pficon-error-circle-o"></span>
-            <strong>
-              {{"Changes on the current model will be cancel" | translate}}.
-            </strong>
-            <p>
-              {{"Are you sure" | translate}}?
-            </p>
+  <!-- save modal -->
+  <div class="modal fade" id="saveChangesConfirm" tabindex="-1" role="dialog" aria-labelledby="saveChangesConfirm"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+          <h4 class="modal-title" id="nModelMLabel">{{"Save changes" | translate}}</h4>
+        </div>
+        <form class="form-horizontal mt-10" ng-submit="saveCurrentModel()">
+          <div class="modal-body">
+            <div class="alert alert-warning">
+              <span class="pficon pficon-warning-triangle-o"></span>
+              <strong>
+                {{"Changes on the current model will be saved" | translate}}.
+              </strong>
+              <p>
+                {{"Are you sure" | translate}}?
+              </p>
+            </div>
           </div>
-        </div>
-        <div class="modal-footer submit">
-          <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
-          <button type="submit" class="btn btn-primary">{{'Yes' | translate}}</button>
-        </div>
-      </form>
+          <div class="modal-footer submit">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+            <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
+
+  <!-- actions modal -->
+  <div class="modal fade" id="cancelChangesConfirm" tabindex="-1" role="dialog" aria-labelledby="cancelChangesConfirm"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+          <h4 class="modal-title" id="nModelMLabel">{{"Cancel changes" | translate}}</h4>
+        </div>
+        <form class="form-horizontal mt-10" ng-submit="onModelSetContinue()">
+          <div class="modal-body">
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span class="pficon pficon-close"></span>
+              </button>
+              <span class="pficon pficon-warning-triangle-o"></span>
+              <strong>
+                {{"Changes on the current model will be cancel" | translate}}.
+              </strong>
+              <p>
+                {{"Are you sure" | translate}}?
+              </p>
+            </div>
+          </div>
+          <div class="modal-footer submit">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
+            <button type="submit" class="btn btn-primary">{{'Continue' | translate}}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </div>

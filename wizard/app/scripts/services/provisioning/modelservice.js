@@ -58,6 +58,17 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    // Update model
+    this.patchModel = function (name, obj) {
+      return $q(function (resolve, reject) {
+        RestService.tpatch('/tancredi/api/v1/models/' + name, obj).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
     // Retrieve the default variable values
     this.getDefaults = function () {
       return $q(function (resolve, reject) {

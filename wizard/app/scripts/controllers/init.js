@@ -260,6 +260,14 @@ angular.module('nethvoiceWizardUiApp')
       $("#" + id).slideDown("fast");
     }
 
+    $scope.showModal = function (id) {
+      $("#" + id).modal("show")
+    }
+    
+    $scope.hideModal = function (id) {
+      $("#" + id).modal("hide")
+    }
+
     // set language
     $scope.changeLanguage({
       key: LocalStorageService.get('preferredLanguage') || 'default'
@@ -332,15 +340,16 @@ angular.module('nethvoiceWizardUiApp')
             modelBrand = nameSplit[0]
         ModelService.getModel(name).then(function (res) {
           $scope.currentModel = {
-            ui : $scope.getModelUI(modelName, modelBrand),
-            variables : res.data.variables,
-            changedVariables: [],
-            name : name,
-            openedSection : "",
-            openedExpKeys: "",
-            showingKeys: "",
-            showingExpKeys: "",
-            hidden: false
+            "ui" : $scope.getModelUI(modelName, modelBrand),
+            "variables" : res.data.variables,
+            "changedVariables": [],
+            "name" : name,
+            "display_name" : res.data.display_name,
+            "openedSection" : "",
+            "openedExpKeys": "",
+            "showingKeys": "",
+            "showingExpKeys": "",
+            "hidden": false
           }
           ModelService.getDefaults().then(function (res) {
             for (var varKey in res.data) {

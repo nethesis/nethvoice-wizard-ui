@@ -28,7 +28,7 @@
       <div class="list-group list-view-pf adjust-margin-extensions no-border">
         <div ng-repeat="model in inventoryModels track by model.name" class="adjust-profile-margin">
           <div id="accordion-models-{{$index}}">
-            <h1 ng-click="checkCurrentModelStatus(model.name)" class="adjust-header adjust-profile-header">
+            <h1 ng-click="checkCurrentModelStatus(model.name)" class="adjust-header adjust-profile-header pointer">
               <span class="fa fa-cube card-pf-icon-circle config-title-icon"></span>{{'Model' | translate}}
               <span class="weight">{{::model.name | translate}}</span>
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
@@ -110,13 +110,13 @@
       </div>
       <form class="form-horizontal mt-10" ng-submit="onModelSetContinue()">
         <div class="modal-body">
-          <div class="alert alert-danger alert-dismissable">
-            <span class="pficon pficon-error-circle-o"></span>
+          <div class="alert alert-warning">
+            <span class="pficon pficon-warning-triangle-o"></span>
             <strong>
               {{"Changes on the current model will be lost" | translate}}.
             </strong>
             <p>
-              {{"Save the changes before continuing" | translate}}!
+              {{"Save the changes before continuing" | translate}}?
             </p>
           </div>
         </div>
