@@ -7,7 +7,8 @@
     <div class="toast-notifications-list-pf">
       <div class="toast-pf alert alert-danger alert-dismissable mg-bottom-5" id="error-{{error.id}}"
         ng-repeat="error in errors track by $index">
-        <button type="button" class="close" data-dismiss="error-{{error.id}}" ng-click="deleteError(error.id)" aria-hidden="true">
+        <button type="button" class="close" data-dismiss="error-{{error.id}}" ng-click="deleteError(error.id)"
+          aria-hidden="true">
           <span class="pficon pficon-close"></span>
         </button>
         <span class="pficon pficon-error-circle-o"></span>
@@ -69,19 +70,6 @@
       </div>
       <!-- actions button -->
       <div class="mg-bottom-15">
-        <!-- <div class="dropdown"> ////
-          <button class="btn btn-lg btn-primary dropdown-toggle" type="button" id="actions-bulk" data-toggle="dropdown"
-            ng-disabled="numSelected == 0">
-            {{'Actions' | translate}}
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="actions-bulk">
-            <li role="presentation"><a role="menuitem" tabindex="-1"
-                ng-click="showSetModelModal()" ng-disabled="!allSelectedallSelectedSameModel">{{'Set model' | translate}}</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1"
-                ng-click="showSetRebootModal()">{{'Set delayed reboot' | translate}}</a></li>
-          </ul>
-        </div> -->
         <button class="btn btn-primary" ng-click="showSetModelModal()"
           ng-disabled="numSelected == 0 || !allSelectedSameVendor">{{ 'Set model' | translate }}</button>
         <button class="btn btn-primary" ng-click="showSetRebootModal()"
@@ -142,12 +130,6 @@
                     </div>
                   </div>
                   <div class="list-group-item-text width-55p">
-                    <!-- MAC -->
-                    <!-- <div> ////
-                      <span class="fa fa-server mg-right-5"></span>
-                      <span class="adjust-weight">MAC:</span>
-                      <b>{{phone.mac}}</b>
-                    </div> -->
                     <!-- model -->
                     <div class="line-height-normal">
                       <span class="fa fa-phone mg-right-5"></span>

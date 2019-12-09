@@ -32,19 +32,6 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    // Mock: retrieve the complete phone inventory
-    this.getPhonesMock = function (mockPhones) { //// remove
-      return $q(function (resolve, reject) {
-        if (mockPhones) {
-          // return the input phones list
-          resolve(mockPhones);
-        } else {
-          // return an empty list
-          resolve([]);
-        }
-      });
-    };
-
     // Create a new phone instance and add it to the phone inventory
     this.createPhone = function (phone) {
       return $q(function (resolve, reject) {
@@ -53,39 +40,6 @@ angular.module('nethvoiceWizardUiApp')
         }, function (err) {
           reject({ "error": err, "phone": phone });
         });
-      });
-    };
-
-    // Mock: create a new phone instance and add it to the phone inventory; it succeeds with probability prob
-    this.createPhoneMock = function (phone, prob) { //// remove
-      // if probability is not passed, always succeeds
-      if (!prob) {
-        prob = 1;
-      }
-      var success = !!prob && Math.random() <= prob;
-
-      return $q(function (resolve, reject) {
-        if (success) {
-          var res = {
-            "mac": phone.mac,
-            "model": phone.model,
-            "display_name": phone.display_name,
-            "tok1": "99999999-6e80-41ff-9437-c4b1413975db",
-            "tok2": "99999999-b860-498f-8bfa-4947e170873b",
-            "model_url": "/tancredi/api/v1/models/" + phone.model,
-            "variables": {
-              "var1": "value1",
-              "var2": "value2"
-            }
-          }
-          resolve(res);
-        } else {
-          var err = {
-            "type": "https://github.com/nethesis/tancredi/wiki/problems#mock-error",
-            "title": "Mock: an error has occured (success prob: " + prob + ")"
-          }
-          reject({ "error": err, "phone": phone });
-        }
       });
     };
 

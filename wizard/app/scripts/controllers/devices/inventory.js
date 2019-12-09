@@ -225,11 +225,9 @@ angular.module('nethvoiceWizardUiApp')
         $scope.tasks[netName].promise = $interval(function () {
           UtilService.taskStatus(res.data.result).then(function (res) {
             if (res.data.progress < 100) {
-              console.log('progress < 100, res.data', res.data); ////
               $scope.tasks[netName].currentProgress = res.data.progress;
               $scope.tasks[netName].errorCount = 0;
             } else if (res.data.progress == 100) {
-              console.log('progress == 100, res', res); ////
               $scope.tasks[netName].currentProgress = res.data.progress;
               $scope.tasks[netName].errorCount = 0;
               $interval.cancel($scope.tasks[netName].promise);
@@ -397,7 +395,6 @@ angular.module('nethvoiceWizardUiApp')
         // set formatted MAC
         phone.mac = phoneTancredi.mac;
 
-        // PhoneService.createPhoneMock(phoneTancredi, 0.7).then(function (phoneTancrediResult) { ////
         PhoneService.createPhone(phoneTancredi).then(function (success) {
           var phone = PhoneService.buildPhone(success.data, $scope.models);
           $scope.pendingRequestsAddPhones--;
@@ -660,12 +657,8 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.deleteError = function (errorId) {
-      // console.log("deleting error", errorId); ////
-
       $scope.errors = $scope.errors.filter(function (error) {
-        var keep = error.id !== errorId; ////
-        // console.log("keep", error.id, keep);
-        return keep;
+        return error.id !== errorId;
       });
     }
 
@@ -674,12 +667,6 @@ angular.module('nethvoiceWizardUiApp')
       error.id = $scope.errorId;
       $scope.errorId++;
       $scope.errors.push(error);
-
-      // console.log("error length", $scope.errors.length); ////
-      // for (var error of $scope.errors) { ////
-      //   console.log("error", error.id);
-      // }
-      // console.log("-----"); ////
     }
 
     $scope.postModels = function () { //// mockup

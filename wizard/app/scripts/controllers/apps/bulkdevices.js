@@ -22,18 +22,6 @@ angular.module('nethvoiceWizardUiApp')
       "display_name": $filter('translate')('Choose') + "..."
     };
 
-    $scope.phonesTancredi = [ //// mockup
-      { mac: "11-22-33-44-55-66", model: null, display_name: null },
-      { mac: "00-04-13-11-22-31", model: "snom100", display_name: "Snom" },
-      { mac: "0C-38-3E-99-88-72", model: "fanvil-600", display_name: "Fanvil" },
-      { mac: "00-15-65-55-55-53", model: "fanvil-600", display_name: "Yealink" },
-      { mac: "00-04-13-11-22-34", model: "snom200", display_name: "Snom" },
-      { mac: "00-04-13-11-22-35", model: "snom100", display_name: "Snom" },
-      { mac: "00-04-13-11-22-36", model: "snom200", display_name: "Snom" },
-      { mac: "0C-38-3E-99-88-77", model: null, display_name: "Fanvil" },
-      { mac: "00-15-65-55-55-58", model: null, display_name: "Yealink" }
-    ];
-
     function init() {
       $scope.uiLoaded = false;
       initDateTimePicker();
@@ -103,12 +91,8 @@ angular.module('nethvoiceWizardUiApp')
     }, true);
 
     $scope.deleteError = function (errorId) {
-      // console.log("deleting error", errorId); ////
-
       $scope.errors = $scope.errors.filter(function (error) {
-        var keep = error.id !== errorId; ////
-        // console.log("keep", error.id, keep);
-        return keep;
+        return error.id !== errorId;
       });
     }
 
@@ -117,17 +101,9 @@ angular.module('nethvoiceWizardUiApp')
       error.id = $scope.errorId;
       $scope.errorId++;
       $scope.errors.push(error);
-
-      // console.log("error length", $scope.errors.length); ////
-      // for (var error of $scope.errors) { ////
-      //   console.log("error", error.id);
-      // }
-      // console.log("-----"); ////
     }
 
     function gotDelayedReboot(rebootData) {
-      console.log("reboot data", rebootData); ////
-
       // clear old reboot times
       for (var phone of $scope.phones) {
         phone.delayedReboot = null;
@@ -163,8 +139,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.filteredModel = null;
       $scope.phones = [];
 
-      for (var phoneTancredi of phones) { //// uncomment
-        // for (var phoneTancredi of $scope.phonesTancredi) { //// mockup
+      for (var phoneTancredi of phones) {
         var phone = PhoneService.buildPhone(phoneTancredi, $scope.models);
         phone.filtered = true;
         $scope.phones.push(phone);
@@ -188,9 +163,6 @@ angular.module('nethvoiceWizardUiApp')
         if (phoneUser) {
           phone.user = phoneUser;
         }
-
-        //// mockup: get next reboot date
-        // phone.delayedReboot = moment().format('HH:mm');
       }
     }
 
@@ -246,7 +218,6 @@ angular.module('nethvoiceWizardUiApp')
       UserService.list(true).then(function (res) {
         $scope.uiLoaded = true;
         gotUsers(res.data);
-        console.log("users", $scope.users); ////
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving users");
@@ -447,61 +418,6 @@ angular.module('nethvoiceWizardUiApp')
       }
       $('#bulkRebootModal').modal('hide');
     }
-
-    // for (var phone of $scope.phones) { ////
-    //   if (phone.selected) {
-    //     if ($scope.bulkReboot) {
-    // delayedRebootPromises.push(PhoneService.setPhoneDelayedReboot(phone.mac, hours, minutes)); ////
-
-    // } else {
-    // clear delayed reboot
-    // delayedRebootPromises.push(PhoneService.deletePhoneDelayedReboot(phone.mac)); ////
-    //     }
-    //   }
-    // }
-    // $scope.uiLoaded = false;
-
-    // Promise.all(delayedRebootPromises).then(function (success) {
-    //   // reload updated data
-    //   $scope.uiLoaded = true;
-    //   getDelayedReboot();
-    // }, function (err) {
-    //   console.log(err);
-    //   addErrorNotification(err.data, "Error setting delayed reboot");
-
-    //   $scope.$apply(function () {
-    //     $scope.uiLoaded = true;
-    //   });
-    // });
-    // }
-
-    // function setPhoneDelayedReboot(phone, delayedReboot) { ////
-    //   $scope.uiLoaded = false;
-
-    //   if (!delayedReboot) {
-    //     // clear delayed reboot
-    //     PhoneService.deletePhoneDelayedReboot(mac).then(function (success) {
-    //       // reload updated data
-    //       getDelayedReboot();
-    //     }, function (err) {
-    //       console.log(err);
-    //       addErrorNotification(err.data, "Error setting delayed reboot");
-    //       $scope.uiLoaded = true;
-    //     });
-    //   } else {
-    //     var tokens = delayedReboot.split(":");
-    //     var hours = tokens[0];
-    //     var minutes = tokens[1];
-    //     PhoneService.setPhoneDelayedReboot(phone.mac, hours, minutes).then(function (success) {
-    //       // reload updated data
-    //       getDelayedReboot();
-    //     }, function (err) {
-    //       console.log(err);
-    //       addErrorNotification(err.data, "Error setting delayed reboot");
-    //       $scope.uiLoaded = true;
-    //     });
-    //   }
-    // }
 
     $scope.showSetModelModal = function () {
       $scope.filteredModels = $scope.models.filter(function (model) {
