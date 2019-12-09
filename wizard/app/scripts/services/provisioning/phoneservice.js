@@ -120,9 +120,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    this.setPhoneDelayedReboot = function (mac, hours, minutes) {
+    this.setPhoneDelayedReboot = function (rebootData) {
       return $q(function (resolve, reject) {
-        RestService.post('/phones/reboot/' + mac + "/" + hours + "/" + minutes).then(function (res) {
+        RestService.post('/phones/reboot', rebootData).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
@@ -130,9 +130,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    this.deletePhoneDelayedReboot = function (mac) {
+    this.deletePhoneDelayedReboot = function (rebootCancelMacs) {
       return $q(function (resolve, reject) {
-        RestService.delete('/phones/reboot/' + mac).then(function (res) {
+        RestService.deleteWithContentTypeJson('/phones/reboot', rebootCancelMacs).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);

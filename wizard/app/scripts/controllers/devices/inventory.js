@@ -18,6 +18,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.successfulAddPhones = [];
     $scope.failedAddPhones = [];
     $scope.errors = [];
+    $scope.errorId = 0;
 
     function gotModels(models) {
       $scope.models = models;
@@ -658,9 +659,27 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    function addErrorNotification(error, errorMessage) {
-      error.message = errorMessage;
+    $scope.deleteError = function (errorId) {
+      // console.log("deleting error", errorId); ////
+
+      $scope.errors = $scope.errors.filter(function (error) {
+        var keep = error.id !== errorId; ////
+        // console.log("keep", error.id, keep);
+        return keep;
+      });
+    }
+
+    function addErrorNotification(error, i18nMessage) {
+      error.i18nMessage = i18nMessage;
+      error.id = $scope.errorId;
+      $scope.errorId++;
       $scope.errors.push(error);
+
+      // console.log("error length", $scope.errors.length); ////
+      // for (var error of $scope.errors) { ////
+      //   console.log("error", error.id);
+      // }
+      // console.log("-----"); ////
     }
 
     $scope.postModels = function () { //// mockup

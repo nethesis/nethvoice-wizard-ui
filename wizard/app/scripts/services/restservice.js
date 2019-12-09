@@ -70,6 +70,24 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.deleteWithContentTypeJson = function(endpoint, data) {
+      var req = {
+        method: 'DELETE',
+        url: customConfig.BASE_API_URL + endpoint,
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        data: data
+       }
+      return $q(function(resolve, reject) {
+        $http(req).then(function successCallback(response) {
+          resolve(response);
+        }, function errorCallback(response) {
+          reject(response);
+        });
+      });
+    };
+
     this.tget = function(endpoint) {
       return $q(function(resolve, reject) {
         $http.get(endpoint).then(function successCallback(response) {
