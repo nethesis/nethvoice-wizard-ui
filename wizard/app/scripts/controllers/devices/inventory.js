@@ -614,7 +614,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.getPhones();
 
         // delete delayed reboot (if present)
-        PhoneService.deletePhoneDelayedReboot($scope.phoneToDelete.mac).then(function (res) {
+        PhoneService.deletePhoneDelayedReboot([$scope.phoneToDelete.mac]).then(function (res) {
           $scope.uiLoaded = true;
         }, function (err) {
           console.log(err);
