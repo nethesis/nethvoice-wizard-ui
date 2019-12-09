@@ -262,17 +262,21 @@
     </button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
       <li role="presentation">
-        <a ng-click="showModal('cancelChangesConfirm')" role="menuitem">
+        <a ng-click="openActionModal('cancel')" role="menuitem">
           Annulla le modifiche
         </a>
       </li>
       <li role="presentation">
-        <a>
+        <a ng-click="openActionModal('reset')">
           Ripristina i valori originali
         </a>
       </li>
       <li role="presentation" class="divider"></li>
-      <li role="presentation" class="red-colored"><a role="menuitem" tabindex="-1" href="#">{{"Delete" | translate}}</a></li>
+      <li role="presentation" class="red-colored">
+        <a ng-click="openActionModal('delete')" role="menuitem">
+          {{"Delete" | translate}}
+        </a>
+      </li>
     </ul>
   </div>
 
@@ -308,8 +312,8 @@
     </div>
   </div>
 
-  <!-- actions modal -->
-  <div class="modal fade" id="cancelChangesConfirm" tabindex="-1" role="dialog" aria-labelledby="cancelChangesConfirm"
+  <!-- actions modal cancel, restore, delete -->
+  <div class="modal fade" id="actionsModal" tabindex="-1" role="dialog" aria-labelledby="actionModal"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -317,17 +321,31 @@
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
             <span class="pficon pficon-close"></span>
           </button>
-          <h4 class="modal-title" id="nModelMLabel">{{"Cancel changes" | translate}}</h4>
+          <h4 ng-if="selectedAction == 'cancel'" class="modal-title" id="nModelMLabel">
+            {{"Cancel changes" | translate}}
+          </h4>
+          <h4 ng-if="selectedAction == 'reset'" class="modal-title" id="nModelMLabel">
+            {{"Reset changes" | translate}}
+          </h4>
+          <h4 ng-if="selectedAction == 'delete'" class="modal-title" id="nModelMLabel">
+            {{"Delete changes" | translate}}
+          </h4>
         </div>
-        <form class="form-horizontal mt-10" ng-submit="onModelSetContinue()">
+        <form class="form-horizontal mt-10"
+          ng-submit="selectedAction == 'cancel' ? cancelChanges() :
+          selectedAction == 'reset' ? resetChanges() :
+          selectedAction == 'delete' ? deleteModel() : ''">
           <div class="modal-body">
             <div class="alert alert-warning alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span class="pficon pficon-close"></span>
-              </button>
               <span class="pficon pficon-warning-triangle-o"></span>
-              <strong>
-                {{"Changes on the current model will be cancel" | translate}}.
+              <strong ng-if="selectedAction == 'cancel'">
+                {{"Changes on the current model will be canceled" | translate}}.
+              </strong>
+              <strong ng-if="selectedAction == 'reset'">
+                {{"Changes on the current model will be reset" | translate}}.
+              </strong>
+              <strong ng-if="selectedAction == 'delete'">
+                {{"Changes on the current model will be deleted" | translate}}.
               </strong>
               <p>
                 {{"Are you sure" | translate}}?

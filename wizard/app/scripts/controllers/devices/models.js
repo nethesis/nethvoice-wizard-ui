@@ -67,10 +67,11 @@ angular.module('nethvoiceWizardUiApp')
       $scope.setCurrentModel(modelNameChecking)
     }
 
-    $scope.onVariableChanged = function () {
+    $scope.onVariableChanged = function (variable) {
       if (!currentModelChanged) {
         currentModelChanged = true
       }
+      $scope.currentModel.changedVariables.push(variable)
       console.log("CURRENT MODEL", $scope.currentModel)
     }
 

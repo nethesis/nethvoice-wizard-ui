@@ -342,6 +342,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.currentModel = {
             "ui" : $scope.getModelUI(modelName, modelBrand),
             "variables" : res.data.variables,
+            "storedVariables": angular.copy(res.data.variables),
             "changedVariables": [],
             "name" : name,
             "display_name" : res.data.display_name,

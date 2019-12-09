@@ -10,6 +10,13 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('ModelsUICtrl', function ($scope, ModelService) {
 
+    $scope.selectedAction = ""
+
+    $scope.openActionModal = function (action) {
+      $scope.selectedAction = action
+      $("#actionsModal").modal("show")
+    }
+
     $scope.isKeysSection = function (keyName) {
       if (keyName.toLowerCase().includes("keys")) {
         return true
@@ -44,6 +51,18 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.cancelChanges = function () {
+      $scope.currentModel.variables = $scope.currentModel.storedVariables
+    }
+
+    $scope.resetChanges = function () {
+
+    }
+
+    $scope.deleteModel = function () {
+
+    }
+
     $scope.saveCurrentModel = function () {
       ModelService.patchModel($scope.currentModel.name, {
           "display_name": $scope.currentModel.name,
@@ -54,7 +73,6 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err)
       })
     }
-
 
   })
 
