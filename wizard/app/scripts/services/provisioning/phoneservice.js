@@ -140,9 +140,13 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
+    this.removeMacSeparators = function (macAddress) {
+      return macAddress.replace(/:|-/g, "");
+    }
+
     this.getVendor = function (macAddress) {
       // remove separators
-      macAddress = macAddress.toUpperCase().replace(/:|-/g, "");
+      macAddress = this.removeMacSeparators(macAddress).toUpperCase();
       var vendor = this.macVendorMap[macAddress.substring(0, 6)];
 
       if (vendor) {
@@ -153,10 +157,22 @@ angular.module('nethvoiceWizardUiApp')
 
     this.checkMacAddress = function (macAddress) {
       // remove separators
-      var macAddressNoSep = macAddress.replace(/:|-/g, "");
+      var macAddressNoSep = this.removeMacSeparators(macAddress);
       var regExp = /^[0-9a-fA-F]{12}$/;
       return regExp.test(macAddressNoSep);
     };
+
+    this.normalizeMacAddress = function (macAddress) {
+      // remove separators
+      macAddress = this.removeMacSeparators(macAddress).toUpperCase();
+      var chunks = [];
+      var len;
+
+      for (var i = 0, len = macAddress.length; i < len; i += 2) {
+        chunks.push(macAddress.substr(i, 2))
+      }
+      return chunks.join('-');
+    }
 
     this.checkNetmask = function (netmask) {
       var regExp = /^(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))$/;

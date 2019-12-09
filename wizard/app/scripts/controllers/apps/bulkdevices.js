@@ -40,14 +40,14 @@ angular.module('nethvoiceWizardUiApp')
 
       Promise.all([
         ModelService.getModels(),
-        PhoneService.getPhones(),
         UserService.list(true),
+        PhoneService.getPhones(),
         ProfileService.allGroups(),
         PhoneService.getDelayedReboot()
       ]).then(function (res) {
         gotModels(res[0].data);
-        gotPhones(res[1].data);
-        gotUsers(res[2].data);
+        gotUsers(res[1].data);
+        gotPhones(res[2].data);
         gotGroups(res[3].data);
         gotDelayedReboot(res[4].data);
         $scope.uiLoaded = true;
@@ -169,6 +169,29 @@ angular.module('nethvoiceWizardUiApp')
         phone.filtered = true;
         $scope.phones.push(phone);
       }
+
+      //// mockup associate users and phones
+      // for (var i = 0; i < $scope.users.length; i++) {
+      //   setPhysicalExtension($scope.users[i], $scope.phones[i]);
+      // }
+
+      // set phone.user
+      for (var phone of $scope.phones) {
+        var phoneUser = $scope.users.find(function (user) {
+          for (var device of user.devices) {
+            if (device.mac === phone.mac) {
+              return true;
+            }
+          }
+        });
+
+        if (phoneUser) {
+          phone.user = phoneUser;
+        }
+
+        //// mockup: get next reboot date
+        // phone.delayedReboot = moment().format('HH:mm');
+      }
     }
 
     $scope.getPhones = function () {
@@ -205,25 +228,16 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     function gotUsers(users) {
-      $scope.users = users;
-
-      // set phone.user
-      for (var phone of $scope.phones) {
-        var phoneUser = $scope.users.find(function (user) {
-          for (var device of user.devices) {
-            if (device.mac === phone.mac) {
-              return true;
-            }
+      // normalize MAC address of user devices
+      for (var user of users) {
+        for (var device of user.devices) {
+          if (device.mac) {
+            var normalizedMac = PhoneService.normalizeMacAddress(device.mac);
+            device.mac = normalizedMac;
           }
-        });
-
-        if (phoneUser) {
-          phone.user = phoneUser;
         }
-
-        //// mockup: get next reboot date
-        // phone.delayedReboot = moment().format('HH:mm');
       }
+      $scope.users = users;
     }
 
     $scope.getUsers = function () {
@@ -232,74 +246,7 @@ angular.module('nethvoiceWizardUiApp')
       UserService.list(true).then(function (res) {
         $scope.uiLoaded = true;
         gotUsers(res.data);
-
-        // $scope.users = res.data; ////
-
-        // $scope.users = [ ///// mockup
-        //   {
-        //     "username": "user1",
-        //     "devices": [
-        //       {
-        //         "extension": 201,
-        //         "mac": "00:04:13:11:22:31"
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     "username": "user2",
-        //     "devices": [
-        //       {
-        //         "extension": 202,
-        //         "mac": "0C:38:3E:99:88:72"
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     "username": "user3",
-        //     "devices": [
-        //       {
-        //         "extension": 203,
-        //         "mac": "00:15:65:55:55:53"
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     "username": "user4",
-        //     "devices": [
-        //       {
-        //         "extension": 204,
-        //         "mac": "00:04:13:11:22:34"
-        //       }
-        //     ]
-        //   }
-        // ];
-
         console.log("users", $scope.users); ////
-
-        //// mockup associate users and phones
-        // for (var i = 0; i < $scope.users.length; i++) {
-        //   setPhysicalExtension($scope.users[i], $scope.phones[i]);
-        // }
-
-        // // set phone.user
-        // for (var phone of $scope.phones) {
-        //   var phoneUser = $scope.users.find(function (user) {
-        //     for (var device of user.devices) {
-        //       if (device.mac === phone.mac) {
-        //         return true;
-        //       }
-        //     }
-        //   });
-
-        //   if (phoneUser) {
-        //     phone.user = phoneUser;
-        //   }
-
-        //   //// mockup: get next reboot date
-        //   phone.delayedReboot = moment().format('HH:mm');
-        // }
-        // $scope.uiLoaded = true;
-        // $scope.getGroups(); /////
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving users");
