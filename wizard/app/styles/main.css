@@ -2537,4 +2537,8 @@ a.black:focus, a.black:hover, a.black:active {
 .line-height-normal {
   line-height: 1.66666667;
 }
+
+.bg-color-white {
+  background-color: white;
+}
 /* end Inventory */

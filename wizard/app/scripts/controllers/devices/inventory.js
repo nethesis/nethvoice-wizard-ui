@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesInventoryCtrl', function ($scope, $interval, $q, $timeout, PhoneService, ModelService, UtilService, ConfigService, DeviceService) {
+  .controller('DevicesInventoryCtrl', function ($scope, $interval, $q, $timeout, PhoneService, ModelService, UtilService, ConfigService, DeviceService, LocalStorageService) {
     $scope.phones = [];
     $scope.models = [];
     $scope.tasks = {};
@@ -47,6 +47,7 @@ angular.module('nethvoiceWizardUiApp')
 
     function init() {
       $scope.uiLoaded = false;
+      $scope.hideInventoryHelp = LocalStorageService.get('hideInventoryHelp');
 
       Promise.all([
         ModelService.getModels(),
@@ -65,6 +66,11 @@ angular.module('nethvoiceWizardUiApp')
         addErrorNotification(err.data, "Error retrieving data");
         $scope.uiLoaded = true;
       });
+    }
+
+    $scope.setHideInventoryHelp = function () {
+      $scope.hideInventoryHelp = true;
+      LocalStorageService.set('hideInventoryHelp', $scope.hideInventoryHelp);
     }
 
     $scope.getPhones = function () {
