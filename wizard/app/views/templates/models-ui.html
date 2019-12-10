@@ -75,14 +75,15 @@
                                             id="{{sectionkey}}-input-{{count+1}}-{{$index+1}}"
                                             ng-model="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start)]"
                                             ng-change="onVariableChanged('exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start))"
-                                            placeholder="{{}}"
+                                            placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
                                             type="text" class="form-control">
                                           </input>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
-                                  <button ng-click="!currentModel.ui[sectionkey].showingExpKeys ? currentModel.ui[sectionkey].showingExpKeys = 2 :
+                                  <button 
+                                    ng-click="!currentModel.ui[sectionkey].showingExpKeys ? currentModel.ui[sectionkey].showingExpKeys = 2 :
                                       currentModel.ui[sectionkey].showingExpKeys = currentModel.ui[sectionkey].showingExpKeys + 1"
                                     class="btn btn-default btn-lg mt-30 ml-20"
                                     ng-if="item.loop_end > (4 * (!currentModel.ui[sectionkey].showingExpKeys ? 1 :

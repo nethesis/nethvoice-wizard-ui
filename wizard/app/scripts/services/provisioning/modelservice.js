@@ -69,6 +69,17 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    // Create model
+    this.createModel = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.tpost('/tancredi/api/v1/models', obj).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
     // Retrieve the default variable values
     this.getDefaults = function () {
       return $q(function (resolve, reject) {

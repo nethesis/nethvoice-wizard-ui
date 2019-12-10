@@ -11,9 +11,14 @@ angular.module('nethvoiceWizardUiApp')
   .controller('DevicesModelsCtrl', function ($scope, ModelService, ProvFanvilService, $translate, $timeout) {
 
     $scope.globalUi = ModelService.getDefaultsUI()
+    $scope.view.changeRoute = true
 
     $scope.inventoryModels = {}
     $scope.loadingModels = {}
+
+    $scope.newModelSourceName = ""
+    $scope.newModelCustomName = ""
+    $scope.newModelShown = false
 
     var modelNameChecking = "",
         currentModelChanged = false
@@ -22,7 +27,9 @@ angular.module('nethvoiceWizardUiApp')
     var getModels = function () {
       ModelService.getModels().then(function (res) {
         $scope.inventoryModels = res.data
+        $scope.view.changeRoute = false
       }, function (err) {
+        $scope.view.changeRoute = false
         console.log(err)
       })
     }
@@ -147,6 +154,42 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    $scope.showNewModelModal = function () {
+      $("#newModelModal").modal("show")
+      $scope.newModelShown = true
+    }
+
+    var displayNameToName = function (dname) {
+      for (var model in $scope.inventoryModels) {
+        if ($scope.inventoryModels[model].display_name = dname) {
+          return $scope.inventoryModels[model].name
+        }
+      }
+    }
+
+    $scope.createNewModel = function () {
+      var name = displayNameToName($scope.newModelSourceName)
+      ModelService.getModel(name).then(function (res) {
+        ModelService.createModel({
+          "name": $scope.newModelSourceName + "-" + $scope.newModelCustomName + '-' + Date.now(),
+          "display_name": $scope.newModelSourceName + "-" + $scope.newModelCustomName,
+          "variables": res.data.variables
+        }).then(function (res) {
+          $("#newModelModal").modal("hide")
+          $scope.newModelSourceName = ''
+          $scope.newModelCustomName = ''
+          getModels()
+          setTimeout(function () {
+            $('#modelFromSelect').selectpicker('refresh');
+          }, 500)
+        }, function (err) {
+          console.log(err)
+        })
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
     // $scope.getDefaults = function () {
     //   ModelService.getDefaults().then(function (res) {
     //     console.log("RES", res);
@@ -156,7 +199,9 @@ angular.module('nethvoiceWizardUiApp')
     // }
 
     // initialisation
-    getModels()
+    angular.element(document).ready(function () {
+      getModels()
+    })
 
   })
 

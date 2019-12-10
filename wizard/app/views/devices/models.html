@@ -15,7 +15,7 @@
   </div>
   <div class="wizard-pf-contents adjust-size">
     <h1 class="control-label centered" for="textInput-markup">{{'Models' | translate}}</h1>
-    <div class="mt-40 mb-10">
+    <div ng-if="!(inventoryModels | isEmpty)" class="mt-40 mb-10">
       <button data-toggle="modal" data-target="#newModelModal"
         class="btn btn-primary btn-lg">{{'Create new model' | translate}}
       </button>
@@ -30,7 +30,7 @@
           <div id="accordion-models-{{$index}}">
             <h1 ng-click="checkCurrentModelStatus(model.name)" class="adjust-header adjust-profile-header pointer">
               <span class="fa fa-cube card-pf-icon-circle config-title-icon"></span>{{'Model' | translate}}
-              <span class="weight">{{::model.name | translate}}</span>
+              <span class="weight">{{::model.display_name | translate}}</span>
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
             </h1>
             <div id="collapse-model-{{$index}}" ng-hide="currentModel.hidden" ng-if="currentModel.name == model.name"
@@ -70,21 +70,34 @@
         </button>
         <h4 class="modal-title" id="nModelMLabel">{{'New model' | translate}}</h4>
       </div>
-      <form class="form-horizontal" ng-submit="">
+      <form class="form-horizontal" ng-submit="createNewModel()">
         <div class="modal-body">
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Name' | translate}}</label>
-            <div class="col-sm-9">
-              <input required type="text" class="form-control">
-            </div>
-          </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Duplicate from' | translate}}</label>
             <div class="col-sm-9">
-              <select class="combobox form-control" autocomplete="off">
-                <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
-                  on-finish-render="selectpickerRepeatEnd">{{"CIAO" | translate}}</option>
+              <select 
+                ng-model="newModelSourceName"
+                id="modelFromSelect"
+                class ="combobox form-control"
+                autocomplete="off">
+                <option value="{{model.display_name}}" ng-repeat="model in inventoryModels track by model.name"
+                  on-finish-render="selectpickerRepeatEnd">{{model.display_name}}</option>
               </select>
+            </div>
+          </div>
+          <div ng-show="newModelSourceName" class="form-group">
+            <label class="col-sm-3 control-label">{{'Name' | translate}}</label>
+            <div class="col-sm-9">
+              <div class="input-group">
+                <span class="input-group-addon" >
+                  <span>{{newModelSourceName}}-</span>
+                </span>
+                <input
+                  type="text"
+                  id="inputCustomName"
+                  ng-model="newModelCustomName"
+                  class="form-control">
+              </div>
             </div>
           </div>
           <div ng-if="false" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
@@ -142,33 +155,32 @@
         <form class="form-horizontal">
           <div class="modal-body">
             <div class="col-lg-12 mb-30 mt-20">
-              
-              <div ng-repeat="item in globalUi.data track by $index"
-                class="col-lg-6 mb-15 ">
+
+              <div ng-repeat="item in globalUi.data track by $index" class="col-lg-6 mb-15 ">
                 <div class="col-lg-12">
                   <!-- list -->
                   <div ng-if="item.type == 'list'" class="form-group">
                     <label class="control-label">{{::item.description | translate}}</label>
                     <select class="combobox form-control" autocomplete="off" name="{{item.variable}}">
-                      <option ng-if="item.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::item.text | translate}}</option>
+                      <option ng-if="item.options.length > 10" value="" selected="selected">{{('Select ') | translate}}
+                        {{::item.text | translate}}</option>
                       <!-- combobox -->
-                      <option ng-if="item.options.length > 10" ng-repeat="option in item.options"
-                        value="{{$index}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                      <option ng-if="item.options.length > 10" ng-repeat="option in item.options" value="{{$index}}"
+                        on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                       <!-- selectpicker -->
-                      <option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
-                        value="{{$index}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                      <option ng-if="item.options.length <= 10" ng-repeat="option in item.options" value="{{$index}}"
+                        on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
                     </select>
                   </div>
                   <!-- input -->
                   <div ng-if="item.type == 'input'" class="form-group">
                     <label class="control-label">{{::item.description | translate}}</label>
-                    <input placeholder="{{'Insert ' | translate}} {{::item.description | translate}}"
-                      type="text" class="form-control">
+                    <input placeholder="{{'Insert ' | translate}} {{::item.description | translate}}" type="text"
+                      class="form-control">
                     </input>
                   </div>
                 </div>
               </div>
-
             </div>
             <div class="modal-footer submit">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
@@ -180,6 +192,3 @@
     </div>
   </div>
 </div>
-
-
-  
