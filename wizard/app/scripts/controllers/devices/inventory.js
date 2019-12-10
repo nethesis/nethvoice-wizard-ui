@@ -471,11 +471,6 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.parsePastedMacs = function () {
-      if ($scope.pastedMacsText.length < 2) {
-        $scope.pastedMacsText = "";
-        return;
-      }
-
       // remove separators (if any)
       $scope.pastedMacsText = $scope.pastedMacsText.replace(/,|;/g, ' ').trim();
 

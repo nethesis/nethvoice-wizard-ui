@@ -7,7 +7,8 @@
     <div class="toast-notifications-list-pf">
       <div class="toast-pf alert alert-danger alert-dismissable mg-bottom-5" id="error-{{error.id}}"
         ng-repeat="error in errors track by $index">
-        <button type="button" class="close" data-dismiss="error-{{error.id}}" ng-click="deleteError(error.id)" aria-hidden="true">
+        <button type="button" class="close" data-dismiss="error-{{error.id}}" ng-click="deleteError(error.id)"
+          aria-hidden="true">
           <span class="pficon pficon-close"></span>
         </button>
         <span class="pficon pficon-error-circle-o"></span>
@@ -163,11 +164,11 @@
     00:04:13:11:22:31
     0C:38:3E:99:88:72
     00:15:65:55:55:53
-    <!-- do not remove this comment -->
+    <!-- comment for line break -->
     00-04-13-11-22-31
     0C-38-3E-99-88-72
     00-15-65-55-55-53
-    <!-- do not remove this comment -->
+    <!-- comment for line break -->
     000413112231
     0C383E998872
     001565555553</pre></p>
@@ -179,7 +180,17 @@
                     <div class="col-sm-8">
                       <!-- maxlength=3600 -> copy/paste max 200 mac at time -->
                       <textarea maxlength='3600' id="paste-textarea" class="form-control pasted-mac-area"
-                        ng-model="pastedMacsText" ng-change="parsePastedMacs()"></textarea>
+                        ng-model="pastedMacsText"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group no-margin-bottom"
+                    ng-show="!showResultsAddPhones && addModalType === 'copypaste'">
+                    <label class="col-sm-4 control-label"></label>
+                    <div class="col-sm-8">
+                      <button type="submit" class="btn btn-primary" ng-disabled="!pastedMacsText"
+                        ng-click="parsePastedMacs()">
+                        {{ 'Apply' | translate }}
+                      </button>
                     </div>
                   </div>
                   <!-- section shown on manual method -->
