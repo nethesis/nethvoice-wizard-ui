@@ -74,7 +74,8 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    this.setPhoneDelayedReboot = function (rebootData) {
+    // Reboot one or more phone phones immediately or with a delay
+    this.setPhoneReboot = function (rebootData) {
       return $q(function (resolve, reject) {
         RestService.post('/phones/reboot', rebootData).then(function (res) {
           resolve(res);

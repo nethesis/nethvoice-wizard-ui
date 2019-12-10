@@ -123,6 +123,9 @@
                       ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue">
                       <option value="">{{ 'No model' | translate }}</option>
                     </select>
+                    <span ng-show="modelLoaders[phone.mac] === 'success'" class="pficon pficon-ok set-model-feedback"></span>
+                    <span ng-show="modelLoaders[phone.mac] === 'fail'" class="pficon pficon-error-circle-o set-model-feedback"></span>
+                    <span ng-show="modelLoaders[phone.mac] === 'loading'" class="spinner spinner-inline set-model-feedback"></span>
                   </div>
                 </div>
               </div>

@@ -2359,11 +2359,6 @@ iframe body {
   top: 74px;
 }
 
-.spinner-notification {
-  float: right;
-  margin-left: 6px;
-}
-
 .list-view-pf .list-group-item-text-narrow {
   width: calc(50% - 80px);
 }
@@ -2540,5 +2535,11 @@ a.black:focus, a.black:hover, a.black:active {
 
 .bg-color-white {
   background-color: white;
+}
+
+.set-model-feedback {
+  vertical-align: middle;
+  font-size: 20px;
+  margin-left: 5px;
 }
 /* end Inventory */

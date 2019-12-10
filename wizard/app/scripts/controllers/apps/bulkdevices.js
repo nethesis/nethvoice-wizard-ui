@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('BulkdevicesCtrl', function ($scope, $filter, PhoneService, ModelService, UserService, ProfileService) {
+  .controller('BulkdevicesCtrl', function ($scope, $filter, $timeout, PhoneService, ModelService, UserService, ProfileService) {
     $scope.models = [];
     $scope.phones = [];
     $scope.numFiltered = 0;
@@ -358,8 +358,8 @@ angular.module('nethvoiceWizardUiApp')
       $('#bulkModelModal').modal('hide');
     }
 
-    function bulkRebootSet() {
-      var tokens = $scope.bulkReboot.split(":");
+    function bulkDelayedRebootSet() {
+      var tokens = $scope.bulkDelayedReboot.split(":");
       var hours = tokens[0];
       var minutes = tokens[1];
       var rebootData = {};
@@ -373,7 +373,7 @@ angular.module('nethvoiceWizardUiApp')
         }
       }
       $scope.uiLoaded = false;
-      PhoneService.setPhoneDelayedReboot(rebootData).then(function (success) {
+      PhoneService.setPhoneReboot(rebootData).then(function (success) {
         // reload updated data
         $scope.uiLoaded = true;
         getDelayedReboot();
@@ -384,7 +384,7 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    function bulkRebootCancel() {
+    function bulkDelayedRebootCancel() {
       var rebootCancelMacs = [];
 
       for (var phone of $scope.phones) {
@@ -404,19 +404,42 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    $scope.bulkRebootSave = function () {
-      if ($scope.bulkRebootSwitch) {
-        $scope.bulkReboot = $('#reboot-timepicker-value').val();
+    $scope.bulkDelayedRebootSave = function () {
+      if ($scope.bulkDelayedRebootSwitch) {
+        $scope.bulkDelayedReboot = $('#reboot-timepicker-value').val();
       } else {
-        $scope.bulkReboot = null;
+        $scope.bulkDelayedReboot = null;
       }
 
-      if ($scope.bulkReboot) {
-        bulkRebootSet();
+      if ($scope.bulkDelayedReboot) {
+        bulkDelayedRebootSet();
       } else {
-        bulkRebootCancel();
+        bulkDelayedRebootCancel();
       }
-      $('#bulkRebootModal').modal('hide');
+      $('#bulkDelayedRebootModal').modal('hide');
+    }
+
+    $scope.bulkRebootNow = function () {
+      var rebootData = {};
+
+      for (var phone of $scope.phones) {
+        if (phone.selected) {
+          rebootData[phone.mac] = {} // hours and minutes omitted -> reboot immediately
+        }
+      }
+      PhoneService.setPhoneReboot(rebootData).then(function (success) {
+        $scope.successMessage = "Reboot command was sent";
+        $scope.showSuccess = true;
+
+        $timeout(function () {
+          $scope.showSuccess = false;
+          $scope.successMessage = null;
+        }, 4000);
+      }, function (err) {
+        console.log(err);
+        addErrorNotification(err.data, "Error rebooting phones");
+      });
+      $('#reboot-now-modal').modal('hide');
     }
 
     $scope.showSetModelModal = function () {
@@ -434,23 +457,23 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.showSetRebootModal = function () {
-      $scope.bulkReboot = $scope.allSelectedSameReboot;
+      $scope.bulkDelayedReboot = $scope.allSelectedSameReboot;
 
-      if ($scope.bulkReboot != false || $scope.bulkReboot === "") {
+      if ($scope.bulkDelayedReboot != false || $scope.bulkDelayedReboot === "") {
         // phonese selected have the same reboot value
-        if ($scope.bulkReboot) {
-          $scope.bulkRebootSwitch = true;
+        if ($scope.bulkDelayedReboot) {
+          $scope.bulkDelayedRebootSwitch = true;
         } else {
           // same none reboot value
-          $scope.bulkRebootSwitch = false;
+          $scope.bulkDelayedRebootSwitch = false;
         }
-        $('#reboot-timepicker-value').val($scope.bulkReboot);
+        $('#reboot-timepicker-value').val($scope.bulkDelayedReboot);
       } else {
         // phonese selected have different reboot values
-        $scope.bulkRebootSwitch = false;
+        $scope.bulkDelayedRebootSwitch = false;
         $('#reboot-timepicker-value').val(null);
       }
-      $('#bulkRebootModal').modal('show');
+      $('#bulkDelayedRebootModal').modal('show');
     }
 
     $scope.selectAllOrNoneToggle = function () {

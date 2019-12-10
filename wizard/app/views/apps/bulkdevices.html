@@ -3,7 +3,7 @@
     {{ 'Bulk phones configuration' | translate }}
   </h1>
   <div class="container-fluid mg-top-20">
-    <!-- toast error messages -->
+    <!-- toast messages -->
     <div class="toast-notifications-list-pf">
       <div class="toast-pf alert alert-danger alert-dismissable mg-bottom-5" id="error-{{error.id}}"
         ng-repeat="error in errors track by $index">
@@ -17,6 +17,12 @@
         <span ng-show="error.error">{{ error.error }}.</span>
         <span ng-show="error.title">{{ error.title }}.</span>
         <span ng-show="error.detail"><i>{{ error.detail }}.</i></span>
+      </div>
+
+      <!-- success notification -->
+      <div class="toast-pf alert alert-success mg-bottom-5" ng-show="showSuccess">
+        <span class="pficon pficon-ok"></span>
+        {{ successMessage | translate }}
       </div>
     </div>
     <!-- loading UI -->
@@ -74,6 +80,8 @@
           ng-disabled="numSelected == 0 || !allSelectedSameVendor">{{ 'Set model' | translate }}</button>
         <button class="btn btn-primary" ng-click="showSetRebootModal()"
           ng-disabled="numSelected == 0">{{ 'Set delayed reboot' | translate }}</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#reboot-now-modal"
+          ng-disabled="numSelected == 0">{{ 'Reboot now' | translate }}</button>
       </div>
 
       <div ng-show="numFiltered != 0">
@@ -192,17 +200,17 @@
     </div>
 
     <!-- set reboot modal -->
-    <div class="modal fade" id="bulkRebootModal" tabindex="-1" role="dialog" aria-labelledby="bulkRebootModalLabel"
-      aria-hidden="true" data-backdrop="static">
+    <div class="modal fade" id="bulkDelayedRebootModal" tabindex="-1" role="dialog"
+      aria-labelledby="bulkDelayedRebootModalLabel" aria-hidden="true" data-backdrop="static">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
               <span class="pficon pficon-close"></span>
             </button>
-            <h4 class="modal-title" id="bulkRebootModalLabel">{{ 'Set delayed reboot' | translate }}</h4>
+            <h4 class="modal-title" id="bulkDelayedRebootModalLabel">{{ 'Set delayed reboot' | translate }}</h4>
           </div>
-          <form class="form-horizontal" ng-submit="bulkRebootSave()">
+          <form class="form-horizontal" ng-submit="bulkDelayedRebootSave()">
             <div class="modal-body">
               <!-- bulk notification -->
               <div class="alert alert-info">
@@ -214,7 +222,7 @@
               <div class="form-group">
                 <label class="col-sm-4 control-label">{{ 'Enable delayed reboot' | translate }}</label>
                 <div class="col-sm-6">
-                  <input bs-switch ng-model="bulkRebootSwitch"
+                  <input bs-switch ng-model="bulkDelayedRebootSwitch"
                     class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
                 </div>
               </div>
@@ -223,8 +231,8 @@
                 <label class="col-sm-4 control-label">{{ 'Reboot time' | translate }}</label>
                 <div class="col-sm-5">
                   <div class="input-group date-time-picker-pf" id="reboot-timepicker">
-                    <input type="text" class="form-control" id="reboot-timepicker-value" ng-disabled="!bulkRebootSwitch"
-                      required />
+                    <input type="text" class="form-control" id="reboot-timepicker-value"
+                      ng-disabled="!bulkDelayedRebootSwitch" required />
                     <span class="input-group-addon">
                       <span class="fa fa-clock-o"></span>
                     </span>
@@ -238,6 +246,47 @@
             </div>
         </div>
         </form>
+      </div>
+    </div>
+
+    <!-- reboot now modal -->
+    <div class="modal fade" id="reboot-now-modal" tabindex="-1" role="dialog" aria-labelledby="rebootNowModal"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              <span class="pficon pficon-close"></span>
+            </button>
+            <h4 class="modal-title">
+              {{ 'Reboot now' | translate }}
+            </h4>
+          </div>
+          <form class="form-horizontal">
+            <div class="modal-body">
+              <div class="alert alert-warning alert-dismissable">
+                <span class="pficon pficon-warning-triangle-o"></span>
+                <span class="margin-left-5">
+                  {{ 'You are about to reboot' | translate }} {{ numSelected }}
+                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}
+                </span>
+              </div>
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">
+                    {{ 'Are you sure' | translate }}?
+                  </label>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
+              <button type="submit" class="btn btn-primary" ng-click="bulkRebootNow()">
+                {{ 'Reboot now' | translate }}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

@@ -19,6 +19,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.failedAddPhones = [];
     $scope.errors = [];
     $scope.errorId = 0;
+    $scope.modelLoaders = {};
 
     function gotModels(models) {
       $scope.models = models;
@@ -584,20 +585,24 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.setPhoneModel = function (phone) {
-      $scope.uiLoaded = false;
-
       var model = null;
       if (phone.model) {
         model = phone.model.name;
       }
+      $scope.modelLoaders[phone.mac] = 'loading';
 
       PhoneService.setPhoneModel(phone.mac, model).then(function (res) {
-        $scope.uiLoaded = true;
-        $scope.getPhones();
+        $scope.modelLoaders[phone.mac] = 'success';
+        $timeout(function () {
+          $scope.modelLoaders[phone.mac] = null;
+        }, 3000);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error setting phone model");
-        $scope.uiLoaded = true;
+        $scope.modelLoaders[phone.mac] = 'fail';
+        $timeout(function () {
+          $scope.modelLoaders[phone.mac] = null;
+        }, 3000);
       });
     };
 

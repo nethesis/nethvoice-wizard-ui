@@ -667,9 +667,13 @@
   "Error retrieving delayed reboot data": "Errore durante il recupero dei dati di riavvio ritardato",
   "Error setting delayed reboot": "Errore durante l'impostazione del riavvio ritardato",
   "Error canceling delayed reboot": "Errore durante l'annullamento del riavvio ritardato",
+  "Error rebooting phones": "Errore durante il riavvio dei telefoni",
   "The phone mac address is already registered": "L'indirizzo MAC del telefono è già registrato",
   "No model": "Nessun modello",
   "Choose": "Scegli",
   "No phne to add from this network": "In questa rete non è presente alcun telefono da aggiungere",
-  "Apply": "Applica"
+  "Apply": "Applica",
+  "Reboot now": "Riavvia ora",
+  "You are about to reboot": "Stai per riavviare",
+  "Reboot command was sent": "Il comando di riavvio è stato inviato"
 }
