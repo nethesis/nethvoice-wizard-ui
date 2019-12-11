@@ -25,7 +25,8 @@
     </div>
     <div ng-show="uiLoaded">
       <!-- inventory help notification -->
-      <div class="alert alert-info alert-dismissable bg-color-white" ng-show="phones.length !== 0 && !hideInventoryHelp">
+      <div class="alert alert-info alert-dismissable bg-color-white"
+        ng-show="phones.length !== 0 && !hideInventoryHelp">
         <button type="button" class="close" data-dismiss="alert" ng-click="setHideInventoryHelp()" aria-label="Close">
           <span class="pficon pficon-close"></span>
         </button>
@@ -123,9 +124,12 @@
                       ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue">
                       <option value="">{{ 'No model' | translate }}</option>
                     </select>
-                    <span ng-show="modelLoaders[phone.mac] === 'success'" class="pficon pficon-ok set-model-feedback"></span>
-                    <span ng-show="modelLoaders[phone.mac] === 'fail'" class="pficon pficon-error-circle-o set-model-feedback"></span>
-                    <span ng-show="modelLoaders[phone.mac] === 'loading'" class="spinner spinner-inline set-model-feedback"></span>
+                    <span ng-show="modelLoaders[phone.mac] === 'success'"
+                      class="pficon pficon-ok set-model-feedback"></span>
+                    <span ng-show="modelLoaders[phone.mac] === 'fail'"
+                      class="pficon pficon-error-circle-o set-model-feedback"></span>
+                    <span ng-show="modelLoaders[phone.mac] === 'loading'"
+                      class="spinner spinner-inline set-model-feedback"></span>
                   </div>
                 </div>
               </div>
@@ -279,58 +283,38 @@
                   </div>
                   <!-- results of add phones operation -->
                   <div ng-show="showResultsAddPhones">
-                    <!-- error notification -->
-                    <div class="alert alert-danger" ng-show="successfulAddPhones.length == 0">
-                      <span class="pficon pficon-error-circle-o"></span>
-                      <strong>{{ 'Error' | translate }}:</strong> {{ 'No phones added' | translate }}.
-                    </div>
-                    <!-- warning notification -->
-                    <div class="alert alert-warning"
-                      ng-show="successfulAddPhones.length > 0 && failedAddPhones.length > 0">
-                      <span class="pficon pficon-warning-triangle-o"></span>
-                      <strong>{{ 'Warning' | translate }}:</strong> {{ failedAddPhones.length }}
-                      {{ 'phones could not be added because of a server error' | translate }}.
-                    </div>
-                    <!-- success notification -->
-                    <div class="alert alert-success" ng-show="failedAddPhones.length == 0">
+                    <!-- phones successfully added -->
+                    <div class="alert alert-success mg-bottom-10" ng-show="successfulAddPhones.length > 0">
                       <span class="pficon pficon-ok"></span>
-                      {{ 'All phones have been successfully added' | translate }}.
-                    </div>
-                    <!-- number of phones added -->
-                    <div ng-show="successfulAddPhones.length > 0">
-                      <label>{{ successfulAddPhones.length }}
-                        {{ successfulAddPhones.length > 1 ? ('phones successfully added' | translate) : ('phone successfully added' | translate) }}</label>
-                      <div class="results-add-phones col-sm-12">
-                        <div class="list-group list-view-pf clear mg-bottom-0">
-                          <div
-                            class="list-group-item cursor-default form-group no-margin-left-right align-items-stretch success"
-                            ng-class="{ 'border-top-list': $index == 0 }"
-                            ng-repeat="phone in successfulAddPhones track by $index">
-                            <div class="list-view-pf-actions">
-                            </div>
-                            <div class="list-view-pf-main-info align-items-stretch pad-top-bottom-6">
-                              <div class="list-view-pf-left">
-                                <span class="fa fa-phone list-view-pf-icon-sm"></span>
-                              </div>
-                              <div class="list-view-pf-body">
-                                <div class="list-view-pf-description align-items-stretch">
-                                  <div class="list-group-item-heading">
-                                    <!-- MAC -->
-                                    {{ phone.mac }}
-                                  </div>
-                                  <div class="list-group-item-text">
-                                    <span ng-show="phone.model">{{ phone.model.display_name }}</span>
-                                    <span ng-show="!phone.model">{{ phone.vendor }}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                      <span>
+                        {{ successfulAddPhones.length }}
+                        {{ successfulAddPhones.length > 1 ? ('phones successfully added' | translate) : ('phone successfully added' | translate) }}
+                      </span>
+                      <legend class="fields-section-header-pf col-sm-1 toggle-successfully-added-phones"
+                        aria-expanded="true">
+                        <span
+                          ng-class="['fa', 'fa-angle-right', 'field-section-toggle-pf', { 'fa-angle-down': showSuccessfullyAddedPhones }]"
+                          ng-click="toggleShowSuccessfullyAddedPhones()">
+                        </span>
+                        <a class="field-section-toggle-pf"
+                          ng-click="toggleShowSuccessfullyAddedPhones()">{{ 'Show' | translate }}</a>
+                      </legend>
+                      <div ng-show="showSuccessfullyAddedPhones" class="successfully-added-phones">
+                        <ul>
+                          <li ng-repeat="phone in successfulAddPhones">
+                            <b>{{ phone.mac }}</b> -
+                            <span ng-show="phone.model">{{ phone.model.display_name }}</span>
+                            <span ng-show="!phone.model && phone.vendor">{{ phone.vendor }}</span>
+                            <span ng-show="!phone.model && !phone.vendor">{{ 'Unknown vendor' | translate }}</span>
+                          </li>
+                        </ul>
                       </div>
                     </div>
-                    <div class="mg-top-10" ng-show="phonesToAdd.length > 0 && successfulAddPhones.length > 0">
-                      <li class="divider"></li>
+                    <!-- warning notification -->
+                    <div class="alert alert-warning" ng-show="failedAddPhones.length > 0">
+                      <span class="pficon pficon-warning-triangle-o"></span>
+                      <strong>{{ 'Warning' | translate }}:</strong> {{ failedAddPhones.length }}
+                      {{ failedAddPhones.length > 1 ? ('phones could not be added' | translate) : ('phone could not be added' | translate) }}
                     </div>
                   </div>
                   <!-- toolbar to apply model to all -->

@@ -20,6 +20,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.errors = [];
     $scope.errorId = 0;
     $scope.modelLoaders = {};
+    $scope.showSuccessfullyAddedPhones = false;
 
     function gotModels(models) {
       $scope.models = models;
@@ -393,6 +394,7 @@ angular.module('nethvoiceWizardUiApp')
 
       $scope.pendingRequestsAddPhones = $scope.phonesToAdd.length;
       $scope.failedAddPhones = [];
+      $scope.showSuccessfullyAddedPhones = false;
 
       $scope.addPhonesInProgress = true;
 
@@ -673,6 +675,10 @@ angular.module('nethvoiceWizardUiApp')
       error.id = $scope.errorId;
       $scope.errorId++;
       $scope.errors.push(error);
+    }
+
+    $scope.toggleShowSuccessfullyAddedPhones = function () {
+      $scope.showSuccessfullyAddedPhones = !$scope.showSuccessfullyAddedPhones;
     }
 
     $scope.postModels = function () { //// mockup

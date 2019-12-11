@@ -2289,14 +2289,10 @@ iframe body {
   overflow-x: hidden;
 }
 
-.results-add-phones {
-  background-color: #e9f4e9;
-  max-height: 150px;
+.successfully-added-phones {
+  max-height: 90px;
   overflow: auto;
   overflow-x: hidden;
-  margin-bottom: 10px;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .cursor-default {
@@ -2541,5 +2537,14 @@ a.black:focus, a.black:hover, a.black:active {
   vertical-align: middle;
   font-size: 20px;
   margin-left: 5px;
+}
+
+.toggle-successfully-added-phones {
+  float: none;
+  padding-left: 0;
+}
+
+.toggle-successfully-added-phones a {
+  color: #363636;
 }
 /* end Inventory */
