@@ -10,6 +10,12 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('ModelsUICtrl', function ($scope, ModelService) {
 
+    $scope.loadingActions = {
+      cancelChanges: false,
+      resetValues: false,
+      deleteDevices: false
+    }
+
     $scope.selectedAction = ""
 
     $scope.openActionModal = function (action) {
@@ -53,6 +59,10 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.cancelChanges = function () {
       $scope.currentModel.variables = $scope.currentModel.storedVariables
+      $("#actionsModal").modal("hide")
+      // $('select.tier').each(function(){ 
+      //   $(this).data('combobox').refresh();
+      // })
     }
 
     $scope.resetChanges = function () {

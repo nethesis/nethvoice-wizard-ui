@@ -28,7 +28,7 @@
       <div class="list-group list-view-pf adjust-margin-extensions no-border">
         <div ng-repeat="model in inventoryModels track by model.name" class="adjust-profile-margin">
           <div id="accordion-models-{{$index}}">
-            <h1 ng-click="checkCurrentModelStatus(model.name)" class="adjust-header adjust-profile-header pointer">
+            <h1 ng-click="checkCurrentModelChanged(model.name)" class="adjust-header adjust-profile-header pointer">
               <span class="fa fa-cube card-pf-icon-circle config-title-icon"></span>{{'Model' | translate}}
               <span class="weight">{{::model.display_name | translate}}</span>
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
@@ -52,8 +52,10 @@
         {{'No models found' | translate}}
       </h1>
       <div class="blank-slate-pf-main-action">
-        <button data-toggle="modal" data-target="#newModelModal"
-          class="btn btn-primary btn-lg">{{'Create new model' | translate}}</button>
+        <button ng-click="goTo('/devices/inventory')"
+          class="btn btn-primary btn-lg">
+          {{'Set model to devices' | translate}}
+        </button>
       </div>
     </div>
   </div>
@@ -70,9 +72,16 @@
         </button>
         <h4 class="modal-title" id="nModelMLabel">{{'New model' | translate}}</h4>
       </div>
-      <form class="form-horizontal" ng-submit="createNewModel()">
+      <form class="form-horizontal">
         <div class="modal-body">
-          <div class="form-group">
+          <div ng-if="modelsErrors.apiError" class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span class="pficon pficon-close"></span>
+            </button>
+            <span class="pficon pficon-error-circle-o"></span>
+            <strong>{{modelsErrors.apiError | translate}}</strong>.
+          </div>
+          <div class="form-group {{modelsErrors.newModelSourceEmpty ? 'has-error' : ''}}">
             <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Duplicate from' | translate}}</label>
             <div class="col-sm-9">
               <select 
@@ -80,31 +89,42 @@
                 id="modelFromSelect"
                 class ="combobox form-control"
                 autocomplete="off">
-                <option value="{{model.display_name}}" ng-repeat="model in inventoryModels track by model.name"
+                <option value="">
+                  -
+                </option>
+                <option value="{{model.name}}" ng-repeat="model in inventoryModels track by model.name"
                   on-finish-render="selectpickerRepeatEnd">{{model.display_name}}</option>
               </select>
+              <div ng-show="modelsErrors.newModelSourceEmpty" class="help-block mt-0">
+                {{"Select a source model" | translate}}
+              </div>
             </div>
           </div>
           <div ng-show="newModelSourceName" class="form-group">
-            <label class="col-sm-3 control-label">{{'Name' | translate}}</label>
+            <label class="col-sm-3 control-label">{{'Name' | translate}} *</label>
             <div class="col-sm-9">
-              <div class="input-group">
+              <div class="input-group {{modelsErrors.newModelCustomNameEmpty ? 'has-error' : ''}}">
                 <span class="input-group-addon" >
-                  <span>{{newModelSourceName}}-</span>
+                  <span ng-if="model.name == newModelSourceName" ng-repeat="model in inventoryModels">{{model.display_name}}-</span>
                 </span>
                 <input
                   type="text"
                   id="inputCustomName"
                   ng-model="newModelCustomName"
                   class="form-control">
+                <div ng-show="modelsErrors.newModelCustomNameEmpty" class="help-block table-caption-bottom mt-0">
+                  {{"Enter the custom part of the name" | translate}}
+                </div>
               </div>
             </div>
           </div>
-          <div ng-if="false" class="spinner spinner-sm adjust-margin loader-modal-profile"></div>
         </div>
+        <div ng-if="loadingActions.newModel == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div>
+        <span ng-if="loadingActions.newModel == 'ok'" class="pficon pficon-ok adjust-margin loader-modal fz-18"></span>
+        <span ng-if="loadingActions.newModel == 'err'" class="pficon pficon-error-circle-o adjust-margin loader-modal fz-18"></span>
         <div class="modal-footer submit">
           <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
-          <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
+          <button ng-click="createNewModel()" type="button" class="btn btn-primary">{{'Save' | translate}}</button>
         </div>
       </form>
     </div>

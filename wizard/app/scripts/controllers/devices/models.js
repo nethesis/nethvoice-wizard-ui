@@ -15,6 +15,15 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.inventoryModels = {}
     $scope.loadingModels = {}
+    $scope.loadingActions = {
+      newModel: false
+    }
+
+    $scope.modelsErrors = {
+      newModelCustomNameEmpty: false,
+      newModelSourceEmpty: false,
+      apiError: false
+    }
 
     $scope.newModelSourceName = ""
     $scope.newModelCustomName = ""
@@ -55,7 +64,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.checkCurrentModelStatus = function (name) {
+    $scope.checkCurrentModelChanged = function (name) {
       if ($scope.currentModel.name != name) {
         if (currentModelChanged) {
           console.log("CURRENT MODEL CHANGED ")
@@ -100,52 +109,6 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    // $scope.createModel = function () {
-    //   ModelService.addModel({
-    //     "name": "Fanvil-X5S",
-    //     "display_name": "Fanvil-X5S",
-    //     "variables": {
-    //       "language_fanvil" : "English",
-    //       "language_fanvil2" : "English",
-    //       "soft_key1" : "dsskey2",
-    //       "call_waiting" : 0,
-    //       "audio_fanvil" : 0,
-    //       "default_ringtone": "Type 1",
-    //       "dss_transfer": "2",
-    //       "time_format": "0",
-    //       "date_format" : "off",
-    //       "soft_key3" : "dnd",
-    //       "ldap_base" : "dc:phonebook,dc:nh",
-    //       "ldap_name_attr" : "cn o",
-    //       "ldap_name_display" : "%cn %o",
-    //       "ldap_name_filter" : "(|(cn:%)(o:%))",
-    //       "ldap_number_filter" : "(|(telephoneNumber:%)(mobile:%)(homePhone:%))",
-    //       "ldap_server" : "192.168.11.1",
-    //       "provisioning_type" : "https",
-    //       "timezone_fanvil" : "Europe/Rome",
-    //       "timezone_name_fanvil" : "UTC-10",
-    //       "adminpw" : "admin",
-    //       "userpw" : "guest",
-    //       "tones_fanvil" : "15",
-    //       "voice_vlan_enable" : "0",
-    //       "voice_vlan_id" : "0",
-    //       "data_vlan_id" : "0",
-    //       "voice_vlan_signalling" : "0",
-    //       "voice_vlan_voice_priority" : "0",
-    //       "data_vlan_priority" : "0",
-    //       "dhcp_enable" : "66",
-    //       "pnp_enable" : "0",
-    //       "call_waiting" : 0,
-    //       "model" : "X5S",
-    //       "model_template" : "snom-MODEL.tmpl"
-    //     }
-    //   }).then(function (res) {
-    //     console.log("RES GET", res);
-    //   }, function (err) {
-    //     console.log(err)
-    //   })
-    // }
-
     $scope.listModels = function () {
       ModelService.getModels().then(function (res) {
         console.log("RES GET", res);
@@ -159,48 +122,90 @@ angular.module('nethvoiceWizardUiApp')
       $scope.newModelShown = true
     }
 
-    var displayNameToName = function (dname) {
-      for (var model in $scope.inventoryModels) {
-        if ($scope.inventoryModels[model].display_name = dname) {
-          return $scope.inventoryModels[model].name
+    var resetModelsErrors = function () {
+      for (var err in $scope.modelsErrors) {
+        if ($scope.modelsErrors[err] == true) {
+          $scope.modelsErrors[err] = false
         }
       }
     }
 
+    var newModelValidErr = function () {
+      var hasErrors = false
+      if ($scope.newModelSourceName == "") {
+        $scope.modelsErrors.newModelSourceEmpty = true
+        hasErrors = true
+      }
+      if ($scope.newModelCustomName == "") {
+        $scope.modelsErrors.newModelCustomNameEmpty = true
+        hasErrors = true
+      }
+      if (hasErrors) {
+        return true
+      }
+      return false
+    }
+
+    var setLoadingActions = function (action, status) {
+      $scope.loadingActions[action] = status
+      setTimeout(function () {
+        $scope.loadingActions[action] = false
+      }, 1000)
+    }
+
     $scope.createNewModel = function () {
-      var name = displayNameToName($scope.newModelSourceName)
-      ModelService.getModel(name).then(function (res) {
+      if (newModelValidErr()) {
+        return
+      }
+      resetModelsErrors()
+      var newModelName = $scope.newModelSourceName + "-" + $scope.newModelCustomName + '-' + Date.now()
+      $scope.loadingActions.newModel = true
+      ModelService.getModel($scope.newModelSourceName).then(function (res) {
         ModelService.createModel({
-          "name": $scope.newModelSourceName + "-" + $scope.newModelCustomName + '-' + Date.now(),
-          "display_name": $scope.newModelSourceName + "-" + $scope.newModelCustomName,
+          "name": newModelName,
+          "display_name":  res.data.display_name + "-" + $scope.newModelCustomName,
           "variables": res.data.variables
         }).then(function (res) {
           $("#newModelModal").modal("hide")
           $scope.newModelSourceName = ''
           $scope.newModelCustomName = ''
           getModels()
+          setLoadingActions("newModel", "ok")
           setTimeout(function () {
+            $scope.checkCurrentModelChanged(newModelName)
             $('#modelFromSelect').selectpicker('refresh');
-          }, 500)
+          }, 1000)
         }, function (err) {
           console.log(err)
+          $scope.modelsErrors.apiError = err.data.title
+          setLoadingActions("newModel", "err")
         })
       }, function (err) {
         console.log(err)
+        $scope.modelsErrors.apiError = err.data.title
+        setLoadingActions("newModel", "err")
       })
     }
-
-    // $scope.getDefaults = function () {
-    //   ModelService.getDefaults().then(function (res) {
-    //     console.log("RES", res);
-    //   }, function (err) {
-    //     console.log("RES", res);
-    //   })
-    // }
 
     // initialisation
     angular.element(document).ready(function () {
       getModels()
+    })
+
+    $('#newModelModal').on('hidden.bs.modal', function () {
+      resetModelsErrors()
+      $scope.newModelSourceName = ''
+      $scope.newModelCustomName = ''
+      $scope.$apply()
+      setTimeout(function () {
+        $('#modelFromSelect').selectpicker('refresh');
+      }, 500)
+    })
+
+    $('#newModelModal').on('changed.bs.select', function () {
+      resetModelsErrors()
+      $scope.newModelCustomName = ''
+      $scope.$apply()
     })
 
   })

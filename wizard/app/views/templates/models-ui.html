@@ -314,7 +314,7 @@
   </div>
 
   <!-- actions modal cancel, restore, delete -->
-  <div class="modal fade" id="actionsModal" tabindex="-1" role="dialog" aria-labelledby="actionModal"
+  <div class="modal fade" id="actionsModal" tabindex="-1" role="dialog" aria-labelledby="actionsModal"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -353,6 +353,9 @@
               </p>
             </div>
           </div>
+          <div ng-if="loadingActions.newModel == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div>
+          <span ng-if="loadingActions.newModel == 'ok'" class="pficon pficon-ok adjust-margin loader-modal fz-18"></span>
+          <span ng-if="loadingActions.newModel == 'err'" class="pficon pficon-error-circle-o adjust-margin loader-modal fz-18"></span>
           <div class="modal-footer submit">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
             <button type="submit" class="btn btn-primary">{{'Continue' | translate}}</button>
