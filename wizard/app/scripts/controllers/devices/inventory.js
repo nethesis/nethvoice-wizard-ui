@@ -314,20 +314,23 @@ angular.module('nethvoiceWizardUiApp')
       $scope.showManualMacError = false;
       $scope.manualMacUnknownVendor = false;
       $scope.manualMacDuplicated = false;
+      $scope.manualMacInInventory = false;
     }
 
     $scope.clearValidationErrorsPhonesToAdd = function (phone) {
       if (typeof phone !== 'undefined') {
         // clear errors for a phone
-        phone.validationError = false;
+        phone.invalidMac = false;
         phone.unknownVendor = false;
+        phone.alreadyInInventory = false;
       } else {
         // clear all errors
         $scope.macDuplicates = [];
 
         for (var phone of $scope.phonesToAdd) {
-          phone.validationError = false;
+          phone.invalidMac = false;
           phone.unknownVendor = false;
+          phone.alreadyInInventory = false;
         }
       }
     }
@@ -344,7 +347,20 @@ angular.module('nethvoiceWizardUiApp')
 
         // check MAC address 
         if (!PhoneService.checkMacAddress(mac)) {
-          phone.validationError = true;
+          phone.invalidMac = true;
+
+          if (firstErrorIndex === null) {
+            firstErrorIndex = index;
+          }
+        }
+
+        // check MAC address already in inventory
+        var alreadyInInventory = $scope.phones.find(function (phone) {
+          return phone.mac === mac;
+        });
+
+        if (alreadyInInventory) {
+          phone.alreadyInInventory = true;
 
           if (firstErrorIndex === null) {
             firstErrorIndex = index;
@@ -453,21 +469,32 @@ angular.module('nethvoiceWizardUiApp')
 
     function validateAddPhonesManual() {
       $scope.clearValidationErrorsManual();
+      var alreadyInInventory = false;
 
       // check duplicated MAC
       var duplicatedPhone = $scope.phonesToAdd.find(function (phone) {
         return phone.mac === $scope.manualMac;
       });
 
+
       if (duplicatedPhone) {
         $scope.manualMacDuplicated = true;
+      } else {
+        // check inventory too
+        alreadyInInventory = $scope.phones.find(function (phone) {
+          return phone.mac === $scope.manualMac;
+        });
+
+        if (alreadyInInventory) {
+          $scope.manualMacInInventory = true;
+        }
       }
 
       if (!PhoneService.checkMacAddress($scope.manualMac)) {
         $scope.showManualMacError = true;
       }
 
-      if ($scope.manualMacDuplicated || $scope.showManualMacError) {
+      if ($scope.manualMacDuplicated || $scope.showManualMacError || $scope.manualMacInInventory) {
         $('#manual-mac').focus();
         return false;
       } else {
