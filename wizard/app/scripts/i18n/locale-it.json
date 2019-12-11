@@ -638,7 +638,7 @@
   "Select vendor": "Seleziona il produttore",
   "Select model": "Seleziona il modello",
   "Add with copy/paste": "Aggiungi con copia/incolla",
-  "Server error": "Errore del server",
+  "Server error": "Errore del server //// asdf asdf asdf asdf asdf asdf qwerty",
   "Reboot": "Riavvio",
   "Enable delayed reboot": "Abilita riavvio ritardato",
   "Reboot time": "Ora riavvio",
@@ -667,8 +667,10 @@
   "Error retrieving data": "Errore durante il recupero dei dati",
   "Error retrieving delayed reboot data": "Errore durante il recupero dei dati di riavvio ritardato",
   "Error setting delayed reboot": "Errore durante l'impostazione del riavvio ritardato",
+  "Error setting delayed reboot on some phones": "Errore durante l'impostazione del riavvio ritardato su alcuni telefoni",
   "Error canceling delayed reboot": "Errore durante l'annullamento del riavvio ritardato",
   "Error rebooting phones": "Errore durante il riavvio dei telefoni",
+  "Error rebooting some phones": "Errore durante il riavvio di alcuni telefoni",
   "The phone mac address is already registered": "L'indirizzo MAC del telefono è già registrato",
   "No model": "Nessun modello",
   "Choose": "Scegli",
@@ -676,5 +678,6 @@
   "Apply": "Applica",
   "Reboot now": "Riavvia ora",
   "You are about to reboot": "Stai per riavviare",
-  "Reboot command was sent": "Il comando di riavvio è stato inviato"
+  "Reboot command was sent": "Il comando di riavvio è stato inviato",
+  "Only phones with an extension registered will be successfully rebooted": "Verranno riavviati con successo solamente i telefoni con un interno registrato"
 }

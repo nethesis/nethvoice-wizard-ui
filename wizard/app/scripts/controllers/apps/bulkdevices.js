@@ -96,9 +96,10 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    function addErrorNotification(error, i18nMessage) {
+    function addErrorNotification(error, i18nMessage, warning) {
       error.i18nMessage = i18nMessage;
       error.id = $scope.errorId;
+      error.warning = warning;
       $scope.errorId++;
       $scope.errors.push(error);
     }
@@ -374,9 +375,26 @@ angular.module('nethvoiceWizardUiApp')
       }
       $scope.uiLoaded = false;
       PhoneService.setPhoneReboot(rebootData).then(function (success) {
-        // reload updated data
         $scope.uiLoaded = true;
-        getDelayedReboot();
+
+        // check partial failure
+        var errors = [];
+
+        for (const [mac, rebootResult] of Object.entries(success.data)) {
+          if (rebootResult.code !== 204) {
+            // failure
+            rebootResult['mac'] = mac;
+            errors.push(rebootResult);
+          }
+        }
+
+        if (errors.length) {
+          console.log(errors);
+          addErrorNotification(errors[0], "Error setting delayed reboot on some phones", true);
+        } else {
+          // success
+          getDelayedReboot();
+        }
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error setting delayed reboot");
@@ -428,13 +446,30 @@ angular.module('nethvoiceWizardUiApp')
         }
       }
       PhoneService.setPhoneReboot(rebootData).then(function (success) {
-        $scope.successMessage = "Reboot command was sent";
-        $scope.showSuccess = true;
+        // check partial failure
+        var errors = [];
 
-        $timeout(function () {
-          $scope.showSuccess = false;
-          $scope.successMessage = null;
-        }, 4000);
+        for (const [mac, rebootResult] of Object.entries(success.data)) {
+          if (rebootResult.code !== 204) {
+            // failure
+            rebootResult['mac'] = mac;
+            errors.push(rebootResult);
+          }
+        }
+
+        if (errors.length) {
+          console.log(errors);
+          addErrorNotification(errors[0], "Error rebooting some phones", true);
+        } else {
+          // success
+          $scope.successMessage = "Reboot command was sent";
+          $scope.showSuccess = true;
+
+          $timeout(function () {
+            $scope.showSuccess = false;
+            $scope.successMessage = null;
+          }, 4000);
+        }
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error rebooting phones");

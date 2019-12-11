@@ -5,13 +5,15 @@
   <div class="container-fluid mg-top-20">
     <!-- toast messages -->
     <div class="toast-notifications-list-pf">
-      <div class="toast-pf alert alert-danger alert-dismissable mg-bottom-5" id="error-{{error.id}}"
-        ng-repeat="error in errors track by $index">
+      <div
+        ng-class="['toast-pf', 'alert', {'alert-danger': !error.warning }, { 'alert-warning': error.warning }, 'alert-dismissable', 'mg-bottom-5']"
+        id="error-{{error.id}}" ng-repeat="error in errors track by $index">
         <button type="button" class="close" data-dismiss="error-{{error.id}}" ng-click="deleteError(error.id)"
           aria-hidden="true">
           <span class="pficon pficon-close"></span>
         </button>
-        <span class="pficon pficon-error-circle-o"></span>
+        <span
+          ng-class="['pficon', { 'pficon-error-circle-o': !error.warning }, { 'pficon-warning-triangle-o': error.warning }]"></span>
         <strong ng-show="error.i18nMessage">{{ error.i18nMessage | translate }}.</strong>
         <span ng-show="error.message">{{ error.message }}.</span>
         <span ng-show="error.error">{{ error.error }}.</span>
@@ -215,7 +217,8 @@
               <div class="alert alert-info">
                 <span class="pficon pficon-info"></span>
                 <span>{{ 'This change will be applied to' | translate }} {{ numSelected }}
-                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }} </span>
+                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}.
+                  {{ 'Only phones with an extension registered will be successfully rebooted' | translate }}</span>
               </div>
               <!-- bulk reboot switch -->
               <div class="form-group">
@@ -267,7 +270,8 @@
                 <span class="pficon pficon-warning-triangle-o"></span>
                 <span class="margin-left-5">
                   {{ 'You are about to reboot' | translate }} {{ numSelected }}
-                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}
+                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}.
+                  {{ 'Only phones with an extension registered will be successfully rebooted' | translate }}
                 </span>
               </div>
               <form class="form-horizontal">

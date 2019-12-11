@@ -2437,6 +2437,10 @@ iframe body {
   margin-right: 10px;
 }
 
+.mg-right-20 {
+  margin-right: 20px;
+}
+
 .reset-padding {
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -2458,18 +2462,6 @@ iframe body {
   border-color: #3f9c35 !important;
 }
 
-.width-10p {
-  width: 10% !important;
-}
-
-.width-28p {
-  width: 28% !important;
-}
-
-.width-85p {
-  width: 85% !important;
-}
-
 .align-items-flex-start {
   align-items: flex-start;
 }
@@ -2483,6 +2475,10 @@ iframe body {
 
 .mg-bottom-0 {
   margin-bottom: 0;
+}
+
+.width-12p {
+  width: 12% !important;
 }
 
 .width-15p {
@@ -2546,5 +2542,22 @@ a.black:focus, a.black:hover, a.black:active {
 
 .toggle-successfully-added-phones a {
   color: #363636;
+}
+
+.flex-column-w100p {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.flex-row-stretch-w100p {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: stretch !important;
+}
+
+.flex-1-0-auto {
+  flex: 1 0 auto !important;
 }
 /* end Inventory */

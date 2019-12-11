@@ -670,9 +670,10 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    function addErrorNotification(error, i18nMessage) {
+    function addErrorNotification(error, i18nMessage, warning) {
       error.i18nMessage = i18nMessage;
       error.id = $scope.errorId;
+      error.warning = warning;
       $scope.errorId++;
       $scope.errors.push(error);
     }
