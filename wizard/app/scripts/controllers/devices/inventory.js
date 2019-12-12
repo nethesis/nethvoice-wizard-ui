@@ -29,17 +29,18 @@ angular.module('nethvoiceWizardUiApp')
     function gotPhones(phonesTancredi) {
       $scope.phones = [];
 
-      for (var phoneTancredi of phonesTancredi) {
+      phonesTancredi.forEach(function (phoneTancredi) {
         var phone = PhoneService.buildPhone(phoneTancredi, $scope.models);
         $scope.phones.push(phone);
-      }
+      });
     }
 
     function gotNetworks(networks) {
       // assign network names
-      for (const [networkName, network] of Object.entries(networks)) {
+      Object.keys(networks).forEach(function (networkName) {
+        var network = networks[networkName];
         network.name = networkName;
-      }
+      });
       $scope.networks = networks;
 
       for (var eth in $scope.networks) {
@@ -102,12 +103,12 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     // modal used to add mac using different methods
-    $scope.showGenericAddingModal = val => {
+    $scope.showGenericAddingModal = function (val) {
       $scope.addModalType = val;
       $('#adding-modal').modal("show");
     };
 
-    $scope.showPasteModal = () => {
+    $scope.showPasteModal = function () {
       $scope.phonesToAdd = [];
       $scope.pastedMacs = [];
       $scope.successfulAddPhones = [];
@@ -118,7 +119,7 @@ angular.module('nethvoiceWizardUiApp')
       initCopyPasteMacUI();
     }
 
-    let initCopyPasteMacUI = () => {
+    function initCopyPasteMacUI() {
       initPopovers();
 
       $("#adding-modal").on('shown.bs.modal', function () {
@@ -284,7 +285,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.showNoPhoneToAddFromNetwork = true;
         }
 
-        for (var phoneFromScan of phonesFromScan) {
+        phonesFromScan.forEach(function (phoneFromScan) {
           var phoneToAdd = {
             "mac": phoneFromScan.mac.replace(/:/g, "-"),
             "ipv4": phoneFromScan.ipv4
@@ -293,7 +294,7 @@ angular.module('nethvoiceWizardUiApp')
 
           // update model list
           $scope.macPhoneToAddChanged(phoneToAdd);
-        }
+        });
         $scope.getVendorApplyToAllList();
         $scope.networkScanInProgress = false;
       }, function (err) {
@@ -327,11 +328,11 @@ angular.module('nethvoiceWizardUiApp')
         // clear all errors
         $scope.macDuplicates = [];
 
-        for (var phone of $scope.phonesToAdd) {
+        $scope.phonesToAdd.forEach(function (phone) {
           phone.invalidMac = false;
           phone.unknownVendor = false;
           phone.alreadyInInventory = false;
-        }
+        });
       }
     }
 
@@ -415,7 +416,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.addPhonesInProgress = true;
 
       // add all phones
-      for (var phone of $scope.phonesToAdd) {
+      $scope.phonesToAdd.forEach(function (phone) {
         var phoneTancredi = PhoneService.buildPhoneTancredi(phone.mac, phone.model, phone.vendor);
         // set formatted MAC
         phone.mac = phoneTancredi.mac;
@@ -437,19 +438,19 @@ angular.module('nethvoiceWizardUiApp')
             showResultsAddPhones();
           }
         });
-      }
+      });
     }
 
     function showResultsAddPhones() {
       $scope.addPhonesInProgress = false;
       $scope.showResultsAddPhones = true;
 
-      for (var phone of $scope.successfulAddPhones) {
+      $scope.successfulAddPhones.forEach(function (phone) {
         $scope.deletePhoneToAdd(phone);
-      }
+      });
 
       // show server errors on UI
-      for (var error of $scope.failedAddPhones) {
+      $scope.failedAddPhones.forEach(function (error) {
         var errorPhone = error.phone;
 
         var phone = $scope.phonesToAdd.find(function (p) {
@@ -457,7 +458,7 @@ angular.module('nethvoiceWizardUiApp')
         });
 
         phone.serverError = error.error.data.title;
-      }
+      });
 
       // server error popovers
       $timeout(function () {
@@ -502,7 +503,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.getManualFilteredModelsCount = () => {
+    $scope.getManualFilteredModelsCount = function () {
       return $scope.manualFilteredModels && $scope.manualFilteredModels.length > 0 ? false : true;
     };
 
@@ -528,7 +529,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.getVendorApplyToAllList();
     }
 
-    $scope.vendorApplyToAllChanged = () => {
+    $scope.vendorApplyToAllChanged = function () {
       if (!$scope.vendorApplyToAll) {
         $scope.modelApplyToAllList = [];
         return;
@@ -539,10 +540,10 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    $scope.getVendorApplyToAllList = () => {
+    $scope.getVendorApplyToAllList = function () {
       var vendorApplyToAllSet = new Set();
 
-      for (var phone of $scope.phonesToAdd) {
+      $scope.phonesToAdd.forEach(function (phone) {
         var vendor = phone.vendor;
         if (!vendor) {
           vendor = PhoneService.getVendor(phone.mac);
@@ -552,13 +553,12 @@ angular.module('nethvoiceWizardUiApp')
         if (vendor) {
           vendorApplyToAllSet.add(vendor);
         }
-      }
-
-      $scope.vendorApplyToAllList = [...vendorApplyToAllSet];
+      });
+      $scope.vendorApplyToAllList = Array.from(vendorApplyToAllSet);
     }
 
-    $scope.applyModelToAll = () => {
-      for (var phone of $scope.phonesToAdd) {
+    $scope.applyModelToAll = function () {
+      $scope.phonesToAdd.forEach(function (phone) {
         var vendor = phone.vendor;
         if (!vendor) {
           vendor = PhoneService.getVendor(phone.mac);
@@ -574,7 +574,7 @@ angular.module('nethvoiceWizardUiApp')
             phone.model = model;
           }
         }
-      }
+      });
     }
 
     $scope.macPhoneToAddChanged = function (phone) {
@@ -589,9 +589,9 @@ angular.module('nethvoiceWizardUiApp')
       // re-check duplicated MAC
       var macsPhonesToAdd = [];
 
-      for (var p of $scope.phonesToAdd) {
+      $scope.phonesToAdd.forEach(function (p) {
         macsPhonesToAdd.push(p.mac);
-      }
+      });
       $scope.macDuplicates = UtilService.findDuplicates(macsPhonesToAdd);
 
       // check vendor
@@ -729,13 +729,13 @@ angular.module('nethvoiceWizardUiApp')
         }
       ];
 
-      for (var model of models) {
+      models.forEach(function (model) {
         ModelService.createModel(model).then(function (success) {
           console.log("postModels", success); ////
         }, function (err) {
           console.log(err);
         });
-      }
+      });
     }
 
     // $scope.postModels(); ////

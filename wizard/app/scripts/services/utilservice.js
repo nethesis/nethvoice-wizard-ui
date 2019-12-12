@@ -81,7 +81,11 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     this.findDuplicates = function (array) {
-      let findDuplicatesInArray = arr => arr.filter((item, index) => arr.indexOf(item) != index)
-      return [...new Set(findDuplicatesInArray(array))];
+      function findDuplicatesInArray(arr) {
+        return arr.filter(function (item, index) {
+          return arr.indexOf(item) != index
+        });
+      }
+      return Array.from(new Set(findDuplicatesInArray(array)));
     }
   });
