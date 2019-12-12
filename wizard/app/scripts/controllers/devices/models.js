@@ -15,9 +15,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.inventoryModels = {}
     $scope.loadingModels = {}
-    $scope.loadingActions = {
-      newModel: false
-    }
+    $scope.loadingAction = false
 
     $scope.modelsErrors = {
       newModelCustomNameEmpty: false,
@@ -87,8 +85,6 @@ angular.module('nethvoiceWizardUiApp')
       if (!currentModelChanged) {
         currentModelChanged = true
       }
-      $scope.currentModel.changedVariables.push(variable)
-      console.log("CURRENT MODEL", $scope.currentModel)
     }
 
     $scope.createPhone = function () {
@@ -146,10 +142,10 @@ angular.module('nethvoiceWizardUiApp')
       return false
     }
 
-    var setLoadingActions = function (action, status) {
-      $scope.loadingActions[action] = status
+    var resetLoadingAction = function (status) {
+      $scope.loadingAction = status
       setTimeout(function () {
-        $scope.loadingActions[action] = false
+        $scope.loadingAction = false
       }, 1000)
     }
 
@@ -159,7 +155,7 @@ angular.module('nethvoiceWizardUiApp')
       }
       resetModelsErrors()
       var newModelName = $scope.newModelSourceName + "-" + $scope.newModelCustomName + '-' + Date.now()
-      $scope.loadingActions.newModel = true
+      $scope.loadingAction = true
       ModelService.getModel($scope.newModelSourceName).then(function (res) {
         ModelService.createModel({
           "name": newModelName,
@@ -170,7 +166,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.newModelSourceName = ''
           $scope.newModelCustomName = ''
           getModels()
-          setLoadingActions("newModel", "ok")
+          resetLoadingAction("ok")
           setTimeout(function () {
             $scope.checkCurrentModelChanged(newModelName)
             $('#modelFromSelect').selectpicker('refresh');
@@ -178,12 +174,12 @@ angular.module('nethvoiceWizardUiApp')
         }, function (err) {
           console.log(err)
           $scope.modelsErrors.apiError = err.data.title
-          setLoadingActions("newModel", "err")
+          resetLoadingAction("err")
         })
       }, function (err) {
         console.log(err)
         $scope.modelsErrors.apiError = err.data.title
-        setLoadingActions("newModel", "err")
+        resetLoadingAction("err")
       })
     }
 

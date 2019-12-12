@@ -2541,7 +2541,7 @@ iframe body {
 }
 
 .modified-input {
-  border-color: #7dc3e8;
+  border-color: #7dc3e8 !important;
 }
 
 .table-caption-bottom {

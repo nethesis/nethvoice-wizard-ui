@@ -342,8 +342,8 @@ angular.module('nethvoiceWizardUiApp')
           $scope.currentModel = {
             "ui" : $scope.getModelUI(modelName, modelBrand),
             "variables" : res.data.variables,
+            "globals": {},
             "storedVariables": angular.copy(res.data.variables),
-            "changedVariables": [],
             "name" : name,
             "display_name" : res.data.display_name,
             "openedSection" : "",
@@ -353,11 +353,7 @@ angular.module('nethvoiceWizardUiApp')
             "hidden": false
           }
           ModelService.getDefaults().then(function (res) {
-            for (var varKey in res.data) {
-              if (!$scope.currentModel.variables[varKey]) {
-                $scope.currentModel.variables[varKey] = res.data[varKey]
-              }
-            }
+            $scope.currentModel.globals = res.data
             resolve(true)
           })
         }, function (err) {

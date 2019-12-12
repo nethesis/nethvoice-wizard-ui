@@ -10,13 +10,15 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('ModelsUICtrl', function ($scope, ModelService) {
 
-    $scope.loadingActions = {
-      cancelChanges: false,
-      resetValues: false,
-      deleteDevices: false
-    }
-
+    $scope.loadingAction = false
     $scope.selectedAction = ""
+
+    var resetLoadingAction = function (status) {
+      $scope.loadingAction = status
+      setTimeout(function () {
+        $scope.loadingAction = false
+      }, 1000)
+    }
 
     $scope.openActionModal = function (action) {
       $scope.selectedAction = action
@@ -58,11 +60,20 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.cancelChanges = function () {
-      $scope.currentModel.variables = $scope.currentModel.storedVariables
-      $("#actionsModal").modal("hide")
-      // $('select.tier').each(function(){ 
-      //   $(this).data('combobox').refresh();
-      // })
+      $scope.loadingAction = true
+      $scope.currentModel.variables = angular.copy($scope.currentModel.storedVariables)
+      setTimeout(function () {
+        $('.model-container select').each(function(){
+          if ($(this).hasClass("selectpicker")) {
+            $(this).selectpicker('refresh')
+          } else if ($(this).hasClass("combobox")) {
+            $(this).combobox('refresh')
+          }
+        })
+        resetLoadingAction("ok")
+        $("#actionsModal").modal("hide")
+        $scope.$apply()
+      }, 1000)
     }
 
     $scope.resetChanges = function () {

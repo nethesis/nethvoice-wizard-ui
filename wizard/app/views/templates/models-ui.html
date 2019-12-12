@@ -54,10 +54,10 @@
                                               id="{{sectionkey}}-select-{{count+1}}-{{$index+1}}"
                                               ng-model="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start)]"
                                               ng-change="onVariableChanged('exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start))"
-                                              class="combobox form-control"
+                                              class="{{key.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
                                               autocomplete="off"
                                               name="{{key.variable}}">
-                                              <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                                              <option value="">-</option>
                                               <!-- combobox -->
                                               <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
                                                 value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
@@ -112,12 +112,12 @@
                                   <div class="hidden">
                                     <select
                                       id="{{sectionkey}}-select-{{count+1}}-{{$index+1}}"
-                                      class="combobox form-control"
+                                      class="{{key.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
                                       ng-model="currentModel.variables[key.variable + (count + item.loop_start)]"
                                       ng-change="onVariableChanged(key.variable + (count + item.loop_start))"
                                       autocomplete="off"
                                       name="{{key.variable}}">
-                                      <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                                      <option value="">-</option>
                                       <!-- combobox -->
                                       <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
                                         value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
@@ -164,9 +164,9 @@
                               id="{{sectionkey}}-select-{{$index+1}}"
                               ng-model="currentModel.variables[key.variable]"
                               ng-change="onVariableChanged(key.variable)"
-                              class="combobox form-control"
+                              class="{{key.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
                               autocomplete="off">
-                              <option ng-if="key.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::key.description | translate}}</option>
+                              <option value="">-</option>
                               <!-- combobox -->
                               <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
                                 value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
@@ -217,11 +217,13 @@
                       <div class="hidden">
                         <select 
                           id="{{sectionkey}}-select-{{$index}}"
-                          class="combobox form-control"
+                          class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
                           ng-model="currentModel.variables[item.variable]"
                           ng-change="onVariableChanged(item.variable)"
                           autocomplete="off">
-                          <option ng-if="item.options.length > 10" value="" selected="selected">{{('Select ') | translate}} {{::item.description | translate}}</option>
+                          <option value="">
+                            {{currentModel.globals[item.variable] || '-'}}
+                          </option>
                           <!-- combobox -->
                           <option ng-if="item.options.length > 10" ng-repeat="option in item.options"
                             value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
@@ -238,7 +240,7 @@
                         id="{{sectionkey}}-input-{{$index}}"
                         ng-model="currentModel.variables[item.variable]"
                         ng-change="onVariableChanged(item.variable)"
-                        placeholder="{{'Insert ' | translate}} {{::item.description | translate}}"
+                        placeholder="{{currentModel.globals[item.variable]}}"
                         type="text"
                         class="form-control">
                       </input>
@@ -353,9 +355,9 @@
               </p>
             </div>
           </div>
-          <div ng-if="loadingActions.newModel == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div>
-          <span ng-if="loadingActions.newModel == 'ok'" class="pficon pficon-ok adjust-margin loader-modal fz-18"></span>
-          <span ng-if="loadingActions.newModel == 'err'" class="pficon pficon-error-circle-o adjust-margin loader-modal fz-18"></span>
+          <div ng-if="loadingAction == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div>
+          <span ng-if="loadingAction == 'ok'" class="pficon pficon-ok adjust-margin loader-modal fz-18"></span>
+          <span ng-if="loadingAction == 'err'" class="pficon pficon-error-circle-o adjust-margin loader-modal fz-18"></span>
           <div class="modal-footer submit">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
             <button type="submit" class="btn btn-primary">{{'Continue' | translate}}</button>
