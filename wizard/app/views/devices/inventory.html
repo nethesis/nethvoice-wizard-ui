@@ -323,16 +323,22 @@
                   </div>
                 </div>
                 <!-- toolbar to apply model to all -->
-                <div ng-show="phonesToAdd.length > 0">
-                  <div class="mg-top-10"><label>{{ 'inv_help_mac_4' | translate }}</label></div>
-                  <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select vendor' | translate) }"
-                    ng-model="vendorApplyToAll" ng-change="vendorApplyToAllChanged()"
-                    ng-disabled="vendorApplyToAllList.size === 0" ng-options="v as v for v in vendorApplyToAllList">
-                  </select>
-                  <select class="mg-right-10" pf-select="{ noneSelectedText: ('Select model' | translate) }"
-                    ng-model="modelApplyToAll" ng-options="m as m.display_name for m in modelApplyToAllList">
-                  </select>
-
+                <div ng-show="phonesToAdd.length > 1">
+                  <div class="mg-top-20"><label>{{ 'inv_help_mac_4' | translate }}:</label></div>
+                  <div class="filter">
+                    <div>{{ 'Vendor' | translate }}</div>
+                    <select pf-select="{ noneSelectedText: '-' }" class="width-240" ng-model="vendorApplyToAll"
+                      ng-change="vendorApplyToAllChanged()" ng-disabled="vendorApplyToAllList.size === 0"
+                      ng-options="v as v for v in vendorApplyToAllList">
+                    </select>
+                  </div>
+                  <div class="filter">
+                    <div>{{ 'Model' | translate }}</div>
+                    <select pf-select="{ noneSelectedText: '-' }" class="width-240" ng-model="modelApplyToAll"
+                      ng-disabled="modelApplyToAllList.size === 0"
+                      ng-options="m as m.display_name for m in modelApplyToAllList">
+                    </select>
+                  </div>
                   <button type="button" class="btn btn-default" ng-click="applyModelToAll()"
                     ng-disabled="!modelApplyToAll">
                     {{ 'Apply to all' | translate }}
@@ -342,11 +348,13 @@
                 <div ng-show="phonesToAdd.length > 0">
                   <!-- number of phones to add -->
                   <div class="mg-top-20">
-                    <label class="mg-bottom-6">{{ phonesToAdd.length }} {{ 'phones to add' | translate }}</strong>
+                    <label class="mg-bottom-6">{{ phonesToAdd.length }}
+                      {{ phonesToAdd.length > 1 ? ('phones to add' | translate) : ('phone to add' | translate) }}
+                    </label>
                   </div>
                   <!-- phones to add -->
                   <div class="phones-to-add">
-                    <div class="list-group list-view-pf clear">
+                    <div class="list-group list-view-pf clear mg-bottom-0">
                       <div class="list-group-item cursor-default form-group no-margin-left-right align-items-stretch"
                         ng-class="{ 'has-error': (phone.invalidMac || phone.serverError || phone.alreadyInInventory || macDuplicates.includes(phone.mac)), 'border-top-list': $index == 0 }"
                         ng-repeat="phone in phonesToAdd track by $index">

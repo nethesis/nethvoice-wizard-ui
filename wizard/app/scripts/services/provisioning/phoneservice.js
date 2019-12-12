@@ -10,17 +10,6 @@
 angular.module('nethvoiceWizardUiApp')
   .service('PhoneService', function ($q, RestService, UtilService) {
 
-    this.macVendorMap = {
-      "0C383E": "fanvil",
-      "7C2F80": "gigaset",
-      "005058": "sangoma",
-      "000413": "snom",
-      "001565": "yealink",
-      "805E0C": "yealink",
-      "805EC0": "yealink",
-      "9C7514": "yealink"
-    };
-
     // Retrieve the complete phone inventory
     this.getPhones = function () {
       return $q(function (resolve, reject) {
@@ -102,7 +91,7 @@ angular.module('nethvoiceWizardUiApp')
     this.getVendor = function (macAddress) {
       // remove separators
       macAddress = this.removeMacSeparators(macAddress).toUpperCase();
-      var vendor = this.macVendorMap[macAddress.substring(0, 6)];
+      var vendor = macVendors[macAddress.substring(0, 6)];
 
       if (vendor) {
         vendor = UtilService.capitalize(vendor);

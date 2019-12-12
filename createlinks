@@ -9,5 +9,6 @@ event_actions($event, qw(
 
 event_templates($event, qw(
     /var/www/html/freepbx/wizard/scripts/custom.js
+    /var/www/html/freepbx/wizard/scripts/macVendors.js
     /var/www/html/freepbx/wizard/styles/brand.css
 ));

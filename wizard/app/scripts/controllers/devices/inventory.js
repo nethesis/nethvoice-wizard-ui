@@ -472,11 +472,16 @@ angular.module('nethvoiceWizardUiApp')
       $scope.clearValidationErrorsManual();
       var alreadyInInventory = false;
 
+      if (!PhoneService.checkMacAddress($scope.manualMac)) {
+        $scope.showManualMacError = true;
+      } else {
+        $scope.manualMac = PhoneService.normalizeMacAddress($scope.manualMac);
+      }
+
       // check duplicated MAC
       var duplicatedPhone = $scope.phonesToAdd.find(function (phone) {
         return phone.mac === $scope.manualMac;
       });
-
 
       if (duplicatedPhone) {
         $scope.manualMacDuplicated = true;
@@ -489,10 +494,6 @@ angular.module('nethvoiceWizardUiApp')
         if (alreadyInInventory) {
           $scope.manualMacInInventory = true;
         }
-      }
-
-      if (!PhoneService.checkMacAddress($scope.manualMac)) {
-        $scope.showManualMacError = true;
       }
 
       if ($scope.manualMacDuplicated || $scope.showManualMacError || $scope.manualMacInInventory) {
@@ -518,7 +519,8 @@ angular.module('nethvoiceWizardUiApp')
       $scope.phonesToAdd = [];
 
       for (var index = 0; index < $scope.pastedMacs.length; index++) {
-        var phone = { "mac": $scope.pastedMacs[index] };
+        var normalizedMac = PhoneService.normalizeMacAddress($scope.pastedMacs[index]);
+        var phone = { "mac": normalizedMac };
         $scope.phonesToAdd.push(phone);
 
         // update model list

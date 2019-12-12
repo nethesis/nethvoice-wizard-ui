@@ -53,7 +53,7 @@
           <div class="col-sm-12 no-padding mg-bottom-6">
             <!-- filter by group combobox -->
             <div class="filter">
-              <div>{{ 'Filter by group' | translate }}:</div>
+              <div>{{ 'Filter by group' | translate }}</div>
               <select pf-select="{ noneSelectedText: '' }" class="width-240" ng-change="filterPhones()"
                 ng-model="filteredGroup" ng-options="group.name for group in groups | orderBy:orderByValue">
                 <option value="">{{ 'All' | translate }}</option>
@@ -61,7 +61,7 @@
             </div>
             <!-- filter by model combobox -->
             <div class="filter">
-              <div>{{ 'Filter by model' | translate }}:</div>
+              <div>{{ 'Filter by model' | translate }}</div>
               <select pf-select="{ noneSelectedText: '' }" class="width-240" ng-change="filterPhones()"
                 ng-model="filteredModel" ng-options="model.display_name for model in models | orderBy:orderByValue">
                 <option value="">{{ 'All' | translate }}</option>
@@ -175,8 +175,8 @@
               <!-- bulk notification -->
               <div class="alert alert-info">
                 <span class="pficon pficon-info"></span>
-                <span>{{ 'This change will be applied to' | translate }} {{ numSelected }}
-                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}</span>
+                <span>{{ 'This change will be applied to' | translate }} <b>{{ numSelected }}
+                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}</b></span>
               </div>
               <!-- bulk model -->
               <div class="form-group">
@@ -216,8 +216,8 @@
               <!-- bulk notification -->
               <div class="alert alert-info">
                 <span class="pficon pficon-info"></span>
-                <span>{{ 'This change will be applied to' | translate }} {{ numSelected }}
-                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}.
+                <span>{{ 'This change will be applied to' | translate }} <b>{{ numSelected }}
+                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}</b>.
                   {{ 'Only phones with an extension registered will be successfully rebooted' | translate }}</span>
               </div>
               <!-- bulk reboot switch -->
@@ -269,8 +269,8 @@
               <div class="alert alert-warning alert-dismissable">
                 <span class="pficon pficon-warning-triangle-o"></span>
                 <span class="margin-left-5">
-                  {{ 'You are about to reboot' | translate }} {{ numSelected }}
-                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}.
+                  {{ 'You are about to reboot' | translate }} <b>{{ numSelected }}
+                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}</b>.
                   {{ 'Only phones with an extension registered will be successfully rebooted' | translate }}
                 </span>
               </div>
