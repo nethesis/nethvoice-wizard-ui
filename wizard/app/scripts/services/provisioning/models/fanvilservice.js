@@ -597,11 +597,11 @@ angular.module('nethvoiceWizardUiApp')
             "type": "list",
             "options": [{
                 "text": "Off",
-                "value": "0"
+                "value": 0
               },
               {
                 "text": "On",
-                "value": "1"
+                "value": 1
               }
             ]
           },

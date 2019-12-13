@@ -13,10 +13,17 @@ angular.module('nethvoiceWizardUiApp')
     $scope.loadingAction = false
     $scope.selectedAction = ""
 
+    $scope.modelErrors = {
+      updateReadOnlyAttribute: false,
+      resetChangesNotFound: false,
+      deleteChangesNotFound: false
+    }
+
     var resetLoadingAction = function (status) {
       $scope.loadingAction = status
       setTimeout(function () {
         $scope.loadingAction = false
+        $scope.$apply()
       }, 1000)
     }
 
@@ -50,6 +57,14 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.getOptionText = function (options, value) {
+      for (var option in options) {
+        if (options[option].value == value) {
+          return options[option].text 
+        }
+      }
+    }
+
     $scope.openExpKeys = function (expkeyk, sectionkey) {
       delete $scope.currentModel.ui[sectionkey].showingExpKeys
       if ($scope.currentModel.openedExpKeys != expkeyk) {
@@ -57,6 +72,14 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         $scope.currentModel.openedExpKeys = ""
       }
+    }
+
+    var restErrStatus = function (key, title) {
+      setTimeout(function () {
+        $scope.modelErrors[key] = title
+        resetLoadingAction("err")
+        $scope.$apply()
+      }, 1000)
     }
 
     $scope.cancelChanges = function () {
@@ -77,23 +100,71 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.resetChanges = function () {
-
+      $scope.loadingAction = true
+      ModelService.getOriginal($scope.currentModel.name).then(function (res) {
+        ModelService.patchModel($scope.currentModel.name, {
+          "display_name": $scope.currentModel.name,
+          "variables": res.data.variables
+        }).then(function (res) {
+          resetLoadingAction("ok")
+          $scope.currentModel.variables = res.data.variables
+          $scope.hideModal("actionsModal")
+          $scope.$apply()
+        }, function (err) {
+          console.log(err)
+          restErrStatus("resetChangesNotFound", err.data.title)
+        })
+      }, function (err) {
+        console.log(err)
+        restErrStatus("resetChangesNotFound", err.data.title)
+      })
     }
 
     $scope.deleteModel = function () {
-
+      $scope.loadingAction = true
+      ModelService.deleteModel($scope.currentModel.name).then(function (res) {
+        resetLoadingAction("ok")
+        $scope.hideModal("actionsModal")
+        $scope.$apply()
+        setTimeout(function () {
+          $scope.$emit('reloadModels')
+        }, 1000)
+      }, function (err) {
+        console.log(err)
+        restErrStatus("deleteChangesNotFound", err.data.title)
+      })
     }
 
     $scope.saveCurrentModel = function () {
+      $scope.loadingAction = true
       ModelService.patchModel($scope.currentModel.name, {
-          "display_name": $scope.currentModel.name,
-          "variables": $scope.currentModel.variables
-        }).then(function (res) {
+        "display_name": $scope.currentModel.name,
+        "variables": $scope.currentModel.variables
+      }).then(function (res) {
+        resetLoadingAction("ok")
         $scope.hideModal("saveChangesConfirm")
+        $scope.$emit('curentModelSaved')
+        $scope.$apply()
+        ModelService.getModel($scope.currentModel.name).then(function (res) {
+          $scope.currentModel.storedVariables = res.data.variables
+        }, function (err) {
+          console.log(err)
+          restErrStatus("updateReadOnlyAttribute", err.data.title)
+        })
       }, function (err) {
         console.log(err)
+        restErrStatus("updateReadOnlyAttribute", err.data.title)
       })
     }
+
+    $('#saveChangesConfirm').on('hidden.bs.modal', function () {
+      $scope.modelErrors.updateReadOnlyAttribute = false
+    })
+
+    $('#actionsModal').on('hidden.bs.modal', function () {
+      $scope.modelErrors.resetChangesNotFound = false
+      $scope.modelErrors.deleteChangesNotFound = false
+    })
 
   })
 

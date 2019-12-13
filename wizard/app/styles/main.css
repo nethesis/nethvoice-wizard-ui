@@ -2552,3 +2552,7 @@ iframe body {
 .vertical-middle {
   vertical-align: middle !important;
 }
+
+#defaultSettingsModal label {
+  margin-bottom: 3px !important;
+}

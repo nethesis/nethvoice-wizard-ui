@@ -15,9 +15,9 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.inventoryModels = {}
     $scope.loadingModels = {}
-    $scope.loadingAction = false
+    $scope.loadingActions = false
 
-    $scope.modelsErrors = {
+    $scope.newModelsErrors = {
       newModelCustomNameEmpty: false,
       newModelSourceEmpty: false,
       apiError: false
@@ -76,6 +76,10 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.openDefaultSettings = function () {
+      $("#defaultSettingsModal").modal("show")
+    }
+
     $scope.onModelSetContinue = function () {
       $("#modelChangeConfirm").modal("hide")
       $scope.setCurrentModel(modelNameChecking)
@@ -119,9 +123,9 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     var resetModelsErrors = function () {
-      for (var err in $scope.modelsErrors) {
-        if ($scope.modelsErrors[err] == true) {
-          $scope.modelsErrors[err] = false
+      for (var err in $scope.newModelsErrors) {
+        if ($scope.newModelsErrors[err] == true) {
+          $scope.newModelsErrors[err] = false
         }
       }
     }
@@ -129,11 +133,11 @@ angular.module('nethvoiceWizardUiApp')
     var newModelValidErr = function () {
       var hasErrors = false
       if ($scope.newModelSourceName == "") {
-        $scope.modelsErrors.newModelSourceEmpty = true
+        $scope.newModelsErrors.newModelSourceEmpty = true
         hasErrors = true
       }
       if ($scope.newModelCustomName == "") {
-        $scope.modelsErrors.newModelCustomNameEmpty = true
+        $scope.newModelsErrors.newModelCustomNameEmpty = true
         hasErrors = true
       }
       if (hasErrors) {
@@ -143,9 +147,10 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     var resetLoadingAction = function (status) {
-      $scope.loadingAction = status
+      $scope.loadingActions = status
       setTimeout(function () {
-        $scope.loadingAction = false
+        $scope.loadingActions = false
+        $scope.$apply()
       }, 1000)
     }
 
@@ -155,7 +160,7 @@ angular.module('nethvoiceWizardUiApp')
       }
       resetModelsErrors()
       var newModelName = $scope.newModelSourceName + "-" + $scope.newModelCustomName + '-' + Date.now()
-      $scope.loadingAction = true
+      $scope.loadingActions = true
       ModelService.getModel($scope.newModelSourceName).then(function (res) {
         ModelService.createModel({
           "name": newModelName,
@@ -173,12 +178,12 @@ angular.module('nethvoiceWizardUiApp')
           }, 1000)
         }, function (err) {
           console.log(err)
-          $scope.modelsErrors.apiError = err.data.title
+          $scope.newModelsErrors.apiError = err.data.title
           resetLoadingAction("err")
         })
       }, function (err) {
         console.log(err)
-        $scope.modelsErrors.apiError = err.data.title
+        $scope.newModelsErrors.apiError = err.data.title
         resetLoadingAction("err")
       })
     }
@@ -202,6 +207,14 @@ angular.module('nethvoiceWizardUiApp')
       resetModelsErrors()
       $scope.newModelCustomName = ''
       $scope.$apply()
+    })
+
+    $scope.$on('curentModelSaved', function() { 
+      currentModelChanged = false
+    })
+
+    $scope.$on('reloadModels', function() { 
+      getModels()
     })
 
   })

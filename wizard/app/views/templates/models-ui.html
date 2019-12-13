@@ -57,7 +57,7 @@
                                               class="{{key.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
                                               autocomplete="off"
                                               name="{{key.variable}}">
-                                              <option value="">-</option>
+                                              <option value="">{{currentModel.globals[key.variable] ? getOptionText(key.options, currentModel.globals[key.variable]) + " (default)" : "-"}}</option>
                                               <!-- combobox -->
                                               <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
                                                 value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
@@ -75,7 +75,7 @@
                                             id="{{sectionkey}}-input-{{count+1}}-{{$index+1}}"
                                             ng-model="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start)]"
                                             ng-change="onVariableChanged('exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start))"
-                                            placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
+                                            placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : ''}}"
                                             type="text" class="form-control">
                                           </input>
                                         </div>
@@ -117,7 +117,7 @@
                                       ng-change="onVariableChanged(key.variable + (count + item.loop_start))"
                                       autocomplete="off"
                                       name="{{key.variable}}">
-                                      <option value="">-</option>
+                                      <option value="">{{currentModel.globals[key.variable] ? getOptionText(key.options, currentModel.globals[key.variable]) + " (default)" : "-"}}</option>
                                       <!-- combobox -->
                                       <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
                                         value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
@@ -135,7 +135,7 @@
                                     id="{{sectionkey}}-input-{{count+1}}-{{$index+1}}"
                                     ng-model="currentModel.variables[key.variable + (count + item.loop_start)]"
                                     ng-change="onVariableChanged(key.variable + (count + item.loop_start))"
-                                    placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
+                                    placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : ''}}"
                                     type="text"
                                     class="form-control">
                                   </input>
@@ -166,7 +166,7 @@
                               ng-change="onVariableChanged(key.variable)"
                               class="{{key.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
                               autocomplete="off">
-                              <option value="">-</option>
+                              <option value="">{{currentModel.globals[key.variable] ? getOptionText(key.options, currentModel.globals[key.variable]) + " (default)" : "-"}}</option>
                               <!-- combobox -->
                               <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
                                 value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
@@ -183,7 +183,7 @@
                             id="{{sectionkey}}-input-{{$index+1}}"
                             ng-model="currentModel.variables[key.variable]"
                             ng-change="onVariableChanged(key.variable)"
-                            placeholder="{{'Insert ' | translate}} {{::key.description | translate}}"
+                            placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : ''}}"
                             type="text"
                             class="form-control">
                           </input>
@@ -215,15 +215,13 @@
                     <div ng-if="item.type == 'list'" class="form-group">
                       <label class="control-label">{{::item.description | translate}} {{item.variable}}</label>
                       <div class="hidden">
-                        <select 
+                        <select
                           id="{{sectionkey}}-select-{{$index}}"
                           class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
                           ng-model="currentModel.variables[item.variable]"
                           ng-change="onVariableChanged(item.variable)"
                           autocomplete="off">
-                          <option value="">
-                            {{currentModel.globals[item.variable] || '-'}}
-                          </option>
+                          <option value="">{{currentModel.globals[item.variable] ? getOptionText(item.options, currentModel.globals[item.variable]) + " (default)" : "-"}}</option>
                           <!-- combobox -->
                           <option ng-if="item.options.length > 10" ng-repeat="option in item.options"
                             value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
@@ -240,7 +238,7 @@
                         id="{{sectionkey}}-input-{{$index}}"
                         ng-model="currentModel.variables[item.variable]"
                         ng-change="onVariableChanged(item.variable)"
-                        placeholder="{{currentModel.globals[item.variable]}}"
+                        placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : ''}}"
                         type="text"
                         class="form-control">
                       </input>
@@ -296,6 +294,13 @@
         </div>
         <form class="form-horizontal mt-10" ng-submit="saveCurrentModel()">
           <div class="modal-body">
+            <div ng-if="modelErrors.updateReadOnlyAttribute" class="alert alert-danger alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span class="pficon pficon-close"></span>
+              </button>
+              <span class="pficon pficon-error-circle-o"></span>
+              <strong>{{modelErrors.updateReadOnlyAttribute | translate}}</strong>.
+            </div>
             <div class="alert alert-warning">
               <span class="pficon pficon-warning-triangle-o"></span>
               <strong>
@@ -306,6 +311,9 @@
               </p>
             </div>
           </div>
+          <div ng-if="loadingAction == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div>
+          <span ng-if="loadingAction == 'ok'" class="pficon pficon-ok adjust-margin loader-modal fz-18"></span>
+          <span ng-if="loadingAction == 'err'" class="pficon pficon-error-circle-o adjust-margin loader-modal fz-18"></span>
           <div class="modal-footer submit">
             <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
             <button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
@@ -339,6 +347,13 @@
           selectedAction == 'reset' ? resetChanges() :
           selectedAction == 'delete' ? deleteModel() : ''">
           <div class="modal-body">
+            <div ng-if="modelErrors.updateReadOnlyAttribute || modelErrors.resetChangesNotFound" class="alert alert-danger alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span class="pficon pficon-close"></span>
+              </button>
+              <span class="pficon pficon-error-circle-o"></span>
+              <strong>{{modelErrors.updateReadOnlyAttribute || modelErrors.resetChangesNotFound | translate}}</strong>.
+            </div>
             <div class="alert alert-warning alert-dismissable">
               <span class="pficon pficon-warning-triangle-o"></span>
               <strong ng-if="selectedAction == 'cancel'">

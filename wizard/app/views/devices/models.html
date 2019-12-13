@@ -19,7 +19,7 @@
       <button data-toggle="modal" data-target="#newModelModal"
         class="btn btn-primary btn-lg">{{'Create new model' | translate}}
       </button>
-      <button data-toggle="modal" data-target="#defaultSettingsModal"
+      <button ng-click="openDefaultSettings()"
         class="btn btn-default btn-lg right-align no-margin ng-binding ng-scope">
         {{"Default settings" | translate}}
       </button>
@@ -74,14 +74,14 @@
       </div>
       <form class="form-horizontal">
         <div class="modal-body">
-          <div ng-if="modelsErrors.apiError" class="alert alert-danger alert-dismissable">
+          <div ng-if="newModelsErrors.apiError" class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span class="pficon pficon-close"></span>
             </button>
             <span class="pficon pficon-error-circle-o"></span>
-            <strong>{{modelsErrors.apiError | translate}}</strong>.
+            <strong>{{newModelsErrors.apiError | translate}}</strong>.
           </div>
-          <div class="form-group {{modelsErrors.newModelSourceEmpty ? 'has-error' : ''}}">
+          <div class="form-group {{newModelsErrors.newModelSourceEmpty ? 'has-error' : ''}}">
             <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Duplicate from' | translate}}</label>
             <div class="col-sm-9">
               <select 
@@ -95,7 +95,7 @@
                 <option value="{{model.name}}" ng-repeat="model in inventoryModels track by model.name"
                   on-finish-render="selectpickerRepeatEnd">{{model.display_name}}</option>
               </select>
-              <div ng-show="modelsErrors.newModelSourceEmpty" class="help-block mt-0">
+              <div ng-show="newModelsErrors.newModelSourceEmpty" class="help-block mt-0">
                 {{"Select a source model" | translate}}
               </div>
             </div>
@@ -103,7 +103,7 @@
           <div ng-show="newModelSourceName" class="form-group">
             <label class="col-sm-3 control-label">{{'Name' | translate}} *</label>
             <div class="col-sm-9">
-              <div class="input-group {{modelsErrors.newModelCustomNameEmpty ? 'has-error' : ''}}">
+              <div class="input-group {{newModelsErrors.newModelCustomNameEmpty ? 'has-error' : ''}}">
                 <span class="input-group-addon" >
                   <span ng-if="model.name == newModelSourceName" ng-repeat="model in inventoryModels">{{model.display_name}}-</span>
                 </span>
@@ -112,16 +112,16 @@
                   id="inputCustomName"
                   ng-model="newModelCustomName"
                   class="form-control">
-                <div ng-show="modelsErrors.newModelCustomNameEmpty" class="help-block table-caption-bottom mt-0">
+                <div ng-show="newModelsErrors.newModelCustomNameEmpty" class="help-block table-caption-bottom mt-0">
                   {{"Enter the custom part of the name" | translate}}
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div ng-if="loadingAction == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div>
-        <span ng-if="loadingAction == 'ok'" class="pficon pficon-ok adjust-margin loader-modal fz-18"></span>
-        <span ng-if="loadingAction == 'err'" class="pficon pficon-error-circle-o adjust-margin loader-modal fz-18"></span>
+        <div ng-if="loadingActions == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div>
+        <span ng-if="loadingActions == 'ok'" class="pficon pficon-ok adjust-margin loader-modal fz-18"></span>
+        <span ng-if="loadingActions == 'err'" class="pficon pficon-error-circle-o adjust-margin loader-modal fz-18"></span>
         <div class="modal-footer submit">
           <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
           <button ng-click="createNewModel()" type="button" class="btn btn-primary">{{'Save' | translate}}</button>
@@ -175,15 +175,16 @@
         <form class="form-horizontal">
           <div class="modal-body">
             <div class="col-lg-12 mb-30 mt-20">
-
               <div ng-repeat="item in globalUi.data track by $index" class="col-lg-6 mb-15 ">
                 <div class="col-lg-12">
                   <!-- list -->
                   <div ng-if="item.type == 'list'" class="form-group">
                     <label class="control-label">{{::item.description | translate}}</label>
-                    <select class="combobox form-control" autocomplete="off" name="{{item.variable}}">
-                      <option ng-if="item.options.length > 10" value="" selected="selected">{{('Select ') | translate}}
-                        {{::item.text | translate}}</option>
+                    <select
+                      class="combobox form-control"
+                      ng-model=""
+                      name="{{item.variable}}">
+                      <option value="">-</option>
                       <!-- combobox -->
                       <option ng-if="item.options.length > 10" ng-repeat="option in item.options" value="{{$index}}"
                         on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
@@ -195,7 +196,9 @@
                   <!-- input -->
                   <div ng-if="item.type == 'input'" class="form-group">
                     <label class="control-label">{{::item.description | translate}}</label>
-                    <input placeholder="{{'Insert ' | translate}} {{::item.description | translate}}" type="text"
+                    <input
+                      type="text"
+                      ng-model=""
                       class="form-control">
                     </input>
                   </div>

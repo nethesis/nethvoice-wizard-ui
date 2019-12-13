@@ -58,6 +58,17 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    // Retrieve original
+    this.getOriginal = function (name) {
+      return $q(function (resolve, reject) {
+        RestService.tget('/tancredi/api/v1/models/' + name + '/version/original').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
     // Update model
     this.patchModel = function (name, obj) {
       return $q(function (resolve, reject) {
@@ -73,6 +84,17 @@ angular.module('nethvoiceWizardUiApp')
     this.createModel = function (obj) {
       return $q(function (resolve, reject) {
         RestService.tpost('/tancredi/api/v1/models', obj).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    // Delete model
+    this.deleteModel = function (name) {
+      return $q(function (resolve, reject) {
+        RestService.tdelete('/tancredi/api/v1/models/' + name).then(function (res) {
           resolve(res)
         }, function (err) {
           reject(err)
