@@ -22,6 +22,11 @@ angular.module('nethvoiceWizardUiApp')
     $scope.modelLoaders = {};
     $scope.showSuccessfullyAddedPhones = false;
     $scope.maxPastedMacCharacters = 3600;
+    $scope.phonesLimit = 20;
+
+    $scope.loadMorePhones = function () {
+      $scope.phonesLimit += 20;
+    };
 
     function gotModels(models) {
       $scope.models = models;
@@ -34,6 +39,10 @@ angular.module('nethvoiceWizardUiApp')
         var phone = PhoneService.buildPhone(phoneTancredi, $scope.models);
         $scope.phones.push(phone);
       });
+
+      $timeout(function () {
+        $scope.phonesHeight = 'calc(100vh - ' + ($('#phone-list')[0].getBoundingClientRect().y + 100) + 'px)';
+      }, 200);
     }
 
     function gotNetworks(networks) {
@@ -751,4 +760,10 @@ angular.module('nethvoiceWizardUiApp')
 
     // $scope.postModels(); ////
     init();
+
+    angular.element(document).ready(function () {
+      $timeout(function () {
+        $scope.phonesHeight = 'calc(100vh - ' + ($('#phone-list')[0].getBoundingClientRect().y + 100) + 'px)';
+      }, 1500);
+    })
   });

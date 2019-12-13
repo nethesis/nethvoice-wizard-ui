@@ -95,9 +95,9 @@
           </div>
         </form>
         <!-- phone list -->
-        <div class="list-group list-view-pf clear">
+        <div class="list-group list-view-pf clear" id="phone-list" when-scrolled="loadMorePhones()" ng-style="{'height': phonesHeight}">
           <div class="list-group-item cursor-default"
-            ng-repeat="phone in phones | filter:searchPhoneString | orderBy: 'display_name'">
+            ng-repeat="phone in phones | filter:searchPhoneString | limitTo: phonesLimit | orderBy: 'display_name'">
             <div class="list-view-pf-actions">
               <!-- delete phone -->
               <button type="button" class="btn btn-danger" ng-click="showDeletePhoneModal(phone)" data-toggle="modal"
@@ -314,7 +314,7 @@
                     <div ng-show="showSuccessfullyAddedPhones" class="successfully-added-phones">
                       <ul>
                         <li ng-repeat="phone in successfulAddPhones">
-                          <b>{{ phone.mac }}</b> -
+                          <span class ="mg-right-5"><b>{{ phone.mac }}</b></span>
                           <span ng-show="phone.model">{{ phone.model.display_name }}</span>
                           <span ng-show="!phone.model && phone.vendor">{{ phone.vendor }}</span>
                           <span ng-show="!phone.model && !phone.vendor">{{ 'Unknown vendor' | translate }}</span>

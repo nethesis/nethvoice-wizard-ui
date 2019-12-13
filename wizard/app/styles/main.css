@@ -2564,4 +2564,9 @@ a.black:focus, a.black:hover, a.black:active {
 .flex-1-0-auto {
   flex: 1 0 auto !important;
 }
+
+#phone-list {
+  height: calc(100vh - 300px);
+  overflow: auto;
+}
 /* end Inventory */
