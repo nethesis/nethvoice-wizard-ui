@@ -681,5 +681,6 @@
   "Reboot now": "Riavvia ora",
   "You are about to reboot": "Stai per riavviare",
   "Reboot command was sent": "Il comando di riavvio è stato inviato",
-  "Only phones with an extension registered will be successfully rebooted": "Verranno riavviati con successo solamente i telefoni con un interno registrato"
+  "Only phones with an extension registered will be successfully rebooted": "Verranno riavviati con successo solamente i telefoni con un interno registrato",
+  "Maximum number of pasted MAC addresses reached. You can paste the remaining MAC addresses at the end of this process": "Numero massimo di indirizzi MAC raggiunto. È possibile incollare gli indirizzi MAC rimanenti al termine di questa procedura"
 }

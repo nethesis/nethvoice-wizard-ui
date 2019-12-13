@@ -74,130 +74,134 @@
             </a>
           </div>
         </div>
-      </div>
-      <!-- actions button -->
-      <div class="mg-bottom-15">
-        <button class="btn btn-primary" ng-click="showSetModelModal()"
-          ng-disabled="numSelected == 0 || !allSelectedSameVendor">{{ 'Set model' | translate }}</button>
-        <button class="btn btn-primary" ng-click="showSetRebootModal()"
-          ng-disabled="numSelected == 0">{{ 'Set delayed reboot' | translate }}</button>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#reboot-now-modal"
-          ng-disabled="numSelected == 0">{{ 'Reboot now' | translate }}</button>
-      </div>
 
-      <div ng-show="numFiltered != 0">
-        <!-- selection indicator -->
-        <label class="right-only">
-          {{ numSelected }} {{ 'of' | translate }} {{ numFiltered }} {{ 'selected' | translate }}
-        </label>
-        <!-- select all checkbox -->
-        <input type="checkbox" ng-click="selectAllOrNoneToggle()" id="select-all-none-checkbox"
-          ng-checked="numSelected === numFiltered">
-        <label for="select-all-none-checkbox">{{ 'Select all' | translate }}</label>
-      </div>
-      <!-- empty state for active filters -->
-      <div ng-show="numFiltered == 0" class="blank-slate-pf">
-        <div class="blank-slate-pf-icon">
-          <span class="fa fa-filter"></span>
+        <!-- actions button -->
+        <div class="mg-bottom-15">
+          <button class="btn btn-primary" ng-click="showSetModelModal()"
+            ng-disabled="numSelected == 0 || !allSelectedSameVendor">{{ 'Set model' | translate }}</button>
+          <button class="btn btn-primary" ng-click="showSetRebootModal()"
+            ng-disabled="numSelected == 0">{{ 'Set delayed reboot' | translate }}</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#reboot-now-modal"
+            ng-disabled="numSelected == 0">{{ 'Reboot now' | translate }}</button>
         </div>
-        <h1>
-          {{ 'No phone' | translate }}
-        </h1>
-        <p>
-          {{ 'Please change or clear active filters' | translate }}
-        </p>
-      </div>
-      <!-- phone list -->
-      <div class="list-group list-view-pf clear" ng-show="numFiltered != 0">
-        <div class="list-group-item cursor-default {{phone.selected ? 'selected' : ''}}"
-          ng-repeat="phone in phones track by $index | orderBy: 'display_name'" ng-show="phone.filtered">
-          <label for="checkbox-phone-{{$index}}" class="width-100p">
-            <div class="list-view-pf-actions width-15p">
-              <!-- reboot -->
-              <div>
-                <span class="pficon pficon-restart mg-right-5"></span>
-                <span class="adjust-weight">{{ 'Reboot' | translate }}:</span>
-                <b>{{ phone.delayedReboot ? phone.delayedReboot : '-' }}</b>
-              </div>
-            </div>
-            <!-- checkbox -->
-            <div class="list-view-pf-checkbox">
-              <input type="checkbox" ng-model="phone.selected" id="checkbox-phone-{{$index}}">
-            </div>
-            <div class="list-view-pf-main-info">
-              <div class="list-view-pf-left">
-                <span class="fa fa-phone list-view-pf-icon-sm"></span>
-              </div>
-              <div class="list-view-pf-body">
-                <div class="list-view-pf-description">
-                  <div class="list-group-item-heading adjust-weight">
-                    <div>
-                      {{ phone.vendor ? phone.vendor : '-'}}
-                    </div>
-                    <div>
-                      <b>{{ phone.mac }}</b>
-                    </div>
-                  </div>
-                  <div class="list-group-item-text width-55p">
-                    <!-- model -->
-                    <div class="line-height-normal">
-                      <span class="fa fa-phone mg-right-5"></span>
-                      <span class="adjust-weight">{{ 'Model' | translate }}:</span>
-                      <b>{{ phone.model ? phone.model.display_name : '-' }}</b>
-                    </div>
-                    <!-- user -->
-                    <div class="line-height-normal">
-                      <span class="fa fa-user mg-right-5"></span>
-                      <span class="adjust-weight">{{ 'User' | translate }}:</span>
-                      <b>{{ phone.user ? phone.user.username : '-' }}</b>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
+        <div ng-show="numFiltered != 0">
+          <!-- selection indicator -->
+          <label class="right-only">
+            {{ numSelected }} {{ 'of' | translate }} {{ numFiltered }} {{ 'selected' | translate }}
           </label>
+          <!-- select all checkbox -->
+          <input type="checkbox" ng-click="selectAllOrNoneToggle()" id="select-all-none-checkbox"
+            ng-checked="numSelected === numFiltered">
+          <label for="select-all-none-checkbox">{{ 'Select all' | translate }}</label>
         </div>
-      </div>
-    </div>
-
-    <!-- set model modal -->
-    <div class="modal fade" id="bulkModelModal" tabindex="-1" role="dialog" aria-labelledby="bulkModelModalLabel"
-      aria-hidden="true" data-backdrop="static">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-              <span class="pficon pficon-close"></span>
-            </button>
-            <h4 class="modal-title" id="bulkModelModalLabel">{{ 'Set model' | translate }}</h4>
+        <!-- empty state for active filters -->
+        <div ng-show="numFiltered == 0" class="blank-slate-pf">
+          <div class="blank-slate-pf-icon">
+            <span class="fa fa-filter"></span>
           </div>
-          <form class="form-horizontal" ng-submit="bulkModelSave()">
-            <div class="modal-body">
-              <!-- bulk notification -->
-              <div class="alert alert-info">
-                <span class="pficon pficon-info"></span>
-                <span>{{ 'This change will be applied to' | translate }} <b>{{ numSelected }}
-                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}</b></span>
-              </div>
-              <!-- bulk model -->
-              <div class="form-group">
-                <label class="col-sm-4 control-label">{{ 'Model' | translate }}</label>
-                <div class="col-sm-6">
-                  <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="bulkModel"
-                    ng-disabled="!allSelectedSameVendor"
-                    ng-options="model.display_name for model in filteredModels | orderBy: 'id'">
-                    <option value="">{{ 'No model' | translate }}</option>
-                  </select>
+          <h1>
+            {{ 'No phone' | translate }}
+          </h1>
+          <p>
+            {{ 'Please change or clear active filters' | translate }}
+          </p>
+        </div>
+        <!-- phone list -->
+        <div class="list-group list-view-pf clear" ng-show="numFiltered != 0">
+          <div class="list-group-item cursor-default {{phone.selected ? 'selected' : ''}}"
+            ng-repeat="phone in phones track by $index | orderBy: 'display_name'" ng-show="phone.filtered">
+            <label for="checkbox-phone-{{$index}}" class="width-100p">
+              <div class="list-view-pf-actions width-15p">
+                <!-- reboot -->
+                <div>
+                  <span class="pficon pficon-restart mg-right-5"></span>
+                  <span class="adjust-weight">{{ 'Reboot' | translate }}:</span>
+                  <b>{{ phone.delayedReboot ? phone.delayedReboot : '-' }}</b>
                 </div>
               </div>
-            </div>
-            <div class="modal-footer submit">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
-              <button type="submit" class="btn btn-primary"
-                ng-disabled="bulkModel.id === 0">{{ 'Save' | translate }}</button>
-            </div>
+              <!-- checkbox -->
+              <div class="list-view-pf-checkbox">
+                <input type="checkbox" ng-model="phone.selected" id="checkbox-phone-{{$index}}">
+              </div>
+              <div class="list-view-pf-main-info">
+                <div class="list-view-pf-left">
+                  <span class="fa fa-phone list-view-pf-icon-sm"></span>
+                </div>
+                <div class="list-view-pf-body">
+                  <div class="list-view-pf-description">
+                    <div class="list-group-item-heading adjust-weight">
+                      <div>
+                        {{ phone.vendor ? phone.vendor : '-'}}
+                      </div>
+                      <div>
+                        <b>{{ phone.mac }}</b>
+                      </div>
+                    </div>
+                    <div class="list-group-item-text width-55p">
+                      <!-- model -->
+                      <div class="line-height-normal">
+                        <span class="fa fa-phone mg-right-5"></span>
+                        <span class="adjust-weight">{{ 'Model' | translate }}:</span>
+                        <b>{{ phone.model ? phone.model.display_name : '-' }}</b>
+                      </div>
+                      <!-- user -->
+                      <div class="line-height-normal">
+                        <span class="fa fa-user mg-right-5"></span>
+                        <span class="adjust-weight">{{ 'User' | translate }}:</span>
+                        <b>{{ phone.user ? phone.user.username : '-' }}</b>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </label>
+          </div>
         </div>
-        </form>
       </div>
+
+      <!-- set model modal -->
+      <div class="modal fade" id="bulkModelModal" tabindex="-1" role="dialog" aria-labelledby="bulkModelModalLabel"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                <span class="pficon pficon-close"></span>
+              </button>
+              <h4 class="modal-title" id="bulkModelModalLabel">{{ 'Set model' | translate }}</h4>
+            </div>
+            <form class="form-horizontal" ng-submit="bulkModelSave()">
+              <div class="modal-body">
+                <!-- bulk notification -->
+                <div class="alert alert-info">
+                  <span class="pficon pficon-info"></span>
+                  <span>{{ 'This change will be applied to' | translate }} <b>{{ numSelected }}
+                      {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}</b></span>
+                </div>
+                <!-- bulk model -->
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">{{ 'Model' | translate }}</label>
+                  <div class="col-sm-6">
+                    <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="bulkModel"
+                      ng-disabled="!allSelectedSameVendor"
+                      ng-options="model.display_name for model in filteredModels | orderBy: 'id'">
+                      <option value="">{{ 'No model' | translate }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer submit">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
+                <button type="submit" class="btn btn-primary"
+                  ng-disabled="bulkModel.id === 0">{{ 'Save' | translate }}</button>
+              </div>
+          </div>
+          </form>
+        </div>
+
+
+      </div>
+
     </div>
 
     <!-- set reboot modal -->
@@ -217,7 +221,7 @@
               <div class="alert alert-info">
                 <span class="pficon pficon-info"></span>
                 <span>{{ 'This change will be applied to' | translate }} <b>{{ numSelected }}
-                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}</b>.
+                    {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}</b>.
                   {{ 'Only phones with an extension registered will be successfully rebooted' | translate }}</span>
               </div>
               <!-- bulk reboot switch -->
@@ -270,7 +274,7 @@
                 <span class="pficon pficon-warning-triangle-o"></span>
                 <span class="margin-left-5">
                   {{ 'You are about to reboot' | translate }} <b>{{ numSelected }}
-                  {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}</b>.
+                    {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}</b>.
                   {{ 'Only phones with an extension registered will be successfully rebooted' | translate }}
                 </span>
               </div>

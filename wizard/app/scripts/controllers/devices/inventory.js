@@ -21,6 +21,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.errorId = 0;
     $scope.modelLoaders = {};
     $scope.showSuccessfullyAddedPhones = false;
+    $scope.maxPastedMacCharacters = 3600;
 
     function gotModels(models) {
       $scope.models = models;
@@ -115,6 +116,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.failedAddPhones = [];
       $scope.pendingRequestsAddPhones = 0;
       $scope.showResultsAddPhones = false;
+      $scope.tooManyPastedMacs = false;
       $scope.showGenericAddingModal('copypaste');
       initCopyPasteMacUI();
     }
@@ -507,6 +509,13 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getManualFilteredModelsCount = function () {
       return $scope.manualFilteredModels && $scope.manualFilteredModels.length > 0 ? false : true;
     };
+
+    $scope.checkTooManyPastedMacs = function () {
+      if ($scope.pastedMacsText.length >= $scope.maxPastedMacCharacters - 2) {
+        // warn the user
+        $scope.tooManyPastedMacs = true;
+      }
+    }
 
     $scope.parsePastedMacs = function () {
       // remove separators (if any)

@@ -161,7 +161,13 @@
                 <!-- section shown on copy/paste method -->
                 <div ng-show="!showResultsAddPhones && addModalType === 'copypaste'"
                   class="form-group no-margin-bottom">
-                  <!-- paste textarea -->
+                  <div class="alert alert-info alert-dismissable mg-left-20 mg-right-20" ng-show="tooManyPastedMacs">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span class="pficon pficon-close"></span>
+                    </button>
+                    <span class="pficon pficon-info"></span>
+                    <span>{{ 'Maximum number of pasted MAC addresses reached. You can paste the remaining MAC addresses at the end of this process' | translate }}</span>
+                  </div>
                   <label class="col-sm-4 control-label" for="paste-textarea">
                     {{ 'Copy a list of MAC addresses and paste it here' | translate }}
                     <!-- inline help for mac address format -->
@@ -190,9 +196,10 @@
                     </div>
                   </label>
                   <div class="col-sm-8">
-                    <!-- maxlength=3600 -> copy/paste max 200 mac at time -->
-                    <textarea maxlength='3600' id="paste-textarea" class="form-control pasted-mac-area"
-                      ng-model="pastedMacsText"></textarea>
+                    <!-- paste textarea -->
+                    <!-- maxlength -> copy/paste max 200 mac at time -->
+                    <textarea maxlength="3600" id="paste-textarea" class="form-control pasted-mac-area"
+                      ng-model="pastedMacsText" ng-change="checkTooManyPastedMacs()"></textarea>
                   </div>
                 </div>
                 <div class="form-group no-margin-bottom"
