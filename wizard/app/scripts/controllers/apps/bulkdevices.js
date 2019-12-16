@@ -163,17 +163,13 @@ angular.module('nethvoiceWizardUiApp')
 
       // set phone.user
       $scope.phones.forEach(function (phone) {
-        var phoneUser = $scope.users.find(function (user) {
+        $scope.users.forEach(function (user) {
           user.devices.forEach(function (device) {
             if (device.mac === phone.mac) {
-              return true;
+              phone.user = user;
             }
           });
         });
-
-        if (phoneUser) {
-          phone.user = phoneUser;
-        }
       });
     }
 
