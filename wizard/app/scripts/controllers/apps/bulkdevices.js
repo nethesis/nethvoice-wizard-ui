@@ -491,9 +491,14 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.showSetModelModal = function () {
-      $scope.filteredModels = $scope.models.filter(function (model) {
-        return model.name.toLowerCase().startsWith($scope.allSelectedSameVendor.toLowerCase());
-      });
+      if ($scope.allSelectedSameVendor) {
+        $scope.filteredModels = $scope.models.filter(function (model) {
+          return model.name.toLowerCase().startsWith($scope.allSelectedSameVendor.toLowerCase());
+        });
+      } else {
+        // show all models
+        $scope.filteredModels = angular.copy($scope.models);
+      }
 
       if ($scope.allSelectedSameModel != false) {
         $scope.bulkModel = $scope.allSelectedSameModel;

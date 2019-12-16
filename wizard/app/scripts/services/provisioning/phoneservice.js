@@ -88,6 +88,17 @@ angular.module('nethvoiceWizardUiApp')
       return macAddress.replace(/:|-/g, "");
     }
 
+    this.getAllVendors = function () {
+      var vendorSet = new Set();
+
+      Object.keys(macVendors).forEach(function (macPrefix) {
+        var vendor = macVendors[macPrefix];
+        vendor = UtilService.capitalize(vendor);
+        vendorSet.add(vendor);
+      });
+      return Array.from(vendorSet);
+    }
+
     this.getVendor = function (macAddress) {
       // remove separators
       macAddress = this.removeMacSeparators(macAddress).toUpperCase();
@@ -132,7 +143,7 @@ angular.module('nethvoiceWizardUiApp')
         });
         return filteredModels;
       } else {
-        return [];
+        return angular.copy(models);
       }
     }
 

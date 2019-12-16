@@ -183,7 +183,7 @@ angular.module('nethvoiceWizardUiApp')
       };
 
       $scope.phonesToAdd.push(phone);
-      $scope.getVendorApplyToAllList();
+      $scope.setVendorApplyToAllList();
       validatePhonesToAdd();
 
       $scope.manualMac = "";
@@ -210,7 +210,7 @@ angular.module('nethvoiceWizardUiApp')
         });
       } else {
         $scope.manualVendor = null;
-        $scope.manualFilteredModels = [];
+        $scope.manualFilteredModels = angular.copy($scope.models);
 
         // unknown vendor warning
         if ($scope.manualMac.length >= 8) {
@@ -306,7 +306,7 @@ angular.module('nethvoiceWizardUiApp')
           // update model list
           $scope.macPhoneToAddChanged(phoneToAdd);
         });
-        $scope.getVendorApplyToAllList();
+        $scope.setVendorApplyToAllList();
         $scope.networkScanInProgress = false;
       }, function (err) {
         console.log(err);
@@ -546,7 +546,7 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       validatePhonesToAdd();
-      $scope.getVendorApplyToAllList();
+      $scope.setVendorApplyToAllList();
     }
 
     $scope.vendorApplyToAllChanged = function () {
@@ -560,7 +560,7 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    $scope.getVendorApplyToAllList = function () {
+    $scope.setVendorApplyToAllList = function () {
       var vendorApplyToAllSet = new Set();
 
       $scope.phonesToAdd.forEach(function (phone) {
@@ -575,6 +575,11 @@ angular.module('nethvoiceWizardUiApp')
         }
       });
       $scope.vendorApplyToAllList = Array.from(vendorApplyToAllSet);
+
+      if ($scope.vendorApplyToAllList.length == 0) {
+        // show all vendors
+        $scope.vendorApplyToAllList = PhoneService.getAllVendors();
+      }
     }
 
     $scope.applyModelToAll = function () {
@@ -585,7 +590,7 @@ angular.module('nethvoiceWizardUiApp')
           phone.vendor = vendor;
         }
 
-        if (vendor && $scope.modelApplyToAll.name.toLowerCase().startsWith(vendor.toLowerCase())) {
+        if ((vendor && $scope.modelApplyToAll.name.toLowerCase().startsWith(vendor.toLowerCase())) || !vendor) {
           var model = phone.filteredModels.find(function (m) {
             return m.name === $scope.modelApplyToAll.name;
           })
@@ -624,7 +629,7 @@ angular.module('nethvoiceWizardUiApp')
         });
       } else {
         phone.vendor = null;
-        phone.filteredModels = [];
+        phone.filteredModels = angular.copy($scope.models);
 
         // unknown vendor warning
         if (phone.mac.length >= 8) {
@@ -686,12 +691,12 @@ angular.module('nethvoiceWizardUiApp')
         return phone.mac.toUpperCase() !== phoneToDelete.mac.toUpperCase();
       });
 
-      $scope.getVendorApplyToAllList();
+      $scope.setVendorApplyToAllList();
     }
 
     $scope.deletePhoneToAddIndex = function (index) {
       $scope.phonesToAdd.splice(index, 1);
-      $scope.getVendorApplyToAllList();
+      $scope.setVendorApplyToAllList();
     }
 
     $scope.orderByValue = function (value) {
