@@ -16,6 +16,11 @@ angular.module('nethvoiceWizardUiApp')
     $scope.uiLoaded = false;
     $scope.errors = [];
     $scope.errorId = 0;
+    $scope.phonesLimit = 20;
+
+    $scope.loadMorePhones = function () {
+      $scope.phonesLimit += 20;
+    };
 
     var chooseModel = {
       "id": 0,
@@ -146,6 +151,10 @@ angular.module('nethvoiceWizardUiApp')
         phone.filtered = true;
         $scope.phones.push(phone);
       });
+
+      $timeout(function () {
+        $scope.phonesHeight = 'calc(100vh - ' + ($('#phone-list')[0].getBoundingClientRect().y + 80) + 'px)';
+      }, 200);
 
       //// mockup associate users and phones
       // for (var i = 0; i < $scope.users.length; i++) {

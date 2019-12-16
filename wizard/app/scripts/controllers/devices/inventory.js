@@ -41,7 +41,7 @@ angular.module('nethvoiceWizardUiApp')
       });
 
       $timeout(function () {
-        $scope.phonesHeight = 'calc(100vh - ' + ($('#phone-list')[0].getBoundingClientRect().y + 100) + 'px)';
+        $scope.phonesHeight = 'calc(100vh - ' + ($('#phone-list')[0].getBoundingClientRect().y + 80) + 'px)';
       }, 200);
     }
 
@@ -760,10 +760,4 @@ angular.module('nethvoiceWizardUiApp')
 
     // $scope.postModels(); ////
     init();
-
-    angular.element(document).ready(function () {
-      $timeout(function () {
-        $scope.phonesHeight = 'calc(100vh - ' + ($('#phone-list')[0].getBoundingClientRect().y + 100) + 'px)';
-      }, 1500);
-    })
   });

@@ -108,9 +108,9 @@
           </p>
         </div>
         <!-- phone list -->
-        <div class="list-group list-view-pf clear" ng-show="numFiltered != 0">
+        <div class="list-group list-view-pf clear" ng-show="numFiltered != 0" id="phone-list" when-scrolled="loadMorePhones()" ng-style="{'height': phonesHeight}">
           <div class="list-group-item cursor-default {{phone.selected ? 'selected' : ''}}"
-            ng-repeat="phone in phones track by $index | orderBy: 'display_name'" ng-show="phone.filtered">
+            ng-repeat="phone in phones | limitTo: phonesLimit | orderBy: 'display_name'" ng-show="phone.filtered">
             <label for="checkbox-phone-{{$index}}" class="width-100p">
               <div class="list-view-pf-actions width-15p">
                 <!-- reboot -->
