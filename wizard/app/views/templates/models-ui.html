@@ -1,4 +1,4 @@
-<div ng-controller="ModelsUICtrl" class="panel-body profile-panel">
+<div ng-controller="ModelsUICtrl" class="panel-body profile-panel no-padding">
   <div class="col-lg-12 profile-list-container mb-0 no-border-bottom">
     <div ng-show="loadingModels[model.name]" class="spinner mt-14"></div>
     <div ng-show="!loadingModels[model.name]">
@@ -10,7 +10,7 @@
           <div class="mt-20" ng-if="isKeysSection(sectionkey) && currentModel.ui.map[sectionkey]">
             <h2 ng-click="openSection(sectionkey)"
               class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
-              {{::section.name}}
+              {{::section.name}}  
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
             </h2>
             <div id="collapse-section-{{$index}}"
