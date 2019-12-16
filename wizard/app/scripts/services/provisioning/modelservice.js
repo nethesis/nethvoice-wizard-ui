@@ -113,6 +113,17 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    // Set the default variable values
+    this.setDefaults = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.tpatch('/tancredi/api/v1/defaults', obj).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
     this.getDefaultsUI = function () {
       return {
         "name": "Default Settings",
@@ -123,7 +134,7 @@ angular.module('nethvoiceWizardUiApp')
             "type": "input"
           },
           {
-            "variable": "id_addr",
+            "variable": "server_type",
             "default_value": "",
             "description": "Configuration Type",
             "type": "list",
@@ -139,280 +150,280 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "variable": "config_firm_dir",
+            "variable": "config_loc",
             "default_value": "/var/lib/tftpnethvoice/",
             "description": "Global Final Config & Firmware Directory",
             "type": "input"
           },
           {
-            "variable": "time_zone",
+            "variable": "tz",
             "default_value": "",
             "description": "Time Zone",
             "type": "list",
             "options": [
               {
                 "text": "Africa/Djibouti",
-                "value": ""
+                "value": "1"
               },
               {
                 "text": "Africa/Douala",
-                "value": ""
+                "value": "2"
               },
               {
                 "text": "Africa/El_Aaiun",
-                "value": ""
+                "value": "4"
               },
               {
                 "text": "Africa/Freetown",
-                "value": ""
+                "value": "5"
               },
               {
                 "text": "Africa/Gaborone",
-                "value": ""
+                "value": "6"
               },
               {
                 "text": "Africa/Harare",
-                "value": ""
+                "value": "7"
               },
               {
                 "text": "Africa/Johannesburg",
-                "value": ""
+                "value": "8"
               },
               {
                 "text": "Africa/Juba",
-                "value": ""
+                "value": "9"
               },
               {
                 "text": "Africa/Kampala",
-                "value": ""
+                "value": "10"
               },
               {
                 "text": "Africa/Khartoum",
-                "value": ""
+                "value": "11"
               },
               {
                 "text": "Africa/Kigali",
-                "value": ""
+                "value": "12"
               },
               {
                 "text": "Africa/Kinshasa",
-                "value": ""
+                "value": "13"
               },
               {
                 "text": "Africa/Lagos",
-                "value": ""
+                "value": "14"
               },
               {
                 "text": "Africa/Libreville",
-                "value": ""
+                "value": "15"
               },
               {
                 "text": "Africa/Lome",
-                "value": ""
+                "value": "16"
               },
               {
                 "text": "Africa/Luanda",
-                "value": ""
+                "value": "17"
               },
               {
                 "text": "Africa/Lubumbashi",
-                "value": ""
+                "value": "18"
               },
               {
                 "text": "Africa/Lusaka",
-                "value": ""
+                "value": "19"
               },
               {
                 "text": "Africa/Malabo",
-                "value": ""
+                "value": "20"
               },
               {
                 "text": "Africa/Maputo",
-                "value": ""
+                "value": "21"
               },
               {
                 "text": "Africa/Maseru",
-                "value": ""
+                "value": "22"
               },
               {
                 "text": "Africa/Mbabane",
-                "value": ""
+                "value": "23"
               },
               {
                 "text": "Africa/Mogadishu",
-                "value": ""
+                "value": "24"
               },
               {
                 "text": "Africa/Monrovia",
-                "value": ""
+                "value": "25"
               },
               {
                 "text": "Africa/Nairobi",
-                "value": ""
+                "value": "26"
               },
               {
                 "text": "Africa/Ndjamena",
-                "value": ""
+                "value": "27"
               },
               {
                 "text": "Africa/Niamey",
-                "value": ""
+                "value": "28"
               },
               {
                 "text": "Africa/Nouakchott",
-                "value": ""
+                "value": "29"
               },
               {
                 "text": "Africa/Ouagadougou",
-                "value": ""
+                "value": "30"
               },
               {
                 "text": "Africa/Porto-Novo",
-                "value": ""
+                "value": "31"
               },
               {
                 "text": "Africa/Sao_Tome",
-                "value": ""
+                "value": "32"
               },
               {
                 "text": "Africa/Tripoli",
-                "value": ""
+                "value": "33"
               },
               {
                 "text": "Africa/Tunis",
-                "value": ""
+                "value": "34"
               },
               {
                 "text": "Africa/Windhoek",
-                "value": ""
+                "value": "35"
               },
               {
                 "text": "America/Adak",
-                "value": ""
+                "value": "36"
               },
               {
                 "text": "America/Anchorage",
-                "value": ""
+                "value": "37"
               },
               {
                 "text": "America/Anguilla",
-                "value": ""
+                "value": "38"
               },
               {
                 "text": "America/Antigua",
-                "value": ""
+                "value": "39"
               },
               {
                 "text": "America/Araguaina",
-                "value": ""
+                "value": "40"
               },
               {
                 "text": "America/Argentina/Buenos_Aires",
-                "value": ""
+                "value": "41"
               },
               {
                 "text": "America/Argentina/Catamarca",
-                "value": ""
+                "value": "42"
               },
               {
                 "text": "America/Argentina/Cordoba",
-                "value": ""
+                "value": "43"
               },
               {
                 "text": "America/Argentina/Jujuy",
-                "value": ""
+                "value": "44"
               },
               {
                 "text": "America/Argentina/La_Rioja",
-                "value": ""
+                "value": "45"
               },
               {
                 "text": "America/Argentina/Mendoza",
-                "value": ""
+                "value": "46"
               },
               {
                 "text": "America/Argentina/Rio_Gallegos",
-                "value": ""
+                "value": "47"
               },
               {
                 "text": "America/Argentina/Salta",
-                "value": ""
+                "value": "48"
               },
               {
                 "text": "America/Argentina/San_Juan",
-                "value": ""
+                "value": "49"
               },
               {
                 "text": "America/Argentina/San_Luis",
-                "value": ""
+                "value": "50"
               },
               {
                 "text": "America/Argentina/Tucuman",
-                "value": ""
+                "value": "51"
               },
               {
                 "text": "America/Argentina/Ushuaia",
-                "value": ""
+                "value": "52"
               },
               {
                 "text": "America/Aruba",
-                "value": ""
+                "value": "53"
               },
               {
                 "text": "America/Asuncion",
-                "value": ""
+                "value": "54"
               },
               {
                 "text": "America/Atikokan",
-                "value": ""
+                "value": "55"
               },
               {
                 "text": "America/Bahia_Banderas",
-                "value": ""
+                "value": "56"
               },
               {
                 "text": "America/Bahia",
-                "value": ""
+                "value": "57"
               },
               {
                 "text": "America/Barbados",
-                "value": ""
+                "value": "58"
               },
               {
                 "text": "America/Belem",
-                "value": ""
+                "value": "59"
               },
               {
                 "text": "America/Belize",
-                "value": ""
+                "value": "60"
               },
               {
                 "text": "America/Blanc-Sablon",
-                "value": ""
+                "value": "61"
               },
               {
                 "text": "America/Boa_Vista",
-                "value": ""
+                "value": "62"
               },
               {
                 "text": "America/Bogota",
-                "value": ""
+                "value": "63"
               },
               {
                 "text": "America/Boise",
-                "value": ""
+                "value": "64"
               },
               {
                 "text": "America/Cambridge_Bay",
-                "value": ""
+                "value": "65"
               },
               {
                 "text": "America/Campo_Grande",
-                "value": ""
+                "value": "66"
               },
               {
                 "text": "America/Cancun",
-                "value": ""
+                "value": "67"
               },
               {
                 "text": "America/Caracas",
@@ -1775,19 +1786,19 @@ angular.module('nethvoiceWizardUiApp')
             "type": "input"
           },
           {
-            "variable": "config_firm_dir",
+            "variable": "nmap_loc",
             "default_value": "/usr/bin/nmap",
             "description": "NMAP Executable Path",
             "type": "input"
           },
           {
-            "variable": "config_firm_dir",
+            "variable": "arp_loc",
             "default_value": "/usr/sbin/arp",
             "description": "ARP Executable Path",
             "type": "input"
           },
           {
-            "variable": "config_firm_dir",
+            "variable": "asterisk_loc",
             "default_value": "/usr/sbin/asterisk",
             "description": "Asterisk Executable Path",
             "type": "input"

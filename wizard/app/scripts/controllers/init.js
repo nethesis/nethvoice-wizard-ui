@@ -355,6 +355,8 @@ angular.module('nethvoiceWizardUiApp')
           ModelService.getDefaults().then(function (res) {
             $scope.currentModel.globals = res.data
             resolve(true)
+          }, function (err) {
+            console.log(err)
           })
         }, function (err) {
           reject(err)

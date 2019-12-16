@@ -55,8 +55,7 @@
                                               ng-model="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start)]"
                                               ng-change="onVariableChanged('exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start))"
                                               class="{{key.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
-                                              autocomplete="off"
-                                              name="{{key.variable}}">
+                                              autocomplete="off">
                                               <option value="">{{currentModel.globals[key.variable] ? getOptionText(key.options, currentModel.globals[key.variable]) + " (default)" : "-"}}</option>
                                               <!-- combobox -->
                                               <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
@@ -115,8 +114,7 @@
                                       class="{{key.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
                                       ng-model="currentModel.variables[key.variable + (count + item.loop_start)]"
                                       ng-change="onVariableChanged(key.variable + (count + item.loop_start))"
-                                      autocomplete="off"
-                                      name="{{key.variable}}">
+                                      autocomplete="off">
                                       <option value="">{{currentModel.globals[key.variable] ? getOptionText(key.options, currentModel.globals[key.variable]) + " (default)" : "-"}}</option>
                                       <!-- combobox -->
                                       <option ng-if="key.options.length > 10" ng-repeat="option in key.options"

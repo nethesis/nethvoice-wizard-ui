@@ -14,6 +14,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.view.changeRoute = true
 
     $scope.inventoryModels = {}
+    $scope.defaultSettings = {}
     $scope.loadingModels = {}
     $scope.loadingActions = false
 
@@ -77,7 +78,32 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.openDefaultSettings = function () {
-      $("#defaultSettingsModal").modal("show")
+      ModelService.getDefaults().then(function (res) {
+        $scope.defaultSettings = res.data
+        $("#defaultSettingsModal").modal("show")
+        setTimeout(function () {
+          $('#defaultSettingsModal select').each(function(){
+            if ($(this).hasClass("selectpicker")) {
+              $(this).selectpicker('refresh')
+            } else if ($(this).hasClass("combobox")) {
+              $(this).combobox('refresh')
+            }
+          })
+        }, 500)
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    $scope.setDefaultSettings = function () {
+      $scope.loadingActions = true
+      ModelService.setDefaults($scope.defaultSettings).then(function (res) {
+        resetLoadingAction("ok")
+        $("#defaultSettingsModal").modal("hide")
+      }, function (err) {
+        resetLoadingAction("err")
+        console.log(err)
+      })
     }
 
     $scope.onModelSetContinue = function () {
