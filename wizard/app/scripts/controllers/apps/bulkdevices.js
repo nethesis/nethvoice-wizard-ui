@@ -16,10 +16,10 @@ angular.module('nethvoiceWizardUiApp')
     $scope.uiLoaded = false;
     $scope.errors = [];
     $scope.errorId = 0;
-    $scope.phonesLimit = 20;
+    $scope.phonesLimit = appConfig.PHONES_PER_PAGE;
 
     $scope.loadMorePhones = function () {
-      $scope.phonesLimit += 20;
+      $scope.phonesLimit += appConfig.PHONES_PER_PAGE;
     };
 
     var chooseModel = {
@@ -272,6 +272,8 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.filterPhones = function () {
       var defaultFilterValue = false;
+      $scope.phonesLimit = appConfig.PHONES_PER_PAGE;
+      $('#phone-list')[0].scrollTop = 0;
 
       if (!$scope.filteredGroup && !$scope.filteredModel) {
         // no filter, show all phones

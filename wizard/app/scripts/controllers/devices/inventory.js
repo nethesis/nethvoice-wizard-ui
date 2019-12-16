@@ -22,10 +22,10 @@ angular.module('nethvoiceWizardUiApp')
     $scope.modelLoaders = {};
     $scope.showSuccessfullyAddedPhones = false;
     $scope.maxPastedMacCharacters = 3600;
-    $scope.phonesLimit = 20;
+    $scope.phonesLimit = appConfig.PHONES_PER_PAGE;
 
     $scope.loadMorePhones = function () {
-      $scope.phonesLimit += 20;
+      $scope.phonesLimit += appConfig.PHONES_PER_PAGE;
     };
 
     function gotModels(models) {
