@@ -314,11 +314,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.$on('selectpickerRepeatEnd', function(event, elem) {
       elem.parent().selectpicker().parent().parent().removeClass("hidden")
     })
-
-    $scope.$on('switchRenderEnd', function(event, elem) {
-      elem.bootstrapSwitch()
-    })
-
+    
     $scope.setRandomBackground();
 
     // provisining build models start

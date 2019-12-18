@@ -12,15 +12,22 @@
   <div class="wizard-pf-contents adjust-size no-margin-bottom">
     <h1 class="control-label centered" for="textInput-markup">{{'Configurations' | translate}}</h1>
     <div ng-if="true" class="container-fluid margin-top-lg">
-      <div>
-        <div class="filter-label-user">{{'Filter' | translate}}:</div>
-        <select title="Tutti" pf-select="{ width: '180px' }" ng-model="selectedUsersFilter">
+      <div class="form-group">
+        <div class="filter-label-user adjust-filter-user">{{'Filter' | translate}}:</div>
+        <select class="adjust-filter-user" title="-" pf-select="{ width: '180px' }" ng-model="selectedUserFilter" ng-options="uf as uf | translate for uf in availableUserFilters">
         </select>
+        <div class="filter-label-user-order">
+          <select title="-" pf-select="{ width: '100px' }" ng-model="selectedUserFilterNumbers" ng-options="uf as uf | translate for uf in availableUserFiltersNumbers"></select>
+          <i class="fa fa-sort-alpha-asc"></i>
+        </div>
       </div>
       <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
         <div class="form-group has-clear">
           <div class="search-pf-input-group" id="filter-domains-details">
-            <input ng-model="searchUsersString" type="text" class="form-control input-lg"
+            <input
+              ng-model="searchUserString"
+              type="text"
+              class="form-control input-lg"
               placeholder="{{'Search users' | translate}}..."></input>
           </div>
         </div>
@@ -33,17 +40,17 @@
     </div>
     <div id="configurationList" class="list-group list-view-pf list-view-pf-view mt-20">
       <!-- repeat  -->
-      <div ng-repeat="user in allUsers track by user.username"
+      <div ng-repeat="user in allUsers | filter:searchUserString"
         class="list-group-item {{user.username == currentUser.username ? 'list-view-pf-expand-active' : ''}}">
         <div class="list-group-item-header">
           <div class="list-view-pf-actions">
             <div>
-              <button ng-click="openDevice()"
+              <button ng-click="openDevices()"
                 data-toggle="modal"
                 data-target="#devicesAssociation"
                 type="button"
                 class="btn btn-primary">
-                  {{"Associa dispositivo" | translate}}
+                  {{"Link device" | translate}}
               </button>
             </div>
           </div>
@@ -52,12 +59,12 @@
             </div>
             <div class="list-view-pf-body">
               <div class="list-view-pf-description">
-                <div class="list-group-item-heading">username - 202</div>
-                <div class="list-group-item-text">User Name</div>
+                <div class="list-group-item-heading">{{user.username}} - {{user.default_extension}}</div>
+                <div class="list-group-item-text">{{user.displayname}}</div>
               </div>
               <div class="list-view-pf-additional-info">
-                <div class="list-view-pf-additional-info-item"><span class="fa fa-cubes"></span><strong>2</strong>
-                  dispositivi</div>
+                <div class="list-view-pf-additional-info-item"><span class="fa fa-cubes"></span><strong>{{user.devices.length}}</strong>
+                  {{"Devices" | translate}}</div>
               </div>
             </div>
           </div>
@@ -91,36 +98,45 @@
                           <div class="form-group">
                             <label class="control-label" for="textInputDisabled-markup">
                             <!-- <i class="fa fa-user mr-7"></i> -->
-                            Profile</label>
-                            <select class="combobox form-control mt-3" autocomplete="off" multiple>
-                              <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
-                                on-finish-render="selectpickerRepeatEnd">{{"CIAO" | translate}}</option>
+                            {{"Profile" | translate}}</label>
+                            <select class="mt-3" ng-change="setProfile()" title="-" pf-select="{ width: '100%' }" ng-model="currentUser.profile"
+                              ng-options="p.id as p.name | translate for p in allProfiles">
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="control-label" for="textInput-markup">
                               <!-- <i class="fa fa-users mr-7"></i> -->
-                              Group
+                              {{"Group" | translate}}
                             </label>
-                            <select class="combobox form-control mt-3" autocomplete="off">
-                              <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
-                                on-finish-render="selectpickerRepeatEnd">{{"CIAO" | translate}}</option>
+                            <select class="mt-3" multiple ng-change="setGroup()" title="-" pf-select="{ width: '100%' }" ng-model="currentUser.groups"
+                              ng-options="p.id as p.name for p in allGroups">
                             </select>
                           </div>
                         </form>
                       </div>
                       <div class="col-lg-6">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" ng-submit="setMobileExtension(currentUser)">
                           <div class="form-group">
                             <label class="control-label" for="textInput-markup">
                               <!-- <i class="fa fa-phone mr-7"></i> -->
-                              {{"Phone" | translate}}
+                              {{"Mobile" | translate}}
                             </label>
                             <div class="display-flex mt-3">
-                              <input type="text" class="form-control" placeholder="{{'Phone' | translate}}">
-                              <button type="button" class="btn btn-default adjust-button" aria-haspopup="true" aria-expanded="false">
-                                {{"Imposta" | translate}}
-                              </button>  
+                              <input
+                                ng-model="currentUser.mobile"
+                                type="tel"
+                                class="form-control config-form"
+                                placeholder="{{'Mobile' | translate}}">
+                              <button
+                                type="submit"
+                                class="btn btn-default adjust-button"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                                {{"Set" | translate}}
+                              </button>
+                              <span ng-if="currentUser.setMobileInAction == 'ok'" class="pficon pficon-ok fz-18 absolute-position mt-3 right-5"></span>
+                              <span ng-if="currentUser.setMobileInAction == 'err'" class="pficon pficon-error-circle-o fz-18  absolute-position mt-3 right-5"></span>
+                              <div ng-if="currentUser.setMobileInAction == true" class="spinner spinner-sm language-name absolute-position mt-3 right-5"></div>
                             </div>
                           </div>
                           <div class="form-group">
@@ -129,7 +145,13 @@
                               {{"Voicemail" | translate}}
                             </label>
                             <div class="mt-3">
-                              <input on-element-render="switchRenderEnd" class="bootstrap-switch" type="checkbox" checked>
+                              <input
+                                bs-switch
+                                ng-model="currentUser.voiceMailState"
+                                ng-change="setVoiceMail()"
+                                id="bootstrap-switch-voicemail-{{currentUser.id}}"
+                                class="bootstrap-switch bootstrap-switch-voicemail col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                                type="checkbox">
                             </div>
                           </div>
                         </form>
@@ -150,59 +172,68 @@
                     </div>
                     <div class="list-view-pf-body">
                       <div class="list-view-pf-description">
-                        <div class="list-group-item-heading">Dispositivi</div>
+                        <div class="list-group-item-heading">{{"Devices" | translate}}</div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- devices -->
-              <div class="list-group-item cursor-default ng-scope">
-                <div class="list-view-pf-actions">
-                  <div class="display-flex">
-                    <button class="btn btn-default">
-                      {{"Disassocia" | translate}}
-                    </button>
-                    <button class="btn btn-default">
-                      <i class="fa fa-retweet"></i>
-                    </button>
+              
+              <div ng-repeat="device in user.devices">
+                <!-- devices -->
+                <div ng-if="device.type == 'physical'" class="list-group-item cursor-default ng-scope">
+                  <div class="list-view-pf-actions">
+                    <div class="display-flex">
+                      <button class="btn btn-default">
+                        {{"Unlink" | translate}}
+                      </button>
+                      <button 
+                        ng-disabled="device.registered"
+                        class="btn btn-default {{device.registered ? '' : 'disabled'}}"
+                        popover-placement="top"
+                        popover-trigger="'mouseenter'"
+                        popover-animation="true"
+                        uib-popover="{{device.registered ? 'Restart the device' : 'The device is not registered' | translate}}">
+                        <i class="fa fa-retweet"></i>
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div class="list-view-pf-main-info">
-                  <div class="list-view-pf-left">
-                    <span class="fa fa-phone list-view-pf-icon-sm "></span>
-                  </div>
-                  <div class="list-view-pf-body">
-                    <div class="list-view-pf-description">
-                      <div class="list-group-item-heading configDevices-item-heading">
-                        Sangoma 500 - <span>201</span>
-                      </div>
-                      <span class="weight-plus mr-20">
-                      </span>
-                      <div class="list-group-item-text">
-                        <div class="col-lg-7">
-                          <div class="form-group no-margin-bottom">
-                            <div class="display-flex">
-                              <select class="combobox form-control" autocomplete="off">
-                                <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
-                                  on-finish-render="selectpickerRepeatEnd">{{"Default" | translate}}</option>
-                              </select>
-                              <button ng-click="setCurrentModelConf('Fanvil-X5S')" data-toggle="modal"
-                                data-target="#singleModelModal"
-                                class="btn btn-default mln-1">
-                                <i class="fa fa-pencil"></i>
-                              </button>
+                  <div class="list-view-pf-main-info">
+                    <div class="list-view-pf-left">
+                      <span class="fa fa-phone list-view-pf-icon-sm "></span>
+                    </div>
+                    <div class="list-view-pf-body">
+                      <div class="list-view-pf-description">
+                        <div class="list-group-item-heading configDevices-item-heading">
+                          {{device.vendor}} - <span>{{device.extension}}</span>
+                        </div>
+                        <span class="weight-plus mr-20">
+                        </span>
+                        <div class="list-group-item-text">
+                          <div class="col-lg-7">
+                            <div class="form-group no-margin-bottom">
+                              <div class="display-flex">
+                                <select class="combobox form-control" autocomplete="off">
+                                  <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
+                                    on-finish-render="selectpickerRepeatEnd">{{"Default" | translate}}</option>
+                                </select>
+                                <button ng-click="setCurrentModelConf('Fanvil-X5S')" data-toggle="modal"
+                                  data-target="#singleModelModal"
+                                  class="btn btn-default mln-1 zindex-2">
+                                  <i class="fa fa-pencil"></i>
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="list-view-pf-additional-info config-info ">
-                      <div>MAC: <b class="ng-binding">00:50:58:50:3E:70</b></div>
+                      <div class="list-view-pf-additional-info config-info ">
+                        <div>MAC: <b class="ng-binding">{{device.mac}}</b></div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>  
+              </div>
               <!-- webrtc -->
               <div class="list-group-item abstract-item cursor-default ng-scope">
                 <div class="list-view-pf-actions">
@@ -216,7 +247,10 @@
                   <div class="list-view-pf-body">
                     <div class="list-view-pf-description">
                       <div class="list-group-item-heading configDevices-item-heading">
-                        {{"Web Phone" | translate}} - <span>91201</span>
+                        {{"Web Phone" | translate}}
+                        <span ng-repeat="device in user.devices" ng-if="device.type == 'webrtc'">
+                          <span>-</span> <span>{{device.extension}}</span>
+                        </span>
                       </div>
                       <span class="weight-plus">
                       </span>
@@ -224,7 +258,13 @@
                         <div class="col-lg-6">
                           <div class="form-group no-margin-bottom">
                             <div class="display-flex">
-                              <input on-element-render="switchRenderEnd" class="bootstrap-switch" type="checkbox" checked>
+                              <input 
+                                bs-switch 
+                                ng-model="currentUser.webRtcState"
+                                ng-change="setWebRTC()"
+                                id="bootstrap-switch-webrtc-{{currentUser.id}}"
+                                class="bootstrap-switch bootstrap-switch-webrtc col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                                type="checkbox">
                             </div>
                           </div>
                         </div>
@@ -236,7 +276,7 @@
                 </div>
               </div>
               <!-- mobile app -->
-              <div class="list-group-item abstract-item cursor-default ng-scope">
+              <!-- <div class="list-group-item abstract-item cursor-default ng-scope">
                 <div class="list-view-pf-actions">
                   <div class="display-flex">
                   </div>
@@ -266,7 +306,7 @@
                     </div>
                   </div>
                 </div>
-              </div>            
+              </div> -->
             </div>
           </div>
         </div>
@@ -303,7 +343,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
             <span class="pficon pficon-close"></span>
           </button>
-          <h4 class="modal-title" id="dfSettingsMLabel">{{'Default Settings' | translate}}</h4>
+          <h4 class="modal-title" id="dfSettingsMLabel">{{'Link Devices' | translate}}</h4>
         </div>
         <form class="form-horizontal">
           <div class="modal-body">
@@ -320,11 +360,11 @@
               </form>
               <h1 class="control-label config-title-user mt-10" for="textInput-markup">
                 <div class="fz-15 mb-10">
-                  <span class="weight-plus ng-binding">15 dispositivi</span>
+                  <span class="weight-plus ng-binding">{{allDevices.length}} {{"dispositivi" | translate}}</span>
                 </div>
               </h1>
               <!-- custom device -->
-              <div class="list-group-item cursor-default">
+              <div class="list-group-item cursor-default back-whitesmoke">
                 <div class="list-view-pf-actions mt-48">
                   <button class="btn btn-primary">
                     {{"Link to" | translate}} username
@@ -358,9 +398,11 @@
                 </div>
               </div>  
               <!-- devices -->
-              <div ng-repeat="count in [] | range: 10 track by count" class="list-group-item cursor-default">
+              <div ng-show="!devicesLoading" ng-repeat="device in allDevices" class="list-group-item cursor-default">
                 <div class="list-view-pf-actions">
-                  <button class="btn btn-primary">
+                  <button 
+                    ng-click="device.lines[0].extension ? deletePhysicalExtension(device, device.lines[0].extension) : setPhysicalExtension(currentUser, device)"
+                    class="btn btn-primary">
                     {{"Associa a username" | translate}}
                   </button>
                 </div>
@@ -371,11 +413,10 @@
                   <div class="list-view-pf-body">
                     <div class="list-view-pf-description">
                       <div class="list-group-item-heading configDevices-item-heading">
-                        Sangoma 500 - <span>201</span>
+                        {{device.manufacturer}}
                       </div>
                       <span class="weight-plus mr-20">
-                          Default
-
+                        {{device.model}}
                       </span>
                       <div class="list-group-item-text">
                         <div class="col-lg-7">
@@ -383,7 +424,7 @@
                       </div>
                     </div>
                     <div class="list-view-pf-additional-info config-info ">
-                      <div>MAC: <b class="ng-binding">00:50:58:50:3E:70</b></div>
+                      <div>MAC: <b>{{device.mac}}</b></div>
                     </div>
                   </div>
                 </div>

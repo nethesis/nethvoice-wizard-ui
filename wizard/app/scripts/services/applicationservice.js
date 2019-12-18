@@ -9,6 +9,7 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .service('ApplicationService', function ($q, $http, RestService, RestServiceCTI) {
+
     this.allExtensions = function () {
       return $q(function (resolve, reject) {
         RestService.get('/physicalextensions').then(function (res) {

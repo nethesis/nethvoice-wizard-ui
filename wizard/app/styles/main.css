@@ -2556,3 +2556,23 @@ iframe body {
 #defaultSettingsModal label {
   margin-bottom: 3px !important;
 }
+
+.absolute-position {
+  position: absolute !important;
+}
+
+.right-15 {
+  right: -15px !important;
+}
+
+.right-10 {
+  right: -10px !important;
+}
+
+.right-5 {
+  right: -5px !important;
+}
+
+.zindex-2 {
+  z-index: 2;
+}

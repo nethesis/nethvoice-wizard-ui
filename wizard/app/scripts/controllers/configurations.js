@@ -8,14 +8,15 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('ConfigurationsCtrl', function ($scope, ConfigurationService, ProfileService, DeviceService) {
+  .controller('ConfigurationsCtrl', function ($scope, ConfigurationService, ProfileService, DeviceService, UserService) {
 
     $scope.view.changeRoute = true
-    
-    $scope.allUsers = {}
+
+    $scope.allUsers = []
     $scope.allProfiles = []
     $scope.allGroups = []
     $scope.allDevices = []
+    $scope.allModels = []
 
 
     $scope.loadingUser = {}
@@ -30,122 +31,6 @@ angular.module('nethvoiceWizardUiApp')
         $scope.currentUser = user
         $scope.loadingUser[user.username] = true
         $scope.hiddenUser = {}
-      }
-      setTimeout(function () {
-        $scope.loadingUser[user.username] = false
-        $scope.$apply()
-      }, 1000)
-    }
-
-    // function for the currentModel creation
-    $scope.setCurrentModelConf = function (name) {
-      $scope.buildModel(name).then(function (cm) {
-        if ($scope.currentModel.name != name) {
-          $scope.loadingModel[name] = true
-        }
-        setTimeout(function () {
-          $scope.loadingModel[name] = false
-          $scope.$apply()
-        }, 1000)
-        console.log($scope.currentModel)
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
-    $scope.openDevices = function () {
-      console.log("Open association modal")
-    }
-
-    $scope.availableUserFilters = ['all', 'configured', 'unconfigured']
-    $scope.availableUserFiltersNumbers = ['lname', 'default_extension']
-    $scope.currentUserFilter = $scope.availableUserFilters[0]
-    $scope.currentUserFilterNumbers = $scope.availableUserFiltersNumbers[0]
-
-
-    // $scope.maxExtensionReached = false
-    // $scope.newDevice = {}
-
-    // $scope.cancelError = function () {
-    //   $scope.maxExtensionReached = false
-    // }
-
-    var getAllProfiles = function () {
-      ProfileService.allProfiles().then(function (res) {
-        $scope.allProfiles = res.data
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
-    var getAllGroups = function () {
-      ProfileService.allGroups().then(function (res) {
-        $scope.allGroups = res.data
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
-    var getAllUser = function () {
-      ConfigurationService.list(false).then(function (res) {
-        $scope.allUsers = res.data
-        $scope.view.changeRoute = false
-        getDeviceList()
-        // var index = 0
-        // for (var u in $scope.allUsers) {
-        //   if ($scope.allUsers[u].default_extension !== 'none') {
-        //     index = u
-        //     break
-        //   } else {
-        //     continue
-        //   }
-        // }
-        // $scope.selectUser($scope.currentUserIndex || $scope.allUsers[index], true) 
-        // if ($scope.mode.isLdap && UtilService.isEmpty($scope.allUsers)) {
-        //   $scope.wizard.nextState = false 
-        // }
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
-    var getDeviceList = function () {
-      DeviceService.phoneList().then(function (res) {
-        $scope.allDevices = res.data
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
-    $scope.getNameFromExtension = function (main) {
-      if ($scope.allUsers.filter) {
-        var returned = $scope.allUsers.filter(function (obj) {
-          if (obj.default_extension == main) {
-            return obj
-          }
-        })[0]
-        return returned && returned.displayname ? returned.displayname : ''
-      }
-    }
-
-    $scope.resetDeviceSearch = function () {
-      $scope.searchDeviceUserString = ''
-    }
-
-    $scope.selectUser = function (user, first) {
-      if (!first) {
-        if (user.devices.length > 0) {
-          for (var d in user.devices) {
-            if (user.devices[d].type === 'physical' || user.devices[d].type === 'temporaryphysical') {
-              $scope.searchDeviceUserString = user.username
-              break
-            } else {
-              $scope.searchDeviceUserString = ''
-            }
-          }
-        } else {
-          $scope.searchDeviceUserString = ''
-        }
       }
       if (user.default_extension !== 'none') {
         $scope.currentUserIndex = user
@@ -187,7 +72,136 @@ angular.module('nethvoiceWizardUiApp')
           $scope.currentUser.webRtcState = false
         })
       }
+      setTimeout(function () {
+        $scope.loadingUser[user.username] = false
+        $scope.$apply()
+      }, 1000)
+      console.log("CURRENT USER", $scope.currentUser)
     }
+    
+
+    // function for the currentModel creation
+    $scope.setCurrentModelConf = function (name) {
+      $scope.buildModel(name).then(function (cm) {
+        if ($scope.currentModel.name != name) {
+          $scope.loadingModel[name] = true
+        }
+        setTimeout(function () {
+          $scope.loadingModel[name] = false
+          $scope.$apply()
+        }, 1000)
+        console.log($scope.currentModel)
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    $scope.availableUserFilters = ['all', 'configured', 'unconfigured']
+    $scope.availableUserFiltersNumbers = ['lname', 'default_extension']
+    $scope.currentUserFilter = $scope.availableUserFilters[0]
+    $scope.currentUserFilterNumbers = $scope.availableUserFiltersNumbers[0]
+
+
+    // $scope.maxExtensionReached = false
+    // $scope.newDevice = {}
+
+    // $scope.cancelError = function () {
+    //   $scope.maxExtensionReached = false
+    // }
+
+    var getAllProfiles = function () {
+      ProfileService.allProfiles().then(function (res) {
+        $scope.allProfiles = res.data
+
+        console.log("ALL PROFILES", $scope.allProfiles);
+
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    var getAllGroups = function () {
+      ProfileService.allGroups().then(function (res) {
+        $scope.allGroups = res.data
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    var getAllModels = function () {
+      ModelService.getModels().then(function (res) {
+        $scope.allModels = res.data
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    var getAllUser = function () {
+      ConfigurationService.list(false).then(function (res) {
+        $scope.allUsers = res.data
+
+        console.log("ALL USERS", $scope.allUsers)
+
+        $scope.view.changeRoute = false
+
+        // var index = 0
+        // for (var u in $scope.allUsers) {
+        //   if ($scope.allUsers[u].default_extension !== 'none') {
+        //     index = u
+        //     break
+        //   } else {
+        //     continue
+        //   }
+        // }
+        // $scope.selectUser($scope.currentUserIndex || $scope.allUsers[index], true) 
+        // if ($scope.mode.isLdap && UtilService.isEmpty($scope.allUsers)) {
+        //   $scope.wizard.nextState = false 
+        // }
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    var getAllDevices = function () {
+      DeviceService.phoneList().then(function (res) {
+        $scope.allDevices = res.data
+
+
+        console.log("ALL DEVICES", $scope.allDevices);
+        
+
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    $scope.getNameFromExtension = function (main) {
+      if ($scope.allUsers.filter) {
+        var returned = $scope.allUsers.filter(function (obj) {
+          if (obj.default_extension == main) {
+            return obj
+          }
+        })[0]
+        return returned && returned.displayname ? returned.displayname : ''
+      }
+    }
+
+    // $scope.selectUser = function (user, first) {
+    //   if (!first) {
+    //     if (user.devices.length > 0) {
+    //       for (var d in user.devices) {
+    //         if (user.devices[d].type === 'physical' || user.devices[d].type === 'temporaryphysical') {
+    //           $scope.searchDeviceUserString = user.username
+    //           break
+    //         } else {
+    //           $scope.searchDeviceUserString = ''
+    //         }
+    //       }
+    //     } else {
+    //       $scope.searchDeviceUserString = ''
+    //     }
+    //   }
+    // }
 
     $scope.configureAndRebootPhone = function (device) {
       device.setPhysicalInAction = true
@@ -267,16 +281,25 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    var resetMobileInAction = function () {
+      setTimeout(function () {
+        $scope.currentUser.setMobileInAction = false
+        $scope.$apply()
+      }, 1500)
+    }
+
     $scope.setMobileExtension = function (user) {
       $scope.currentUser.setMobileInAction = true
       UserService.createMobileExtension({
         username: user.username,
         mobile: user.mobile
       }).then(function (res) {
-        $scope.currentUser.setMobileInAction = false
+        $scope.currentUser.setMobileInAction = 'ok'
+        resetMobileInAction()
       }, function (err) {
         console.log(err)
-        $scope.currentUser.setMobileInAction = false
+        $scope.currentUser.setMobileInAction = 'err'
+        resetMobileInAction()
       })
     }
 
@@ -316,19 +339,6 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.setAppMobile = function (event, state) {
-      $scope.currentUser.setAppMobileInAction = true
-      /*UserService.createVoiceMail({
-        extension: $scope.currentUser.default_extension,
-        state: state ? 'yes' : 'no'
-      }).then(function (res) {
-        $scope.currentUser.setVoiceMailInAction = false 
-      }, function (err) {
-        console.log(err) 
-        $scope.currentUser.setVoiceMailInAction = false 
-      }) */
-    }
-
     $scope.setProfile = function () {
       ProfileService.setUserProfile($scope.currentUser.id, {
         profile_id: $scope.currentUser.profile
@@ -363,8 +373,12 @@ angular.module('nethvoiceWizardUiApp')
       return filter == 'unlinked' ? count == device.lines.length : count != device.lines.length
     }
 
-    getAllUser()
-    getAllProfiles()
-    getAllGroups()
-
+    angular.element(document).ready(function () {
+      getAllUser()
+      getAllProfiles()
+      getAllGroups()
+      getAllDevices()
+      getAllModels()
+    })
+    
   })

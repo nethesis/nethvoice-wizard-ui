@@ -9,9 +9,20 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .service('DeviceService', function ($q, RestService, UtilService) {
+
     this.phoneList = function () {
       return $q(function (resolve, reject) {
         RestService.get('/devices/phones/list').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.noLinkedDevices = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/physicalextensions').then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
@@ -150,4 +161,5 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
   });
