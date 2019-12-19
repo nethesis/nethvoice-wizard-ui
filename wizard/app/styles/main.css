@@ -2288,7 +2288,7 @@ iframe body {
 
 .phones-to-add {
   border: 1px solid #ededed;
-  max-height: 250px;
+  max-height: 380px;
   overflow: auto;
   overflow-x: hidden;
 }

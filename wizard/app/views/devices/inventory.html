@@ -359,12 +359,26 @@
                       {{ phonesToAdd.length > 1 ? ('phones to add' | translate) : ('phone to add' | translate) }}
                     </label>
                   </div>
+                  <!-- filter for phones to add -->
+                  <div class="search-pf has-button mg-bottom-8">
+                    <div class="form-group">
+                      <div class="search-pf-input-group">
+                        <input ng-model="searchPhoneToAddString" type="text" class="form-control input-lg"
+                          placeholder="{{ 'Filter phones' | translate }}..."></input>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-default btn-lg" type="submit">
+                        <span class="fa fa-search"></span>
+                      </button>
+                    </div>
+                  </div>
                   <!-- phones to add -->
                   <div class="phones-to-add">
                     <div class="list-group list-view-pf clear mg-bottom-0">
                       <div class="list-group-item cursor-default form-group no-margin-left-right align-items-stretch"
                         ng-class="{ 'has-error': (phone.invalidMac || phone.serverError || phone.alreadyInInventory || macDuplicates.includes(phone.mac)), 'border-top-list': $index == 0 }"
-                        ng-repeat="phone in phonesToAdd track by $index">
+                        ng-repeat="phone in phonesToAdd | filter:searchPhoneToAddString track by $index">
                         <div class="list-view-pf-actions">
                           <!-- delete phone to add -->
                           <button type="button" class="btn btn-danger" ng-click="deletePhoneToAddIndex($index)">
