@@ -1650,6 +1650,10 @@ iframe body {
   float: left !important;
 }
 
+.float-right {
+  float: right !important;
+}
+
 .less-margin-left-conf {
   margin-left: -21px !important;
 }
@@ -2594,3 +2598,336 @@ F
 .zindex-2 {
   z-index: 2;
 }
+.modal-wizard {
+  width: 900px;
+  padding: 30px;
+}
+
+.modal-wizard-footer {
+  margin-left: 0;
+}
+
+.mg-left-0 {
+  margin-left: 0;
+}
+
+.mg-left-5 {
+  margin-left: 5px;
+}
+
+.mg-left-10 {
+  margin-left: 10px;
+}
+
+.mg-left-15 {
+  margin-left: 15px;
+}
+
+.mg-left-20 {
+  margin-left: 20px;
+}
+
+.mg-left-350 {
+  margin-left: 350px;
+}
+
+.center-v {
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.width-100p {
+  width: 100%;
+}
+
+.pasted-mac-area {
+  height: 6em !important;
+  margin-bottom: 10px;
+}
+
+.phones-to-add {
+  border: 1px solid #ededed;
+  max-height: 380px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.successfully-added-phones {
+  max-height: 90px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+.border-color-bbb button {
+  border-color: #bbb !important;
+}
+
+.clear {
+  clear: both;
+}
+
+.no-margin-left-right {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.border-top-list {
+  border-top: 1px #ededed solid !important;
+}
+
+.small-size-wizard {
+  font-size: 20px!important;
+  line-height: 20px!important;
+}
+
+.no-pad {
+  padding: 0;
+}
+
+.option-card {
+  float: left;
+  height: 124px;
+  border: 1px solid #d1d1d1;
+  margin: 0;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.active-choose-green {
+  border: 2px solid #3f9c35!important;
+  margin-top: -1px!important;
+}
+
+.card-row {
+  margin: auto;
+}
+
+.width-33p {
+  width: 33%;
+}
+
+.width-30p {
+  width: 30%;
+}
+
+.toast-pf-top-right {
+  top: 74px;
+}
+
+.list-view-pf .list-group-item-text-narrow {
+  width: calc(50% - 80px);
+}
+
+.list-view-pf .list-group-item-heading-narrow {
+  flex: 1 0 calc(30% - 20px);
+}
+
+.mg-top-10 {
+  margin-top: 10px;
+}
+
+.mg-top-20 {
+  margin-top: 20px;
+}
+
+.mg-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.mg-bottom-15 {
+  margin-bottom: 15px;
+}
+
+.mg-bottom-8 {
+  margin-bottom: 8px;
+}
+
+.mg-bottom-6 {
+  margin-bottom: 6px;
+}
+
+.mg-bottom-5 {
+  margin-bottom: 5px;
+}
+
+.mg-right-5 {
+  margin-right: 5px;
+}
+
+.align-items-stretch {
+  align-items: stretch !important;
+}
+
+.warning {
+  color: #ec7a08 !important;
+}
+
+.page-help {
+  margin-bottom: 25px;
+}
+
+.page-help ul {
+  margin-bottom: 0;
+}
+
+.width-700 {
+  width: 700px;
+}
+
+/* Start Inventory */
+#paste-textarea {
+  resize: none;
+}
+
+#inv-new-phone-dialog .popover {
+  width: 500px;
+  max-width: none;
+}
+
+#inv-new-phone-dialog pre {
+  width: 50%;
+}
+
+#inv-new-phone-dialog {
+  text-align: justify;
+}
+
+.mg-right-10 {
+  margin-right: 10px;
+}
+
+.mg-right-20 {
+  margin-right: 20px;
+}
+
+.reset-padding {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  display: inline-block !important;
+  margin-left: 5px !important;
+}
+
+.info-general {
+  font-size: 14px;
+}
+
+.pad-top-bottom-6 {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+.success {
+  background-color: #e9f4e9;
+  border-color: #3f9c35 !important;
+}
+
+.align-items-flex-start {
+  align-items: flex-start;
+}
+
+.spinner-large {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin-top: 20px;
+}
+
+.mg-bottom-0 {
+  margin-bottom: 0;
+}
+
+.width-12p {
+  width: 12% !important;
+}
+
+.width-15p {
+  width: 15% !important;
+}
+
+.width-55p {
+  width: 55% !important;
+}
+
+.width-240 {
+  width: 240px;
+}
+
+.black {
+  color: black;
+}
+
+a.black:focus, a.black:hover, a.black:active {
+  color: black;
+}
+
+.filter {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.pos-relative {
+  position: relative;
+}
+
+.num-phones-indicator {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 0;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.line-height-normal {
+  line-height: 1.66666667;
+}
+
+.bg-color-white {
+  background-color: white;
+}
+
+.set-model-feedback {
+  vertical-align: middle;
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.toggle-successfully-added-phones {
+  float: none;
+  padding-left: 0;
+}
+
+.toggle-successfully-added-phones a {
+  color: #363636;
+}
+
+.flex-column-w100p {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.flex-row-stretch-w100p {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: stretch !important;
+}
+
+.flex-1-0-auto {
+  flex: 1 0 auto !important;
+}
+
+#phone-list {
+  height: calc(100vh - 300px);
+  overflow: auto;
+}
+/* end Inventory */

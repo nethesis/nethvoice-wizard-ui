@@ -5,7 +5,7 @@ version 0.15.1.
 
 ## Build & development
 
-Run `npm install && bower install` for dependecies.
+Run `yarn install && bower install` for dependecies.
 
 Run `grunt build` for building and `grunt serve` for preview.
 

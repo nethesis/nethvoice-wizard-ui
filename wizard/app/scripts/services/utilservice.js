@@ -72,4 +72,20 @@ angular.module('nethvoiceWizardUiApp')
         }).length == 0
       });
     };
+
+    this.capitalize = function (s) {
+      if (typeof s !== 'string') {
+        return '';
+      }
+      return s.charAt(0).toUpperCase() + s.slice(1)
+    };
+
+    this.findDuplicates = function (array) {
+      function findDuplicatesInArray(arr) {
+        return arr.filter(function (item, index) {
+          return arr.indexOf(item) != index
+        });
+      }
+      return Array.from(new Set(findDuplicatesInArray(array)));
+    }
   });

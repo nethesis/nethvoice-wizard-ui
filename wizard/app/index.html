@@ -239,7 +239,7 @@
             <div ng-click="goTo('apps/bulkextensions')" class="list-group-item-value menu-item-left no-opacity">{{'Bulk extensions' | translate | ellipsis:'1200'}}</div>
           </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('bulkdevices',2) ? 'active' : ''}}">
-            <div ng-click="goTo('apps/bulkdevices')" class="list-group-item-value menu-item-left no-opacity">{{'Bulk devices' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('apps/bulkdevices')" class="list-group-item-value menu-item-left no-opacity">{{'Bulk phones configuration' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
         <li data-toggle="collapse" data-parent="#navbar-left" href="#adminCollapse" ng-if="!wizard.isMigrationView && !wizard.isWizard || wizard.stepCount > appConfig.PART3_STEP"
@@ -309,7 +309,7 @@
   <script src="bower_components/matchHeight/dist/jquery.matchHeight.js"></script>
   <script src="bower_components/moment/moment.js"></script>
   <script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-  <script src="bower_components/patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
+  <script src="bower_components/patternfly-bootstrap-treeview/dist/bootstrap-treeview.js"></script>
   <script src="bower_components/patternfly/dist/js/patternfly.js"></script>
   <script src="bower_components/angular-translate/angular-translate.js"></script>
   <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
@@ -330,12 +330,12 @@
   <script src="bower_components/ace-builds/src-min/theme-twilight.js"></script>
   <script src="bower_components/ace-builds/src-min/worker-json.js"></script>
   <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
-  <script src="bower_components/clipboard/dist/clipboard.min.js"></script>
-  <script src="bower_components/bootstrap/js/tooltip.js"></script>
+  <script src="bower_components/clipboard/dist/clipboard.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
   <script src="scripts/custom.js"></script>
+  <script src="scripts/macVendors.js"></script>
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
   <script src="scripts/app.js"></script>
   <script src="scripts/config.js"></script>
@@ -421,6 +421,9 @@
   <script src="scripts/controllers/devices/models.js"></script>
   <script src="scripts/controllers/configurations.js"></script>
   <script src="scripts/controllers/apps/bulkdevices.js"></script>
+  <script src="scripts/services/provisioning/phoneservice.js"></script>
+  <script src="scripts/services/provisioning/modelservice.js"></script>
+  <script src="scripts/directives/whenScrolled.js"></script>
   <!-- endbuild -->
 </body>
 
