@@ -1180,6 +1180,10 @@ a {
   margin-bottom: 1%;
 }
 
+.vertical-sub {
+  vertical-align: sub;
+}
+
 .gray-label {
   font-weight: 600;
   color: #8e8e8e;
@@ -1783,6 +1787,14 @@ iframe body {
   margin-top: 3px !important;
 }
 
+.mt-4 {
+  margin-top: 4px !important;
+}
+
+.mt-7 {
+  margin-top: 7px !important;
+}
+
 .mt-15 {
   margin-top: 15px !important;
 }
@@ -1831,9 +1843,7 @@ iframe body {
   margin-top: 43px !important;
 }
 
-.mt-10 {
-  margin-top: 10px !important;
-}
+F
 
 .mtn-1 {
   margin-top: -1px !important;
@@ -1883,12 +1893,20 @@ iframe body {
   margin-left: 10px !important;
 }
 
+.ml-5 {
+  margin-left: 5px !important;
+}
+
 .mr-7 {
   margin-right: 7px !important;
 }
 
 .mr-10 {
   margin-right: 10px !important;
+}
+
+.mr-2 {
+  margin-right: 2px !important;
 }
 
 .mr-20 {

@@ -11,24 +11,24 @@
   </div>
   <div class="wizard-pf-contents adjust-size no-margin-bottom">
     <h1 class="control-label centered" for="textInput-markup">{{'Configurations' | translate}}</h1>
-    <div ng-if="true" class="container-fluid margin-top-lg">
+    <div class="container-fluid margin-top-lg">
       <div class="form-group">
         <div class="filter-label-user adjust-filter-user">{{'Filter' | translate}}:</div>
-        <select class="adjust-filter-user" title="-" pf-select="{ width: '180px' }" ng-model="selectedUserFilter" ng-options="uf as uf | translate for uf in availableUserFilters">
+        <select class="adjust-filter-user" title="-" pf-select="{ width: '180px' }" ng-model="usersFilter" ng-options="uf as uf | translate for uf in availableUserFilters">
         </select>
         <div class="filter-label-user-order">
-          <select title="-" pf-select="{ width: '100px' }" ng-model="selectedUserFilterNumbers" ng-options="uf as uf | translate for uf in availableUserFiltersNumbers"></select>
+          <select title="-" pf-select="{ width: '180px' }" ng-model="usersFilterNumbers" ng-options="uf as uf | translate for uf in availableUserFiltersNumbers"></select>
           <i class="fa fa-sort-alpha-asc"></i>
         </div>
       </div>
       <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
-        <div class="form-group has-clear">
-          <div class="search-pf-input-group" id="filter-domains-details">
+        <div class="form-group">
+          <div class="search-pf-input-group">
             <input
-              ng-model="searchUserString"
+              ng-model="searchUser"
               type="text"
-              class="form-control input-lg"
-              placeholder="{{'Search users' | translate}}..."></input>
+              class="form-control input-lg ng-binding"
+              placeholder="{{'Search users' | translate}}...">
           </div>
         </div>
         <div class="form-group">
@@ -40,12 +40,15 @@
     </div>
     <div id="configurationList" class="list-group list-view-pf list-view-pf-view mt-20">
       <!-- repeat  -->
-      <div ng-repeat="user in allUsers | filter:searchUserString"
-        class="list-group-item {{user.username == currentUser.username ? 'list-view-pf-expand-active' : ''}}">
+      <div
+        ng-repeat="user in allUsers | customFilterMultiple:'displayname,username,default_extension':searchUser | orderBy:usersFilterNumbers"
+        ng-show="usersFilter == 'configured' ? user.devices.length > 0 : (usersFilter == 'unconfigured' ? user.devices.length == 0 : true)"
+        class="list-group-item {{user.username == currentUser.username || user.username == linkTo ? 'list-view-pf-expand-active' : ''}}">
         <div class="list-group-item-header">
           <div class="list-view-pf-actions">
             <div>
-              <button ng-click="openDevices()"
+              <button
+                ng-click="openDevices(user.username)"
                 data-toggle="modal"
                 data-target="#devicesAssociation"
                 type="button"
@@ -178,16 +181,20 @@
                   </div>
                 </div>
               </div>
-              
               <div ng-repeat="device in user.devices">
                 <!-- devices -->
                 <div ng-if="device.type == 'physical'" class="list-group-item cursor-default ng-scope">
                   <div class="list-view-pf-actions">
                     <div class="display-flex">
-                      <button class="btn btn-default">
+                      <button
+                        ng-click="deletePhysicalExtension(device, device.extension)"
+                        class="btn btn-default mr-2">
                         {{"Unlink" | translate}}
                       </button>
-                      <button 
+                      <span ng-if="device.setPhysicalInAction == 'ok'" class="pficon pficon-ok fz-18 ml-5 mt-3"></span>
+                      <span ng-if="device.setPhysicalInAction == 'err'" class="pficon pficon-error-circle-o fz-18 ml-5 mt-3"></span>
+                      <div ng-if="device.setPhysicalInAction == true" class="spinner spinner-sm ml-5 mt-3"></div>
+                      <button
                         ng-disabled="device.registered"
                         class="btn btn-default {{device.registered ? '' : 'disabled'}}"
                         popover-placement="top"
@@ -213,11 +220,16 @@
                           <div class="col-lg-7">
                             <div class="form-group no-margin-bottom">
                               <div class="display-flex">
-                                <select class="combobox form-control" autocomplete="off">
-                                  <option value="{{count}}" ng-repeat="count in [] | range: 10 track by count"
-                                    on-finish-render="selectpickerRepeatEnd">{{"Default" | translate}}</option>
+                                <select
+                                  ng-model="device.model"
+                                  ng-change="setDeviceModel(device)"
+                                  class="combobox form-control"
+                                  autocomplete="off">
+                                  <option value="">-</option>
+                                  <option value="{{model.name}}" ng-repeat="model in allModels"
+                                    on-finish-render="selectpickerRepeatEnd">{{model.display_name | translate}}</option>
                                 </select>
-                                <button ng-click="setCurrentModelConf('Fanvil-X5S')" data-toggle="modal"
+                                <button ng-click="setCurrentModelConf(device.model)" data-toggle="modal"
                                   data-target="#singleModelModal"
                                   class="btn btn-default mln-1 zindex-2">
                                   <i class="fa fa-pencil"></i>
@@ -351,7 +363,11 @@
               <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
                 <div class="form-group has-clear mt-10 no-lateral-margins display-flex">
                   <div class="search-pf-input-group full-width" id="filter-domains-details">
-                    <input ng-model="searchUsersString" type="text" class="form-control input-lg ng-pristine ng-valid ng-touched" placeholder="Cerca dispositivo...">
+                    <input
+                      ng-model="searchDeviceString"
+                      type="text"
+                      class="form-control input-lg ng-pristine ng-valid ng-touched"
+                      placeholder=" {{'Search devices' | translate}}...">
                   </div>
                   <button class="btn btn-default btn-lg mln-1" type="submit">
                     <span class="fa fa-search"></span>
@@ -366,9 +382,14 @@
               <!-- custom device -->
               <div class="list-group-item cursor-default back-whitesmoke">
                 <div class="list-view-pf-actions mt-48">
-                  <button class="btn btn-primary">
-                    {{"Link to" | translate}} username
+                  <button
+                    class="btn btn-primary"
+                    ng-click="setPhysicalExtension(currentUser, newDevice)">
+                    {{"Link to" | translate}} {{linkTo || ("user" | translate)}}
                   </button>
+                  <span ng-if="newDevice.linkInAction == 'ok'" class="pficon vertical-sub pficon-ok fz-18 ml-5"></span>
+                  <span ng-if="newDevice.linkInAction == 'err'" class="pficon vertical-sub pficon-error-circle-o fz-18 ml-5"></span>
+                  <div ng-if="newDevice.linkInAction == true" class="spinner vertical-sub inline-display spinner-sm ml-5"></div>
                 </div>
                 <div class="list-view-pf-main-info ">
                   <div class="list-view-pf-left">
@@ -398,13 +419,19 @@
                 </div>
               </div>  
               <!-- devices -->
-              <div ng-show="!devicesLoading" ng-repeat="device in allDevices" class="list-group-item cursor-default">
+              <div
+                ng-show="!devicesLoading"
+                ng-repeat="device in allDevices | customFilterMultiple:'mac,manufacturer,model':searchDeviceString"
+                class="list-group-item cursor-default">
                 <div class="list-view-pf-actions">
                   <button 
-                    ng-click="device.lines[0].extension ? deletePhysicalExtension(device, device.lines[0].extension) : setPhysicalExtension(currentUser, device)"
+                    ng-click="setPhysicalExtension(currentUser, device)"
                     class="btn btn-primary">
-                    {{"Associa a username" | translate}}
+                    {{"Link to" | translate}} {{linkTo || ("user" | translate)}}
                   </button>
+                  <span ng-if="device.linkPhysicalInAction == 'ok'" class="pficon vertical-sub pficon-ok fz-18 ml-5"></span>
+                  <span ng-if="device.linkPhysicalInAction == 'err'" class="pficon vertical-sub pficon-error-circle-o fz-18 ml-5"></span>
+                  <div ng-if="device.linkPhysicalInAction == true" class="spinner vertical-sub inline-display spinner-sm ml-5"></div>
                 </div>
                 <div class="list-view-pf-main-info ">
                   <div class="list-view-pf-left">
