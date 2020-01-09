@@ -42,7 +42,7 @@
                                     ng-repeat="count in [] | range: item.loop_end track by count">
                                     <div class="no-lateral-padding col-lg-12">
                                       <div class="col-lg-2 loop-keys-index">
-                                        {{::item.description | translate}} {{count + item.loop_start}}
+                                        {{::item.description | translate}} {{count + item.loop_start + (item.incremental_count ? expKeyIndex * item.loop_end : 0)}}
                                       </div>
                                       <div class="col-lg-2" ng-repeat="key in keys track by $index">
                                         <!-- list -->
@@ -52,8 +52,8 @@
                                           <div class="hidden">
                                             <select
                                               id="{{sectionkey}}-select-{{count+1}}-{{$index+1}}"
-                                              ng-model="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start)]"
-                                              ng-change="onVariableChanged('exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start))"
+                                              ng-model="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start + (item.incremental_count ? expKeyIndex * item.loop_end : 0))]"
+                                              ng-change="onVariableChanged('exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start + (item.incremental_count ? expKeyIndex * item.loop_end : 0)))"
                                               class="{{key.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
                                               autocomplete="off">
                                               <option value="">{{currentModel.globals[key.variable] ? getOptionText(key.options, currentModel.globals[key.variable]) + " (default)" : "-"}}</option>
@@ -72,8 +72,8 @@
                                           </label>
                                           <input
                                             id="{{sectionkey}}-input-{{count+1}}-{{$index+1}}"
-                                            ng-model="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start)]"
-                                            ng-change="onVariableChanged('exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start))"
+                                            ng-model="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start + (item.incremental_count ? expKeyIndex * item.loop_end : 0))]"
+                                            ng-change="onVariableChanged('exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start + (item.incremental_count ? expKeyIndex * item.loop_end : 0)))"
                                             placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : ''}}"
                                             type="text" class="form-control">
                                           </input>

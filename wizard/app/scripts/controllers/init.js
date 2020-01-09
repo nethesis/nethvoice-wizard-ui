@@ -9,7 +9,7 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .controller('InitCtrl', function ($scope, $translate, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService,
-    MigrationService, TrunkService, RouteService, ProvFanvilService, ModelService, $q) {
+    MigrationService, TrunkService, RouteService, ProvFanvilService, ProvSnomService, ModelService, $q) {
     $scope.customConfig = customConfig;
     $scope.appConfig = appConfig;
 
@@ -385,7 +385,16 @@ angular.module('nethvoiceWizardUiApp')
           break;
           
         case "snom":
-          return {}
+          var map = getModelMap(ProvSnomService.map(), name)
+          return {
+            map: map,
+            general: ProvSnomService.generalUI(),
+            preference: ProvSnomService.preferenceUI(),
+            network: ProvSnomService.networkUI(),
+            keys: ProvSnomService.keysUI(),
+            functionKeys: ProvSnomService.functionKeysUI(map),
+            expKeys: ProvSnomService.expKeysUI(map),
+          }
           break;
 
         case "yealink":
