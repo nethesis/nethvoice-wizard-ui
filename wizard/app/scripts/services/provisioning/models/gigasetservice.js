@@ -1110,7 +1110,8 @@ angular.module('nethvoiceWizardUiApp')
                 }
               ]
             }
-          }]
+          }
+        ]
       }
     }
 
