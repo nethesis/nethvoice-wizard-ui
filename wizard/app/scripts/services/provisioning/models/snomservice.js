@@ -13,13 +13,11 @@ angular.module('nethvoiceWizardUiApp')
     var functionExpKeysItems = [
       {
         "variable": "key_label_",
-        "default_value": "0",
         "description": "Label",
         "type": "input"
       },
       {
         "variable": "key_context_",
-        "default_value": "",
         "description": "Context",
         "type": "list",
         "options": [{
@@ -77,7 +75,6 @@ angular.module('nethvoiceWizardUiApp')
       },
       {
         "variable": "key_type_",
-        "default_value": "",
         "description": "Type",
         "type": "list",
         "options": [
@@ -165,7 +162,6 @@ angular.module('nethvoiceWizardUiApp')
       },
       {
         "variable": "key_value_",
-        "default_value": "",
         "description": "Value",
         "type": "input"
       }
@@ -221,11 +217,20 @@ angular.module('nethvoiceWizardUiApp')
               "start": 0,
               "end": 4
             },
-            "expKeys": {
-              "total": 18,
-              "loops": 3,
-              "startIndex": 131
-            }
+            "expKeys": [
+              {
+                "start": 131,
+                "end": 148
+              },
+              {
+                "start": 149,
+                "end": 166
+              },
+              {
+                "start": 167,
+                "end": 184
+              }
+            ]
           },
           "D345": {
             "model": "D345",
@@ -234,11 +239,20 @@ angular.module('nethvoiceWizardUiApp')
               "start": 0,
               "end": 47
             },
-            "expKeys": {
-              "total": 18,
-              "loops": 3,
-              "startIndex": 174
-            }
+            "expKeys": [
+              {
+                "start": 174,
+                "end": 191
+              },
+              {
+                "start": 192,
+                "end": 209
+              },
+              {
+                "start": 210,
+                "end": 227
+              }
+            ]
           },
           "D375": {
             "model": "D375",
@@ -247,11 +261,20 @@ angular.module('nethvoiceWizardUiApp')
               "start": 0,
               "end": 11
             },
-            "expKeys": {
-              "total": 18,
-              "loops": 3,
-              "startIndex": 138
-            }
+            "expKeys": [
+              {
+                "start": 138,
+                "end": 155
+              },
+              {
+                "start": 156,
+                "end": 173
+              },
+              {
+                "start": 174,
+                "end": 191
+              }
+            ]
           },
           "D385": {
             "model": "D385",
@@ -260,11 +283,20 @@ angular.module('nethvoiceWizardUiApp')
               "start": 0,
               "end": 11
             },
-            "expKeys": {
-              "total": 18,
-              "loops": 3,
-              "startIndex": 138
-            }
+            "expKeys": [
+              {
+                "start": 138,
+                "end": 155
+              },
+              {
+                "start": 156,
+                "end": 173
+              },
+              {
+                "start": 174,
+                "end": 191
+              }
+            ]
           }
         },
         "7xx": {
@@ -283,11 +315,20 @@ angular.module('nethvoiceWizardUiApp')
               "start": 0,
               "end": 4
             },
-            "expKeys": {
-              "total": 18,
-              "loops": 3,
-              "startIndex": 5
-            }
+            "expKeys": [
+              {
+                "start": 5,
+                "end": 22
+              },
+              {
+                "start": 23,
+                "end": 40
+              },
+              {
+                "start": 41,
+                "end": 58
+              }
+            ]
           },
           "720": {
             "model": "720",
@@ -304,11 +345,20 @@ angular.module('nethvoiceWizardUiApp')
               "start": 0,
               "end": 17
             },
-            "expKeys": {
-              "total": 18,
-              "loops": 3,
-              "startIndex": 18
-            }
+            "expKeys": [
+              {
+                "start": 18,
+                "end": 35
+              },
+              {
+                "start": 36,
+                "end": 53
+              },
+              {
+                "start": 54,
+                "end": 71
+              }
+            ]
           },
           "760": {
             "model": "760",
@@ -333,11 +383,20 @@ angular.module('nethvoiceWizardUiApp')
               "start": 0,
               "end": 2
             },
-            "expKeys": {
-              "total": 18,
-              "loops": 3,
-              "startIndex": 3
-            }
+            "expKeys": [
+              {
+                "start": 3,
+                "end": 20
+              },
+              {
+                "start": 21,
+                "end": 38
+              },
+              {
+                "start": 39,
+                "end": 56
+              }
+            ]
           },
           "D735": {
             "model": "D735",
@@ -346,11 +405,20 @@ angular.module('nethvoiceWizardUiApp')
               "start": 0,
               "end": 31
             },
-            "expKeys": {
-              "total": 18,
-              "loops": 3,
-              "startIndex": 32
-            }
+            "expKeys": [
+              {
+                "start": 32,
+                "end": 49
+              },
+              {
+                "start": 50,
+                "end": 67
+              },
+              {
+                "start": 68,
+                "end": 85
+              }
+            ]
           },
           "D745": {
             "model": "D745",
@@ -359,11 +427,20 @@ angular.module('nethvoiceWizardUiApp')
               "start": 0,
               "end": 31
             },
-            "expKeys": {
-              "total": 18,
-              "loops": 3,
-              "startIndex": 32
-            }
+            "expKeys": [
+              {
+                "start": 32,
+                "end": 49
+              },
+              {
+                "start": 50,
+                "end": 67
+              },
+              {
+                "start": 68,
+                "end": 85
+              }
+            ]
           },
           "D765": {
             "model": "D765",
@@ -372,11 +449,20 @@ angular.module('nethvoiceWizardUiApp')
               "start": 0,
               "end": 15
             },
-            "expKeys": {
-              "total": 18,
-              "loops": 3,
-              "startIndex": 16
-            }
+            "expKeys": [
+              {
+                "start": 16,
+                "end": 33
+              },
+              {
+                "start": 34,
+                "end": 51
+              },
+              {
+                "start": 52,
+                "end": 69
+              }
+            ]
           },
           "D785": {
             "model": "D785",
@@ -385,11 +471,20 @@ angular.module('nethvoiceWizardUiApp')
               "start": 0,
               "end": 23
             },
-            "expKeys": {
-              "total": 18,
-              "loops": 3,
-              "startIndex": 24
-            }
+            "expKeys": [
+              {
+                "start": 24,
+                "end": 41
+              },
+              {
+                "start": 42,
+                "end": 59
+              },
+              {
+                "start": 60,
+                "end": 77
+              }
+            ]
           }
         },
         "8xx": {
@@ -1374,77 +1469,77 @@ angular.module('nethvoiceWizardUiApp')
             "data": {
               "items": [
                 {
-                  "variable": "$gui_fkey1",
+                  "variable": "gui_fkey1",
                   "description": "Soft Key #1",
                   "type": "input"
                 },
                 {
-                  "variable": "$gui_fkey2",
+                  "variable": "gui_fkey2",
                   "description": "Soft Key #2",
                   "type": "input"
                 },
                 {
-                  "variable": "$gui_fkey3",
+                  "variable": "gui_fkey3",
                   "description": "Soft Key #3",
                   "type": "input"
                 },
                 {
-                  "variable": "$gui_fkey4",
+                  "variable": "gui_fkey4",
                   "description": "Soft Key #4",
                   "type": "input"
                 },
                 {
-                  "variable": "$dkey_help",
+                  "variable": "dkey_help",
                   "description": "Help Key",
                   "type": "input"
                 },
                 {
-                  "variable": "$dkey_snom",
+                  "variable": "dkey_snom",
                   "description": "Snom Key",
                   "type": "input"
                 },
                 {
-                  "variable": "$dkey_conf",
+                  "variable": "dkey_conf",
                   "description": "Conference Key",
                   "type": "input"
                 },
                 {
-                  "variable": "$dkey_transfer",
+                  "variable": "dkey_transfer",
                   "description": "Transfer Key",
                   "type": "input"
                 },
                 {
-                  "variable": "$dkey_hold",
+                  "variable": "dkey_hold",
                   "description": "Hold Key",
                   "type": "input"
                 },
                 {
-                  "variable": "$dkey_dnd",
+                  "variable": "dkey_dnd",
                   "description": "Do Not Disturb Key",
                   "type": "input"
                 },
                 {
-                  "variable": "$dkey_record",
+                  "variable": "dkey_record",
                   "description": "Record Key",
                   "type": "input"
                 },
                 {
-                  "variable": "$dkey_retrieve",
+                  "variable": "dkey_retrieve",
                   "description": "Retrieve Key",
                   "type": "input"
                 },
                 {
-                  "variable": "$dkey_redial",
+                  "variable": "dkey_redial",
                   "description": "Redial Key",
                   "type": "input"
                 },
                 {
-                  "variable": "$dkey_directory",
+                  "variable": "dkey_directory",
                   "description": "Directory Key",
                   "type": "input"
                 },
                 {
-                  "variable": "$dkey_label_page_next",
+                  "variable": "dkey_label_page_next",
                   "description": "Page Forward Key",
                   "type": "input"
                 }
@@ -1487,10 +1582,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "description": "Exp Key",
             "type": "loop",
-            "loop_start": modelMap.expKeys.startIndex,
-            "loop_end": modelMap.expKeys.total,
-            "loops": modelMap.expKeys.loops,
-            "incremental_count": true,
+            "pages": modelMap.expKeys,
             "data": {
               "items": angular.copy(functionExpKeysItems)
             }
