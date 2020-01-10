@@ -111,12 +111,6 @@ angular.module('nethvoiceWizardUiApp')
       $scope.setCurrentModel(modelNameChecking)
     }
 
-    $scope.onVariableChanged = function (variable) {
-      if (!currentModelChanged) {
-        currentModelChanged = true
-      }
-    }
-
     $scope.createPhone = function () {
       ModelService.addPhone({
         "mac": "9C-75-14-14-23-34"
@@ -237,6 +231,12 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.$on('curentModelSaved', function() { 
       currentModelChanged = false
+    })
+
+    $scope.$on('variableChanged', function() { 
+      if (!currentModelChanged) {
+        currentModelChanged = true
+      }
     })
 
     $scope.$on('reloadModels', function() { 

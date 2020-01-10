@@ -329,38 +329,24 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.buildModel = function (name) {
-      return $q(function (resolve, reject) {
-        var nameSplit = name.split("-"),
-            modelName = nameSplit[1],
-            modelBrand = nameSplit[0]
-        ModelService.getModel(name).then(function (res) {
-          $scope.currentModel = {
-            "ui" : $scope.getModelUI(modelName, modelBrand),
-            "variables" : res.data.variables,
-            "globals": {},
-            "storedVariables": angular.copy(res.data.variables),
-            "name" : name,
-            "display_name" : res.data.display_name,
-            "openedSection" : "",
-            "openedExpKeys": "",
-            "showingKeys": "",
-            "showingExpKeys": "",
-            "hidden": false
+    var hasOriginalsFromName = function (name) {
+      return (name.split("-").length)-1 == 1 ? true : false 
+    }
+
+    var getGlobals = function () {
+      ModelService.getDefaults().then(function (res) {
+        $scope.currentModel.globals = angular.copy(res.data)
+        for (var globalVariables in res.data) {
+          if (!$scope.currentModel.variables[globalVariables]) {
+            $scope.currentModel.variables[globalVariables] = angular.copy(res.data[globalVariables])
           }
-          ModelService.getDefaults().then(function (res) {
-            $scope.currentModel.globals = res.data
-            resolve(true)
-          }, function (err) {
-            console.log(err)
-          })
-        }, function (err) {
-          reject(err)
-        })
+        }
+      }, function (err) {
+        console.log(err)
       })
     }
 
-    $scope.getModelUI = function (name, brand) {
+    var getModelUI = function (name, brand) {
       switch (brand.toLowerCase()) {
         case "fanvil":
           var map = getModelMap(ProvFanvilService.map(), name)
@@ -396,6 +382,34 @@ angular.module('nethvoiceWizardUiApp')
           return null
           break;
       }
+    }
+
+    $scope.buildModel = function (name) {
+      return $q(function (resolve, reject) {
+        var nameSplit = name.split("-"),
+            modelName = nameSplit[1],
+            modelBrand = nameSplit[0]
+        ModelService.getModel(name).then(function (res) {
+          $scope.currentModel = {
+            "ui" : getModelUI(modelName, modelBrand),
+            "variables" : res.data.variables,
+            "globals": {},
+            "storedVariables": angular.copy(res.data.variables),
+            "name" : name,
+            "display_name" : res.data.display_name,
+            "openedSection" : "",
+            "openedExpKeys": "",
+            "showingKeys": "",
+            "showingExpKeys": "",
+            "hasOriginals": hasOriginalsFromName(name),
+            "hidden": false
+          }
+          getGlobals()
+          resolve(true)
+        }, function () {
+          reject(err)
+        })
+      })
     }
 
     $scope.$on('$routeChangeStart', function() {

@@ -58,11 +58,15 @@
                                               autocomplete="off">
                                               <option value="">{{currentModel.globals[key.variable] ? getOptionText(key.options, currentModel.globals[key.variable]) + " (default)" : "-"}}</option>
                                               <!-- combobox -->
-                                              <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
-                                                value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                                              <option ng-selected="currentModel.variables[key.variable + (count + item.loop_start)] == option.value"
+                                                ng-if="key.options.length > 10"
+                                                ng-repeat="option in key.options"
+                                                value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                                               <!-- selectpicker -->
-                                              <option ng-if="key.options.length <= 10" ng-repeat="option in key.options"
-                                                value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                                              <option ng-selected="currentModel.variables[key.variable + (count + item.loop_start)] == option.value"
+                                                ng-if="key.options.length <= 10"
+                                                ng-repeat="option in key.options"
+                                                value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
                                             </select>
                                           </div>
                                         </div>
@@ -118,10 +122,10 @@
                                       <option value="">{{currentModel.globals[key.variable] ? getOptionText(key.options, currentModel.globals[key.variable]) + " (default)" : "-"}}</option>
                                       <!-- combobox -->
                                       <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
-                                        value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                                        value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                                       <!-- selectpicker -->
                                       <option ng-if="key.options.length <= 10" ng-repeat="option in key.options"
-                                        value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                                        value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
                                     </select>
                                   </div>
                                 </div>
@@ -166,11 +170,13 @@
                               autocomplete="off">
                               <option value="">{{currentModel.globals[key.variable] ? getOptionText(key.options, currentModel.globals[key.variable]) + " (default)" : "-"}}</option>
                               <!-- combobox -->
-                              <option ng-if="key.options.length > 10" ng-repeat="option in key.options"
-                                value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                              <option ng-selected="currentModel.variables[key.variable] == option.value" ng-if="key.options.length > 10"
+                                ng-repeat="option in key.options"
+                                value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                               <!-- selectpicker -->
-                              <option ng-if="key.options.length <= 10" ng-repeat="option in key.options"
-                                value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                              <option ng-selected="currentModel.variables[key.variable] == option.value" ng-if="key.options.length <= 10"
+                                ng-repeat="option in key.options"
+                                value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
                             </select>
                           </div>
                         </div>
@@ -217,15 +223,19 @@
                           id="{{sectionkey}}-select-{{$index}}"
                           class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
                           ng-model="currentModel.variables[item.variable]"
-                          ng-change="onVariableChanged(item.variable)"
+                          ng-change="onVariableChanged(item.variable, 'list')"
                           autocomplete="off">
-                          <option value="">{{currentModel.globals[item.variable] ? getOptionText(item.options, currentModel.globals[item.variable]) + " (default)" : "-"}}</option>
+                          <option value="" ng-disabled="true" ng-hide="true">-</option>
                           <!-- combobox -->
-                          <option ng-if="item.options.length > 10" ng-repeat="option in item.options"
-                            value="{{option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                          <option ng-selected="currentModel.variables[item.variable] == option.value"
+                            ng-if="item.options.length > 10"
+                            ng-repeat="option in item.options"
+                            value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}} {{currentModel.globals[item.variable] && !currentModel.storedVariables[item.variable] && currentModel.globals[item.variable] == option.value ? '(default)' : ''}}</option>
                           <!-- selectpicker -->
-                          <option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
-                            value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                          <option ng-selected="currentModel.variables[item.variable] == option.value"
+                            ng-if="item.options.length <= 10"
+                            ng-repeat="option in item.options"
+                            value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}} {{currentModel.globals[item.variable] && !currentModel.storedVariables[item.variable] && currentModel.globals[item.variable] == option.value ? '(default)' : ''}}</option>
                         </select>
                       </div>
                     </div>
@@ -262,16 +272,15 @@
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
       <li role="presentation">
         <a ng-click="openActionModal('cancel')" role="menuitem">
-          Annulla le modifiche
+          {{"Cancel changes"}}
         </a>
       </li>
-      <li role="presentation">
+      <li ng-if="currentModel.hasOriginals" role="presentation">
         <a ng-click="openActionModal('reset')">
-          Ripristina i valori originali
+          {{"Reset the original values" | translate}}
         </a>
       </li>
-      <li role="presentation" class="divider"></li>
-      <li role="presentation" class="red-colored">
+      <li ng-if="!currentModel.hasOriginals" role="presentation" class="red-colored">
         <a ng-click="openActionModal('delete')" role="menuitem">
           {{"Delete" | translate}}
         </a>
@@ -299,7 +308,7 @@
               <span class="pficon pficon-error-circle-o"></span>
               <strong>{{modelErrors.updateReadOnlyAttribute | translate}}</strong>.
             </div>
-            <div class="alert alert-warning">
+            <div ng-if="loadingAction != 'ok'" class="alert alert-warning">
               <span class="pficon pficon-warning-triangle-o"></span>
               <strong>
                 {{"Changes on the current model will be saved" | translate}}.
@@ -307,6 +316,10 @@
               <p>
                 {{"Are you sure" | translate}}?
               </p>
+            </div>
+            <div ng-if="loadingAction == 'ok'" class="alert alert-success">
+              <span class="pficon pficon-warning-triangle-o"></span>
+              <strong>{{"Success" | translate}}!</strong> {{"Variables correctly saved"}}.            
             </div>
           </div>
           <div ng-if="loadingAction == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div>

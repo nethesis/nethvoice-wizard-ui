@@ -24,7 +24,7 @@ angular.module('nethvoiceWizardUiApp')
       setTimeout(function () {
         $scope.loadingAction = false
         $scope.$apply()
-      }, 1000)
+      }, 2500)
     }
 
     $scope.openActionModal = function (action) {
@@ -57,6 +57,13 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.onVariableChanged = function (varName, type) {
+      if (type == "list" && $scope.currentModel.variables[varName] == "") {
+        delete $scope.currentModel.variables[varName]
+      }
+      $scope.$emit('variableChanged')
+    }
+
     $scope.getOptionText = function (options, value) {
       for (var option in options) {
         if (options[option].value == value) {
@@ -82,20 +89,29 @@ angular.module('nethvoiceWizardUiApp')
       }, 1000)
     }
 
+    var refreshSelects = function () {
+      $('.model-container select').each(function(){
+        if ($(this).hasClass("selectpicker")) {
+          $(this).selectpicker('refresh')
+        } else if ($(this).hasClass("combobox")) {
+          $(this).combobox('refresh')
+        }
+      })
+    }
+
     $scope.cancelChanges = function () {
       $scope.loadingAction = true
       $scope.currentModel.variables = angular.copy($scope.currentModel.storedVariables)
       setTimeout(function () {
-        $('.model-container select').each(function(){
-          if ($(this).hasClass("selectpicker")) {
-            $(this).selectpicker('refresh')
-          } else if ($(this).hasClass("combobox")) {
-            $(this).combobox('refresh')
-          }
-        })
+        refreshSelects()
         resetLoadingAction("ok")
-        $("#actionsModal").modal("hide")
         $scope.$apply()
+        setTimeout(function () {
+          $("#actionsModal").modal("hide")
+          setTimeout(function () {
+            $scope.$emit('curentModelSaved')
+          }, 500)
+        }, 2000)
       }, 1000)
     }
 
@@ -108,8 +124,9 @@ angular.module('nethvoiceWizardUiApp')
         }).then(function (res) {
           resetLoadingAction("ok")
           $scope.currentModel.variables = res.data.variables
-          $scope.hideModal("actionsModal")
-          $scope.$apply()
+          setTimeout(function () {
+            $scope.hideModal("actionsModal")
+          }, 2000)
         }, function (err) {
           console.log(err)
           restErrStatus("resetChangesNotFound", err.data.title)
@@ -124,33 +141,64 @@ angular.module('nethvoiceWizardUiApp')
       $scope.loadingAction = true
       ModelService.deleteModel($scope.currentModel.name).then(function (res) {
         resetLoadingAction("ok")
-        $scope.hideModal("actionsModal")
-        $scope.$apply()
         setTimeout(function () {
-          $scope.$emit('reloadModels')
-        }, 1000)
+          $scope.hideModal("actionsModal")
+          setTimeout(function () {
+            $scope.$emit('reloadModels')
+          }, 500)
+        }, 2000)
       }, function (err) {
         console.log(err)
         restErrStatus("deleteChangesNotFound", err.data.title)
       })
     }
 
+    var getGlobals = function () {
+      ModelService.getDefaults().then(function (res) {
+        $scope.currentModel.globals = angular.copy(res.data)
+        // add globals to variables
+        for (var globalVariables in res.data) {
+          if (!$scope.currentModel.variables[globalVariables]) {
+            $scope.currentModel.variables[globalVariables] = angular.copy(res.data[globalVariables])
+          }
+        }
+        refreshSelects()
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    var getVariables = function () {
+      ModelService.getModel($scope.currentModel.name).then(function (res) {
+        $scope.currentModel.storedVariables = angular.copy(res.data.variables)
+        $scope.currentModel.variables = res.data.variables
+        getGlobals()
+      }, function (err) {
+        console.log(err)
+        restErrStatus("updateReadOnlyAttribute", err.data.title)
+      })
+    }
+
     $scope.saveCurrentModel = function () {
       $scope.loadingAction = true
+      // remove globals from variables
+      for (var variable in $scope.currentModel.variables) {
+        if (!$scope.currentModel.storedVariables[variable] && $scope.currentModel.variables[variable] == $scope.currentModel.globals[variable]) {
+          delete $scope.currentModel.variables[variable]
+        }
+      }
       ModelService.patchModel($scope.currentModel.name, {
-        "display_name": $scope.currentModel.name,
+        "display_name": $scope.currentModel.display_name,
         "variables": $scope.currentModel.variables
       }).then(function (res) {
         resetLoadingAction("ok")
-        $scope.hideModal("saveChangesConfirm")
-        $scope.$emit('curentModelSaved')
-        $scope.$apply()
-        ModelService.getModel($scope.currentModel.name).then(function (res) {
-          $scope.currentModel.storedVariables = res.data.variables
-        }, function (err) {
-          console.log(err)
-          restErrStatus("updateReadOnlyAttribute", err.data.title)
-        })
+        setTimeout(function () {
+          $scope.hideModal("saveChangesConfirm")
+          setTimeout(function () {
+            $scope.$emit('curentModelSaved')
+          }, 500)
+        },2000)
+        getVariables()
       }, function (err) {
         console.log(err)
         restErrStatus("updateReadOnlyAttribute", err.data.title)
