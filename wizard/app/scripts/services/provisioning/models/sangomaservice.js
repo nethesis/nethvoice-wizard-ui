@@ -16,7 +16,7 @@ angular.module('nethvoiceWizardUiApp')
           "S205": {
             "model": "S205",
             "softKeys": true,
-            "lineKeys2xx3xx": true,
+            "lineKeys": 2,
             "hidden_variables": [
               "wallpaper_image",
               "screensaver_image"
@@ -25,7 +25,7 @@ angular.module('nethvoiceWizardUiApp')
           "S206": {
             "model": "S206",
             "softKeys": true,
-            "lineKeys2xx3xx": true,
+            "lineKeys": 2,
             "hidden_variables": [
               "wallpaper_image",
               "screensaver_image"
@@ -36,7 +36,7 @@ angular.module('nethvoiceWizardUiApp')
           "S300": {
             "model": "S300",
             "softKeys": true,
-            "lineKeys2xx3xx": true,
+            "lineKeys": 2,
             "hidden_variables": [
               "wallpaper_image",
               "screensaver_image"
@@ -45,7 +45,7 @@ angular.module('nethvoiceWizardUiApp')
           "S305": {
             "model": "S305",
             "softKeys": true,
-            "lineKeys2xx3xx": true,
+            "lineKeys": 2,
             "hidden_variables": [
               "wallpaper_image",
               "screensaver_image"
@@ -56,7 +56,7 @@ angular.module('nethvoiceWizardUiApp')
           "S400": {
             "model": "S400",
             "softKeys": true,
-            "lineKeys4xx": true,
+            "lineKeys": 25,
             "hidden_variables": [
               "wallpaper_image",
               "screensaver_image"
@@ -65,7 +65,7 @@ angular.module('nethvoiceWizardUiApp')
           "S405": {
             "model": "S405",
             "softKeys": true,
-            "lineKeys4xx": true,
+            "lineKeys": 25,
             "hidden_variables": [
               "wallpaper_image",
               "screensaver_image"
@@ -74,7 +74,7 @@ angular.module('nethvoiceWizardUiApp')
           "S406": {
             "model": "S406",
             "softKeys": true,
-            "lineKeys4xx": true,
+            "lineKeys": 25,
             "hidden_variables": [
               "wallpaper_image",
               "screensaver_image"
@@ -85,7 +85,7 @@ angular.module('nethvoiceWizardUiApp')
           "S500": {
             "model": "S500",
             "softKeys": true,
-            "lineKeys5xx": true,
+            "lineKeys": 35,
             "expKeys": [
               {
                 "start": 1,
@@ -100,7 +100,7 @@ angular.module('nethvoiceWizardUiApp')
           "S505": {
             "model": "S505",
             "softKeys": true,
-            "lineKeys5xx": true,
+            "lineKeys": 35,
             "expKeys": [
               {
                 "start": 1,
@@ -117,7 +117,7 @@ angular.module('nethvoiceWizardUiApp')
           "S700": {
             "model": "S700",
             "softKeys": true,
-            "lineKeys7xx": true,
+            "lineKeys": 45,
             "expKeys": [
               {
                 "start": 1,
@@ -132,7 +132,7 @@ angular.module('nethvoiceWizardUiApp')
           "S705": {
             "model": "S705",
             "softKeys": true,
-            "lineKeys7xx": true,
+            "lineKeys": 45,
             "expKeys": [
               {
                 "start": 1,
@@ -146,6 +146,22 @@ angular.module('nethvoiceWizardUiApp')
           }
         }
       }
+    }
+
+    this.modelGroups = {
+      "S2xxS3xx": [
+        "S205", "S206",
+        "S300", "S305"
+      ],
+      "S4xx": [
+        "S400", "S405", "S406"
+      ],
+      "S5xx": [
+        "S500", "S505"
+      ],
+      "S7xx": [
+        "S700", "S705"
+      ]
     }
 
     this.generalUI = function () {
@@ -1133,652 +1149,843 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.lineKeys2xx3xxUI = function () {
-      return {
-        "name": "LineKeys",
-        "items": [
+    this.lineKeysUI = function (modelMap) {
+      var itemsLineKeysS2xxS3xx = [
+        {
+          "variable": "$linekey_type",
+          "default_value": "0",
+          "description": "Line Key {$count} Type",
+          "type": "list",
+          "data": [{
+            "text": "N\/A",
+            "value": "0"
+          },
           {
-            "description": "LineKeys",
-            "type": "loop",
-            "loop_start": 1,
-            "loop_end": 2,
-            "data": {
-              "items": [
-                {
-                  "variable": "linekey_type",
-                  "description": "Type",
-                  "type": "list",
-                  "options": [
-                    {
-                      "text": "N\/A",
-                      "value": "0"
-                    },
-                    {
-                      "text": "line",
-                      "value": "1"
-                    },
-                    {
-                      "text": "Speed Dial",
-                      "value": "2"
-                    },
-                    {
-                      "text": "BLF",
-                      "value": "3"
-                    },
-                    {
-                      "text": "BLF List",
-                      "value": "4"
-                    },
-                    {
-                      "text": "Voice mail",
-                      "value": "5"
-                    },
-                    {
-                      "text": "Direct Pickup",
-                      "value": "6"
-                    },
-                    {
-                      "text": "Group Pickup",
-                      "value": "7"
-                    },
-                    {
-                      "text": "Call Park",
-                      "value": "8"
-                    },
-                    {
-                      "text": "Intercom",
-                      "value": "9"
-                    },
-                    {
-                      "text": "DTMF",
-                      "value": "10"
-                    },
-                    {
-                      "text": "Prefix",
-                      "value": "11"
-                    },
-                    {
-                      "text": "Local Group",
-                      "value": "12"
-                    },
-                    {
-                      "text": "XML Group",
-                      "value": "13"
-                    },
-                    {
-                      "text": "XML Browser",
-                      "value": "14"
-                    },
-                    {
-                      "text": "LDAP",
-                      "value": "15"
-                    },
-                    {
-                      "text": "BroadSoft Group",
-                      "value": "16"
-                    },
-                    {
-                      "text": "Conference",
-                      "value": "17"
-                    },
-                    {
-                      "text": "Forward",
-                      "value": "18"
-                    },
-                    {
-                      "text": "Transfer",
-                      "value": "19"
-                    },
-                    {
-                      "text": "Hold",
-                      "value": "20"
-                    },
-                    {
-                      "text": "DND",
-                      "value": "21"
-                    },
-                    {
-                      "text": "Redial",
-                      "value": "22"
-                    },
-                    {
-                      "text": "Call Return",
-                      "value": "23"
-                    },
-                    {
-                      "text": "SMS",
-                      "value": "24"
-                    },
-                    {
-                      "text": "Record",
-                      "value": "25"
-                    },
-                    {
-                      "text": "URL Record",
-                      "value": "26"
-                    },
-                    {
-                      "text": "Paging",
-                      "value": "27"
-                    },
-                    {
-                      "text": "Group Listening",
-                      "value": "28"
-                    },
-                    {
-                      "text": "Pubblic Hold",
-                      "value": "29"
-                    },
-                    {
-                      "text": "Private Hold",
-                      "value": "30"
-                    },
-                    {
-                      "text": "Shared Line",
-                      "value": "31"
-                    },
-                    {
-                      "text": "Hot Desking",
-                      "value": "32"
-                    },
-                    {
-                      "text": "ACD",
-                      "value": "33"
-                    },
-                    {
-                      "text": "Zero Touch",
-                      "value": "34"
-                    },
-                    {
-                      "text": "URL",
-                      "value": "35"
-                    },
-                    {
-                      "text": "MultiCast Paging",
-                      "value": "47"
-                    },
-                    {
-                      "text": "XML BLF",
-                      "value": "48"
-                    }
-                  ]
-                },
-                {
-                  "variable": "linekey_line",
-                  "description": "Line",
-                  "type": "list",
-                  "options": [
-                    {
-                      "text": "Auto",
-                      "value": "255"
-                    },
-                    {
-                      "text": "Line 1",
-                      "value": "0"
-                    },
-                    {
-                      "text": "Line 2",
-                      "value": "1"
-                    }
-                  ]
-                },
-                {
-                  "variable": "linekey_label",
-                  "description": "Label",
-                  "type": "input"
-                },
-                {
-                  "variable": "linekey_value",
-                  "description": "Value",
-                  "type": "input"
-                },
-                {
-                  "variable": "linekey_pickup",
-                  "description": "Pickup Number",
-                  "type": "input"
-                }
-              ]
-            }
+            "text": "line",
+            "value": "1"
+          },
+          {
+            "text": "Speed Dial",
+            "value": "2"
+          },
+          {
+            "text": "BLF",
+            "value": "3"
+          },
+          {
+            "text": "BLF List",
+            "value": "4"
+          },
+          {
+            "text": "Voice mail",
+            "value": "5"
+          },
+          {
+            "text": "Direct Pickup",
+            "value": "6"
+          },
+          {
+            "text": "Group Pickup",
+            "value": "7"
+          },
+          {
+            "text": "Call Park",
+            "value": "8"
+          },
+          {
+            "text": "Intercom",
+            "value": "9"
+          },
+          {
+            "text": "DTMF",
+            "value": "10"
+          },
+          {
+            "text": "Prefix",
+            "value": "11"
+          },
+          {
+            "text": "Local Group",
+            "value": "12"
+          },
+          {
+            "text": "XML Group",
+            "value": "13"
+          },
+          {
+            "text": "XML Browser",
+            "value": "14"
+          },
+          {
+            "text": "LDAP",
+            "value": "15"
+          },
+          {
+            "text": "BroadSoft Group",
+            "value": "16"
+          },
+          {
+            "text": "Conference",
+            "value": "17"
+          },
+          {
+            "text": "Forward",
+            "value": "18"
+          },
+          {
+            "text": "Transfer",
+            "value": "19"
+          },
+          {
+            "text": "Hold",
+            "value": "20"
+          },
+          {
+            "text": "DND",
+            "value": "21"
+          },
+          {
+            "text": "Redial",
+            "value": "22"
+          },
+          {
+            "text": "Call Return",
+            "value": "23"
+          },
+          {
+            "text": "SMS",
+            "value": "24"
+          },
+          {
+            "text": "Record",
+            "value": "25"
+          },
+          {
+            "text": "URL Record",
+            "value": "26"
+          },
+          {
+            "text": "Paging",
+            "value": "27"
+          },
+          {
+            "text": "Group Listening",
+            "value": "28"
+          },
+          {
+            "text": "Pubblic Hold",
+            "value": "29"
+          },
+          {
+            "text": "Private Hold",
+            "value": "30"
+          },
+          {
+            "text": "Shared Line",
+            "value": "31"
+          },
+          {
+            "text": "Hot Desking",
+            "value": "32"
+          },
+          {
+            "text": "ACD",
+            "value": "33"
+          },
+          {
+            "text": "Zero Touch",
+            "value": "34"
+          },
+          {
+            "text": "URL",
+            "value": "35"
+          },
+          {
+            "text": "MultiCast Paging",
+            "value": "47"
+          },
+          {
+            "text": "XML BLF",
+            "value": "48"
           }
-        ]
-      }
-    }
-
-    this.lineKeys4xxUI = function () {
-      return {
-        "name": "LineKeys",
-        "items": [
+          ]
+        },
+        {
+          "variable": "$linekey_line",
+          "default_value": "0",
+          "description": "Line Key {$count} Line",
+          "type": "list",
+          "data": [{
+            "text": "Auto",
+            "value": "255"
+          },
           {
-            "description": "LineKeys",
-            "type": "loop",
-            "loop_start": 1,
-            "loop_end": 25,
-            "data": {
-              "items": [
-                {
-                  "variable": "linekey_type",
-                  "description": "Type",
-                  "type": "list",
-                  "options": [
-                    {
-                      "text": "N\/A",
-                      "value": "0"
-                    },
-                    {
-                      "text": "line",
-                      "value": "1"
-                    },
-                    {
-                      "text": "Speed Dial",
-                      "value": "2"
-                    },
-                    {
-                      "text": "BLF",
-                      "value": "3"
-                    },
-                    {
-                      "text": "BLF List",
-                      "value": "4"
-                    },
-                    {
-                      "text": "Voice mail",
-                      "value": "5"
-                    },
-                    {
-                      "text": "Direct Pickup",
-                      "value": "6"
-                    },
-                    {
-                      "text": "Group Pickup",
-                      "value": "7"
-                    },
-                    {
-                      "text": "Call Park",
-                      "value": "8"
-                    },
-                    {
-                      "text": "Intercom",
-                      "value": "9"
-                    },
-                    {
-                      "text": "DTMF",
-                      "value": "10"
-                    },
-                    {
-                      "text": "Prefix",
-                      "value": "11"
-                    },
-                    {
-                      "text": "Local Group",
-                      "value": "12"
-                    },
-                    {
-                      "text": "XML Group",
-                      "value": "13"
-                    },
-                    {
-                      "text": "XML Browser",
-                      "value": "14"
-                    },
-                    {
-                      "text": "LDAP",
-                      "value": "15"
-                    },
-                    {
-                      "text": "BroadSoft Group",
-                      "value": "16"
-                    },
-                    {
-                      "text": "Conference",
-                      "value": "17"
-                    },
-                    {
-                      "text": "Forward",
-                      "value": "18"
-                    },
-                    {
-                      "text": "Transfer",
-                      "value": "19"
-                    },
-                    {
-                      "text": "Hold",
-                      "value": "20"
-                    },
-                    {
-                      "text": "DND",
-                      "value": "21"
-                    },
-                    {
-                      "text": "Redial",
-                      "value": "22"
-                    },
-                    {
-                      "text": "Call Return",
-                      "value": "23"
-                    },
-                    {
-                      "text": "SMS",
-                      "value": "24"
-                    },
-                    {
-                      "text": "Record",
-                      "value": "25"
-                    },
-                    {
-                      "text": "URL Record",
-                      "value": "26"
-                    },
-                    {
-                      "text": "Paging",
-                      "value": "27"
-                    },
-                    {
-                      "text": "Group Listening",
-                      "value": "28"
-                    },
-                    {
-                      "text": "Pubblic Hold",
-                      "value": "29"
-                    },
-                    {
-                      "text": "Private Hold",
-                      "value": "30"
-                    },
-                    {
-                      "text": "Shared Line",
-                      "value": "31"
-                    },
-                    {
-                      "text": "Hot Desking",
-                      "value": "32"
-                    },
-                    {
-                      "text": "ACD",
-                      "value": "33"
-                    },
-                    {
-                      "text": "Zero Touch",
-                      "value": "34"
-                    },
-                    {
-                      "text": "URL",
-                      "value": "35"
-                    },
-                    {
-                      "text": "MultiCast Paging",
-                      "value": "47"
-                    },
-                    {
-                      "text": "XML BLF",
-                      "value": "48"
-                    }
-                  ]
-                },
-                {
-                  "variable": "linekey_line",
-                  "description": "Line",
-                  "type": "list",
-                  "options": [
-                    {
-                      "text": "Auto",
-                      "value": "255"
-                    },
-                    {
-                      "text": "Line 1",
-                      "value": "0"
-                    },
-                    {
-                      "text": "Line 2",
-                      "value": "1"
-                    },
-                    {
-                      "text": "Line 3",
-                      "value": "2"
-                    }
-                  ]
-                },
-                {
-                  "variable": "linekey_label",
-                  "description": "Label",
-                  "type": "input"
-                },
-                {
-                  "variable": "linekey_value",
-                  "description": "Value",
-                  "type": "input"
-                },
-                {
-                  "variable": "linekey_pickup",
-                  "description": "Pickup Number",
-                  "type": "input"
-                }
-              ]
-            }
+            "text": "Line 1",
+            "value": "0"
+          },
+          {
+            "text": "Line 2",
+            "value": "1"
           }
-        ]
-      }
-    }
+          ]
+        },
+        {
+          "variable": "$linekey_label",
+          "default_value": "",
+          "description": "Line Key {$count} Label",
+          "type": "input"
+        },
+        {
+          "variable": "$linekey_value",
+          "default_value": "",
+          "description": "Line Key {$count} Value",
+          "type": "input"
+        },
+        {
+          "variable": "$linekey_pickup",
+          "default_value": "{$pickup_direct}",
+          "description": "Line Key {$count} Pickup Number",
+          "type": "input"
+        }
+      ];
 
-    this.lineKeys5xxUI = function () {
-      return {
-        "name": "LineKeys",
-        "items": [
+      var itemsLineKeysS4xx = [
+        {
+          "variable": "$linekey_type",
+          "default_value": "0",
+          "description": "Line Key {$count} Type",
+          "type": "list",
+          "data": [{
+            "text": "N\/A",
+            "value": "0"
+          },
           {
-            "description": "LineKeys",
-            "type": "loop",
-            "loop_start": 1,
-            "loop_end": 35,
-            "data": {
-              "items": [
-                {
-                  "variable": "linekey_type",
-                  "description": "Type",
-                  "type": "list",
-                  "options": [
-                    {
-                      "text": "N\/A",
-                      "value": "0"
-                    },
-                    {
-                      "text": "line",
-                      "value": "1"
-                    },
-                    {
-                      "text": "Speed Dial",
-                      "value": "2"
-                    },
-                    {
-                      "text": "BLF",
-                      "value": "3"
-                    },
-                    {
-                      "text": "BLF List",
-                      "value": "4"
-                    },
-                    {
-                      "text": "Voice mail",
-                      "value": "5"
-                    },
-                    {
-                      "text": "Direct Pickup",
-                      "value": "6"
-                    },
-                    {
-                      "text": "Group Pickup",
-                      "value": "7"
-                    },
-                    {
-                      "text": "Call Park",
-                      "value": "8"
-                    },
-                    {
-                      "text": "Intercom",
-                      "value": "9"
-                    },
-                    {
-                      "text": "DTMF",
-                      "value": "10"
-                    },
-                    {
-                      "text": "Prefix",
-                      "value": "11"
-                    },
-                    {
-                      "text": "Local Group",
-                      "value": "12"
-                    },
-                    {
-                      "text": "XML Group",
-                      "value": "13"
-                    },
-                    {
-                      "text": "XML Browser",
-                      "value": "14"
-                    },
-                    {
-                      "text": "LDAP",
-                      "value": "15"
-                    },
-                    {
-                      "text": "BroadSoft Group",
-                      "value": "16"
-                    },
-                    {
-                      "text": "Conference",
-                      "value": "17"
-                    },
-                    {
-                      "text": "Forward",
-                      "value": "18"
-                    },
-                    {
-                      "text": "Transfer",
-                      "value": "19"
-                    },
-                    {
-                      "text": "Hold",
-                      "value": "20"
-                    },
-                    {
-                      "text": "DND",
-                      "value": "21"
-                    },
-                    {
-                      "text": "Redial",
-                      "value": "22"
-                    },
-                    {
-                      "text": "Call Return",
-                      "value": "23"
-                    },
-                    {
-                      "text": "SMS",
-                      "value": "24"
-                    },
-                    {
-                      "text": "Record",
-                      "value": "25"
-                    },
-                    {
-                      "text": "URL Record",
-                      "value": "26"
-                    },
-                    {
-                      "text": "Paging",
-                      "value": "27"
-                    },
-                    {
-                      "text": "Group Listening",
-                      "value": "28"
-                    },
-                    {
-                      "text": "Pubblic Hold",
-                      "value": "29"
-                    },
-                    {
-                      "text": "Private Hold",
-                      "value": "30"
-                    },
-                    {
-                      "text": "Shared Line",
-                      "value": "31"
-                    },
-                    {
-                      "text": "Hot Desking",
-                      "value": "32"
-                    },
-                    {
-                      "text": "ACD",
-                      "value": "33"
-                    },
-                    {
-                      "text": "Zero Touch",
-                      "value": "34"
-                    },
-                    {
-                      "text": "URL",
-                      "value": "35"
-                    },
-                    {
-                      "text": "MultiCast Paging",
-                      "value": "47"
-                    },
-                    {
-                      "text": "XML BLF",
-                      "value": "48"
-                    }
-                  ]
-                },
-                {
-                  "variable": "linekey_line",
-                  "description": "Line",
-                  "type": "list",
-                  "options": [
-                    {
-                      "text": "Auto",
-                      "value": "255"
-                    },
-                    {
-                      "text": "Line 1",
-                      "value": "0"
-                    },
-                    {
-                      "text": "Line 2",
-                      "value": "1"
-                    },
-                    {
-                      "text": "Line 3",
-                      "value": "2"
-                    },
-                    {
-                      "text": "Line 4",
-                      "value": "3"
-                    }
-                  ]
-                },
-                {
-                  "variable": "linekey_label",
-                  "description": "Label",
-                  "type": "input"
-                },
-                {
-                  "variable": "linekey_value",
-                  "description": "Value",
-                  "type": "input"
-                },
-                {
-                  "variable": "linekey_pickup",
-                  "description": "Pickup Number",
-                  "type": "input"
-                }
-              ]
-            }
+            "text": "line",
+            "value": "1"
+          },
+          {
+            "text": "Speed Dial",
+            "value": "2"
+          },
+          {
+            "text": "BLF",
+            "value": "3"
+          },
+          {
+            "text": "BLF List",
+            "value": "4"
+          },
+          {
+            "text": "Voice mail",
+            "value": "5"
+          },
+          {
+            "text": "Direct Pickup",
+            "value": "6"
+          },
+          {
+            "text": "Group Pickup",
+            "value": "7"
+          },
+          {
+            "text": "Call Park",
+            "value": "8"
+          },
+          {
+            "text": "Intercom",
+            "value": "9"
+          },
+          {
+            "text": "DTMF",
+            "value": "10"
+          },
+          {
+            "text": "Prefix",
+            "value": "11"
+          },
+          {
+            "text": "Local Group",
+            "value": "12"
+          },
+          {
+            "text": "XML Group",
+            "value": "13"
+          },
+          {
+            "text": "XML Browser",
+            "value": "14"
+          },
+          {
+            "text": "LDAP",
+            "value": "15"
+          },
+          {
+            "text": "BroadSoft Group",
+            "value": "16"
+          },
+          {
+            "text": "Conference",
+            "value": "17"
+          },
+          {
+            "text": "Forward",
+            "value": "18"
+          },
+          {
+            "text": "Transfer",
+            "value": "19"
+          },
+          {
+            "text": "Hold",
+            "value": "20"
+          },
+          {
+            "text": "DND",
+            "value": "21"
+          },
+          {
+            "text": "Redial",
+            "value": "22"
+          },
+          {
+            "text": "Call Return",
+            "value": "23"
+          },
+          {
+            "text": "SMS",
+            "value": "24"
+          },
+          {
+            "text": "Record",
+            "value": "25"
+          },
+          {
+            "text": "URL Record",
+            "value": "26"
+          },
+          {
+            "text": "Paging",
+            "value": "27"
+          },
+          {
+            "text": "Group Listening",
+            "value": "28"
+          },
+          {
+            "text": "Pubblic Hold",
+            "value": "29"
+          },
+          {
+            "text": "Private Hold",
+            "value": "30"
+          },
+          {
+            "text": "Shared Line",
+            "value": "31"
+          },
+          {
+            "text": "Hot Desking",
+            "value": "32"
+          },
+          {
+            "text": "ACD",
+            "value": "33"
+          },
+          {
+            "text": "Zero Touch",
+            "value": "34"
+          },
+          {
+            "text": "URL",
+            "value": "35"
+          },
+          {
+            "text": "MultiCast Paging",
+            "value": "47"
+          },
+          {
+            "text": "XML BLF",
+            "value": "48"
           }
-        ]
-      }
-    }
+          ]
+        },
+        {
+          "variable": "$linekey_line",
+          "default_value": "0",
+          "description": "Line Key {$count} Line",
+          "type": "list",
+          "data": [{
+            "text": "Auto",
+            "value": "255"
+          },
+          {
+            "text": "Line 1",
+            "value": "0"
+          },
+          {
+            "text": "Line 2",
+            "value": "1"
+          },
+          {
+            "text": "Line 3",
+            "value": "2"
+          }
+          ]
+        },
+        {
+          "variable": "$linekey_label",
+          "default_value": "",
+          "description": "Line Key {$count} Label",
+          "type": "input"
+        },
+        {
+          "variable": "$linekey_value",
+          "default_value": "",
+          "description": "Line Key {$count} Value",
+          "type": "input"
+        },
+        {
+          "variable": "$linekey_pickup",
+          "default_value": "{$pickup_direct}",
+          "description": "Line Key {$count} Pickup Number",
+          "type": "input"
+        }
+      ];
 
-    this.lineKeys7xxUI = function () {
+      var itemsLineKeysS5xx = [
+        {
+          "variable": "$linekey_type",
+          "default_value": "0",
+          "description": "Line Key {$count} Type",
+          "type": "list",
+          "data": [{
+            "text": "N\/A",
+            "value": "0"
+          },
+          {
+            "text": "line",
+            "value": "1"
+          },
+          {
+            "text": "Speed Dial",
+            "value": "2"
+          },
+          {
+            "text": "BLF",
+            "value": "3"
+          },
+          {
+            "text": "BLF List",
+            "value": "4"
+          },
+          {
+            "text": "Voice mail",
+            "value": "5"
+          },
+          {
+            "text": "Direct Pickup",
+            "value": "6"
+          },
+          {
+            "text": "Group Pickup",
+            "value": "7"
+          },
+          {
+            "text": "Call Park",
+            "value": "8"
+          },
+          {
+            "text": "Intercom",
+            "value": "9"
+          },
+          {
+            "text": "DTMF",
+            "value": "10"
+          },
+          {
+            "text": "Prefix",
+            "value": "11"
+          },
+          {
+            "text": "Local Group",
+            "value": "12"
+          },
+          {
+            "text": "XML Group",
+            "value": "13"
+          },
+          {
+            "text": "XML Browser",
+            "value": "14"
+          },
+          {
+            "text": "LDAP",
+            "value": "15"
+          },
+          {
+            "text": "BroadSoft Group",
+            "value": "16"
+          },
+          {
+            "text": "Conference",
+            "value": "17"
+          },
+          {
+            "text": "Forward",
+            "value": "18"
+          },
+          {
+            "text": "Transfer",
+            "value": "19"
+          },
+          {
+            "text": "Hold",
+            "value": "20"
+          },
+          {
+            "text": "DND",
+            "value": "21"
+          },
+          {
+            "text": "Redial",
+            "value": "22"
+          },
+          {
+            "text": "Call Return",
+            "value": "23"
+          },
+          {
+            "text": "SMS",
+            "value": "24"
+          },
+          {
+            "text": "Record",
+            "value": "25"
+          },
+          {
+            "text": "URL Record",
+            "value": "26"
+          },
+          {
+            "text": "Paging",
+            "value": "27"
+          },
+          {
+            "text": "Group Listening",
+            "value": "28"
+          },
+          {
+            "text": "Pubblic Hold",
+            "value": "29"
+          },
+          {
+            "text": "Private Hold",
+            "value": "30"
+          },
+          {
+            "text": "Shared Line",
+            "value": "31"
+          },
+          {
+            "text": "Hot Desking",
+            "value": "32"
+          },
+          {
+            "text": "ACD",
+            "value": "33"
+          },
+          {
+            "text": "Zero Touch",
+            "value": "34"
+          },
+          {
+            "text": "URL",
+            "value": "35"
+          },
+          {
+            "text": "MultiCast Paging",
+            "value": "47"
+          },
+          {
+            "text": "XML BLF",
+            "value": "48"
+          }
+          ]
+        },
+        {
+          "variable": "$linekey_line",
+          "default_value": "0",
+          "description": "Line Key {$count} Line",
+          "type": "list",
+          "data": [{
+            "text": "Auto",
+            "value": "255"
+          },
+          {
+            "text": "Line 1",
+            "value": "0"
+          },
+          {
+            "text": "Line 2",
+            "value": "1"
+          },
+          {
+            "text": "Line 3",
+            "value": "2"
+          },
+          {
+            "text": "Line 4",
+            "value": "3"
+          }
+          ]
+        },
+        {
+          "variable": "$linekey_label",
+          "default_value": "",
+          "description": "Line Key {$count} Label",
+          "type": "input"
+        },
+        {
+          "variable": "$linekey_value",
+          "default_value": "",
+          "description": "Line Key {$count} Value",
+          "type": "input"
+        },
+        {
+          "variable": "$linekey_pickup",
+          "default_value": "{$pickup_direct}",
+          "description": "Line Key {$count} Pickup Number",
+          "type": "input"
+        }
+      ];
+
+      var itemsLineKeysS7xx = [
+        {
+          "variable": "$linekey_type",
+          "default_value": "0",
+          "description": "Line Key {$count} Type",
+          "type": "list",
+          "data": [{
+            "text": "N\/A",
+            "value": "0"
+          },
+          {
+            "text": "line",
+            "value": "1"
+          },
+          {
+            "text": "Speed Dial",
+            "value": "2"
+          },
+          {
+            "text": "BLF",
+            "value": "3"
+          },
+          {
+            "text": "BLF List",
+            "value": "4"
+          },
+          {
+            "text": "Voice mail",
+            "value": "5"
+          },
+          {
+            "text": "Direct Pickup",
+            "value": "6"
+          },
+          {
+            "text": "Group Pickup",
+            "value": "7"
+          },
+          {
+            "text": "Call Park",
+            "value": "8"
+          },
+          {
+            "text": "Intercom",
+            "value": "9"
+          },
+          {
+            "text": "DTMF",
+            "value": "10"
+          },
+          {
+            "text": "Prefix",
+            "value": "11"
+          },
+          {
+            "text": "Local Group",
+            "value": "12"
+          },
+          {
+            "text": "XML Group",
+            "value": "13"
+          },
+          {
+            "text": "XML Browser",
+            "value": "14"
+          },
+          {
+            "text": "LDAP",
+            "value": "15"
+          },
+          {
+            "text": "BroadSoft Group",
+            "value": "16"
+          },
+          {
+            "text": "Conference",
+            "value": "17"
+          },
+          {
+            "text": "Forward",
+            "value": "18"
+          },
+          {
+            "text": "Transfer",
+            "value": "19"
+          },
+          {
+            "text": "Hold",
+            "value": "20"
+          },
+          {
+            "text": "DND",
+            "value": "21"
+          },
+          {
+            "text": "Redial",
+            "value": "22"
+          },
+          {
+            "text": "Call Return",
+            "value": "23"
+          },
+          {
+            "text": "SMS",
+            "value": "24"
+          },
+          {
+            "text": "Record",
+            "value": "25"
+          },
+          {
+            "text": "URL Record",
+            "value": "26"
+          },
+          {
+            "text": "Paging",
+            "value": "27"
+          },
+          {
+            "text": "Group Listening",
+            "value": "28"
+          },
+          {
+            "text": "Pubblic Hold",
+            "value": "29"
+          },
+          {
+            "text": "Private Hold",
+            "value": "30"
+          },
+          {
+            "text": "Shared Line",
+            "value": "31"
+          },
+          {
+            "text": "Hot Desking",
+            "value": "32"
+          },
+          {
+            "text": "ACD",
+            "value": "33"
+          },
+          {
+            "text": "Zero Touch",
+            "value": "34"
+          },
+          {
+            "text": "URL",
+            "value": "35"
+          },
+          {
+            "text": "MultiCast Paging",
+            "value": "47"
+          },
+          {
+            "text": "XML BLF",
+            "value": "48"
+          }
+          ]
+        },
+        {
+          "variable": "$linekey_line",
+          "default_value": "0",
+          "description": "Line Key {$count} Line",
+          "type": "list",
+          "data": [{
+            "text": "Auto",
+            "value": "255"
+          },
+          {
+            "text": "Line 1",
+            "value": "0"
+          },
+          {
+            "text": "Line 2",
+            "value": "1"
+          },
+          {
+            "text": "Line 3",
+            "value": "2"
+          },
+          {
+            "text": "Line 4",
+            "value": "3"
+          },
+          {
+            "text": "Line 5",
+            "value": "4"
+          },
+          {
+            "text": "Line 6",
+            "value": "5"
+          }
+          ]
+        },
+        {
+          "variable": "$linekey_label",
+          "default_value": "",
+          "description": "Line Key {$count} Label",
+          "type": "input"
+        },
+        {
+          "variable": "$linekey_value",
+          "default_value": "",
+          "description": "Line Key {$count} Value",
+          "type": "input"
+        },
+        {
+          "variable": "$linekey_pickup",
+          "default_value": "{$pickup_direct}",
+          "description": "Line Key {$count} Pickup Number",
+          "type": "input"
+        }
+      ];
+
+      var items;
+
+      if (this.modelGroups.S2xxS3xx.includes(modelMap.model)) {
+        items = itemsLineKeysS2xxS3xx;
+      } else if (this.modelGroups.S4xx.includes(modelMap.model)) {
+        items = itemsLineKeysS4xx;
+      } else if (this.modelGroups.S5xx.includes(modelMap.model)) {
+        items = itemsLineKeysS5xx;
+      } else if (this.modelGroups.S7xx.includes(modelMap.model)) {
+        items = itemsLineKeysS7xx;
+      }
+
       return {
         "name": "LineKeys",
         "items": [
@@ -1786,219 +1993,9 @@ angular.module('nethvoiceWizardUiApp')
             "description": "LineKeys",
             "type": "loop",
             "loop_start": 1,
-            "loop_end": 45,
+            "loop_end": modelMap.lineKeys,
             "data": {
-              "items": [
-                {
-                  "variable": "linekey_type",
-                  "description": "Type",
-                  "type": "list",
-                  "options": [
-                    {
-                      "text": "N\/A",
-                      "value": "0"
-                    },
-                    {
-                      "text": "line",
-                      "value": "1"
-                    },
-                    {
-                      "text": "Speed Dial",
-                      "value": "2"
-                    },
-                    {
-                      "text": "BLF",
-                      "value": "3"
-                    },
-                    {
-                      "text": "BLF List",
-                      "value": "4"
-                    },
-                    {
-                      "text": "Voice mail",
-                      "value": "5"
-                    },
-                    {
-                      "text": "Direct Pickup",
-                      "value": "6"
-                    },
-                    {
-                      "text": "Group Pickup",
-                      "value": "7"
-                    },
-                    {
-                      "text": "Call Park",
-                      "value": "8"
-                    },
-                    {
-                      "text": "Intercom",
-                      "value": "9"
-                    },
-                    {
-                      "text": "DTMF",
-                      "value": "10"
-                    },
-                    {
-                      "text": "Prefix",
-                      "value": "11"
-                    },
-                    {
-                      "text": "Local Group",
-                      "value": "12"
-                    },
-                    {
-                      "text": "XML Group",
-                      "value": "13"
-                    },
-                    {
-                      "text": "XML Browser",
-                      "value": "14"
-                    },
-                    {
-                      "text": "LDAP",
-                      "value": "15"
-                    },
-                    {
-                      "text": "BroadSoft Group",
-                      "value": "16"
-                    },
-                    {
-                      "text": "Conference",
-                      "value": "17"
-                    },
-                    {
-                      "text": "Forward",
-                      "value": "18"
-                    },
-                    {
-                      "text": "Transfer",
-                      "value": "19"
-                    },
-                    {
-                      "text": "Hold",
-                      "value": "20"
-                    },
-                    {
-                      "text": "DND",
-                      "value": "21"
-                    },
-                    {
-                      "text": "Redial",
-                      "value": "22"
-                    },
-                    {
-                      "text": "Call Return",
-                      "value": "23"
-                    },
-                    {
-                      "text": "SMS",
-                      "value": "24"
-                    },
-                    {
-                      "text": "Record",
-                      "value": "25"
-                    },
-                    {
-                      "text": "URL Record",
-                      "value": "26"
-                    },
-                    {
-                      "text": "Paging",
-                      "value": "27"
-                    },
-                    {
-                      "text": "Group Listening",
-                      "value": "28"
-                    },
-                    {
-                      "text": "Pubblic Hold",
-                      "value": "29"
-                    },
-                    {
-                      "text": "Private Hold",
-                      "value": "30"
-                    },
-                    {
-                      "text": "Shared Line",
-                      "value": "31"
-                    },
-                    {
-                      "text": "Hot Desking",
-                      "value": "32"
-                    },
-                    {
-                      "text": "ACD",
-                      "value": "33"
-                    },
-                    {
-                      "text": "Zero Touch",
-                      "value": "34"
-                    },
-                    {
-                      "text": "URL",
-                      "value": "35"
-                    },
-                    {
-                      "text": "MultiCast Paging",
-                      "value": "47"
-                    },
-                    {
-                      "text": "XML BLF",
-                      "value": "48"
-                    }
-                  ]
-                },
-                {
-                  "variable": "linekey_line",
-                  "description": "Line",
-                  "type": "list",
-                  "options": [
-                    {
-                      "text": "Auto",
-                      "value": "255"
-                    },
-                    {
-                      "text": "Line 1",
-                      "value": "0"
-                    },
-                    {
-                      "text": "Line 2",
-                      "value": "1"
-                    },
-                    {
-                      "text": "Line 3",
-                      "value": "2"
-                    },
-                    {
-                      "text": "Line 4",
-                      "value": "3"
-                    },
-                    {
-                      "text": "Line 5",
-                      "value": "4"
-                    },
-                    {
-                      "text": "Line 6",
-                      "value": "5"
-                    }
-                  ]
-                },
-                {
-                  "variable": "linekey_label",
-                  "description": "Label",
-                  "type": "input"
-                },
-                {
-                  "variable": "linekey_value",
-                  "description": "Value",
-                  "type": "input"
-                },
-                {
-                  "variable": "linekey_pickup",
-                  "description": "Pickup Number",
-                  "type": "input"
-                }
-              ]
+              "items": items
             }
           }
         ]

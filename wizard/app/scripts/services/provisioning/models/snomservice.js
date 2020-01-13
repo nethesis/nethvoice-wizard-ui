@@ -10,7 +10,7 @@
 angular.module('nethvoiceWizardUiApp')
   .service('ProvSnomService', function ($q, RestService) {
 
-    var functionExpKeysItems = [
+    var itemsFunctionExpKeys = [
       {
         "variable": "key_label_",
         "description": "Label",
@@ -1564,7 +1564,7 @@ angular.module('nethvoiceWizardUiApp')
             "loop_start": modelMap.functionKeys.start,
             "loop_end": modelMap.functionKeys.end,
             "data": {
-              "items": angular.copy(functionExpKeysItems)
+              "items": angular.copy(itemsFunctionExpKeys)
             }
           }
         ]
@@ -1584,7 +1584,7 @@ angular.module('nethvoiceWizardUiApp')
             "type": "loop",
             "pages": modelMap.expKeys,
             "data": {
-              "items": angular.copy(functionExpKeysItems)
+              "items": angular.copy(itemsFunctionExpKeys)
             }
           }
         ]

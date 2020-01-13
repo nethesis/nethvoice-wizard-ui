@@ -9,7 +9,7 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .controller('InitCtrl', function ($scope, $translate, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService,
-    MigrationService, TrunkService, RouteService, ProvFanvilService, ProvSnomService, ProvGigasetService, ProvSangomaService, ModelService, $q) {
+    MigrationService, TrunkService, RouteService, ProvFanvilService, ProvSnomService, ProvGigasetService, ProvSangomaService, ProvYealinkService, ModelService, $q) {
     $scope.customConfig = customConfig;
     $scope.appConfig = appConfig;
 
@@ -384,7 +384,7 @@ angular.module('nethvoiceWizardUiApp')
             network: ProvGigasetService.networkUI(),
             softKeys: ProvGigasetService.softKeysUI(),
             functionKeys: ProvGigasetService.functionKeysUI(map),
-            expKeys: ProvGigasetService.expKeysUI(map),
+            expKeys: ProvGigasetService.expKeysUI(map)
           }
           break;
       
@@ -397,11 +397,8 @@ angular.module('nethvoiceWizardUiApp')
             network: ProvSangomaService.networkUI(),
             provisioning: ProvSangomaService.provisioningUI(),
             softKeys: ProvSangomaService.softKeysUI(),
-            lineKeys2xx3xx: ProvSangomaService.lineKeys2xx3xxUI(),
-            lineKeys4xx: ProvSangomaService.lineKeys4xxUI(),
-            lineKeys5xx: ProvSangomaService.lineKeys5xxUI(),
-            lineKeys7xx: ProvSangomaService.lineKeys7xxUI(),
-            expKeys: ProvSangomaService.expKeysUI(map),
+            lineKeys: ProvSangomaService.lineKeysUI(),
+            expKeys: ProvSangomaService.expKeysUI(map)
           }
           break;
           
@@ -414,12 +411,25 @@ angular.module('nethvoiceWizardUiApp')
             network: ProvSnomService.networkUI(),
             keys: ProvSnomService.keysUI(),
             functionKeys: ProvSnomService.functionKeysUI(map),
-            expKeys: ProvSnomService.expKeysUI(map),
+            expKeys: ProvSnomService.expKeysUI(map)
           }
           break;
 
         case "yealink":
-          return {}
+          var map = getModelMap(ProvYealinkService.map(), name)
+          return {
+            map: map,
+            general: ProvYealinkService.generalUI(map),
+            preference: ProvYealinkService.preferenceUI(map),
+            network: ProvYealinkService.networkUI(map),
+            provisioning: ProvYealinkService.provisioningUI(),
+            softKeys: ProvYealinkService.softKeysUI(map),
+            lineKeys: ProvYealinkService.lineKeysUI(map),
+            lineOptions: ProvYealinkService.lineOptionsUI(),
+            sideKeys: ProvYealinkService.sideKeysUI(map),
+            programmableKeys: ProvYealinkService.programmableKeysUI(map),
+            expKeys: ProvYealinkService.expKeysUI(map)
+          }
           break;
 
         default:
