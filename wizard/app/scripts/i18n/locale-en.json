@@ -51,5 +51,5 @@
   "inv_help_mac_3": "Every MAC address can use \"-\" or \":\" or nothing as separator",
   "inv_help_mac_4": "Apply the same model to all phones of a vendor",
   "reboot_device": "Reboot",
-  "cant_reboot_not_registered": "Can't reboot: not registered"
+  "cant_reboot_not_registered": "Unable to reboot: not registered"
 }

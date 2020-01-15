@@ -16,6 +16,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allProfiles = []
     $scope.allGroups = []
     $scope.allDevices = []
+    $scope.devicesNotLinked = []
     $scope.allModels = []
 
     $scope.loadingUser = {}
@@ -115,8 +116,9 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    $scope.openDevices = function (username) {
-      $scope.linkTo = username
+    $scope.openDevices = function (user) {
+      $scope.linkTo = user.username
+      $scope.setCurrentUser(user)
     }
 
     var getAllProfiles = function () {
@@ -138,8 +140,13 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    var mapModelsDisplayNames = function (devices) {
+    var prepareDevices = function (devices) {
       devices.forEach(function (device) {
+        // mac format
+        if (device.mac) {
+          device.mac = PhoneService.formatMac(device.mac)
+        }
+        // set model object
         if (device.model) {
           var model = $scope.allModels.find(function (m) {
             return m.name === device.model;
@@ -147,6 +154,19 @@ angular.module('nethvoiceWizardUiApp')
           if (model) {
             device.model = model
           }
+        }
+        // convert "vendor" property to "manufacturer"
+        if (device.hasOwnProperty("vendor")) {
+          device.manufacturer = device.vendor
+          delete device.vendor
+        }
+        // set filtered models
+        if (device.manufacturer) {
+          device.filteredModels = $scope.allModels.filter(function (model) {
+            return model.name.toLowerCase().startsWith(device.manufacturer.toLowerCase());
+          });
+        } else {
+          device.filteredModels = angular.copy($scope.allModels);
         }
       })
     }
@@ -171,10 +191,20 @@ angular.module('nethvoiceWizardUiApp')
         $scope.view.changeRoute = false
 
         $scope.allUsers.forEach(function (user){
-          mapModelsDisplayNames(user.devices)
+          prepareDevices(user.devices)
         })
       }, function (err) {
         console.log(err)
+      })
+    }
+
+    var getDevicesNotLinked = function () {
+      $scope.devicesNotLinked = []
+
+      $scope.allDevices.forEach(function (device) {
+        if (!device.lines || device.lines.length == 0 || !device.lines[0].extension) {
+          $scope.devicesNotLinked.push(device)
+        }
       })
     }
 
@@ -184,7 +214,9 @@ angular.module('nethvoiceWizardUiApp')
 
         console.log("ALL DEVICES", $scope.allDevices);
 
-        mapModelsDisplayNames($scope.allDevices)
+        prepareDevices($scope.allDevices)
+
+        getDevicesNotLinked()
       }, function (err) {
         console.log(err)
       })
@@ -297,6 +329,7 @@ angular.module('nethvoiceWizardUiApp')
         device.web_user = ''
         $("#devicesAssociation").modal("hide")
         getAllUsers(false)
+        getAllDevices()
       }, function (err) {
         device.setPhysicalInAction = "err"
         device.linkPhysicalInAction = "err"
@@ -313,6 +346,7 @@ angular.module('nethvoiceWizardUiApp')
       UserService.deletePhysicalExtension(extension).then(function (res) {
         device.setPhysicalInAction = "ok"
         getAllUsers(false)
+        getAllDevices()
         console.log(res)
       }, function (err) {
         device.setPhysicalInAction = "err"

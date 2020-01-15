@@ -119,9 +119,14 @@
                     </div>
                   </div>
                   <div class="list-group-item-text width-55p">
-                    <select pf-select="{ noneSelectedText: '-' }" ng-change="setPhoneModel(phone)"
+                    <select
+                      pf-select="{ noneSelectedText: '-' }"
+                      data-live-search="true"
+                      data-size="5"
+                      ng-change="setPhoneModel(phone)"
                       ng-model="phone.model"
-                      ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue">
+                      ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
+                    >
                       <option value="">{{ 'No model' | translate }}</option>
                     </select>
                     <span ng-show="modelLoaders[phone.mac] === 'success'"
@@ -233,8 +238,8 @@
                   <div class="form-group">
                     <label class="col-sm-4 control-label" for="manual-model">{{ 'Model' | translate }}</label>
                     <div class="col-sm-8">
-                      <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="manualModel"
-                        ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue"
+                      <select class="form-control" pf-select="{ noneSelectedText: '-' }" data-live-search="true" data-size="5"
+                        ng-model="manualModel" ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue"
                         ng-disabled="getManualFilteredModelsCount()" id="manual-model">
                         <option value="">{{ 'No model' | translate }}</option>
                       </select>
@@ -340,8 +345,8 @@
                   </div>
                   <div class="filter">
                     <div>{{ 'Model' | translate }}</div>
-                    <select pf-select="{ noneSelectedText: '-' }" class="width-240" ng-model="modelApplyToAll"
-                      ng-disabled="modelApplyToAllList.size === 0"
+                    <select pf-select="{ noneSelectedText: '-' }" class="width-240" data-live-search="true" data-size="5"
+                      ng-model="modelApplyToAll" ng-disabled="modelApplyToAllList.size === 0"
                       ng-options="m as m.display_name for m in modelApplyToAllList">
                     </select>
                   </div>
@@ -403,6 +408,8 @@
                                 <div class="list-view-pf-additional-info config-info width-33p mg-right-20">
                                   <!-- model -->
                                   <select class="form-control border-color-bbb" pf-select="{ noneSelectedText: '-' }"
+                                    data-live-search="true"
+                                    data-size="5"
                                     ng-model="phone.model"
                                     ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
                                     id="model-phone-to-add-{{$index}}">

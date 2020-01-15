@@ -48,7 +48,7 @@
           <div class="list-view-pf-actions">
             <div>
               <button
-                ng-click="openDevices(user.username)"
+                ng-click="openDevices(user)"
                 data-toggle="modal"
                 data-target="#devicesAssociation"
                 type="button"
@@ -86,7 +86,7 @@
                     </div>
                     <div class="list-view-pf-body">
                       <div class="list-view-pf-description">
-                        <div class="list-group-item-heading">Impostazioni</div>
+                        <div class="list-group-item-heading">{{ 'User settings' | translate }}</div>
                       </div>
                     </div>
                   </div>
@@ -175,7 +175,7 @@
                     </div>
                     <div class="list-view-pf-body">
                       <div class="list-view-pf-description">
-                        <div class="list-group-item-heading">{{"Devices" | translate}}</div>
+                        <div class="list-group-item-heading">{{"Linked devices" | translate}}</div>
                       </div>
                     </div>
                   </div>
@@ -221,7 +221,8 @@
                     <div class="list-view-pf-body">
                       <div class="list-view-pf-description">
                         <div class="list-group-item-heading configDevices-item-heading">
-                          <span ng-if="device.vendor">{{device.vendor}}</span>
+                          <span ng-if="device.manufacturer">{{device.manufacturer}}</span>
+                          <span ng-if="!device.manufacturer && !(!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical'))">{{ 'Unknown' | translate }}</span>
                           <span ng-if="!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical')">
                             {{"Custom" | translate}}
                           </span>
@@ -234,10 +235,14 @@
                             <!-- model select for non-custom devices -->
                             <div class="form-group no-margin-bottom" ng-if="!(!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical'))">
                               <div class="display-flex">
-                                <select pf-select="{ noneSelectedText: '-' }"
+                                <select
+                                  pf-select="{ noneSelectedText: '-' }"
+                                  data-live-search="true"
+                                  data-size="5"
                                   ng-change="setDeviceModel(device)"
                                   ng-model="device.model"
-                                  ng-options="model.display_name for model in allModels | orderBy:orderByValue">
+                                  ng-options="model.display_name for model in device.filteredModels | orderBy:orderByValue"
+                                >
                                   <option value="">{{ 'No model' | translate }}</option>
                                 </select>
                                 <button ng-click="setCurrentModelConf(device.model)" data-toggle="modal"
@@ -255,7 +260,7 @@
                       <div class="list-view-pf-additional-info config-info ">
                         <!-- mac for non-custom devices -->
                         <div ng-if="!(!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical'))">
-                          MAC: <b class="ng-binding">{{device.mac}}</b>
+                          MAC: <b class="ng-binding">{{ device.mac }}</b>
                         </div>
                         <!-- web credentials for custom devices -->
                         <div ng-if="!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical')">
@@ -402,7 +407,7 @@
               </form>
               <h1 class="control-label config-title-user mt-10" for="textInput-markup">
                 <div class="fz-15 mb-10">
-                  <span class="weight-plus ng-binding">{{allDevices.length}} {{ (allDevices.length !== 1 ? "Devices" : "Device") | translate }}</span>
+                  <span class="weight-plus ng-binding">{{devicesNotLinked.length}} {{ (devicesNotLinked.length !== 1 ? "Devices" : "Device") | translate }}</span>
                 </div>
               </h1>
               <!-- custom device -->
@@ -447,7 +452,7 @@
               <!-- devices -->
               <div
                 ng-show="!devicesLoading"
-                ng-repeat="device in allDevices | customFilterMultiple:'mac,manufacturer,model':searchDeviceString"
+                ng-repeat="device in devicesNotLinked | customFilterMultiple:'mac,manufacturer,model':searchDeviceString"
                 class="list-group-item cursor-default">
                 <div class="list-view-pf-actions">
                   <button 
@@ -466,18 +471,18 @@
                   <div class="list-view-pf-body">
                     <div class="list-view-pf-description">
                       <div class="list-group-item-heading configDevices-item-heading">
-                        {{device.manufacturer}}
+                        {{ device.manufacturer && device.model !== 'custom' ? device.manufacturer : '-' }}
                       </div>
-                      <span class="weight-plus mr-20">
-                        {{device.model.display_name}}
+                      <span class="weight-plus mr-20 width-33p">
+                        {{ device.model.display_name ? device.model.display_name : '-' }}
                       </span>
                       <div class="list-group-item-text">
                         <div class="col-lg-7">
                         </div>
                       </div>
                     </div>
-                    <div class="list-view-pf-additional-info config-info ">
-                      <div>MAC: <b>{{device.mac}}</b></div>
+                    <div class="list-view-pf-additional-info config-info width-15p">
+                      <div ng-if="device.mac">MAC: <b>{{device.mac}}</b></div>
                     </div>
                   </div>
                 </div>

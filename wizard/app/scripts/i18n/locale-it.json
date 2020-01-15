@@ -689,5 +689,8 @@
   "cant_reboot_not_registered": "Impossibile riavviare: non registrato",
   "Error rebooting phone": "Errore durante il riavvio dei telefono",
   "Link device": "Associa dispositivo",
-  "Unlink": "Disassocia"
+  "Unlink": "Disassocia",
+  "Linked devices": "Dispositivi associati",
+  "User settings": "Impostazioni utente",
+  "Unknown": "Sconosciuto"
 }
