@@ -170,38 +170,6 @@ angular.module('nethvoiceWizardUiApp')
     this.map = function () {
       return {
         "3xx820m3": {
-          "300": {
-            "model": "300",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 6
-            }
-          },
-          "320": {
-            "model": "320",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 6
-            }
-          },
-          "360": {
-            "model": "360",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 12
-            }
-          },
-          "370": {
-            "model": "370",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 12
-            }
-          },
           "D305": {
             "model": "D305",
             "keys": true,
@@ -330,14 +298,6 @@ angular.module('nethvoiceWizardUiApp')
               }
             ]
           },
-          "720": {
-            "model": "720",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 17
-            }
-          },
           "725": {
             "model": "725",
             "keys": true,
@@ -359,14 +319,6 @@ angular.module('nethvoiceWizardUiApp')
                 "end": 71
               }
             ]
-          },
-          "760": {
-            "model": "760",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 15
-            }
           },
           "D712": {
             "model": "D712",
@@ -485,43 +437,6 @@ angular.module('nethvoiceWizardUiApp')
                 "end": 77
               }
             ]
-          }
-        },
-        "8xx": {
-          "870": {
-            "model": "870",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 14
-            }
-          },
-          "820": {
-            "model": "820",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 11
-            }
-          },
-          "821": {
-            "model": "821",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 15
-            }
-          }
-        },
-        "Mxxx": {
-          "M200": {
-            "model": "M200",
-          },
-          "M300": {
-            "model": "M300",
-          },
-          "M700": {
-            "model": "M700",
           }
         },
         "1xx": {
