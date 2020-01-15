@@ -49,5 +49,7 @@
   "inventory_help_p_3": "You can add phones by scanning a network, copying a list of MAC address from a spreadsheet (or a text file) or entering phone data manually",
   "inv_help_mac_1": "You can copy/paste the MAC addresses list from a spreadsheet or a text file",
   "inv_help_mac_3": "Every MAC address can use \"-\" or \":\" or nothing as separator",
-  "inv_help_mac_4": "Apply the same model to all phones of a vendor"
+  "inv_help_mac_4": "Apply the same model to all phones of a vendor",
+  "reboot_device": "Reboot",
+  "cant_reboot_not_registered": "Can't reboot: not registered"
 }

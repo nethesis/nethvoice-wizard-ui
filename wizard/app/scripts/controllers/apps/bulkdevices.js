@@ -156,11 +156,6 @@ angular.module('nethvoiceWizardUiApp')
         $scope.phonesHeight = 'calc(100vh - ' + ($('#phone-list')[0].getBoundingClientRect().y + 80) + 'px)';
       }, 200);
 
-      //// mockup associate users and phones
-      // for (var i = 0; i < $scope.users.length; i++) {
-      //   setPhysicalExtension($scope.users[i], $scope.phones[i]);
-      // }
-
       // set phone.user
       $scope.phones.forEach(function (phone) {
         $scope.users.forEach(function (user) {
@@ -183,26 +178,6 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err);
         addErrorNotification(err.data, "Error retrieving phones");
         $scope.uiLoaded = true;
-      });
-    };
-
-    function setPhysicalExtension(user, device) { //// mockup, remove
-      var model = null;
-      if (device.model) {
-        model = device.model.name;
-      }
-
-      UserService.createPhysicalExtension({
-        mainextension: user.default_extension,
-        mac: device.mac || null,
-        model: model,
-        line: null,
-        web_user: 'admin',
-        web_password: 'admin'
-      }).then(function (res) {
-        console.log("associated", user, device); ////
-      }, function (err) {
-        console.log(err);
       });
     };
 

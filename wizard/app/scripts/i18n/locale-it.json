@@ -7,6 +7,7 @@
   "Extensions": "Interni",
   "IP Address": "Indirizzo IP",
   "Extension": "Interno",
+  "Device": "Dispositivo",
   "Devices": "Dispositivi",
   "devices": "dispositivi",
   "device": "dispositivo",
@@ -682,5 +683,11 @@
   "You are about to reboot": "Stai per riavviare",
   "Reboot command was sent": "Il comando di riavvio è stato inviato",
   "Only phones with an extension registered will be successfully rebooted": "Verranno riavviati con successo solamente i telefoni con un interno registrato",
-  "Maximum number of pasted MAC addresses reached. You can paste the remaining MAC addresses at the end of this process": "Numero massimo di indirizzi MAC raggiunto. È possibile incollare gli indirizzi MAC rimanenti al termine di questa procedura"
+  "Maximum number of pasted MAC addresses reached. You can paste the remaining MAC addresses at the end of this process": "Numero massimo di indirizzi MAC raggiunto. È possibile incollare gli indirizzi MAC rimanenti al termine di questa procedura",
+  "Custom": "Personalizzato",
+  "reboot_device": "Riavvia",
+  "cant_reboot_not_registered": "Impossibile riavviare: non registrato",
+  "Error rebooting phone": "Errore durante il riavvio dei telefono",
+  "Link device": "Associa dispositivo",
+  "Unlink": "Disassocia"
 }
