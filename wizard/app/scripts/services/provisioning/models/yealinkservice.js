@@ -28,7 +28,7 @@ angular.module('nethvoiceWizardUiApp')
             "lineKeys": 2,
             "programmableKeys": true
           },
-          "T23P_G": {
+          "T23P_G": { //// T23G
             "model": "T23P_G",
             "provisioning": true,
             "softKeys": true,
@@ -190,21 +190,21 @@ angular.module('nethvoiceWizardUiApp')
             "lineKeys": 21,
             "programmableKeys": true
           },
-          "T53W": {
+          "T53W": { //// rimuovere
             "model": "T53W",
             "provisioning": true,
             "softKeys": true,
             "lineKeys": 21,
             "programmableKeys": true
           },
-          "T54S": {
+          "T54S": { //// eliminare
             "model": "T54S",
             "provisioning": true,
             "softKeys": true,
             "lineKeys": 10,
             "programmableKeys": true
           },
-          "T54W": {
+          "T54W": { //// verificare 
             "model": "T54W",
             "provisioning": true,
             "softKeys": true,
@@ -213,7 +213,7 @@ angular.module('nethvoiceWizardUiApp')
           }
         },
         "t55x": {
-          "T56A": {
+          "T56A": { // verificare (rimuovere?)
             "model": "T56A",
             "provisioning": true,
             "softKeys": true,
@@ -234,7 +234,7 @@ angular.module('nethvoiceWizardUiApp')
             "lineKeys": 27,
             "programmableKeys": true
           },
-          "T58V": {
+          "T58V": { //// rimuovere
             "model": "T58V",
             "provisioning": true,
             "softKeys": true,
