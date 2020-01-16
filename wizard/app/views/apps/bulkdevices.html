@@ -59,8 +59,9 @@
             <!-- filter by model combobox -->
             <div class="filter">
               <div>{{ 'Filter by model' | translate }}</div>
-              <select pf-select="{ noneSelectedText: '' }" class="width-240" ng-change="filterPhones()"
-                ng-model="filteredModel" ng-options="model.display_name for model in models | orderBy:orderByValue">
+              <select pf-select="{ noneSelectedText: '' }" class="width-240" data-live-search="true" data-size="5"
+                ng-change="filterPhones()" ng-model="filteredModel"
+                ng-options="model.display_name for model in models | orderBy:orderByValue">
                 <option value="">{{ 'All' | translate }}</option>
               </select>
             </div>

@@ -25,11 +25,17 @@ angular.module('nethvoiceWizardUiApp')
     $scope.currentUser = {}
     $scope.linkTo = ""
     $scope.newDevice = {}
+    $scope.DEVICES_NOT_LINKED_PAGE = 20;
+    $scope.devicesNotLinkedLimit = $scope.DEVICES_NOT_LINKED_PAGE;
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured']
     $scope.availableUserFiltersNumbers = ['lname', 'default_extension']
     $scope.usersFilter = $scope.availableUserFilters[0]
     $scope.usersFilterNumbers = $scope.availableUserFiltersNumbers[0]
+
+    $scope.loadMoreDevicesNotLinked = function () {
+      $scope.devicesNotLinkedLimit += $scope.DEVICES_NOT_LINKED_PAGE;
+    };
 
     $scope.setCurrentUser = function (user) {
       if (user.username == $scope.currentUser.username) {
@@ -119,6 +125,11 @@ angular.module('nethvoiceWizardUiApp')
     $scope.openDevices = function (user) {
       $scope.linkTo = user.username
       $scope.setCurrentUser(user)
+
+      $timeout(function () {
+        $scope.devicesNotLinkedHeight = 'calc(100vh - ' + ($('#devices-not-linked-list')[0].getBoundingClientRect().y + 100) + 'px)';
+        console.log("devicesNotLinkedHeight") ////
+      }, 1000);
     }
 
     var getAllProfiles = function () {

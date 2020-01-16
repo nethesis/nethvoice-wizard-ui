@@ -2930,4 +2930,9 @@ a.black:focus, a.black:hover, a.black:active {
   height: calc(100vh - 300px);
   overflow: auto;
 }
+
+#devices-not-linked-list {
+  height: calc(100vh - 400px);
+  overflow: auto;
+}
 /* end Inventory */

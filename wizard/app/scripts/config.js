@@ -78,8 +78,7 @@ var appConfig = {
     }
   },
   MAX_TRIES: 6,
-  INTERVAL_POLLING: 2000,
-  PHONES_PER_PAGE: 20
+  INTERVAL_POLLING: 2000
 };
 
 var migrationConfig = {

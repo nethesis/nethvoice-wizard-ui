@@ -16,10 +16,11 @@ angular.module('nethvoiceWizardUiApp')
     $scope.uiLoaded = false;
     $scope.errors = [];
     $scope.errorId = 0;
-    $scope.phonesLimit = appConfig.PHONES_PER_PAGE;
+    $scope.PHONES_PAGE = 20;
+    $scope.phonesLimit = $scope.PHONES_PAGE;
 
     $scope.loadMorePhones = function () {
-      $scope.phonesLimit += appConfig.PHONES_PER_PAGE;
+      $scope.phonesLimit += $scope.PHONES_PAGE;
     };
 
     var chooseModel = {
