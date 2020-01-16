@@ -327,9 +327,11 @@ angular.module('nethvoiceWizardUiApp')
         device.linkInAction = "ok"
         device.web_password = ''
         device.web_user = ''
-        $("#devicesAssociation").modal("hide")
-        getAllUsers(false)
-        getAllDevices()
+        $timeout(function () {
+          getAllUsers(false)
+          getAllDevices()
+          $("#devicesAssociation").modal("hide")
+        }, 1000);
       }, function (err) {
         device.setPhysicalInAction = "err"
         device.linkPhysicalInAction = "err"
