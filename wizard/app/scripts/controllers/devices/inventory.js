@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesInventoryCtrl', function ($scope, $interval, $q, $timeout, PhoneService, ModelService, UtilService, ConfigService, DeviceService, LocalStorageService) {
+  .controller('DevicesInventoryCtrl', function ($scope, $interval, $q, $timeout, PhoneService, ModelService, UtilService, ConfigService, DeviceService, LocalStorageService, UserService) {
     $scope.phones = [];
     $scope.models = [];
     $scope.tasks = {};
@@ -22,10 +22,11 @@ angular.module('nethvoiceWizardUiApp')
     $scope.modelLoaders = {};
     $scope.showSuccessfullyAddedPhones = false;
     $scope.maxPastedMacCharacters = 3600;
-    $scope.phonesLimit = appConfig.PHONES_PER_PAGE;
+    $scope.PHONES_PAGE = 20;
+    $scope.phonesLimit = $scope.PHONES_PAGE;
 
     $scope.loadMorePhones = function () {
-      $scope.phonesLimit += appConfig.PHONES_PER_PAGE;
+      $scope.phonesLimit += $scope.PHONES_PAGE;
     };
 
     function gotModels(models) {
@@ -211,11 +212,6 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         $scope.manualVendor = null;
         $scope.manualFilteredModels = angular.copy($scope.models);
-
-        // unknown vendor warning
-        if ($scope.manualMac.length >= 8) {
-          $scope.manualMacUnknownVendor = true;
-        }
       }
     }
 
@@ -286,6 +282,13 @@ angular.module('nethvoiceWizardUiApp')
         var phonesFromScan = res.data.filter(function (phoneFromScan) {
           var macFromScan = phoneFromScan.mac.replace(/:/g, "-");
 
+          // check vendor
+          var vendor = PhoneService.getVendor(macFromScan);
+          if (!vendor) {
+            return false;
+          }
+
+          // check if already present in inventory
           var alreadyPresent = $scope.phones.find(function (phone) {
             return phone.mac === macFromScan;
           });
@@ -323,7 +326,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.clearValidationErrorsManual = function () {
-      $scope.showManualMacError = false;
+      $scope.manualMacSyntaxError = false;
       $scope.manualMacUnknownVendor = false;
       $scope.manualMacDuplicated = false;
       $scope.manualMacInInventory = false;
@@ -379,12 +382,18 @@ angular.module('nethvoiceWizardUiApp')
           }
         }
 
-        // check vendor
-        var vendor = PhoneService.getVendor(mac);
-        if (!vendor) {
-          phone.unknownVendor = true;
-        } else {
-          phone.vendor = vendor;
+        if (!phone.invalidMac) {
+          // check vendor
+          var vendor = PhoneService.getVendor(mac);
+          if (!vendor) {
+            phone.unknownVendor = true;
+
+            if (firstErrorIndex === null) {
+              firstErrorIndex = index;
+            }
+          } else {
+            phone.vendor = vendor;
+          }
         }
       }
 
@@ -431,19 +440,37 @@ angular.module('nethvoiceWizardUiApp')
         var phoneTancredi = PhoneService.buildPhoneTancredi(phone.mac, phone.model, phone.vendor);
         // set formatted MAC
         phone.mac = phoneTancredi.mac;
-
-        PhoneService.createPhone(phoneTancredi).then(function (success) {
-          var phone = PhoneService.buildPhone(success.data, $scope.models);
-          $scope.pendingRequestsAddPhones--;
-          $scope.successfulAddPhones.push(phone);
-
-          if ($scope.pendingRequestsAddPhones == 0) {
-            showResultsAddPhones();
+        // create device on Tancredi
+        PhoneService.createPhone(phoneTancredi).then(function (successTancredi) {
+          // create device on Corbera
+          var phoneCorbera = {
+            mac: phoneTancredi.mac || null,
+            model: phoneTancredi.model || null,
+            line: null,
+            web_user: 'admin',
+            web_password: 'admin'
           }
-        }, function (err) {
-          console.log(err.error.data.title);
+          UserService.createPhysicalExtension(phoneCorbera).then(function (successCorbera) {
+            var phone = PhoneService.buildPhone(successTancredi.data, $scope.models);
+            $scope.pendingRequestsAddPhones--;
+            $scope.successfulAddPhones.push(phone);
+
+            if ($scope.pendingRequestsAddPhones == 0) {
+              showResultsAddPhones();
+            }
+          }, function (errorCorbera) {
+            console.log(errorCorbera);
+            $scope.pendingRequestsAddPhones--;
+            $scope.failedAddPhones.push(errorCorbera);
+
+            if ($scope.pendingRequestsAddPhones == 0) {
+              showResultsAddPhones();
+            }
+          })
+        }, function (errorTancredi) {
+          console.log(errorTancredi.error.data.title);
           $scope.pendingRequestsAddPhones--;
-          $scope.failedAddPhones.push(err);
+          $scope.failedAddPhones.push(errorTancredi);
 
           if ($scope.pendingRequestsAddPhones == 0) {
             showResultsAddPhones();
@@ -471,11 +498,6 @@ angular.module('nethvoiceWizardUiApp')
         phone.serverError = error.error.data.title;
       });
 
-      // server error popovers
-      $timeout(function () {
-        initPopovers();
-      }, 500);
-
       $scope.getPhones();
     }
 
@@ -484,9 +506,18 @@ angular.module('nethvoiceWizardUiApp')
       var alreadyInInventory = false;
 
       if (!PhoneService.checkMacAddress($scope.manualMac)) {
-        $scope.showManualMacError = true;
+        $scope.manualMacSyntaxError = true;
       } else {
         $scope.manualMac = PhoneService.normalizeMacAddress($scope.manualMac);
+      }
+
+      if (!$scope.manualMacSyntaxError) {
+        // check vendor
+        var vendor = PhoneService.getVendor($scope.manualMac);
+
+        if (!vendor) {
+          $scope.manualMacUnknownVendor = true;
+        }
       }
 
       // check duplicated MAC
@@ -507,7 +538,7 @@ angular.module('nethvoiceWizardUiApp')
         }
       }
 
-      if ($scope.manualMacDuplicated || $scope.showManualMacError || $scope.manualMacInInventory) {
+      if ($scope.manualMacDuplicated || $scope.manualMacSyntaxError || $scope.manualMacUnknownVendor || $scope.manualMacInInventory) {
         $('#manual-mac').focus();
         return false;
       } else {
@@ -734,35 +765,5 @@ angular.module('nethvoiceWizardUiApp')
       $scope.showSuccessfullyAddedPhones = !$scope.showSuccessfullyAddedPhones;
     }
 
-    $scope.postModels = function () { //// mockup
-      var models = [
-        {
-          "name": "snom100",
-          "display_name": "Snom IP phone v100"
-        }, {
-          "name": "snom200",
-          "display_name": "Snom IP phone v200"
-        }, {
-          "name": "fanvil-600",
-          "display_name": "Fanvil IP phone v600"
-        }, {
-          "name": "fanvil-700",
-          "display_name": "Fanvil IP phone v700"
-        }, {
-          "name": "yealink-1000",
-          "display_name": "Yealink IP phone v1000"
-        }
-      ];
-
-      models.forEach(function (model) {
-        ModelService.createModel(model).then(function (success) {
-          console.log("postModels", success); ////
-        }, function (err) {
-          console.log(err);
-        });
-      });
-    }
-
-    // $scope.postModels(); ////
     init();
   });

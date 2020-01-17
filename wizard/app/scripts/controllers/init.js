@@ -414,7 +414,6 @@ angular.module('nethvoiceWizardUiApp')
             softKeys: ProvYealinkService.softKeysUI(map),
             lineKeys: ProvYealinkService.lineKeysUI(map),
             lineOptions: ProvYealinkService.lineOptionsUI(),
-            sideKeys: ProvYealinkService.sideKeysUI(map),
             programmableKeys: ProvYealinkService.programmableKeysUI(map),
             expKeys: ProvYealinkService.expKeysUI(map)
           }

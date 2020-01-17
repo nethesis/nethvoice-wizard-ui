@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('ConfigurationsCtrl', function ($scope, ConfigurationService, ProfileService, ModelService, DeviceService, UserService, PhoneService) {
+  .controller('ConfigurationsCtrl', function ($scope, ConfigurationService, ProfileService, ModelService, DeviceService, UserService, PhoneService, $timeout) {
 
     $scope.view.changeRoute = true
 
@@ -16,6 +16,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allProfiles = []
     $scope.allGroups = []
     $scope.allDevices = []
+    $scope.devicesNotLinked = []
     $scope.allModels = []
 
     $scope.loadingUser = {}
@@ -23,11 +24,18 @@ angular.module('nethvoiceWizardUiApp')
     $scope.hiddenUser = {}
     $scope.currentUser = {}
     $scope.linkTo = ""
+    $scope.newDevice = {}
+    $scope.DEVICES_NOT_LINKED_PAGE = 20;
+    $scope.devicesNotLinkedLimit = $scope.DEVICES_NOT_LINKED_PAGE;
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured']
     $scope.availableUserFiltersNumbers = ['lname', 'default_extension']
     $scope.usersFilter = $scope.availableUserFilters[0]
     $scope.usersFilterNumbers = $scope.availableUserFiltersNumbers[0]
+
+    $scope.loadMoreDevicesNotLinked = function () {
+      $scope.devicesNotLinkedLimit += $scope.DEVICES_NOT_LINKED_PAGE;
+    };
 
     $scope.setCurrentUser = function (user) {
       if (user.username == $scope.currentUser.username) {
@@ -100,11 +108,11 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    $scope.setDeviceModel= function (device) {
+    $scope.setDeviceModel = function (device) {
       var mac = angular.copy(device.mac.replace(/:/g, "-"))
       PhoneService.patchPhoneModel({
         mac: mac,
-        model: device.model
+        model: device.model.name
       }).then(function (res) {
 
         console.log("MODEL CHANGES", res.data);
@@ -114,8 +122,14 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    $scope.openDevices = function (username) {
-      $scope.linkTo = username
+    $scope.openDevices = function (user) {
+      $scope.linkTo = user.username
+      $scope.setCurrentUser(user)
+
+      $timeout(function () {
+        $scope.devicesNotLinkedHeight = 'calc(100vh - ' + ($('#devices-not-linked-list')[0].getBoundingClientRect().y + 100) + 'px)';
+        console.log("devicesNotLinkedHeight") ////
+      }, 1000);
     }
 
     var getAllProfiles = function () {
@@ -137,24 +151,71 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    var getAllModels = function () {
+    var prepareDevices = function (devices) {
+      devices.forEach(function (device) {
+        // mac format
+        if (device.mac) {
+          device.mac = PhoneService.formatMac(device.mac)
+        }
+        // set model object
+        if (device.model) {
+          var model = $scope.allModels.find(function (m) {
+            return m.name === device.model;
+          })
+          if (model) {
+            device.model = model
+          }
+        }
+        // convert "vendor" property to "manufacturer"
+        if (device.hasOwnProperty("vendor")) {
+          device.manufacturer = device.vendor
+          delete device.vendor
+        }
+        // set filtered models
+        if (device.manufacturer) {
+          device.filteredModels = $scope.allModels.filter(function (model) {
+            return model.name.toLowerCase().startsWith(device.manufacturer.toLowerCase());
+          });
+        } else {
+          device.filteredModels = angular.copy($scope.allModels);
+        }
+      })
+    }
+
+    var getAllModelsAndUsersAndDevices = function () {
       ModelService.getModels().then(function (res) {
         $scope.allModels = res.data
 
         console.log("ALL MODELS", $scope.allModels);
-        
+
+        getAllUsers()
+        getAllDevices()
       }, function (err) {
         console.log(err)
       })
     }
 
-    var getAllUser = function () {
+    var getAllUsers = function () {
       ConfigurationService.list(false).then(function (res) {
         $scope.allUsers = res.data
         console.log("ALL USERS", $scope.allUsers)
         $scope.view.changeRoute = false
+
+        $scope.allUsers.forEach(function (user){
+          prepareDevices(user.devices)
+        })
       }, function (err) {
         console.log(err)
+      })
+    }
+
+    var getDevicesNotLinked = function () {
+      $scope.devicesNotLinked = []
+
+      $scope.allDevices.forEach(function (device) {
+        if (!device.lines || device.lines.length == 0 || !device.lines[0].extension) {
+          $scope.devicesNotLinked.push(device)
+        }
       })
     }
 
@@ -163,7 +224,10 @@ angular.module('nethvoiceWizardUiApp')
         $scope.allDevices = res.data
 
         console.log("ALL DEVICES", $scope.allDevices);
-        
+
+        prepareDevices($scope.allDevices)
+
+        getDevicesNotLinked()
       }, function (err) {
         console.log(err)
       })
@@ -178,6 +242,40 @@ angular.module('nethvoiceWizardUiApp')
         })[0]
         return returned && returned.displayname ? returned.displayname : ''
       }
+    }
+
+    $scope.rebootDevice = function (device) {
+      var rebootData = {};
+      rebootData[device.mac] = {} // hours and minutes omitted -> reboot immediately
+      device.rebootInAction = true;
+
+      PhoneService.setPhoneReboot(rebootData).then(function (success) {
+        // check failure
+        var error = false;
+
+        Object.keys(success.data).forEach(function (mac) {
+          var rebootResult = success.data[mac];
+
+          if (rebootResult.code !== 204) {
+            // failure
+            error = true;
+          }
+        });
+
+        if (error) {
+          console.log("Error rebooting device");
+          device.rebootInAction = 'err';
+        } else {
+          // success
+          device.rebootInAction = 'ok';
+        }
+
+        $timeout(function () {
+          device.rebootInAction = false;
+        }, 4000);
+      }, function (err) {
+        console.log(err);
+      });
     }
 
     $scope.configureAndRebootPhone = function (device) {
@@ -240,8 +338,11 @@ angular.module('nethvoiceWizardUiApp')
         device.linkInAction = "ok"
         device.web_password = ''
         device.web_user = ''
-        $("#devicesAssociation").modal("hide")
-        getAllUser(false)
+        $timeout(function () {
+          getAllUsers(false)
+          getAllDevices()
+          $("#devicesAssociation").modal("hide")
+        }, 1000);
       }, function (err) {
         device.setPhysicalInAction = "err"
         device.linkPhysicalInAction = "err"
@@ -257,7 +358,8 @@ angular.module('nethvoiceWizardUiApp')
       device.setPhysicalInAction = true
       UserService.deletePhysicalExtension(extension).then(function (res) {
         device.setPhysicalInAction = "ok"
-        getAllUser(false)
+        getAllUsers(false)
+        getAllDevices()
         console.log(res)
       }, function (err) {
         device.setPhysicalInAction = "err"
@@ -307,7 +409,7 @@ angular.module('nethvoiceWizardUiApp')
           extension: $scope.currentUser.default_extension
         }).then(function (res) {
           $scope.currentUser.setWebRTCInAction = false
-          getAllUser(false)
+          getAllUsers(false)
         }, function (err) {
           console.log(err)
           $scope.currentUser.setWebRTCInAction = false
@@ -315,7 +417,7 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         UserService.deleteWebRTCExtension($scope.currentUser.default_extension).then(function (res) {
           $scope.currentUser.setWebRTCInAction = false
-          getAllUser(false)
+          getAllUsers(false)
         }, function (err) {
           console.log(err)
           $scope.currentUser.setWebRTCInAction = false
@@ -358,6 +460,8 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $('#devicesAssociation').on('hidden.bs.modal', function () {
+      $scope.newDevice.linkInAction = false
+
       for (var device in $scope.allDevices) {
         $scope.allDevices[device].linkPhysicalInAction = false
         $scope.allDevices[device].setPhysicalInAction = false
@@ -367,11 +471,9 @@ angular.module('nethvoiceWizardUiApp')
     })
 
     angular.element(document).ready(function () {
-      getAllUser()
+      getAllModelsAndUsersAndDevices()
       getAllProfiles()
       getAllGroups()
-      getAllDevices()
-      getAllModels()
     })
-    
+
   })
