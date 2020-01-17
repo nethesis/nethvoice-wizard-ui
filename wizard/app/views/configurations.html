@@ -409,60 +409,18 @@
                   <span class="weight-plus ng-binding">{{devicesNotLinked.length}} {{ (devicesNotLinked.length !== 1 ? "Devices" : "Device") | translate }}</span>
                 </div>
               </h1>
-              <!-- custom device -->
-              <div class="list-group-item cursor-default back-whitesmoke">
-                <div class="list-view-pf-actions mt-48">
-                  <button
-                    class="btn btn-primary"
-                    ng-click="setPhysicalExtension(currentUser, newDevice)">
-                    {{"Link to" | translate}} {{linkTo || ("user" | translate)}}
-                  </button>
-                  <span ng-if="newDevice.linkInAction == 'ok'" class="pficon vertical-sub pficon-ok fz-18 ml-5"></span>
-                  <span ng-if="newDevice.linkInAction == 'err'" class="pficon vertical-sub pficon-error-circle-o fz-18 ml-5"></span>
-                  <div ng-if="newDevice.linkInAction == true" class="spinner vertical-sub inline-display spinner-sm ml-5"></div>
-                </div>
-                <div class="list-view-pf-main-info ">
-                  <div class="list-view-pf-left">
-                    <span class="fa fa-phone list-view-pf-icon-sm "></span>
-                  </div>
-                  <div class="list-view-pf-body">
-                    <div class="list-view-pf-description">
-                      <div class="list-group-item-heading configDevices-item-heading">
-                        {{'New custom device' | translate}}
-                      </div>
-                      <span class="weight-plus mr-20">
-                      </span>
-                      <div class="list-group-item-text">
-                        <div class="col-lg-7">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="list-view-pf-additional-info config-info">
-                      <div>{{'Web user' | translate}}:
-                        <input class="form-control" placeholder="admin" ng-model="newDevice.web_user">
-                      </div>
-                      <div>{{'Web password' | translate}}:
-                        <input class="form-control" placeholder="admin" ng-model="newDevice.web_password">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>  
-              <!-- devices -->
               <div id="devices-not-linked-list" when-scrolled="loadMoreDevicesNotLinked()" ng-style="{'height': devicesNotLinkedHeight}">
-                <div
-                  ng-show="!devicesLoading"
-                  ng-repeat="device in devicesNotLinked | customFilterMultiple:'mac,manufacturer,model':searchDeviceString |  limitTo: devicesNotLinkedLimit"
-                  class="list-group-item cursor-default">
-                  <div class="list-view-pf-actions">
+                <!-- custom device -->
+                <div class="list-group-item cursor-default back-whitesmoke">
+                  <div class="list-view-pf-actions mt-48">
                     <button
-                      ng-click="setPhysicalExtension(currentUser, device)"
-                      class="btn btn-primary">
+                      class="btn btn-primary"
+                      ng-click="setPhysicalExtension(currentUser, newDevice)">
                       {{"Link to" | translate}} {{linkTo || ("user" | translate)}}
                     </button>
-                    <span ng-if="device.linkPhysicalInAction == 'ok'" class="pficon vertical-sub pficon-ok fz-18 ml-5"></span>
-                    <span ng-if="device.linkPhysicalInAction == 'err'" class="pficon vertical-sub pficon-error-circle-o fz-18 ml-5"></span>
-                    <div ng-if="device.linkPhysicalInAction == true" class="spinner vertical-sub inline-display spinner-sm ml-5"></div>
+                    <span ng-if="newDevice.linkInAction == 'ok'" class="pficon vertical-sub pficon-ok fz-18 ml-5"></span>
+                    <span ng-if="newDevice.linkInAction == 'err'" class="pficon vertical-sub pficon-error-circle-o fz-18 ml-5"></span>
+                    <div ng-if="newDevice.linkInAction == true" class="spinner vertical-sub inline-display spinner-sm ml-5"></div>
                   </div>
                   <div class="list-view-pf-main-info ">
                     <div class="list-view-pf-left">
@@ -471,21 +429,63 @@
                     <div class="list-view-pf-body">
                       <div class="list-view-pf-description">
                         <div class="list-group-item-heading configDevices-item-heading">
-                          {{ device.manufacturer && device.model !== 'custom' ? device.manufacturer : '-' }}
+                          {{'New custom device' | translate}}
                         </div>
-                        <span class="weight-plus mr-20 width-33p">
-                          {{ device.model.display_name ? device.model.display_name : '-' }}
+                        <span class="weight-plus mr-20">
                         </span>
                         <div class="list-group-item-text">
                           <div class="col-lg-7">
                           </div>
                         </div>
                       </div>
-                      <div class="list-view-pf-additional-info config-info width-15p">
-                        <div ng-if="device.mac">MAC: <b>{{device.mac}}</b></div>
+                      <div class="list-view-pf-additional-info config-info">
+                        <div>{{'Web user' | translate}}:
+                          <input class="form-control" placeholder="admin" ng-model="newDevice.web_user">
+                        </div>
+                        <div>{{'Web password' | translate}}:
+                          <input class="form-control" placeholder="admin" ng-model="newDevice.web_password">
+                        </div>
                       </div>
                     </div>
                   </div>
+                </div>  
+                <!-- devices -->
+                  <div
+                    ng-show="!devicesLoading"
+                    ng-repeat="device in devicesNotLinked | customFilterMultiple:'mac,manufacturer,model':searchDeviceString | limitTo: devicesNotLinkedLimit"
+                    class="list-group-item cursor-default">
+                    <div class="list-view-pf-actions">
+                      <button
+                        ng-click="setPhysicalExtension(currentUser, device)"
+                        class="btn btn-primary">
+                        {{"Link to" | translate}} {{linkTo || ("user" | translate)}}
+                      </button>
+                      <span ng-if="device.linkPhysicalInAction == 'ok'" class="pficon vertical-sub pficon-ok fz-18 ml-5"></span>
+                      <span ng-if="device.linkPhysicalInAction == 'err'" class="pficon vertical-sub pficon-error-circle-o fz-18 ml-5"></span>
+                      <div ng-if="device.linkPhysicalInAction == true" class="spinner vertical-sub inline-display spinner-sm ml-5"></div>
+                    </div>
+                    <div class="list-view-pf-main-info ">
+                      <div class="list-view-pf-left">
+                        <span class="fa fa-phone list-view-pf-icon-sm "></span>
+                      </div>
+                      <div class="list-view-pf-body">
+                        <div class="list-view-pf-description">
+                          <div class="list-group-item-heading configDevices-item-heading">
+                            {{ device.manufacturer && device.model !== 'custom' ? device.manufacturer : '-' }}
+                          </div>
+                          <span class="weight-plus mr-20 width-33p">
+                            {{ device.model.display_name ? device.model.display_name : '-' }}
+                          </span>
+                          <div class="list-group-item-text">
+                            <div class="col-lg-7">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-view-pf-additional-info config-info width-15p">
+                          <div ng-if="device.mac">MAC: <b>{{device.mac}}</b></div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>
