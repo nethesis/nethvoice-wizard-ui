@@ -15,7 +15,8 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.view = {
       changeRoute: true,
-      navbarLeftReady: false
+      navbarReadyFirst: false,
+      navbarReadySecond: false
     };
 
     $scope.mode = {
@@ -37,7 +38,8 @@ angular.module('nethvoiceWizardUiApp')
       fromMigrationStart: false,
       isMigrationSkip: false,
       config: {},
-      stepCount: 1
+      stepCount: 1,
+      provisioning: ""
     };
 
     $scope.menuCount = {
@@ -268,6 +270,15 @@ angular.module('nethvoiceWizardUiApp')
       $("#" + id).modal("hide")
     }
 
+    var getProvisioningInfo = function () {
+      ConfigService.getProvisioningInfo().then(function (res) {
+        $scope.wizard.provisioning = res.data
+        $scope.view.navbarReadySecond = true
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
     // set language
     $scope.changeLanguage({
       key: LocalStorageService.get('preferredLanguage') || 'default'
@@ -303,6 +314,8 @@ angular.module('nethvoiceWizardUiApp')
 
       //config
       $scope.getConfig();
+      //provisioning
+      getProvisioningInfo()
 
       $('body').css('background', '');
     });
