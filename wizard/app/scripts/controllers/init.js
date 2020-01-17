@@ -323,8 +323,10 @@ angular.module('nethvoiceWizardUiApp')
 
     var getModelMap = function (map, name) {
       for (var fam in map) {
-        if (map[fam][name] != null) {
-          return map[fam][name]
+        for (var modelk in map[fam]) {
+          if (map[fam][modelk].model.toLowerCase() == name) {
+            return map[fam][name]
+          }
         }
       }
     }
@@ -427,12 +429,12 @@ angular.module('nethvoiceWizardUiApp')
     $scope.buildModel = function (name) {
       return $q(function (resolve, reject) {
         var nameSplit = name.split("-"),
-            modelName = nameSplit[1],
-            modelBrand = nameSplit[0]
+            modelName = nameSplit[1].toLowerCase(),
+            modelBrand = nameSplit[0].toLowerCase()
         ModelService.getModel(name).then(function (res) {
           $scope.currentModel = {
             "ui" : getModelUI(modelName, modelBrand),
-            "variables" : res.data.variables,
+            "variables" : angular.copy(res.data.variables),
             "globals": {},
             "storedVariables": angular.copy(res.data.variables),
             "name" : name,

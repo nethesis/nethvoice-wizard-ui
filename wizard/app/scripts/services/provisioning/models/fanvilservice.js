@@ -13,17 +13,8 @@ angular.module('nethvoiceWizardUiApp')
     this.map = function () {
       return {
         "xSeries": {
-          "x1": {
-            "model": "x1",
-            "softKeys": true,
-            "lineKeys": false,
-            "expKeys": false,
-            "hidden_variables": [
-              "language_fanvil"
-            ]
-          },
-          "x3s": {
-            "model": "x3s",
+          "x3": {
+            "model": "X3",
             "softKeys": true,
             "lineKeys": 2,
             "expKeys": false,
@@ -42,8 +33,8 @@ angular.module('nethvoiceWizardUiApp')
           }
         },
         "XSeries": {
-          "x5s": {
-            "model": "x5s",
+          "x5": {
+            "model": "x5",
             "softKeys": true,
             "lineKeys": 40,
             "expKeys": {

@@ -67,7 +67,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getOptionText = function (options, value) {
       for (var option in options) {
         if (options[option].value == value) {
-          return options[option].text 
+          return options[option].text
         }
       }
     }
@@ -94,7 +94,7 @@ angular.module('nethvoiceWizardUiApp')
         if ($(this).hasClass("selectpicker")) {
           $(this).selectpicker('refresh')
         } else if ($(this).hasClass("combobox")) {
-          $(this).combobox('refresh')
+          $(this).combobox("refresh")
         }
       })
     }
@@ -111,22 +111,32 @@ angular.module('nethvoiceWizardUiApp')
           setTimeout(function () {
             $scope.$emit('curentModelSaved')
           }, 500)
-        }, 2000)
+        }, 1500)
       }, 1000)
     }
 
     $scope.resetChanges = function () {
       $scope.loadingAction = true
       ModelService.getOriginal($scope.currentModel.name).then(function (res) {
+        for (var storedVariable in $scope.currentModel.storedVariables) {
+          if (!res.data.variables[storedVariable]) {
+            res.data.variables[storedVariable] = null
+          }
+        }
         ModelService.patchModel($scope.currentModel.name, {
           "display_name": $scope.currentModel.name,
           "variables": res.data.variables
-        }).then(function (res) {
-          resetLoadingAction("ok")
-          $scope.currentModel.variables = res.data.variables
+        }).then(function (res2) {
+          $scope.currentModel.variables = angular.copy(res.data.variables)
+          $scope.currentModel.storedVariables = angular.copy(res.data.variables)
           setTimeout(function () {
-            $scope.hideModal("actionsModal")
-          }, 2000)
+            refreshSelects()
+            resetLoadingAction("ok")
+            $scope.$apply()
+            setTimeout(function () {
+              $scope.hideModal("actionsModal")
+            }, 1500)
+          }, 1000)
         }, function (err) {
           console.log(err)
           restErrStatus("resetChangesNotFound", err.data.title)
@@ -146,7 +156,7 @@ angular.module('nethvoiceWizardUiApp')
           setTimeout(function () {
             $scope.$emit('reloadModels')
           }, 500)
-        }, 2000)
+        }, 1500)
       }, function (err) {
         console.log(err)
         restErrStatus("deleteChangesNotFound", err.data.title)
@@ -179,7 +189,14 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    var resetErrMessage = function () {
+      $scope.modelErrors.updateReadOnlyAttribute = false
+      $scope.modelErrors.resetChangesNotFound = false
+      $scope.modelErrors.deleteChangesNotFound = false
+    }
+
     $scope.saveCurrentModel = function () {
+      resetErrMessage()
       $scope.loadingAction = true
       // remove globals from variables
       for (var variable in $scope.currentModel.variables) {

@@ -8,9 +8,9 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesModelsCtrl', function ($scope, ModelService, ProvFanvilService, $translate, $timeout) {
+  .controller('DevicesModelsCtrl', function ($scope, ModelService, $translate, $timeout) {
 
-    $scope.globalUi = ModelService.getDefaultsUI()
+    $scope.globalsUi = ProvGlobalsService.getGlobalsUI()
     $scope.view.changeRoute = true
 
     $scope.inventoryModels = {}
@@ -244,5 +244,3 @@ angular.module('nethvoiceWizardUiApp')
     })
 
   })
-
-
