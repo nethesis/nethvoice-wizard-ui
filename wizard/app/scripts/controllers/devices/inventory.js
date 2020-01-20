@@ -697,19 +697,26 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.deletePhone = function () {
       $scope.uiLoaded = false;
+      $('#deletePhoneModal').modal('hide');
 
+      // delete phone on Tancredi
       PhoneService.deletePhone($scope.phoneToDelete.mac).then(function (res) {
         $scope.getPhones();
-
-        // delete delayed reboot (if present)
-        PhoneService.deletePhoneDelayedReboot([$scope.phoneToDelete.mac]).then(function (res) {
-          $scope.uiLoaded = true;
-        }, function (err) {
-          console.log(err);
-          addErrorNotification(err.data, "Error canceling delayed reboot");
+        // delete phone on Corbera
+        UserService.deletePhysicalExtension($scope.phoneToDelete.mac).then(function (res) {
+          // delete delayed reboot (if present)
+          PhoneService.deletePhoneDelayedReboot([$scope.phoneToDelete.mac]).then(function (res) {
+            $scope.uiLoaded = true;
+          }, function (err) {
+            console.log(err);
+            addErrorNotification(err.data, "Error canceling delayed reboot");
+            $scope.uiLoaded = true;
+          });
+        }, function (errorCorbera) {
+          console.log(errorCorbera);
+          addErrorNotification(errorCorbera.data, "Error deleting phone");
           $scope.uiLoaded = true;
         });
-        $('#deletePhoneModal').modal('hide');
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error deleting phone");
