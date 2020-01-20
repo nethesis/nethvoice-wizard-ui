@@ -408,6 +408,7 @@
                                     data-live-search="true"
                                     data-size="5"
                                     ng-model="phone.model"
+                                    data-container="body"
                                     ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
                                     id="model-phone-to-add-{{$index}}">
                                     <option value="">{{ 'No model' | translate }}</option>
