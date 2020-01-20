@@ -4544,17 +4544,17 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "adminpw",
             "description": "Admin password",
-            "type": "input"
+            "type": "password"
           },
           {
             "variable": "userpw",
             "description": "User password",
-            "type": "input"
+            "type": "password"
           },
           {
             "variable": "varpw",
             "description": "Var password",
-            "type": "input"
+            "type": "password"
           }
         ];
       }
@@ -4566,36 +4566,764 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     this.preferences = function (modelMap) {
+      if (!hasPreferencesSection(modelMap)) {
+        return;
+      }
+
+      var ringtoneItems = [];
+      var displayItems = [];
+      var wallpaperItems = [];
+      var screensaverItems = [];
+
       if (modelMap.ringtone) {
-        //// todo 
+        ringtoneItems = [
+          {
+            "variable": "default_ringtone",
+            "description": "Default Ringtone",
+            "type": "list",
+            "options": [
+              {
+                "text": "Common",
+                "value": "Common"
+              },
+              {
+                "text": "Ring1",
+                "value": "Ring1.wav"
+              },
+              {
+                "text": "Ring2",
+                "value": "Ring2.wav"
+              },
+              {
+                "text": "Ring3",
+                "value": "Ring3.wav"
+              },
+              {
+                "text": "Ring4",
+                "value": "Ring4.wav"
+              },
+              {
+                "text": "Ring5",
+                "value": "Ring5.wav"
+              },
+              {
+                "text": "Ring6",
+                "value": "Ring6.wav"
+              },
+              {
+                "text": "Ring7",
+                "value": "Ring7.wav"
+              },
+              {
+                "text": "Ring8",
+                "value": "Ring8.wav"
+              },
+              {
+                "text": "Silent",
+                "value": "Silent.wav"
+              },
+              {
+                "text": "Splash",
+                "value": "Splash.wav"
+              },
+            ]
+          },
+          {
+            "variable": "ringtone_url", // TODO upload
+            "description": "Ringtone URL",
+            "type": "input"
+          },
+        ]
       }
 
       if (modelMap.display) {
-        //// todo 
+        displayItems = [
+          {
+            "variable": "lcd_logo_mode",
+            "description": "LCD Logo Mode",
+            "type": "list",
+            "options": [
+              {
+                "text": "Common",
+                "value": "Common"
+              },
+              {
+                "text": "Ring1",
+                "value": "Ring1.wav"
+              },
+              {
+                "text": "Ring2",
+                "value": "Ring2.wav"
+              },
+              {
+                "text": "Ring3",
+                "value": "Ring3.wav"
+              },
+              {
+                "text": "Ring4",
+                "value": "Ring4.wav"
+              },
+              {
+                "text": "Ring5",
+                "value": "Ring5.wav"
+              },
+              {
+                "text": "Ring6",
+                "value": "Ring6.wav"
+              },
+              {
+                "text": "Ring7",
+                "value": "Ring7.wav"
+              },
+              {
+                "text": "Ring8",
+                "value": "Ring8.wav"
+              },
+              {
+                "text": "Silent",
+                "value": "Silent.wav"
+              },
+              {
+                "text": "Splash",
+                "value": "Splash.wav"
+              },
+            ]
+          },
+          {
+            "variable": "lcd_logo_url",
+            "description": "LCD Logo URL", // TODO upload
+            "type": "input"
+          },
+          {
+            "variable": "contrast",
+            "description": "Contrast",
+            "type": "list",
+            "options": [
+              {
+                "text": "1",
+                "value": "1"
+              },
+              {
+                "text": "2",
+                "value": "2"
+              },
+              {
+                "text": "3",
+                "value": "3"
+              },
+              {
+                "text": "4",
+                "value": "4"
+              },
+              {
+                "text": "5",
+                "value": "5"
+              },
+              {
+                "text": "6",
+                "value": "6"
+              },
+              {
+                "text": "7",
+                "value": "7"
+              },
+              {
+                "text": "8",
+                "value": "8"
+              },
+              {
+                "text": "9",
+                "value": "9"
+              },
+              {
+                "text": "10",
+                "value": "10"
+              }
+            ]
+          },
+          {
+            "variable": "backlight_time",
+            "description": "Backlight Time",
+            "type": "list",
+            "options": [
+              {
+                "text": "Always on",
+                "value": "0"
+              },
+              {
+                "text": "Always off",
+                "value": "1"
+              },
+              {
+                "text": "15s",
+                "value": "15"
+              },
+              {
+                "text": "30s",
+                "value": "30"
+              },
+              {
+                "text": "1min",
+                "value": "60"
+              },
+              {
+                "text": "2min",
+                "value": "120"
+              },
+              {
+                "text": "5min",
+                "value": "300"
+              },
+              {
+                "text": "10min",
+                "value": "600"
+              },
+              {
+                "text": "30min",
+                "value": "1800"
+              }
+            ]
+          },
+          {
+            "variable": "inactive_backlight_level",
+            "description": "Inactive Backlight Level",
+            "type": "list",
+            "options": [
+              {
+                "text": "Off",
+                "value": "0"
+              },
+              {
+                "text": "Low",
+                "value": "1"
+              }
+            ]
+          },
+
+          {
+            "variable": "active_backlight_level",
+            "description": "Active Backlight Level",
+            "type": "list",
+            "options": [
+              {
+                "text": "1",
+                "value": "1"
+              },
+              {
+                "text": "2",
+                "value": "2"
+              },
+              {
+                "text": "3",
+                "value": "3"
+              },
+              {
+                "text": "4",
+                "value": "4"
+              },
+              {
+                "text": "5",
+                "value": "5"
+              },
+              {
+                "text": "6",
+                "value": "6"
+              },
+              {
+                "text": "7",
+                "value": "7"
+              },
+              {
+                "text": "8",
+                "value": "8"
+              },
+              {
+                "text": "9",
+                "value": "9"
+              },
+              {
+                "text": "10",
+                "value": "10"
+              }
+            ]
+          }
+        ];
       }
 
       if (modelMap.wallpaper) {
-        //// todo 
+        wallpaperItems = [
+          {
+            "variable": "wallpaper",
+            "description": "Wallpaper",
+            "type": "list",
+            "options": [
+              {
+                "text": "Default.jpg",
+                "value": "Default.jpg"
+              },
+              {
+                "text": "Default.png",
+                "value": "Default.png"
+              },
+              {
+                "text": "01.jpg",
+                "value": "01.jpg"
+              },
+              {
+                "text": "01.png",
+                "value": "01.png"
+              },
+              {
+                "text": "02.jpg",
+                "value": "02.jpg"
+              },
+              {
+                "text": "02.png",
+                "value": "02.png"
+              },
+              {
+                "text": "03.jpg",
+                "value": "03.jpg"
+              },
+              {
+                "text": "03.png",
+                "value": "03.png"
+              },
+              {
+                "text": "04.jpg",
+                "value": "04.jpg"
+              },
+              {
+                "text": "04.png",
+                "value": "04.png"
+              },
+              {
+                "text": "05.jpg",
+                "value": "05.jpg"
+              },
+              {
+                "text": "05.png",
+                "value": "05.png"
+              },
+            ]
+          },
+          {
+            "variable": "wallpaperurl", // TODO upload
+            "description": "Wallpaper URL",
+            "type": "input"
+          },
+        ];
       }
 
       if (modelMap.screensaver) {
-        //// todo 
+        screensaverItems = [
+          {
+            "variable": "screensaver_mode",
+            "description": "Screensaver Mode",
+            "type": "list",
+            "options": [
+              {
+                "text": "System",
+                "value": "0"
+              },
+              {
+                "text": "Custom",
+                "value": "1"
+              },
+              {
+                "text": "Server XML",
+                "value": "2"
+              },
+              {
+                "text": "Clock (VP59 / T58A)",
+                "value": "0"
+              },
+              {
+                "text": "Colours (VP59 / T58A)",
+                "value": "1"
+              },
+              {
+                "text": "Photo Frame (VP59 / T58A)",
+                "value": "2"
+              },
+              {
+                "text": "Photo Table (VP59 / T58A)",
+                "value": "3"
+              },
+            ]
+          },
+          {
+            "variable": "screesaver_url", // TODO upload
+            "description": "Screensaver URL",
+            "type": "input"
+          },
+          {
+            "variable": "screensaver_wait_time",
+            "description": "Screensaver Wait Time",
+            "type": "list",
+            "options": [
+              {
+                "text": "15s",
+                "value": "15"
+              },
+              {
+                "text": "30s",
+                "value": "30"
+              },
+              {
+                "text": "1min",
+                "value": "60"
+              },
+              {
+                "text": "2min",
+                "value": "120"
+              },
+              {
+                "text": "5min",
+                "value": "300"
+              },
+              {
+                "text": "10min",
+                "value": "600"
+              },
+              {
+                "text": "30min",
+                "value": "1800"
+              },
+              {
+                "text": "1h",
+                "value": "3600"
+              },
+              {
+                "text": "2h",
+                "value": "7200"
+              }
+            ]
+          }
+        ];
+      }
+
+      return {
+        "name": "Preferences",
+        "items": ringtoneItems.concat(displayItems).concat(wallpaperItems).concat(screensaverItems)
       }
     }
 
     this.network = function (modelMap) {
-      if (modelMap.vlan) {
-        //// todo
+      if (!hasNetworkSection(modelMap)) {
+        return;
       }
 
+      var ldapItems = [];
+      var vlanItems = [];
+
       if (modelMap.ldap) {
-        //// todo
+        ldapItems = [
+          {
+            "variable": "ldap_base",
+            "description": "LDAP Base",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_port",
+            "description": "LDAP Port",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_server",
+            "description": "LDAP Server",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_name",
+            "description": "LDAP Name",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_user",
+            "description": "LDAP User",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_password",
+            "description": "LDAP Password",
+            "type": "password"
+          },
+          {
+            "variable": "ldap_tls",
+            "description": "LDAP TLS",
+            "type": "list",
+            "options": [
+              {
+                "text": "LDAP (unencrypted, port 389 by default)",
+                "value": "0"
+              },
+              {
+                "text": "LDAP TLS Start (port 389 by default)",
+                "value": "1"
+              },
+              {
+                "text": "LDAPs (port 636 by default)",
+                "value": "2"
+              }
+            ]
+          },
+          {
+            "variable": "ldap_name_display",
+            "description": "LDAP Display Name",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_number_attr",
+            "description": "LDAP Number Attributes",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_name_attr",
+            "description": "LDAP Name Attributes",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_number_filter",
+            "description": "LDAP Number Filter",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_name_filter",
+            "description": "LDAP Name Filter",
+            "type": "input"
+          }
+        ];
+      }
+
+      if (modelMap.vlan) {
+        vlanItems = [
+          {
+            "variable": "vlan_dhcp_enable",
+            "description": "DHCP VLAN Discovery",
+            "type": "list",
+            "options": [
+              {
+                "text": "Disabled",
+                "value": "0"
+              },
+              {
+                "text": "Enabled",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "variable": "data_vlan_qos",
+            "description": "VLAN Priority for PC port",
+            "type": "list",
+            "options": [
+              {
+                "text": "0 (lowest)",
+                "value": "0"
+              },
+              {
+                "text": "1",
+                "value": "1"
+              },
+              {
+                "text": "2",
+                "value": "2"
+              },
+              {
+                "text": "3",
+                "value": "3"
+              },
+              {
+                "text": "4",
+                "value": "4"
+              },
+              {
+                "text": "5",
+                "value": "5"
+              },
+              {
+                "text": "6",
+                "value": "6"
+              },
+              {
+                "text": "7 (highest)",
+                "value": "7"
+              }
+            ]
+          },
+          {
+            "variable": "data_vlan_id",
+            "description": "VLAN ID for PC port",
+            "type": "input"
+          },
+          {
+            "variable": "data_vlan_enable",
+            "description": "VLAN Enable for PC port",
+            "type": "list",
+            "options": [
+              {
+                "text": "Disabled",
+                "value": "0"
+              },
+              {
+                "text": "Enabled",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "variable": "voice_vlan_qos",
+            "description": "VLAN Priority for Internet port",
+            "type": "list",
+            "options": [
+              {
+                "text": "0 (lowest)",
+                "value": "0"
+              },
+              {
+                "text": "1",
+                "value": "1"
+              },
+              {
+                "text": "2",
+                "value": "2"
+              },
+              {
+                "text": "3",
+                "value": "3"
+              },
+              {
+                "text": "4",
+                "value": "4"
+              },
+              {
+                "text": "5",
+                "value": "5"
+              },
+              {
+                "text": "6",
+                "value": "6"
+              },
+              {
+                "text": "7 (highest)",
+                "value": "7"
+              }
+            ]
+          },
+          {
+            "variable": "voice_vlan_id",
+            "description": "VLAN ID for Internet port",
+            "type": "input"
+          },
+          {
+            "variable": "voice_vlan_enable",
+            "description": "VLAN Enable for Internet port",
+            "type": "list",
+            "options": [
+              {
+                "text": "Disabled",
+                "value": "0"
+              },
+              {
+                "text": "Enabled",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "variable": "dhcp_option",
+            "description": "DHCP Options (comma separated)",
+            "type": "input"
+          }
+        ];
+      }
+
+      return {
+        "name": "Network",
+        "items": ldapItems.concat(vlanItems)
       }
     }
 
     this.provisioning = function (modelMap) {
-      if (modelMap.provisioning) {
-        //// todo
+      if (!hasProvisioningSection(modelMap)) {
+        return;
+      }
+
+      return {
+        "name": "Provisioning",
+        "items": [
+          {
+            "variable": "dhcp_enable",
+            "description": "DHCP Active",
+            "type": "list",
+            "options": [
+              {
+                "text": "Off",
+                "value": "0"
+              },
+              {
+                "text": "On",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "variable": "weekly_enable",
+            "description": "Weekly Provisioning",
+            "type": "list",
+            "options": [
+              {
+                "text": "Off",
+                "value": "0"
+              },
+              {
+                "text": "On",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "variable": "weekly_dayofweek",
+            "description": "Weekly Provisioning Days of Week",
+            "type": "input"
+          },
+          {
+            "variable": "end_time_hour",
+            "description": "End Time - Hour",
+            "type": "input"
+          },
+          {
+            "variable": "end_time_minutes",
+            "description": "End Time - Minute",
+            "type": "input"
+          },
+          {
+            "variable": "begin_time_hour",
+            "description": "Begin Time - Hour",
+            "type": "input"
+          },
+          {
+            "variable": "begin_time_minutes",
+            "description": "Begin Time - Minute",
+            "type": "input"
+          },
+          {
+            "variable": "pnp_enable",
+            "description": "Plug and Play (PnP)",
+            "type": "list",
+            "options": [
+              {
+                "text": "Off",
+                "value": "0"
+              },
+              {
+                "text": "On",
+                "value": "1"
+              }
+            ]
+          }
+        ]
       }
     }
 
@@ -5184,556 +5912,5 @@ angular.module('nethvoiceWizardUiApp')
         ]
       }
     }
-
-
-
-    // this.OLDpreferenceUI = function (modelMap) { //// todo delete
-    //   var itemsPreferencesT4xT5xT11xT22xT44xT55x = [
-    //     {
-    //       "variable": "call_waiting",
-    //       "description": "Call Waiting",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "Disabled",
-    //           "value": "0"
-    //         },
-    //         {
-    //           "text": "Enabled",
-    //           "value": "1"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "call_waiting_tone",
-    //       "description": "Call Waiting Tone",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "Disabled",
-    //           "value": "0"
-    //         },
-    //         {
-    //           "text": "Enabled",
-    //           "value": "1"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "pound",
-    //       "description": "Pound as send key",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "Disabled",
-    //           "value": "0"
-    //         },
-    //         {
-    //           "text": "Enabled",
-    //           "value": "1"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "auto_redial",
-    //       "description": "AUto Redial",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "Disabled",
-    //           "value": "0"
-    //         },
-    //         {
-    //           "text": "Enabled",
-    //           "value": "1"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "default_ringtone",
-    //       "description": "Default Ringtone",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "Ring1",
-    //           "value": "Ring1.wav"
-    //         },
-    //         {
-    //           "text": "Ring2",
-    //           "value": "Ring2.wav"
-    //         },
-    //         {
-    //           "text": "Ring3",
-    //           "value": "Ring3.wav"
-    //         },
-    //         {
-    //           "text": "Ring4",
-    //           "value": "Ring4.wav"
-    //         },
-    //         {
-    //           "text": "Ring5",
-    //           "value": "Ring5.wav"
-    //         },
-    //         {
-    //           "text": "Ring6",
-    //           "value": "Ring6.wav"
-    //         },
-    //         {
-    //           "text": "Ring7",
-    //           "value": "Ring7.wav"
-    //         },
-    //         {
-    //           "text": "Ring8",
-    //           "value": "Ring8.wav"
-    //         },
-    //         {
-    //           "text": "Silent",
-    //           "value": "Silent.wav"
-    //         },
-    //         {
-    //           "text": "Splash",
-    //           "value": "Splash.wav"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "dss_transfer",
-    //       "description": "DSS Transfer Type",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "New Call",
-    //           "value": "0"
-    //         },
-    //         {
-    //           "text": "Attended Transfer",
-    //           "value": "1"
-    //         },
-    //         {
-    //           "text": "Blind Transfer",
-    //           "value": "2"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "ldap_server",
-    //       "description": "Server LDAP",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "ldap_base",
-    //       "description": "BaseDN LDAP",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "ldap_port",
-    //       "description": "LDAP Server Port",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "ldap_name_filter",
-    //       "description": "LDAP Name Filter",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "ldap_name_attr",
-    //       "description": "LDAP Name Attributes",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "ldap_name_display",
-    //       "description": "LDAP Display Name",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "ldap_number_filter",
-    //       "description": "LDAP Number Filter",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "ldap_number_attr",
-    //       "description": "LDAP Number Attributes",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "lcd_logo_mode",
-    //       "description": "LCD Logo Mode",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "Off",
-    //           "value": "0"
-    //         },
-    //         {
-    //           "text": "System Logo",
-    //           "value": "1"
-    //         },
-    //         {
-    //           "text": "Custom Logo",
-    //           "value": "2"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "screensaver_mode",
-    //       "description": "Screesaver Mode",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "Off",
-    //           "value": "0"
-    //         },
-    //         {
-    //           "text": "System Screensaver",
-    //           "value": "1"
-    //         },
-    //         {
-    //           "text": "Custom Screesaver",
-    //           "value": "2"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "screesaver",
-    //       "description": "Screensever Upload URL",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "screesaverxml",
-    //       "description": "Screensever XML URL",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "wallpaper",
-    //       "description": "Wallpaper Image",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "wallpaperurl",
-    //       "description": "Wallpaper URL",
-    //       "type": "input"
-    //     }
-    //   ];
-
-    //   if (this.modelGroups.T4xT5xT11xT22xT44xT55x.includes(modelMap.model)) {
-    //     return {
-    //       "name": "Preferences",
-    //       "items": angular.copy(itemsPreferencesT4xT5xT11xT22xT44xT55x)
-    //     }
-    //   }
-    // }
-
-    // this.OLDnetworkUI = function (modelMap) { //// todo delete
-    //   var itemsNetworkT4xT5xT11xT22xT44xT55x = [
-    //     {
-    //       "variable": "voice_vlan_enable",
-    //       "description": "Voice VLAN Enable",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "True",
-    //           "value": "1"
-    //         },
-    //         {
-    //           "text": "False",
-    //           "value": "0"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "voice_vlan_id",
-    //       "description": "Voice VLAN ID",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "voice_vlan_qos",
-    //       "description": "Voice VLAN Priority",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "0",
-    //           "value": "0"
-    //         },
-    //         {
-    //           "text": "1",
-    //           "value": "1"
-    //         },
-    //         {
-    //           "text": "2",
-    //           "value": "2"
-    //         },
-    //         {
-    //           "text": "3",
-    //           "value": "3"
-    //         },
-    //         {
-    //           "text": "4",
-    //           "value": "4"
-    //         },
-    //         {
-    //           "text": "5",
-    //           "value": "5"
-    //         },
-    //         {
-    //           "text": "6",
-    //           "value": "7"
-    //         },
-    //         {
-    //           "text": "7",
-    //           "value": "7"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "data_vlan_enable",
-    //       "description": "Data VLAN Enable",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "True",
-    //           "value": "1"
-    //         },
-    //         {
-    //           "text": "False",
-    //           "value": "0"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "data_vlan_id",
-    //       "description": "Data VLAN ID",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "data_vlan_qos",
-    //       "description": "Data VLAN Priority",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "0",
-    //           "value": "0"
-    //         },
-    //         {
-    //           "text": "1",
-    //           "value": "1"
-    //         },
-    //         {
-    //           "text": "2",
-    //           "value": "2"
-    //         },
-    //         {
-    //           "text": "3",
-    //           "value": "3"
-    //         },
-    //         {
-    //           "text": "4",
-    //           "value": "4"
-    //         },
-    //         {
-    //           "text": "5",
-    //           "value": "5"
-    //         },
-    //         {
-    //           "text": "6",
-    //           "value": "7"
-    //         },
-    //         {
-    //           "text": "7",
-    //           "value": "7"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "dhcp_enable",
-    //       "description": "VLAN DHCP",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "Disabled",
-    //           "value": "0"
-    //         },
-    //         {
-    //           "text": "Enabled",
-    //           "value": "1"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "variable": "dhcp_option",
-    //       "description": "VLAN DHCP Option",
-    //       "type": "input"
-    //     },
-    //     {
-    //       "variable": "vlan_change",
-    //       "description": "VLAN Change method",
-    //       "type": "list",
-    //       "options": [
-    //         {
-    //           "text": "Disabled",
-    //           "value": "0"
-    //         },
-    //         {
-    //           "text": "Enabled",
-    //           "value": "1"
-    //         }
-    //       ]
-    //     }
-    //   ];
-
-    //   if (this.modelGroups.T4xT5xT11xT22xT44xT55x.includes(modelMap.model)) {
-    //     return {
-    //       "name": "Network",
-    //       "items": angular.copy(itemsNetworkT4xT5xT11xT22xT44xT55x)
-    //     }
-    //   }
-    // }
-
-    // this.OLDprovisioningUI = function () { //// todo delete
-    //   return {
-    //     "name": "Provisioning",
-    //     "items": [
-    //       {
-    //         "variable": "dhcp_enable",
-    //         "description": "DHCP Active",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "On",
-    //             "value": "1"
-    //           },
-    //           {
-    //             "text": "Off",
-    //             "value": "0"
-    //           }
-    //         ]
-    //       },
-    //       {
-    //         "variable": "pnp_enable",
-    //         "description": "PNP Active",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "On",
-    //             "value": "1"
-    //           },
-    //           {
-    //             "text": "Off",
-    //             "value": "0"
-    //           }
-    //         ]
-    //       },
-    //       {
-    //         "variable": "power_on",
-    //         "description": "Power On",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "On",
-    //             "value": "1"
-    //           },
-    //           {
-    //             "text": "Off",
-    //             "value": "0"
-    //           }
-    //         ]
-    //       },
-    //       {
-    //         "variable": "repeat_enable",
-    //         "description": "Repeatedly",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "On",
-    //             "value": "1"
-    //           },
-    //           {
-    //             "text": "Off",
-    //             "value": "0"
-    //           }
-    //         ]
-    //       },
-    //       {
-    //         "variable": "repeat_minutes",
-    //         "description": "Repeatedly Interval (Minutes)",
-    //         "type": "input"
-    //       },
-    //       {
-    //         "variable": "weekly_enable",
-    //         "description": "Weekly",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "On",
-    //             "value": "1"
-    //           },
-    //           {
-    //             "text": "Off",
-    //             "value": "0"
-    //           }
-    //         ]
-    //       },
-    //       {
-    //         "variable": "weekly_upgrade_interval",
-    //         "description": "Weekly Upgrade Interval (0~12week)",
-    //         "type": "input"
-    //       },
-    //       {
-    //         "variable": "begin_time_hour",
-    //         "description": "Time Hour Begin",
-    //         "type": "input"
-    //       },
-    //       {
-    //         "variable": "begin_time_minutes",
-    //         "description": "Time Minutes Begin",
-    //         "type": "input"
-    //       },
-    //       {
-    //         "variable": "end_time_hour",
-    //         "description": "Time Hour End",
-    //         "type": "input"
-    //       },
-    //       {
-    //         "variable": "end_time_minutes",
-    //         "description": "Time Minutes End",
-    //         "type": "input"
-    //       },
-    //       {
-    //         "variable": "weekly_dayofweek",
-    //         "description": "Day of Week",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "Sunday",
-    //             "value": "0"
-    //           },
-    //           {
-    //             "text": "Monday",
-    //             "value": "1"
-    //           },
-    //           {
-    //             "text": "Tuesday",
-    //             "value": "2"
-    //           },
-    //           {
-    //             "text": "Wednesday",
-    //             "value": "3"
-    //           },
-    //           {
-    //             "text": "Thursday",
-    //             "value": "4"
-    //           },
-    //           {
-    //             "text": "Friday",
-    //             "value": "5"
-    //           },
-    //           {
-    //             "text": "Saturday",
-    //             "value": "7"
-    //           }
-    //         ]
-    //       }
-    //     ]
-    //   }
-    // }
-
   })
+  
