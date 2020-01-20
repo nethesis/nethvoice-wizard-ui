@@ -5289,13 +5289,13 @@ angular.module('nethvoiceWizardUiApp')
             "type": "input"
           },
           {
-            "variable": "end_time_hour",
-            "description": "End Time - Hour",
+            "variable": "weekly_end_time",
+            "description": "Weekly End Time",
             "type": "input"
           },
           {
-            "variable": "end_time_minutes",
-            "description": "End Time - Minute",
+            "variable": "weekly_begin_time",
+            "description": "Weekly Begin Time",
             "type": "input"
           },
           {
@@ -5913,4 +5913,3 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
   })
-  
