@@ -2948,3 +2948,9 @@ a.black:focus, a.black:hover, a.black:active {
 .not-changed-color {
   color: #363636;
 }
+
+.loop-key {
+  background-color: #f5f5f5;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}

@@ -17,7 +17,7 @@ angular.module('nethvoiceWizardUiApp')
           "softKeys": true,
           "lineKeys": 2,
           "expKeys": false,
-          "hidden_variables": [
+          "hiddenVariables": [
             "language_fanvil"
           ]
         },
@@ -26,7 +26,7 @@ angular.module('nethvoiceWizardUiApp')
           "softKeys": true,
           "lineKeys": 30,
           "expKeys": false,
-          "hidden_variables": [
+          "hiddenVariables": [
             "language_fanvil"
           ]
         },
@@ -38,7 +38,7 @@ angular.module('nethvoiceWizardUiApp')
             "total": 20,
             "loops": 5
           },
-          "hidden_variables": [
+          "hiddenVariables": [
             "language_fanvil2"
           ]
         },
@@ -50,7 +50,7 @@ angular.module('nethvoiceWizardUiApp')
             "total": 20,
             "loops": 5
           },
-          "hidden_variables": [
+          "hiddenVariables": [
             "language_fanvil2"
           ]
         }

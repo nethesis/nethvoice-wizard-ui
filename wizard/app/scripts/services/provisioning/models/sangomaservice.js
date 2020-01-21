@@ -17,7 +17,7 @@ angular.module('nethvoiceWizardUiApp')
             "model": "S205",
             "softKeys": true,
             "lineKeys": 2,
-            "hidden_variables": [
+            "hiddenVariables": [
               "wallpaper_image",
               "screensaver_image"
             ]
@@ -26,7 +26,7 @@ angular.module('nethvoiceWizardUiApp')
             "model": "S206",
             "softKeys": true,
             "lineKeys": 2,
-            "hidden_variables": [
+            "hiddenVariables": [
               "wallpaper_image",
               "screensaver_image"
             ]
@@ -37,7 +37,7 @@ angular.module('nethvoiceWizardUiApp')
             "model": "S300",
             "softKeys": true,
             "lineKeys": 2,
-            "hidden_variables": [
+            "hiddenVariables": [
               "wallpaper_image",
               "screensaver_image"
             ]
@@ -46,7 +46,7 @@ angular.module('nethvoiceWizardUiApp')
             "model": "S305",
             "softKeys": true,
             "lineKeys": 2,
-            "hidden_variables": [
+            "hiddenVariables": [
               "wallpaper_image",
               "screensaver_image"
             ]
@@ -57,7 +57,7 @@ angular.module('nethvoiceWizardUiApp')
             "model": "S400",
             "softKeys": true,
             "lineKeys": 25,
-            "hidden_variables": [
+            "hiddenVariables": [
               "wallpaper_image",
               "screensaver_image"
             ]
@@ -66,7 +66,7 @@ angular.module('nethvoiceWizardUiApp')
             "model": "S405",
             "softKeys": true,
             "lineKeys": 25,
-            "hidden_variables": [
+            "hiddenVariables": [
               "wallpaper_image",
               "screensaver_image"
             ]
@@ -75,7 +75,7 @@ angular.module('nethvoiceWizardUiApp')
             "model": "S406",
             "softKeys": true,
             "lineKeys": 25,
-            "hidden_variables": [
+            "hiddenVariables": [
               "wallpaper_image",
               "screensaver_image"
             ]

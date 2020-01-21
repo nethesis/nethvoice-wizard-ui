@@ -15,7 +15,7 @@
       <form id="currentModelForm">
         <!-- sections -->
         <div ng-repeat="(sectionkey, section) in currentModel.ui track by sectionkey">
-          <!-- if is a key section -->
+          <!-- if it's a key section -->
           <div class="mt-20" ng-if="isKeysSection(sectionkey) && currentModel.ui.map[sectionkey]">
             <h2 ng-click="openSection(sectionkey)"
               class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
@@ -25,7 +25,7 @@
             <div id="collapse-section-{{$index}}"
               class="panel-collapse model-container adjust-profile-body"
               ng-if="currentModel.openedSection == sectionkey">
-              <div class="panel-body profile-panel">
+              <div class="panel-body profile-panel no-pad">
                 <div class="col-lg-12 {{!isExpKeysSection(sectionkey) ? 'mt-20' : ''}} no-border-bottom">
                   <div class="col-lg-12 no-lateral-padding {{isExpKeysSection(sectionkey) ? 'padding-lateral-null' : ''}}
                       {{item.type == 'loop' ? 'mb-20' : ''}}"
@@ -35,44 +35,44 @@
                       <div ng-if="item.type == 'loop'">
                         <!-- if exp keys -->
                         <div ng-if="isExpKeysSection(sectionkey)">
-                          <div class="mt-20" ng-repeat="expKeyIndex in [] | range: item.loops track by expKeyIndex">
-                            <h2 ng-click="openExpKeys('expkeys-' + (expKeyIndex + 1), sectionkey)"
+                          <div class="mt-20" ng-repeat="module in [] | range: item.modules track by module">
+                            <h2 ng-click="openExpKeys('expkeys-' + (module + 1), sectionkey)"
                               class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
-                                {{"ExpKeys" | translate}} <spam class="weight">{{expKeyIndex + 1}}</spam>
+                                {{"Module" | translate}} <spam class="weight">{{module + 1}}</spam>
                               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
                             </h2>
-                            <div id="collapse-expkey-{{expKeyIndex}}"
+                            <div id="collapse-expkey-{{module}}"
                               class="panel-collapse model-container adjust-profile-body"
-                              ng-if="currentModel.openedExpKeys == ('expkeys-' + (expKeyIndex + 1))">
-                              <div class="panel-body profile-panel pb-30">
+                              ng-if="currentModel.openedExpKeys == ('expkeys-' + (module + 1))">
+                              <div class="panel-body profile-panel pb-30 no-pad">
                                 <div class="col-lg-12 mt-20 mb-8 no-border-bottom">
                                   <div ng-if="(4 * (!currentModel.ui[sectionkey].showingExpKeys ? 1 :
-                                      currentModel.ui[sectionkey].showingExpKeys)) > count"
-                                    ng-repeat="count in [] | range: item.loop_end track by count">
-                                    <div class="no-lateral-padding col-lg-12">
-                                      <div class="col-lg-2 loop-keys-index">
-                                        {{::item.description | translate}} {{count + item.loop_start + (item.incremental_count ? expKeyIndex * item.loop_end : 0)}}
+                                      currentModel.ui[sectionkey].showingExpKeys)) > $index"
+                                    ng-repeat="keysIndex in item.keysIndexes track by $index">
+                                    <div class="no-lateral-padding col-lg-12 mb-30 loop-key">
+                                      <div class="col-lg-3 loop-keys-index">
+                                        {{::item.description | translate}} {{keysIndex}}
                                       </div>
-                                      <div class="col-lg-2" ng-repeat="key in keys track by $index">
+                                      <div class="col-lg-3" ng-repeat="key in keys" ng-if="!currentModel.ui.map.hiddenVariables.includes(key.variable + '_' + keysIndex)">
                                         <!-- list -->
                                         <div ng-if="key.type == 'list'" class="form-group">
                                           <label class="mt-10 control-label"> {{::key.description | translate}}
                                           </label>
                                           <div class="hidden">
                                             <select
-                                              id="{{sectionkey}}-select-{{count+1}}-{{$index+1}}"
-                                              ng-model="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start + (item.incremental_count ? expKeyIndex * item.loop_end : 0))]"
-                                              ng-change="onVariableChanged('exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start + (item.incremental_count ? expKeyIndex * item.loop_end : 0)))"
+                                              id="{{sectionkey}}-select-{{key.variable}}-{{keysIndex}}"
+                                              ng-model="currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex]"
+                                              ng-change="onVariableChanged(key.variable + '_' + (module + 1) + '_' + keysIndex)"
                                               class="{{key.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
                                               autocomplete="off">
                                               <option value="" ng-disabled="true" ng-hide="true">-</option>
                                               <!-- combobox -->
-                                              <option ng-selected="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start + (item.incremental_count ? expKeyIndex * item.loop_end : 0))] == option.value"
+                                              <option ng-selected="currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] == option.value"
                                                 ng-if="key.options.length > 10"
                                                 ng-repeat="option in key.options"
                                                 value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                                               <!-- selectpicker -->
-                                              <option ng-selected="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start + (item.incremental_count ? expKeyIndex * item.loop_end : 0))] == option.value"
+                                              <option ng-selected="currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] == option.value"
                                                 ng-if="key.options.length <= 10"
                                                 ng-repeat="option in key.options"
                                                 value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
@@ -84,9 +84,8 @@
                                           <label class="mt-10 control-label"> {{::key.description | translate}}
                                           </label>
                                           <input
-                                            id="{{sectionkey}}-input-{{count+1}}-{{$index+1}}"
-                                            ng-model="currentModel.variables['exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start + (item.incremental_count ? expKeyIndex * item.loop_end : 0))]"
-                                            ng-change="onVariableChanged('exp' + (expKeyIndex + 1) + key.variable + (count + item.loop_start + (item.incremental_count ? expKeyIndex * item.loop_end : 0)))"
+                                            ng-model="currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex]"
+                                            ng-change="onVariableChanged(key.variable + '_' + (module + 1) + '_' + keysIndex)"
                                             placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : ''}}"
                                             type="text" class="form-control">
                                           </input>
@@ -98,7 +97,7 @@
                                     ng-click="!currentModel.ui[sectionkey].showingExpKeys ? currentModel.ui[sectionkey].showingExpKeys = 2 :
                                       currentModel.ui[sectionkey].showingExpKeys = currentModel.ui[sectionkey].showingExpKeys + 1"
                                     class="btn btn-default btn-lg mt-30 ml-20"
-                                    ng-if="item.loop_end > (4 * (!currentModel.ui[sectionkey].showingExpKeys ? 1 :
+                                    ng-if="item.keysIndexes.length > (4 * (!currentModel.ui[sectionkey].showingExpKeys ? 1 :
                                       currentModel.ui[sectionkey].showingExpKeys))">
                                     {{"View more" | translate}}
                                   </button>
@@ -107,35 +106,35 @@
                             </div>
                           </div>
                         </div>
-                        <!-- if no exp keys -->
+                        <!-- if not exp keys -->
                         <div ng-if="!isExpKeysSection(sectionkey)">
-                          <div ng-if="item.type == 'loop' && ((4 * (!currentModel.ui[sectionkey].showingKeys ? 1 :
-                              currentModel.ui[sectionkey].showingKeys)) > count)"
-                            ng-repeat="count in [] | range: (item.loop_end - item.loop_start + 1) track by count">
-                            <div class="no-lateral-padding col-lg-12">
-                              <div class="col-lg-2 loop-keys-index">
-                                {{::item.description | translate}} {{count + item.loop_start}}
+                          <div ng-if="(4 * (!currentModel.ui[sectionkey].showingKeys ? 1 :
+                            currentModel.ui[sectionkey].showingKeys)) > $index"
+                            ng-repeat="keysIndex in item.keysIndexes track by $index">
+                            <div class="no-lateral-padding col-lg-12 mb-30 loop-key">
+                              <div class="col-lg-3 loop-keys-index">
+                                {{::item.description | translate}} {{keysIndex}}
                               </div>
-                              <div class="col-lg-2" ng-repeat="key in keys track by $index">
+                              <div class="col-lg-3" ng-repeat="key in keys" ng-if="!currentModel.ui.map.hiddenVariables.includes(key.variable + '_' + keysIndex)">
                                 <!-- list -->
                                 <div ng-if="key.type == 'list'" class="form-group">
                                   <label class="mt-10 control-label"> {{::key.description | translate}}
                                   </label>
                                   <div class="hidden">
                                     <select
-                                      id="{{sectionkey}}-select-{{count+1}}-{{$index+1}}"
+                                      id="{{sectionkey}}-select-{{key.variable}}-{{keysIndex}}"
                                       class="{{key.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
-                                      ng-model="currentModel.variables[key.variable + (count + item.loop_start)]"
-                                      ng-change="onVariableChanged(key.variable + (count + item.loop_start))"
+                                      ng-model="currentModel.variables[key.variable + '_' + keysIndex]"
+                                      ng-change="onVariableChanged(key.variable + '_' + keysIndex)"
                                       autocomplete="off">
                                       <option value="" ng-disabled="true" ng-hide="true">-</option>
                                       <!-- combobox -->
-                                      <option ng-selected="currentModel.variables[key.variable + (count + item.loop_start)] == option.value"
+                                      <option ng-selected="currentModel.variables[key.variable + '_' + keysIndex] == option.value"
                                         ng-if="key.options.length > 10"
                                         ng-repeat="option in key.options"
                                         value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                                       <!-- selectpicker -->
-                                      <option ng-selected="currentModel.variables[key.variable + (count + item.loop_start)] == option.value"
+                                      <option ng-selected="currentModel.variables[key.variable + '_' + keysIndex] == option.value"
                                         ng-if="key.options.length <= 10"
                                         ng-repeat="option in key.options"
                                         value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
@@ -143,13 +142,12 @@
                                   </div>
                                 </div>
                                 <!-- input -->
-                                <div ng-if="key.type == 'input'" class="form-group">
+                                <div ng-if="key.type == 'input' || key.type == 'password'" class="form-group">
                                   <label class="mt-10 control-label"> {{::key.description | translate}}
                                   </label>
                                   <input
-                                    id="{{sectionkey}}-input-{{count+1}}-{{$index+1}}"
-                                    ng-model="currentModel.variables[key.variable + (count + item.loop_start)]"
-                                    ng-change="onVariableChanged(key.variable + (count + item.loop_start))"
+                                    ng-model="currentModel.variables[key.variable + '_' + keysIndex]"
+                                    ng-change="onVariableChanged(key.variable + '_' + keysIndex)"
                                     placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : ''}}"
                                     type="text"
                                     class="form-control">
@@ -162,7 +160,7 @@
                       </div>
                       <button ng-click="!currentModel.ui[sectionkey].showingKeys ? currentModel.ui[sectionkey].showingKeys = 2 :
                           currentModel.ui[sectionkey].showingKeys = currentModel.ui[sectionkey].showingKeys + 1"
-                        ng-if="item.type == 'loop' && !isExpKeysSection(sectionkey) && (item.loop_end - item.loop_start + 1) >
+                        ng-if="item.type == 'loop' && !isExpKeysSection(sectionkey) && item.keysIndexes.length >
                           (4 * (!currentModel.ui[sectionkey].showingKeys ? 1 :
                           currentModel.ui[sectionkey].showingKeys))"
                         class="btn btn-default btn-lg mt-30 ml-20">
@@ -227,7 +225,7 @@
               <div class="panel-body">
                 <div ng-show="currentModel.loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
                 <div ng-show="!currentModel.loadingSections[sectionkey]" class="col-lg-12 mt-25 no-border-bottom">
-                  <div ng-if="!currentModel.ui.map.hidden_variables.includes(item.variable)"
+                  <div ng-if="!currentModel.ui.map.hiddenVariables.includes(item.variable)"
                     ng-repeat="item in currentModel.ui[sectionkey].items track by item.variable"
                     class="col-lg-6 mb-15">
                     <!-- list -->

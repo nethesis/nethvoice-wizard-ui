@@ -369,7 +369,7 @@ angular.module('nethvoiceWizardUiApp')
 
     var getModelMap = function (map, name) {
       for (var modelk in map) {
-        if (map[modelk].model.toLowerCase() == name) {
+        if (map[modelk].model.toUpperCase() == name) {
           return map[name]
         }
       }
@@ -393,9 +393,9 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     var getModelUI = function (name, brand) {
-      var map = getModelMap(ProvFanvilService.map(), name)
       switch (brand.toLowerCase()) {
         case "fanvil":
+          var map = getModelMap(ProvFanvilService.map(), name)
           return {
             map: map,
             softKeys: ProvFanvilService.softKeysUI(map),
@@ -409,6 +409,7 @@ angular.module('nethvoiceWizardUiApp')
           break;
       
         case "gigaset":
+          var map = getModelMap(ProvGigasetService.map(), name)
           return {
             map: map,
             general: ProvGigasetService.generalUI(),
@@ -420,6 +421,7 @@ angular.module('nethvoiceWizardUiApp')
           break;
       
         case "sangoma":
+          var map = getModelMap(ProvSangomaService.map(), name)
           return {
             map: map,
             general: ProvSangomaService.generalUI(),
@@ -433,6 +435,7 @@ angular.module('nethvoiceWizardUiApp')
           break;
           
         case "snom":
+          var map = getModelMap(ProvSnomService.map(), name)
           return {
             map: map,
             general: ProvSnomService.generalUI(),
@@ -445,17 +448,16 @@ angular.module('nethvoiceWizardUiApp')
           break;
 
         case "yealink":
+          var map = getModelMap(ProvYealinkService.map(), name)
           return {
             map: map,
-            general: ProvYealinkService.generalUI(map),
-            preference: ProvYealinkService.preferenceUI(map),
-            network: ProvYealinkService.networkUI(map),
-            provisioning: ProvYealinkService.provisioningUI(),
-            softKeys: ProvYealinkService.softKeysUI(map),
-            lineKeys: ProvYealinkService.lineKeysUI(map),
-            lineOptions: ProvYealinkService.lineOptionsUI(),
-            programmableKeys: ProvYealinkService.programmableKeysUI(map),
-            expKeys: ProvYealinkService.expKeysUI(map)
+            general: ProvYealinkService.general(map),
+            preferences: ProvYealinkService.preferences(map),
+            network: ProvYealinkService.network(map),
+            provisioning: ProvYealinkService.provisioning(map),
+            softKeys: handleKeys(ProvYealinkService.softKeys(map)),
+            lineKeys: handleKeys(ProvYealinkService.lineKeys(map)),
+            expansionKeys: handleKeys(ProvYealinkService.expansionKeys(map)),
           }
           break;
 
@@ -465,10 +467,27 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    var handleKeys = function (keys) {
+      // convert keys intervals to a flat list of key numbers
+      if (keys) {
+        var keyIntervals = keys.items[0].keysIntervals;
+        var indexes = [];
+
+        keyIntervals.forEach(function (interval) {
+          for (var i = interval.start; i <= interval.end; i++) {
+            indexes.push(i);
+          }
+        });
+
+        keys.items[0].keysIndexes = indexes;
+        return keys;
+      }
+    }
+
     $scope.buildModel = function (name) {
       return $q(function (resolve, reject) {
         var nameSplit = name.split("-"),
-            modelName = nameSplit[1].toLowerCase(),
+            modelName = nameSplit[1].toUpperCase(),
             modelBrand = nameSplit[0].toLowerCase()
         ModelService.getModel(name).then(function (res) {
           $scope.currentModel = {
