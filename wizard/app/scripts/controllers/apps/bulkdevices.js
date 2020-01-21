@@ -536,5 +536,6 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
+    $scope.validateLocation()
     init();
   });

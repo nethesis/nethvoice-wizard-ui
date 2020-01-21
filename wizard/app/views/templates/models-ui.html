@@ -1,4 +1,13 @@
 <div ng-controller="ModelsUICtrl" class="panel-body profile-panel no-padding">
+  <div ng-show="!loadingModels[model.name] && !modelsInfoMsg" class="col-lg-12 mt-20">
+    <div class="alert alert-info alert-dismissable">
+      <button type="button" ng-click="hideModelsInfoMsg()" class="close" data-dismiss="alert" aria-label="Close">
+        <span class="pficon pficon-close"></span>
+      </button>
+      <span class="pficon pficon-info"></span>
+      <strong>{{"Manage models variables by modifying them from the appropriate section"}}.</strong> {{"Read the" | translate}} <a href="#" class="alert-link">{{"documentation" | translate}}</a>.
+    </div>
+  </div>
   <div class="col-lg-12 profile-list-container mb-0 no-border-bottom">
     <div ng-show="loadingModels[model.name]" class="spinner mt-14"></div>
     <div ng-show="!loadingModels[model.name]">
@@ -408,5 +417,4 @@
       </div>
     </div>
   </div>
-
 </div>

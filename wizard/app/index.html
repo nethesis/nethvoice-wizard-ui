@@ -121,14 +121,13 @@
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('profiles',2) ? 'active' : ''}}">
             <div ng-click="goTo('users/profiles')" class="list-group-item-value menu-item-left no-opacity">{{'Profiles' | translate | ellipsis:'1200'}}</div>
           </div>
-          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('devices',2) ? 'active' : ''}}">
+          <div ng-if="wizard.provisioning != 'tancredi'" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('devices',2) ? 'active' : ''}}">
             <div ng-click="goTo('users/devices')" class="list-group-item-value  menu-item-left no-opacity">{{'Devices' | translate | ellipsis:'1200'}}</div>
           </div>
-          <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('configurations',2) ? 'active' : ''}}">
+          <div ng-if="wizard.provisioning != 'tancredi'" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('configurations',2) ? 'active' : ''}}">
             <div ng-click="goTo('users/configurations')" class="list-group-item-value  menu-item-left no-opacity">{{'Configurations' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
-
         <li data-toggle="collapse"
           data-parent="#navbar-left"
           href="#devicesCollapse"
@@ -178,7 +177,6 @@
             <div class="list-group-item-value  menu-item-left no-opacity">{{'Report' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
-       
         <li data-toggle="collapse" data-parent="#navbar-left" href="#trunksCollapse" ng-if="!wizard.isMigrationView && !wizard.isWizard || wizard.stepCount > appConfig.PART1_STEP"
           class="list-group-item collapse-menu {{resolveActiveTab('trunks',1) ? 'active' : ''}}" id="trunks-item-menu">
           <a>

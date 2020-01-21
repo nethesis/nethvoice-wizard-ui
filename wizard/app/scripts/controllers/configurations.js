@@ -470,6 +470,7 @@ angular.module('nethvoiceWizardUiApp')
       getAllDevices()
     })
 
+    $scope.validateLocation()
     angular.element(document).ready(function () {
       getAllModelsAndUsersAndDevices()
       getAllProfiles()

@@ -324,6 +324,7 @@ angular.module('nethvoiceWizardUiApp')
       return filter == 'unlinked' ? count == device.lines.length : count != device.lines.length;
     };
 
+    $scope.validateLocation()
     $scope.getUserList();
     $scope.getAllProfiles();
     $scope.getAllGroups();

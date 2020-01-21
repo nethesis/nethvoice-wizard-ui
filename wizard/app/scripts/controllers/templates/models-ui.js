@@ -12,6 +12,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.loadingAction = false
     $scope.selectedAction = ""
+    $scope.modelsInfoMsg = ""
 
     $scope.modelErrors = {
       updateReadOnlyAttribute: false,
@@ -163,6 +164,15 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    $scope.hideModelsInfoMsg = function () {
+      localStorage.setItem('modelsInfoMsgHide', true)
+      $scope.modelsInfoMsg = true
+    }
+
+    var getModelsInfoMsg = function () {
+      $scope.modelsInfoMsg = localStorage.getItem('modelsInfoMsgHide')
+    }
+
     var getGlobals = function () {
       ModelService.getDefaults().then(function (res) {
         $scope.currentModel.globals = angular.copy(res.data)
@@ -221,6 +231,8 @@ angular.module('nethvoiceWizardUiApp')
         restErrStatus("updateReadOnlyAttribute", err.data.title)
       })
     }
+
+    getModelsInfoMsg()
 
     $('#saveChangesConfirm').on('hidden.bs.modal', function () {
       $scope.modelErrors.updateReadOnlyAttribute = false

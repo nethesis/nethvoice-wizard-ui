@@ -772,5 +772,6 @@ angular.module('nethvoiceWizardUiApp')
       $scope.showSuccessfullyAddedPhones = !$scope.showSuccessfullyAddedPhones;
     }
 
+    $scope.validateLocation()
     init();
   });

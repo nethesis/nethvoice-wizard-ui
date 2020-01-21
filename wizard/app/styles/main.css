@@ -2936,3 +2936,7 @@ a.black:focus, a.black:hover, a.black:active {
   overflow: auto;
 }
 /* end Inventory */
+
+.lateral-padding-15 {
+  padding: 0px 15px;
+}

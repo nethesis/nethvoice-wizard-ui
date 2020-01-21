@@ -12,54 +12,49 @@ angular.module('nethvoiceWizardUiApp')
 
     this.map = function () {
       return {
-        "xSeries": {
-          "x3": {
-            "model": "X3",
-            "softKeys": true,
-            "lineKeys": 2,
-            "expKeys": false,
-            "hidden_variables": [
-              "language_fanvil"
-            ]
-          },
-          "x4": {
-            "model": "x4",
-            "softKeys": true,
-            "lineKeys": 30,
-            "expKeys": false,
-            "hidden_variables": [
-              "language_fanvil"
-            ]
-          }
+        "x3": {
+          "model": "X3",
+          "softKeys": true,
+          "lineKeys": 2,
+          "expKeys": false,
+          "hidden_variables": [
+            "language_fanvil"
+          ]
         },
-        "XSeries": {
-          "x5": {
-            "model": "x5",
-            "softKeys": true,
-            "lineKeys": 40,
-            "expKeys": {
-              "total": 20,
-              "loops": 5
-            },
-            "hidden_variables": [
-              "language_fanvil2"
-            ]
+        "x4": {
+          "model": "x4",
+          "softKeys": true,
+          "lineKeys": 30,
+          "expKeys": false,
+          "hidden_variables": [
+            "language_fanvil"
+          ]
+        },
+        "x5": {
+          "model": "x5",
+          "softKeys": true,
+          "lineKeys": 40,
+          "expKeys": {
+            "total": 20,
+            "loops": 5
           },
-          "x6": {
-            "model": "x6",
-            "softKeys": true,
-            "lineKeys": 60,
-            "expKeys": {
-              "total": 20,
-              "loops": 5
-            },
-            "hidden_variables": [
-              "language_fanvil2"
-            ]
-          }
+          "hidden_variables": [
+            "language_fanvil2"
+          ]
+        },
+        "x6": {
+          "model": "x6",
+          "softKeys": true,
+          "lineKeys": 60,
+          "expKeys": {
+            "total": 20,
+            "loops": 5
+          },
+          "hidden_variables": [
+            "language_fanvil2"
+          ]
         }
       }
-
     }
 
     this.softKeysUI = function (modelMap) {

@@ -270,9 +270,42 @@ angular.module('nethvoiceWizardUiApp')
       $("#" + id).modal("hide")
     }
 
+    $scope.validateLocation = function () {
+      if ($scope.wizard.provisioning != "tancredi") {
+        switch ($location.path()) {
+          case "/devices/inventory":
+            $location.path('/')
+            break
+          case "/devices/models":
+            $location.path('/')
+            break
+          case "/configurations":
+            $location.path('/')
+            break
+          case "/apps/bulkdevices":
+            $location.path('/')
+            break
+          default:
+            break
+        }
+      } else {
+        switch ($location.path()) {
+          case "/users/devices":
+            $location.path('/')
+            break
+          case "/users/configurations":
+            $location.path('/')
+            break
+          default:
+            break
+        }
+      }
+    }
+
     var getProvisioningInfo = function () {
       ConfigService.getProvisioningInfo().then(function (res) {
         $scope.wizard.provisioning = res.data
+        $scope.validateLocation()
         $scope.view.navbarReadySecond = true
       }, function (err) {
         console.log(err)
@@ -335,17 +368,15 @@ angular.module('nethvoiceWizardUiApp')
     $scope.currentModel = {}
 
     var getModelMap = function (map, name) {
-      for (var fam in map) {
-        for (var modelk in map[fam]) {
-          if (map[fam][modelk].model.toLowerCase() == name) {
-            return map[fam][name]
-          }
+      for (var modelk in map) {
+        if (map[modelk].model.toLowerCase() == name) {
+          return map[name]
         }
       }
     }
 
     var hasOriginalsFromName = function (name) {
-      return (name.split("-").length)-1 == 1 ? true : false 
+      return (name.split("-").length)-1 == 1 ? true : false
     }
 
     var getGlobals = function () {
@@ -362,9 +393,9 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     var getModelUI = function (name, brand) {
+      var map = getModelMap(ProvFanvilService.map(), name)
       switch (brand.toLowerCase()) {
         case "fanvil":
-          var map = getModelMap(ProvFanvilService.map(), name)
           return {
             map: map,
             softKeys: ProvFanvilService.softKeysUI(map),
@@ -378,7 +409,6 @@ angular.module('nethvoiceWizardUiApp')
           break;
       
         case "gigaset":
-          var map = getModelMap(ProvGigasetService.map(), name)
           return {
             map: map,
             general: ProvGigasetService.generalUI(),
@@ -390,7 +420,6 @@ angular.module('nethvoiceWizardUiApp')
           break;
       
         case "sangoma":
-          var map = getModelMap(ProvSangomaService.map(), name)
           return {
             map: map,
             general: ProvSangomaService.generalUI(),
@@ -404,7 +433,6 @@ angular.module('nethvoiceWizardUiApp')
           break;
           
         case "snom":
-          var map = getModelMap(ProvSnomService.map(), name)
           return {
             map: map,
             general: ProvSnomService.generalUI(),
@@ -417,7 +445,6 @@ angular.module('nethvoiceWizardUiApp')
           break;
 
         case "yealink":
-          var map = getModelMap(ProvYealinkService.map(), name)
           return {
             map: map,
             general: ProvYealinkService.generalUI(map),
