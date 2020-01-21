@@ -59,7 +59,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.onVariableChanged = function (varName, type) {
-      if (type == "list" && $scope.currentModel.variables[varName] == "") {
+      if ($scope.currentModel.variables[varName] == "") {
         delete $scope.currentModel.variables[varName]
       }
       
