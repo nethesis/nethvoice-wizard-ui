@@ -128,7 +128,6 @@ angular.module('nethvoiceWizardUiApp')
 
       $timeout(function () {
         $scope.devicesNotLinkedHeight = 'calc(100vh - ' + ($('#devices-not-linked-list')[0].getBoundingClientRect().y + 100) + 'px)';
-        console.log("devicesNotLinkedHeight") ////
       }, 1000);
     }
 

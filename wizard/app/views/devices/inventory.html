@@ -223,7 +223,7 @@
                     <label class="col-sm-4 control-label" for="manual-mac">{{ 'MAC address' | translate }}</label>
                     <div class="col-sm-8">
                       <input type="text" id="manual-mac" name="manualMac" class="form-control" ng-model="manualMac"
-                        ng-change="inputMacManualChanged()" maxlength="17">
+                        ng-change="inputMacManualChanged()">
                       <span ng-show="manualMacSyntaxError"
                         class="help-block left">{{ 'Invalid MAC address' | translate }}</span>
                       <span ng-show="manualMacUnknownVendor" class="help-block left">{{ "Unknown vendor. Please configure this phone later as a 'custom device' in Configurations page" | translate }}</span>
@@ -397,7 +397,7 @@
                                   <!-- MAC -->
                                   <input type="text" id="mac-phone-to-add-{{$index}}" name="mac{{$index}}"
                                     class="form-control" ng-model="phone.mac" ng-disabled="addModalType === 'scanning'"
-                                    ng-change="macPhoneToAddChanged(phone)" maxlength="17">
+                                    ng-change="macPhoneToAddChanged(phone)">
                                 </div>
                                 <div class="list-group-item-text width-12p">
                                   {{ phone.vendor ? phone.vendor : '-' }}
