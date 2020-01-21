@@ -482,6 +482,7 @@ angular.module('nethvoiceWizardUiApp')
             "openedExpKeys": "",
             "showingKeys": "",
             "showingExpKeys": "",
+            "changed": false,
             "hasOriginals": hasOriginalsFromName(name),
             "hidden": false
           }
@@ -492,6 +493,16 @@ angular.module('nethvoiceWizardUiApp')
         })
       })
     }
+
+    $scope.$on('curentModelSaved', function() { 
+      $scope.currentModel.changed = false
+    })
+
+    $scope.$on('variableChanged', function() { 
+      if (!$scope.currentModel.changed) {
+        $scope.currentModel.changed = true
+      }
+    })
 
     $scope.$on('$routeChangeStart', function() {
       if ($location.path() == '/devices/models' || $location.path() == '/configurations'){

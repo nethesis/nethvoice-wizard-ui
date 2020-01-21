@@ -28,8 +28,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.newModelCustomName = ""
     $scope.newModelShown = false
 
-    var modelNameChecking = "",
-        currentModelChanged = false
+    var modelNameChecking = ""
 
     // get all models
     var getModels = function () {
@@ -45,7 +44,7 @@ angular.module('nethvoiceWizardUiApp')
     // function for the currentModel creation
     $scope.setCurrentModel = function (name) {
       if ($scope.currentModel.name != name) {
-        currentModelChanged = false
+        $scope.currentModel.changed = false
         $scope.loadingModels[name] = true
         $scope.buildModel(name).then(function (res) {
 
@@ -65,7 +64,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.checkCurrentModelChanged = function (name) {
       if ($scope.currentModel.name != name) {
-        if (currentModelChanged) {
+        if ($scope.currentModel.changed) {
           console.log("CURRENT MODEL CHANGED ")
           modelNameChecking = name
           $("#modelChangeConfirm").modal("show")
@@ -228,16 +227,6 @@ angular.module('nethvoiceWizardUiApp')
       resetModelsErrors()
       $scope.newModelCustomName = ''
       $scope.$apply()
-    })
-
-    $scope.$on('curentModelSaved', function() { 
-      currentModelChanged = false
-    })
-
-    $scope.$on('variableChanged', function() { 
-      if (!currentModelChanged) {
-        currentModelChanged = true
-      }
     })
 
     $scope.$on('reloadModels', function() { 

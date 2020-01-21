@@ -2940,3 +2940,11 @@ a.black:focus, a.black:hover, a.black:active {
 .lateral-padding-15 {
   padding: 0px 15px;
 }
+
+.changed-color {
+  color: #2c88ce;
+}
+
+.not-changed-color {
+  color: #363636;
+}

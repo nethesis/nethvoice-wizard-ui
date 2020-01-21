@@ -256,7 +256,7 @@
                     </div>
                     <!-- input -->
                     <div ng-if="item.type == 'input'" class="form-group">
-                      <label class="control-label">{{::item.description | translate}}</label>
+                      <label class="control-label">{{item.description | translate}}</label>
                       <input 
                         id="{{sectionkey}}-input-{{$index}}"
                         ng-model="currentModel.variables[item.variable]"
@@ -281,18 +281,18 @@
   </button>
   <div ng-show="!loadingModels[model.name]" class="dropdown profile-button-save mb-10 mt-30">
     <button class="btn btn-default btn-lg dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-      {{'More actions' | translate}}
+      {{'Actions' | translate}}
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
       <li role="presentation">
-        <a ng-click="openActionModal('cancel')" role="menuitem">
-          {{"Cancel changes"}}
+        <a class="{{!currentModel.changed ? 'disabled' : ''}}" ng-click="currentModel.changed ? openActionModal('cancel') : ''" role="menuitem">
+          {{"Cancel not saved changes"}}
         </a>
       </li>
       <li ng-if="currentModel.hasOriginals" role="presentation">
         <a ng-click="openActionModal('reset')">
-          {{"Reset the original values" | translate}}
+          {{"Reset to the original values" | translate}}
         </a>
       </li>
       <li ng-if="!currentModel.hasOriginals" role="presentation" class="red-colored">

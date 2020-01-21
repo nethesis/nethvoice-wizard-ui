@@ -62,6 +62,10 @@ angular.module('nethvoiceWizardUiApp')
       if (type == "list" && $scope.currentModel.variables[varName] == "") {
         delete $scope.currentModel.variables[varName]
       }
+      
+      console.log("STORED VARIABLES", $scope.currentModel.storedVariables);
+      console.log("VARIABLES", $scope.currentModel.variables);
+
       $scope.$emit('variableChanged')
     }
 
