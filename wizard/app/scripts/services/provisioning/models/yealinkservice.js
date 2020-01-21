@@ -756,7 +756,7 @@ angular.module('nethvoiceWizardUiApp')
       if (modelMap.settings) {
         settingsItems = [
           {
-            "variable": "yealink.language(language)", //// todo should rename according to macro?
+            "variable": "language",
             "description": "Language display (phone UI)",
             "type": "list",
             "options": [
@@ -812,7 +812,7 @@ angular.module('nethvoiceWizardUiApp')
             "type": "input"
           },
           {
-            "variable": "yealink.timezone(timezone)", //// todo should rename according to macro?
+            "variable": "timezone",
             "description": "Time zone",
             "type": "list",
             "options": [
@@ -2507,7 +2507,7 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "variable": "yealink.timezoneName(timezone)", //// todo should rename according to macro?
+            "variable": "timezoneName",
             "description": "Time zone name",
             "type": "list",
             "options": [
@@ -4202,7 +4202,7 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "variable": "yealink.tonezone(tonezone)", //// todo should rename according to macro?
+            "variable": "tonezone",
             "description": "Tone zone",
             "type": "list",
             "options": [
