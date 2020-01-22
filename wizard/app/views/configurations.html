@@ -242,7 +242,7 @@
                                   ng-model="device.model"
                                   ng-options="model.display_name for model in device.filteredModels | orderBy:orderByValue"
                                 >
-                                  <option value="">{{ 'No model' | translate }}</option>
+                                  <option value="">-</option>
                                 </select>
                                 <button ng-click="setCurrentModelConf(device.model)" data-toggle="modal"
                                   data-target="#singleModelModal"
