@@ -423,9 +423,14 @@ angular.module('nethvoiceWizardUiApp')
       $('#bulkDelayedRebootModal').modal('hide');
     }
 
+    $scope.toggleShowPhonesNotRebooted = function () {
+      $scope.showPhonesNotRebooted = !$scope.showPhonesNotRebooted;
+    }
+
     $scope.bulkRebootNow = function () {
       var rebootData = {};
-
+      $scope.showPhonesNotRebooted = false;
+      $scope.rebootNowInProgress = true;
 
       $scope.phones.forEach(function (phone) {
         if (phone.selected) {
@@ -434,36 +439,41 @@ angular.module('nethvoiceWizardUiApp')
       });
       PhoneService.setPhoneReboot(rebootData).then(function (success) {
         // check partial failure
-        var errors = [];
+        $scope.phonesNotRebooted = [];
 
         Object.keys(success.data).forEach(function (mac) {
           var rebootResult = success.data[mac];
 
           if (rebootResult.code !== 204) {
             // failure
-            rebootResult['mac'] = mac;
-            errors.push(rebootResult);
+            console.log(rebootResult);
+            var phoneNotRebooted = $scope.phones.find(function (phone) {
+              return phone.mac === mac;
+            });
+            $scope.phonesNotRebooted.push(phoneNotRebooted);
           }
         });
+        $scope.rebootNowInProgress = false;
+        $scope.showResultsRebootNow = true;
 
-        if (errors.length) {
-          console.log(errors);
-          addErrorNotification(errors[0], "Error rebooting some phones", true);
-        } else {
+        if (!$scope.phonesNotRebooted.length) {
           // success
-          $scope.successMessage = "Reboot command was sent";
-          $scope.showSuccess = true;
-
           $timeout(function () {
-            $scope.showSuccess = false;
-            $scope.successMessage = null;
-          }, 4000);
+            $('#reboot-now-modal').modal('hide');
+            $scope.showResultsRebootNow = false;
+          }, 3000);
         }
       }, function (err) {
         console.log(err);
+        $scope.rebootNowInProgress = false;
         addErrorNotification(err.data, "Error rebooting phones");
+        $('#reboot-now-modal').modal('hide');
       });
-      $('#reboot-now-modal').modal('hide');
+    }
+
+    $scope.showRebootNowModal = function () {
+      $scope.showResultsRebootNow = false;
+      $('#reboot-now-modal').modal('show');
     }
 
     $scope.showSetModelModal = function () {
