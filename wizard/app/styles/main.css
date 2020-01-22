@@ -2668,7 +2668,7 @@ F
   overflow-x: hidden;
 }
 
-.successfully-added-phones {
+.toggle-legend-list {
   max-height: 90px;
   overflow: auto;
   overflow-x: hidden;
@@ -2914,12 +2914,12 @@ a.black:focus, a.black:hover, a.black:active {
   margin-left: 5px;
 }
 
-.toggle-successfully-added-phones {
+.toggle-legend {
   float: none;
   padding-left: 0;
 }
 
-.toggle-successfully-added-phones a {
+.toggle-legend a {
   color: #363636;
 }
 
