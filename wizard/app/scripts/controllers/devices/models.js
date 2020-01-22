@@ -32,7 +32,7 @@ angular.module('nethvoiceWizardUiApp')
 
     // get all models
     var getModels = function () {
-      ModelService.getModels().then(function (res) {
+      ModelService.getUsedModels().then(function (res) {
         $scope.inventoryModels = res.data
         $scope.view.changeRoute = false
       }, function (err) {
@@ -129,7 +129,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.listModels = function () {
-      ModelService.getModels().then(function (res) {
+      ModelService.getUsedModels().then(function (res) {
         console.log("RES GET", res);
       }, function (err) {
         console.log(err)

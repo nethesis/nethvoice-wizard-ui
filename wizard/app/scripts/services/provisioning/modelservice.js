@@ -72,6 +72,17 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    // Retrieve all the used models
+    this.getUsedModels = function () {
+      return $q(function (resolve, reject) {
+        RestService.tget('/tancredi/api/v1/models?filter[used]').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
     // Retrieve model
     this.getModel = function (name) {
       return $q(function (resolve, reject) {
