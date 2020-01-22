@@ -379,19 +379,6 @@ angular.module('nethvoiceWizardUiApp')
       return (name.split("-").length)-1 == 1 ? true : false
     }
 
-    var getGlobals = function () {
-      ModelService.getDefaults().then(function (res) {
-        $scope.currentModel.globals = angular.copy(res.data)
-        for (var globalVariables in res.data) {
-          if (!$scope.currentModel.variables[globalVariables]) {
-            $scope.currentModel.variables[globalVariables] = angular.copy(res.data[globalVariables])
-          }
-        }
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
     var getModelUI = function (name, brand) {
       switch (brand.toLowerCase()) {
         case "fanvil":
@@ -472,13 +459,11 @@ angular.module('nethvoiceWizardUiApp')
       if (keys) {
         var keyIntervals = keys.items[0].keysIntervals;
         var indexes = [];
-
         keyIntervals.forEach(function (interval) {
           for (var i = interval.start; i <= interval.end; i++) {
             indexes.push(i);
           }
         });
-
         keys.items[0].keysIndexes = indexes;
         return keys;
       }
@@ -492,9 +477,9 @@ angular.module('nethvoiceWizardUiApp')
         ModelService.getModel(name).then(function (res) {
           $scope.currentModel = {
             "ui" : getModelUI(modelName, modelBrand),
+            "storedVariables": angular.copy(res.data.variables),
             "variables" : angular.copy(res.data.variables),
             "globals": {},
-            "storedVariables": angular.copy(res.data.variables),
             "name" : name,
             "display_name" : res.data.display_name,
             "openedSection" : "",
@@ -510,6 +495,20 @@ angular.module('nethvoiceWizardUiApp')
         }, function () {
           reject(err)
         })
+      })
+
+    }
+
+    var getGlobals = function () {
+      ModelService.getDefaults().then(function (res) {
+        $scope.currentModel.globals = angular.copy(res.data)
+        for (var globalVariables in res.data) {
+          if (!$scope.currentModel.variables[globalVariables]) {
+            $scope.currentModel.variables[globalVariables] = angular.copy(res.data[globalVariables])
+          }
+        }
+      }, function (err) {
+        console.log(err)
       })
     }
 

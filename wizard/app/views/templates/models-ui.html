@@ -34,7 +34,7 @@
                       <!-- if the item type is a loop -->
                       <div ng-if="item.type == 'loop'">
                         <!-- if exp keys -->
-                        <div ng-if="isExpKeysSection(sectionkey)">
+                        <div class="mt-30 mb-10" ng-if="isExpKeysSection(sectionkey)">
                           <div class="mt-20" ng-repeat="module in [] | range: item.modules track by module">
                             <h2 ng-click="openExpKeys('expkeys-' + (module + 1), sectionkey)"
                               class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
@@ -56,7 +56,9 @@
                                       <div class="col-lg-3" ng-repeat="key in keys" ng-if="!currentModel.ui.map.hiddenVariables.includes(key.variable + '_' + keysIndex)">
                                         <!-- list -->
                                         <div ng-if="key.type == 'list'" class="form-group">
-                                          <label class="mt-10 control-label"> {{::key.description | translate}}
+                                          <label class="mt-10 control-label {{currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + (module + 1) + '_' + keysIndex] && currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? 'changed-color' : 'not-changed-color'}}">
+                                            {{key.description | translate}}
+                                            {{currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + (module + 1) + '_' + keysIndex] && currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? '(changed)' : '' | translate}}
                                           </label>
                                           <div class="hidden">
                                             <select
@@ -81,12 +83,14 @@
                                         </div>
                                         <!-- input -->
                                         <div ng-if="key.type == 'input'" class="form-group">
-                                          <label class="mt-10 control-label"> {{::key.description | translate}}
+                                          <label class="mt-10 control-label {{currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + (module + 1) + '_' + keysIndex] && currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? 'changed-color' : 'not-changed-color'}}">
+                                            {{::key.description | translate}}
+                                            {{currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + (module + 1) + '_' + keysIndex] && currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? '(changed)' : '' | translate}}
                                           </label>
                                           <input
                                             ng-model="currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex]"
                                             ng-change="onVariableChanged(key.variable + '_' + (module + 1) + '_' + keysIndex)"
-                                            placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : ''}}"
+                                            placeholder="{{currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] + ' (default)' : ''}}"
                                             type="text" class="form-control">
                                           </input>
                                         </div>
@@ -118,7 +122,9 @@
                               <div class="col-lg-3" ng-repeat="key in keys" ng-if="!currentModel.ui.map.hiddenVariables.includes(key.variable + '_' + keysIndex)">
                                 <!-- list -->
                                 <div ng-if="key.type == 'list'" class="form-group">
-                                  <label class="mt-10 control-label"> {{::key.description | translate}}
+                                  <label class="mt-10 control-label {{currentModel.variables[key.variable + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + keysIndex] && currentModel.variables[key.variable + '_' + keysIndex] != currentModel.globals[key.variable + '_' + keysIndex] ? 'changed-color' : 'not-changed-color'}}">
+                                    {{::key.description | translate}}
+                                    {{currentModel.variables[key.variable + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + keysIndex] && currentModel.variables[key.variable + '_' + keysIndex] != currentModel.globals[key.variable + '_' + keysIndex] ? '(changed)' : '' | translate}}
                                   </label>
                                   <div class="hidden">
                                     <select
@@ -143,12 +149,14 @@
                                 </div>
                                 <!-- input -->
                                 <div ng-if="key.type == 'input' || key.type == 'password'" class="form-group">
-                                  <label class="mt-10 control-label"> {{::key.description | translate}}
+                                  <label class="mt-10 control-label {{currentModel.variables[key.variable + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + keysIndex] && currentModel.variables[key.variable + '_' + keysIndex] != currentModel.globals[key.variable + '_' + keysIndex] ? 'changed-color' : 'not-changed-color'}}">
+                                    {{::key.description | translate}}
+                                    {{currentModel.variables[key.variable + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + keysIndex] && currentModel.variables[key.variable + '_' + keysIndex] != currentModel.globals[key.variable + '_' + keysIndex] ? '(changed)' : '' | translate}}
                                   </label>
                                   <input
                                     ng-model="currentModel.variables[key.variable + '_' + keysIndex]"
                                     ng-change="onVariableChanged(key.variable + '_' + keysIndex)"
-                                    placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : ''}}"
+                                    placeholder="{{currentModel.globals[key.variable + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + keysIndex] + ' (default)' : ''}}"
                                     type="text"
                                     class="form-control">
                                   </input>
@@ -171,7 +179,10 @@
                         ng-repeat="key in keys track by $index">
                         <!-- list -->
                         <div ng-if="key.type == 'list'" class="form-group">
-                          <label class="mt-10 control-label">{{::key.description | translate}}</label>
+                          <label class="mt-10 control-label {{currentModel.variables[key.variable] != currentModel.storedVariables[key.variable] && currentModel.variables[key.variable] != currentModel.globals[key.variable] ? 'changed-color' : 'not-changed-color'}}">
+                            {{::key.description | translate}}
+                            {{currentModel.variables[key.variable] != currentModel.storedVariables[key.variable] && currentModel.variables[key.variable] != currentModel.globals[key.variable] ? '(changed)' : '' | translate}}
+                          </label>
                           <div class="hidden">
                             <select
                               id="{{sectionkey}}-select-{{$index+1}}"
@@ -195,7 +206,10 @@
                         </div>
                         <!-- input -->
                         <div ng-if="key.type == 'input'" class="form-group">
-                          <label class="mt-10 control-label">{{::key.description | translate}}</label>
+                          <label class="mt-10 control-label {{currentModel.variables[item.variable] != currentModel.storedVariables[key.variable] && currentModel.variables[key.variable] != currentModel.globals[key.variable] ? 'changed-color' : 'not-changed-color'}}">
+                            {{::key.description | translate}}
+                            {{currentModel.variables[key.variable] != currentModel.storedVariables[key.variable] && currentModel.variables[key.variable] != currentModel.globals[key.variable] ? '(changed)' : '' | translate}}
+                          </label>
                           <input
                             id="{{sectionkey}}-input-{{$index+1}}"
                             ng-model="currentModel.variables[key.variable]"
@@ -230,7 +244,10 @@
                     class="col-lg-6 mb-15">
                     <!-- list -->
                     <div ng-if="item.type == 'list'" class="form-group">
-                      <label class="control-label">{{::item.description | translate}}</label>
+                      <label class="control-label {{currentModel.variables[item.variable] != currentModel.storedVariables[item.variable] && currentModel.variables[item.variable] != currentModel.globals[item.variable] ? 'changed-color' : 'not-changed-color'}}">
+                        {{::item.description | translate}}
+                        {{currentModel.variables[item.variable] != currentModel.storedVariables[item.variable] && currentModel.variables[item.variable] != currentModel.globals[item.variable] ? '(changed)' : '' | translate}}
+                      </label>
                       <div class="hidden">
                         <select
                           id="{{sectionkey}}-select-{{$index}}"
@@ -254,7 +271,10 @@
                     </div>
                     <!-- input -->
                     <div ng-if="item.type == 'input'" class="form-group">
-                      <label class="control-label">{{item.description | translate}}</label>
+                      <label class="control-label {{currentModel.variables[item.variable] != currentModel.storedVariables[item.variable] && currentModel.variables[item.variable] != currentModel.globals[item.variable] ? 'changed-color' : 'not-changed-color'}}">
+                        {{item.description | translate}}
+                        {{currentModel.variables[item.variable] != currentModel.storedVariables[item.variable] && currentModel.variables[item.variable] != currentModel.globals[item.variable] ? '(changed)' : '' | translate}}
+                      </label>
                       <input 
                         id="{{sectionkey}}-input-{{$index}}"
                         ng-model="currentModel.variables[item.variable]"

@@ -62,9 +62,10 @@ angular.module('nethvoiceWizardUiApp')
       if ($scope.currentModel.variables[varName] == "") {
         delete $scope.currentModel.variables[varName]
       }
-      
-      console.log("STORED VARIABLES", $scope.currentModel.storedVariables);
-      console.log("VARIABLES", $scope.currentModel.variables);
+
+      console.log("GLOBAL VARIABLES", $scope.currentModel.globals)
+      console.log("STORED VARIABLES", $scope.currentModel.storedVariables)
+      console.log("VARIABLES", $scope.currentModel.variables)
 
       $scope.$emit('variableChanged')
     }
@@ -117,7 +118,7 @@ angular.module('nethvoiceWizardUiApp')
             $scope.$emit('curentModelSaved')
           }, 500)
         }, 1500)
-      }, 1000)
+      }, 1500)
     }
 
     $scope.resetChanges = function () {
@@ -192,17 +193,6 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    var getVariables = function () {
-      ModelService.getModel($scope.currentModel.name).then(function (res) {
-        $scope.currentModel.storedVariables = angular.copy(res.data.variables)
-        $scope.currentModel.variables = res.data.variables
-        getGlobals()
-      }, function (err) {
-        console.log(err)
-        restErrStatus("updateReadOnlyAttribute", err.data.title)
-      })
-    }
-
     var resetErrMessage = function () {
       $scope.modelErrors.updateReadOnlyAttribute = false
       $scope.modelErrors.resetChangesNotFound = false
@@ -230,6 +220,17 @@ angular.module('nethvoiceWizardUiApp')
           }, 500)
         },2000)
         getVariables()
+      }, function (err) {
+        console.log(err)
+        restErrStatus("updateReadOnlyAttribute", err.data.title)
+      })
+    }
+
+    var getVariables = function () {
+      ModelService.getModel($scope.currentModel.name).then(function (res) {
+        $scope.currentModel.storedVariables = angular.copy(res.data.variables)
+        $scope.currentModel.variables = res.data.variables
+        getGlobals()
       }, function (err) {
         console.log(err)
         restErrStatus("updateReadOnlyAttribute", err.data.title)
