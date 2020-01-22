@@ -438,13 +438,13 @@ angular.module('nethvoiceWizardUiApp')
           var map = getModelMap(ProvYealinkService.map(), name)
           return {
             map: map,
+            softKeys: handleKeys(ProvYealinkService.softKeys(map)),
+            lineKeys: handleKeys(ProvYealinkService.lineKeys(map)),
+            expansionKeys: handleKeys(ProvYealinkService.expansionKeys(map)),
             general: ProvYealinkService.general(map),
             preferences: ProvYealinkService.preferences(map),
             network: ProvYealinkService.network(map),
             provisioning: ProvYealinkService.provisioning(map),
-            softKeys: handleKeys(ProvYealinkService.softKeys(map)),
-            lineKeys: handleKeys(ProvYealinkService.lineKeys(map)),
-            expansionKeys: handleKeys(ProvYealinkService.expansionKeys(map)),
           }
           break;
 
