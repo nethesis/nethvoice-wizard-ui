@@ -208,7 +208,6 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     // initialisation
-    $scope.validateLocation()
     angular.element(document).ready(function () {
       getModels()
     })

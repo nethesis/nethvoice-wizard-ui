@@ -114,7 +114,6 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    $scope.validateLocation()
     $scope.getNetworkList(true);
     $scope.getPhoneModelList();
   });

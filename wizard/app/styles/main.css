@@ -1869,6 +1869,10 @@ F
   margin-bottom: 20px !important;
 }
 
+.mb-25 {
+  margin-bottom: 25px !important;
+}
+
 .mb-30 {
   margin-bottom: 30px !important;
 }
@@ -2498,9 +2502,19 @@ F
 
 .loop-keys-index {
   font-weight: 600;
-  margin-top: 24px;
-  margin-bottom: 10px;
+  margin-top: 13px;
+  padding-left: 20px;
+  margin-bottom: 13px;
   font-size: 15.2px;
+}
+
+.loop-keys-index::before {
+  content: "";
+  height: 3px;
+  position: absolute;
+  top: 39px;
+  width: 35px;
+  background-color: #ddd;
 }
 
 .padding-lateral-null {
@@ -2954,3 +2968,4 @@ a.black:focus, a.black:hover, a.black:active {
   padding-top: 15px;
   padding-bottom: 15px;
 }
+

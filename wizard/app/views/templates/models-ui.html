@@ -49,8 +49,8 @@
                                   <div ng-if="(4 * (!currentModel.ui[sectionkey].showingExpKeys ? 1 :
                                       currentModel.ui[sectionkey].showingExpKeys)) > $index"
                                     ng-repeat="keysIndex in item.keysIndexes track by $index">
-                                    <div class="no-lateral-padding col-lg-12 mb-30 loop-key">
-                                      <div class="col-lg-3 loop-keys-index">
+                                    <div class="no-lateral-padding col-lg-12">
+                                      <div class="loop-keys-index">
                                         {{::item.description | translate}} {{keysIndex}}
                                       </div>
                                       <div class="col-lg-3" ng-repeat="key in keys" ng-if="!currentModel.ui.map.hiddenVariables.includes(key.variable + '_' + keysIndex)">
@@ -111,8 +111,8 @@
                           <div ng-if="(4 * (!currentModel.ui[sectionkey].showingKeys ? 1 :
                             currentModel.ui[sectionkey].showingKeys)) > $index"
                             ng-repeat="keysIndex in item.keysIndexes track by $index">
-                            <div class="no-lateral-padding col-lg-12 mb-30 loop-key">
-                              <div class="col-lg-3 loop-keys-index">
+                            <div class="no-lateral-padding col-lg-12">
+                              <div class="loop-keys-index">
                                 {{::item.description | translate}} {{keysIndex}}
                               </div>
                               <div class="col-lg-3" ng-repeat="key in keys" ng-if="!currentModel.ui.map.hiddenVariables.includes(key.variable + '_' + keysIndex)">
