@@ -26,11 +26,7 @@
         {{ successMessage | translate }}
       </div>
     </div>
-    <!-- loading UI -->
-    <div class="centered" ng-show="!uiLoaded">
-      <span class="spinner spinner-large"></span>
-    </div>
-    <div ng-show="uiLoaded">
+    <div>
       <!-- empty state -->
       <div ng-show="phones.length == 0" class="blank-slate-pf">
         <div class="blank-slate-pf-icon">
@@ -200,7 +196,7 @@
 
       </div>
 
-    </div>
+    </div
 
     <!-- set reboot modal -->
     <div class="modal fade" id="bulkDelayedRebootModal" tabindex="-1" role="dialog"
@@ -270,19 +266,18 @@
             <div class="modal-body">
               <div class="alert alert-warning alert-dismissable">
                 <span class="pficon pficon-warning-triangle-o"></span>
-                <span class="margin-left-5">
-                  {{ 'You are about to reboot' | translate }} <b>{{ numSelected }}
-                    {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}</b>.
-                  {{ 'Only phones with an extension registered will be successfully rebooted' | translate }}
-                </span>
+                <p>
+                  <strong>{{ 'You are about to reboot' | translate }} {{ numSelected }}
+                    {{ numSelected > 1 ? ('phones' | translate) : ('phone' | translate) }}.
+                  </strong>
+                </p>
+                <p>
+                  {{ 'Only phones with an extension registered will be successfully rebooted' | translate }}.
+                </p>
+                <p>
+                  {{ 'Are you sure' | translate }}?
+                </p>
               </div>
-              <form class="form-horizontal">
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">
-                    {{ 'Are you sure' | translate }}?
-                  </label>
-                </div>
-              </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
