@@ -2945,11 +2945,17 @@ a.black:focus, a.black:hover, a.black:active {
   overflow: auto;
 }
 
+/* end Inventory */
+
 #devices-not-linked-list {
   height: calc(100vh - 300px);
   overflow: auto;
 }
-/* end Inventory */
+
+#configurationList {
+  height: calc(100vh - 300px);
+  overflow: auto;
+}
 
 .lateral-padding-15 {
   padding: 0px 15px;
