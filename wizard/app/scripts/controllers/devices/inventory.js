@@ -13,7 +13,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.models = [];
     $scope.tasks = {};
     $scope.networkScanInProgress = false;
-    $scope.uiLoaded = false;
+    $scope.view.changeRoute = true;
     $scope.pastedMacs = [];
     $scope.successfulAddPhones = [];
     $scope.failedAddPhones = [];
@@ -60,7 +60,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     function init() {
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
       $scope.hideInventoryHelp = LocalStorageService.get('hideInventoryHelp');
 
       Promise.all([
@@ -73,12 +73,12 @@ angular.module('nethvoiceWizardUiApp')
         gotNetworks(res[2].data);
 
         $scope.$apply(function () {
-          $scope.uiLoaded = true;
+          $scope.view.changeRoute = false;
         });
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving data");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     }
 
@@ -88,28 +88,28 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.getPhones = function () {
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
 
       PhoneService.getPhones().then(function (success) {
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
         gotPhones(success.data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving phones");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     };
 
     $scope.getModels = function () {
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
 
       ModelService.getModels().then(function (success) {
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
         gotModels(success.data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving models");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     }
 
@@ -696,7 +696,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.deletePhone = function () {
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
       $('#deletePhoneModal').modal('hide');
 
       // delete phone on Tancredi
@@ -706,21 +706,21 @@ angular.module('nethvoiceWizardUiApp')
         UserService.deletePhysicalExtension($scope.phoneToDelete.mac).then(function (res) {
           // delete delayed reboot (if present)
           PhoneService.deletePhoneDelayedReboot([$scope.phoneToDelete.mac]).then(function (res) {
-            $scope.uiLoaded = true;
+            $scope.view.changeRoute = false;
           }, function (err) {
             console.log(err);
             addErrorNotification(err.data, "Error canceling delayed reboot");
-            $scope.uiLoaded = true;
+            $scope.view.changeRoute = false;
           });
         }, function (errorCorbera) {
           console.log(errorCorbera);
           addErrorNotification(errorCorbera.data, "Error deleting phone");
-          $scope.uiLoaded = true;
+          $scope.view.changeRoute = false;
         });
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error deleting phone");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     }
 
@@ -742,15 +742,15 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.getNetworks = function () {
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
 
       ConfigService.getNetworks().then(function (success) {
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
         gotNetworks(success.data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving network interfaces");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     };
 
