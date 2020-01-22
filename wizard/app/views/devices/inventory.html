@@ -20,11 +20,7 @@
         <span ng-show="error.title"><i>{{ error.title }}</i>.</span>
       </div>
     </div>
-    <!-- loading UI -->
-    <div class="centered" ng-show="!uiLoaded">
-      <span class="spinner spinner-large"></span>
-    </div>
-    <div ng-show="uiLoaded">
+    <div>
       <!-- inventory help notification -->
       <div class="alert alert-info alert-dismissable bg-color-white"
         ng-show="phones.length !== 0 && !hideInventoryHelp">
