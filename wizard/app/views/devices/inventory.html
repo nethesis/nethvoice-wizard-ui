@@ -469,18 +469,17 @@
             <div class="modal-body">
               <div class="alert alert-warning alert-dismissable">
                 <span class="pficon pficon-warning-triangle-o"></span>
-                <span class="margin-left-5">
-                  {{ 'You are about to delete phone' | translate }}
-                  <b>{{ phoneToDelete.vendor ? phoneToDelete.vendor : ''}} {{ phoneToDelete.mac }}</b>
-                </span>
+                <p>
+                  <strong>
+                    {{ 'You are about to delete phone' | translate }}
+                    {{ phoneToDelete.vendor ? phoneToDelete.vendor : ''}}
+                    {{ phoneToDelete.mac }}
+                  </strong>.
+                </p>
+                <p>
+                  {{ 'Are you sure' | translate }}?
+                </p>
               </div>
-              <form class="form-horizontal">
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">
-                    {{ 'Are you sure' | translate }}?
-                  </label>
-                </div>
-              </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
