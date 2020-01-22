@@ -123,7 +123,7 @@
                       ng-model="phone.model"
                       ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
                     >
-                      <option value="">{{ 'No model' | translate }}</option>
+                      <option value="">-</option>
                     </select>
                     <span ng-show="modelLoaders[phone.mac] === 'success'"
                       class="pficon pficon-ok set-model-feedback"></span>
@@ -235,7 +235,7 @@
                       <select class="form-control" pf-select="{ noneSelectedText: '-' }" data-live-search="true" data-size="5"
                         ng-model="manualModel" ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue"
                         ng-disabled="getManualFilteredModelsCount()" id="manual-model">
-                        <option value="">{{ 'No model' | translate }}</option>
+                        <option value="">-</option>
                       </select>
                     </div>
                   </div>
@@ -407,7 +407,7 @@
                                     data-container="body"
                                     ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
                                     id="model-phone-to-add-{{$index}}">
-                                    <option value="">{{ 'No model' | translate }}</option>
+                                    <option value="">-</option>
                                   </select>
                                 </div>
                               </div>
