@@ -460,8 +460,7 @@ angular.module('nethvoiceWizardUiApp')
           // success
           $timeout(function () {
             $('#reboot-now-modal').modal('hide');
-            $scope.showResultsRebootNow = false;
-          }, 3000);
+          }, 2000);
         }
       }, function (err) {
         console.log(err);
