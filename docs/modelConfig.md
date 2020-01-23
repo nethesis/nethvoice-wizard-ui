@@ -7,6 +7,10 @@ For instance, every template should use the same variable names to configure sof
 
 ## UI organization
 
+To ease the development of the models configuration UI, variables have been organized in *features* and *sections*.
+
+### Features
+
 Configuration variables are grouped by feature.
 Declaring that a phone model supports a certain feature means that the model supports all the variables related to that feature.
 The features that have been defined are the following:
@@ -24,56 +28,95 @@ The features that have been defined are the following:
 - `vlan`
 - `provisioning`
 
-Some examples of variables related to features:
+This is the current list of variables related to features:
 
 - `softKeys`
   - `softkey_type`
   - `softkey_label`
-  - `...`
+  - `softkey_value`
+  - `softkey_line`
+  - `softkey_history_type`
+  - `softkey_xml_phonebook`
+  - `softkey_extension`
 - `lineKeys`
   - `linekey_type`
   - `linekey_line`
-  - `...`
+  - `linekey_value`
+  - `linekey_label`
+  - `linekey_extension`
+  - `linekey_xml_phonebook`
 - `expansionKeys`
   - `expkey_type`
   - `expkey_line`
-  - `...`
+  - `expkey_value`
+  - `expkey_extension`
+  - `expkey_label`
+  - `expkey_xml_phonebook`
 - `settings`
   - `language`
   - `network_time_server`
-  - `...`
+  - `timezone`
+  - `tonezone`
+  - `pound`
+  - `dss_transfer`
+  - `auto_redial`
+  - `date_format`
+  - `time_format`
+  - `firmware_url`
 - `password`
   - `adminpw`
   - `userpw`
-  - `...`
+  - `varpw`
 - `ringtone`
   - `default_ringtone`
   - `ringtone_url`
 - `display`
   - `lcd_logo_mode`
+  - `lcd_logo_url`
   - `contrast`
-  - `...`
+  - `backlight_time`
+  - `inactive_backlight_level`
+  - `active_backlight_level`
 - `wallpaper`
   - `wallpaper`
   - `wallpaperurl`
 - `screensaver`
   - `screensaver_mode`
+  - `screesaver_url`
   - `screensaver_wait_time`
-  - `...`
 - `ldap`
   - `ldap_base`
   - `ldap_port`
-  - `...`
+  - `ldap_server`
+  - `ldap_name`
+  - `ldap_user`
+  - `ldap_password`
+  - `ldap_tls`
+  - `ldap_name_display`
+  - `ldap_number_attr`
+  - `ldap_name_attr`
+  - `ldap_number_filter`
+  - `ldap_name_filter`
 - `vlan`
   - `vlan_dhcp_enable`
   - `data_vlan_qos`
-  - `...`
+  - `data_vlan_id`
+  - `data_vlan_enable`
+  - `voice_vlan_qos`
+  - `voice_vlan_id`
+  - `voice_vlan_enable`
+  - `dhcp_option`
 - `provisioning`
   - `dhcp_enable`
   - `weekly_enable`
-  - `...`
+  - `weekly_dayofweek`
+  - `weekly_end_time`
+  - `weekly_begin_time`
+  - `pnp_enable`
+
+### Sections
   
-The UI for the configuration of every model is organized in the following sections:
+The UI for the configuration of every model is organized in the sections:
 
 - `Soft Keys`
 - `Line Keys`
@@ -112,7 +155,7 @@ Another example: if a model does not support neither LDAP nor VLAN, then `Networ
 
 ## Model configuration UI development
 
-In order to show in `Models` page the appropriate sections and variables for each phone model, some files need to be coded in `nethvoice-wizard-ui`:
+In order to show the appropriate sections and variables for each phone model in `Models` page, some files need to be coded in `nethvoice-wizard-ui`:
 
 - `fanvilservice.js`
 - `gigasetservice.js`
