@@ -153,7 +153,7 @@ If a model doesn't support any feature related to a specific section, that secti
 For instance, if a model doesn't support expansion keys, then `Expansion Keys` shouldn't be shown.
 Another example: if a model does not support neither LDAP nor VLAN, then `Network` section should not be shown.
 
-## Model configuration UI development
+## Development of model configuration UI
 
 In order to show the appropriate sections and variables for each phone model in `Models` page, some files need to be coded in `nethvoice-wizard-ui`:
 
