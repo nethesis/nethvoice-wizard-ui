@@ -38,10 +38,10 @@
         </div>
       </form>
     </div>
-    <div id="configurationList" class="list-group list-view-pf list-view-pf-view mt-20">
+    <div id="configurationList" class="list-group list-view-pf list-view-pf-view mt-20" when-scrolled="loadMoreUsers()" ng-style="{'height': usersHeight}">
       <!-- repeat  -->
       <div
-        ng-repeat="user in allUsers | customFilterMultiple:'displayname,username,default_extension':searchUser | orderBy:usersFilterNumbers"
+        ng-repeat="user in allUsers | customFilterMultiple:'displayname,username,default_extension':searchUser | limitTo: usersLimit | orderBy:usersFilterNumbers"
         ng-show="usersFilter == 'configured' ? user.devices.length > 0 : (usersFilter == 'unconfigured' ? user.devices.length == 0 : true)"
         class="list-group-item {{user.username == currentUser.username || user.username == linkTo ? 'list-view-pf-expand-active' : ''}}">
         <div class="list-group-item-header">
@@ -242,7 +242,7 @@
                                   ng-model="device.model"
                                   ng-options="model.display_name for model in device.filteredModels | orderBy:orderByValue"
                                 >
-                                  <option value="">{{ 'No model' | translate }}</option>
+                                  <option value="">-</option>
                                 </select>
                                 <button ng-click="setCurrentModelConf(device.model)" data-toggle="modal"
                                   data-target="#singleModelModal"
@@ -415,7 +415,7 @@
                   <div class="list-view-pf-actions mt-48">
                     <button
                       class="btn btn-primary"
-                      ng-click="setPhysicalExtension(currentUser, newDevice)">
+                      ng-click="setPhysicalExtension(newDevice)">
                       {{"Link to" | translate}} {{linkTo || ("user" | translate)}}
                     </button>
                     <span ng-if="newDevice.linkInAction == 'ok'" class="pficon vertical-sub pficon-ok fz-18 ml-5"></span>
@@ -456,7 +456,7 @@
                     class="list-group-item cursor-default">
                     <div class="list-view-pf-actions">
                       <button
-                        ng-click="setPhysicalExtension(currentUser, device)"
+                        ng-click="setPhysicalExtension(device)"
                         class="btn btn-primary">
                         {{"Link to" | translate}} {{linkTo || ("user" | translate)}}
                       </button>

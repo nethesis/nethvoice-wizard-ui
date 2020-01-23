@@ -25,6 +25,10 @@ angular.module('nethvoiceWizardUiApp')
     $scope.currentUser = {}
     $scope.linkTo = ""
     $scope.newDevice = {}
+
+    $scope.USERS_PAGE = 12;
+    $scope.usersLimit = $scope.USERS_PAGE;
+
     $scope.DEVICES_NOT_LINKED_PAGE = 20;
     $scope.devicesNotLinkedLimit = $scope.DEVICES_NOT_LINKED_PAGE;
 
@@ -32,6 +36,10 @@ angular.module('nethvoiceWizardUiApp')
     $scope.availableUserFiltersNumbers = ['lname', 'default_extension']
     $scope.usersFilter = $scope.availableUserFilters[0]
     $scope.usersFilterNumbers = $scope.availableUserFiltersNumbers[0]
+
+    $scope.loadMoreUsers = function () {
+      $scope.usersLimit += $scope.USERS_PAGE;
+    };
 
     $scope.loadMoreDevicesNotLinked = function () {
       $scope.devicesNotLinkedLimit += $scope.DEVICES_NOT_LINKED_PAGE;
@@ -42,6 +50,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.hiddenUser[user.username] = !$scope.hiddenUser[user.username]
       } else {
         $scope.currentUser = user
+        $scope.currentExtension = $scope.currentUser.default_extension
         $scope.loadingUser[user.username] = true
         $scope.hiddenUser = {}
       }
@@ -52,6 +61,7 @@ angular.module('nethvoiceWizardUiApp')
             return obj
           }
         })[0]
+        $scope.currentExtension = $scope.currentUser.default_extension
         ProfileService.getUserGroup($scope.currentUser.id).then(function (res) {
           $scope.currentUser.groups = res.data
         }, function (err) {
@@ -124,7 +134,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.openDevices = function (user) {
       $scope.linkTo = user.username
-      $scope.setCurrentUser(user)
+      $scope.currentExtension = user.default_extension
 
       $timeout(function () {
         $scope.devicesNotLinkedHeight = 'calc(100vh - ' + ($('#devices-not-linked-list')[0].getBoundingClientRect().y + 100) + 'px)';
@@ -203,6 +213,10 @@ angular.module('nethvoiceWizardUiApp')
         $scope.allUsers.forEach(function (user){
           prepareDevices(user.devices)
         })
+
+        $timeout(function () {
+          $scope.usersHeight = 'calc(100vh - ' + ($('#configurationList')[0].getBoundingClientRect().y + 80) + 'px)';
+        }, 400);
       }, function (err) {
         console.log(err)
       })
@@ -320,12 +334,12 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.setPhysicalExtension = function (user, device, line) {
+    $scope.setPhysicalExtension = function (device, line) {
       device.setPhysicalInAction = true
       device.linkPhysicalInAction = true
       device.linkInAction = true
       UserService.createPhysicalExtension({
-        mainextension: user.default_extension,
+        mainextension: $scope.currentExtension,
         mac: device.mac || null,
         model: device.model || null,
         line: line || null,

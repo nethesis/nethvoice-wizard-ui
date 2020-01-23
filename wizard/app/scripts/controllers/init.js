@@ -385,13 +385,13 @@ angular.module('nethvoiceWizardUiApp')
           var map = getModelMap(ProvFanvilService.map(), name)
           return {
             map: map,
-            softKeys: ProvFanvilService.softKeysUI(map),
-            lineKeys: ProvFanvilService.lineKeysUI(map),
-            expKeys: ProvFanvilService.expKeysUI(map),
-            preference: ProvFanvilService.preferenceUI(map),
-            general: ProvFanvilService.generalUI(map),
-            network: ProvFanvilService.networkUI(map),
-            provisioning: ProvFanvilService.provisioningUI(map),
+            softKeys: handleKeys(ProvFanvilService.softKeys(map)),
+            lineKeys: handleKeys(ProvFanvilService.lineKeys(map)),
+            expansionKeys: handleKeys(ProvFanvilService.expansionKeys(map)),
+            general: ProvFanvilService.general(map),
+            preferences: ProvFanvilService.preferences(map),
+            network: ProvFanvilService.network(map),
+            provisioning: ProvFanvilService.provisioning(map),
           }
           break;
       
@@ -399,11 +399,13 @@ angular.module('nethvoiceWizardUiApp')
           var map = getModelMap(ProvGigasetService.map(), name)
           return {
             map: map,
-            general: ProvGigasetService.generalUI(),
-            network: ProvGigasetService.networkUI(),
-            softKeys: ProvGigasetService.softKeysUI(),
-            functionKeys: ProvGigasetService.functionKeysUI(map),
-            expKeys: ProvGigasetService.expKeysUI(map)
+            softKeys: handleKeys(ProvGigasetService.softKeys(map)),
+            lineKeys: handleKeys(ProvGigasetService.lineKeys(map)),
+            expansionKeys: handleKeys(ProvGigasetService.expansionKeys(map)),
+            general: ProvGigasetService.general(map),
+            preferences: ProvGigasetService.preferences(map),
+            network: ProvGigasetService.network(map),
+            provisioning: ProvGigasetService.provisioning(map),
           }
           break;
       
@@ -411,13 +413,13 @@ angular.module('nethvoiceWizardUiApp')
           var map = getModelMap(ProvSangomaService.map(), name)
           return {
             map: map,
-            general: ProvSangomaService.generalUI(),
-            preference: ProvSangomaService.preferenceUI(),
-            network: ProvSangomaService.networkUI(),
-            provisioning: ProvSangomaService.provisioningUI(),
-            softKeys: ProvSangomaService.softKeysUI(),
-            lineKeys: ProvSangomaService.lineKeysUI(),
-            expKeys: ProvSangomaService.expKeysUI(map)
+            softKeys: handleKeys(ProvSangomaService.softKeys(map)),
+            lineKeys: handleKeys(ProvSangomaService.lineKeys(map)),
+            expansionKeys: handleKeys(ProvSangomaService.expansionKeys(map)),
+            general: ProvSangomaService.general(map),
+            preferences: ProvSangomaService.preferences(map),
+            network: ProvSangomaService.network(map),
+            provisioning: ProvSangomaService.provisioning(map),
           }
           break;
           
@@ -425,12 +427,13 @@ angular.module('nethvoiceWizardUiApp')
           var map = getModelMap(ProvSnomService.map(), name)
           return {
             map: map,
-            general: ProvSnomService.generalUI(),
-            preference: ProvSnomService.preferenceUI(),
-            network: ProvSnomService.networkUI(),
-            keys: ProvSnomService.keysUI(),
-            functionKeys: ProvSnomService.functionKeysUI(map),
-            expKeys: ProvSnomService.expKeysUI(map)
+            softKeys: handleKeys(ProvSnomService.softKeys(map)),
+            lineKeys: handleKeys(ProvSnomService.lineKeys(map)),
+            expansionKeys: handleKeys(ProvSnomService.expansionKeys(map)),
+            general: ProvSnomService.general(map),
+            preferences: ProvSnomService.preferences(map),
+            network: ProvSnomService.network(map),
+            provisioning: ProvSnomService.provisioning(map),
           }
           break;
 
@@ -438,13 +441,13 @@ angular.module('nethvoiceWizardUiApp')
           var map = getModelMap(ProvYealinkService.map(), name)
           return {
             map: map,
+            softKeys: handleKeys(ProvYealinkService.softKeys(map)),
+            lineKeys: handleKeys(ProvYealinkService.lineKeys(map)),
+            expansionKeys: handleKeys(ProvYealinkService.expansionKeys(map)),
             general: ProvYealinkService.general(map),
             preferences: ProvYealinkService.preferences(map),
             network: ProvYealinkService.network(map),
             provisioning: ProvYealinkService.provisioning(map),
-            softKeys: handleKeys(ProvYealinkService.softKeys(map)),
-            lineKeys: handleKeys(ProvYealinkService.lineKeys(map)),
-            expansionKeys: handleKeys(ProvYealinkService.expansionKeys(map)),
           }
           break;
 

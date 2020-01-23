@@ -10,8 +10,6 @@
 angular.module('nethvoiceWizardUiApp')
   .service('ModelService', function ($q, RestService) {
 
-    // andre
-
     // Retrieve the complete (phone) models collection
     this.getModels = function () {
       return $q(function (resolve, reject) {
@@ -32,8 +30,6 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
-
-    // seb
 
     // Post phone
     this.addPhone = function (obj) {

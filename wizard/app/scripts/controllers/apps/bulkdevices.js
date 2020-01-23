@@ -13,7 +13,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.phones = [];
     $scope.numFiltered = 0;
     $scope.numSelected = 0;
-    $scope.uiLoaded = false;
+    $scope.view.changeRoute = true;
     $scope.errors = [];
     $scope.errorId = 0;
     $scope.PHONES_PAGE = 20;
@@ -29,7 +29,7 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     function init() {
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
       initDateTimePicker();
 
       Promise.all([
@@ -44,11 +44,11 @@ angular.module('nethvoiceWizardUiApp')
         gotPhones(res[2].data);
         gotGroups(res[3].data);
         gotDelayedReboot(res[4].data);
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving data");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     }
 
@@ -130,15 +130,15 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     function getDelayedReboot() {
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
 
       PhoneService.getDelayedReboot().then(function (success) {
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
         gotDelayedReboot(success.data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving delayed reboot data");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     }
 
@@ -170,15 +170,15 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.getPhones = function () {
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
 
       PhoneService.getPhones().then(function (success) {
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
         gotPhones(success.data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving phones");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     };
 
@@ -196,15 +196,15 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.getUsers = function () {
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
 
       UserService.list(true).then(function (res) {
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
         gotUsers(res.data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving users");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     }
 
@@ -218,15 +218,15 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.getGroups = function () {
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
 
       ProfileService.allGroups().then(function (res) {
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
         gotGroups(res.data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving groups");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     }
 
@@ -306,15 +306,15 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.getModels = function () {
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
 
       ModelService.getModels().then(function (res) {
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
         gotModels(res.data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving models");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     }
 
@@ -330,15 +330,15 @@ angular.module('nethvoiceWizardUiApp')
           setModelPromises.push(PhoneService.setPhoneModel(phone.mac, model));
         }
       });
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
 
       Promise.all(setModelPromises).then(function (success) {
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
         $scope.getPhones();
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error setting phone model");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
       $('#bulkModelModal').modal('hide');
     }
@@ -357,9 +357,9 @@ angular.module('nethvoiceWizardUiApp')
           }
         }
       });
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
       PhoneService.setPhoneReboot(rebootData).then(function (success) {
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
 
         // check partial failure
         var errors = [];
@@ -384,7 +384,7 @@ angular.module('nethvoiceWizardUiApp')
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error setting delayed reboot");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     }
 
@@ -396,15 +396,15 @@ angular.module('nethvoiceWizardUiApp')
           rebootCancelMacs.push(phone.mac);
         }
       });
-      $scope.uiLoaded = false;
+      $scope.view.changeRoute = true;
       PhoneService.deletePhoneDelayedReboot(rebootCancelMacs).then(function (success) {
         // reload updated data
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
         getDelayedReboot();
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error canceling delayed reboot");
-        $scope.uiLoaded = true;
+        $scope.view.changeRoute = false;
       });
     }
 
@@ -423,9 +423,14 @@ angular.module('nethvoiceWizardUiApp')
       $('#bulkDelayedRebootModal').modal('hide');
     }
 
+    $scope.toggleShowPhonesNotRebooted = function () {
+      $scope.showPhonesNotRebooted = !$scope.showPhonesNotRebooted;
+    }
+
     $scope.bulkRebootNow = function () {
       var rebootData = {};
-
+      $scope.showPhonesNotRebooted = false;
+      $scope.rebootNowInProgress = true;
 
       $scope.phones.forEach(function (phone) {
         if (phone.selected) {
@@ -434,36 +439,41 @@ angular.module('nethvoiceWizardUiApp')
       });
       PhoneService.setPhoneReboot(rebootData).then(function (success) {
         // check partial failure
-        var errors = [];
+        $scope.phonesNotRebooted = [];
 
         Object.keys(success.data).forEach(function (mac) {
           var rebootResult = success.data[mac];
 
           if (rebootResult.code !== 204) {
             // failure
-            rebootResult['mac'] = mac;
-            errors.push(rebootResult);
+            console.log(rebootResult);
+            var phoneNotRebooted = $scope.phones.find(function (phone) {
+              return phone.mac === mac;
+            });
+            $scope.phonesNotRebooted.push(phoneNotRebooted);
           }
         });
+        $scope.rebootNowInProgress = false;
+        $scope.showResultsRebootNow = true;
 
-        if (errors.length) {
-          console.log(errors);
-          addErrorNotification(errors[0], "Error rebooting some phones", true);
-        } else {
+        if (!$scope.phonesNotRebooted.length) {
           // success
-          $scope.successMessage = "Reboot command was sent";
-          $scope.showSuccess = true;
-
           $timeout(function () {
-            $scope.showSuccess = false;
-            $scope.successMessage = null;
-          }, 4000);
+            $('#reboot-now-modal').modal('hide');
+            $scope.showResultsRebootNow = false;
+          }, 3000);
         }
       }, function (err) {
         console.log(err);
+        $scope.rebootNowInProgress = false;
         addErrorNotification(err.data, "Error rebooting phones");
+        $('#reboot-now-modal').modal('hide');
       });
-      $('#reboot-now-modal').modal('hide');
+    }
+
+    $scope.showRebootNowModal = function () {
+      $scope.showResultsRebootNow = false;
+      $('#reboot-now-modal').modal('show');
     }
 
     $scope.showSetModelModal = function () {

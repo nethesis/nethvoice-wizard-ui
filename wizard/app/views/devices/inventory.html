@@ -20,11 +20,7 @@
         <span ng-show="error.title"><i>{{ error.title }}</i>.</span>
       </div>
     </div>
-    <!-- loading UI -->
-    <div class="centered" ng-show="!uiLoaded">
-      <span class="spinner spinner-large"></span>
-    </div>
-    <div ng-show="uiLoaded">
+    <div>
       <!-- inventory help notification -->
       <div class="alert alert-info alert-dismissable bg-color-white"
         ng-show="phones.length !== 0 && !hideInventoryHelp">
@@ -127,7 +123,7 @@
                       ng-model="phone.model"
                       ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
                     >
-                      <option value="">{{ 'No model' | translate }}</option>
+                      <option value="">-</option>
                     </select>
                     <span ng-show="modelLoaders[phone.mac] === 'success'"
                       class="pficon pficon-ok set-model-feedback"></span>
@@ -239,7 +235,7 @@
                       <select class="form-control" pf-select="{ noneSelectedText: '-' }" data-live-search="true" data-size="5"
                         ng-model="manualModel" ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue"
                         ng-disabled="getManualFilteredModelsCount()" id="manual-model">
-                        <option value="">{{ 'No model' | translate }}</option>
+                        <option value="">-</option>
                       </select>
                     </div>
                   </div>
@@ -304,7 +300,7 @@
                       {{ successfulAddPhones.length }}
                       {{ successfulAddPhones.length > 1 ? ('phones successfully added' | translate) : ('phone successfully added' | translate) }}
                     </span>
-                    <legend class="fields-section-header-pf col-sm-1 toggle-successfully-added-phones"
+                    <legend class="fields-section-header-pf col-sm-1 toggle-legend"
                       aria-expanded="true">
                       <span
                         ng-class="['fa', 'fa-angle-right', 'field-section-toggle-pf', { 'fa-angle-down': showSuccessfullyAddedPhones }]"
@@ -313,7 +309,7 @@
                       <a class="field-section-toggle-pf"
                         ng-click="toggleShowSuccessfullyAddedPhones()">{{ 'Show' | translate }}</a>
                     </legend>
-                    <div ng-show="showSuccessfullyAddedPhones" class="successfully-added-phones">
+                    <div ng-show="showSuccessfullyAddedPhones" class="toggle-legend-list">
                       <ul>
                         <li ng-repeat="phone in successfulAddPhones">
                           <span class ="mg-right-5"><b>{{ phone.mac }}</b></span>
@@ -411,7 +407,7 @@
                                     data-container="body"
                                     ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
                                     id="model-phone-to-add-{{$index}}">
-                                    <option value="">{{ 'No model' | translate }}</option>
+                                    <option value="">-</option>
                                   </select>
                                 </div>
                               </div>
@@ -473,18 +469,17 @@
             <div class="modal-body">
               <div class="alert alert-warning alert-dismissable">
                 <span class="pficon pficon-warning-triangle-o"></span>
-                <span class="margin-left-5">
-                  {{ 'You are about to delete phone' | translate }}
-                  <b>{{ phoneToDelete.vendor ? phoneToDelete.vendor : ''}} {{ phoneToDelete.mac }}</b>
-                </span>
+                <p>
+                  <strong>
+                    {{ 'You are about to delete phone' | translate }}
+                    {{ phoneToDelete.vendor ? phoneToDelete.vendor : ''}}
+                    {{ phoneToDelete.mac }}
+                  </strong>.
+                </p>
+                <p>
+                  {{ 'Are you sure' | translate }}?
+                </p>
               </div>
-              <form class="form-horizontal">
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">
-                    {{ 'Are you sure' | translate }}?
-                  </label>
-                </div>
-              </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
