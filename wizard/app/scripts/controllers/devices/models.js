@@ -30,7 +30,7 @@ angular.module('nethvoiceWizardUiApp')
 
     var modelNameChecking = ""
 
-    // get all models
+    // get the models of the phones in the inventory
     var getModels = function () {
       ModelService.getUsedModels().then(function (res) {
         $scope.inventoryModels = res.data
