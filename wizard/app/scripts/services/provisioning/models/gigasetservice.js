@@ -12,74 +12,81 @@ angular.module('nethvoiceWizardUiApp')
 
     this.map = function () {
       return {
-        "maxwell": {
-          "maxwell_basic": {
-            "model": "maxwell_basic",
-            "softKeys": true,
-            "expKeys": [
-              {
-                "start": 8,
-                "end": 21
-              },
-              {
-                "start": 23,
-                "end": 51
-              },
-              {
-                "start": 53,
-                "end": 65
-              }
-            ]
-          },
-          "maxwell_2": {
-            "model": "maxwell_2",
-            "softKeys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 7
+        "GIGASET-MAXWELL_BASIC": {
+          "model": "GIGASET-MAXWELL_BASIC",
+          "softKeys": true,
+          "expKeys": [
+            {
+              "start": 8,
+              "end": 21
             },
-            "expKeys": [
-              {
-                "start": 8,
-                "end": 21
-              },
-              {
-                "start": 23,
-                "end": 51
-              },
-              {
-                "start": 53,
-                "end": 65
-              }
-            ]
-          },
-          "maxwell_3": {
-            "model": "maxwell_3",
-            "softKeys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 7
+            {
+              "start": 23,
+              "end": 51
             },
-            "expKeys": [
-              {
-                "start": 8,
-                "end": 21
-              },
-              {
-                "start": 23,
-                "end": 51
-              },
-              {
-                "start": 53,
-                "end": 65
-              }
-            ]
-          }
+            {
+              "start": 53,
+              "end": 65
+            }
+          ]
+        },
+        "GIGASET-MAXWELL_2": {
+          "model": "GIGASET-MAXWELL_2",
+          "softKeys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 7
+          },
+          "expKeys": [
+            {
+              "start": 8,
+              "end": 21
+            },
+            {
+              "start": 23,
+              "end": 51
+            },
+            {
+              "start": 53,
+              "end": 65
+            }
+          ]
+        },
+        "GIGASET-MAXWELL_3": {
+          "model": "GIGASET-MAXWELL_3",
+          "softKeys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 7
+          },
+          "expKeys": [
+            {
+              "start": 8,
+              "end": 21
+            },
+            {
+              "start": 23,
+              "end": 51
+            },
+            {
+              "start": 53,
+              "end": 65
+            }
+          ]
         }
       }
     }
 
-    this.generalUI = function () {
+    this.general = function (modelMap) {
+      if (!(modelMap.settings || modelMap.password)) {
+        return;
+      }
+
+      var settingsItems = [];
+      var passwordItems = [];
+
+      //// todo
+
       return {
         "name": "General",
         "items": [
@@ -850,7 +857,37 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.networkUI = function () {
+    this.preferences = function (modelMap) {
+      if (!(modelMap.ringtone || modelMap.display || modelMap.wallpaper || modelMap.screensaver)) {
+        return;
+      }
+
+      var ringtoneItems = [];
+      var displayItems = [];
+      var wallpaperItems = [];
+      var screensaverItems = [];
+
+      //// todo
+    }
+
+    this.provisioning = function (modelMap) {
+      if (!modelMap.provisioning) {
+        return;
+      }
+
+      //// todo
+    }
+
+    this.network = function (modelMap) {
+      if (!(modelMap.vlan || modelMap.ldap)) {
+        return;
+      }
+
+      var ldapItems = [];
+      var vlanItems = [];
+
+      //// todo
+
       return {
         "name": "Network",
         "items": [
@@ -975,7 +1012,13 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.softKeysUI = function () {
+    this.softKeys = function (modelMap) {
+      if (!modelMap.softKeys) {
+        return;
+      }
+
+      //// todo
+
       return {
         "name": "SoftKeys",
         "items": [
@@ -1115,7 +1158,15 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.functionKeysUI = function (modelMap) {
+    this.lineKeys = function (modelMap) {
+      if (!modelMap.lineKeys) {
+        return;
+      }
+
+      //// todo
+    }
+
+    this.functionKeysUI = function (modelMap) { //// todo delete
       if (!modelMap.functionKeys) {
         return null;
       }
@@ -1283,10 +1334,12 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.expKeysUI = function (modelMap) {
-      if (!modelMap.expKeys) {
-        return null;
+    this.expansionKeys = function (modelMap) {
+      if (!modelMap.expansionKeys) {
+        return;
       }
+
+      //// todo
 
       return {
         "name": "ExpKeys",

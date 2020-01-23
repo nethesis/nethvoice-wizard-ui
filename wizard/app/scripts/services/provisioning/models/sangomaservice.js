@@ -12,143 +12,133 @@ angular.module('nethvoiceWizardUiApp')
 
     this.map = function () {
       return {
-        "S2xx": {
-          "S205": {
-            "model": "S205",
-            "softKeys": true,
-            "lineKeys": 2,
-            "hiddenVariables": [
-              "wallpaper_image",
-              "screensaver_image"
-            ]
-          },
-          "S206": {
-            "model": "S206",
-            "softKeys": true,
-            "lineKeys": 2,
-            "hiddenVariables": [
-              "wallpaper_image",
-              "screensaver_image"
-            ]
-          }
+        "S205": {
+          "model": "S205",
+          "softKeys": true,
+          "lineKeys": 2,
+          "hiddenVariables": [
+            "wallpaper_image",
+            "screensaver_image"
+          ]
         },
-        "S3xx": {
-          "S300": {
-            "model": "S300",
-            "softKeys": true,
-            "lineKeys": 2,
-            "hiddenVariables": [
-              "wallpaper_image",
-              "screensaver_image"
-            ]
-          },
-          "S305": {
-            "model": "S305",
-            "softKeys": true,
-            "lineKeys": 2,
-            "hiddenVariables": [
-              "wallpaper_image",
-              "screensaver_image"
-            ]
-          }
+        "S206": {
+          "model": "S206",
+          "softKeys": true,
+          "lineKeys": 2,
+          "hiddenVariables": [
+            "wallpaper_image",
+            "screensaver_image"
+          ]
         },
-        "S4xx": {
-          "S400": {
-            "model": "S400",
-            "softKeys": true,
-            "lineKeys": 25,
-            "hiddenVariables": [
-              "wallpaper_image",
-              "screensaver_image"
-            ]
-          },
-          "S405": {
-            "model": "S405",
-            "softKeys": true,
-            "lineKeys": 25,
-            "hiddenVariables": [
-              "wallpaper_image",
-              "screensaver_image"
-            ]
-          },
-          "S406": {
-            "model": "S406",
-            "softKeys": true,
-            "lineKeys": 25,
-            "hiddenVariables": [
-              "wallpaper_image",
-              "screensaver_image"
-            ]
-          }
+        "S300": {
+          "model": "S300",
+          "softKeys": true,
+          "lineKeys": 2,
+          "hiddenVariables": [
+            "wallpaper_image",
+            "screensaver_image"
+          ]
         },
-        "S5xx": {
-          "S500": {
-            "model": "S500",
-            "softKeys": true,
-            "lineKeys": 35,
-            "expKeys": [
-              {
-                "start": 1,
-                "end": 40
-              },
-              {
-                "start": 1,
-                "end": 40
-              }
-            ]
-          },
-          "S505": {
-            "model": "S505",
-            "softKeys": true,
-            "lineKeys": 35,
-            "expKeys": [
-              {
-                "start": 1,
-                "end": 40
-              },
-              {
-                "start": 1,
-                "end": 40
-              }
-            ]
-          }
+        "S305": {
+          "model": "S305",
+          "softKeys": true,
+          "lineKeys": 2,
+          "hiddenVariables": [
+            "wallpaper_image",
+            "screensaver_image"
+          ]
         },
-        "S7xx": {
-          "S700": {
-            "model": "S700",
-            "softKeys": true,
-            "lineKeys": 45,
-            "expKeys": [
-              {
-                "start": 1,
-                "end": 40
-              },
-              {
-                "start": 1,
-                "end": 40
-              }
-            ]
-          },
-          "S705": {
-            "model": "S705",
-            "softKeys": true,
-            "lineKeys": 45,
-            "expKeys": [
-              {
-                "start": 1,
-                "end": 40
-              },
-              {
-                "start": 1,
-                "end": 40
-              }
-            ]
-          }
+        "S400": {
+          "model": "S400",
+          "softKeys": true,
+          "lineKeys": 25,
+          "hiddenVariables": [
+            "wallpaper_image",
+            "screensaver_image"
+          ]
+        },
+        "S405": {
+          "model": "S405",
+          "softKeys": true,
+          "lineKeys": 25,
+          "hiddenVariables": [
+            "wallpaper_image",
+            "screensaver_image"
+          ]
+        },
+        "S406": {
+          "model": "S406",
+          "softKeys": true,
+          "lineKeys": 25,
+          "hiddenVariables": [
+            "wallpaper_image",
+            "screensaver_image"
+          ]
+        },
+        "S500": {
+          "model": "S500",
+          "softKeys": true,
+          "lineKeys": 35,
+          "expKeys": [
+            {
+              "start": 1,
+              "end": 40
+            },
+            {
+              "start": 1,
+              "end": 40
+            }
+          ]
+        },
+        "S505": {
+          "model": "S505",
+          "softKeys": true,
+          "lineKeys": 35,
+          "expKeys": [
+            {
+              "start": 1,
+              "end": 40
+            },
+            {
+              "start": 1,
+              "end": 40
+            }
+          ]
+        },
+        "S700": {
+          "model": "S700",
+          "softKeys": true,
+          "lineKeys": 45,
+          "expKeys": [
+            {
+              "start": 1,
+              "end": 40
+            },
+            {
+              "start": 1,
+              "end": 40
+            }
+          ]
+        },
+        "S705": {
+          "model": "S705",
+          "softKeys": true,
+          "lineKeys": 45,
+          "expKeys": [
+            {
+              "start": 1,
+              "end": 40
+            },
+            {
+              "start": 1,
+              "end": 40
+            }
+          ]
         }
       }
     }
 
-    this.modelGroups = {
+    this.modelGroups = { //// todo delete
       "S2xxS3xx": [
         "S205", "S206",
         "S300", "S305"
@@ -164,7 +154,16 @@ angular.module('nethvoiceWizardUiApp')
       ]
     }
 
-    this.generalUI = function () {
+    this.general = function (modelMap) {
+      if (!(modelMap.settings || modelMap.password)) {
+        return;
+      }
+
+      var settingsItems = [];
+      var passwordItems = [];
+
+      //// todo
+
       return {
         "name": "General",
         "items": [
@@ -802,7 +801,18 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.preferenceUI = function () {
+    this.preferences = function (modelMap) {
+      if (!(modelMap.ringtone || modelMap.display || modelMap.wallpaper || modelMap.screensaver)) {
+        return;
+      }
+
+      var ringtoneItems = [];
+      var displayItems = [];
+      var wallpaperItems = [];
+      var screensaverItems = [];
+
+      //// todo
+
       return {
         "name": "Preferences",
         "items": [
@@ -922,7 +932,16 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.networkUI = function () {
+    this.network = function (modelMap) {
+      if (!(modelMap.vlan || modelMap.ldap)) {
+        return;
+      }
+
+      var ldapItems = [];
+      var vlanItems = [];
+
+      //// todo
+
       return {
         "name": "Network",
         "items": [
@@ -964,7 +983,13 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.provisioningUI = function () {
+    this.provisioning = function (modelMap) {
+      if (!modelMap.provisioning) {
+        return;
+      }
+
+      //// todo
+
       return {
         "name": "Provisioning",
         "items": [
@@ -1002,7 +1027,13 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.softKeysUI = function () {
+    this.softKeys = function (modelMap) {
+      if (!modelMap.softKeys) {
+        return;
+      }
+
+      //// todo
+
       return {
         "name": "SoftKeys",
         "items": [
@@ -1149,7 +1180,13 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.lineKeysUI = function (modelMap) {
+    this.lineKeys = function (modelMap) {
+      if (!modelMap.lineKeys) {
+        return;
+      }
+
+      //// todo
+
       var itemsLineKeysS2xxS3xx = [
         {
           "variable": "$linekey_type",
@@ -2002,7 +2039,13 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.expKeysUI = function (modelMap) {
+    this.expansionKeys = function (modelMap) {
+      if (!modelMap.expansionKeys) {
+        return;
+      }
+
+      //// todo
+
       if (!modelMap.expKeys) {
         return null;
       }

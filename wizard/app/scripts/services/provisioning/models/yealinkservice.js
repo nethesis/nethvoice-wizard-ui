@@ -2816,7 +2816,7 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "variable": "firmware_url", // TODO upload
+            "variable": "firmware_url", //// todo upload
             "description": "Firmware URL",
             "type": "input"
           },
@@ -2913,7 +2913,7 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "variable": "ringtone_url", // TODO upload
+            "variable": "ringtone_url", //// todo upload
             "description": "Ringtone URL",
             "type": "input"
           },
@@ -2975,7 +2975,7 @@ angular.module('nethvoiceWizardUiApp')
           },
           {
             "variable": "lcd_logo_url",
-            "description": "LCD Logo URL", // TODO upload
+            "description": "LCD Logo URL", //// todo upload
             "type": "input"
           },
           {
@@ -3192,7 +3192,7 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "variable": "wallpaperurl", // TODO upload
+            "variable": "wallpaperurl", //// todo upload
             "description": "Wallpaper URL",
             "type": "input"
           },
@@ -3237,7 +3237,7 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "variable": "screesaver_url", // TODO upload
+            "variable": "screesaver_url", //// todo upload
             "description": "Screensaver URL",
             "type": "input"
           },
