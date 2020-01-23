@@ -113,19 +113,19 @@
         </li>
         <div id="usersCollapse" class="panel-collapse collapse {{resolveActiveTab('users',1) ? 'in' : ''}}" ng-if="!wizard.isMigrationView">
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('extensions',2) ? 'active' : ''}}">
-            <div ng-click="goTo('users/extensions')" class="list-group-item-value menu-item-left no-opacity">{{'Extensions' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('users/extensions')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Extensions' | translate | ellipsis:'1200'}}</div>
           </div>
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('groups',2) ? 'active' : ''}}">
-            <div ng-click="goTo('users/groups')" class="list-group-item-value menu-item-left no-opacity">{{'Groups' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('users/groups')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Groups' | translate | ellipsis:'1200'}}</div>
           </div>
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('profiles',2) ? 'active' : ''}}">
-            <div ng-click="goTo('users/profiles')" class="list-group-item-value menu-item-left no-opacity">{{'Profiles' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('users/profiles')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Profiles' | translate | ellipsis:'1200'}}</div>
           </div>
           <div ng-if="wizard.provisioning != 'tancredi'" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('devices',2) ? 'active' : ''}}">
-            <div ng-click="goTo('users/devices')" class="list-group-item-value  menu-item-left no-opacity">{{'Devices' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('users/devices')" class="list-group-item-value  menu-item-left no-opacity full-width">{{'Devices' | translate | ellipsis:'1200'}}</div>
           </div>
           <div ng-if="wizard.provisioning != 'tancredi'" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('configurations',2) ? 'active' : ''}}">
-            <div ng-click="goTo('users/configurations')" class="list-group-item-value  menu-item-left no-opacity">{{'Configurations' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('users/configurations')" class="list-group-item-value  menu-item-left no-opacity full-width">{{'Configurations' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
         <li data-toggle="collapse"
@@ -141,10 +141,10 @@
         </li>
         <div id="devicesCollapse" class="panel-collapse collapse {{resolveActiveTab('users',1) ? 'in' : ''}}" ng-if="!wizard.isMigrationView && (wizard.provisioning == 'tancredi')">
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('inventory',2) ? 'active' : ''}}">
-            <div ng-click="goTo('devices/inventory')" class="list-group-item-value menu-item-left no-opacity">{{'Phones' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('devices/inventory')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Phones' | translate | ellipsis:'1200'}}</div>
           </div>
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('models',2) ? 'active' : ''}}">
-            <div ng-click="goTo('devices/models')" class="list-group-item-value menu-item-left no-opacity">{{'Modelli' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('devices/models')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Modelli' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
 
@@ -165,16 +165,16 @@
         </li>
         <div id="migrationCollapse" ng-if="!wizard.isWizard && wizard.isMigrationView" class="panel-collapse collapse {{resolveActiveTab('migration',1) ? 'in' : ''}}">
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('users',2) ? 'active' : ''}}">
-            <div class="list-group-item-value menu-item-left no-opacity">{{'Users' | translate | ellipsis:'1200'}}</div>
+            <div class="list-group-item-value menu-item-left no-opacity full-width">{{'Users' | translate | ellipsis:'1200'}}</div>
           </div>
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('config',2) ? 'active' : ''}}">
-            <div class="list-group-item-value  menu-item-left no-opacity">{{'Configurations' | translate | ellipsis:'1200'}}</div>
+            <div class="list-group-item-value  menu-item-left no-opacity full-width">{{'Configurations' | translate | ellipsis:'1200'}}</div>
           </div>
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('cdr',2) ? 'active' : ''}}">
-            <div class="list-group-item-value  menu-item-left no-opacity">{{'CDR' | translate | ellipsis:'1200'}}</div>
+            <div class="list-group-item-value  menu-item-left no-opacity full-width">{{'CDR' | translate | ellipsis:'1200'}}</div>
           </div>
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('report',2) ? 'active' : ''}}">
-            <div class="list-group-item-value  menu-item-left no-opacity">{{'Report' | translate | ellipsis:'1200'}}</div>
+            <div class="list-group-item-value  menu-item-left no-opacity full-width">{{'Report' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
         <li data-toggle="collapse" data-parent="#navbar-left" href="#trunksCollapse" ng-if="!wizard.isMigrationView && !wizard.isWizard || wizard.stepCount > appConfig.PART1_STEP"
@@ -187,10 +187,10 @@
         </li>
         <div id="trunksCollapse" class="panel-collapse collapse {{resolveActiveTab('trunks',1) ? 'in' : ''}}">
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('physical',2) ? 'active' : ''}}">
-            <div ng-click="goTo('trunks/physical')" class="list-group-item-value menu-item-left no-opacity">{{'Physical' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('trunks/physical')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Physical' | translate | ellipsis:'1200'}}</div>
           </div>
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('voip',2) ? 'active' : ''}}">
-            <div ng-click="goTo('trunks/voip')" class="list-group-item-value  menu-item-left no-opacity">{{'VoIP' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('trunks/voip')" class="list-group-item-value  menu-item-left no-opacity full-width">{{'VoIP' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
         <li data-toggle="collapse" data-parent="#navbar-left" href="#routesCollapse" ng-if="!wizard.isMigrationView && !wizard.isWizard || wizard.stepCount > appConfig.PART2_STEP"
@@ -204,10 +204,10 @@
         </li>
         <div id="routesCollapse" class="panel-collapse collapse {{resolveActiveTab('routes',1) ? 'in' : ''}}">
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('inbound',2) ? 'active' : ''}}">
-            <div ng-click="goTo('routes/inbound')" class="list-group-item-value menu-item-left no-opacity">{{'Inbound' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('routes/inbound')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Inbound' | translate | ellipsis:'1200'}}</div>
           </div>
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('outbound',2) ? 'active' : ''}}">
-            <div ng-click="goTo('routes/outbound')" class="list-group-item-value  menu-item-left no-opacity">{{'Outbound' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('routes/outbound')" class="list-group-item-value  menu-item-left no-opacity full-width">{{'Outbound' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
         <li data-toggle="collapse" data-parent="#navbar-left" href="#appsCollapse" ng-if="!wizard.isWizard && !wizard.isMigrationView" class="list-group-item collapse-menu {{resolveActiveTab('apps',1) ? 'active' : ''}}"
@@ -219,25 +219,25 @@
         </li>
         <div id="appsCollapse" class="panel-collapse collapse {{resolveActiveTab('apps',1) ? 'in' : ''}}">
           <!-- <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('dashboard',2) ? 'active' : ''}}">
-            <div ng-click="goTo('apps/dashboard')" class="list-group-item-value menu-item-left no-opacity">{{'Dashboard' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('apps/dashboard')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Dashboard' | translate | ellipsis:'1200'}}</div>
           </div> -->
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('cards',2) ? 'active' : ''}}">
-            <div ng-click="goTo('apps/cards')" class="list-group-item-value menu-item-left no-opacity">{{'Customer cards' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('apps/cards')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Customer cards' | translate | ellipsis:'1200'}}</div>
           </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('streaming',2) ? 'active' : ''}}">
-            <div ng-click="goTo('apps/streaming')" class="list-group-item-value menu-item-left no-opacity">{{'Video sources' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('apps/streaming')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Video sources' | translate | ellipsis:'1200'}}</div>
           </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('phonebook',2) ? 'active' : ''}}">
-            <div ng-click="goTo('apps/phonebook')" class="list-group-item-value menu-item-left no-opacity">{{'Phonebook sources' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('apps/phonebook')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Phonebook sources' | translate | ellipsis:'1200'}}</div>
           </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('paramurl',2) ? 'active' : ''}}">
-            <div ng-click="goTo('apps/paramurl')" class="list-group-item-value menu-item-left no-opacity">{{'Parameterized URLs' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('apps/paramurl')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Parameterized URLs' | translate | ellipsis:'1200'}}</div>
           </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('bulkextensions',2) ? 'active' : ''}}">
-            <div ng-click="goTo('apps/bulkextensions')" class="list-group-item-value menu-item-left no-opacity">{{'Bulk extensions' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('apps/bulkextensions')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Bulk extensions' | translate | ellipsis:'1200'}}</div>
           </div>
           <div ng-if="!wizard.isWizard && (wizard.provisioning == 'tancredi')" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('bulkdevices',2) ? 'active' : ''}}">
-            <div ng-click="goTo('apps/bulkdevices')" class="list-group-item-value menu-item-left no-opacity">{{'Bulk phones configuration' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('apps/bulkdevices')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Bulk phones configuration' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
         <li data-toggle="collapse" data-parent="#navbar-left" href="#adminCollapse" ng-if="!wizard.isMigrationView && !wizard.isWizard || wizard.stepCount > appConfig.PART3_STEP"
@@ -249,16 +249,16 @@
         </li>
         <div id="adminCollapse" class="panel-collapse collapse {{resolveActiveTab('admin',1) ? 'in' : ''}}">
             <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('languages',2) ? 'active' : ''}}">
-                <div ng-click="goTo('admin/languages')" class="list-group-item-value menu-item-left no-opacity">{{'Languages' | translate | ellipsis:'1200'}}</div>
+                <div ng-click="goTo('admin/languages')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Languages' | translate | ellipsis:'1200'}}</div>
               </div>
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('settings',2) ? 'active' : ''}}">
-            <div ng-click="goTo('admin/settings')" class="list-group-item-value menu-item-left no-opacity">{{'Settings' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('admin/settings')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Settings' | translate | ellipsis:'1200'}}</div>
           </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu">
-            <a target="_blank" href="/freepbx/admin" class="list-group-item-value menu-item-left no-opacity a-menu">{{'Advanceds' | translate | ellipsis:'1200'}}</a>
+            <a target="_blank" href="/freepbx/admin" class="list-group-item-value menu-item-left no-opacity a-menu full-width">{{'Advanceds' | translate | ellipsis:'1200'}}</a>
           </div>
           <div ng-if="!wizard.isWizard" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('report',2) ? 'active' : ''}}">
-            <div ng-click="goTo('admin/report')" class="list-group-item-value menu-item-left no-opacity">{{'Report' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('admin/report')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Report' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
         <li class="list-group-item list-group-item-separator hidden-sm hidden-md hidden-lg collapse-menu" id="fullscreen-item-menu">
