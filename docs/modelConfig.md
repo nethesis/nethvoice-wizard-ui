@@ -115,7 +115,7 @@ This is the current list of variables related to features:
   - `pnp_enable`
 
 ### Sections
-  
+
 The UI for the configuration of every model is organized in the sections:
 
 - `Soft Keys`
@@ -187,7 +187,7 @@ For instance, `preferences()` function defines the feature related to the sectio
 Each variable name must match one of the variable names defined in the related Tancredi template, whereas the list of allowed values that a variable can store can be derived from:
 
 - the phone datasheet
-- a Tancredi macro. By now these macro define the allowed values for `language`, `timezone` and `tonezone` variables
+- a Tancredi macro. By now these macros define the allowed values for `language`, `timezone` and `tonezone` variables
 
 A variable type can be one of the following:
 
