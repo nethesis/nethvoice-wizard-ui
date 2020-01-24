@@ -10,22 +10,6 @@
 angular.module('nethvoiceWizardUiApp')
   .service('PhoneService', function ($q, RestService, UtilService) {
 
-    // seb
-
-    this.patchPhoneModel = function (obj) {
-      return $q(function (resolve, reject) {
-        RestService.tpatch('/tancredi/api/v1/phones/' + obj.mac, {
-          model: obj.model
-        }).then(function (res) {
-          resolve(res);
-        }, function (err) {
-          reject(err);
-        });
-      });
-    }
-
-    // andre
-
     // Retrieve the complete phone inventory
     this.getPhones = function () {
       return $q(function (resolve, reject) {

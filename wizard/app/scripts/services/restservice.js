@@ -72,6 +72,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.patch = function(endpoint, data) {
+      return $q(function(resolve, reject) {
+        $http.patch(customConfig.BASE_API_URL + endpoint, data).then(function successCallback(response) {
+          resolve(response);
+        }, function errorCallback(response) {
+          reject(response);
+        });
+      });
+    };
+
     this.put = function(endpoint, data) {
       return $q(function(resolve, reject) {
         $http.put(customConfig.BASE_API_URL + endpoint, data).then(function successCallback(response) {

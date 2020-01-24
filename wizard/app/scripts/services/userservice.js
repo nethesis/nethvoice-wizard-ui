@@ -109,6 +109,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.setPhoneModel = function (mac, model) {
+      return $q(function (resolve, reject) {
+        RestService.patch('/physicalextensions/' + mac, { "model": model }).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    }
+
     this.getVoiceMail = function (extension) {
       return $q(function (resolve, reject) {
         RestService.get('/voicemails/' + extension).then(function (res) {
