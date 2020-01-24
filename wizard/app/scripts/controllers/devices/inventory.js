@@ -676,20 +676,31 @@ angular.module('nethvoiceWizardUiApp')
       }
       $scope.modelLoaders[phone.mac] = 'loading';
 
+      // set phone model on Tancredi
       PhoneService.setPhoneModel(phone.mac, model).then(function (res) {
-        $scope.modelLoaders[phone.mac] = 'success';
-        $timeout(function () {
-          $scope.modelLoaders[phone.mac] = null;
-        }, 3000);
-      }, function (err) {
-        console.log(err);
-        addErrorNotification(err.data, "Error setting phone model");
+        // set phone model on Corbera
+        UserService.setPhoneModel(phone.mac, model).then(function (res) {
+          $scope.modelLoaders[phone.mac] = 'success';
+          resetModelLoaderDelayed(phone.mac);
+        }, function (errorCorbera) {
+          console.log(errorCorbera);
+          addErrorNotification(errorCorbera.data, "Error setting phone model");
+          $scope.modelLoaders[phone.mac] = 'fail';
+          resetModelLoaderDelayed(phone.mac);
+        });
+      }, function (errorTancredi) {
+        console.log(errorTancredi);
+        addErrorNotification(errorTancredi.data, "Error setting phone model");
         $scope.modelLoaders[phone.mac] = 'fail';
-        $timeout(function () {
-          $scope.modelLoaders[phone.mac] = null;
-        }, 3000);
+        resetModelLoaderDelayed(phone.mac);
       });
     };
+
+    function resetModelLoaderDelayed(mac) {
+      $timeout(function () {
+        $scope.modelLoaders[mac] = null;
+      }, 3000);
+    }
 
     $scope.showDeletePhoneModal = function (phone) {
       $scope.phoneToDelete = phone;

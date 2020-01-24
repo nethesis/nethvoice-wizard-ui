@@ -120,13 +120,13 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.setDeviceModel = function (device) {
       var mac = angular.copy(device.mac.replace(/:/g, "-"))
-      PhoneService.patchPhoneModel({
-        mac: mac,
-        model: device.model.name
-      }).then(function (res) {
-
-        console.log("MODEL CHANGES", res.data);
-
+      // set phone model on Tancredi
+      PhoneService.setPhoneModel(mac, device.model.name).then(function (res) {
+        // set phone model on Corbera
+        UserService.setPhoneModel(mac, device.model.name).then(function (res) {
+        }, function (err) {
+          console.log(err)
+        })
       }, function (err) {
         console.log(err)
       })

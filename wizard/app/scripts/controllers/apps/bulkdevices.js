@@ -327,7 +327,10 @@ angular.module('nethvoiceWizardUiApp')
 
       $scope.phones.forEach(function (phone) {
         if (phone.selected) {
+          // set phone model on Tancredi
           setModelPromises.push(PhoneService.setPhoneModel(phone.mac, model));
+          // set phone model on Corbera
+          setModelPromises.push(UserService.setPhoneModel(phone.mac, model));
         }
       });
       $scope.view.changeRoute = true;
