@@ -11,7 +11,7 @@
   </div>
   <div class="wizard-pf-contents adjust-size no-margin-bottom">
     <h1 class="control-label centered" for="textInput-markup">{{'Configurations' | translate}}</h1>
-    <div class="container-fluid margin-top-lg">
+    <div class="container-fluid mt-10">
       <div class="form-group">
         <div class="filter-label-user adjust-filter-user">{{'Filter' | translate}}:</div>
         <select class="adjust-filter-user" title="-" pf-select="{ width: '180px' }" ng-model="usersFilter" ng-options="uf as uf | translate for uf in availableUserFilters">
@@ -372,9 +372,8 @@
         <input ng-model="temp.importFile" type="file" accept=".csv" id="importInput">
       </div>
     </div>
-
   </div>
-  <!-- <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step> -->
+  <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>
 </div>
 
 <div class="modal fade" id="devicesAssociation" tabindex="-1" role="dialog" aria-hidden="true">

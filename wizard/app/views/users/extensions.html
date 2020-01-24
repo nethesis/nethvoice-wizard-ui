@@ -11,10 +11,10 @@
         <li class="wizard-pf-step {{resolveActiveTab('profiles',2) ? 'active' : ''}}" data-tabgroup="3">
           <a ng-click="goTo('users/profiles')"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Profiles' | translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="4">
+        <li ng-if="wizard.provisioning != 'tancredi'" class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="4">
           <a ng-click="goTo('users/devices')"><span class="wizard-pf-step-number">4</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
         </li>
-        <li class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="5">
+        <li ng-if="wizard.provisioning != 'tancredi'" class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="5">
           <a ng-click="goTo('users/configurations')"><span class="wizard-pf-step-number">5</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
         </li>
       </ul>
@@ -78,7 +78,7 @@
               <div class="list-view-pf-additional-info">
                 <div ng-if="user.default_extension === 'none'" class="list-view-pf-additional-info-item {{user.alreadyExists ? 'has-error' : ''}}">
                   <form class="full-size" ng-submit="setMainExtension(user)">
-                    <input ng-model="user.temp_ext" type="text" class="form-control" id="filter" placeholder="{{'Insert extension' | translate}}">
+                    <input ng-model="user.temp_ext" type="text" class="form-control" id="{{user.username}}_ExtInput_add" placeholder="{{'Insert extension' | translate}}">
                   </form>
                   <div class="input-group-btn">
                     <button ng-click="setMainExtension(user)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{'Add' | translate}}</button>
@@ -86,7 +86,7 @@
                 </div>
                 <div ng-if="user.default_extension !== 'none'" class="list-view-pf-additional-info-item">
                   <form class="full-size" ng-submit="setMainExtension(user)">
-                    <input type="text" ng-model="user.default_extension" class="form-control" id="filter" placeholder="{{'Insert extension' | translate}}">
+                    <input type="text" ng-model="user.default_extension" class="form-control" id="{{user.username}}_ExtInput_edit" placeholder="{{'Insert extension' | translate}}">
                   </form>
                   <div class="input-group-btn">
                     <button ng-click="setMainExtension(user)" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">{{'Modify' | translate}}</button>

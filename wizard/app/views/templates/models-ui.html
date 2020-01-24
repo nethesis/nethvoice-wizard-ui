@@ -14,7 +14,7 @@
       <!-- start reusable parte of the ui -->
       <form id="currentModelForm">
         <!-- sections -->
-        <div ng-repeat="(sectionkey, section) in currentModel.ui track by sectionkey">
+        <div ng-repeat="(sectionkey, section) in ::currentModel.ui track by sectionkey">
           <!-- if it's a key section -->
           <div class="mt-20" ng-if="isKeysSection(sectionkey) && currentModel.ui.map[sectionkey]">
             <h2 ng-click="openSection(sectionkey)"
@@ -29,7 +29,7 @@
                 <div class="col-lg-12 {{!isExpKeysSection(sectionkey) ? 'mt-20' : ''}} no-border-bottom">
                   <div class="col-lg-12 no-lateral-padding {{isExpKeysSection(sectionkey) ? 'padding-lateral-null' : ''}}
                       {{item.type == 'loop' ? 'mb-20' : ''}}"
-                    ng-repeat="item in currentModel.ui[sectionkey].items track by $index">
+                    ng-repeat="item in ::currentModel.ui[sectionkey].items track by $index">
                     <div ng-repeat="keys in item.data track by $index">
                       <!-- if the item type is a loop -->
                       <div ng-if="item.type == 'loop'">
@@ -48,12 +48,12 @@
                                 <div class="col-lg-12 mt-20 mb-8 no-border-bottom">
                                   <div ng-if="(4 * (!currentModel.ui[sectionkey].showingExpKeys ? 1 :
                                       currentModel.ui[sectionkey].showingExpKeys)) > $index"
-                                    ng-repeat="keysIndex in item.keysIndexes track by $index">
+                                    ng-repeat="keysIndex in ::item.keysIndexes track by $index">
                                     <div class="no-lateral-padding col-lg-12">
                                       <div class="loop-keys-index">
                                         {{::item.description | translate}} {{keysIndex}}
                                       </div>
-                                      <div class="col-lg-3" ng-repeat="key in keys" ng-if="!currentModel.ui.map.hiddenVariables.includes(key.variable + '_' + keysIndex)">
+                                      <div class="col-lg-3" ng-repeat="key in ::keys" ng-if="!currentModel.ui.map.hiddenVariables.includes(key.variable + '_' + keysIndex)">
                                         <!-- list -->
                                         <div ng-if="key.type == 'list'" class="form-group">
                                           <label class="mt-10 control-label {{currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + (module + 1) + '_' + keysIndex] && currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? 'changed-color' : 'not-changed-color'}}">
@@ -71,12 +71,12 @@
                                               <!-- combobox -->
                                               <option ng-selected="currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] == option.value"
                                                 ng-if="key.options.length > 10"
-                                                ng-repeat="option in key.options"
+                                                ng-repeat="option in ::key.options"
                                                 value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                                               <!-- selectpicker -->
                                               <option ng-selected="currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] == option.value"
                                                 ng-if="key.options.length <= 10"
-                                                ng-repeat="option in key.options"
+                                                ng-repeat="option in ::key.options"
                                                 value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
                                             </select>
                                           </div>
@@ -114,12 +114,12 @@
                         <div ng-if="!isExpKeysSection(sectionkey)">
                           <div ng-if="(4 * (!currentModel.ui[sectionkey].showingKeys ? 1 :
                             currentModel.ui[sectionkey].showingKeys)) > $index"
-                            ng-repeat="keysIndex in item.keysIndexes track by $index">
+                            ng-repeat="keysIndex in ::item.keysIndexes track by $index">
                             <div class="no-lateral-padding col-lg-12">
                               <div class="loop-keys-index">
                                 {{::item.description | translate}} {{keysIndex}}
                               </div>
-                              <div class="col-lg-3" ng-repeat="key in keys" ng-if="!currentModel.ui.map.hiddenVariables.includes(key.variable + '_' + keysIndex)">
+                              <div class="col-lg-3" ng-repeat="key in ::keys" ng-if="!currentModel.ui.map.hiddenVariables.includes(key.variable + '_' + keysIndex)">
                                 <!-- list -->
                                 <div ng-if="key.type == 'list'" class="form-group">
                                   <label class="mt-10 control-label {{currentModel.variables[key.variable + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + keysIndex] && currentModel.variables[key.variable + '_' + keysIndex] != currentModel.globals[key.variable + '_' + keysIndex] ? 'changed-color' : 'not-changed-color'}}">
@@ -137,12 +137,12 @@
                                       <!-- combobox -->
                                       <option ng-selected="currentModel.variables[key.variable + '_' + keysIndex] == option.value"
                                         ng-if="key.options.length > 10"
-                                        ng-repeat="option in key.options"
+                                        ng-repeat="option in ::key.options"
                                         value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                                       <!-- selectpicker -->
                                       <option ng-selected="currentModel.variables[key.variable + '_' + keysIndex] == option.value"
                                         ng-if="key.options.length <= 10"
-                                        ng-repeat="option in key.options"
+                                        ng-repeat="option in ::key.options"
                                         value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
                                     </select>
                                   </div>
@@ -176,7 +176,7 @@
                       </button>
                       <!-- if item type is static -->
                       <div ng-if="item.type == 'static'" class="col-lg-6 mb-15"
-                        ng-repeat="key in keys track by $index">
+                        ng-repeat="key in ::keys track by $index">
                         <!-- list -->
                         <div ng-if="key.type == 'list'" class="form-group">
                           <label class="mt-10 control-label {{currentModel.variables[key.variable] != currentModel.storedVariables[key.variable] && currentModel.variables[key.variable] != currentModel.globals[key.variable] ? 'changed-color' : 'not-changed-color'}}">
@@ -194,12 +194,12 @@
                               <!-- combobox -->
                               <option ng-selected="currentModel.variables[key.variable] == option.value"
                                 ng-if="key.options.length > 10"
-                                ng-repeat="option in key.options"
+                                ng-repeat="option in ::key.options"
                                 value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                               <!-- selectpicker -->
                               <option ng-selected="currentModel.variables[key.variable] == option.value"
                                 ng-if="key.options.length <= 10"
-                                ng-repeat="option in key.options"
+                                ng-repeat="option in ::key.options"
                                 value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
                             </select>
                           </div>
@@ -240,7 +240,7 @@
                 <div ng-show="currentModel.loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
                 <div ng-show="!currentModel.loadingSections[sectionkey]" class="col-lg-12 mt-25 no-border-bottom">
                   <div ng-if="!currentModel.ui.map.hiddenVariables.includes(item.variable)"
-                    ng-repeat="item in currentModel.ui[sectionkey].items track by item.variable"
+                    ng-repeat="item in ::currentModel.ui[sectionkey].items track by item.variable"
                     class="col-lg-6 mb-15">
                     <!-- list -->
                     <div ng-if="item.type == 'list'" class="form-group">
@@ -259,12 +259,12 @@
                           <!-- combobox -->
                           <option ng-selected="currentModel.variables[item.variable] == option.value"
                             ng-if="item.options.length > 10"
-                            ng-repeat="option in item.options"
+                            ng-repeat="option in ::item.options"
                             value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}} {{currentModel.globals[item.variable] && !currentModel.storedVariables[item.variable] && currentModel.globals[item.variable] == option.value ? '(default)' : ''}}</option>
                           <!-- selectpicker -->
                           <option ng-selected="currentModel.variables[item.variable] == option.value"
                             ng-if="item.options.length <= 10"
-                            ng-repeat="option in item.options"
+                            ng-repeat="option in ::item.options"
                             value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}} {{currentModel.globals[item.variable] && !currentModel.storedVariables[item.variable] && currentModel.globals[item.variable] == option.value ? '(default)' : ''}}</option>
                         </select>
                       </div>

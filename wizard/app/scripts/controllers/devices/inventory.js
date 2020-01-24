@@ -42,7 +42,7 @@ angular.module('nethvoiceWizardUiApp')
       });
 
       $timeout(function () {
-        $scope.phonesHeight = 'calc(100vh - ' + ($('#phone-list')[0].getBoundingClientRect().y + 80) + 'px)';
+        $scope.phonesHeight = 'calc(100vh - ' + ($('#phone-list')[0].getBoundingClientRect().y + 110) + 'px)';
       }, 200);
     }
 

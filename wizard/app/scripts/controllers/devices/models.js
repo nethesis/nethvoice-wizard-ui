@@ -232,4 +232,10 @@ angular.module('nethvoiceWizardUiApp')
       getModels()
     })
 
+    $scope.$on('$routeChangeStart', function() {
+      $scope.globalsUi = null
+      $scope.inventoryModels = null
+      $scope.defaultSettings = null    
+    })
+
   })

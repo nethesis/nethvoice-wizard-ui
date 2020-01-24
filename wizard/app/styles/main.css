@@ -50,7 +50,7 @@ a {
 }
 
 .layout-pf-alt-fixed .nav-pf-vertical-alt {
-  width: 200px;
+  width: 250px;
   background: #282828;
   border-right: 0;
   z-index: 999;
@@ -96,11 +96,11 @@ a {
 }
 
 .layout-pf-alt.layout-pf-alt-fixed .container-pf-alt-nav-pf-vertical-alt {
-  margin-left: 200px;
+  margin-left: 250px;
 }
 
 .layout-pf-alt.layout-pf-alt-fixed.layout-pf-alt-fixed-inner-scroll .container-pf-alt-nav-pf-vertical-alt.container-cards-pf {
-  padding: 12px;
+  padding-top: 12px;
   overflow-x: hidden;
 }
 
@@ -400,7 +400,7 @@ a {
 
 @media screen and (min-width: 1200px) {
   .wizard-pf-footer {
-    margin-left: 200px;
+    margin-left: 250px;
     padding-left: 12px;
   }
 

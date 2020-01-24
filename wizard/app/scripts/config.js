@@ -1,8 +1,5 @@
-var appConfig = {
+var appConfig_OLD = {
   TOTAL_STEP: 11,
-  PART1_STEP: 5,
-  PART2_STEP: 7,
-  PART3_STEP: 9,
   STEP_MAP: {
     extensions: 1,
     groups: 2,
@@ -30,6 +27,9 @@ var appConfig = {
     '10': 'admin/languages',
     '11': 'admin/settings'
   },
+  TRUNKS_PREV_STEP: 5,
+  ROUTES_PREV_STEP: 7,
+  ADMINS_PREV_STEP: 9,
   STEP_WIZARD: {
     extensions: {
       prev: false,
@@ -53,6 +53,103 @@ var appConfig = {
     },
     physical: {
       prev: 'users/configurations',
+      next: 'trunks/voip'
+    },
+    voip: {
+      prev: 'trunks/physical',
+      next: 'routes/inbound'
+    },
+    inbound: {
+      prev: 'trunks/voip',
+      next: 'routes/outbound'
+    },
+    outbound: {
+      prev: 'routes/inbound',
+      next: 'admin/languages'
+    },
+    languages: {
+      prev: 'routes/outbound',
+      next: 'admin/settings'
+    },
+    settings: {
+      prev: 'admin/languages',
+      next: false,
+      last: true
+    }
+  },
+  MAX_TRIES: 6,
+  INTERVAL_POLLING: 2000
+};
+
+var appConfig = {
+  TOTAL_STEP: 13,
+  STEP_MAP: {
+    extensions: 1,
+    groups: 2,
+    profiles: 3,
+    devices: 4,
+    inventory: 5,
+    models: 6,
+    configurations: 7,
+    physical: 8,
+    voip: 9,
+    inbound: 10,
+    outbound: 11,
+    languages: 12,
+    settings: 13
+  },
+  STEP_MAP_REVERSE: {
+    '0': 'users',
+    '1': 'users/extensions',
+    '2': 'users/groups',
+    '3': 'users/profiles',
+    '4': 'devices',
+    '5': 'devices/inventory',
+    '6': 'devices/models',
+    '7': 'configurations',
+    '8': 'trunks/physical',
+    '9': 'trunks/voip',
+    '10': 'routes/inbound',
+    '11': 'routes/outbound',
+    '12': 'admin/languages',
+    '13': 'admin/settings'
+  },
+  DEVICES_PREV_STEP: 3,
+  CONFIGURATIONS_PREV_STEP: 6,
+  TRUNKS_PREV_STEP: 7,
+  ROUTES_PREV_STEP: 9,
+  ADMINS_PREV_STEP: 11,
+  STEP_WIZARD: {
+    extensions: {
+      prev: false,
+      next: 'users/groups'
+    },
+    groups: {
+      prev: 'users/extensions',
+      next: 'users/profiles'
+    },
+    profiles: {
+      prev: 'users/groups',
+      next: 'devices'
+    },
+    devices: {
+      prev: 'users/profiles',
+      next: 'devices/inventory'
+    },
+    inventory: {
+      prev: 'users/profiles',
+      next: 'devices/models'
+    },
+    models: {
+      prev: 'devices/inventory',
+      next: 'configurations'
+    },
+    configurations: {
+      prev: 'devices/models',
+      next: 'trunks/physical'
+    },
+    physical: {
+      prev: 'configurations',
       next: 'trunks/voip'
     },
     voip: {

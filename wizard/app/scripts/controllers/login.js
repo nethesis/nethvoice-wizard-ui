@@ -21,8 +21,8 @@ angular.module('nethvoiceWizardUiApp')
           }
           if ($scope.wizard.isWizard) {
             MigrationService.isMigration().then(function (resIsMigration) {
-              $scope.wizard.isMigration = resIsMigration.data;
-              if (resIsMigration.data) {
+              $scope.wizard.isMigration = resIsMigration.data
+              if ($scope.wizard.isMigration) {
                 // isWizard && isMigration
                 ConfigService.getConfig().then(function(resConfig) {
                   if (resConfig.data.configured === 1) {

@@ -18,8 +18,8 @@
     {{'Learn more about this' | translate}} <a target="_blank" href="{{customConfig.BRAND_DOCS}}">{{'on the documentation' | translate}}</a>.
   </p>
   <div class="blank-slate-pf-main-action">
-    <button id="legacy-button" ng-click="nextStepUsers()" class="btn btn-primary btn-lgg handle-margin"> {{'Local PBX' | translate}} </button>
-    <button id="uc-button" ng-click="nextStepUsers()" class="btn btn-primary btn-lgg"> {{'Remote PBX' | translate}} </button>
+    <button id="legacy-button" ng-click="prevStep()" class="btn btn-primary btn-lgg handle-margin"> {{'Local PBX' | translate}} </button>
+    <button id="uc-button" ng-click="nextStep()" class="btn btn-primary btn-lgg"> {{'Remote PBX' | translate}} </button>
   </div>
   <div ng-if="startInstall" class="progress-content">
     <div class="progress-description">

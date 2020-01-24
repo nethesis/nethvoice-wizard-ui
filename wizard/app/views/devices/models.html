@@ -25,7 +25,7 @@
       </button>
     </div>
     <div ng-if="!(inventoryModels | isEmpty)" class="container-fluid">
-      <div class="list-group list-view-pf adjust-margin-extensions no-border">
+      <div id="modelsContainer" class="list-group list-view-pf adjust-margin-extensions no-border">
         <div ng-repeat="model in inventoryModels track by model.name" class="adjust-profile-margin">
           <div id="accordion-models-{{$index}}">
             <h1 ng-click="checkCurrentModelChanged(model.name)" class="adjust-header adjust-profile-header pointer">
@@ -60,7 +60,7 @@
       </div>
     </div>
   </div>
-  <!-- <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step> -->
+  <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>
 </div>
 
 <div class="modal fade" id="newModelModal" tabindex="-1" role="dialog" aria-labelledby="nModelMLabel"

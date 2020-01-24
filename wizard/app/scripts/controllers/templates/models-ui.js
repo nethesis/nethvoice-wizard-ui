@@ -50,6 +50,8 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.openSection = function (sectionkey) {
+      $scope.destroyAllSelects()
+
       delete $scope.currentModel.ui[sectionkey].showingKeys
       if ($scope.currentModel.openedSection != sectionkey) {
         $scope.currentModel.openedSection = sectionkey

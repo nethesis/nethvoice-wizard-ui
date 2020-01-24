@@ -215,7 +215,7 @@ angular.module('nethvoiceWizardUiApp')
         })
 
         $timeout(function () {
-          $scope.usersHeight = 'calc(100vh - ' + ($('#configurationList')[0].getBoundingClientRect().y + 80) + 'px)';
+          $scope.usersHeight = 'calc(100vh - ' + ($('#configurationList')[0].getBoundingClientRect().y + 110) + 'px)';
         }, 400);
       }, function (err) {
         console.log(err)

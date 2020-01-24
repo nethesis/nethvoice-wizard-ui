@@ -10,8 +10,8 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('InitCtrl', function ($scope, $translate, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService,
     MigrationService, TrunkService, RouteService, ProvFanvilService, ProvSnomService, ProvGigasetService, ProvSangomaService, ProvYealinkService, ModelService, $q) {
-    $scope.customConfig = customConfig;
-    $scope.appConfig = appConfig;
+    $scope.customConfig = customConfig
+    $scope.appConfig = appConfig
 
     $scope.view = {
       changeRoute: true,
@@ -81,13 +81,13 @@ angular.module('nethvoiceWizardUiApp')
         if ($('#navbar-left').hasClass('show-mobile-nav')) {
           $('#wizard-step-footer').css('margin-left', '0px');
         } else {
-          $('#wizard-step-footer').css('margin-left', '200px');
+          $('#wizard-step-footer').css('margin-left', '250px');
         }
       } else {
         if (!$('#navbar-left').hasClass('collapsed')) {
           $('#wizard-step-footer').css('margin-left', '76px');
         } else {
-          $('#wizard-step-footer').css('margin-left', '200px');
+          $('#wizard-step-footer').css('margin-left', '250px');
         }
       }
     };
@@ -302,9 +302,17 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    var appConfigAdapt = function () {
+      if ($scope.wizard.provisioning != "tancredi") {
+        appConfig = appConfig_OLD
+        $scope.appConfig = appConfig_OLD
+      }
+    }
+
     var getProvisioningInfo = function () {
       ConfigService.getProvisioningInfo().then(function (res) {
         $scope.wizard.provisioning = res.data
+        appConfigAdapt()
         $scope.validateLocation()
         $scope.view.navbarReadySecond = true
       }, function (err) {
@@ -352,6 +360,19 @@ angular.module('nethvoiceWizardUiApp')
 
       $('body').css('background', '');
     });
+
+    $scope.destroyAllSelects = function () {
+      $("#modelsContainer .selectpicker").each(function( index, elem ) {
+        $( elem ).selectpicker("destroy")
+        $( elem ).remove()
+      })
+      $("#modelsContainer .combobox").each(function( index, elem ) {
+        $( elem ).remove()
+      })
+      $("#modelsContainer .combobox-container").each(function( index, elem ) {
+        $( elem ).remove()
+      })
+    }
 
     $scope.$on('comboboxRepeatEnd', function(event, elem) {
       elem.parent().combobox().parent().removeClass("hidden")
@@ -528,6 +549,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.$on('$routeChangeStart', function() {
       if ($location.path() == '/devices/models' || $location.path() == '/configurations'){
         $scope.currentModel = {}
+        $scope.destroyAllSelects()
       }
     })
     

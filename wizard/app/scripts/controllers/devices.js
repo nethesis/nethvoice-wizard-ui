@@ -11,9 +11,14 @@ angular.module('nethvoiceWizardUiApp')
   .controller('DevicesCtrl', function ($scope, $location) {
 
     console.log("DEVICES");
+    $scope.view.changeRoute = false
 
-    $scope.nextStepUsers = function () {
+    $scope.nextStep = function () {
       $location.path("/devices/inventory")  
+    }
+
+    $scope.prevStep = function () {
+      $location.path("/users/profiles")
     }
 
   });
