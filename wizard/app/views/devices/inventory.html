@@ -90,7 +90,7 @@
           </div>
         </form>
         <!-- phone list -->
-        <div class="list-group list-view-pf clear" id="phone-list" when-scrolled="loadMorePhones()" ng-style="{'height': phonesHeight}">
+        <div class="list-group list-view-pf clear" id="phone-list" when-scrolled="loadMorePhones()" ng-style="{'max-height': phonesHeight}">
           <div class="list-group-item cursor-default"
             ng-repeat="phone in phones | filter:searchPhoneString | limitTo: phonesLimit | orderBy: 'display_name'">
             <div class="list-view-pf-actions">
@@ -473,8 +473,7 @@
                   <strong>
                     {{ 'You are about to delete phone' | translate }}
                     {{ phoneToDelete.vendor ? phoneToDelete.vendor : ''}}
-                    {{ phoneToDelete.mac }}
-                  </strong>.
+                    {{ phoneToDelete.mac }}</strong>.
                 </p>
                 <p>
                   {{ 'Are you sure' | translate }}?

@@ -693,5 +693,7 @@
   "Unlink": "Disassocia",
   "Linked devices": "Dispositivi associati",
   "User settings": "Impostazioni utente",
-  "Unknown": "Sconosciuto"
+  "Unknown": "Sconosciuto",
+  "Device linked to user successfully": "Dispositivo associato all'utente con successo",
+  "Could not link device to user": "Non è stato possibile associare il dispositivo all'utente"
 }
