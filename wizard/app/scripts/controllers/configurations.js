@@ -25,6 +25,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.currentUser = {}
     $scope.linkTo = ""
     $scope.newDevice = {}
+    $scope.deviceToLink = {}
+    $scope.deviceToLink.device = null
 
     $scope.USERS_PAGE = 12;
     $scope.usersLimit = $scope.USERS_PAGE;
@@ -135,9 +137,12 @@ angular.module('nethvoiceWizardUiApp')
     $scope.openDevices = function (user) {
       $scope.linkTo = user.username
       $scope.currentExtension = user.default_extension
+      $scope.deviceToLink.device = null
+      $scope.showResultLinkToUser = false;
+      $scope.linkToUserSuccess = false;
 
       $timeout(function () {
-        $scope.devicesNotLinkedHeight = 'calc(100vh - ' + ($('#devices-not-linked-list')[0].getBoundingClientRect().y + 100) + 'px)';
+        $scope.devicesNotLinkedHeight = 'calc(100vh - ' + ($('#devices-not-linked-list')[0].getBoundingClientRect().y + 120) + 'px)';
       }, 1000);
     }
 
@@ -338,6 +343,8 @@ angular.module('nethvoiceWizardUiApp')
       device.setPhysicalInAction = true
       device.linkPhysicalInAction = true
       device.linkInAction = true
+      $scope.linkToUserInProgress = true;
+
       UserService.createPhysicalExtension({
         mainextension: $scope.currentExtension,
         mac: device.mac || null,
@@ -351,16 +358,25 @@ angular.module('nethvoiceWizardUiApp')
         device.linkInAction = "ok"
         device.web_password = ''
         device.web_user = ''
+        $scope.linkToUserInProgress = false;
+        $scope.showResultLinkToUser = true;
+        $scope.linkToUserSuccess = true;
+
+        $timeout(function () {
+          $('#devicesAssociation').modal('hide');
+        }, 2500);
+
         $timeout(function () {
           getAllUsers(false)
           getAllDevices()
-          $("#devicesAssociation").modal("hide")
         }, 1000);
       }, function (err) {
+        console.log(err)
         device.setPhysicalInAction = "err"
         device.linkPhysicalInAction = "err"
         device.linkInAction = "err"
-        console.log(err)
+        $scope.linkToUserInProgress = false;
+        $scope.showResultLinkToUser = true;
         if (err.data.status == "There aren't available extension numbers") {
           $scope.maxExtensionReached = true
         }
