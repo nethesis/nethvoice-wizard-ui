@@ -12,26 +12,24 @@ angular.module('nethvoiceWizardUiApp')
 
     this.map = function () {
       return {
-        "x3": {
+        "X3": {
           "model": "X3",
           "softKeys": true,
           "lineKeys": 2,
           "expKeys": false,
           "hiddenVariables": [
-            "language_fanvil"
           ]
         },
-        "x4": {
-          "model": "x4",
+        "X4": {
+          "model": "X4",
           "softKeys": true,
           "lineKeys": 30,
           "expKeys": false,
           "hiddenVariables": [
-            "language_fanvil"
           ]
         },
-        "x5": {
-          "model": "x5",
+        "X5": {
+          "model": "X5",
           "softKeys": true,
           "lineKeys": 40,
           "expKeys": {
@@ -39,11 +37,10 @@ angular.module('nethvoiceWizardUiApp')
             "loops": 5
           },
           "hiddenVariables": [
-            "language_fanvil2"
           ]
         },
-        "x6": {
-          "model": "x6",
+        "X6": {
+          "model": "X6",
           "softKeys": true,
           "lineKeys": 60,
           "expKeys": {
@@ -51,13 +48,18 @@ angular.module('nethvoiceWizardUiApp')
             "loops": 5
           },
           "hiddenVariables": [
-            "language_fanvil2"
           ]
         }
       }
     }
 
-    this.softKeysUI = function (modelMap) {
+    this.softKeys = function (modelMap) {
+      if (!modelMap.softKeys) {
+        return;
+      }
+
+      //// todo
+
       var options = [{
           "text": "Dsskey1",
           "value": "dsskey1"
@@ -295,7 +297,13 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.lineKeysUI = function (modelMap) {
+    this.lineKeys = function (modelMap) {
+      if (!modelMap.lineKeys) {
+        return;
+      }
+
+      //// todo
+
       return {
         "name": "LineKey",
         "items": [{
@@ -439,7 +447,13 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.expKeysUI = function (modelMap) {
+    this.expansionKeys = function (modelMap) {
+      if (!modelMap.expansionKeys) {
+        return;
+      }
+
+      //// todo
+
       return {
         "name": "ExpKeys",
         "items": [{
@@ -573,7 +587,18 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.preferenceUI = function (modelMap) {
+    this.preferences = function (modelMap) {
+      if (!(modelMap.ringtone || modelMap.display || modelMap.wallpaper || modelMap.screensaver)) {
+        return;
+      }
+
+      var ringtoneItems = [];
+      var displayItems = [];
+      var wallpaperItems = [];
+      var screensaverItems = [];
+
+      //// todo
+
       return {
         "name": "Preference",
         "items": [{
@@ -726,7 +751,16 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.generalUI = function (modelMap) {
+    this.general = function (modelMap) {
+      if (!(modelMap.settings || modelMap.password)) {
+        return;
+      }
+
+      var settingsItems = [];
+      var passwordItems = [];
+
+      //// todo
+
       return {
         "name": "General",
         "items": [{
@@ -1466,7 +1500,16 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.networkUI = function (modelMap) {
+    this.network = function (modelMap) {
+      if (!(modelMap.vlan || modelMap.ldap)) {
+        return;
+      }
+
+      var ldapItems = [];
+      var vlanItems = [];
+
+      //// todo
+
       return {
         "name": "Network",
         "items": [{
@@ -1537,7 +1580,13 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.provisioningUI = function (modelMap) {
+    this.provisioning = function (modelMap) {
+      if (!modelMap.provisioning) {
+        return;
+      }
+
+      //// todo
+
       return {
         "name": "Provisioning",
         "items": [{

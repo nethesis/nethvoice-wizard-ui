@@ -19,7 +19,7 @@ span p {
 }
 
 .full-width {
-  width: 100%;
+  width: 100% !important;
 }
 
 p {
@@ -598,7 +598,7 @@ a {
 }
 
 .selected {
-  background: #d5ecf9;
+  background: #d5ecf9 !important;
 }
 
 .config-view-container {
@@ -2941,19 +2941,19 @@ a.black:focus, a.black:hover, a.black:active {
 }
 
 #phone-list {
-  height: calc(100vh - 300px);
+  max-height: calc(100vh - 300px);
   overflow: auto;
 }
 
 /* end Inventory */
 
 #devices-not-linked-list {
-  height: calc(100vh - 300px);
+  max-height: calc(100vh - 300px);
   overflow: auto;
 }
 
 #configurationList {
-  height: calc(100vh - 300px);
+  max-height: calc(100vh - 300px);
   overflow: auto;
 }
 

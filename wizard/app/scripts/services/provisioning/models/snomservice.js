@@ -169,290 +169,293 @@ angular.module('nethvoiceWizardUiApp')
 
     this.map = function () {
       return {
-        "3xx820m3": {
-          "D305": {
-            "model": "D305",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 5
-            }
-          },
-          "D315": {
-            "model": "D315",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 4
-            },
-            "expKeys": [
-              {
-                "start": 131,
-                "end": 148
-              },
-              {
-                "start": 149,
-                "end": 166
-              },
-              {
-                "start": 167,
-                "end": 184
-              }
-            ]
-          },
-          "D345": {
-            "model": "D345",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 47
-            },
-            "expKeys": [
-              {
-                "start": 174,
-                "end": 191
-              },
-              {
-                "start": 192,
-                "end": 209
-              },
-              {
-                "start": 210,
-                "end": 227
-              }
-            ]
-          },
-          "D375": {
-            "model": "D375",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 11
-            },
-            "expKeys": [
-              {
-                "start": 138,
-                "end": 155
-              },
-              {
-                "start": 156,
-                "end": 173
-              },
-              {
-                "start": 174,
-                "end": 191
-              }
-            ]
-          },
-          "D385": {
-            "model": "D385",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 11
-            },
-            "expKeys": [
-              {
-                "start": 138,
-                "end": 155
-              },
-              {
-                "start": 156,
-                "end": 173
-              },
-              {
-                "start": 174,
-                "end": 191
-              }
-            ]
+        "D305": {
+          "model": "D305",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 5
           }
         },
-        "7xx": {
-          "710": {
-            "model": "710",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 4
+        "D315": {
+          "model": "D315",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 4
+          },
+          "expKeys": [
+            {
+              "start": 131,
+              "end": 148
+            },
+            {
+              "start": 149,
+              "end": 166
+            },
+            {
+              "start": 167,
+              "end": 184
             }
+          ]
+        },
+        "D345": {
+          "model": "D345",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 47
           },
-          "715": {
-            "model": "715",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 4
+          "expKeys": [
+            {
+              "start": 174,
+              "end": 191
             },
-            "expKeys": [
-              {
-                "start": 5,
-                "end": 22
-              },
-              {
-                "start": 23,
-                "end": 40
-              },
-              {
-                "start": 41,
-                "end": 58
-              }
-            ]
-          },
-          "725": {
-            "model": "725",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 17
+            {
+              "start": 192,
+              "end": 209
             },
-            "expKeys": [
-              {
-                "start": 18,
-                "end": 35
-              },
-              {
-                "start": 36,
-                "end": 53
-              },
-              {
-                "start": 54,
-                "end": 71
-              }
-            ]
-          },
-          "D712": {
-            "model": "D712",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 4
+            {
+              "start": 210,
+              "end": 227
             }
+          ]
+        },
+        "D375": {
+          "model": "D375",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 11
           },
-          "D717": {
-            "model": "D717",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 2
+          "expKeys": [
+            {
+              "start": 138,
+              "end": 155
             },
-            "expKeys": [
-              {
-                "start": 3,
-                "end": 20
-              },
-              {
-                "start": 21,
-                "end": 38
-              },
-              {
-                "start": 39,
-                "end": 56
-              }
-            ]
+            {
+              "start": 156,
+              "end": 173
+            },
+            {
+              "start": 174,
+              "end": 191
+            }
+          ]
+        },
+        "D385": {
+          "model": "D385",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 11
           },
-          "D735": {
-            "model": "D735",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 31
+          "expKeys": [
+            {
+              "start": 138,
+              "end": 155
             },
-            "expKeys": [
-              {
-                "start": 32,
-                "end": 49
-              },
-              {
-                "start": 50,
-                "end": 67
-              },
-              {
-                "start": 68,
-                "end": 85
-              }
-            ]
-          },
-          "D745": {
-            "model": "D745",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 31
+            {
+              "start": 156,
+              "end": 173
             },
-            "expKeys": [
-              {
-                "start": 32,
-                "end": 49
-              },
-              {
-                "start": 50,
-                "end": 67
-              },
-              {
-                "start": 68,
-                "end": 85
-              }
-            ]
-          },
-          "D765": {
-            "model": "D765",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 15
-            },
-            "expKeys": [
-              {
-                "start": 16,
-                "end": 33
-              },
-              {
-                "start": 34,
-                "end": 51
-              },
-              {
-                "start": 52,
-                "end": 69
-              }
-            ]
-          },
-          "D785": {
-            "model": "D785",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 23
-            },
-            "expKeys": [
-              {
-                "start": 24,
-                "end": 41
-              },
-              {
-                "start": 42,
-                "end": 59
-              },
-              {
-                "start": 60,
-                "end": 77
-              }
-            ]
+            {
+              "start": 174,
+              "end": 191
+            }
+          ]
+        },
+        "710": {
+          "model": "710",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 4
           }
         },
-        "1xx": {
-          "D120": {
-            "model": "D120",
-            "keys": true,
-            "functionKeys": {
-              "start": 0,
-              "end": 1
+        "715": {
+          "model": "715",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 4
+          },
+          "expKeys": [
+            {
+              "start": 5,
+              "end": 22
+            },
+            {
+              "start": 23,
+              "end": 40
+            },
+            {
+              "start": 41,
+              "end": 58
             }
+          ]
+        },
+        "725": {
+          "model": "725",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 17
+          },
+          "expKeys": [
+            {
+              "start": 18,
+              "end": 35
+            },
+            {
+              "start": 36,
+              "end": 53
+            },
+            {
+              "start": 54,
+              "end": 71
+            }
+          ]
+        },
+        "D712": {
+          "model": "D712",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 4
+          }
+        },
+        "D717": {
+          "model": "D717",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 2
+          },
+          "expKeys": [
+            {
+              "start": 3,
+              "end": 20
+            },
+            {
+              "start": 21,
+              "end": 38
+            },
+            {
+              "start": 39,
+              "end": 56
+            }
+          ]
+        },
+        "D735": {
+          "model": "D735",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 31
+          },
+          "expKeys": [
+            {
+              "start": 32,
+              "end": 49
+            },
+            {
+              "start": 50,
+              "end": 67
+            },
+            {
+              "start": 68,
+              "end": 85
+            }
+          ]
+        },
+        "D745": {
+          "model": "D745",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 31
+          },
+          "expKeys": [
+            {
+              "start": 32,
+              "end": 49
+            },
+            {
+              "start": 50,
+              "end": 67
+            },
+            {
+              "start": 68,
+              "end": 85
+            }
+          ]
+        },
+        "D765": {
+          "model": "D765",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 15
+          },
+          "expKeys": [
+            {
+              "start": 16,
+              "end": 33
+            },
+            {
+              "start": 34,
+              "end": 51
+            },
+            {
+              "start": 52,
+              "end": 69
+            }
+          ]
+        },
+        "D785": {
+          "model": "D785",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 23
+          },
+          "expKeys": [
+            {
+              "start": 24,
+              "end": 41
+            },
+            {
+              "start": 42,
+              "end": 59
+            },
+            {
+              "start": 60,
+              "end": 77
+            }
+          ]
+        },
+        "D120": {
+          "model": "D120",
+          "keys": true,
+          "functionKeys": {
+            "start": 0,
+            "end": 1
           }
         }
       }
     }
 
-    this.generalUI = function () {
+    this.general = function (modelMap) {
+      if (!(modelMap.settings || modelMap.password)) {
+        return;
+      }
+
+      var settingsItems = [];
+      var passwordItems = [];
+
+      //// todo
+
       return {
         "name": "General",
         "items": [{
@@ -1142,7 +1145,18 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.preferenceUI = function () {
+    this.preferences = function (modelMap) {
+      if (!(modelMap.ringtone || modelMap.display || modelMap.wallpaper || modelMap.screensaver)) {
+        return;
+      }
+
+      var ringtoneItems = [];
+      var displayItems = [];
+      var wallpaperItems = [];
+      var screensaverItems = [];
+
+      //// todo
+
       return {
         "name": "Preferences",
         "items": [
@@ -1266,7 +1280,24 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.networkUI = function () {
+    this.provisioning = function (modelMap) {
+      if (!modelMap.provisioning) {
+        return;
+      }
+
+      //// todo
+    }
+
+    this.network = function (modelMap) {
+      if (!(modelMap.vlan || modelMap.ldap)) {
+        return;
+      }
+
+      var ldapItems = [];
+      var vlanItems = [];
+
+      //// todo
+
       return {
         "name": "Network",
         "items": [
@@ -1374,7 +1405,15 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.keysUI = function () {
+    this.softKeys = function (modelMap) {
+      if (!modelMap.softKeys) {
+        return;
+      }
+
+      //// todo
+    }
+
+    this.keysUI = function () { //// todo delete
       return {
         "name": "Keys",
         "items": [
@@ -1465,7 +1504,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.functionKeysUI = function (modelMap) {
+    this.functionKeysUI = function (modelMap) { //// todo delete
       if (!modelMap.functionKeys) {
         return null;
       }
@@ -1486,7 +1525,21 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.expKeysUI = function (modelMap) {
+    this.lineKeys = function (modelMap) {
+      if (!modelMap.lineKeys) {
+        return;
+      }
+
+      //// todo
+    }
+
+    this.expansionKeys = function (modelMap) {
+      if (!modelMap.expansionKeys) {
+        return;
+      }
+
+      //// todo
+      
       if (!modelMap.expKeys) {
         return null;
       }

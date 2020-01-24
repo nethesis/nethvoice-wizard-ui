@@ -25,6 +25,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.currentUser = {}
     $scope.linkTo = ""
     $scope.newDevice = {}
+    $scope.deviceToLink = {}
+    $scope.deviceToLink.device = null
 
     $scope.USERS_PAGE = 12;
     $scope.usersLimit = $scope.USERS_PAGE;
@@ -120,13 +122,13 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.setDeviceModel = function (device) {
       var mac = angular.copy(device.mac.replace(/:/g, "-"))
-      PhoneService.patchPhoneModel({
-        mac: mac,
-        model: device.model.name
-      }).then(function (res) {
-
-        console.log("MODEL CHANGES", res.data);
-
+      // set phone model on Tancredi
+      PhoneService.setPhoneModel(mac, device.model.name).then(function (res) {
+        // set phone model on Corbera
+        UserService.setPhoneModel(mac, device.model.name).then(function (res) {
+        }, function (err) {
+          console.log(err)
+        })
       }, function (err) {
         console.log(err)
       })
@@ -135,9 +137,12 @@ angular.module('nethvoiceWizardUiApp')
     $scope.openDevices = function (user) {
       $scope.linkTo = user.username
       $scope.currentExtension = user.default_extension
+      $scope.deviceToLink.device = null
+      $scope.showResultLinkToUser = false;
+      $scope.linkToUserSuccess = false;
 
       $timeout(function () {
-        $scope.devicesNotLinkedHeight = 'calc(100vh - ' + ($('#devices-not-linked-list')[0].getBoundingClientRect().y + 100) + 'px)';
+        $scope.devicesNotLinkedHeight = 'calc(100vh - ' + ($('#devices-not-linked-list')[0].getBoundingClientRect().y + 120) + 'px)';
       }, 1000);
     }
 
@@ -216,7 +221,7 @@ angular.module('nethvoiceWizardUiApp')
 
         $timeout(function () {
           $scope.usersHeight = 'calc(100vh - ' + ($('#configurationList')[0].getBoundingClientRect().y + 110) + 'px)';
-        }, 400);
+        }, 1000);
       }, function (err) {
         console.log(err)
       })
@@ -338,6 +343,8 @@ angular.module('nethvoiceWizardUiApp')
       device.setPhysicalInAction = true
       device.linkPhysicalInAction = true
       device.linkInAction = true
+      $scope.linkToUserInProgress = true;
+
       UserService.createPhysicalExtension({
         mainextension: $scope.currentExtension,
         mac: device.mac || null,
@@ -351,16 +358,25 @@ angular.module('nethvoiceWizardUiApp')
         device.linkInAction = "ok"
         device.web_password = ''
         device.web_user = ''
+        $scope.linkToUserInProgress = false;
+        $scope.showResultLinkToUser = true;
+        $scope.linkToUserSuccess = true;
+
+        $timeout(function () {
+          $('#devicesAssociation').modal('hide');
+        }, 2500);
+
         $timeout(function () {
           getAllUsers(false)
           getAllDevices()
-          $("#devicesAssociation").modal("hide")
         }, 1000);
       }, function (err) {
+        console.log(err)
         device.setPhysicalInAction = "err"
         device.linkPhysicalInAction = "err"
         device.linkInAction = "err"
-        console.log(err)
+        $scope.linkToUserInProgress = false;
+        $scope.showResultLinkToUser = true;
         if (err.data.status == "There aren't available extension numbers") {
           $scope.maxExtensionReached = true
         }
@@ -484,6 +500,7 @@ angular.module('nethvoiceWizardUiApp')
     })
 
     angular.element(document).ready(function () {
+      $scope.view.changeRoute = true
       getAllModelsAndUsersAndDevices()
       getAllProfiles()
       getAllGroups()

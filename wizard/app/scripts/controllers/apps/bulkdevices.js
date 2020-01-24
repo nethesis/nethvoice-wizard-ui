@@ -155,7 +155,7 @@ angular.module('nethvoiceWizardUiApp')
 
       $timeout(function () {
         $scope.phonesHeight = 'calc(100vh - ' + ($('#phone-list')[0].getBoundingClientRect().y + 80) + 'px)';
-      }, 200);
+      }, 400);
 
       // set phone.user
       $scope.phones.forEach(function (phone) {
@@ -327,7 +327,10 @@ angular.module('nethvoiceWizardUiApp')
 
       $scope.phones.forEach(function (phone) {
         if (phone.selected) {
+          // set phone model on Tancredi
           setModelPromises.push(PhoneService.setPhoneModel(phone.mac, model));
+          // set phone model on Corbera
+          setModelPromises.push(UserService.setPhoneModel(phone.mac, model));
         }
       });
       $scope.view.changeRoute = true;
@@ -460,8 +463,7 @@ angular.module('nethvoiceWizardUiApp')
           // success
           $timeout(function () {
             $('#reboot-now-modal').modal('hide');
-            $scope.showResultsRebootNow = false;
-          }, 3000);
+          }, 2500);
         }
       }, function (err) {
         console.log(err);

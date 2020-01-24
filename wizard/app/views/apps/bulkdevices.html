@@ -103,10 +103,10 @@
         </div>
         <!-- phone list -->
         <div class="list-group list-view-pf clear" ng-show="numFiltered != 0" id="phone-list"
-          when-scrolled="loadMorePhones()" ng-style="{'height': phonesHeight}">
+          when-scrolled="loadMorePhones()" ng-style="{'max-height': phonesHeight}">
           <div class="list-group-item cursor-default {{phone.selected ? 'selected' : ''}}"
             ng-repeat="phone in phones | limitTo: phonesLimit | orderBy: 'display_name'" ng-show="phone.filtered">
-            <label for="checkbox-phone-{{$index}}" class="width-100p">
+            <label for="checkbox-phone-{{$index}}" class="width-100p pointer">
               <div class="list-view-pf-actions width-15p">
                 <!-- reboot -->
                 <div>
@@ -286,14 +286,14 @@
                 <!-- reboot results -->
                 <div ng-show="showResultsRebootNow">
                   <!-- success -->
-                  <div class="alert alert-success" ng-show="phonesNotRebooted.length == 0">
+                  <div ng-show="phonesNotRebooted.length == 0" class="alert alert-success">
                     <span class="pficon pficon-ok"></span>
                     <span>
                       {{ 'Reboot command was sent successfully' | translate }}
                     </span>
                   </div>
                   <!-- errors -->
-                  <div class="alert alert-warning alert-dismissable">
+                  <div ng-show="phonesNotRebooted.length != 0" class="alert alert-warning alert-dismissable">
                     <span class="pficon pficon-warning-triangle-o"></span>
                     <p>
                       <strong>{{ 'Warning' | translate }}:</strong>
