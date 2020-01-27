@@ -87,6 +87,10 @@
               <li role="presentation"><a role="menuitem" tabindex="-1"
                   ng-click="showManualModal()">{{'Add manually' | translate}}</a></li>
             </ul>
+            <!-- only for dev purposes, do not remove the following comment //// -->
+            <!-- <button type="button" class="btn btn-danger" ng-click="deleteAllPhones()">
+              {{ 'Delete all phones' | translate }}
+            </button> -->
           </div>
         </div>
         <div ng-show="phones.length !== 0">
@@ -499,28 +503,6 @@
               {{ 'Are you sure' | translate }}?
             </p>
           </div>
-          <form class="form-horizontal">
-            <div class="modal-body">
-              <div class="alert alert-warning alert-dismissable">
-                <span class="pficon pficon-warning-triangle-o"></span>
-                <p>
-                  <strong>
-                    {{ 'You are about to delete phone' | translate }}
-                    {{ phoneToDelete.vendor ? phoneToDelete.vendor : ''}}
-                    {{ phoneToDelete.mac }}</strong>.
-                </p>
-                <p>
-                  {{ 'Are you sure' | translate }}?
-                </p>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
-              <button type="submit" class="btn btn-danger" ng-click="deletePhone()">
-                {{ 'Delete' | translate }}
-              </button>
-            </div>
-          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>

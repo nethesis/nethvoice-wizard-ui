@@ -2941,6 +2941,7 @@ a.black:focus, a.black:hover, a.black:active {
 }
 
 #phone-list {
+  min-height: 80px;
   max-height: calc(100vh - 300px);
   overflow: auto;
 }
@@ -2948,11 +2949,13 @@ a.black:focus, a.black:hover, a.black:active {
 /* end Inventory */
 
 #devices-not-linked-list {
+  min-height: 80px;
   max-height: calc(100vh - 300px);
   overflow: auto;
 }
 
 #configurationList {
+  min-height: 80px;
   max-height: calc(100vh - 300px);
   overflow: auto;
 }

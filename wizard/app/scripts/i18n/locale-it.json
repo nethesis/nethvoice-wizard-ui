@@ -650,7 +650,7 @@
   "Web phone": "Web phone",
   "User": "Utente",
   "Clear filters": "Rimuovi filtri",
-  "Set model": "Modifica modello",
+  "Set model": "Assegna modello",
   "Set delayed reboot": "Modifica riavvio ritardato",
   "No phone": "Nessun telefono",
   "Please change or clear active filters": "Modificare o rimuovere i filtri attivi",
@@ -695,5 +695,6 @@
   "User settings": "Impostazioni utente",
   "Unknown": "Sconosciuto",
   "Device linked to user successfully": "Dispositivo associato all'utente con successo",
-  "Could not link device to user": "Non è stato possibile associare il dispositivo all'utente"
+  "Could not link device to user": "Non è stato possibile associare il dispositivo all'utente",
+  "Set model to devices": "Assegna un modello ai dispositivi"
 }

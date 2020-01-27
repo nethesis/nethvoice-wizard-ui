@@ -31,6 +31,10 @@ angular.module('nethvoiceWizardUiApp')
 
     function gotModels(models) {
       $scope.models = models;
+
+      $timeout(function () {
+        $("select").selectpicker('refresh');
+      }, 1000);
     }
 
     function gotPhones(phonesTancredi) {
@@ -781,6 +785,13 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.toggleShowSuccessfullyAddedPhones = function () {
       $scope.showSuccessfullyAddedPhones = !$scope.showSuccessfullyAddedPhones;
+    }
+
+    $scope.deleteAllPhones = function() {
+      $scope.phones.forEach(function (phone) {
+        $scope.phoneToDelete = phone;
+        $scope.deletePhone()
+      });
     }
 
     init();
