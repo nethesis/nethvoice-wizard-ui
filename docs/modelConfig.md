@@ -99,10 +99,10 @@ This is the current list of variables related to features:
   - `ldap_name_filter`
 - `vlan`
   - `vlan_dhcp_enable`
-  - `data_vlan_qos`
+  - `data_vlan_priority`
   - `data_vlan_id`
   - `data_vlan_enable`
-  - `voice_vlan_qos`
+  - `voice_vlan_priority`
   - `voice_vlan_id`
   - `voice_vlan_enable`
   - `dhcp_option`
@@ -179,8 +179,8 @@ Yealink models configuration UI is provided by `wizard/app/scripts/services/prov
 This file provides a `map` function that defines:
 
 - the list of the models supported (`T19P_E2`, `T21P_E2`, `T23G`, ...)
-- the features supported by the various models (`"vlan": true, "wallpaper": true, "expansionKeys": ...`)
-- a list of variables that should NOT be show in some models (`"hiddenVariables": ["softkey_label_5", "softkey_label_6", ...]`)
+- the features supported by the various models, organized by section (`"general": { "settings": true, "password": true }, "preferences": { ... }, ...`)
+- a list of variables that should NOT be show for some models, organized by section  (`"softKeys": { "hidden": [ "softkey_label_5", "softkey_label_6", ... ] }`)
 
 The `yealinkservice.js` then provides one function for every section to show on the UI.
 For instance, `preferences()` function defines the feature related to the section (`ringtone`, `display`, `wallpaper`, `screensaver`) as well as the name, the type and the allowed values of every variable related to the various features.

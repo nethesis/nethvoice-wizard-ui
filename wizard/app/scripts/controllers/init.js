@@ -390,7 +390,7 @@ angular.module('nethvoiceWizardUiApp')
 
     var getModelMap = function (map, name) {
       for (var modelk in map) {
-        if (map[modelk].model.toUpperCase() == name) {
+        if (modelk.toUpperCase() === name) {
           return map[name]
         }
       }
@@ -403,73 +403,23 @@ angular.module('nethvoiceWizardUiApp')
     var getModelUI = function (name, brand) {
       switch (brand.toLowerCase()) {
         case "fanvil":
-          var map = getModelMap(ProvFanvilService.map(), name)
-          return {
-            map: map,
-            softKeys: handleKeys(ProvFanvilService.softKeys(map)),
-            lineKeys: handleKeys(ProvFanvilService.lineKeys(map)),
-            expansionKeys: handleKeys(ProvFanvilService.expansionKeys(map)),
-            general: ProvFanvilService.general(map),
-            preferences: ProvFanvilService.preferences(map),
-            network: ProvFanvilService.network(map),
-            provisioning: ProvFanvilService.provisioning(map),
-          }
+          return buildModelUI(ProvFanvilService, name);
           break;
       
         case "gigaset":
-          var map = getModelMap(ProvGigasetService.map(), name)
-          return {
-            map: map,
-            softKeys: handleKeys(ProvGigasetService.softKeys(map)),
-            lineKeys: handleKeys(ProvGigasetService.lineKeys(map)),
-            expansionKeys: handleKeys(ProvGigasetService.expansionKeys(map)),
-            general: ProvGigasetService.general(map),
-            preferences: ProvGigasetService.preferences(map),
-            network: ProvGigasetService.network(map),
-            provisioning: ProvGigasetService.provisioning(map),
-          }
+          return buildModelUI(ProvGigasetService, name);
           break;
       
         case "sangoma":
-          var map = getModelMap(ProvSangomaService.map(), name)
-          return {
-            map: map,
-            softKeys: handleKeys(ProvSangomaService.softKeys(map)),
-            lineKeys: handleKeys(ProvSangomaService.lineKeys(map)),
-            expansionKeys: handleKeys(ProvSangomaService.expansionKeys(map)),
-            general: ProvSangomaService.general(map),
-            preferences: ProvSangomaService.preferences(map),
-            network: ProvSangomaService.network(map),
-            provisioning: ProvSangomaService.provisioning(map),
-          }
+          return buildModelUI(ProvSangomaService, name);
           break;
           
         case "snom":
-          var map = getModelMap(ProvSnomService.map(), name)
-          return {
-            map: map,
-            softKeys: handleKeys(ProvSnomService.softKeys(map)),
-            lineKeys: handleKeys(ProvSnomService.lineKeys(map)),
-            expansionKeys: handleKeys(ProvSnomService.expansionKeys(map)),
-            general: ProvSnomService.general(map),
-            preferences: ProvSnomService.preferences(map),
-            network: ProvSnomService.network(map),
-            provisioning: ProvSnomService.provisioning(map),
-          }
+          return buildModelUI(ProvSnomService, name);
           break;
 
         case "yealink":
-          var map = getModelMap(ProvYealinkService.map(), name)
-          return {
-            map: map,
-            softKeys: handleKeys(ProvYealinkService.softKeys(map)),
-            lineKeys: handleKeys(ProvYealinkService.lineKeys(map)),
-            expansionKeys: handleKeys(ProvYealinkService.expansionKeys(map)),
-            general: ProvYealinkService.general(map),
-            preferences: ProvYealinkService.preferences(map),
-            network: ProvYealinkService.network(map),
-            provisioning: ProvYealinkService.provisioning(map),
-          }
+          return buildModelUI(ProvYealinkService, name);
           break;
 
         default:
@@ -478,12 +428,26 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    var buildModelUI = function (service, modelName) {
+      var map = getModelMap(service.map(), modelName)
+      return {
+        map: map,
+        softKeys: handleKeys(service.softKeys(map)),
+        lineKeys: handleKeys(service.lineKeys(map)),
+        expansionKeys: handleKeys(service.expansionKeys(map)),
+        general: service.general(map),
+        preferences: service.preferences(map),
+        network: service.network(map),
+        provisioning: service.provisioning(map),
+      }
+    }
+
     var handleKeys = function (keys) {
       // convert keys intervals to a flat list of key numbers
       if (keys) {
-        var keyIntervals = keys.items[0].keysIntervals;
+        var keysIntervals = keys.items[0].keys.intervals;
         var indexes = [];
-        keyIntervals.forEach(function (interval) {
+        keysIntervals.forEach(function (interval) {
           for (var i = interval.start; i <= interval.end; i++) {
             indexes.push(i);
           }

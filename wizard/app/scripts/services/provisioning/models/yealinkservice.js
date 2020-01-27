@@ -13,121 +13,204 @@ angular.module('nethvoiceWizardUiApp')
     this.map = function () {
       return {
         "T19P_E2": {
-          "model": "T19P_E2",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 9
-            },
-            {
-              "start": 13,
-              "end": 14
-            }
-          ],
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": false,
+            "screensaver": false
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 9
+              },
+              {
+                "start": 13,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": false,
+          "expansionKeys": false
         },
         "T21P_E2": {
-          "model": "T21P_E2",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "lineKeys": [{ "start": 1, "end": 2 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 10
-            },
-            {
-              "start": 14,
-              "end": 14
-            }
-          ],
-          "expansionKeys": false,
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": false,
+            "screensaver": false
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 2
+              }
+            ]
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 10
+              },
+              {
+                "start": 14,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "expansionKeys": false
         },
         "T23G": {
-          "model": "T23G",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "lineKeys": [{ "start": 1, "end": 3 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 10
-            },
-            {
-              "start": 14,
-              "end": 14
-            }
-          ],
-          "expansionKeys": false,
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          "general": {
+            "settings": true,
+            "password": true,
+            "hidden": [
+              // variables to hide in general section
+            ]
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": false,
+            "screensaver": false,
+            "hidden": [
+              // variables to hide in preferences section
+            ]
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 10
+              },
+              {
+                "start": 14,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              { "start": 1,
+                "end": 3
+              }
+            ]
+          },
+          "expansionKeys": false
         },
         "T27G": {
-          "model": "T27G",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "lineKeys": [{ "start": 1, "end": 21 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 14
-            }
-          ],
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": false,
+            "screensaver": false
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              { "start": 1,
+                "end": 21
+              }
+            ]
+          },
           "expansionKeys": {
             "modules": 6,
             "intervals": [
@@ -140,37 +223,54 @@ angular.module('nethvoiceWizardUiApp')
                 "end": 40
               }
             ]
-          },
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          }
         },
         "T29G": {
-          "model": "T29G",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "wallpaper": true,
-          "lineKeys": [{ "start": 1, "end": 27 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 14
-            }
-          ],
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": true,
+            "screensaver": false
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 27
+              }
+            ]
+          },
           "expansionKeys": {
             "modules": 6,
             "intervals": [
@@ -183,144 +283,213 @@ angular.module('nethvoiceWizardUiApp')
                 "end": 40
               }
             ]
-          },
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          }
         },
         "T40PG": {
-          "model": "T40PG",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "lineKeys": [{ "start": 1, "end": 3 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 10
-            },
-            {
-              "start": 13,
-              "end": 13
-            }
-          ],
-          "expansionKeys": false,
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": false,
+            "screensaver": false
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 10
+              },
+              {
+                "start": 13,
+                "end": 13
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 3
+              }
+            ]
+          },
+          "expansionKeys": false
         },
         "T41PS": {
-          "model": "T41PS",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "lineKeys": [{ "start": 1, "end": 15 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 10
-            },
-            {
-              "start": 13,
-              "end": 13
-            }
-          ],
-          "expansionKeys": false,
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": false,
+            "screensaver": false
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 10
+              },
+              {
+                "start": 13,
+                "end": 13
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 15
+              }
+            ]
+          },
+          "expansionKeys": false
         },
         "T42GS": {
-          "model": "T42GS",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "lineKeys": [{ "start": 1, "end": 15 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 10
-            },
-            {
-              "start": 13,
-              "end": 13
-            }
-          ],
-          "expansionKeys": false,
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": false,
+            "screensaver": false
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 10
+              },
+              {
+                "start": 13,
+                "end": 13
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              { "start": 1,
+                "end": 15
+              }
+            ]
+          },
+          "expansionKeys": false
         },
         "T46GS": {
-          "model": "T46GS",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "wallpaper": true,
-          "screensaver": true,
-          "lineKeys": [{ "start": 1, "end": 27 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 10
-            },
-            {
-              "start": 12,
-              "end": 14
-            }
-          ],
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": true,
+            "screensaver": true
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 10
+              },
+              {
+                "start": 12,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 27
+              }
+            ]
+          },
           "expansionKeys": {
             "modules": 6,
             "intervals": [
@@ -329,42 +498,58 @@ angular.module('nethvoiceWizardUiApp')
                 "end": 40
               }
             ]
-          },
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          }
         },
         "T48GS": {
-          "model": "T48GS",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "wallpaper": true,
-          "screensaver": true,
-          "lineKeys": [{ "start": 1, "end": 29 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 10
-            },
-            {
-              "start": 12,
-              "end": 14
-            }
-          ],
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": true,
+            "screensaver": true
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 10
+              },
+              {
+                "start": 12,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 29
+              }
+            ]
+          },
           "expansionKeys": {
             "modules": 6,
             "intervals": [
@@ -373,76 +558,110 @@ angular.module('nethvoiceWizardUiApp')
                 "end": 40
               }
             ]
-          },
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          }
         },
         "T49G": {
-          "model": "T49G",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "wallpaper": true,
-          "screensaver": true,
-          "lineKeys": [{ "start": 1, "end": 29 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 4
-            },
-            {
-              "start": 12,
-              "end": 14
-            }
-          ],
-          "expansionKeys": false,
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": true,
+            "screensaver": true
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 4
+              },
+              {
+                "start": 12,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 29
+              }
+            ]
+          },
+          "expansionKeys": false
         },
         "T53": {
-          "model": "T53",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "lineKeys": [{ "start": 1, "end": 27 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 10
-            },
-            {
-              "start": 13,
-              "end": 13
-            }
-          ],
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": true,
+            "screensaver": true
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 10
+              },
+              {
+                "start": 13,
+                "end": 13
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 27
+              }
+            ]
+          },
           "expansionKeys": {
             "modules": 3,
             "intervals": [
@@ -451,42 +670,58 @@ angular.module('nethvoiceWizardUiApp')
                 "end": 60
               }
             ]
-          },
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          }
         },
         "T52": {
-          "model": "T52",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "wallpaper": true,
-          "screensaver": true,
-          "lineKeys": [{ "start": 1, "end": 27 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 10
-            },
-            {
-              "start": 13,
-              "end": 13
-            }
-          ],
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": true,
+            "screensaver": true
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 10
+              },
+              {
+                "start": 13,
+                "end": 13
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 27
+              }
+            ]
+          },
           "expansionKeys": {
             "modules": 3,
             "intervals": [
@@ -495,42 +730,58 @@ angular.module('nethvoiceWizardUiApp')
                 "end": 60
               }
             ]
-          },
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          }
         },
         "T54": {
-          "model": "T54",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "wallpaper": true,
-          "screensaver": true,
-          "lineKeys": [{ "start": 1, "end": 27 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 10
-            },
-            {
-              "start": 12,
-              "end": 14
-            }
-          ],
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": true,
+            "screensaver": true
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 10
+              },
+              {
+                "start": 12,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 27
+              }
+            ]
+          },
           "expansionKeys": {
             "modules": 3,
             "intervals": [
@@ -539,42 +790,58 @@ angular.module('nethvoiceWizardUiApp')
                 "end": 60
               }
             ]
-          },
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          }
         },
         "T56": {
-          "model": "T56",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "wallpaper": true,
-          "screensaver": true,
-          "lineKeys": [{ "start": 1, "end": 27 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 4
-            },
-            {
-              "start": 12,
-              "end": 14
-            }
-          ],
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": true,
+            "screensaver": true
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 4
+              },
+              {
+                "start": 12,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 27
+              }
+            ]
+          },
           "expansionKeys": {
             "modules": 3,
             "intervals": [
@@ -583,42 +850,58 @@ angular.module('nethvoiceWizardUiApp')
                 "end": 60
               }
             ]
-          },
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          }
         },
         "T57": {
-          "model": "T57",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "wallpaper": true,
-          "screensaver": true,
-          "lineKeys": [{ "start": 1, "end": 29 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 4
-            },
-            {
-              "start": 12,
-              "end": 14
-            }
-          ],
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": true,
+            "screensaver": true
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 4
+              },
+              {
+                "start": 12,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 29
+              }
+            ]
+          },
           "expansionKeys": {
             "modules": 3,
             "intervals": [
@@ -627,42 +910,58 @@ angular.module('nethvoiceWizardUiApp')
                 "end": 60
               }
             ]
-          },
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          }
         },
         "T58": {
-          "model": "T58",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "wallpaper": true,
-          "screensaver": true,
-          "lineKeys": [{ "start": 1, "end": 27 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 4
-            },
-            {
-              "start": 12,
-              "end": 14
-            }
-          ],
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": true,
+            "screensaver": true
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 4
+              },
+              {
+                "start": 12,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 27
+              }
+            ]
+          },
           "expansionKeys": {
             "modules": 3,
             "intervals": [
@@ -671,68 +970,72 @@ angular.module('nethvoiceWizardUiApp')
                 "end": 60
               }
             ]
-          },
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          }
         },
         "VP59": {
-          "model": "VP59",
-          "vlan": true,
-          "provisioning": true,
-          "password": true,
-          "ringtone": true,
-          "settings": true,
-          "ldap": true,
-          "display": true,
-          "wallpaper": true,
-          "screensaver": true,
-          "lineKeys": [{ "start": 1, "end": 27 }],
-          "softKeys": [
-            {
-              "start": 1,
-              "end": 4
-            },
-            {
-              "start": 12,
-              "end": 14
-            }
-          ],
-          "expansionKeys": false,
-          "hiddenVariables": [
-            "softkey_label_5",
-            "softkey_label_6",
-            "softkey_label_7",
-            "softkey_label_8",
-            "softkey_label_9",
-            "softkey_label_10",
-            "softkey_label_11",
-            "softkey_label_12",
-            "softkey_label_13",
-            "softkey_label_14"
-          ]
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": true,
+            "screensaver": true
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true,
+          },
+          "softKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 4
+              },
+              {
+                "start": 12,
+                "end": 14
+              }
+            ],
+            "hidden": [
+              "softkey_label_5",
+              "softkey_label_6",
+              "softkey_label_7",
+              "softkey_label_8",
+              "softkey_label_9",
+              "softkey_label_10",
+              "softkey_label_11",
+              "softkey_label_12",
+              "softkey_label_13",
+              "softkey_label_14"
+            ]
+          },
+          "lineKeys": {
+            "intervals": [
+              {
+                "start": 1,
+                "end": 27
+              }
+            ]
+          },
+          "expansionKeys": false
         }
       }
     }
 
     this.general = function (modelMap) {
-      if (!(modelMap.settings || modelMap.password)) {
+      if (!(modelMap.general.settings || modelMap.general.password)) {
         return;
       }
 
       var settingsItems = [];
       var passwordItems = [];
 
-      if (modelMap.settings) {
+      if (modelMap.general.settings) {
         settingsItems = [
           {
             "variable": "language",
@@ -2823,7 +3126,7 @@ angular.module('nethvoiceWizardUiApp')
         ];
       }
 
-      if (modelMap.password) {
+      if (modelMap.general.password) {
         passwordItems = [
           {
             "variable": "adminpw",
@@ -2850,7 +3153,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     this.preferences = function (modelMap) {
-      if (!(modelMap.ringtone || modelMap.display || modelMap.wallpaper || modelMap.screensaver)) {
+      if (!(modelMap.preferences.ringtone || modelMap.preferences.display || modelMap.preferences.wallpaper || modelMap.preferences.screensaver)) {
         return;
       }
 
@@ -2859,7 +3162,7 @@ angular.module('nethvoiceWizardUiApp')
       var wallpaperItems = [];
       var screensaverItems = [];
 
-      if (modelMap.ringtone) {
+      if (modelMap.preferences.ringtone) {
         ringtoneItems = [
           {
             "variable": "default_ringtone",
@@ -2920,7 +3223,7 @@ angular.module('nethvoiceWizardUiApp')
         ]
       }
 
-      if (modelMap.display) {
+      if (modelMap.preferences.display) {
         displayItems = [
           {
             "variable": "lcd_logo_mode",
@@ -3134,7 +3437,7 @@ angular.module('nethvoiceWizardUiApp')
         ];
       }
 
-      if (modelMap.wallpaper) {
+      if (modelMap.preferences.wallpaper) {
         wallpaperItems = [
           {
             "variable": "wallpaper",
@@ -3199,7 +3502,7 @@ angular.module('nethvoiceWizardUiApp')
         ];
       }
 
-      if (modelMap.screensaver) {
+      if (modelMap.preferences.screensaver) {
         screensaverItems = [
           {
             "variable": "screensaver_mode",
@@ -3294,14 +3597,14 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     this.network = function (modelMap) {
-      if (!(modelMap.vlan || modelMap.ldap)) {
+      if (!(modelMap.network.vlan || modelMap.network.ldap)) {
         return;
       }
 
       var ldapItems = [];
       var vlanItems = [];
 
-      if (modelMap.ldap) {
+      if (modelMap.network.ldap) {
         ldapItems = [
           {
             "variable": "ldap_base",
@@ -3380,7 +3683,7 @@ angular.module('nethvoiceWizardUiApp')
         ];
       }
 
-      if (modelMap.vlan) {
+      if (modelMap.network.vlan) {
         vlanItems = [
           {
             "variable": "vlan_dhcp_enable",
@@ -3398,7 +3701,7 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "variable": "data_vlan_qos",
+            "variable": "data_vlan_priority",
             "description": "VLAN Priority for PC port",
             "type": "list",
             "options": [
@@ -3457,7 +3760,7 @@ angular.module('nethvoiceWizardUiApp')
             ]
           },
           {
-            "variable": "voice_vlan_qos",
+            "variable": "voice_vlan_priority",
             "description": "VLAN Priority for Internet port",
             "type": "list",
             "options": [
@@ -3530,7 +3833,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     this.provisioning = function (modelMap) {
-      if (!modelMap.provisioning) {
+      if (!modelMap.provisioning.provisioning) {
         return;
       }
 
@@ -3612,7 +3915,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "description": "Soft Key",
             "type": "loop",
-            "keysIntervals": modelMap.softKeys,
+            "keys": modelMap.softKeys,
             "data": {
               "items": [
                 {
@@ -3800,7 +4103,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "description": "Line Key",
             "type": "loop",
-            "keysIntervals": modelMap.lineKeys,
+            "keys": modelMap.lineKeys,
             "data": {
               "items": [
                 {
@@ -4001,8 +4304,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "description": "Expansion Key",
             "type": "loop",
-            "keysIntervals": modelMap.expansionKeys.intervals,
-            "modules": modelMap.expansionKeys.modules,
+            "keys": modelMap.expansionKeys,
             "data": {
               "items": [
                 {
