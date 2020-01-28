@@ -72,7 +72,7 @@
         <!-- actions button -->
         <div class="mg-bottom-15">
           <button class="btn btn-primary" ng-click="showSetModelModal()"
-            ng-disabled="numSelected == 0">{{ 'Set model' | translate }}</button>
+            ng-disabled="numSelected == 0 || !allSelectedSameVendor">{{ 'Set model' | translate }}</button>
           <button class="btn btn-primary" ng-click="showSetRebootModal()"
             ng-disabled="numSelected == 0">{{ 'Set delayed reboot' | translate }}</button>
           <button class="btn btn-primary" ng-click="showRebootNowModal()"
