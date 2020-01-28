@@ -182,7 +182,7 @@ This file provides a `map` function that defines:
 - the features supported by the various models, organized by section (`"general": { "settings": true, "password": true }, "preferences": { ... }, ...`)
 - a list of variables that should NOT be show for some models, organized by section  (`"softKeys": { "hidden": [ "softkey_label_5", "softkey_label_6", ... ] }`)
 
-The `yealinkservice.js` then provides one function for every section to show on the UI.
+`yealinkservice.js` then provides one function for every section to show on the UI.
 For instance, `preferences()` function defines the feature related to the section (`ringtone`, `display`, `wallpaper`, `screensaver`) as well as the name, the type and the allowed values of every variable related to the various features.
 Each variable name must match one of the variable names defined in the related Tancredi template, whereas the list of allowed values that a variable can store can be derived from:
 
