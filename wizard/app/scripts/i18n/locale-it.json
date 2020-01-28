@@ -700,5 +700,7 @@
   "Changes to model": "Le modifiche al modello",
   "will be saved": "saranno salvate",
   "Save changes": "Salva modifiche",
-  "Model saved": "Modello salvato"
+  "Model saved": "Modello salvato",
+  "changed": "modificato",
+  "Value": "Valore"
 }

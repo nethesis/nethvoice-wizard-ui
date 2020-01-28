@@ -58,7 +58,7 @@
                                         <div ng-if="key.type == 'list'" class="form-group">
                                           <label class="mt-10 control-label {{currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + (module + 1) + '_' + keysIndex] && currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? 'changed-color' : 'not-changed-color'}}">
                                             {{key.description | translate}}
-                                            {{currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + (module + 1) + '_' + keysIndex] && currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? '(changed)' : '' | translate}}
+                                            {{currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + (module + 1) + '_' + keysIndex] && currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? ('(' + ('changed' | translate) + ')') : ''}}
                                           </label>
                                           <div class="hidden">
                                             <select
@@ -85,7 +85,7 @@
                                         <div ng-if="key.type == 'input'" class="form-group">
                                           <label class="mt-10 control-label {{currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + (module + 1) + '_' + keysIndex] && currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? 'changed-color' : 'not-changed-color'}}">
                                             {{::key.description | translate}}
-                                            {{currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + (module + 1) + '_' + keysIndex] && currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? '(changed)' : '' | translate}}
+                                            {{currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + (module + 1) + '_' + keysIndex] && currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex] != currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? ('(' + ('changed' | translate) + ')') : ''}}
                                           </label>
                                           <input
                                             ng-model="currentModel.variables[key.variable + '_' + (module + 1) + '_' + keysIndex]"
@@ -124,7 +124,7 @@
                                 <div ng-if="key.type == 'list'" class="form-group">
                                   <label class="mt-10 control-label {{currentModel.variables[key.variable + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + keysIndex] && currentModel.variables[key.variable + '_' + keysIndex] != currentModel.globals[key.variable + '_' + keysIndex] ? 'changed-color' : 'not-changed-color'}}">
                                     {{::key.description | translate}}
-                                    {{currentModel.variables[key.variable + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + keysIndex] && currentModel.variables[key.variable + '_' + keysIndex] != currentModel.globals[key.variable + '_' + keysIndex] ? '(changed)' : '' | translate}}
+                                    {{currentModel.variables[key.variable + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + keysIndex] && currentModel.variables[key.variable + '_' + keysIndex] != currentModel.globals[key.variable + '_' + keysIndex] ? ('(' + ('changed' | translate) + ')') : ''}}
                                   </label>
                                   <div class="hidden">
                                     <select
@@ -151,7 +151,7 @@
                                 <div ng-if="key.type == 'input' || key.type == 'password'" class="form-group">
                                   <label class="mt-10 control-label {{currentModel.variables[key.variable + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + keysIndex] && currentModel.variables[key.variable + '_' + keysIndex] != currentModel.globals[key.variable + '_' + keysIndex] ? 'changed-color' : 'not-changed-color'}}">
                                     {{::key.description | translate}}
-                                    {{currentModel.variables[key.variable + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + keysIndex] && currentModel.variables[key.variable + '_' + keysIndex] != currentModel.globals[key.variable + '_' + keysIndex] ? '(changed)' : '' | translate}}
+                                    {{currentModel.variables[key.variable + '_' + keysIndex] != currentModel.storedVariables[key.variable + '_' + keysIndex] && currentModel.variables[key.variable + '_' + keysIndex] != currentModel.globals[key.variable + '_' + keysIndex] ? ('(' + ('changed' | translate) + ')') : ''}}
                                   </label>
                                   <input
                                     ng-model="currentModel.variables[key.variable + '_' + keysIndex]"
@@ -181,7 +181,7 @@
                         <div ng-if="key.type == 'list'" class="form-group">
                           <label class="mt-10 control-label {{currentModel.variables[key.variable] != currentModel.storedVariables[key.variable] && currentModel.variables[key.variable] != currentModel.globals[key.variable] ? 'changed-color' : 'not-changed-color'}}">
                             {{::key.description | translate}}
-                            {{currentModel.variables[key.variable] != currentModel.storedVariables[key.variable] && currentModel.variables[key.variable] != currentModel.globals[key.variable] ? '(changed)' : '' | translate}}
+                            {{currentModel.variables[key.variable] != currentModel.storedVariables[key.variable] && currentModel.variables[key.variable] != currentModel.globals[key.variable] ? ('(' + ('changed' | translate) + ')') : ''}}
                           </label>
                           <div class="hidden">
                             <select
@@ -208,7 +208,7 @@
                         <div ng-if="key.type == 'input'" class="form-group">
                           <label class="mt-10 control-label {{currentModel.variables[item.variable] != currentModel.storedVariables[key.variable] && currentModel.variables[key.variable] != currentModel.globals[key.variable] ? 'changed-color' : 'not-changed-color'}}">
                             {{::key.description | translate}}
-                            {{currentModel.variables[key.variable] != currentModel.storedVariables[key.variable] && currentModel.variables[key.variable] != currentModel.globals[key.variable] ? '(changed)' : '' | translate}}
+                            {{currentModel.variables[key.variable] != currentModel.storedVariables[key.variable] && currentModel.variables[key.variable] != currentModel.globals[key.variable] ? ('(' + ('changed' | translate) + ')') : ''}}
                           </label>
                           <input
                             id="{{sectionkey}}-input-{{$index+1}}"
@@ -246,7 +246,7 @@
                     <div ng-if="item.type == 'list'" class="form-group">
                       <label class="control-label {{currentModel.variables[item.variable] != currentModel.storedVariables[item.variable] && currentModel.variables[item.variable] != currentModel.globals[item.variable] ? 'changed-color' : 'not-changed-color'}}">
                         {{::item.description | translate}}
-                        {{currentModel.variables[item.variable] != currentModel.storedVariables[item.variable] && currentModel.variables[item.variable] != currentModel.globals[item.variable] ? '(changed)' : '' | translate}}
+                        {{currentModel.variables[item.variable] != currentModel.storedVariables[item.variable] && currentModel.variables[item.variable] != currentModel.globals[item.variable] ? ('(' + ('changed' | translate) + ')') : ''}}
                       </label>
                       <div class="hidden">
                         <select
@@ -273,7 +273,7 @@
                     <div ng-if="item.type == 'input'" class="form-group">
                       <label class="control-label {{currentModel.variables[item.variable] != currentModel.storedVariables[item.variable] && currentModel.variables[item.variable] != currentModel.globals[item.variable] ? 'changed-color' : 'not-changed-color'}}">
                         {{item.description | translate}}
-                        {{currentModel.variables[item.variable] != currentModel.storedVariables[item.variable] && currentModel.variables[item.variable] != currentModel.globals[item.variable] ? '(changed)' : '' | translate}}
+                        {{currentModel.variables[item.variable] != currentModel.storedVariables[item.variable] && currentModel.variables[item.variable] != currentModel.globals[item.variable] ? ('(' + ('changed' | translate) + ')') : ''}}
                       </label>
                       <input 
                         id="{{sectionkey}}-input-{{$index}}"
