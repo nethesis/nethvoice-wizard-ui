@@ -305,12 +305,12 @@
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
       <li role="presentation">
         <a class="{{!currentModel.changed ? 'disabled' : ''}}" ng-click="currentModel.changed ? openActionModal('cancel') : ''" role="menuitem">
-          {{"Reset to the saved values"}}
+          {{"Reset to saved values" | translate}}
         </a>
       </li>
       <li ng-if="currentModel.hasOriginals" role="presentation">
         <a ng-click="openActionModal('reset')">
-          {{"Reset to the original values" | translate}}
+          {{"Reset to original values" | translate}}
         </a>
       </li>
       <li ng-if="!currentModel.hasOriginals" role="presentation" class="red-colored">
