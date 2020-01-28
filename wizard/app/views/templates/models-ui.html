@@ -342,13 +342,13 @@
               <span class="pficon pficon-warning-triangle-o"></span>
               <strong>{{"Success" | translate}}!</strong>
               <p>
-                {{"Variables correctly saved"}}.
+                {{"Model saved" | translate}}.
               </p>
             </div>
             <div ng-if="loadingAction != 'ok'" class="alert alert-warning">
               <span class="pficon pficon-warning-triangle-o"></span>
               <strong>
-                {{"Changes on the current model will be saved" | translate}}.
+                {{"Changes to model" | translate}} {{currentModel.display_name}} {{"will be saved" | translate}}.
               </strong>
               <p>
                 {{"Are you sure" | translate}}?
