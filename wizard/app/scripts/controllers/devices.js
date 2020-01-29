@@ -8,10 +8,10 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesCtrl', function ($scope, $location) {
+  .controller('DevicesCtrl', function ($scope, ModelService, $location) {
 
-    console.log("DEVICES");
     $scope.view.changeRoute = false
+    $scope.cloudProvisioning = undefined
 
     $scope.nextStep = function () {
       $location.path("/devices/inventory")  
@@ -21,16 +21,31 @@ angular.module('nethvoiceWizardUiApp')
       $location.path("/users/profiles")
     }
 
-    var checkLocationStatus = function () {
-      // ModelService.setDefaults($scope.defaultSettings).then(function (res) {
-        
-      // }, function (err) {
-      //   console.log(err)
-      // })
+    var checkProvisioningCloudStatus = function () {
+      ModelService.getCloudProvisioning().then(function (res) {
+        $scope.cloudProvisioning = res.data
+        localStorage.set("cloudProvisioningSet", true)
+
+        console.log("GET CLOUD PROVISIONING", res) //DO CHANGE SERVERSIDE RETURN UNDEFINED IF VARIABLE IS UNDEFINED
+
+        $scope.nextStep()
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    $scope.setCloudProvisioning = function (val) {
+      ModelService.setCloudProvisioning(val).then(function (res) {
+
+        console.log("SET CLOUD PROVISIONING", res)
+      
+      }, function (err) {
+        console.log(err)
+      })
     }
 
     angular.element(document).ready(function () {
-      checkLocationStatus()
+      checkProvisioningCloudStatus()
     })
 
   });

@@ -3,10 +3,10 @@
     <span class="fa fa-cloud"></span>
   </div>
   <h1>
-    {{'Choose the PBX location' | translate}}
+    {{'Choose the devices provisioning method' | translate}}
   </h1>
   <p>
-    {{'Choosing the Remote PBX the following configurations will be set' | translate}}:
+    {{'Choosing the Cloud provisioning the following configurations will be set' | translate}}:
   </p>
   <p>
     {{'TLS configuration will be enabled by default on all phones' | translate}}
@@ -18,8 +18,8 @@
     {{'Learn more about this' | translate}} <a target="_blank" href="{{customConfig.BRAND_DOCS}}">{{'on the documentation' | translate}}</a>.
   </p>
   <div class="blank-slate-pf-main-action">
-    <button id="legacy-button" ng-click="prevStep()" class="btn btn-primary btn-lgg handle-margin"> {{'Local PBX' | translate}} </button>
-    <button id="uc-button" ng-click="nextStep()" class="btn btn-primary btn-lgg"> {{'Remote PBX' | translate}} </button>
+    <button id="legacy-button" ng-click="setCloudProvisioning(false)" class="btn btn-primary btn-lgg handle-margin"> {{'Local' | translate}} </button>
+    <button id="uc-button" ng-click="setCloudProvisioning(true)" class="btn btn-primary btn-lgg"> {{'Cloud' | translate}} </button>
   </div>
   <div ng-if="startInstall" class="progress-content">
     <div class="progress-description">
