@@ -188,8 +188,8 @@
                       autocomplete="off">
                       <option value="">-</option>
                       <!-- combobox -->
-                      <option ng-if="item.options.length > 10" ng-repeat="option in item.options" value="{{option.value}}"
-                        on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                      <!-- <option ng-if="item.options.length > 10" ng-repeat="option in item.options" value="{{option.value}}"
+                        on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option> -->
                       <!-- selectpicker -->
                       <option ng-if="item.options.length <= 10" ng-repeat="option in item.options" value="{{option.value}}"
                         on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>

@@ -11,11 +11,15 @@ angular.module('nethvoiceWizardUiApp')
     return {
       restrict: 'A',
       link: function (scope, element, attr) {
-        if (scope.$last === true) {
+        if (scope.$last === true && !attr.renderIndex && !attr.renderStart) {
           $timeout(function () {
-            scope.$emit(attr.onFinishRender, element);
-          });
+            scope.$emit(attr.onFinishRender, element)
+          })
+        } else if ((attr.renderIndex && attr.renderStart) && (attr.renderIndex == attr.renderStart)) {
+          $timeout(function () {
+            scope.$emit(attr.onFinishRender, element)
+          })
         }
       }
     }
-  });
+  })

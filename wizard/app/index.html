@@ -152,8 +152,7 @@
             <span class="badge notifications">{{menuCount.devices}}</span>
           </a>
         </li>
-        <div id="devicesCollapse"
-          class="panel-collapse collapse {{resolveActiveTab('devices',1) ? 'in' : ''}}"
+        <div id="devicesCollapse" class="panel-collapse collapse {{resolveActiveTab('devices',1) ? 'in' : ''}}"
           ng-if="!wizard.isMigrationView && (wizard.provisioning == 'tancredi')">
           <div class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('inventory',2) ? 'active' : ''}}">
             <div ng-click="goTo('devices/inventory')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Phones' | translate | ellipsis:'1200'}}</div>
@@ -391,9 +390,7 @@
   <script src="scripts/controllers/users/devices.js"></script>
   <script src="scripts/controllers/users/configurations.js"></script>
   <script src="scripts/controllers/devices/inventory.js"></script>
-
   <script src="scripts/controllers/templates/models-ui.js"></script>
-
   <script src="scripts/controllers/devices.js"></script>
   <script src="scripts/controllers/trunks/physical.js"></script>
   <script src="scripts/controllers/trunks/voip.js"></script>
@@ -470,6 +467,12 @@
   <script src="scripts/services/provisioning/phoneservice.js"></script>
   <script src="scripts/services/provisioning/modelservice.js"></script>
   <script src="scripts/directives/whenScrolled.js"></script>
+  <!-- load the webcomponents loader, which injects the necessary polyfill bundle -->
+  <script src="node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"></script>
+  <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="scripts/webcomponents/scrolling-satellite.js"></script>
+  <!-- load custom webcomponents -->
+  
   <!-- endbuild -->
 </body>
 

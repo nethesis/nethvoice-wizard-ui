@@ -21,4 +21,16 @@ angular.module('nethvoiceWizardUiApp')
       $location.path("/users/profiles")
     }
 
+    var checkLocationStatus = function () {
+      // ModelService.setDefaults($scope.defaultSettings).then(function (res) {
+        
+      // }, function (err) {
+      //   console.log(err)
+      // })
+    }
+
+    angular.element(document).ready(function () {
+      checkLocationStatus()
+    })
+
   });

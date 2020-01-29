@@ -8,11 +8,13 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('ModelsUICtrl', function ($scope, ModelService) {
+  .controller('ModelsUICtrl', function ($scope, $interval, ModelService) {
 
     $scope.loadingAction = false
     $scope.selectedAction = ""
     $scope.modelsInfoMsg = ""
+    $scope.selectOptionsInterval = ""
+    $scope.selectOptionsLimit = 11
 
     $scope.modelErrors = {
       updateReadOnlyAttribute: false,
@@ -51,12 +53,20 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.openSection = function (sectionkey) {
       $scope.destroyAllSelects()
-
       delete $scope.currentModel.ui[sectionkey].showingKeys
+      $scope.selectOptionsLimit = 11
+      $interval.cancel($scope.selectOptionsInterval)
+      $scope.selectOptionsInterval = $interval(function (index) {
+        $scope.selectOptionsLimit += 10
+        if (index == 5 || index == 10  || index == 15 || index == 20 || index == 25 || index == 30 || index == 35 || index == 42) {
+          refreshSelects()
+        }
+      }, 1000, 43)
       if ($scope.currentModel.openedSection != sectionkey) {
         $scope.currentModel.openedSection = sectionkey
       } else {
         $scope.currentModel.openedSection = ""
+        $interval.cancel($scope.selectOptionsInterval)
       }
     }
 
