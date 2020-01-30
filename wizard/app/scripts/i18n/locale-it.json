@@ -687,7 +687,7 @@
   "Maximum number of pasted MAC addresses reached. You can paste the remaining MAC addresses at the end of this process": "Numero massimo di indirizzi MAC raggiunto. È possibile incollare gli indirizzi MAC rimanenti al termine di questa procedura",
   "Custom": "Personalizzato",
   "reboot_device": "Riavvia",
-  "cant_reboot_not_registered": "Impossibile riavviare: non registrato",
+  "cant_reboot_not_registered": "Non registrato",
   "Error rebooting phone": "Errore durante il riavvio dei telefono",
   "Link device": "Associa dispositivo",
   "Unlink": "Disassocia",

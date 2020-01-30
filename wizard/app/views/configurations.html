@@ -194,16 +194,22 @@
                       <span ng-if="device.setPhysicalInAction == 'ok'" class="pficon pficon-ok fz-18 ml-5 mt-3"></span>
                       <span ng-if="device.setPhysicalInAction == 'err'" class="pficon pficon-error-circle-o fz-18 ml-5 mt-3"></span>
                       <div ng-if="device.setPhysicalInAction == true" class="spinner spinner-sm ml-5 mt-3"></div>
-                      <button
+                      <div
+                        class="tooltip-wrapper"
                         ng-if="device.mac"
-                        class="btn btn-default {{device.registered ? '' : ''}}"
-                        ng-click="rebootDevice(device)"
                         popover-placement="top"
                         popover-trigger="'mouseenter'"
                         popover-animation="true"
-                        uib-popover="{{device.registered ? 'reboot_device' : 'cant_reboot_not_registered' | translate}}">
-                        <i class="fa fa-retweet"></i>
-                      </button>
+                        popover-class="popover-small-width"
+                        uib-popover="{{!device.registered ? 'cant_reboot_not_registered' : '' | translate}}"
+                      >
+                        <button
+                          class="btn btn-default"
+                          ng-click="rebootDevice(device)"
+                          ng-disabled="!device.registered">
+                          {{ 'Reboot' | translate }}
+                        </button>
+                      </div>
                       <span ng-if="device.rebootInAction == 'ok'" class="pficon vertical-sub pficon-ok fz-18 ml-5 mt-3"></span>
                       <span ng-if="device.rebootInAction == 'err'"
                         class="pficon vertical-sub pficon-error-circle-o fz-18 ml-5 mt-3"
