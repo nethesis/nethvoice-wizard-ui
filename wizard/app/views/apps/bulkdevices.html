@@ -74,9 +74,9 @@
           <button class="btn btn-primary" ng-click="showSetModelModal()"
             ng-disabled="numSelected == 0 || !allSelectedSameVendor">{{ 'Set model' | translate }}</button>
           <button class="btn btn-primary" ng-click="showSetRebootModal()"
-            ng-disabled="numSelected == 0">{{ 'Set delayed reboot' | translate }}</button>
+            ng-disabled="numSelected == 0">{{ 'Delayed reboot' | translate }}</button>
           <button class="btn btn-primary" ng-click="showRebootNowModal()"
-            ng-disabled="numSelected == 0">{{ 'Reboot now' | translate }}</button>
+            ng-disabled="numSelected == 0 || !somePhonesRegistered">{{ 'Reboot now' | translate }}</button>
         </div>
 
         <div ng-show="numFiltered != 0">
@@ -113,6 +113,10 @@
                   <span class="pficon pficon-restart mg-right-5"></span>
                   <span class="adjust-weight">{{ 'Reboot' | translate }}:</span>
                   <b>{{ phone.delayedReboot ? phone.delayedReboot : '-' }}</b>
+                </div>
+                <div>
+                  <span ng-class="['pficon', 'mg-right-5', { 'pficon-ok': phone.registered, 'pficon-error-circle-o': !phone.registered }]"></span>
+                  <span class="adjust-weight">{{ (phone.registered ? 'Registered' : 'Not registered') | translate }}</span>
                 </div>
               </div>
               <!-- checkbox -->
@@ -204,7 +208,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
               <span class="pficon pficon-close"></span>
             </button>
-            <h4 class="modal-title" id="bulkDelayedRebootModalLabel">{{ 'Set delayed reboot' | translate }}</h4>
+            <h4 class="modal-title" id="bulkDelayedRebootModalLabel">{{ 'Delayed reboot' | translate }}</h4>
           </div>
           <form class="form-horizontal" ng-submit="bulkDelayedRebootSave()">
             <div class="modal-body">

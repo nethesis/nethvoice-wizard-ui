@@ -651,7 +651,7 @@
   "User": "Utente",
   "Clear filters": "Rimuovi filtri",
   "Set model": "Assegna modello",
-  "Set delayed reboot": "Modifica riavvio ritardato",
+  "Delayed reboot": "Riavvio ritardato",
   "No phone": "Nessun telefono",
   "Please change or clear active filters": "Modificare o rimuovere i filtri attivi",
   "This change will be applied to": "Questa modifica sarà applicata a",
@@ -702,5 +702,7 @@
   "Save changes": "Salva modifiche",
   "Model saved": "Modello salvato",
   "changed": "modificato",
-  "Value": "Valore"
+  "Value": "Valore",
+  "Registered": "Registrato",
+  "Not registered": "Non registrato"
 }
