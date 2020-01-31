@@ -651,7 +651,7 @@
   "User": "Utente",
   "Clear filters": "Rimuovi filtri",
   "Set model": "Assegna modello",
-  "Set delayed reboot": "Modifica riavvio ritardato",
+  "Delayed reboot": "Riavvio ritardato",
   "No phone": "Nessun telefono",
   "Please change or clear active filters": "Modificare o rimuovere i filtri attivi",
   "This change will be applied to": "Questa modifica sarà applicata a",
@@ -687,7 +687,7 @@
   "Maximum number of pasted MAC addresses reached. You can paste the remaining MAC addresses at the end of this process": "Numero massimo di indirizzi MAC raggiunto. È possibile incollare gli indirizzi MAC rimanenti al termine di questa procedura",
   "Custom": "Personalizzato",
   "reboot_device": "Riavvia",
-  "cant_reboot_not_registered": "Impossibile riavviare: non registrato",
+  "cant_reboot_not_registered": "Non registrato",
   "Error rebooting phone": "Errore durante il riavvio dei telefono",
   "Link device": "Associa dispositivo",
   "Unlink": "Disassocia",
@@ -702,5 +702,7 @@
   "Save changes": "Salva modifiche",
   "Model saved": "Modello salvato",
   "changed": "modificato",
-  "Value": "Valore"
+  "Value": "Valore",
+  "Registered": "Registrato",
+  "Not registered": "Non registrato"
 }

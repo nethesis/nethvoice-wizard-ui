@@ -58,6 +58,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.allSelectedSameVendor = null;
       $scope.allSelectedSameModel = "";
       $scope.allSelectedSameReboot = "";
+      $scope.somePhonesRegistered = false;
 
       // remove 'Choose' option from models
       $scope.models = $scope.models.filter(function (model) {
@@ -91,6 +92,11 @@ angular.module('nethvoiceWizardUiApp')
             $scope.allSelectedSameReboot = phone.delayedReboot;
           } else if (phone.delayedReboot !== $scope.allSelectedSameReboot) {
             $scope.allSelectedSameReboot = false;
+          }
+
+          // check if some of the phones selected are registered
+          if (!$scope.somePhonesRegistered && phone.registered) {
+            $scope.somePhonesRegistered = true;
           }
         }
       });
@@ -163,6 +169,7 @@ angular.module('nethvoiceWizardUiApp')
           user.devices.forEach(function (device) {
             if (device.mac === phone.mac) {
               phone.user = user;
+              phone.registered = device.registered;
             }
           });
         });
@@ -501,7 +508,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.bulkDelayedReboot = $scope.allSelectedSameReboot;
 
       if ($scope.bulkDelayedReboot != false || $scope.bulkDelayedReboot === "") {
-        // phonese selected have the same reboot value
+        // phones selected have the same reboot value
         if ($scope.bulkDelayedReboot) {
           $scope.bulkDelayedRebootSwitch = true;
         } else {

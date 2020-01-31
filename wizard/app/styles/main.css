@@ -2978,3 +2978,15 @@ a.black:focus, a.black:hover, a.black:active {
   padding-bottom: 15px;
 }
 
+.tooltip-wrapper {
+  display: inline-block;
+}
+
+.tooltip-wrapper .btn[disabled] {
+  pointer-events: none;
+}
+
+.popover-small-width {
+  width: 112px !important;
+  min-width: 0 !important;
+}
