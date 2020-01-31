@@ -146,7 +146,7 @@
           ng-if="((!wizard.isMigrationView && !wizard.isWizard) || (wizard.stepCount > appConfig.DEVICES_PREV_STEP)) && wizard.provisioning == 'tancredi'"
           class="list-group-item collapse-menu {{resolveActiveTab('devices',1) ? 'active' : ''}}"
           id="users-item-menu">
-          <a ng-click="goTo('devices')">
+          <a ng-click="wizard.isWizard ? goTo('devices') : ''">
             <span class="fa fa-cubes" title="{{'Devices' | translate}}" data-toggle="tooltip" data-placement="right"></span>
             <span class="list-group-item-value">{{'Devices' | translate}}</span>
             <span class="badge notifications">{{menuCount.devices}}</span>

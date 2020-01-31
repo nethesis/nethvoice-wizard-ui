@@ -10,25 +10,38 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('DevicesCtrl', function ($scope, ModelService, $location) {
 
-    $scope.view.changeRoute = false
-    $scope.cloudProvisioning = undefined
+    $scope.view.changeRoute = true
 
-    $scope.nextStep = function () {
-      $location.path("/devices/inventory")  
+    var nextStep = function () {
+      if ($scope.wizard.nextState && appConfig.STEP_WIZARD[$scope.currentStep].next) {
+        $location.path(appConfig.STEP_WIZARD[$scope.currentStep].next)
+        $scope.wizard.stepCount++
+      }
+      ConfigService.setWizard({
+        status: 'true',
+        step: $scope.wizard.stepCount
+      }).then(function (res) {
+      }, function (err) {
+        console.log(err)
+      });
+      return appConfig.STEP_WIZARD[$scope.currentStep].next
     }
 
-    $scope.prevStep = function () {
-      $location.path("/users/profiles")
+    var redirect = function () {
+      if ($scope.wizard.isWizard) {
+        nextStep()
+      } else {
+        $location.path("/devices/inventory")
+      }
     }
 
-    var checkProvisioningCloudStatus = function () {
+    var checkProvisioningCloudStatusDev = function () {
       ModelService.getCloudProvisioning().then(function (res) {
+        $scope.view.changeRoute = false
         $scope.cloudProvisioning = res.data
-        localStorage.set("cloudProvisioningSet", true)
-
-        console.log("GET CLOUD PROVISIONING", res) //DO CHANGE SERVERSIDE RETURN UNDEFINED IF VARIABLE IS UNDEFINED
-
-        $scope.nextStep()
+        if ($scope.cloudProvisioning !== null) {
+          redirect()
+        }
       }, function (err) {
         console.log(err)
       })
@@ -36,16 +49,18 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.setCloudProvisioning = function (val) {
       ModelService.setCloudProvisioning(val).then(function (res) {
-
-        console.log("SET CLOUD PROVISIONING", res)
-      
+        redirect()
       }, function (err) {
         console.log(err)
       })
     }
 
     angular.element(document).ready(function () {
-      checkProvisioningCloudStatus()
+      if ($scope.cloudProvisioning && $scope.cloudProvisioning !== null) {
+        redirect()
+      } else {
+        checkProvisioningCloudStatusDev()
+      }
     })
 
   });
