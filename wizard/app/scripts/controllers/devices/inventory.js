@@ -25,10 +25,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.PHONES_PAGE = 20;
     $scope.phonesLimit = $scope.PHONES_PAGE;
 
-    $scope.loadMorePhones = function () {
-      $scope.phonesLimit += $scope.PHONES_PAGE;
-    };
-
     function gotModels(models) {
       $scope.models = models;
 
@@ -39,15 +35,10 @@ angular.module('nethvoiceWizardUiApp')
 
     function gotPhones(phonesTancredi) {
       $scope.phones = [];
-
       phonesTancredi.forEach(function (phoneTancredi) {
         var phone = PhoneService.buildPhone(phoneTancredi, $scope.models);
         $scope.phones.push(phone);
       });
-
-      $timeout(function () {
-        $scope.phonesHeight = 'calc(100vh - ' + ($('#phone-list')[0].getBoundingClientRect().y + 110) + 'px)';
-      }, 400);
     }
 
     function gotNetworks(networks) {
@@ -793,6 +784,18 @@ angular.module('nethvoiceWizardUiApp')
         $scope.deletePhone()
       });
     }
+
+    var scrollInventory = function () {
+      $scope.phonesLimit += $scope.PHONES_PAGE
+      $scope.$apply()
+    }
+
+    document.addEventListener('inventoryScroll', scrollInventory)
+
+    $scope.$on('$routeChangeStart', function() {
+      document.removeEventListener('inventoryScroll', scrollInventory)
+      $scope.phonesLimit = $scope.PHONES_PAGE
+    })
 
     init();
   });

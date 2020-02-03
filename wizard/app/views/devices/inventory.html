@@ -109,7 +109,7 @@
             </div>
           </form>
           <!-- phone list -->
-          <div class="list-group list-view-pf clear" id="phone-list" when-scrolled="loadMorePhones()" ng-style="{'max-height': phonesHeight}">
+          <div class="list-group list-view-pf clear" id="phone-list">
             <div class="list-group-item cursor-default"
               ng-repeat="phone in phones | filter:searchPhoneString | limitTo: phonesLimit | orderBy: 'display_name'">
               <div class="list-view-pf-actions">
@@ -155,6 +155,7 @@
                 </div>
               </div>
             </div>
+            <scrolling-sentinel event="inventoryScroll"></scrolling-sentinel>
           </div>
         </div>
       </div>

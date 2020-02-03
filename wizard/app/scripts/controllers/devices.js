@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesCtrl', function ($scope, ModelService, $location) {
+  .controller('DevicesCtrl', function ($scope, ModelService, ConfigService, $location) {
 
     $scope.view.changeRoute = true
 
