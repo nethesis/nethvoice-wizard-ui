@@ -38,12 +38,12 @@
         </div>
       </form>
     </div>
-    <div id="configurationList" class="list-group list-view-pf list-view-pf-view mt-20" when-scrolled="loadMoreUsers()" ng-style="{'max-height': usersHeight}">
+    <div class="list-group list-view-pf list-view-pf-view mt-20 mb-30">
       <!-- repeat  -->
       <div
         ng-repeat="user in allUsers | customFilterMultiple:'displayname,username,default_extension':searchUser | limitTo: usersLimit | orderBy:usersFilterNumbers"
         ng-show="usersFilter == 'configured' ? user.devices.length > 0 : (usersFilter == 'unconfigured' ? user.devices.length == 0 : true)"
-        class="list-group-item {{user.username == currentUser.username || user.username == linkTo ? 'list-view-pf-expand-active' : ''}}">
+        class="list-group-item {{user.username == currentUser.username ? 'list-view-pf-expand-active' : ''}}">
         <div class="list-group-item-header">
           <div class="list-view-pf-actions">
             <div>
@@ -359,6 +359,7 @@
           </div>
         </div>
       </div>
+      <scrolling-sentinel event="configScroll"></scrolling-sentinel>
       <!-- end repeat -->
     </div>
     <div ng-if="false" class="blank-slate-pf ">
@@ -397,7 +398,7 @@
             <div class="col-lg-12 mb-5 mt-15">
               <!-- loader -->
               <div ng-show="linkToUserInProgress" class="centered">
-                <span class="spinner spinner-large"></span>
+                <div class="spinner mt-14 mb-10"></div>
               </div>
               <div ng-show="!linkToUserInProgress">
                 <!-- choose device to link -->
@@ -416,12 +417,12 @@
                         </button>
                       </div>
                     </form>
-                    <h1 class="control-label config-title-user mt-10" for="textInput-markup">
+                    <h1 class="control-label config-title-user no-margin-top" for="textInput-markup">
                       <div class="fz-15 mb-10">
                         <span class="weight-plus ng-binding">{{devicesNotLinked.length}} {{ (devicesNotLinked.length !== 1 ? "Devices" : "Device") | translate }}</span>
                       </div>
                     </h1>
-                    <div id="devices-not-linked-list" when-scrolled="loadMoreDevicesNotLinked()" ng-style="{'max-height': devicesNotLinkedHeight}">
+                    <div id="devices-not-linked-list" ng-style="{'max-height': devicesNotLinkedHeight}">
                       <!-- custom device -->
                       <div class="list-group-item cursor-default back-whitesmoke {{deviceToLink.device == newDevice ? 'selected' : ''}}">
                         <label for="radio-custom-device" class="width-100p pointer">
@@ -429,7 +430,7 @@
                           </div>
                           <!-- radio button -->
                           <div class="list-view-pf-checkbox mt-48 display-flex">
-                            <input type="radio" id="radio-custom-device" name="deviceToLinkGroup" ng-model="deviceToLink.device" ng-value="newDevice">
+                            <input type="radio" id="radio-custom-device" class="mt-2" name="deviceToLinkGroup" ng-model="deviceToLink.device" ng-value="newDevice">
                           </div>
                           <div class="list-view-pf-main-info ">
                             <div class="list-view-pf-left">
@@ -463,13 +464,13 @@
                       <div
                         ng-show="!devicesLoading"
                         ng-repeat="device in devicesNotLinked | customFilterMultiple:'mac,manufacturer,model':searchDeviceString | limitTo: devicesNotLinkedLimit"
-                        class="list-group-item cursor-default {{deviceToLink.device == device ? 'selected' : ''}}">
-                        <label for="radio-device-{{$index}}" class="width-100p pointer">
+                        class="list-group-item cursor-default {{deviceToLink.device == device ? 'selected' : ''}} {{$last ? 'no-margin-bottom' : ''}}">
+                        <label for="radio-device-{{$index}}" class="width-100p pointer no-margin-bottom">
                           <div class="list-view-pf-actions">
                           </div>
                           <!-- radio button -->
                           <div class="list-view-pf-checkbox display-flex">
-                            <input type="radio" id="radio-device-{{$index}}" name="deviceToLinkGroup" ng-model="deviceToLink.device" ng-value="device">
+                            <input type="radio" id="radio-device-{{$index}}" class="mt-2" name="deviceToLinkGroup" ng-model="deviceToLink.device" ng-value="device">
                           </div>
                           <div class="list-view-pf-main-info ">
                             <div class="list-view-pf-left">
@@ -477,7 +478,7 @@
                             </div>
                             <div class="list-view-pf-body">
                               <div class="list-view-pf-description">
-                                <div class="list-group-item-heading configDevices-item-heading">
+                                <div class="list-group-item-heading configDevices-item-heading no-margin-bottom">
                                   {{ device.manufacturer && device.model !== 'custom' ? device.manufacturer : '-' }}
                                 </div>
                                 <span class="weight-plus mr-20 width-33p">
@@ -495,6 +496,8 @@
                           </div>
                         </label>
                       </div>
+                      <scrolling-sentinel event="configDevicesScroll"></scrolling-sentinel>
+
                     </div>
                   </div>
                   <!-- link to user result -->
@@ -522,14 +525,14 @@
             </div>
             <div class="modal-footer submit">
               <div ng-show="!showResultLinkToUser && !linkToUserInProgress">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}
+                <button type="button" class="btn btn-default mt-12" data-dismiss="modal">{{ 'Cancel' | translate }}
                 </button>
-                <button class="btn btn-primary" ng-disabled="deviceToLink.device == null" ng-click="setPhysicalExtension(deviceToLink.device)">
+                <button class="btn btn-primary mt-12" ng-disabled="deviceToLink.device == null" ng-click="setPhysicalExtension(deviceToLink.device)">
                   {{"Link to" | translate}} {{linkTo || ("user" | translate)}}
                 </button>
               </div>
               <div ng-show="showResultLinkToUser">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'Close' | translate }}</button>
+                <button type="button" class="btn btn-default mt-12" data-dismiss="modal">{{ 'Close' | translate }}</button>
               </div>
             </div>
           </div>

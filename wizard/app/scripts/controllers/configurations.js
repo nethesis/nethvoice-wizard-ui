@@ -11,14 +11,12 @@ angular.module('nethvoiceWizardUiApp')
   .controller('ConfigurationsCtrl', function ($scope, ConfigurationService, ProfileService, ModelService, DeviceService, UserService, PhoneService, $timeout) {
 
     $scope.view.changeRoute = true
-
     $scope.allUsers = []
     $scope.allProfiles = []
     $scope.allGroups = []
     $scope.allDevices = []
     $scope.devicesNotLinked = []
     $scope.allModels = []
-
     $scope.loadingUser = {}
     $scope.loadingModel = {}
     $scope.hiddenUser = {}
@@ -28,24 +26,16 @@ angular.module('nethvoiceWizardUiApp')
     $scope.deviceToLink = {}
     $scope.deviceToLink.device = null
 
-    $scope.USERS_PAGE = 12;
+    $scope.USERS_PAGE = 15;
     $scope.usersLimit = $scope.USERS_PAGE;
 
-    $scope.DEVICES_NOT_LINKED_PAGE = 20;
+    $scope.DEVICES_NOT_LINKED_PAGE = 15;
     $scope.devicesNotLinkedLimit = $scope.DEVICES_NOT_LINKED_PAGE;
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured']
     $scope.availableUserFiltersNumbers = ['lname', 'default_extension']
     $scope.usersFilter = $scope.availableUserFilters[0]
     $scope.usersFilterNumbers = $scope.availableUserFiltersNumbers[0]
-
-    $scope.loadMoreUsers = function () {
-      $scope.usersLimit += $scope.USERS_PAGE;
-    };
-
-    $scope.loadMoreDevicesNotLinked = function () {
-      $scope.devicesNotLinkedLimit += $scope.DEVICES_NOT_LINKED_PAGE;
-    };
 
     $scope.setCurrentUser = function (user) {
       if (user.username == $scope.currentUser.username) {
@@ -140,10 +130,6 @@ angular.module('nethvoiceWizardUiApp')
       $scope.deviceToLink.device = null
       $scope.showResultLinkToUser = false;
       $scope.linkToUserSuccess = false;
-
-      $timeout(function () {
-        $scope.devicesNotLinkedHeight = 'calc(100vh - ' + ($('#devices-not-linked-list')[0].getBoundingClientRect().y + 120) + 'px)';
-      }, 1000);
     }
 
     var getAllProfiles = function () {
@@ -213,15 +199,11 @@ angular.module('nethvoiceWizardUiApp')
       ConfigurationService.list(false).then(function (res) {
         $scope.allUsers = res.data
         console.log("ALL USERS", $scope.allUsers)
-        $scope.view.changeRoute = false
 
+        $scope.view.changeRoute = false
         $scope.allUsers.forEach(function (user){
           prepareDevices(user.devices)
         })
-
-        $timeout(function () {
-          $scope.usersHeight = 'calc(100vh - ' + ($('#configurationList')[0].getBoundingClientRect().y + 110) + 'px)';
-        }, 1000);
       }, function (err) {
         console.log(err)
       })
@@ -499,8 +481,29 @@ angular.module('nethvoiceWizardUiApp')
       getAllDevices()
     })
 
+    var scrollInventory = function () {
+      $scope.$apply(function () {
+        $scope.usersLimit += $scope.USERS_PAGE
+      })
+    }
+
+    var scrollInventoryDevices = function () {
+      $scope.$apply(function () {
+        $scope.devicesNotLinkedLimit += $scope.DEVICES_NOT_LINKED_PAGE
+      })
+    }
+
+    document.addEventListener('configScroll', scrollInventory)
+    document.addEventListener('configDevicesScroll', scrollInventoryDevices)
+
+    $scope.$on('$routeChangeStart', function() {
+      document.removeEventListener('configScroll', scrollInventory)
+      document.removeEventListener('configDevicesScroll', scrollInventoryDevices)
+      $scope.usersLimit = $scope.USERS_PAGE
+      $scope.devicesNotLinkedLimit = $scope.DEVICES_NOT_LINKED_PAGE
+    })
+
     angular.element(document).ready(function () {
-      $scope.view.changeRoute = true
       getAllModelsAndUsersAndDevices()
       getAllProfiles()
       getAllGroups()

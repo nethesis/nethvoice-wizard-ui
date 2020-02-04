@@ -179,7 +179,7 @@
         <form class="form-horizontal">
           <!-- add phones loader -->
           <div ng-show="addPhonesInProgress" class="centered">
-            <span class="spinner spinner-large"></span>
+            <div class="spinner"></div>
           </div>
           <div ng-show="!addPhonesInProgress">
             <!-- section shown on copy/paste method -->
@@ -307,7 +307,7 @@
                 </div>
               </div>
               <div class="centered">
-                <span class="spinner spinner-large" ng-show="networkScanInProgress"></span>
+                <div class="spinner" ng-show="networkScanInProgress"></div>
               </div>
               <!-- no phone to add notification -->
               <div class="alert alert-info" ng-show="showNoPhoneToAddFromNetwork">

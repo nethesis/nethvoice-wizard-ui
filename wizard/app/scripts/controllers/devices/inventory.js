@@ -768,8 +768,9 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     var scrollInventory = function () {
-      $scope.phonesLimit += $scope.PHONES_PAGE
-      $scope.$apply()
+      $scope.$apply(function () {
+        $scope.phonesLimit += $scope.PHONES_PAGE
+      })
     }
 
     document.addEventListener('inventoryScroll', scrollInventory)
