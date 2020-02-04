@@ -517,7 +517,7 @@ angular.module('nethvoiceWizardUiApp')
         }
         $('#reboot-timepicker-value').val($scope.bulkDelayedReboot);
       } else {
-        // phonese selected have different reboot values
+        // phones selected have different reboot values
         $scope.bulkDelayedRebootSwitch = false;
         $('#reboot-timepicker-value').val(null);
       }

@@ -2990,3 +2990,8 @@ a.black:focus, a.black:hover, a.black:active {
   width: 112px !important;
   min-width: 0 !important;
 }
+
+.btn-input-group {
+  padding: 0 !important;
+  border: none;
+}
