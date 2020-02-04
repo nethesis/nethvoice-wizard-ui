@@ -56,7 +56,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.numSelected = 0;
       $scope.allSelectedSameVendor = null;
       $scope.allSelectedSameModel = "";
-      $scope.allSelectedSameReboot = "";
+      $scope.allSelectedSameReboot = null;
       $scope.somePhonesRegistered = false;
 
       // remove 'Choose' option from models
@@ -87,9 +87,9 @@ angular.module('nethvoiceWizardUiApp')
           }
 
           // check if all phones selected have the same reboot time
-          if ($scope.allSelectedSameReboot === "") {
+          if ($scope.allSelectedSameReboot == null) {
             $scope.allSelectedSameReboot = phone.delayedReboot;
-          } else if (!phone.delayedReboot || phone.delayedReboot.getTime() !== $scope.allSelectedSameReboot.getTime()) {
+          } else if (($scope.allSelectedSameReboot && !phone.delayedReboot) || (phone.delayedReboot && $scope.allSelectedSameReboot && phone.delayedReboot.getTime() !== $scope.allSelectedSameReboot.getTime())) {
             $scope.allSelectedSameReboot = false;
           }
 
@@ -483,7 +483,7 @@ angular.module('nethvoiceWizardUiApp')
 
         if (!$scope.phonesNotRebooted.length) {
           // success
-          $timeout(function () {
+          $scope.hideRebootNowModalTimeout = $timeout(function () {
             $('#reboot-now-modal').modal('hide');
           }, 2500);
         }
@@ -497,6 +497,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.showRebootNowModal = function () {
       $scope.showResultsRebootNow = false;
+      $timeout.cancel($scope.hideRebootNowModalTimeout);
       $('#reboot-now-modal').modal('show');
     }
 
