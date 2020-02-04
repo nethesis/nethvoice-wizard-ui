@@ -2995,3 +2995,7 @@ a.black:focus, a.black:hover, a.black:active {
   padding: 0 !important;
   border: none;
 }
+
+.pad-top-25 {
+  padding-top: 25px !important;
+}
