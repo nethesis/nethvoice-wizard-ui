@@ -30,7 +30,6 @@ angular.module('nethvoiceWizardUiApp')
 
     function init() {
       $scope.view.changeRoute = true;
-      initDateTimePicker();
 
       Promise.all([
         ModelService.getModels(),
@@ -57,7 +56,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.numSelected = 0;
       $scope.allSelectedSameVendor = null;
       $scope.allSelectedSameModel = "";
-      $scope.allSelectedSameReboot = "";
+      $scope.allSelectedSameReboot = null;
       $scope.somePhonesRegistered = false;
 
       // remove 'Choose' option from models
@@ -88,9 +87,9 @@ angular.module('nethvoiceWizardUiApp')
           }
 
           // check if all phones selected have the same reboot time
-          if ($scope.allSelectedSameReboot === "") {
+          if ($scope.allSelectedSameReboot == null) {
             $scope.allSelectedSameReboot = phone.delayedReboot;
-          } else if (phone.delayedReboot !== $scope.allSelectedSameReboot) {
+          } else if (($scope.allSelectedSameReboot && !phone.delayedReboot) || (phone.delayedReboot && $scope.allSelectedSameReboot && phone.delayedReboot.getTime() !== $scope.allSelectedSameReboot.getTime())) {
             $scope.allSelectedSameReboot = false;
           }
 
@@ -122,6 +121,9 @@ angular.module('nethvoiceWizardUiApp')
         phone.delayedReboot = null;
       });
 
+      // reset bulk delayed reboot value
+      $scope.bulkDelayedReboot = new Date();
+
       // set updated reboot times
       Object.keys(rebootData).forEach(function (mac) {
         var time = rebootData[mac];
@@ -130,7 +132,10 @@ angular.module('nethvoiceWizardUiApp')
         });
 
         if (phone) {
-          phone.delayedReboot = time.hours + ":" + time.minutes;
+          var rebootTime = new Date();
+          rebootTime.setHours(time.hours);
+          rebootTime.setMinutes(time.minutes);
+          phone.delayedReboot = rebootTime;
         }
       });
     }
@@ -353,10 +358,22 @@ angular.module('nethvoiceWizardUiApp')
       $('#bulkModelModal').modal('hide');
     }
 
+    function zeroPad(value) {
+      // zero padding to two digits
+      var valueStr = value.toString();
+
+      if (valueStr.length > 1) {
+        return valueStr;
+      } else if (valueStr.length == 1) {
+        return '0' + valueStr;
+      } else {
+        return '00';
+      }
+    }
+
     function bulkDelayedRebootSet() {
-      var tokens = $scope.bulkDelayedReboot.split(":");
-      var hours = tokens[0];
-      var minutes = tokens[1];
+      var hours = zeroPad($scope.bulkDelayedReboot.getHours());
+      var minutes = zeroPad($scope.bulkDelayedReboot.getMinutes());
       var rebootData = {};
 
       $scope.phones.forEach(function (phone) {
@@ -419,9 +436,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.bulkDelayedRebootSave = function () {
-      if ($scope.bulkDelayedRebootSwitch) {
-        $scope.bulkDelayedReboot = $('#reboot-timepicker-value').val();
-      } else {
+      if (!$scope.bulkDelayedRebootSwitch) {
         $scope.bulkDelayedReboot = null;
       }
 
@@ -468,7 +483,7 @@ angular.module('nethvoiceWizardUiApp')
 
         if (!$scope.phonesNotRebooted.length) {
           // success
-          $timeout(function () {
+          $scope.hideRebootNowModalTimeout = $timeout(function () {
             $('#reboot-now-modal').modal('hide');
           }, 2500);
         }
@@ -482,6 +497,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.showRebootNowModal = function () {
       $scope.showResultsRebootNow = false;
+      $timeout.cancel($scope.hideRebootNowModalTimeout);
       $('#reboot-now-modal').modal('show');
     }
 
@@ -515,11 +531,9 @@ angular.module('nethvoiceWizardUiApp')
           // same none reboot value
           $scope.bulkDelayedRebootSwitch = false;
         }
-        $('#reboot-timepicker-value').val($scope.bulkDelayedReboot);
       } else {
-        // phonese selected have different reboot values
+        // phones selected have different reboot values
         $scope.bulkDelayedRebootSwitch = false;
-        $('#reboot-timepicker-value').val(null);
       }
       $('#bulkDelayedRebootModal').modal('show');
     }
@@ -538,19 +552,6 @@ angular.module('nethvoiceWizardUiApp')
       $scope.phones.forEach(function (phone) {
         if (phone.filtered) {
           phone.selected = value;
-        }
-      });
-    }
-
-    function initDateTimePicker() {
-      // initialize reboot-timepicker
-      $('#reboot-timepicker').datetimepicker({
-        allowInputToggle: true,
-        format: 'HH:mm',
-        keyBinds: {
-          enter: function () {
-            this.hide();
-          }
         }
       });
     }

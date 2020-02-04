@@ -3876,14 +3876,14 @@ angular.module('nethvoiceWizardUiApp')
             "type": "input"
           },
           {
-            "variable": "weekly_end_time",
-            "description": "Weekly End Time",
-            "type": "input"
-          },
-          {
             "variable": "weekly_begin_time",
             "description": "Weekly Begin Time",
-            "type": "input"
+            "type": "time"
+          },
+          {
+            "variable": "weekly_end_time",
+            "description": "Weekly End Time",
+            "type": "time"
           },
           {
             "variable": "pnp_enable",

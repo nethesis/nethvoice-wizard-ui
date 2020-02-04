@@ -272,7 +272,7 @@
             <div ng-click="goTo('apps/bulkextensions')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Bulk extensions' | translate | ellipsis:'1200'}}</div>
           </div>
           <div ng-if="!wizard.isWizard && (wizard.provisioning == 'tancredi')" class="panel-body adjust-panel-body list-group-item collapse-menu {{resolveActiveTab('bulkdevices',2) ? 'active' : ''}}">
-            <div ng-click="goTo('apps/bulkdevices')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Bulk phones configuration' | translate | ellipsis:'1200'}}</div>
+            <div ng-click="goTo('apps/bulkdevices')" class="list-group-item-value menu-item-left no-opacity full-width">{{'Bulk phones' | translate | ellipsis:'1200'}}</div>
           </div>
         </div>
 
@@ -467,6 +467,7 @@
   <script src="scripts/services/provisioning/phoneservice.js"></script>
   <script src="scripts/services/provisioning/modelservice.js"></script>
   <script src="scripts/directives/whenScrolled.js"></script>
+  <script src="scripts/directives/showPassword.js"></script>
   <!-- load the webcomponents loader, which injects the necessary polyfill bundle -->
   <script src="node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"></script>
   <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>

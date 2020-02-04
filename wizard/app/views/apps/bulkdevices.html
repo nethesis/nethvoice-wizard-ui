@@ -1,6 +1,6 @@
 <div class="wizard-pf-contents adjust-size no-margin-bottom">
   <h1 class="control-label centered" for="textInput-markup">
-    {{ 'Bulk phones configuration' | translate }}
+    {{ 'Bulk phones' | translate }}
   </h1>
   <div class="container-fluid mg-top-20">
     <!-- toast messages -->
@@ -112,7 +112,7 @@
                 <div>
                   <span class="pficon pficon-restart mg-right-5"></span>
                   <span class="adjust-weight">{{ 'Reboot' | translate }}:</span>
-                  <b>{{ phone.delayedReboot ? phone.delayedReboot : '-' }}</b>
+                  <b>{{ phone.delayedReboot ? (phone.delayedReboot | date:'HH:mm') : '-' }}</b>
                 </div>
                 <div>
                   <span ng-class="['pficon', 'mg-right-5', { 'pficon-ok': phone.registered, 'pficon-error-circle-o': !phone.registered }]"></span>
@@ -229,21 +229,26 @@
               </div>
               <!-- bulk reboot time -->
               <div class="form-group">
-                <label class="col-sm-4 control-label">{{ 'Reboot time' | translate }}</label>
+                <label class="col-sm-4 control-label pad-top-25">{{ 'Reboot time' | translate }}</label>
                 <div class="col-sm-5">
-                  <div class="input-group date-time-picker-pf" id="reboot-timepicker">
-                    <input type="text" class="form-control" id="reboot-timepicker-value"
-                      ng-disabled="!bulkDelayedRebootSwitch" required />
-                    <span class="input-group-addon">
-                      <span class="fa fa-clock-o"></span>
-                    </span>
-                  </div>
+                  <div
+                    uib-timepicker
+                    ng-model="bulkDelayedReboot"
+                    ng-change="changed()"
+                    show-meridian="false"
+                    ng-disabled="!bulkDelayedRebootSwitch"
+                    required
+                  ></div>
                 </div>
               </div>
             </div>
             <div class="modal-footer submit">
               <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'Cancel' | translate }}</button>
-              <button type="submit" class="btn btn-primary">{{ 'Save' | translate }}</button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                ng-disabled="bulkDelayedRebootSwitch && !bulkDelayedReboot"
+              >{{ 'Save' | translate }}</button>
             </div>
         </div>
         </form>
