@@ -1905,6 +1905,10 @@ F
   margin-left: 5px !important;
 }
 
+.mr-5 {
+  margin-right: 5px !important;
+}
+
 .mr-7 {
   margin-right: 7px !important;
 }
@@ -2887,13 +2891,6 @@ a.black:focus, a.black:hover, a.black:active {
 
 .pos-relative {
   position: relative;
-}
-
-.num-phones-indicator {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin-bottom: 0;
 }
 
 .flex-grow-1 {

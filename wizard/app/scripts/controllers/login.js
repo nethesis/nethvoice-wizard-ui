@@ -54,7 +54,7 @@ angular.module('nethvoiceWizardUiApp')
             });
           } else {
             // !isWizard
-            $scope.view.changeRoute = false;
+            // $scope.view.changeRoute = false;
             $scope.view.navbarReadyFirst = true;
           }
           $('body').show();

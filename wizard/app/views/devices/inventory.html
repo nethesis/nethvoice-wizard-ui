@@ -17,7 +17,7 @@
     <h1 class="control-label centered" for="textInput-markup">
       {{ 'Phones' | translate }}
     </h1>
-    <div class="container-fluid mg-top-20">
+    <div class="container-fluid mt-40">
       <!-- toast messages -->
       <div class="toast-notifications-list-pf">
         <div
@@ -69,10 +69,6 @@
           </div>
         </div>
         <div ng-show="phones.length !== 0" class="mg-bottom-10 pos-relative">
-          <!-- number of phones in inventory -->
-          <label class="num-phones-indicator">
-            {{ phones.length }} {{ (phones.length > 1 ? 'phones' : 'phone') | translate }}
-          </label>
           <div class="dropdown">
             <button class="btn btn-lg btn-primary dropdown-toggle" type="button" id="invDropdownMenu1"
               data-toggle="dropdown">
@@ -108,6 +104,10 @@
               </button>
             </div>
           </form>
+          <!-- number of phones in inventory -->
+          <span class="fz-15 weight-plus right-only mb-5 mr-2">
+            {{ phones.length }} {{ (phones.length > 1 ? 'phones' : 'phone') | translate }}
+          </span>
           <!-- phone list -->
           <div class="list-group list-view-pf clear" id="phone-list">
             <div class="list-group-item cursor-default"
@@ -352,7 +352,7 @@
             </div>
             <!-- toolbar to apply model to all -->
             <div ng-show="phonesToAdd.length > 1">
-              <div class="mg-top-20"><label>{{ 'inv_help_mac_4' | translate }}:</label></div>
+              <div class="mt-40"><label>{{ 'inv_help_mac_4' | translate }}:</label></div>
               <div class="filter">
                 <div>{{ 'Vendor' | translate }}</div>
                 <select pf-select="{ noneSelectedText: '-' }" class="width-240" ng-model="vendorApplyToAll"

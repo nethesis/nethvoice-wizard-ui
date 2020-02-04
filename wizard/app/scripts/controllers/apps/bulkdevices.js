@@ -16,7 +16,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.view.changeRoute = true;
     $scope.errors = [];
     $scope.errorId = 0;
-    $scope.PHONES_PAGE = 20;
+    $scope.PHONES_PAGE = 15;
     $scope.phonesLimit = $scope.PHONES_PAGE;
 
     $scope.loadMorePhones = function () {
