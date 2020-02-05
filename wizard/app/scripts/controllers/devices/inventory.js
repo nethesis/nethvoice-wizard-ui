@@ -760,10 +760,32 @@ angular.module('nethvoiceWizardUiApp')
       $scope.showSuccessfullyAddedPhones = !$scope.showSuccessfullyAddedPhones;
     }
 
-    $scope.deleteAllPhones = function() {
+    //// only for dev purposes
+    var deletePhoneDev = function (phone) {
+      // delete phone on Tancredi
+      PhoneService.deletePhone(phone.mac).then(function (res) {
+        // delete phone on Corbera
+        UserService.deletePhysicalExtension(phone.mac).then(function (res) {
+          // delete delayed reboot (if present)
+          PhoneService.deletePhoneDelayedReboot([phone.mac]).then(function (res) {
+          }, function (err) {
+            console.log(err);
+            addErrorNotification(err.data, "Error canceling delayed reboot");
+          });
+        }, function (errorCorbera) {
+          console.log(errorCorbera);
+          addErrorNotification(errorCorbera.data, "Error deleting phone");
+        });
+      }, function (err) {
+        console.log(err);
+        addErrorNotification(err.data, "Error deleting phone");
+      });
+    }
+
+    //// only for dev purposes
+    $scope.deleteAllPhonesDev = function() {
       $scope.phones.forEach(function (phone) {
-        $scope.phoneToDelete = phone;
-        $scope.deletePhone()
+        deletePhoneDev(phone)
       });
     }
 
