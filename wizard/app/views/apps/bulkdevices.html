@@ -102,8 +102,7 @@
           </p>
         </div>
         <!-- phone list -->
-        <div class="list-group list-view-pf clear" ng-show="numFiltered != 0" id="phone-list"
-          when-scrolled="loadMorePhones()" ng-style="{'max-height': phonesHeight}">
+        <div class="list-group list-view-pf clear" ng-show="numFiltered != 0" id="phone-list">
           <div class="list-group-item cursor-default {{phone.selected ? 'selected' : ''}}"
             ng-repeat="phone in phones | limitTo: phonesLimit | orderBy: 'display_name'" ng-show="phone.filtered">
             <label for="checkbox-phone-{{$index}}" class="width-100p pointer">
@@ -155,6 +154,7 @@
                 </div>
             </label>
           </div>
+          <scrolling-sentinel event="bulkDevicesScroll"></scrolling-sentinel>
         </div>
       </div>
 
