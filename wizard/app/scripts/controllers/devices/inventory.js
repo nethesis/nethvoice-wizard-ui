@@ -760,7 +760,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.showSuccessfullyAddedPhones = !$scope.showSuccessfullyAddedPhones;
     }
 
-    //// only for dev purposes
+    // only for dev purposes
     var deletePhoneDev = function (phone) {
       // delete phone on Tancredi
       PhoneService.deletePhone(phone.mac).then(function (res) {
@@ -782,7 +782,7 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    //// only for dev purposes
+    // only for dev purposes
     $scope.deleteAllPhonesDev = function() {
       $scope.phones.forEach(function (phone) {
         deletePhoneDev(phone)
