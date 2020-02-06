@@ -44,7 +44,6 @@ angular.module('nethvoiceWizardUiApp')
     // function for the currentModel creation
     $scope.setCurrentModel = function (name) {
       if ($scope.currentModel.name != name) {
-        $scope.currentModel.changed = false
         $scope.loadingModels[name] = true
         $scope.buildModel(name).then(function (res) {
 
@@ -65,7 +64,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.checkCurrentModelChanged = function (name) {
       if ($scope.currentModel.name != name) {
         if ($scope.currentModel.changed) {
-          console.log("CURRENT MODEL CHANGED ")
           modelNameChecking = name
           $("#modelChangeConfirm").modal("show")
         } else {

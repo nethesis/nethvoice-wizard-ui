@@ -481,6 +481,7 @@ angular.module('nethvoiceWizardUiApp')
             "name" : name,
             "display_name" : res.data.display_name,
             "openedSection" : "",
+            "shownPasswords": {},
             "openedExpKeys": "",
             "showingKeys": "",
             "showingExpKeys": "",
@@ -494,7 +495,6 @@ angular.module('nethvoiceWizardUiApp')
           reject(err)
         })
       })
-
     }
 
     var getGlobals = function () {

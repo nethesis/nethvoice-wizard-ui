@@ -105,19 +105,16 @@
                                               ng-change="onVariableChanged(key.variable + '_' + (module + 1) + '_' + keysIndex)"
                                               placeholder="{{currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + (module + 1) + '_' + keysIndex] + ' (default)' : ''}}"
                                               type="password"
-                                              show-password="showPassword"
-                                              class="form-control">
+                                              show-password="currentModel.shownPasswords[key.variable + '_' + (module + 1) + '_' + keysIndex]"
+                                              class="form-control display-flex">
                                             </input>
-                                            <span class="input-group-addon btn-input-group">
-                                              <button
-                                                tabindex="-1"
-                                                type="button"
-                                                class="btn btn-primary"
-                                                ng-click="toggleShowPassword()"
-                                              >
-                                                <span ng-class="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
-                                              </button>
-                                            </span>
+                                            <button
+                                              tabindex="-1"
+                                              type="button"
+                                              class="btn btn-default mln-1 zindex-2"
+                                              ng-click="toggleShowPassword(key.variable + '_' + (module + 1) + '_' + keysIndex)">
+                                              <span ng-class="currentModel.shownPasswords[key.variable + '_' + (module + 1) + '_' + keysIndex] ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
+                                            </button>
                                           </div>
                                         </div>
                                       </div>
@@ -197,19 +194,16 @@
                                       ng-change="onVariableChanged(key.variable + '_' + keysIndex)"
                                       placeholder="{{currentModel.globals[key.variable + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + keysIndex] + ' (default)' : ''}}"
                                       type="password"
-                                      show-password="showPassword"
-                                      class="form-control">
+                                      show-password="currentModel.shownPasswords[key.variable + '_' + keysIndex]"
+                                      class="form-control display-flex">
                                     </input>
-                                    <span class="input-group-addon btn-input-group">
-                                      <button
-                                        tabindex="-1"
-                                        type="button"
-                                        class="btn btn-primary"
-                                        ng-click="toggleShowPassword()"
-                                      >
-                                        <span ng-class="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
-                                      </button>
-                                    </span>
+                                    <button
+                                      tabindex="-1"
+                                      type="button"
+                                      class="btn btn-default mln-1 zindex-2"
+                                      ng-click="toggleShowPassword(key.variable + '_' + keysIndex)">
+                                      <span ng-class="currentModel.shownPasswords[key.variable + '_' + keysIndex] ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
+                                    </button>
                                   </div>
                                 </div>
                               </div>
@@ -282,19 +276,16 @@
                               ng-change="onVariableChanged(key.variable)"
                               placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : ''}}"
                               type="password"
-                              show-password="showPassword"
-                              class="form-control">
+                              show-password="currentModel.shownPasswords[key.variable]"
+                              class="form-control display-flex">
                             </input>
-                            <span class="input-group-addon btn-input-group">
-                              <button
-                                tabindex="-1"
-                                type="button"
-                                class="btn btn-primary"
-                                ng-click="toggleShowPassword()"
-                              >
-                                <span ng-class="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
-                              </button>
-                            </span>
+                            <button
+                              tabindex="-1"
+                              type="button"
+                              class="btn btn-default mln-1 zindex-2"
+                              ng-click="toggleShowPassword(key.variable)">
+                              <span ng-class="currentModel.shownPasswords[key.variable] ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -368,26 +359,23 @@
                         class="form-control">
                       </input>
                       <!-- password -->
-                      <div ng-if="item.type == 'password'" class="input-group">
+                      <div ng-if="item.type == 'password'" class="input-group display-flex">
                         <input
                           id="{{sectionkey}}-input-{{$index}}"
                           ng-model="currentModel.variables[item.variable]"
                           ng-change="onVariableChanged(item.variable)"
                           placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : ''}}"
                           type="password"
-                          show-password="showPassword"
+                          show-password="currentModel.shownPasswords[item.variable]"
                           class="form-control">
                         </input>
-                        <span class="input-group-addon btn-input-group">
-                          <button
-                            tabindex="-1"
-                            type="button"
-                            class="btn btn-primary"
-                            ng-click="toggleShowPassword()"
-                          >
-                            <span ng-class="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
-                          </button>
-                        </span>
+                        <button
+                          tabindex="-1"
+                          type="button"
+                          class="btn btn-default mln-1 zindex-2"
+                          ng-click="toggleShowPassword(item.variable)">
+                          <span ng-class="currentModel.shownPasswords[item.variable] ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
+                        </button>
                       </div>
                     </div>
                   </div>

@@ -15,7 +15,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.modelsInfoMsg = ""
     $scope.selectOptionsInterval = ""
     $scope.selectOptionsLimit = 11
-    $scope.showPassword = false
+    $scope.shownPasswords = false
 
     $scope.modelErrors = {
       updateReadOnlyAttribute: false,
@@ -239,8 +239,8 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    $scope.toggleShowPassword = function () {
-      $scope.showPassword = !$scope.showPassword
+    $scope.toggleShowPassword = function (variable) {
+      $scope.currentModel.shownPasswords[variable] ? delete $scope.currentModel.shownPasswords[variable] : $scope.currentModel.shownPasswords[variable] = true
     }
 
     var getVariables = function () {
