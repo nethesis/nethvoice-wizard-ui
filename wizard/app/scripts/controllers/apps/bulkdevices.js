@@ -49,7 +49,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.numSelected = 0;
       $scope.allSelectedSameVendor = null;
       $scope.allSelectedSameModel = "";
-      $scope.allSelectedSameReboot = null;
+      $scope.allSelectedSameReboot = undefined;
       $scope.somePhonesRegistered = false;
 
       // remove 'Choose' option from models
@@ -80,9 +80,16 @@ angular.module('nethvoiceWizardUiApp')
           }
 
           // check if all phones selected have the same reboot time
-          if ($scope.allSelectedSameReboot == null) {
+          if ($scope.allSelectedSameReboot === undefined) {
             $scope.allSelectedSameReboot = phone.delayedReboot;
-          } else if (($scope.allSelectedSameReboot && !phone.delayedReboot) || (phone.delayedReboot && $scope.allSelectedSameReboot && phone.delayedReboot.getTime() !== $scope.allSelectedSameReboot.getTime())) {
+          } else if (
+              ($scope.allSelectedSameReboot &&
+              phone.delayedReboot &&
+              phone.delayedReboot.getTime() !== $scope.allSelectedSameReboot.getTime()
+              ||
+              $scope.allSelectedSameReboot && !phone.delayedReboot
+              ||
+              !$scope.allSelectedSameReboot && phone.delayedReboot)) {
             $scope.allSelectedSameReboot = false;
           }
 
@@ -108,6 +115,15 @@ angular.module('nethvoiceWizardUiApp')
       $scope.errors.push(error);
     }
 
+    var defaultDelayedRebootValue = function () {
+      // current time, rounded by 5 minutes
+      var d = new Date();
+      d.setMinutes(5 * Math.ceil(d.getMinutes() / 5));
+      d.setSeconds(0);
+      d.setMilliseconds(0);
+      return d;
+    }
+
     function gotDelayedReboot(rebootData) {
       // clear old reboot times
       $scope.phones.forEach(function (phone) {
@@ -115,7 +131,7 @@ angular.module('nethvoiceWizardUiApp')
       });
 
       // reset bulk delayed reboot value
-      $scope.bulkDelayedReboot = new Date();
+      $scope.bulkDelayedReboot = defaultDelayedRebootValue();
 
       // set updated reboot times
       Object.keys(rebootData).forEach(function (mac) {
@@ -478,17 +494,13 @@ angular.module('nethvoiceWizardUiApp')
     $scope.showSetRebootModal = function () {
       $scope.bulkDelayedReboot = $scope.allSelectedSameReboot;
 
-      if ($scope.bulkDelayedReboot != false || $scope.bulkDelayedReboot === "") {
-        // phones selected have the same reboot value
-        if ($scope.bulkDelayedReboot) {
-          $scope.bulkDelayedRebootSwitch = true;
-        } else {
-          // same none reboot value
-          $scope.bulkDelayedRebootSwitch = false;
-        }
+      if ($scope.bulkDelayedReboot) {
+        // phones selected have the same (non-null) reboot value
+        $scope.bulkDelayedRebootSwitch = true;
       } else {
-        // phones selected have different reboot values
+        // phones selected have different or null reboot values
         $scope.bulkDelayedRebootSwitch = false;
+        $scope.bulkDelayedReboot = defaultDelayedRebootValue();
       }
       $('#bulkDelayedRebootModal').modal('show');
     }
