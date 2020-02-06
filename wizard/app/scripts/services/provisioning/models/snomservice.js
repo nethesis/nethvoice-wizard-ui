@@ -10,7 +10,7 @@
 angular.module('nethvoiceWizardUiApp')
   .service('ProvSnomService', function ($q, RestService) {
 
-    var itemsFunctionExpKeys = [
+    var itemsFunctionExpKeys = [ //// todo delete
       {
         "variable": "key_label_",
         "description": "Label",
@@ -170,12 +170,26 @@ angular.module('nethvoiceWizardUiApp')
     this.map = function () {
       return {
         "D305": {
-          "model": "D305",
-          "keys": true,
-          "functionKeys": {
-            "start": 0,
-            "end": 5
-          }
+          "general": {
+            "settings": true,
+            "password": true
+          },
+          "preferences": {
+            "ringtone": true,
+            "display": true,
+            "wallpaper": false,
+            "screensaver": false
+          },
+          "network": {
+            "ldap": true,
+            "vlan": true
+          },
+          "provisioning": {
+            "provisioning": true
+          },
+          "softKeys": false,
+          "lineKeys": false, //// todo
+          "expansionKeys": false
         },
         "D315": {
           "model": "D315",
