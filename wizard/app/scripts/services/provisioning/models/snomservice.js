@@ -8,7 +8,7 @@
  * Service in the nethvoiceWizardUiApp.
  */
 angular.module('nethvoiceWizardUiApp')
-  .service('ProvSnomService', function ($q, RestService) {
+  .service('ProvSnomService', function () {
 
     var itemsFunctionExpKeys = [ //// todo delete
       {
