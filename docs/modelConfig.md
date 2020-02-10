@@ -194,4 +194,4 @@ A variable type can be one of the following:
 - `input`: any text string (e.g. `ldap_server` variable)
 - `list`: the variable can store one of the values defined by the `options` attribute (e.g. `default_ringtone` variable)
 - `password`: the current value of the variable should be hidden by default (e.g. `ldap_password` variable)
-
+- `time`: a time value with format HH:mm
