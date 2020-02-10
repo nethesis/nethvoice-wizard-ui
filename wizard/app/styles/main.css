@@ -801,6 +801,28 @@ a {
   }
 }
 
+@media screen and (max-width: 1647px) {
+  .eswitch-mt {
+    margin-top: 10px !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .pr-50 {
+    padding-right: 50px;
+  }
+  
+  .pl-50 {
+    padding-left: 50px;
+  }
+  
+  .divider-border {
+    border-right: 1px solid whitesmoke;
+  }
+}
+
+
+
 @media screen and (max-width: 1200px) {
   .weight-gateway {
     display: initial;
@@ -838,6 +860,10 @@ a {
 .icon-med {
   font-size: 16px;
   line-height: 24px;
+}
+
+.miw-135 {
+  min-width: 135px;
 }
 
 .icon-med-reload {
@@ -1893,6 +1919,34 @@ F
   margin-bottom: 40px !important;
 }
 
+.mb-75 {
+  margin-bottom: 75px !important;
+}
+
+.mxw-210 {
+  max-width: 210px !important;
+}
+
+.encryption-switch {
+  margin-left: 2px;
+}
+
+.mxw-200 {
+  max-width: 200px !important;
+}
+
+.mxw-150 {
+  max-width: 150px !important;
+}
+
+.mnw-55 {
+  min-width: 55px !important;
+}
+
+.mnw-180 {
+  min-width: 180px !important;
+}
+
 .ml-20 {
   margin-left: 20px !important;
 }
@@ -1903,6 +1957,18 @@ F
 
 .mb-5 {
   margin-bottom: 5px !important;
+}
+
+.mb-50 {
+  margin-bottom: 50px !important;
+}
+
+.h-60 {
+  height: 60px !important;
+}
+
+.mt-5 {
+  margin-top: 5px;
 }
 
 .ml-10 {
@@ -2593,6 +2659,10 @@ F
 
 .fz-15 {
   font-size: 15px !important;
+}
+
+.fz-13-6 {
+  font-size: 13.6px !important;
 }
 
 #currentModelForm label {

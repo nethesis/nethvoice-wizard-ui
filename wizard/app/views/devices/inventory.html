@@ -109,7 +109,7 @@
             {{ phones.length }} {{ (phones.length > 1 ? 'phones' : 'phone') | translate }}
           </span>
           <!-- phone list -->
-          <div class="list-group list-view-pf clear" id="phone-list">
+          <div class="list-group list-view-pf clear {{wizard.isWizard ? 'mb-75' : ''}}" id="phone-list">
             <div class="list-group-item cursor-default"
               ng-repeat="phone in phones | filter:searchPhoneString | limitTo: phonesLimit | orderBy: 'display_name'">
               <div class="list-view-pf-actions">

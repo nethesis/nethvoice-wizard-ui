@@ -8,9 +8,13 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesCtrl', function ($scope, ModelService, ConfigService, $location) {
+  .controller('DevicesCtrl', function ($scope, ModelService, ConfigService, $location, $route) {
 
     $scope.view.changeRoute = true
+    $scope.currentStep = $route.current.controllerAs.split('/').length > 1 ? $route.current.controllerAs.split('/')[1] : $route.current.controllerAs.split('/')[0]
+    $scope.wizard.stepCount = appConfig.STEP_MAP[$scope.currentStep];
+    $scope.wizard.prevState = appConfig.STEP_WIZARD[$scope.currentStep].prev;
+    $scope.wizard.nextState = appConfig.STEP_WIZARD[$scope.currentStep].next;
 
     var nextStep = function () {
       if ($scope.wizard.nextState && appConfig.STEP_WIZARD[$scope.currentStep].next) {

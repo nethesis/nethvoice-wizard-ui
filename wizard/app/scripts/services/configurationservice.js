@@ -110,6 +110,36 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.getEncryption = function (ext) {
+      return $q(function (resolve, reject) {
+        RestService.get('/extensions/' + ext + '/srtp').then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    }
+
+    this.setEncryption = function (ext, enabled) {
+      return $q(function (resolve, reject) {
+        RestService.post('/extensions/' + ext + '/srtp/' + enabled).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    }
+
+    this.toRps = function (mac) {
+      return $q(function (resolve, reject) {
+        RestService.post('/phones/rps/' + mac).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    }
+
     this.retrieveFinalInfo = function () {
       return $q(function (resolve, reject) {
         RestService.get('/final').then(function (res) {

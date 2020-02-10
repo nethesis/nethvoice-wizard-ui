@@ -17,10 +17,10 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allDevices = []
     $scope.devicesNotLinked = []
     $scope.allModels = []
+    $scope.currentUser = {}
     $scope.loadingUser = {}
     $scope.loadingModel = {}
     $scope.hiddenUser = {}
-    $scope.currentUser = {}
     $scope.linkTo = ""
     $scope.newDevice = {}
     $scope.deviceToLink = {}
@@ -86,12 +86,26 @@ angular.module('nethvoiceWizardUiApp')
           console.log(err)
           $scope.currentUser.webRtcState = false
         })
+        getDevicesEncryption()
       }
       setTimeout(function () {
         $scope.loadingUser[user.username] = false
         $scope.$apply()
-      }, 1000)
-      console.log("CURRENT USER", $scope.currentUser)
+      }, 1500)
+    }
+
+    var getEncryption = function (ext, index) {
+      ConfigurationService.getEncryption(ext).then(function (res) {
+        $scope.currentUser.devices[index].encryption = res.data
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    var getDevicesEncryption = function() {
+      $scope.currentUser.devices.forEach(function (el ,index) {
+        getEncryption(el.extension, index)
+      })
     }
 
     // function for the currentModel creation
@@ -104,7 +118,6 @@ angular.module('nethvoiceWizardUiApp')
           $scope.loadingModel[name] = false
           $scope.$apply()
         }, 1000)
-        console.log($scope.currentModel)
       }, function (err) {
         console.log(err)
       })
@@ -135,9 +148,6 @@ angular.module('nethvoiceWizardUiApp')
     var getAllProfiles = function () {
       ProfileService.allProfiles().then(function (res) {
         $scope.allProfiles = res.data
-
-        console.log("ALL PROFILES", $scope.allProfiles);
-
       }, function (err) {
         console.log(err)
       })
@@ -160,7 +170,7 @@ angular.module('nethvoiceWizardUiApp')
         // set model object
         if (device.model) {
           var model = $scope.allModels.find(function (m) {
-            return m.name === device.model;
+            return m.name === device.model
           })
           if (model) {
             device.model = model
@@ -174,10 +184,10 @@ angular.module('nethvoiceWizardUiApp')
         // set filtered models
         if (device.manufacturer) {
           device.filteredModels = $scope.allModels.filter(function (model) {
-            return model.name.toLowerCase().startsWith(device.manufacturer.toLowerCase());
+            return model.name.toLowerCase().startsWith(device.manufacturer.toLowerCase())
           });
         } else {
-          device.filteredModels = angular.copy($scope.allModels);
+          device.filteredModels = angular.copy($scope.allModels)
         }
       })
     }
@@ -185,9 +195,6 @@ angular.module('nethvoiceWizardUiApp')
     var getAllModelsAndUsersAndDevices = function () {
       ModelService.getModels().then(function (res) {
         $scope.allModels = res.data
-
-        console.log("ALL MODELS", $scope.allModels);
-
         getAllUsers()
         getAllDevices()
       }, function (err) {
@@ -198,12 +205,14 @@ angular.module('nethvoiceWizardUiApp')
     var getAllUsers = function () {
       ConfigurationService.list(false).then(function (res) {
         $scope.allUsers = res.data
-        console.log("ALL USERS", $scope.allUsers)
-
         $scope.view.changeRoute = false
         $scope.allUsers.forEach(function (user){
           prepareDevices(user.devices)
+          if (user.username == $scope.currentUser.username) {
+            $scope.currentUser.devices = user.devices
+          }
         })
+        getDevicesEncryption()
       }, function (err) {
         console.log(err)
       })
@@ -211,7 +220,6 @@ angular.module('nethvoiceWizardUiApp')
 
     var getDevicesNotLinked = function () {
       $scope.devicesNotLinked = []
-
       $scope.allDevices.forEach(function (device) {
         if (!device.lines || device.lines.length == 0 || !device.lines[0].extension) {
           $scope.devicesNotLinked.push(device)
@@ -222,11 +230,7 @@ angular.module('nethvoiceWizardUiApp')
     var getAllDevices = function () {
       DeviceService.phoneList().then(function (res) {
         $scope.allDevices = res.data
-
-        console.log("ALL DEVICES", $scope.allDevices);
-
         prepareDevices($scope.allDevices)
-
         getDevicesNotLinked()
       }, function (err) {
         console.log(err)
@@ -248,20 +252,15 @@ angular.module('nethvoiceWizardUiApp')
       var rebootData = {};
       rebootData[device.mac] = {} // hours and minutes omitted -> reboot immediately
       device.rebootInAction = true;
-
       PhoneService.setPhoneReboot(rebootData).then(function (success) {
-        // check failure
         var error = false;
-
         Object.keys(success.data).forEach(function (mac) {
           var rebootResult = success.data[mac];
-
           if (rebootResult.code !== 204) {
             // failure
             error = true;
           }
         });
-
         if (error) {
           console.log("Error rebooting device");
           device.rebootInAction = 'err';
@@ -269,7 +268,6 @@ angular.module('nethvoiceWizardUiApp')
           // success
           device.rebootInAction = 'ok';
         }
-
         $timeout(function () {
           device.rebootInAction = false;
         }, 4000);
@@ -287,7 +285,6 @@ angular.module('nethvoiceWizardUiApp')
           mac: device.mac,
           ip: device.ipv4
         }).then(function (res1) {
-          console.log(res1)
           device.setPhysicalInAction = false
           device.inError = false
         }, function (err1) {
@@ -326,7 +323,7 @@ angular.module('nethvoiceWizardUiApp')
       device.linkPhysicalInAction = true
       device.linkInAction = true
       $scope.linkToUserInProgress = true;
-
+      // link device in wizard api
       UserService.createPhysicalExtension({
         mainextension: $scope.currentExtension,
         mac: device.mac || null,
@@ -343,11 +340,20 @@ angular.module('nethvoiceWizardUiApp')
         $scope.linkToUserInProgress = false;
         $scope.showResultLinkToUser = true;
         $scope.linkToUserSuccess = true;
-
+        // set encryption if cloud
+        device.encryption = $scope.cloudProvisioning ? true : false
+        device.extension = res.data.extension
+        $scope.switchEncryption(device)
+        // create field to the rps service
+        ConfigurationService.toRps(device.mac).then(function (res) {
+          // rps post success
+        }, function (err) {
+          console.log(err)
+        })
+        // async graphics
         $timeout(function () {
           $('#devicesAssociation').modal('hide');
         }, 2500);
-
         $timeout(function () {
           getAllUsers(false)
           getAllDevices()
@@ -440,7 +446,7 @@ angular.module('nethvoiceWizardUiApp')
       ProfileService.setUserProfile($scope.currentUser.id, {
         profile_id: $scope.currentUser.profile
       }).then(function (res) {
-        console.log(res)
+        // set profile
       }, function (err) {
         console.log(err)
       })
@@ -450,7 +456,15 @@ angular.module('nethvoiceWizardUiApp')
       ProfileService.setUserGroup($scope.currentUser.id, {
         groups: $scope.currentUser.groups
       }).then(function (res) {
-        console.log(res)
+        // set group
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    $scope.switchEncryption = function (device) {
+      ConfigurationService.setEncryption(device.extension, device.encryption).then(function (res) {
+        // encryption set
       }, function (err) {
         console.log(err)
       })
@@ -472,7 +486,6 @@ angular.module('nethvoiceWizardUiApp')
 
     $('#devicesAssociation').on('hidden.bs.modal', function () {
       $scope.newDevice.linkInAction = false
-
       for (var device in $scope.allDevices) {
         $scope.allDevices[device].linkPhysicalInAction = false
         $scope.allDevices[device].setPhysicalInAction = false
@@ -501,6 +514,14 @@ angular.module('nethvoiceWizardUiApp')
       document.removeEventListener('configDevicesScroll', scrollInventoryDevices)
       $scope.usersLimit = $scope.USERS_PAGE
       $scope.devicesNotLinkedLimit = $scope.DEVICES_NOT_LINKED_PAGE
+      // empty objs
+      $scope.allUsers = []
+      $scope.allProfiles = []
+      $scope.allGroups = []
+      $scope.allDevices = []
+      $scope.devicesNotLinked = []
+      $scope.allModels = []
+      $scope.currentUser = {}
     })
 
     angular.element(document).ready(function () {
