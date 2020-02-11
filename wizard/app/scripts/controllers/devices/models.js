@@ -12,22 +12,18 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.globalsUi = ProvGlobalsService.getGlobalsUI()
     $scope.view.changeRoute = true
-
     $scope.inventoryModels = {}
     $scope.defaultSettings = {}
     $scope.loadingModels = {}
     $scope.loadingActions = false
-
     $scope.newModelsErrors = {
       newModelCustomNameEmpty: false,
       newModelSourceEmpty: false,
       apiError: false
     }
-
     $scope.newModelSourceName = ""
     $scope.newModelCustomName = ""
     $scope.newModelShown = false
-
     var modelNameChecking = ""
 
     // get the models of the phones in the inventory
@@ -231,6 +227,7 @@ angular.module('nethvoiceWizardUiApp')
     })
 
     $scope.$on('$routeChangeStart', function() {
+      $scope.view.changeRoute = true
       $scope.globalsUi = null
       $scope.inventoryModels = null
       $scope.defaultSettings = null    

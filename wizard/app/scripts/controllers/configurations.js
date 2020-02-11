@@ -28,12 +28,12 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.USERS_PAGE = 15;
     $scope.usersLimit = $scope.USERS_PAGE;
-
     $scope.DEVICES_NOT_LINKED_PAGE = 15;
     $scope.devicesNotLinkedLimit = $scope.DEVICES_NOT_LINKED_PAGE;
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured']
     $scope.availableUserFiltersNumbers = ['lname', 'default_extension']
+    
     $scope.usersFilter = $scope.availableUserFilters[0]
     $scope.usersFilterNumbers = $scope.availableUserFiltersNumbers[0]
 
@@ -86,7 +86,7 @@ angular.module('nethvoiceWizardUiApp')
           console.log(err)
           $scope.currentUser.webRtcState = false
         })
-        getDevicesEncryption()
+        getCuDevicesEncryption($scope.currentUser.devices)
       }
       setTimeout(function () {
         $scope.loadingUser[user.username] = false
@@ -102,10 +102,12 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    var getDevicesEncryption = function() {
-      $scope.currentUser.devices.forEach(function (el ,index) {
-        getEncryption(el.extension, index)
-      })
+    var getCuDevicesEncryption = function(devices) {
+      if (devices) {
+        $scope.currentUser.devices.forEach(function (el ,index) {
+          getEncryption(el.extension, index)
+        })
+      }
     }
 
     // function for the currentModel creation
@@ -208,11 +210,12 @@ angular.module('nethvoiceWizardUiApp')
         $scope.view.changeRoute = false
         $scope.allUsers.forEach(function (user){
           prepareDevices(user.devices)
+          // update current user if exists
           if (user.username == $scope.currentUser.username) {
             $scope.currentUser.devices = user.devices
+            getCuDevicesEncryption($scope.currentUser.devices)
           }
         })
-        getDevicesEncryption()
       }, function (err) {
         console.log(err)
       })
@@ -512,16 +515,17 @@ angular.module('nethvoiceWizardUiApp')
     $scope.$on('$routeChangeStart', function() {
       document.removeEventListener('configScroll', scrollInventory)
       document.removeEventListener('configDevicesScroll', scrollInventoryDevices)
+      $scope.view.changeRoute = true
       $scope.usersLimit = $scope.USERS_PAGE
       $scope.devicesNotLinkedLimit = $scope.DEVICES_NOT_LINKED_PAGE
       // empty objs
-      $scope.allUsers = []
-      $scope.allProfiles = []
-      $scope.allGroups = []
-      $scope.allDevices = []
-      $scope.devicesNotLinked = []
-      $scope.allModels = []
-      $scope.currentUser = {}
+      $scope.allUsers = null
+      $scope.allProfiles = null
+      $scope.allGroups = null
+      $scope.allDevices = null
+      $scope.devicesNotLinked = null
+      $scope.allModels = null
+      $scope.currentUser = null
     })
 
     angular.element(document).ready(function () {

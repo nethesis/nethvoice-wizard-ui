@@ -580,6 +580,16 @@ a {
   }
 }
 
+@media screen and (max-width: 992px) { 
+  .list-view-pf .list-group-item-heading {
+    font-size: 15px;
+  }
+
+  .fz-13-6-16 {
+    font-size: 16px !important;
+  }
+}
+
 .progress-content {
   margin-top: 40px;
 }
@@ -2661,8 +2671,8 @@ F
   font-size: 15px !important;
 }
 
-.fz-13-6 {
-  font-size: 13.6px !important;
+.fz-13-6-16 {
+  font-size: 13.6px;
 }
 
 #currentModelForm label {
@@ -2688,6 +2698,14 @@ F
 
 .absolute-position {
   position: absolute !important;
+}
+
+.right-25 {
+  right: -25px !important;
+}
+
+.right-20 {
+  right: -20px !important;
 }
 
 .right-15 {

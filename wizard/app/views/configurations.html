@@ -57,12 +57,12 @@
               </button>
             </div>
           </div>
-          <div ng-click="setCurrentUser(user)" class="list-view-pf-main-info">
+          <div ng-click="!loadingUser[currentUser.username] ? setCurrentUser(user) : ''" class="list-view-pf-main-info">
             <div class="list-view-pf-left"><span aria-hidden="true" class="fa fa-user list-view-pf-icon-sm"></span>
             </div>
             <div class="list-view-pf-body">
               <div class="list-view-pf-description">
-                <div class="list-group-item-heading {{user.username == currentUser.username ? 'fz-13-6' : ''}}">{{user.username}} - {{user.default_extension}}</div>
+                <div class="list-group-item-heading {{user.username == currentUser.username ? 'fz-13-6-16' : ''}}">{{user.username}} - {{user.default_extension}}</div>
                 <div class="list-group-item-text">{{user.displayname}}</div>
               </div>
               <div class="list-view-pf-additional-info">
@@ -121,11 +121,11 @@
                             <label class="control-label" for="textInput-markup">
                               {{"Mobile" | translate}}
                             </label>
-                            <div class="display-flex mt-3">
+                            <div class="input-group display-flex mt-3">
                               <input
                                 ng-model="currentUser.mobile"
                                 type="tel"
-                                class="form-control config-form"
+                                class="form-control"
                                 placeholder="{{'Mobile' | translate}}">
                               <button
                                 type="submit"
@@ -134,9 +134,9 @@
                                 aria-expanded="false">
                                 {{"Set" | translate}}
                               </button>
-                              <span ng-if="currentUser.setMobileInAction == 'ok'" class="pficon pficon-ok fz-18 absolute-position mt-3 right-5"></span>
-                              <span ng-if="currentUser.setMobileInAction == 'err'" class="pficon pficon-error-circle-o fz-18  absolute-position mt-3 right-5"></span>
-                              <div ng-if="currentUser.setMobileInAction == true" class="spinner spinner-sm language-name absolute-position mt-3 right-5"></div>
+                              <span ng-if="currentUser.setMobileInAction == 'ok'" class="pficon pficon-ok fz-18 absolute-position mt-3 right-25"></span>
+                              <span ng-if="currentUser.setMobileInAction == 'err'" class="pficon pficon-error-circle-o fz-18  absolute-position mt-3 right-25"></span>
+                              <div ng-if="currentUser.setMobileInAction == true" class="spinner spinner-sm language-name absolute-position mt-3 right-25"></div>
                             </div>
                           </div>
                           <div class="form-group">
@@ -501,7 +501,7 @@
                                   </div>
                                 </div>
                               </div>
-                              <div class="list-view-pf-additional-info config-info width-15p">
+                              <div class="list-view-pf-additional-info config-info">
                                 <div ng-if="device.mac">MAC: <b>{{device.mac}}</b></div>
                               </div>
                             </div>
