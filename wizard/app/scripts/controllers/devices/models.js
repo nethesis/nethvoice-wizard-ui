@@ -12,7 +12,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.globalsUi = ProvGlobalsService.getGlobalsUI()
     $scope.view.changeRoute = true
-    $scope.inventoryModels = {}
+    $scope.inventoryModels = []
     $scope.defaultSettings = {}
     $scope.loadingModels = {}
     $scope.loadingActions = false
@@ -31,6 +31,15 @@ angular.module('nethvoiceWizardUiApp')
       ModelService.getUsedModels().then(function (res) {
         $scope.inventoryModels = res.data
         $scope.view.changeRoute = false
+        ModelService.getModels().then(function (res) {
+          for (let model in res.data) {
+            if (res.data[model].name.split("-").length > 2) {
+              $scope.inventoryModels.push(res.data[model])
+            }
+          }
+        }, function (err) {
+          console.log(err)
+        })
       }, function (err) {
         $scope.view.changeRoute = false
         console.log(err)
@@ -42,9 +51,6 @@ angular.module('nethvoiceWizardUiApp')
       if ($scope.currentModel.name != name) {
         $scope.loadingModels[name] = true
         $scope.buildModel(name).then(function (res) {
-
-          console.log("CURRENT MODEL", $scope.currentModel)
-
           setTimeout(function () {
             $scope.loadingModels[name] = false
             $scope.$apply()
@@ -58,7 +64,9 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.checkCurrentModelChanged = function (name) {
-      if ($scope.currentModel.name != name) {
+      if (!$scope.currentModel) {
+        $scope.setCurrentModel(name)
+      } else if ($scope.currentModel.name != name) {
         if ($scope.currentModel.changed) {
           modelNameChecking = name
           $("#modelChangeConfirm").modal("show")
@@ -108,7 +116,7 @@ angular.module('nethvoiceWizardUiApp')
       ModelService.addPhone({
         "mac": "9C-75-14-14-23-34"
       }).then(function (res) {
-        console.log("RES POST", res);
+        // add phones
       }, function (err) {
         console.log(err)
       })
@@ -116,7 +124,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.listPhones = function () {
       ModelService.getPhones().then(function (res) {
-        console.log("RES GET", res)
+        // get phones
       }, function (err) {
         console.log(err)
       })
@@ -124,7 +132,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.listModels = function () {
       ModelService.getUsedModels().then(function (res) {
-        console.log("RES GET", res);
+        // get models
       }, function (err) {
         console.log(err)
       })

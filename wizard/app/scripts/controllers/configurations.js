@@ -111,7 +111,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     // function for the currentModel creation
-    $scope.setCurrentModelConf = function (name) {
+    $scope.setCurrentModelConfig = function (name) {
       $scope.buildModel(name).then(function (cm) {
         if ($scope.currentModel.name != name) {
           $scope.loadingModel[name] = true
