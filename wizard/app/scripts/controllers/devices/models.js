@@ -16,14 +16,15 @@ angular.module('nethvoiceWizardUiApp')
     $scope.defaultSettings = {}
     $scope.loadingModels = {}
     $scope.loadingActions = false
+    $scope.newModelSourceName = ""
+    $scope.newModelCustomName = ""
+    $scope.newModelShown = false
     $scope.newModelsErrors = {
       newModelCustomNameEmpty: false,
       newModelSourceEmpty: false,
       apiError: false
     }
-    $scope.newModelSourceName = ""
-    $scope.newModelCustomName = ""
-    $scope.newModelShown = false
+
     var modelNameChecking = ""
 
     // get the models of the phones in the inventory

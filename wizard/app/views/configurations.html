@@ -236,14 +236,13 @@
                             <div class="form-group no-margin-bottom" ng-if="!(!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical'))">
                               <div class="display-flex miw-135">
                                 <select
-                                  class="mxw-150 mnw-55"
+                                  class="mxw-150 mnw-55 pf-select"
                                   pf-select="{ noneSelectedText: '-' }"
                                   data-live-search="true"
-                                  data-size="5"
                                   ng-change="setDeviceModel(device)"
                                   ng-model="device.model"
-                                  ng-options="model.display_name for model in device.filteredModels | orderBy:orderByValue">
-                                  <option value="">-</option>
+                                  ng-options="model.display_name for model in device.availableModels | orderBy:orderByValue">
+                                  <option ng-if="device.model == ''" value="">-</option>
                                 </select>
                                 <button ng-click="setCurrentModelConfig(device.model)" data-toggle="modal"
                                   data-target="#singleModelModal"

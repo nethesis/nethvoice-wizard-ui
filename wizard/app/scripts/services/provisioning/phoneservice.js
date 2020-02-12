@@ -90,7 +90,6 @@ angular.module('nethvoiceWizardUiApp')
 
     this.getAllVendors = function () {
       var vendorSet = new Set();
-
       Object.keys(macVendors).forEach(function (macPrefix) {
         var vendor = macVendors[macPrefix];
         vendor = UtilService.capitalize(vendor);
@@ -103,7 +102,6 @@ angular.module('nethvoiceWizardUiApp')
       // remove separators
       macAddress = this.removeMacSeparators(macAddress).toUpperCase();
       var vendor = macVendors[macAddress.substring(0, 6)];
-
       if (vendor) {
         vendor = UtilService.capitalize(vendor);
       }

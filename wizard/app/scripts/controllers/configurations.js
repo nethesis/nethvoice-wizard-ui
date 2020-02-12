@@ -87,11 +87,29 @@ angular.module('nethvoiceWizardUiApp')
           $scope.currentUser.webRtcState = false
         })
         getCuDevicesEncryption($scope.currentUser.devices)
+        getAvailableModels($scope.currentUser.devices)
       }
       setTimeout(function () {
         $scope.loadingUser[user.username] = false
         $scope.$apply()
       }, 1500)
+    }
+
+    var filterModels = function (modelName, deviceMac) {
+      return modelName.toLowerCase().startsWith(PhoneService.getVendor(deviceMac).toLowerCase())
+    }
+
+    var getAvailableModels = function (devices) {
+      for (let device in devices) {
+        if (devices[device].mac) {
+          $scope.currentUser.devices[device].availableModels = []
+          for (let model in $scope.allModels) {
+            if (filterModels($scope.allModels[model].name, devices[device].mac)) {
+              $scope.currentUser.devices[device].availableModels.push($scope.allModels[model])
+            }
+          }
+        }
+      }
     }
 
     var getEncryption = function (ext, index) {
@@ -126,7 +144,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.setDeviceModel = function (device) {
-      var mac = angular.copy(device.mac.replace(/:/g, "-"))
+      let mac = angular.copy(device.mac.replace(/:/g, "-"))
       // set phone model on Tancredi
       PhoneService.setPhoneModel(mac, device.model.name).then(function (res) {
         // set phone model on Corbera
@@ -183,14 +201,6 @@ angular.module('nethvoiceWizardUiApp')
           device.manufacturer = device.vendor
           delete device.vendor
         }
-        // set filtered models
-        if (device.manufacturer) {
-          device.filteredModels = $scope.allModels.filter(function (model) {
-            return model.name.toLowerCase().startsWith(device.manufacturer.toLowerCase())
-          });
-        } else {
-          device.filteredModels = angular.copy($scope.allModels)
-        }
       })
     }
 
@@ -214,6 +224,7 @@ angular.module('nethvoiceWizardUiApp')
           if (user.username == $scope.currentUser.username) {
             $scope.currentUser.devices = user.devices
             getCuDevicesEncryption($scope.currentUser.devices)
+            getAvailableModels($scope.currentUser.devices)
           }
         })
       }, function (err) {
@@ -380,7 +391,6 @@ angular.module('nethvoiceWizardUiApp')
         device.setPhysicalInAction = "ok"
         getAllUsers(false)
         getAllDevices()
-        console.log(res)
       }, function (err) {
         device.setPhysicalInAction = "err"
         console.log(err)
