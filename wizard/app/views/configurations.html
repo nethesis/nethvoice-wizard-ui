@@ -242,7 +242,7 @@
                                   ng-change="setDeviceModel(device)"
                                   ng-model="device.model"
                                   ng-options="model.display_name for model in device.availableModels | orderBy:orderByValue">
-                                  <option ng-if="device.model == ''" value="">-</option>
+                                  <option ng-hide="device.model != null" value="">-</option>
                                 </select>
                                 <button ng-click="setCurrentModelConfig(device.model)" data-toggle="modal"
                                   data-target="#singleModelModal"
