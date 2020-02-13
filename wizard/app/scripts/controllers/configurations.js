@@ -359,8 +359,12 @@ angular.module('nethvoiceWizardUiApp')
         device.extension = res.data.extension
         $scope.switchEncryption(device)
         // create field to the rps service
-        ConfigurationService.toRps(device.mac).then(function (res) {
-          // rps post success
+        PhoneService.getPhone(device.mac).then(function (res) {
+          ConfigurationService.toRps(device.mac, res.data.tok1).then(function (res) {
+            // rps post success
+          }, function (err) {
+            console.log(err)
+          })
         }, function (err) {
           console.log(err)
         })

@@ -32,6 +32,17 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    // get phone
+    this.getPhone = function (mac) {
+      return $q(function (resolve, reject) {
+        RestService.tget('/tancredi/api/v1/phones/' + mac).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject({ "error": err, "phone": phone });
+        });
+      });
+    };
+
     this.setPhoneModel = function (mac, model) {
       return $q(function (resolve, reject) {
         RestService.tpatch('/tancredi/api/v1/phones/' + mac, { "model": model }).then(function (res) {
