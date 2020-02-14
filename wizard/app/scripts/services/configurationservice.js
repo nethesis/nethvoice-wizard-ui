@@ -132,7 +132,9 @@ angular.module('nethvoiceWizardUiApp')
 
     this.toRps = function (mac, token) {
       return $q(function (resolve, reject) {
-        RestService.post('/phones/rps/' + mac, token).then(function (res) {
+        RestService.post('/phones/rps/' + mac, {
+          'token' : token
+        }).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
