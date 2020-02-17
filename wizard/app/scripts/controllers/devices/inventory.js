@@ -59,16 +59,22 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    function gotCloudProvisioning(cloudProvisioning) {
+      $scope.cloudProvisioning = cloudProvisioning;
+    }
+
     function init() {
       $scope.hideInventoryHelp = LocalStorageService.get('hideInventoryHelp');
       Promise.all([
         ModelService.getModels(),
         PhoneService.getPhones(),
-        ConfigService.getNetworks()
+        ConfigService.getNetworks(),
+        ModelService.getCloudProvisioning()
       ]).then(function (res) {
         gotModels(res[0].data);
         gotPhones(res[1].data);
         gotNetworks(res[2].data);
+        gotCloudProvisioning(res[3].data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving data");

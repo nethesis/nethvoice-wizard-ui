@@ -43,11 +43,11 @@
             <span class="pficon pficon-close"></span>
           </button>
           <span class="pficon pficon-info"></span>
-          <p>{{ 'inventory_help_p_1' | translate }}. {{ 'inventory_help_p_2' | translate }}:</p>
+          <p>{{ 'this_is_the_list_of_phones_configured' | translate }}. {{ 'you_can_add_phones_by' | translate }}:</p>
           <ul>
-            <li>{{ 'inventory_help_li_1' | translate }}</li>
-            <li>{{ 'inventory_help_li_2' | translate }}</li>
-            <li>{{ 'inventory_help_li_3' | translate }}</li>
+            <li ng-show="!cloudProvisioning">{{ 'scanning_a_network' | translate }}</li>
+            <li>{{ 'copying_and_pasting_from_spreadsheet' | translate }}</li>
+            <li>{{ 'entering_phone_data_manually' | translate }}</li>
           </ul>
         </div>
         <!-- empty state -->
@@ -58,10 +58,18 @@
           <h1>
             {{'No phone' | translate}}
           </h1>
-          <p>{{ 'inventory_help_p_3' | translate }}</p>
+          <p>
+            {{ 'you_can_add_phones_by' | translate }}
+            <span ng-show="!cloudProvisioning">
+              {{ 'scanning_a_network' | translate }},
+            </span>
+            {{ 'copying_and_pasting_from_spreadsheet' | translate }},
+            {{ 'or' | translate }}
+            {{ 'entering_phone_data_manually' | translate }}
+          </p>
           <div class="blank-slate-pf-main-action">
             <span>
-              <button class="btn btn-lg btn-primary" ng-click="showScanModal()">{{'Scan a network' | translate}}</button>
+              <button ng-show="!cloudProvisioning" class="btn btn-lg btn-primary" ng-click="showScanModal()">{{'Scan a network' | translate}}</button>
               <button class="btn btn-lg btn-primary"
                 ng-click="showPasteModal()">{{'Add with copy/paste' | translate}}</button>
               <button class="btn btn-lg btn-primary" ng-click="showManualModal()">{{'Add manually' | translate}}</button>
@@ -76,7 +84,7 @@
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="invDropdownMenu1">
-              <li role="presentation"><a role="menuitem" tabindex="-1"
+              <li ng-show="!cloudProvisioning" role="presentation"><a role="menuitem" tabindex="-1"
                   ng-click="showScanModal()">{{'Scan a network' | translate}}</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1"
                   ng-click="showPasteModal()">{{'Add with copy/paste' | translate}}</a></li>

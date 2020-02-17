@@ -71,11 +71,11 @@
 
         <!-- actions button -->
         <div class="mg-bottom-15">
-          <button class="btn btn-primary" ng-click="showSetModelModal()"
+          <button class="btn btn-lg btn-primary" ng-click="showSetModelModal()"
             ng-disabled="numSelected == 0 || !allSelectedSameVendor">{{ 'Set model' | translate }}</button>
-          <button class="btn btn-primary" ng-click="showSetRebootModal()"
+          <button class="btn btn-lg btn-primary" ng-click="showSetRebootModal()"
             ng-disabled="numSelected == 0">{{ 'Delayed reboot' | translate }}</button>
-          <button class="btn btn-primary" ng-click="showRebootNowModal()"
+          <button class="btn btn-lg btn-primary" ng-click="showRebootNowModal()"
             ng-disabled="numSelected == 0 || !somePhonesRegistered">{{ 'Reboot now' | translate }}</button>
         </div>
 
