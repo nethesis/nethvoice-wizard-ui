@@ -211,7 +211,8 @@
                           </div>
                         </div>
                       </div>
-                      <button ng-click="!currentModel.ui[sectionkey].showingKeys ? currentModel.ui[sectionkey].showingKeys = 2 :
+                      <button 
+                        ng-click="!currentModel.ui[sectionkey].showingKeys ? currentModel.ui[sectionkey].showingKeys = 2 :
                           currentModel.ui[sectionkey].showingKeys = currentModel.ui[sectionkey].showingKeys + 1"
                         ng-if="item.type == 'loop' && !isExpKeysSection(sectionkey) && item.keysIndexes.length >
                           (4 * (!currentModel.ui[sectionkey].showingKeys ? 1 :
@@ -387,11 +388,11 @@
       </form>
     </div>
   </div>
-  <button ng-show="!loadingModels[model.name]" ng-click="showModal('saveChangesConfirm')"
+  <button ng-show="!loadingModels[model.name]" ng-click="isConfigurations ? saveCurrentModel() : showModal('saveChangesConfirm')"
     class="btn btn-primary btn-lg profile-button-save mb-10 mt-30" type="submit">
     {{'Save' | translate}}
   </button>
-  <div ng-show="!loadingModels[model.name]" class="dropdown profile-button-save mb-10 mt-30">
+  <div ng-show="!loadingModels[model.name] && !isConfigurations" class="dropdown profile-button-save mb-10 mt-30">
     <button class="btn btn-default btn-lg dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
       {{'Actions' | translate}}
       <span class="caret"></span>

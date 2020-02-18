@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('ModelsUICtrl', function ($scope, $interval, ModelService) {
+  .controller('ModelsUICtrl', function ($scope, $interval, $location, ModelService) {
 
     $scope.loadingAction = false
     $scope.selectedAction = ""
@@ -22,6 +22,11 @@ angular.module('nethvoiceWizardUiApp')
       resetChangesNotFound: false,
       deleteChangesNotFound: false
     }
+
+    angular.element("#modelsUIUrl").ready(function () {
+      $scope.inModal = document.querySelector("#modelsUIUrl").parentNode.parentNode.parentNode.parentNode.parentNode.classList.value.includes("modal")
+      $scope.isConfigurations = $location.path() == "/configurations" ? true : false
+    })
 
     var resetLoadingAction = function (status) {
       $scope.loadingAction = status
@@ -233,6 +238,9 @@ angular.module('nethvoiceWizardUiApp')
           }, 500)
         },2000)
         getVariables()
+        if ($scope.isConfigurations) {
+          $scope.hideModal("singleModelModal")
+        }
       }, function (err) {
         console.log(err)
         restErrStatus("updateReadOnlyAttribute", err.data.title)

@@ -244,9 +244,9 @@
                                   ng-options="model.display_name for model in device.availableModels | orderBy:orderByValue">
                                   <option ng-hide="device.model != null" value="">-</option>
                                 </select>
-                                <button ng-click="setCurrentModelConfig(device.model)" data-toggle="modal"
+                                <button ng-disabled="!device.model" ng-click="setCurrentModelConfig(device.model.name)" data-toggle="modal"
                                   data-target="#singleModelModal"
-                                  class="btn btn-default mln-1 zindex-2">
+                                  class="btn btn-default ml-3 zindex-2">
                                   <i class="fa fa-pencil"></i>
                                 </button>
                               </div>
@@ -555,19 +555,18 @@
 <div class="modal fade" id="singleModelModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="wizard-model-modal">
     <div class="modal-dialog wizard-pf margin-10">
-      <div class="modal-content">
+      <div class="modal-content mb-40">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
             <span class="pficon pficon-close"></span>
           </button>
-          <h4 class="modal-title" id="dfSettingsMLabel">{{'Single Model Editing' | translate}}</h4>
+          <h4 class="modal-title" id="dfSettingsMLabel">{{'Edit variables' | translate}}</h4>
         </div>
-        <div class="modal-body">
-          <div class="mb-10 mt-5">
-            <!-- start model ui -->
-            <div ng-include="modelsUIUrl"></div>
+        <div class="modal-body" ng-style="{'padding':'0px'}">
+          
+          <!-- start model ui-->
+          <div id="modelsUIUrl" ng-include="modelsUIUrl"></div>
             
-          </div>
         </div>
       </div>
     </div>

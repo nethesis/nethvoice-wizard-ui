@@ -506,7 +506,7 @@ a {
     padding-left: 0px !important;
     padding-right: 0px !important;
   }
-
+  
   .adjust-search {
     margin-top: 5px;
     padding-right: 8px;
@@ -1963,6 +1963,10 @@ F
 
 .ml-15 {
   margin-left: 15px !important;
+}
+
+.ml-3 {
+  margin-left: 3px !important;
 }
 
 .mb-5 {
