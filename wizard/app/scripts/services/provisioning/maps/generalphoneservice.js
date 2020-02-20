@@ -2,1027 +2,61 @@
 
 /**
  * @ngdoc service
- * @name nethvoiceWizardUiApp.ProvYealinkService
+ * @name nethvoiceWizardUiApp.GeneralPhoneService
  * @description
- * # ProvYealinkService
+ * # GeneralPhoneService
  * Service in the nethvoiceWizardUiApp.
  */
-angular.module('nethvoiceWizardUiApp')
-  .service('ProvYealinkService', function (ModelVariableService) {
 
-    this.map = function () {
+angular.module('nethvoiceWizardUiApp')
+  .service('GeneralPhoneService', function (GeneralPhoneUtilsService) {
+
+    this.map = function (variables) {
       return {
-        "T19P_E2": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": false,
-            "screensaver": false
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 9
-              },
-              {
-                "start": 13,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": false,
-          "expansionKeys": false
+        "general": {
+          "settings": true,
+          "password": true
         },
-        "T21P_E2": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": false,
-            "screensaver": false
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 2
-              }
-            ]
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 10
-              },
-              {
-                "start": 14,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "expansionKeys": false
+        "preferences": {
+          "ringtone": true,
+          "display": true,
+          "wallpaper": true,
+          "screensaver": true
         },
-        "T23G": {
-          "general": {
-            "settings": true,
-            "password": true,
-            "hidden": [
-              // variables to hide in general section
-            ]
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": false,
-            "screensaver": false,
-            "hidden": [
-              // variables to hide in preferences section
-            ]
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 10
-              },
-              {
-                "start": 14,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              { "start": 1,
-                "end": 3
-              }
-            ]
-          },
-          "expansionKeys": false
+        "network": {
+          "ldap": true,
+          "vlan": true
         },
-        "T27G": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": false,
-            "screensaver": false
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              { "start": 1,
-                "end": 21
-              }
-            ]
-          },
-          "expansionKeys": {
-            "modules": 6,
-            "intervals": [
-              {
-                "start": 1,
-                "end": 20
-              },
-              {
-                "start": 22,
-                "end": 40
-              }
-            ]
-          }
+        "provisioning": {
+          "provisioning": true
         },
-        "T29G": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": true,
-            "screensaver": false
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 27
-              }
-            ]
-          },
-          "expansionKeys": {
-            "modules": 6,
-            "intervals": [
-              {
-                "start": 1,
-                "end": 20
-              },
-              {
-                "start": 22,
-                "end": 40
-              }
-            ]
-          }
+        "softKeys":  {
+          "intervals": [
+            {
+              "start": 1,
+              "end": variables.cap_softkey_count
+            }
+          ],
+          "hidden_types": variables.cap_softkey_type_blacklist
         },
-        "T40PG": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": false,
-            "screensaver": false
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 10
-              },
-              {
-                "start": 13,
-                "end": 13
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 3
-              }
-            ]
-          },
-          "expansionKeys": false
+        "lineKeys": {
+          "intervals": [
+            {
+              "start": 1,
+              "end": variables.cap_linekey_count
+            }
+          ],
+          "hidden_types": variables.cap_linekey_type_blacklist
         },
-        "T41PS": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": false,
-            "screensaver": false
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 10
-              },
-              {
-                "start": 13,
-                "end": 13
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 15
-              }
-            ]
-          },
-          "expansionKeys": false
-        },
-        "T42GS": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": false,
-            "screensaver": false
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 10
-              },
-              {
-                "start": 13,
-                "end": 13
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              { "start": 1,
-                "end": 15
-              }
-            ]
-          },
-          "expansionKeys": false
-        },
-        "T46GS": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": true,
-            "screensaver": true
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 10
-              },
-              {
-                "start": 12,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 27
-              }
-            ]
-          },
-          "expansionKeys": {
-            "modules": 6,
-            "intervals": [
-              {
-                "start": 1,
-                "end": 40
-              }
-            ]
-          }
-        },
-        "T48GS": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": true,
-            "screensaver": true
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 10
-              },
-              {
-                "start": 12,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 29
-              }
-            ]
-          },
-          "expansionKeys": {
-            "modules": 6,
-            "intervals": [
-              {
-                "start": 1,
-                "end": 40
-              }
-            ]
-          }
-        },
-        "T49G": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": true,
-            "screensaver": true
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 4
-              },
-              {
-                "start": 12,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 29
-              }
-            ]
-          },
-          "expansionKeys": false
-        },
-        "T53": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": true,
-            "screensaver": true
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 10
-              },
-              {
-                "start": 13,
-                "end": 13
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 27
-              }
-            ]
-          },
-          "expansionKeys": {
-            "modules": 3,
-            "intervals": [
-              {
-                "start": 1,
-                "end": 60
-              }
-            ]
-          }
-        },
-        "T52": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": true,
-            "screensaver": true
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 10
-              },
-              {
-                "start": 13,
-                "end": 13
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 27
-              }
-            ]
-          },
-          "expansionKeys": {
-            "modules": 3,
-            "intervals": [
-              {
-                "start": 1,
-                "end": 60
-              }
-            ]
-          }
-        },
-        "T54": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": true,
-            "screensaver": true
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 10
-              },
-              {
-                "start": 12,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 27
-              }
-            ]
-          },
-          "expansionKeys": {
-            "modules": 3,
-            "intervals": [
-              {
-                "start": 1,
-                "end": 60
-              }
-            ]
-          }
-        },
-        "T56": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": true,
-            "screensaver": true
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 4
-              },
-              {
-                "start": 12,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 27
-              }
-            ]
-          },
-          "expansionKeys": {
-            "modules": 3,
-            "intervals": [
-              {
-                "start": 1,
-                "end": 60
-              }
-            ]
-          }
-        },
-        "T57": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": true,
-            "screensaver": true
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 4
-              },
-              {
-                "start": 12,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 29
-              }
-            ]
-          },
-          "expansionKeys": {
-            "modules": 3,
-            "intervals": [
-              {
-                "start": 1,
-                "end": 60
-              }
-            ]
-          }
-        },
-        "T58": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": true,
-            "screensaver": true
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 4
-              },
-              {
-                "start": 12,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 27
-              }
-            ]
-          },
-          "expansionKeys": {
-            "modules": 3,
-            "intervals": [
-              {
-                "start": 1,
-                "end": 60
-              }
-            ]
-          }
-        },
-        "VP59": {
-          "general": {
-            "settings": true,
-            "password": true
-          },
-          "preferences": {
-            "ringtone": true,
-            "display": true,
-            "wallpaper": true,
-            "screensaver": true
-          },
-          "network": {
-            "ldap": true,
-            "vlan": true
-          },
-          "provisioning": {
-            "provisioning": true,
-          },
-          "softKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 4
-              },
-              {
-                "start": 12,
-                "end": 14
-              }
-            ],
-            "hidden": [
-              "softkey_label_5",
-              "softkey_label_6",
-              "softkey_label_7",
-              "softkey_label_8",
-              "softkey_label_9",
-              "softkey_label_10",
-              "softkey_label_11",
-              "softkey_label_12",
-              "softkey_label_13",
-              "softkey_label_14"
-            ]
-          },
-          "lineKeys": {
-            "intervals": [
-              {
-                "start": 1,
-                "end": 27
-              }
-            ]
-          },
-          "expansionKeys": false
+        "expansionKeys":  {
+          "modules": variables.cap_expmodule_count,
+          "intervals": [
+            {
+              "start": 1,
+              "end": variables.cap_expkey_count
+            }
+          ],
+          "hidden_types": variables.cap_expkey_type_blacklist
         }
       }
     }
@@ -1041,7 +75,7 @@ angular.module('nethvoiceWizardUiApp')
             "variable": "language",
             "description": "Language display (phone UI)",
             "type": "list",
-            "options": ModelVariableService.getOptionsUI(ModelVariableService.getLanguages())
+            "options": GeneralPhoneUtilsService.getLanguages()
           },
           {
             "variable": "ntp_server",
@@ -1052,13 +86,13 @@ angular.module('nethvoiceWizardUiApp')
             "variable": "timezone",
             "description": "Time zone",
             "type": "list",
-            "options": ModelVariableService.getOptionsUI(ModelVariableService.getTimeZones())
+            "options": GeneralPhoneUtilsService.getTimeZones()
           },
           {
             "variable": "tonezone",
             "description": "Tone zone",
             "type": "list",
-            "options": ModelVariableService.getOptionsUI(ModelVariableService.getToneZones(), 'tone_zone_')
+            "options": GeneralPhoneUtilsService.getToneZones()
           },
           {
             "variable": "pound",
@@ -1950,7 +984,8 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     this.softKeys = function (modelMap) {
-      if (!modelMap.softKeys) {
+      // validate
+      if (!modelMap.softKeys ) {
         return;
       }
 
@@ -2138,7 +1173,9 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     this.lineKeys = function (modelMap) {
-      if (!modelMap.lineKeys) {
+
+      // validate
+      if (!modelMap.expansionKeys || !modelMap.lineKeys.intervals[0].end) {
         return;
       }
 
@@ -2339,7 +1376,9 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     this.expansionKeys = function (modelMap) {
-      if (!modelMap.expansionKeys) {
+
+      // validate
+      if (!modelMap.expansionKeys || !modelMap.expansionKeys.intervals[0].end) {
         return;
       }
 
@@ -2534,4 +1573,5 @@ angular.module('nethvoiceWizardUiApp')
         ]
       }
     }
+    
   })

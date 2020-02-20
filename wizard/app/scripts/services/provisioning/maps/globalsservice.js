@@ -6,7 +6,9 @@
  * @description
  * # ProvGlobalsService
  * Service in the nethvoiceWizardUiApp.
+ * Globals in UI and Backend are Defaults
  */
+
 angular.module('nethvoiceWizardUiApp')
   .service('ProvGlobalsService', function ($q, RestService) {
 

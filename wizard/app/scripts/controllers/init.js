@@ -9,7 +9,8 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .controller('InitCtrl', function ($scope, $translate, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService,
-    MigrationService, TrunkService, RouteService, ProvFanvilService, ProvSnomService, ProvGigasetService, ProvSangomaService, ProvYealinkService, ModelService, $q) {
+    MigrationService, TrunkService, RouteService, ProvFanvilService, ProvSnomService, ProvGigasetService, ProvSangomaService, ProvYealinkService,
+    ModelService, GeneralPhoneService, $q) {
     $scope.customConfig = customConfig
     $scope.appConfig = appConfig
     $scope.cloudProvisioning = null
@@ -398,53 +399,13 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.currentModel = {}
 
-    var getModelMap = function (map, name) {
-      for (var modelk in map) {
-        if (modelk.toUpperCase() === name) {
-          return map[name]
-        }
-      }
-    }
-
-    var hasOriginalsFromName = function (name) {
-      return (name.split("-").length)-1 == 1 ? true : false
-    }
-
-    var getModelUI = function (name, brand) {
-      switch (brand.toLowerCase()) {
-        case "fanvil":
-          return buildModelUI(ProvFanvilService, name);
-          break;
-      
-        case "gigaset":
-          return buildModelUI(ProvGigasetService, name);
-          break;
-      
-        case "sangoma":
-          return buildModelUI(ProvSangomaService, name);
-          break;
-          
-        case "snom":
-          return buildModelUI(ProvSnomService, name);
-          break;
-
-        case "yealink":
-          return buildModelUI(ProvYealinkService, name);
-          break;
-
-        default:
-          return null
-          break;
-      }
-    }
-
-    var buildModelUI = function (service, modelName) {
-      var map = getModelMap(service.map(), modelName)
+    var buildModelUI = function (service, variables) {
+      let map = GeneralPhoneService.map(variables)
       return {
         map: map,
-        softKeys: handleKeys(service.softKeys(map)),
-        lineKeys: handleKeys(service.lineKeys(map)),
-        expansionKeys: handleKeys(service.expansionKeys(map)),
+        softKeys: convertKeysMap(service.softKeys(map)),
+        lineKeys: convertKeysMap(service.lineKeys(map)),
+        expansionKeys: convertKeysMap(service.expansionKeys(map)),
         general: service.general(map),
         preferences: service.preferences(map),
         network: service.network(map),
@@ -452,18 +413,31 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    var handleKeys = function (keys) {
-      // convert keys intervals to a flat list of key numbers
-      if (keys) {
-        var keysIntervals = keys.items[0].keys.intervals;
-        var indexes = [];
-        keysIntervals.forEach(function (interval) {
-          for (var i = interval.start; i <= interval.end; i++) {
-            indexes.push(i);
-          }
-        });
-        keys.items[0].keysIndexes = indexes;
-        return keys;
+    var getModelUI = function (brand, variables) {
+      switch (brand.toLowerCase()) {
+        case "fanvil":
+          return buildModelUI(ProvFanvilService, variables)
+          break;
+      
+        case "gigaset":
+          return buildModelUI(ProvGigasetService, variables)
+          break;
+      
+        case "sangoma":
+          return buildModelUI(ProvSangomaService, variables)
+          break;
+          
+        case "snom":
+          return buildModelUI(ProvSnomService, variables)
+          break;
+
+        case "yealink":
+          return buildModelUI(ProvYealinkService, variables)
+          break;
+
+        default:
+          return buildModelUI(GeneralPhoneService, variables)
+          break;
       }
     }
 
@@ -473,8 +447,11 @@ angular.module('nethvoiceWizardUiApp')
             modelName = nameSplit[1].toUpperCase(),
             modelBrand = nameSplit[0].toLowerCase()
         ModelService.getModel(name).then(function (res) {
+
+          console.log("VARIABLES", res.data.variables);
+
           $scope.currentModel = {
-            "ui" : getModelUI(modelName, modelBrand),
+            "ui" : getModelUI(modelBrand, res.data.variables),
             "storedVariables": angular.copy(res.data.variables),
             "variables" : angular.copy(res.data.variables),
             "globals": {},
@@ -508,6 +485,25 @@ angular.module('nethvoiceWizardUiApp')
       }, function (err) {
         console.log(err)
       })
+    }
+
+    var hasOriginalsFromName = function (name) {
+      return (name.split("-").length)-1 == 1 ? true : false
+    }
+
+    var convertKeysMap = function (keys) {
+      // convert keys intervals to a flat list of key numbers
+      if (keys) {
+        var keysIntervals = keys.items[0].keys.intervals;
+        var indexes = [];
+        keysIntervals.forEach(function (interval) {
+          for (var i = interval.start; i <= interval.end; i++) {
+            indexes.push(i);
+          }
+        });
+        keys.items[0].keysIndexes = indexes;
+        return keys;
+      }
     }
 
     $scope.$on('curentModelSaved', function() { 

@@ -2,29 +2,17 @@
 
 /**
  * @ngdoc service
- * @name nethvoiceWizardUiApp.ModelVariableService
+ * @name nethvoiceWizardUiApp.GeneralPhoneUtilsService
  * @description
- * # ModelVariableService
+ * # GeneralPhoneUtilsService
  * Service in the nethvoiceWizardUiApp.
  */
+
 angular.module('nethvoiceWizardUiApp')
-  .service('ModelVariableService', function ($filter) {
-
-    this.getOptionsUI = function (options, translationPrefix = '') {
-      var list = []
-
-      for (var option of options) {
-        var elem = {
-          "text": $filter('translate')(translationPrefix + option),
-          "value": option
-        }
-        list.push(elem)
-      }
-      return list
-    }
+  .service('GeneralPhoneUtilsService', function ($filter) {
 
     this.getLanguages = function () {
-      return [
+      return this.getOptionsLabels([
         "English",
         "Chinese",
         "Simplified Chinese",
@@ -36,11 +24,11 @@ angular.module('nethvoiceWizardUiApp')
         "Spanish",
         "Turkish",
         "Russian"
-      ]
+      ])
     }
 
     this.getTimeZones = function () {
-      return [
+      return this.getOptionsLabels([
         "Africa/Abidjan",
         "Africa/Accra",
         "Africa/Addis_Ababa",
@@ -463,11 +451,11 @@ angular.module('nethvoiceWizardUiApp')
         "Pacific/Wake",
         "Pacific/Wallis",
         "UTC"
-      ]
+      ])
     }
 
     this.getToneZones = function () {
-      return [
+      return this.getOptionsLabels([
         "ao",
         "ar",
         "au",
@@ -523,11 +511,11 @@ angular.module('nethvoiceWizardUiApp')
         "us",
         "us-old",
         "ve"
-      ]
+      ], "tone_zone_")
     }
 
     this.getSoftKeysTypes = function () {
-      return [
+      return this.getOptionsLabels([
         "disabled",
         "forward",
         "dnd",
@@ -561,7 +549,7 @@ angular.module('nethvoiceWizardUiApp')
         "google_contacts",
         "extend",
         "dect_intercom"
-      ]
+      ])
     }
 
     this.getLineKeysTypes = function () {
@@ -605,4 +593,17 @@ angular.module('nethvoiceWizardUiApp')
         "zero_touch"
       ]
     }
+
+    this.getOptionsLabels = function (options, translationPrefix = '') {
+      let list = []
+      for (let option of options) {
+        let elem = {
+          "text": $filter('translate')(translationPrefix + option),
+          "value": option
+        }
+        list.push(elem)
+      }
+      return list
+    }
+
   })
