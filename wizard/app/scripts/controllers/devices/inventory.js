@@ -447,10 +447,19 @@ angular.module('nethvoiceWizardUiApp')
             var phone = PhoneService.buildPhone(successTancredi.data, $scope.models);
             $scope.pendingRequestsAddPhones--;
             $scope.successfulAddPhones.push(phone);
-
             if ($scope.pendingRequestsAddPhones == 0) {
               showResultsAddPhones();
             }
+            // create field to the rps service
+            PhoneService.getPhone(phoneCorbera.mac).then(function (res) {
+              PhoneService.toRps(phoneCorbera.mac, res.data.tok1).then(function (res) {
+                // rps post success
+              }, function (err) {
+                console.log(err)
+              })
+            }, function (err) {
+              console.log(err)
+            })
           }, function (errorCorbera) {
             console.log(errorCorbera);
             $scope.pendingRequestsAddPhones--;

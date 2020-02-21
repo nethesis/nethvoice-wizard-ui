@@ -358,16 +358,6 @@ angular.module('nethvoiceWizardUiApp')
         device.encryption = $scope.cloudProvisioning ? true : false
         device.extension = res.data.extension
         $scope.switchEncryption(device)
-        // create field to the rps service
-        PhoneService.getPhone(device.mac).then(function (res) {
-          ConfigurationService.toRps(device.mac, res.data.tok1).then(function (res) {
-            // rps post success
-          }, function (err) {
-            console.log(err)
-          })
-        }, function (err) {
-          console.log(err)
-        })
         // async graphics
         $timeout(function () {
           $('#devicesAssociation').modal('hide');

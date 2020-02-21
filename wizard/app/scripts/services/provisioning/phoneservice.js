@@ -109,6 +109,18 @@ angular.module('nethvoiceWizardUiApp')
       return Array.from(vendorSet);
     }
 
+    this.toRps = function (mac, token) {
+      return $q(function (resolve, reject) {
+        RestService.post('/phones/rps/' + mac, {
+          'token' : token
+        }).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    }
+
     this.getVendor = function (macAddress) {
       // remove separators
       macAddress = this.removeMacSeparators(macAddress).toUpperCase();

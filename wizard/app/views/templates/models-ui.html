@@ -16,9 +16,6 @@
         <!-- sections -->
         <div ng-if="currentModel.ui.map[sectionkey] && currentModel.ui[sectionkey]"
           ng-repeat="(sectionkey, section) in ::currentModel.ui track by sectionkey">
-
-        
-
           <!-- if it's a key section -->
           <div class="mt-20" ng-if="isKeysSection(sectionkey)">
             <h2 ng-click="openSection(sectionkey)"
@@ -178,7 +175,7 @@
                                     ng-if="key.type == 'input'"
                                     ng-model="currentModel.variables[key.variable + '_' + keysIndex]"
                                     ng-change="onVariableChanged(key.variable + '_' + keysIndex)"
-                                    placeholder="{{currentModel.globals[key.variable + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + keysIndex] + ' (default)' : ''}}"
+                                    placeholder="{{currentModel.globals[key.variable + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + keysIndex] + ' (default)' : '-'}}"
                                     type="text"
                                     class="form-control">
                                   </input>
@@ -196,7 +193,7 @@
                                     <input
                                       ng-model="currentModel.variables[key.variable + '_' + keysIndex]"
                                       ng-change="onVariableChanged(key.variable + '_' + keysIndex)"
-                                      placeholder="{{currentModel.globals[key.variable + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + keysIndex] + ' (default)' : ''}}"
+                                      placeholder="{{currentModel.globals[key.variable + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + keysIndex] + ' (default)' : '-'}}"
                                       type="password"
                                       show-password="currentModel.shownPasswords[key.variable + '_' + keysIndex]"
                                       class="form-control display-flex">
@@ -259,7 +256,7 @@
                             id="{{sectionkey}}-input-{{$index+1}}"
                             ng-model="currentModel.variables[key.variable]"
                             ng-change="onVariableChanged(key.variable)"
-                            placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : ''}}"
+                            placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : '-'}}"
                             type="text"
                             class="form-control">
                           </input>
@@ -279,7 +276,7 @@
                               id="{{sectionkey}}-input-{{$index+1}}"
                               ng-model="currentModel.variables[key.variable]"
                               ng-change="onVariableChanged(key.variable)"
-                              placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : ''}}"
+                              placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : '-'}}"
                               type="password"
                               show-password="currentModel.shownPasswords[key.variable]"
                               class="form-control display-flex">
@@ -349,7 +346,7 @@
                         id="{{sectionkey}}-input-{{$index}}"
                         ng-model="currentModel.variables[item.variable]"
                         ng-change="onVariableChanged(item.variable)"
-                        placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : ''}}"
+                        placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : '-'}}"
                         type="text"
                         class="form-control">
                       </input>
@@ -369,7 +366,7 @@
                           id="{{sectionkey}}-input-{{$index}}"
                           ng-model="currentModel.variables[item.variable]"
                           ng-change="onVariableChanged(item.variable)"
-                          placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : ''}}"
+                          placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : '-'}}"
                           type="password"
                           show-password="currentModel.shownPasswords[item.variable]"
                           class="form-control">

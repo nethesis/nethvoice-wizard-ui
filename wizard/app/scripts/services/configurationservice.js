@@ -130,18 +130,6 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    this.toRps = function (mac, token) {
-      return $q(function (resolve, reject) {
-        RestService.post('/phones/rps/' + mac, {
-          'token' : token
-        }).then(function (res) {
-          resolve(res);
-        }, function (err) {
-          reject(err);
-        });
-      });
-    }
-
     this.retrieveFinalInfo = function () {
       return $q(function (resolve, reject) {
         RestService.get('/final').then(function (res) {
