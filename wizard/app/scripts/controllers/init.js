@@ -398,7 +398,7 @@ angular.module('nethvoiceWizardUiApp')
     // provisining build models start
 
     $scope.currentModel = {}
-
+    
     var buildModelUI = function (service, variables) {
       let map = GeneralPhoneService.map(variables)
       return {
@@ -447,9 +447,6 @@ angular.module('nethvoiceWizardUiApp')
             modelName = nameSplit[1].toUpperCase(),
             modelBrand = nameSplit[0].toLowerCase()
         ModelService.getModel(name).then(function (res) {
-
-          console.log("VARIABLES", res.data.variables);
-
           $scope.currentModel = {
             "ui" : getModelUI(modelBrand, res.data.variables),
             "storedVariables": angular.copy(res.data.variables),

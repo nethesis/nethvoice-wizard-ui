@@ -2617,6 +2617,12 @@ F
   background-color: #ddd;
 }
 
+@media screen and (max-width: 1200px) {
+  .loop-keys-index::before {
+    top: 25px;
+  }
+}
+
 .padding-lateral-null {
   padding-left: 0px !important;
   padding-right: 0px !important;

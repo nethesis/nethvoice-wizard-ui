@@ -14,12 +14,16 @@
       <!-- start reusable parte of the ui -->
       <form id="currentModelForm">
         <!-- sections -->
-        <div ng-repeat="(sectionkey, section) in ::currentModel.ui track by sectionkey">
+        <div ng-if="currentModel.ui.map[sectionkey] && currentModel.ui[sectionkey]"
+          ng-repeat="(sectionkey, section) in ::currentModel.ui track by sectionkey">
+
+        
+
           <!-- if it's a key section -->
-          <div class="mt-20" ng-if="isKeysSection(sectionkey) && currentModel.ui.map[sectionkey]">
+          <div class="mt-20" ng-if="isKeysSection(sectionkey)">
             <h2 ng-click="openSection(sectionkey)"
               class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
-              {{::section.name}}  
+              {{::section.name}}
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
             </h2>
             <div id="collapse-section-{{$index}}"

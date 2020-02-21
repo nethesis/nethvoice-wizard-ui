@@ -53,7 +53,7 @@ angular.module('nethvoiceWizardUiApp')
           "intervals": [
             {
               "start": 1,
-              "end": variables.cap_expkey_count
+              "end": variables.cap_expkey_count,
             }
           ],
           "hidden_types": variables.cap_expkey_type_blacklist
@@ -984,8 +984,9 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     this.softKeys = function (modelMap) {
+
       // validate
-      if (!modelMap.softKeys ) {
+      if (!modelMap.softKeys.intervals[0].end) {
         return;
       }
 
@@ -1175,7 +1176,7 @@ angular.module('nethvoiceWizardUiApp')
     this.lineKeys = function (modelMap) {
 
       // validate
-      if (!modelMap.expansionKeys || !modelMap.lineKeys.intervals[0].end) {
+      if (!modelMap.lineKeys.intervals[0].end) {
         return;
       }
 
@@ -1378,7 +1379,7 @@ angular.module('nethvoiceWizardUiApp')
     this.expansionKeys = function (modelMap) {
 
       // validate
-      if (!modelMap.expansionKeys || !modelMap.expansionKeys.intervals[0].end) {
+      if (!modelMap.expansionKeys.modules || !modelMap.expansionKeys.intervals[0].end) {
         return;
       }
 
