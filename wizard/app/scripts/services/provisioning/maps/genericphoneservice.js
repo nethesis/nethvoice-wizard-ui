@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc service
- * @name nethvoiceWizardUiApp.GeneralPhoneService
+ * @name nethvoiceWizardUiApp.GenericPhoneService
  * @description
- * # GeneralPhoneService
+ * # GenericPhoneService
  * Service in the nethvoiceWizardUiApp.
  */
 
 angular.module('nethvoiceWizardUiApp')
-  .service('GeneralPhoneService', function (GeneralPhoneUtilsService) {
+  .service('GenericPhoneService', function (GenericPhoneUtilsService) {
 
     this.map = function (variables) {
       return {
@@ -75,7 +75,7 @@ angular.module('nethvoiceWizardUiApp')
             "variable": "language",
             "description": "Language display (phone UI)",
             "type": "list",
-            "options": GeneralPhoneUtilsService.getLanguages()
+            "options": GenericPhoneUtilsService.getLanguages()
           },
           {
             "variable": "ntp_server",
@@ -86,13 +86,13 @@ angular.module('nethvoiceWizardUiApp')
             "variable": "timezone",
             "description": "Time zone",
             "type": "list",
-            "options": GeneralPhoneUtilsService.getTimeZones()
+            "options": GenericPhoneUtilsService.getTimeZones()
           },
           {
             "variable": "tonezone",
             "description": "Tone zone",
             "type": "list",
-            "options": GeneralPhoneUtilsService.getToneZones()
+            "options": GenericPhoneUtilsService.getToneZones()
           },
           {
             "variable": "pound",
@@ -1006,130 +1006,53 @@ angular.module('nethvoiceWizardUiApp')
                   "options": [
                     {
                       "text": "N/A",
-                      "value": "0"
+                      "value": ""
                     },
                     {
                       "text": "Forward",
-                      "value": "2"
+                      "value": "forward"
                     },
                     {
-                      "text": "Do Not Disturb",
-                      "value": "5"
+                      "text": "DND",
+                      "value": "dnd"
                     },
                     {
-                      "text": "Call Return",
-                      "value": "7"
+                      "text": "Recall",
+                      "value": "recall"
                     },
                     {
-                      "text": "SMS",
-                      "value": "8"
-                    },
-                    {
-                      "text": "Direct Pickup",
-                      "value": "9"
+                      "text": "Pick up",
+                      "value": "pick_up"
                     },
                     {
                       "text": "Speed Dial",
-                      "value": "13"
-                    },
-                    {
-                      "text": "Intercom",
-                      "value": "14"
-                    },
-                    {
-                      "text": "XML Group",
-                      "value": "22"
+                      "value": "speed_dial"
                     },
                     {
                       "text": "Group Pickup",
-                      "value": "23"
-                    },
-                    {
-                      "text": "Multicast Paging",
-                      "value": "24"
-                    },
-                    {
-                      "text": "XML Browser",
-                      "value": "27"
+                      "value": "group_pickup"
                     },
                     {
                       "text": "History",
-                      "value": "28"
+                      "value": "history"
                     },
                     {
                       "text": "Menu",
-                      "value": "30"
-                    },
-                    {
-                      "text": "New SMS",
-                      "value": "32"
+                      "value": "menu"
                     },
                     {
                       "text": "Status",
-                      "value": "33"
-                    },
-                    {
-                      "text": "Hot Desking",
-                      "value": "34"
+                      "value": "status"
                     },
                     {
                       "text": "LDAP",
-                      "value": "38"
+                      "value": "ldap"
                     },
                     {
                       "text": "Prefix",
-                      "value": "40"
-                    },
-                    {
-                      "text": "Zero Touch",
-                      "value": "41"
-                    },
-                    {
-                      "text": "Local Directory",
-                      "value": "43"
-                    },
-                    {
-                      "text": "Local Group",
-                      "value": "45"
-                    },
-                    {
-                      "text": "XML Directory",
-                      "value": "47"
-                    },
-                    {
-                      "text": "Phone Lock",
-                      "value": "50"
-                    },
-                    {
-                      "text": "Switch Account Up",
-                      "value": "51"
-                    },
-                    {
-                      "text": "Switch Account Down",
-                      "value": "52"
-                    },
-                    {
-                      "text": "Directory",
-                      "value": "61"
-                    },
-                    {
-                      "text": "Paging List",
-                      "value": "66"
-                    },
-                    {
-                      "text": "Favorite",
-                      "value": "85"
-                    },
-                    {
-                      "text": "Extend",
-                      "value": "150"
+                      "value": "prefix"
                     }
                   ]
-                },
-                {
-                  "variable": "softkey_label",
-                  "description": "Label",
-                  "type": "input"
                 },
                 {
                   "variable": "softkey_value",
@@ -1137,33 +1060,8 @@ angular.module('nethvoiceWizardUiApp')
                   "type": "input"
                 },
                 {
-                  "variable": "softkey_line",
-                  "description": "Line",
-                  "type": "input"
-                },
-                {
-                  "variable": "softkey_history_type",
-                  "description": "History Type",
-                  "type": "list",
-                  "options": [
-                    {
-                      "text": "Local History",
-                      "value": "0"
-                    },
-                    {
-                      "text": "Network CallLog",
-                      "value": "1"
-                    }
-                  ]
-                },
-                {
-                  "variable": "softkey_xml_phonebook",
-                  "description": "XML Phonebook",
-                  "type": "input"
-                },
-                {
-                  "variable": "softkey_extension",
-                  "description": "Extension",
+                  "variable": "softkey_label",
+                  "description": "Label",
                   "type": "input"
                 }
               ]
@@ -1196,7 +1094,7 @@ angular.module('nethvoiceWizardUiApp')
                   "options": [
                     {
                       "text": "N/A",
-                      "value": "0"
+                      "value": ""
                     },
                     {
                       "text": "Conference",
@@ -1345,11 +1243,6 @@ angular.module('nethvoiceWizardUiApp')
                   ]
                 },
                 {
-                  "variable": "linekey_line",
-                  "description": "Line",
-                  "type": "input"
-                },
-                {
                   "variable": "linekey_value",
                   "description": "Value",
                   "type": "input"
@@ -1357,16 +1250,6 @@ angular.module('nethvoiceWizardUiApp')
                 {
                   "variable": "linekey_label",
                   "description": "Label",
-                  "type": "input"
-                },
-                {
-                  "variable": "linekey_extension",
-                  "description": "Extension",
-                  "type": "input"
-                },
-                {
-                  "variable": "linekey_xml_phonebook",
-                  "description": "XML Phonebook",
                   "type": "input"
                 }
               ]

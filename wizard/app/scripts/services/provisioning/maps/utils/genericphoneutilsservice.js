@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc service
- * @name nethvoiceWizardUiApp.GeneralPhoneUtilsService
+ * @name nethvoiceWizardUiApp.GenericPhoneUtilsService
  * @description
- * # GeneralPhoneUtilsService
+ * # GenericPhoneUtilsService
  * Service in the nethvoiceWizardUiApp.
  */
 
 angular.module('nethvoiceWizardUiApp')
-  .service('GeneralPhoneUtilsService', function ($filter) {
+  .service('GenericPhoneUtilsService', function ($filter) {
 
     this.getLanguages = function () {
       return this.getOptionsLabels([

@@ -10,7 +10,7 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('InitCtrl', function ($scope, $translate, $location, ConfigService, LanguageService, PhoneService, LocalStorageService, LoginService, UserService,
     MigrationService, TrunkService, RouteService, ProvFanvilService, ProvSnomService, ProvGigasetService, ProvSangomaService, ProvYealinkService,
-    ModelService, GeneralPhoneService, $q) {
+    ModelService, GenericPhoneService, $q) {
     $scope.customConfig = customConfig
     $scope.appConfig = appConfig
     $scope.cloudProvisioning = null
@@ -400,7 +400,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.currentModel = {}
     
     var buildModelUI = function (service, variables) {
-      let map = GeneralPhoneService.map(variables)
+      let map = GenericPhoneService.map(variables)
       return {
         map: map,
         softKeys: convertKeysMap(service.softKeys(map)),
@@ -436,7 +436,7 @@ angular.module('nethvoiceWizardUiApp')
           break;
 
         default:
-          return buildModelUI(GeneralPhoneService, variables)
+          return buildModelUI(GenericPhoneService, variables)
           break;
       }
     }

@@ -9,34 +9,34 @@
  */
 
 angular.module('nethvoiceWizardUiApp')
-  .service('ProvYealinkService', function (GeneralPhoneService) {
+  .service('ProvYealinkService', function (GenericPhoneService) {
 
     this.general = function (modelMap) {
-      return GeneralPhoneService.general(modelMap)
+      return GenericPhoneService.general(modelMap)
     }
 
     this.preferences = function (modelMap) {
-      return GeneralPhoneService.preferences(modelMap)
+      return GenericPhoneService.preferences(modelMap)
     }
 
     this.network = function (modelMap) {
-      return GeneralPhoneService.network(modelMap)
+      return GenericPhoneService.network(modelMap)
     }
 
     this.provisioning = function (modelMap) {
-      return GeneralPhoneService.provisioning(modelMap)
+      return GenericPhoneService.provisioning(modelMap)
     }
 
     this.softKeys = function (modelMap) {
-      return GeneralPhoneService.softKeys(modelMap)
+      return GenericPhoneService.softKeys(modelMap)
     }
 
     this.lineKeys = function (modelMap) {
-      return GeneralPhoneService.lineKeys(modelMap)
+      return GenericPhoneService.lineKeys(modelMap)
     }
 
     this.expansionKeys = function (modelMap) {
-      return GeneralPhoneService.expansionKeys(modelMap)
+      return GenericPhoneService.expansionKeys(modelMap)
     }
 
   })
