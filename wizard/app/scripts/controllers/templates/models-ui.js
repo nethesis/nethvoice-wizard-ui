@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('ModelsUICtrl', function ($scope, $interval, $location, ModelService) {
+  .controller('ModelsUICtrl', function ($scope, $interval, $location, ModelService, PhoneService) {
 
     $scope.loadingAction = false
     $scope.selectedAction = ""
@@ -58,7 +58,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.openSection = function (sectionkey) {
-      $scope.destroyAllSelects()
+      $scope.destroyAllSelects("#modelsContainer")
       delete $scope.currentModel.ui[sectionkey].showingKeys
       $scope.selectOptionsLimit = 11
       $interval.cancel($scope.selectOptionsInterval)
@@ -80,11 +80,6 @@ angular.module('nethvoiceWizardUiApp')
       if ($scope.currentModel.variables[varName] == "") {
         delete $scope.currentModel.variables[varName]
       }
-
-      console.log("GLOBAL VARIABLES", $scope.currentModel.globals)
-      console.log("STORED VARIABLES", $scope.currentModel.storedVariables)
-      console.log("VARIABLES", $scope.currentModel.variables)
-
       $scope.$emit('variableChanged')
     }
 
@@ -238,12 +233,19 @@ angular.module('nethvoiceWizardUiApp')
           }, 500)
         },2000)
         getVariables()
-        if ($scope.isConfigurations) {
-          $scope.hideModal("singleModelModal")
-        }
       }, function (err) {
         console.log(err)
         restErrStatus("updateReadOnlyAttribute", err.data.title)
+      })
+    }
+
+    $scope.saveCurrentModelConfigurations = function () {
+      PhoneService.patchPhone($scope.currentModel.mac, {
+        "variables": $scope.currentModel.variables
+      }).then(function (res) {
+        $scope.hideModal("singleModelModal")
+      }, function (err) {
+        console.log(err)
       })
     }
 

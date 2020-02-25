@@ -129,15 +129,16 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     // function for the currentModel creation
-    $scope.setCurrentModelConfig = function (name) {
-      $scope.buildModel(name).then(function (cm) {
-        if ($scope.currentModel.name != name) {
-          $scope.loadingModel[name] = true
-        }
-        setTimeout(function () {
-          $scope.loadingModel[name] = false
-          $scope.$apply()
-        }, 1000)
+    $scope.setCurrentModelConfig = function (mac) {
+      $scope.buildPhoneModel(mac, "configurations").then(function (cm) {
+        $("#singleModelModal").modal("show")
+        // if ($scope.currentModel.name != name) {
+        //   $scope.loadingModel[name] = true
+        // }
+        // setTimeout(function () {
+        //   $scope.loadingModel[name] = false
+        //   $scope.$apply()
+        // }, 1000)
       }, function (err) {
         console.log(err)
       })
@@ -501,6 +502,10 @@ angular.module('nethvoiceWizardUiApp')
       getAllDevices()
     })
 
+    $('#singleModelModal').on('hidden.bs.modal', function () {
+      $scope.destroyAllSelects("#modelsUIUrl")
+    })
+
     var scrollInventory = function () {
       $scope.$apply(function () {
         $scope.usersLimit += $scope.USERS_PAGE
@@ -530,6 +535,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.devicesNotLinked = null
       $scope.allModels = null
       $scope.currentUser = null
+      $scope.currentModel = {}
     })
 
     angular.element(document).ready(function () {

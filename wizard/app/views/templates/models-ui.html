@@ -389,7 +389,7 @@
       </form>
     </div>
   </div>
-  <button ng-show="!loadingModels[model.name]" ng-click="isConfigurations ? saveCurrentModel() : showModal('saveChangesConfirm')"
+  <button ng-show="!loadingModels[model.name]" ng-click="currentModel.uiLocation == 'configurations' ? saveCurrentModelConfigurations() : showModal('saveChangesConfirm')"
     class="btn btn-primary btn-lg profile-button-save mb-10 mt-30" type="submit">
     {{'Save' | translate}}
   </button>

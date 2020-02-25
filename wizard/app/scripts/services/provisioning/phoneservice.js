@@ -43,9 +43,30 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    // get phone ingerit
+    this.getPhoneInherit = function (mac) {
+      return $q(function (resolve, reject) {
+        RestService.tget('/tancredi/api/v1/phones/' + mac + "?inherit=1").then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject({ "error": err, "phone": phone });
+        });
+      });
+    };
+
     this.setPhoneModel = function (mac, model) {
       return $q(function (resolve, reject) {
         RestService.tpatch('/tancredi/api/v1/phones/' + mac, { "model": model }).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.patchPhone = function (mac, phone) {
+      return $q(function (resolve, reject) {
+        RestService.tpatch('/tancredi/api/v1/phones/' + mac, phone).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);

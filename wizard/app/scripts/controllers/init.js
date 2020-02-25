@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('InitCtrl', function ($scope, $translate, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService,
+  .controller('InitCtrl', function ($scope, $translate, $location, ConfigService, LanguageService, PhoneService, LocalStorageService, LoginService, UserService,
     MigrationService, TrunkService, RouteService, ProvFanvilService, ProvSnomService, ProvGigasetService, ProvSangomaService, ProvYealinkService,
     ModelService, GeneralPhoneService, $q) {
     $scope.customConfig = customConfig
@@ -372,15 +372,15 @@ angular.module('nethvoiceWizardUiApp')
       $('body').css('background', '');
     });
 
-    $scope.destroyAllSelects = function () {
-      $("#modelsContainer .selectpicker").each(function( index, elem ) {
+    $scope.destroyAllSelects = function (container) {
+      $(container + " .selectpicker").each(function( index, elem ) {
         $( elem ).selectpicker("destroy")
         $( elem ).remove()
       })
-      $("#modelsContainer .combobox").each(function( index, elem ) {
+      $(container + " .combobox").each(function( index, elem ) {
         $( elem ).remove()
       })
-      $("#modelsContainer .combobox-container").each(function( index, elem ) {
+      $(container + " .combobox-container").each(function( index, elem ) {
         $( elem ).remove()
       })
     }
@@ -441,29 +441,47 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.buildModel = function (name) {
+    var buildModelObj = function (location, name, modelBrand, res, mac) {
+      return $scope.currentModel = {
+        "uiLocation" : location,
+        "ui" : getModelUI(modelBrand, res.data.variables),
+        "storedVariables": angular.copy(res.data.variables),
+        "variables" : angular.copy(res.data.variables),
+        "globals": {},
+        "name" : name,
+        "mac" : mac,
+        "display_name" : res.data.display_name,
+        "openedSection" : "",
+        "shownPasswords": {},
+        "openedExpKeys": "",
+        "showingKeys": "",
+        "showingExpKeys": "",
+        "changed": false,
+        "hasOriginals": hasOriginalsFromName(name),
+        "hidden": false
+      }
+    }
+
+    $scope.buildModel = function (name, location) {
       return $q(function (resolve, reject) {
         var nameSplit = name.split("-"),
-            modelName = nameSplit[1].toUpperCase(),
             modelBrand = nameSplit[0].toLowerCase()
         ModelService.getModel(name).then(function (res) {
-          $scope.currentModel = {
-            "ui" : getModelUI(modelBrand, res.data.variables),
-            "storedVariables": angular.copy(res.data.variables),
-            "variables" : angular.copy(res.data.variables),
-            "globals": {},
-            "name" : name,
-            "display_name" : res.data.display_name,
-            "openedSection" : "",
-            "shownPasswords": {},
-            "openedExpKeys": "",
-            "showingKeys": "",
-            "showingExpKeys": "",
-            "changed": false,
-            "hasOriginals": hasOriginalsFromName(name),
-            "hidden": false
-          }
+          buildModelObj(location, name, modelBrand, res)
           getGlobals()
+          resolve(true)
+        }, function () {
+          reject(err)
+        })
+      })
+    }
+
+    $scope.buildPhoneModel = function (mac, location) {
+      return $q(function (resolve, reject) {
+        PhoneService.getPhoneInherit(mac).then(function (res) {
+          var nameSplit = res.data.model.split("-"),
+              modelBrand = nameSplit[0].toLowerCase()
+          buildModelObj(location, res.data.model, modelBrand, res, mac)
           resolve(true)
         }, function () {
           reject(err)
@@ -516,7 +534,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.$on('$routeChangeStart', function() {
       if ($location.path() == '/devices/models' || $location.path() == '/configurations'){
         $scope.currentModel = {}
-        $scope.destroyAllSelects()
+        $scope.destroyAllSelects("#modelsContainer")
       }
     })
     

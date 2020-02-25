@@ -41,7 +41,7 @@
     <div class="list-group list-view-pf list-view-pf-view mt-20">
       <!-- repeat  -->
       <div
-        ng-repeat="user in allUsers | customFilterMultiple:'displayname,username,default_extension':searchUser | limitTo: usersLimit | orderBy:usersFilterNumbers"
+        ng-repeat="user in allUsers | customFilterMultiple:'displayname,username,default_extension,configurationsUsersSearch':searchUser | limitTo: usersLimit | orderBy:usersFilterNumbers"
         ng-show="usersFilter == 'configured' ? user.devices.length > 0 : (usersFilter == 'unconfigured' ? user.devices.length == 0 : true)"
         class="list-group-item {{user.username == currentUser.username ? 'list-view-pf-expand-active' : ''}}">
         <div class="list-group-item-header">
@@ -244,8 +244,7 @@
                                   ng-options="model.display_name for model in device.availableModels | orderBy:orderByValue">
                                   <option ng-hide="device.model != null" value="">-</option>
                                 </select>
-                                <button ng-disabled="!device.model" ng-click="setCurrentModelConfig(device.model.name)" data-toggle="modal"
-                                  data-target="#singleModelModal"
+                                <button ng-disabled="!device.model" ng-click="setCurrentModelConfig(device.mac)"
                                   class="btn btn-default ml-3 zindex-2">
                                   <i class="fa fa-pencil"></i>
                                 </button>
@@ -255,7 +254,7 @@
                             <button ng-if="!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical')" popover-animation="true" uib-popover="{{device.secret}}" type="button" class="btn btn-default">{{'Show secret' | translate}}</button>
                           </div>
                           <div ng-if="!(!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical'))"
-                            class="col-lg-5 mnw-180">
+                            class="col-lg-5 mnw-180 mt-20">
                             <div class="list-view-pf-additional-info config-info ">
                               <div class="eswitch-mt">
                                 Encryption:
@@ -274,7 +273,7 @@
                       </div>
                       <div class="list-view-pf-additional-info config-info ">
                         <!-- mac for non-custom devices -->
-                        <div ng-if="!(!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical'))">
+                        <div class="pl-20" ng-if="!(!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical'))">
                           MAC: <b class="ng-binding">{{ device.mac }}</b>
                         </div>
                         <!-- web credentials for custom devices -->
