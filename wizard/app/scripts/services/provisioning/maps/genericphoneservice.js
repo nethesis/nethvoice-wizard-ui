@@ -12,6 +12,15 @@ angular.module('nethvoiceWizardUiApp')
   .service('GenericPhoneService', function (GenericPhoneUtilsService) {
 
     this.map = function (variables) {
+
+      let softkey_count = parseInt(variables.cap_softkey_count),
+          softkey_type_blacklist = variables.cap_softkey_type_blacklist,
+          linekey_count = parseInt(variables.cap_linekey_count),
+          linekey_type_blacklist = variables.linekey_type_blacklist,
+          expmodule_count = parseInt(variables.cap_expmodule_count),
+          expkey_count = parseInt(variables.cap_expkey_count),
+          expkey_type_blacklist = variables.cap_expkey_type_blacklist
+
       return {
         "general": {
           "settings": true,
@@ -34,29 +43,33 @@ angular.module('nethvoiceWizardUiApp')
           "intervals": [
             {
               "start": 1,
-              "end": variables.cap_softkey_count
+              "end": softkey_count
             }
           ],
-          "hidden_types": variables.cap_softkey_type_blacklist
+          "hidden_types": softkey_type_blacklist,
+          "hidden_variables": ""
         },
         "lineKeys": {
           "intervals": [
             {
               "start": 1,
-              "end": variables.cap_linekey_count
+              "end": linekey_count
             }
           ],
-          "hidden_types": variables.cap_linekey_type_blacklist
+          "hidden_types": linekey_type_blacklist,
+          "hidden_variables": ""
         },
         "expansionKeys":  {
-          "modules": variables.cap_expmodule_count,
+          "modules": expmodule_count,
+          "module_keys_count": expkey_count,
           "intervals": [
             {
               "start": 1,
-              "end": variables.cap_expkey_count,
+              "end": expkey_count,
             }
           ],
-          "hidden_types": variables.cap_expkey_type_blacklist
+          "hidden_types": expkey_type_blacklist,
+          "hidden_variables": ""
         }
       }
     }
