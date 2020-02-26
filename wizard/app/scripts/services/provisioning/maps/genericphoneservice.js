@@ -62,6 +62,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     this.general = function (modelMap) {
+
       if (!(modelMap.general.settings || modelMap.general.password)) {
         return;
       }
@@ -232,6 +233,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     this.preferences = function (modelMap) {
+     
       if (!(modelMap.preferences.ringtone || modelMap.preferences.display || modelMap.preferences.wallpaper || modelMap.preferences.screensaver)) {
         return;
       }
@@ -1098,147 +1100,79 @@ angular.module('nethvoiceWizardUiApp')
                     },
                     {
                       "text": "Conference",
-                      "value": "1"
+                      "value": "conference"
                     },
                     {
                       "text": "Forward",
-                      "value": "2"
+                      "value": "forward"
                     },
                     {
                       "text": "Transfer",
-                      "value": "3"
+                      "value": "transfer"
                     },
                     {
                       "text": "Hold",
-                      "value": "4"
+                      "value": "hold"
                     },
                     {
                       "text": "DND",
-                      "value": "5"
+                      "value": "dnd"
                     },
                     {
                       "text": "Recall",
-                      "value": "7"
-                    },
-                    {
-                      "text": "SMS",
-                      "value": "8"
+                      "value": "recall"
                     },
                     {
                       "text": "Direct Pickup",
-                      "value": "9"
-                    },
-                    {
-                      "text": "Call Park",
-                      "value": "10"
+                      "value": "direct_pickup"
                     },
                     {
                       "text": "DTMF",
-                      "value": "11"
+                      "value": "dtmf"
                     },
                     {
                       "text": "Voice Mail",
-                      "value": "12"
+                      "value": "voice_mail"
                     },
                     {
                       "text": "Speed Dial",
-                      "value": "13"
-                    },
-                    {
-                      "text": "Intercom",
-                      "value": "14"
+                      "value": "speed_dial"
                     },
                     {
                       "text": "Line",
-                      "value": "15"
+                      "value": "line"
                     },
                     {
                       "text": "BLF",
-                      "value": "16"
+                      "value": "blf"
                     },
                     {
                       "text": "URL",
-                      "value": "17"
-                    },
-                    {
-                      "text": "Group Listening",
-                      "value": "18"
-                    },
-                    {
-                      "text": "Private Hold",
-                      "value": "20"
-                    },
-                    {
-                      "text": "XML Group",
-                      "value": "22"
+                      "value": "url"
                     },
                     {
                       "text": "Group Pickup",
-                      "value": "23"
+                      "value": "group_pickup"
                     },
                     {
                       "text": "Multicast Paging",
-                      "value": "24"
+                      "value": "multicast_paging"
                     },
                     {
                       "text": "Record",
-                      "value": "25"
-                    },
-                    {
-                      "text": "XML Browser",
-                      "value": "27"
-                    },
-                    {
-                      "text": "Hot Desking",
-                      "value": "34"
-                    },
-                    {
-                      "text": "URL Record",
-                      "value": "35"
+                      "value": "record"
                     },
                     {
                       "text": "LDAP",
-                      "value": "38"
-                    },
-                    {
-                      "text": "BLF List",
-                      "value": "39"
+                      "value": "ldap"
                     },
                     {
                       "text": "Prefix",
-                      "value": "40"
-                    },
-                    {
-                      "text": "Zero Touch",
-                      "value": "41"
-                    },
-                    {
-                      "text": "ACD",
-                      "value": "42"
-                    },
-                    {
-                      "text": "Local Group",
-                      "value": "45"
-                    },
-                    {
-                      "text": "XML Directory",
-                      "value": "47"
+                      "value": "prefix"
                     },
                     {
                       "text": "Phone Lock",
-                      "value": "50"
-                    },
-                    {
-                      "text": "Retrieve Park",
-                      "value": "56"
-                    },
-                    {
-                      "text": "Directory",
-                      "value": "61"
-                    },
-                    {
-                      "text": "Paging List",
-                      "value": "66"
+                      "value": "phone_lock"
                     }
                   ]
                 },
@@ -1282,154 +1216,85 @@ angular.module('nethvoiceWizardUiApp')
                   "options": [
                     {
                       "text": "N/A",
-                      "value": "0"
+                      "value": ""
                     },
                     {
                       "text": "Conference",
-                      "value": "1"
+                      "value": "conference"
                     },
                     {
                       "text": "Forward",
-                      "value": "2"
+                      "value": "forward"
                     },
                     {
                       "text": "Transfer",
-                      "value": "3"
+                      "value": "transfer"
                     },
                     {
                       "text": "Hold",
-                      "value": "4"
+                      "value": "hold"
                     },
                     {
                       "text": "DND",
-                      "value": "5"
+                      "value": "dnd"
                     },
                     {
                       "text": "Recall",
-                      "value": "7"
-                    },
-                    {
-                      "text": "SMS",
-                      "value": "8"
+                      "value": "recall"
                     },
                     {
                       "text": "Direct Pickup",
-                      "value": "9"
-                    },
-                    {
-                      "text": "Call Park",
-                      "value": "10"
+                      "value": "direct_pickup"
                     },
                     {
                       "text": "DTMF",
-                      "value": "11"
+                      "value": "dtmf"
                     },
                     {
                       "text": "Voice Mail",
-                      "value": "12"
+                      "value": "voice_mail"
                     },
                     {
                       "text": "Speed Dial",
-                      "value": "13"
-                    },
-                    {
-                      "text": "Intercom",
-                      "value": "14"
+                      "value": "speed_dial"
                     },
                     {
                       "text": "Line",
-                      "value": "15"
+                      "value": "line"
                     },
                     {
                       "text": "BLF",
-                      "value": "16"
+                      "value": "blf"
                     },
                     {
                       "text": "URL",
-                      "value": "17"
-                    },
-                    {
-                      "text": "Group Listening",
-                      "value": "18"
-                    },
-                    {
-                      "text": "Private Hold",
-                      "value": "20"
-                    },
-                    {
-                      "text": "XML Group",
-                      "value": "22"
+                      "value": "url"
                     },
                     {
                       "text": "Group Pickup",
-                      "value": "23"
+                      "value": "group_pickup"
                     },
                     {
                       "text": "Multicast Paging",
-                      "value": "24"
+                      "value": "multicast_paging"
                     },
                     {
                       "text": "Record",
-                      "value": "25"
-                    },
-                    {
-                      "text": "XML Browser",
-                      "value": "27"
-                    },
-                    {
-                      "text": "Hot Desking",
-                      "value": "34"
-                    },
-                    {
-                      "text": "URL Record",
-                      "value": "35"
+                      "value": "record"
                     },
                     {
                       "text": "LDAP",
-                      "value": "38"
-                    },
-                    {
-                      "text": "BLF List",
-                      "value": "39"
+                      "value": "ldap"
                     },
                     {
                       "text": "Prefix",
-                      "value": "40"
-                    },
-                    {
-                      "text": "Zero Touch",
-                      "value": "41"
-                    },
-                    {
-                      "text": "ACD",
-                      "value": "42"
-                    },
-                    {
-                      "text": "Local Group",
-                      "value": "45"
+                      "value": "prefix"
                     },
                     {
                       "text": "Phone Lock",
-                      "value": "50"
-                    },
-                    {
-                      "text": "Retrieve Park",
-                      "value": "56"
-                    },
-                    {
-                      "text": "Directory",
-                      "value": "61"
-                    },
-                    {
-                      "text": "Paging List",
-                      "value": "66"
+                      "value": "phone_lock"
                     }
                   ]
-                },
-                {
-                  "variable": "expkey_line",
-                  "description": "Line",
-                  "type": "input"
                 },
                 {
                   "variable": "expkey_value",
@@ -1437,18 +1302,8 @@ angular.module('nethvoiceWizardUiApp')
                   "type": "input"
                 },
                 {
-                  "variable": "expkey_extension",
-                  "description": "Extension",
-                  "type": "input"
-                },
-                {
                   "variable": "expkey_label",
                   "description": "Label",
-                  "type": "input"
-                },
-                {
-                  "variable": "expkey_xml_phonebook",
-                  "description": "XML Phonebook",
                   "type": "input"
                 }
               ]
