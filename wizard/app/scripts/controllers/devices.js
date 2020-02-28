@@ -43,7 +43,7 @@ angular.module('nethvoiceWizardUiApp')
       ModelService.getCloudProvisioning().then(function (res) {
         $scope.view.changeRoute = false
         $scope.cloudProvisioning = res.data
-        if ($scope.cloudProvisioning !== null) {
+        if (!$scope.cloudProvisioning) {
           redirect()
         }
       }, function (err) {
@@ -60,7 +60,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     angular.element(document).ready(function () {
-      if ($scope.cloudProvisioning && $scope.cloudProvisioning !== null) {
+      if ($scope.cloudProvisioning) {
         redirect()
       } else {
         checkProvisioningCloudStatusDev()
