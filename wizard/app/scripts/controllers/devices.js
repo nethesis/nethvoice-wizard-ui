@@ -8,27 +8,31 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesCtrl', function ($scope, ModelService, ConfigService, $location, $route) {
+  .controller('DevicesCtrl', function ($scope, ModelService, ConfigService, $location, $route, ProvGlobalsService) {
 
     $scope.view.changeRoute = true
-    $scope.currentStep = $route.current.controllerAs.split('/').length > 1 ? $route.current.controllerAs.split('/')[1] : $route.current.controllerAs.split('/')[0]
-    $scope.wizard.stepCount = appConfig.STEP_MAP[$scope.currentStep];
-    $scope.wizard.prevState = appConfig.STEP_WIZARD[$scope.currentStep].prev;
-    $scope.wizard.nextState = appConfig.STEP_WIZARD[$scope.currentStep].next;
+    $scope.globalsUi = ProvGlobalsService.getGlobalsUI()
+    var currentStep = $route.current.controllerAs.split('/').length > 1 ? $route.current.controllerAs.split('/')[1] : $route.current.controllerAs.split('/')[0],
+        stepCount = appConfig.STEP_MAP[currentStep],
+        prevState = appConfig.STEP_WIZARD[currentStep].prev,
+        nextState = appConfig.STEP_WIZARD[currentStep].next
+
+    $scope.defaults = {}
+    $scope.$parent.wizard.isNextDisabled = true
 
     var nextStep = function () {
-      if ($scope.wizard.nextState && appConfig.STEP_WIZARD[$scope.currentStep].next) {
-        $location.path(appConfig.STEP_WIZARD[$scope.currentStep].next)
-        $scope.wizard.stepCount++
+      if (nextState && appConfig.STEP_WIZARD[currentStep].next) {
+        $location.path(appConfig.STEP_WIZARD[currentStep].next)
+        stepCount++
       }
       ConfigService.setWizard({
         status: 'true',
-        step: $scope.wizard.stepCount
+        step: stepCount
       }).then(function (res) {
       }, function (err) {
         console.log(err)
       });
-      return appConfig.STEP_WIZARD[$scope.currentStep].next
+      return appConfig.STEP_WIZARD[currentStep].next
     }
 
     var redirect = function () {
@@ -39,32 +43,19 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    var checkProvisioningCloudStatusDev = function () {
-      ModelService.getCloudProvisioning().then(function (res) {
-        $scope.view.changeRoute = false
-        $scope.cloudProvisioning = res.data
-        if (!$scope.cloudProvisioning) {
+    var init = function () {
+      ModelService.getDefaults().then(function (res) {
+        console.log("RES", res);
+        if (!res.data.ui_first_config) {
           redirect()
         }
+        $scope.$parent.wizard.isNextDisabled = $scope.defaults.ui_first_config ? true : false
+        $scope.defaults = res.data
+        $scope.view.changeRoute = false
       }, function (err) {
         console.log(err)
       })
     }
-
-    $scope.setCloudProvisioning = function (val) {
-      ModelService.setCloudProvisioning(val).then(function (res) {
-        redirect()
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
-    angular.element(document).ready(function () {
-      if ($scope.cloudProvisioning) {
-        redirect()
-      } else {
-        checkProvisioningCloudStatusDev()
-      }
-    })
+    init()
 
   });

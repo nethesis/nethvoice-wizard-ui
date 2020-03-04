@@ -30,6 +30,7 @@ angular.module('nethvoiceWizardUiApp')
     };
     $scope.loginUrl = 'views/login.html';
     $scope.modelsUIUrl = 'views/templates/models-ui.html';
+    $scope.defaultsModalUrl = 'views/templates/defaults-modal.html';
 
     $scope.wizard = {
       isWizard: true,
@@ -399,6 +400,24 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.currentModel = {}
     
+    $scope.openDefaultSettings = function () {
+      ModelService.getDefaults().then(function (res) {
+        $scope.defaultSettings = res.data
+        $("#defaultSettingsModal").modal("show")
+        setTimeout(function () {
+          $('#defaultSettingsModal select').each(function(){
+            if ($(this).hasClass("selectpicker")) {
+              $(this).selectpicker('refresh')
+            } else if ($(this).hasClass("combobox")) {
+              $(this).combobox('refresh')
+            }
+          })
+        }, 500)
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
     var buildModelUI = function (service, variables) {
       let map = GenericPhoneService.map(variables)
       return {

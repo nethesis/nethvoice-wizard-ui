@@ -1,43 +1,42 @@
 <div class="blank-slate-pf no-border">
   <div class="blank-slate-pf-icon">
-    <span class="fa fa-cloud"></span>
+    <span class="fa fa-cogs"></span>
   </div>
-  <h1>
-    {{'Choose the devices provisioning method' | translate}}
-  </h1>
-  <p>
-    {{'Choosing the Cloud provisioning the following configurations will be set' | translate}}:
-  </p>
-  <p>
-    {{'TLS configuration will be enabled by default on all phones' | translate}}
-  </p>
-  <p>
-    {{'One record will be created to the phone manufacturer cloud service for the remote provisioning' | translate}}
-  </p>
-  <p>
-    {{'Learn more about this' | translate}} <a target="_blank" href="{{customConfig.BRAND_DOCS}}">{{'on the documentation' | translate}}</a>.
-  </p>
+
+  <div class="blank-slate-pf-title mt-10">
+    <h1>
+      {{'Edit the default settings before continuing' | translate}}
+    </h1>
+  </div>
+
+  <div class="blank-slate-pf-content mt-20 mb-30">
+    <p>
+      {{'Le impostazioni di default devono essere adatte ai dispositivi da configurare' | translate}}:
+    </p>
+    <p>
+      {{'Nel caso in cui tutti i dispositivi siano in rete locale rispetto al centralino sarà possibile disabilitare la crittografia e impostare un IP interno come nome host' | translate}}
+    </p>
+    <p>
+      {{'Nel caso in cui almeno un dispositivo sia remoto rispetto al centralino sarà necessario abilitare la citografia e impostare come nome host un IP o un Dominio pubblico' | translate}}
+    </p>
+    <p>
+      {{'Correggi le impostazioni di default cliccando il pulsane sottostante' | translate}}:
+    </p>
+  </div>
+
   <div class="blank-slate-pf-main-action">
-    <button id="legacy-button" ng-click="setCloudProvisioning(false)" class="btn btn-primary btn-lgg handle-margin"> {{'Local' | translate}} </button>
-    <button id="uc-button" ng-click="setCloudProvisioning(true)" class="btn btn-primary btn-lgg"> {{'Cloud' | translate}} </button>
+    <button ng-click="openDefaultSettings()" class="btn btn-lgg btn-warning" type="button"><i class="fa fa-warning"></i> {{"Default settings" | translate}}</button>
   </div>
-  <div ng-if="startInstall" class="progress-content">
-    <div class="progress-description">
-      <div ng-if="currentProgress < 100 && currentProgress != -1" class="spinner spinner-xs spinner-inline"></div>
-      <span ng-if="currentProgress == 100" class="pficon pficon-ok"></span>
-      <span ng-if="currentProgress == -1" class="pficon pficon-error-circle-o"></span>
-      <span ng-if="currentProgress != -1"><strong>{{'Installing' | translate}}:</strong> {{"LDAP" | translate}}</span>
-      <span ng-if="currentProgress == -1"><strong>{{'Error' | translate}}:</strong> {{'Installation failed' | translate}}</span>
-    </div>
-    <div class="progress progress-label-top-right">
-      <div class="progress-bar {{currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}" role="progressbar" aria-valuenow="0"
-        aria-valuemin="0" aria-valuemax="100" style="width: {{currentProgress == -1 ? '100' : currentProgress}}%;">
-        <span>{{currentProgress == -1 ? '100' : currentProgress}}%</span>
-      </div>
-    </div>
-    <div ng-if="currentProgress == 100" class="blank-slate-pf-main-action">
-      <button ng-click="nextStepUsers()" class="btn btn-primary btn-lg">{{'Next' | translate}}</button>
-    </div>
-  </div>
+
+  <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>
 </div>
   
+<div
+  class="modal fade"
+  id="defaultSettingsModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+  data-backdrop="static"
+  ng-include="defaultsModalUrl"
+  ></div>

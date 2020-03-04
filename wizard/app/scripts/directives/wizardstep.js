@@ -10,7 +10,9 @@ angular.module('nethvoiceWizardUiApp')
   .directive('wizardStep', function () {
     return {
       templateUrl: 'scripts/directives/wizard-step.html',
-      controller: function ($scope, $route, $location, ConfigService) {
+      controller: function ($scope, $route, $location, $attrs, ConfigService) {
+
+        $scope.isNextDisabled = $scope.wizard.isNextDisabled
         $scope.currentStep = $route.current.controllerAs.split('/').length > 1 ? $route.current.controllerAs.split('/')[1] : $route.current.controllerAs.split('/')[0]
         $scope.wizard.stepCount = appConfig.STEP_MAP[$scope.currentStep];
         $scope.wizard.prevState = appConfig.STEP_WIZARD[$scope.currentStep].prev;
