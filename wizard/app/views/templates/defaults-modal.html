@@ -10,32 +10,91 @@
 			<form class="form-horizontal" ng-submit="setDefaultSettings()">
 				<div class="modal-body inline-display">
 					<div class="col-lg-12 mt-30">
-						<div ng-repeat="item in globalsUi.data track by $index" class="col-lg-6 mb-15">
-							<div class="col-lg-12">
-								<!-- list -->
-								<div ng-if="item.type == 'list'" class="form-group">
-									<label class="control-label">{{::item.description | translate}}</label>
-									<select id="default-select-{{$index}}"
-										class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
-										ng-model="defaultSettings[item.variable]" autocomplete="off">
-										<option value="">-</option>
-										<!-- combobox -->
-										<!-- <option ng-if="item.options.length > 10" ng-repeat="option in item.options" value="{{option.value}}"
-                    on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option> -->
-										<!-- selectpicker -->
-										<option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
-											value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}
-										</option>
-									</select>
-								</div>
-								<!-- input -->
-								<div ng-if="item.type == 'input'" class="form-group">
-									<label class="control-label">{{::item.description | translate}}</label>
-									<input type="text" id="default-select-{{$index}}" ng-model="defaultSettings[item.variable]"
-										class="form-control">
-									</input>
+						<div ng-repeat="(sectionName, section) in globalsUi">
+							<!-- if is pinned section -->
+							<div ng-if="sectionName == 'pinned'" style="display: flow-root !important;">
+								<div ng-repeat="item in section.data track by $index" class="col-lg-6 mb-15">
+									<div class="col-lg-12">
+										<!-- list -->
+										<div ng-if="item.type == 'list'" class="form-group">
+											<label class="control-label">{{::item.description | translate}}</label>
+											<select id="default-select-{{$index}}"
+												class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
+												ng-model="defaultSettings[item.variable]" autocomplete="off">
+												<option value="">-</option>
+												<!-- combobox -->
+												<!-- <option ng-if="item.options.length > 10" ng-repeat="option in item.options" value="{{option.value}}"
+												on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option> -->
+												<!-- selectpicker -->
+												<option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
+													value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}
+												</option>
+											</select>
+										</div>
+										<!-- input -->
+										<div ng-if="item.type == 'input'" class="form-group">
+											<label class="control-label">{{::item.description | translate}}</label>
+											<input type="text" id="default-select-{{$index}}" ng-model="defaultSettings[item.variable]"
+												class="form-control">
+											</input>
+										</div>
+										<!-- input -->
+										<div ng-if="item.type == 'switch'" class="form-group">
+											<label class="control-label">{{::item.description | translate}}</label>
+											<input type="text" id="default-select-{{$index}}" ng-model="defaultSettings[item.variable]"
+												class="form-control">
+											</input>
+										</div>
+									</div>
 								</div>
 							</div>
+							<!-- if is section -->
+							<div class="mt-20" ng-if="sectionName != 'pinned'">
+								<h2 ng-click="openSection(sectionkey)"
+									class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
+									{{::section.name}}
+									<span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
+								</h2>
+								<div id="collapse-section-{{$index}}"
+									class="panel-collapse adjust-profile-body model-container"
+									ng-if="currentModel.openedSection == sectionkey">
+									<div class="panel-body">
+										<div ng-show="currentModel.loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
+										<div ng-show="!currentModel.loadingSections[sectionkey]" class="col-lg-12 mt-25 no-border-bottom">
+	
+											<div ng-repeat="item in section.data track by $index" class="col-lg-6 mb-15">
+												<div class="col-lg-12">
+													<!-- list -->
+													<div ng-if="item.type == 'list'" class="form-group">
+														<label class="control-label">{{::item.description | translate}}</label>
+														<select id="default-select-{{$index}}"
+															class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
+															ng-model="defaultSettings[item.variable]" autocomplete="off">
+															<option value="">-</option>
+															<!-- combobox -->
+															<!-- <option ng-if="item.options.length > 10" ng-repeat="option in item.options" value="{{option.value}}"
+															on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option> -->
+															<!-- selectpicker -->
+															<option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
+																value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}
+															</option>
+														</select>
+													</div>
+													<!-- input -->
+													<div ng-if="item.type == 'input'" class="form-group">
+														<label class="control-label">{{::item.description | translate}}</label>
+														<input type="text" id="default-select-{{$index}}" ng-model="defaultSettings[item.variable]"
+															class="form-control">
+														</input>
+													</div>
+												</div>
+											</div>
+	
+										</div>
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>

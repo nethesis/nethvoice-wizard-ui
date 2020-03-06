@@ -11,29 +11,16 @@ angular.module('nethvoiceWizardUiApp')
   .controller('DevicesCtrl', function ($scope, ModelService, ConfigService, $location, $route, ProvGlobalsService) {
 
     $scope.view.changeRoute = true
-    $scope.globalsUi = ProvGlobalsService.getGlobalsUI()
-    var currentStep = $route.current.controllerAs.split('/').length > 1 ? $route.current.controllerAs.split('/')[1] : $route.current.controllerAs.split('/')[0],
-        stepCount = appConfig.STEP_MAP[currentStep],
-        prevState = appConfig.STEP_WIZARD[currentStep].prev,
-        nextState = appConfig.STEP_WIZARD[currentStep].next
+    $scope.globalsUi = $scope.buildDefaultSettingsUI()
 
-    $scope.defaults = {}
+    console.log(
+      "GLOBALSUI",
+      $scope.globalsUi
+    );
+    
+
+    $scope.defaultSettings = {}
     $scope.$parent.wizard.isNextDisabled = true
-
-    var nextStep = function () {
-      if (nextState && appConfig.STEP_WIZARD[currentStep].next) {
-        $location.path(appConfig.STEP_WIZARD[currentStep].next)
-        stepCount++
-      }
-      ConfigService.setWizard({
-        status: 'true',
-        step: stepCount
-      }).then(function (res) {
-      }, function (err) {
-        console.log(err)
-      });
-      return appConfig.STEP_WIZARD[currentStep].next
-    }
 
     var redirect = function () {
       if ($scope.wizard.isWizard) {
@@ -43,19 +30,33 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.openDefaultSettings = function () {
+      $("#defaultSettingsModal").modal("show")
+      setTimeout(function () {
+        $('#defaultSettingsModal select').each(function(){
+          if ($(this).hasClass("selectpicker")) {
+            $(this).selectpicker('refresh')
+          } else if ($(this).hasClass("combobox")) {
+            $(this).combobox('refresh')
+          }
+        })
+      }, 500)
+    }
+
     var init = function () {
       ModelService.getDefaults().then(function (res) {
         console.log("RES", res);
         if (!res.data.ui_first_config) {
           redirect()
         }
-        $scope.$parent.wizard.isNextDisabled = $scope.defaults.ui_first_config ? true : false
-        $scope.defaults = res.data
+        $scope.$parent.wizard.isNextDisabled = $scope.defaultSettings.ui_first_config ? true : false
+        $scope.defaultSettings = res.data
         $scope.view.changeRoute = false
       }, function (err) {
         console.log(err)
       })
     }
+
     init()
 
   });

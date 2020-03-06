@@ -18,6 +18,39 @@ angular.module('nethvoiceWizardUiApp')
       ])
     }
 
+    this.getDateFormat = function () {
+      return [
+        {
+          "text": "WWW MMM DD",
+          "value": "0"
+        },
+        {
+          "text": "DD-MMM-YY",
+          "value": "1"
+        },
+        {
+          "text": "YYYY-MM-DD",
+          "value": "2"
+        },
+        {
+          "text": "DD/MM/YYYY",
+          "value": "3"
+        },
+        {
+          "text": "MM/DD/YY",
+          "value": "4"
+        },
+        {
+          "text": "DD MMM YYYY",
+          "value": "5"
+        },
+        {
+          "text": "WWW DD MMM",
+          "value": "6"
+        }
+      ]
+    }
+
     this.getTimeZones = function () {
       return this.getOptionsLabels([
         "Africa/Abidjan",

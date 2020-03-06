@@ -9,8 +9,8 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .controller('InitCtrl', function ($scope, $translate, $location, ConfigService, LanguageService, PhoneService, LocalStorageService, LoginService, UserService,
-    MigrationService, TrunkService, RouteService, ProvFanvilService, ProvSnomService, ProvGigasetService, ProvSangomaService, ProvYealinkService,
-    ModelService, GenericPhoneService, $q) {
+    MigrationService, TrunkService, RouteService, ModelService, GenericPhoneService, ProvGlobalsService, $q) {
+
     $scope.customConfig = customConfig
     $scope.appConfig = appConfig
     $scope.cloudProvisioning = null
@@ -399,23 +399,14 @@ angular.module('nethvoiceWizardUiApp')
     // provisining build models start
 
     $scope.currentModel = {}
-    
-    $scope.openDefaultSettings = function () {
-      ModelService.getDefaults().then(function (res) {
-        $scope.defaultSettings = res.data
-        $("#defaultSettingsModal").modal("show")
-        setTimeout(function () {
-          $('#defaultSettingsModal select').each(function(){
-            if ($(this).hasClass("selectpicker")) {
-              $(this).selectpicker('refresh')
-            } else if ($(this).hasClass("combobox")) {
-              $(this).combobox('refresh')
-            }
-          })
-        }, 500)
-      }, function (err) {
-        console.log(err)
-      })
+
+    $scope.buildDefaultSettingsUI = function () {
+      return {
+        pinned: ProvGlobalsService.pinned(),
+        general: ProvGlobalsService.general(),
+        preferences: ProvGlobalsService.preferences(),
+        network: ProvGlobalsService.network()
+      }
     }
 
     var buildModelUI = function (service, variables) {
