@@ -10,7 +10,7 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('DevicesModelsCtrl', function ($scope, ModelService, ProvGlobalsService, $translate, $timeout) {
 
-    $scope.globalsUi = ProvGlobalsService.getGlobalsUI()
+    // $scope.globalsUi = ProvGlobalsService.getGlobalsUI()
     $scope.view.changeRoute = true
     $scope.inventoryModels = []
     $scope.defaultSettings = {}

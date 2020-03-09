@@ -7,20 +7,32 @@
  * # DevicesCtrl
  * Controller of the nethvoiceWizardUiApp
  */
+
 angular.module('nethvoiceWizardUiApp')
   .controller('DevicesCtrl', function ($scope, ModelService, ConfigService, $location, $route, ProvGlobalsService) {
 
     $scope.view.changeRoute = true
-    $scope.globalsUi = $scope.buildDefaultSettingsUI()
-
-    console.log(
-      "GLOBALSUI",
-      $scope.globalsUi
-    );
-    
-
     $scope.defaultSettings = {}
-    $scope.$parent.wizard.isNextDisabled = true
+    $scope.$parent.wizard.isNextDisabled = false
+
+    var currentStep = $route.current.controllerAs.split('/').length > 1 ? $route.current.controllerAs.split('/')[1] : $route.current.controllerAs.split('/')[0],
+        stepCount = appConfig.STEP_MAP[currentStep],
+        nextState = appConfig.STEP_WIZARD[currentStep].next
+
+    var nextStep = function () {
+      if (nextState && appConfig.STEP_WIZARD[currentStep].next) {
+        $location.path(appConfig.STEP_WIZARD[currentStep].next)
+        stepCount++
+      }
+      ConfigService.setWizard({
+        status: 'true',
+        step: stepCount
+      }).then(function (res) {
+      }, function (err) {
+        console.log(err)
+      });
+      return appConfig.STEP_WIZARD[currentStep].next
+    }
 
     var redirect = function () {
       if ($scope.wizard.isWizard) {
@@ -57,6 +69,7 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    init()
+    // init()
+    redirect()
 
   });

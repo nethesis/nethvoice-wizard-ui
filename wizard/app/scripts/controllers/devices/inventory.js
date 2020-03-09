@@ -452,11 +452,15 @@ angular.module('nethvoiceWizardUiApp')
             }
             // create field to the rps service
             PhoneService.getPhone(phoneCorbera.mac).then(function (res) {
-              PhoneService.toRps(phoneCorbera.mac, res.data.tok1).then(function (res) {
-                // rps post success
-              }, function (err) {
-                console.log(err)
-              })
+              if (res.data.provisioning_url1) {
+                PhoneService.toRps(phoneCorbera.mac, {
+                  url: res.data.provisioning_url1
+                }).then(function (res) {
+                  // rps post success
+                }, function (err) {
+                  console.log(err)
+                })
+              }
             }, function (err) {
               console.log(err)
             })

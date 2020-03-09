@@ -7,6 +7,7 @@
  * # ModelsUICtrl
  * Controller of the nethvoiceWizardUiApp
  */
+
 angular.module('nethvoiceWizardUiApp')
   .controller('ModelsUICtrl', function ($scope, $interval, $location, ModelService, PhoneService) {
 
