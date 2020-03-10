@@ -7,6 +7,7 @@
  * # LoginCtrl
  * Controller of the nethvoiceWizardUiApp
  */
+
 angular.module('nethvoiceWizardUiApp')
   .controller('LoginCtrl', function ($rootScope, $scope, $location, ConfigService, LoginService, LocalStorageService, MigrationService) {
     $scope.doLogin = function (secret) {

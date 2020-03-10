@@ -14,7 +14,6 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.customConfig = customConfig
     $scope.appConfig = appConfig
-    $scope.cloudProvisioning = null
 
     $scope.view = {
       changeRoute: true,
@@ -324,14 +323,6 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    var checkProvisioningCloudStatus = function () {
-      ModelService.getCloudProvisioning().then(function (res) {
-        $scope.cloudProvisioning = res.data
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
     // set language
     $scope.changeLanguage({
       key: LocalStorageService.get('preferredLanguage') || 'default'
@@ -369,7 +360,6 @@ angular.module('nethvoiceWizardUiApp')
       $scope.getConfig();
       //provisioning
       getProvisioningInfo()
-      checkProvisioningCloudStatus()
 
       $('body').css('background', '');
     });

@@ -145,26 +145,4 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    // Set the cloud provisioning value
-    this.setCloudProvisioning = function (val) {
-      return $q(function (resolve, reject) {
-        RestService.post('/provisioning/cloud/' + val).then(function (res) {
-          resolve(res)
-        }, function (err) {
-          reject(err)
-        })
-      })
-    }
-
-    // Get the cloud provisioning value
-    this.getCloudProvisioning = function () {
-      return $q(function (resolve, reject) {
-        RestService.get('/provisioning/cloud').then(function (res) {
-          resolve(res)
-        }, function (err) {
-          reject(err)
-        })
-      })
-    }
-
   })

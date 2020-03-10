@@ -19,7 +19,7 @@
     </h1>
     <div class="container-fluid mt-40">
       <!-- toast messages -->
-      <div class="toast-notifications-list-pf">
+      <div class="toast-notifications-list-pf mt-50">
         <div
           ng-class="['toast-pf', 'alert', {'alert-danger': !error.warning }, { 'alert-warning': error.warning }, 'alert-dismissable', 'mg-bottom-5']"
           id="error-{{error.id}}" ng-repeat="error in errors track by $index">
@@ -37,7 +37,7 @@
       </div>
       <div>
         <!-- inventory help notification -->
-        <div class="alert alert-info alert-dismissable bg-color-white"
+        <!-- <div class="alert alert-info alert-dismissable bg-color-white"
           ng-show="phones.length !== 0 && !hideInventoryHelp">
           <button type="button" class="close" data-dismiss="alert" ng-click="setHideInventoryHelp()" aria-label="Close">
             <span class="pficon pficon-close"></span>
@@ -45,35 +45,43 @@
           <span class="pficon pficon-info"></span>
           <p>{{ 'this_is_the_list_of_phones_configured' | translate }}. {{ 'you_can_add_phones_by' | translate }}:</p>
           <ul>
-            <li ng-show="!cloudProvisioning">{{ 'scanning_a_network' | translate }}</li>
+            <li>{{ 'scanning_a_network' | translate }}</li>
             <li>{{ 'copying_and_pasting_from_spreadsheet' | translate }}</li>
             <li>{{ 'entering_phone_data_manually' | translate }}</li>
           </ul>
-        </div>
+        </div> -->
         <!-- empty state -->
         <div ng-show="phones.length == 0" class="blank-slate-pf">
           <div class="blank-slate-pf-icon">
             <span class="pficon pficon pficon-add-circle-o"></span>
           </div>
-          <h1>
-            {{'No phone' | translate}}
+          <h1 class="mb-25 mt-25">
+            {{'No phone found' | translate}}
           </h1>
-          <p>
-            {{ 'you_can_add_phones_by' | translate }}
-            <span ng-show="!cloudProvisioning">
-              {{ 'scanning_a_network' | translate }},
-            </span>
-            {{ 'copying_and_pasting_from_spreadsheet' | translate }},
-            {{ 'or' | translate }}
-            {{ 'entering_phone_data_manually' | translate }}
-          </p>
-          <div class="blank-slate-pf-main-action">
-            <span>
-              <button ng-show="!cloudProvisioning" class="btn btn-lg btn-primary" ng-click="showScanModal()">{{'Scan a network' | translate}}</button>
-              <button class="btn btn-lg btn-primary"
-                ng-click="showPasteModal()">{{'Add with copy/paste' | translate}}</button>
-              <button class="btn btn-lg btn-primary" ng-click="showManualModal()">{{'Add manually' | translate}}</button>
-            </span>
+          <div class="mb-25">
+            <p>
+              {{"Adding phones is possible through one of the next methods" | translate}}:
+            </p>
+            <p>
+              - {{"Copying a list of MAC address from a spreadsheet or a text file" | translate}}
+            </p>
+            <p>
+              - {{"Scanning a local network" | translate}}
+            </p>
+            <p>
+              - {{"Entering MAC and model manually for a phone at a time" | translate}}
+            </p>
+            <p class="mt-20">
+              {{"Select the method you prefer" | translate}}:
+            </p>
+          </div>
+          <div class="blank-slate-pf-main-action mb-30 mt-15">
+            <button class="btn btn-lgg btn-primary"
+              ng-click="showPasteModal()">{{'Paste from file' | translate}}</button>
+          </div>
+          <div class="blank-slate-pf-secondary-action">
+            <button class="btn btn-lg btn-default" ng-click="showScanModal()">{{'Scan a network' | translate}}</button>
+            <button class="btn btn-lg btn-default" ng-click="showManualModal()">{{'Add manually' | translate}}</button>
           </div>
         </div>
         <div ng-show="phones.length !== 0" class="mg-bottom-10 pos-relative">
@@ -84,10 +92,10 @@
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="invDropdownMenu1">
-              <li ng-show="!cloudProvisioning" role="presentation"><a role="menuitem" tabindex="-1"
-                  ng-click="showScanModal()">{{'Scan a network' | translate}}</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1"
-                  ng-click="showPasteModal()">{{'Add with copy/paste' | translate}}</a></li>
+                ng-click="showPasteModal()">{{'Paste from file' | translate}}</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1"
+                  ng-click="showScanModal()">{{'Scan a network' | translate}}</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1"
                   ng-click="showManualModal()">{{'Add manually' | translate}}</a></li>
             </ul>
@@ -200,8 +208,8 @@
                 <span class="pficon pficon-info"></span>
                 <span>{{ 'Maximum number of pasted MAC addresses reached. You can paste the remaining MAC addresses at the end of this process' | translate }}</span>
               </div>
-              <label class="col-sm-4 control-label" for="paste-textarea">
-                {{ 'Copy a list of MAC addresses and paste it here' | translate }}
+              <label class="col-sm-5 control-label" for="paste-textarea">
+                {{ 'Paste a list of MAC addresses here' | translate }}:
                 <!-- inline help for mac address format -->
                 <div class="reset-padding">
                   <a href="#" class="info-general" data-toggle="popover" data-html="true" data-placement="bottom"
@@ -227,17 +235,17 @@
                   </a>
                 </div>
               </label>
-              <div class="col-sm-8">
+              <div class="col-sm-7">
                 <!-- paste textarea -->
                 <!-- maxlength -> copy/paste max 200 mac at time -->
-                <textarea maxlength="3600" id="paste-textarea" class="form-control pasted-mac-area"
+                <textarea maxlength="3600" id="paste-textarea" class="form-control pasted-mac-area mt-5"
                   ng-model="pastedMacsText" ng-change="checkTooManyPastedMacs()"></textarea>
               </div>
             </div>
             <div class="form-group no-margin-bottom"
               ng-show="!showResultsAddPhones && addModalType === 'copypaste'">
-              <label class="col-sm-4 control-label"></label>
-              <div class="col-sm-8">
+              <label class="col-sm-5 control-label"></label>
+              <div class="col-sm-7">
                 <button type="submit" class="btn btn-primary" ng-disabled="!pastedMacsText"
                   ng-click="parsePastedMacs()">
                   {{ 'Apply' | translate }}
