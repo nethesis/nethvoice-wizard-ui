@@ -103,5 +103,7 @@
   "tone_zone_us-old": "United States Circa 1950/ North America",
   "tone_zone_ve": "Venezuela / South America",
   "en": "English",
-  "it": "Italian"
+  "it": "Italian",
+  "never_prov_freq": "Only at startup",
+  "everyday": "Every day"
 }

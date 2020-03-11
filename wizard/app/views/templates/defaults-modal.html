@@ -1,4 +1,4 @@
-<div ng-controller="DefaultModalUICtrl" class="wizard-modal">
+<div class="wizard-modal">
 	<div class="modal-dialog wizard-pf margin-10">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -22,9 +22,6 @@
 												class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
 												ng-model="defaultSettings[item.variable]" autocomplete="off">
 												<option value="">-</option>
-												<!-- combobox -->
-												<!-- <option ng-if="item.options.length > 10" ng-repeat="option in item.options" value="{{option.value}}"
-												on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option> -->
 												<!-- selectpicker -->
 												<option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
 													value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}
@@ -33,13 +30,6 @@
 										</div>
 										<!-- input -->
 										<div ng-if="item.type == 'input'" class="form-group">
-											<label class="control-label">{{::item.description | translate}}</label>
-											<input type="text" id="default-select-{{$index}}" ng-model="defaultSettings[item.variable]"
-												class="form-control">
-											</input>
-										</div>
-										<!-- input -->
-										<div ng-if="item.type == 'switch'" class="form-group">
 											<label class="control-label">{{::item.description | translate}}</label>
 											<input type="text" id="default-select-{{$index}}" ng-model="defaultSettings[item.variable]"
 												class="form-control">
@@ -102,7 +92,7 @@
 						</div>
 					</div>
 				</div>
-				<div ng-if="loadingActions == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div>
+				<!-- <div ng-if="loadingActions == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div> -->
 				<span ng-if="loadingActions == 'ok'" class="pficon pficon-ok adjust-margin loader-modal fz-18"></span>
 				<span ng-if="loadingActions == 'err'"
 					class="pficon pficon-error-circle-o adjust-margin loader-modal fz-18"></span>

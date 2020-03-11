@@ -19,7 +19,17 @@ angular.module('nethvoiceWizardUiApp')
             "variable": "provisioning_url_scheme",
             "default_value": "",
             "description": "Encryption",
-            "type": "switch"
+            "type": "list",
+            "options":  [
+              {
+                "text": "Enabled",
+                "value": "https"
+              },
+              {
+                "text": "Disabled",
+                "value": "http"
+              }
+            ]
           },
           {
             "variable": "hostname",
@@ -36,7 +46,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "adminpwd",
             "default_value": "",
-            "description": "Admin Passowrd",
+            "description": "Admin password",
             "type": "input"
           }
         ]
@@ -77,39 +87,11 @@ angular.module('nethvoiceWizardUiApp')
             "type": "list",
             "options": [
               {
-                "text": "Sunday",
-                "value": "sunday"
-              },
-              {
-                "text": "Monday",
-                "value": "monday"
-              },
-              {
-                "text": "Tuesday",
-                "value": "tuesday"
-              },
-              {
-                "text": "Wednesday",
-                "value": "wednesday"
-              },
-              {
-                "text": "Thursday",
-                "value": "thursday"
-              },
-              {
-                "text": "Friday",
-                "value": "friday"
-              },
-              {
-                "text": "Saturday",
-                "value": "saturday"
-              },
-              {
                 "text": "everyday",
                 "value": "everyday"
               },
               {
-                "text": "never",
+                "text": "never_prov_freq",
                 "value": "never"
               }
             ]

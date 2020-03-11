@@ -68,7 +68,11 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    // init()
-    redirect()
+    $scope.$on('$routeChangeStart', function() {
+      $scope.$parent.wizard.isNextDisabled = false
+    })
+
+    init()
+    // redirect()
 
   });

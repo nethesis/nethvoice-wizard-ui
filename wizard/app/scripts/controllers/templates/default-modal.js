@@ -26,6 +26,19 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    $scope.setDefaultSettings = function () {
+      $scope.loadingActions = true
+      $scope.defaultSettings.ui_first_config = ""
+      ModelService.setDefaults($scope.defaultSettings).then(function (res) {
+        // resetLoadingAction("ok")
+        $scope.enableNextDisabled()
+        $("#defaultSettingsModal").modal("hide")
+      }, function (err) {
+        // resetLoadingAction("err")
+        console.log(err)
+      })
+    }
+
     $scope.openSection = function (sectionkey) {
       $scope.destroyAllSelects(".globalsSectionContainer")
       $scope.selectOptionsLimit = 11

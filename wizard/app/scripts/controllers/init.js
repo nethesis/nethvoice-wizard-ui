@@ -490,6 +490,10 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    $scope.enableNextDisabled = function () {
+      $scope.wizard.isNextDisabled = false
+    }
+
     var getGlobals = function () {
       ModelService.getDefaults().then(function (res) {
         $scope.currentModel.globals = angular.copy(res.data)

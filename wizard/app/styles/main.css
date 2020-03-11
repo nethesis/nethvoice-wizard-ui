@@ -1063,6 +1063,14 @@ a {
   text-align: left;
 }
 
+.left-align {
+  text-align: left !important;
+}
+
+.pl-10 {
+  padding-left: 10px !important;
+}
+
 .spinner-right {
   float: right;
   margin-top: 6px;

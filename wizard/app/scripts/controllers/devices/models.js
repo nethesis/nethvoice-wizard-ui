@@ -97,17 +97,6 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    $scope.setDefaultSettings = function () {
-      $scope.loadingActions = true
-      ModelService.setDefaults($scope.defaultSettings).then(function (res) {
-        resetLoadingAction("ok")
-        $("#defaultSettingsModal").modal("hide")
-      }, function (err) {
-        resetLoadingAction("err")
-        console.log(err)
-      })
-    }
-
     $scope.onModelSetContinue = function () {
       $("#modelChangeConfirm").modal("hide")
       $scope.setCurrentModel(modelNameChecking)

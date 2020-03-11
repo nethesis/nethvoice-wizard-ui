@@ -25,7 +25,8 @@
   </div>
 
   <div class="blank-slate-pf-main-action">
-    <button ng-click="openDefaultSettings()" class="btn btn-lgg btn-warning" type="button"><i class="fa fa-warning"></i> {{"Default settings" | translate}}</button>
+    <button ng-if="defaultSettings.ui_first_config === '1'" ng-click="openDefaultSettings()" class="btn btn-lgg btn-warning" type="button"><i class="fa fa-warning"></i> {{"Default settings" | translate}}</button>
+    <button ng-if="defaultSettings.ui_first_config === ''" ng-click="openDefaultSettings()" class="btn btn-lgg btn-primary" type="button"><i class="fa fa-check"></i> {{"Default settings" | translate}}</button>
   </div>
 
   <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>
@@ -34,6 +35,7 @@
 <div
   class="modal fade"
   id="defaultSettingsModal"
+  ng-controller="DefaultModalUICtrl"
   tabindex="-1"
   role="dialog"
   aria-hidden="true"
