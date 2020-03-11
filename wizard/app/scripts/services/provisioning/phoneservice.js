@@ -129,12 +129,10 @@ angular.module('nethvoiceWizardUiApp')
       });
       return Array.from(vendorSet);
     }
-
-    this.toRps = function (mac, token) {
+                              
+    this.toRps = function (mac, obj) {
       return $q(function (resolve, reject) {
-        RestService.post('/phones/rps/' + mac, {
-          'token' : token
-        }).then(function (res) {
+        RestService.post('/phones/rps/' + mac, obj).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
