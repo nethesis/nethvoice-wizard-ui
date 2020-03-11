@@ -13,7 +13,6 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.view.changeRoute = true
     $scope.defaultSettings = {}
-    $scope.$parent.wizard.isNextDisabled = false
 
     var currentStep = $route.current.controllerAs.split('/').length > 1 ? $route.current.controllerAs.split('/')[1] : $route.current.controllerAs.split('/')[0],
         stepCount = appConfig.STEP_MAP[currentStep],
@@ -61,8 +60,8 @@ angular.module('nethvoiceWizardUiApp')
         if (!res.data.ui_first_config) {
           redirect()
         }
-        $scope.$parent.wizard.isNextDisabled = $scope.defaultSettings.ui_first_config ? true : false
         $scope.defaultSettings = res.data
+        $scope.$parent.wizard.isNextDisabled = $scope.defaultSettings.ui_first_config ? true : false
         $scope.view.changeRoute = false
       }, function (err) {
         console.log(err)

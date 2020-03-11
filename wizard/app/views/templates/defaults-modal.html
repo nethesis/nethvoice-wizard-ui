@@ -8,11 +8,11 @@
 				<h4 class="modal-title" id="dfSettingsMLabel">{{'Default Settings' | translate}}</h4>
 			</div>
 			<form class="form-horizontal" ng-submit="setDefaultSettings()">
-				<div class="modal-body inline-display">
+				<div class="modal-body inline-display full-width">
 					<div class="col-lg-12 mt-30">
-						<div ng-repeat="(sectionName, section) in globalsUi">
+						<div ng-repeat="(sectionKey, section) in globalsUi">
 							<!-- if is pinned section -->
-							<div ng-if="sectionName == 'pinned'" style="display: flow-root !important;">
+							<div ng-if="sectionKey == 'pinned'" style="display: flow-root !important;">
 								<div ng-repeat="item in section.data track by $index" class="col-lg-6 mb-15">
 									<div class="col-lg-12">
 										<!-- list -->
@@ -49,19 +49,18 @@
 								</div>
 							</div>
 							<!-- if is section -->
-							<div class="mt-20" ng-if="sectionName != 'pinned'">
-								<h2 ng-click="openSection(sectionkey)"
+							<div class="mt-20 globalsSectionContainer" ng-if="sectionKey != 'pinned'">
+								<h2 ng-click="openSection(sectionKey)"
 									class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
 									{{::section.name}}
 									<span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
 								</h2>
 								<div id="collapse-section-{{$index}}"
 									class="panel-collapse adjust-profile-body model-container"
-									ng-if="currentModel.openedSection == sectionkey">
+									ng-if="openedSection == sectionKey">
 									<div class="panel-body">
-										<div ng-show="currentModel.loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
-										<div ng-show="!currentModel.loadingSections[sectionkey]" class="col-lg-12 mt-25 no-border-bottom">
-	
+										<div ng-show="loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
+										<div ng-show="!loadingSections[sectionkey]" class="col-lg-12 mt-25 no-border-bottom">
 											<div ng-repeat="item in section.data track by $index" class="col-lg-6 mb-15">
 												<div class="col-lg-12">
 													<!-- list -->
@@ -71,30 +70,35 @@
 															class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
 															ng-model="defaultSettings[item.variable]" autocomplete="off">
 															<option value="">-</option>
-															<!-- combobox -->
-															<!-- <option ng-if="item.options.length > 10" ng-repeat="option in item.options" value="{{option.value}}"
-															on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option> -->
-															<!-- selectpicker -->
-															<option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
-																value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}
-															</option>
+                              <!-- combobox -->
+                              <option ng-selected="defaultSettings[item.variable] == option.value"
+                                ng-if="item.options.length > 10 && ($index < selectOptionsLimit || option.value == defaultSettings[item.variable])"
+                                ng-repeat="option in ::item.options track by $index"
+                                value="{{::option.value}}" render-index="{{$index}}" render-start="10" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
+                              <!-- selectpicker -->
+                              <option ng-selected="defaultSettings[item.variable] == option.value"
+                                ng-if="item.options.length <= 10"
+                                ng-repeat="option in ::item.options track by $index"
+                                value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
+                              <option ng-disabled="true" ng-if="item.options.length > 10 && selectOptionsLimit < item.options.length" value="loading">{{"Loading" | translate}}...</option>
 														</select>
 													</div>
 													<!-- input -->
 													<div ng-if="item.type == 'input'" class="form-group">
 														<label class="control-label">{{::item.description | translate}}</label>
-														<input type="text" id="default-select-{{$index}}" ng-model="defaultSettings[item.variable]"
+                            <input 
+                              type="text"
+                              id="default-select-{{$index}}"
+                              ng-model="defaultSettings[item.variable]"
 															class="form-control">
 														</input>
 													</div>
 												</div>
 											</div>
-	
 										</div>
 									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
