@@ -56,11 +56,19 @@ angular.module('nethvoiceWizardUiApp')
 
     var init = function () {
       ModelService.getDefaults().then(function (res) {
-        console.log("RES", res);
         if (!res.data.ui_first_config) {
           redirect()
         }
         $scope.defaultSettings = res.data
+        ModelService.getConfigurationDefaults().then(function (res) {
+          for (let variable in res.data) {
+            if (!$scope.defaultSettings[variable]) {
+              $scope.defaultSettings[variable] = res.data[variable]
+            }
+          }
+        }, function (err) {
+          console.log(err)
+        })
         $scope.$parent.wizard.isNextDisabled = $scope.defaultSettings.ui_first_config ? true : false
         $scope.view.changeRoute = false
       }, function (err) {
