@@ -21,32 +21,52 @@ angular.module('nethvoiceWizardUiApp')
     this.getDateFormat = function () {
       return [
         {
-          "text": "WWW MMM DD",
-          "value": "0"
+          "text": "DD MM YY",
+          "value": "DD MM YY"
         },
         {
-          "text": "DD-MMM-YY",
-          "value": "1"
+          "text": "DD MM YYYY",
+          "value": "DD MM YYYY"
         },
         {
-          "text": "YYYY-MM-DD",
-          "value": "2"
+          "text": "DD MMM WW",
+          "value": "DD MMM WW"
         },
         {
-          "text": "DD/MM/YYYY",
-          "value": "3"
-        },
-        {
-          "text": "MM/DD/YY",
-          "value": "4"
+          "text": "DD MMM YY",
+          "value": "DD MMM YY"
         },
         {
           "text": "DD MMM YYYY",
-          "value": "5"
+          "value": "DD MMM YYYY"
         },
         {
           "text": "WWW DD MMM",
-          "value": "6"
+          "value": "WWW DD MMM"
+        },
+        {
+          "text": "WWW MMM DD",
+          "value": "WWW MMM DD"
+        },
+        {
+          "text": "MM DD YY",
+          "value": "MM DD YY"
+        },
+        {
+          "text": "MM DD YYYY",
+          "value": "MM DD YYYY"
+        },
+        {
+          "text": "MMM DD WW",
+          "value": "MMM DD WW"
+        },
+        {
+          "text": "YY MM DD",
+          "value": "YY MM DD"
+        },
+        {
+          "text": "YYYY MM DD",
+          "value": "YYYY MM DD"
         }
       ]
     }
