@@ -145,14 +145,4 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    this.getConfigurationDefaults = function () {
-      return $q(function (resolve, reject) {
-        RestService.get('/configuration/defaults').then(function (res) {
-          resolve(res)
-        }, function (err) {
-          reject(err)
-        })
-      })
-    }
-
   })

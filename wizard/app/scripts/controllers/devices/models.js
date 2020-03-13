@@ -82,15 +82,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.openDefaultSettings = function () {
       ModelService.getDefaults().then(function (res) {
         $scope.defaultSettings = res.data
-        ModelService.getConfigurationDefaults().then(function (res) {
-          for (let variable in res.data) {
-            if (!$scope.defaultSettings[variable]) {
-              $scope.defaultSettings[variable] = res.data[variable]
-            }
-          }
-        }, function (err) {
-          console.log(err)
-        })
         $("#defaultSettingsModal").modal("show")
         setTimeout(function () {
           $('#defaultSettingsModal select').each(function(){

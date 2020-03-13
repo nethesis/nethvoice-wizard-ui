@@ -129,6 +129,10 @@
             <div class="list-group-item cursor-default"
               ng-repeat="phone in phones | filter:searchPhoneString | limitTo: phonesLimit | orderBy: 'display_name'">
               <div class="list-view-pf-actions">
+                <!-- provisioning info -->
+                <button type="button" class="btn btn-default" ng-click="openProvisioningInfo(phone.mac)">
+                  {{ 'Info' | translate }}
+                </button>
                 <!-- delete phone -->
                 <button type="button" class="btn btn-danger" ng-click="showDeletePhoneModal(phone)" data-toggle="modal"
                   data-target="#deletePhoneModal">
@@ -158,7 +162,7 @@
                         ng-model="phone.model"
                         ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
                       >
-                        <option value="">-</option>
+                        <option value="" ng-disabled="true" ng-hide="true">-</option>
                       </select>
                       <span ng-show="modelLoaders[phone.mac] === 'success'"
                         class="pficon pficon-ok set-model-feedback"></span>
@@ -275,7 +279,7 @@
                   <select class="form-control" pf-select="{ noneSelectedText: '-' }" data-live-search="true" data-size="5"
                     ng-model="manualModel" ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue"
                     ng-disabled="getManualFilteredModelsCount()" id="manual-model">
-                    <option value="">-</option>
+                    <option value="" ng-disabled="true" ng-hide="true">-</option>
                   </select>
                 </div>
               </div>
@@ -296,7 +300,7 @@
                 <div class="col-sm-5">
                   <select class="form-control" pf-select="{ noneSelectedText: '-' }" ng-model="networkToScan"
                     ng-options="network as (network.name + ' | ' + network.network) for network in networks |   orderBy:orderByValue">
-                    <option value="">-</option>
+                    <option value="" ng-disabled="true" ng-hide="true">-</option>
                   </select>
                 </div>
               </div>
@@ -447,7 +451,7 @@
                                 data-container="body"
                                 ng-options="model.display_name for model in phone.filteredModels | orderBy:orderByValue"
                                 id="model-phone-to-add-{{$index}}">
-                                <option value="">-</option>
+                                <option value="" ng-disabled="true" ng-hide="true">-</option>
                               </select>
                             </div>
                           </div>
@@ -528,6 +532,50 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="provisioningInfoModal" tabindex="-1" role="dialog" aria-labelledby="extenDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{'Phone provisioning info' | translate}} {{data.selExten.exten}}</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">{{'MAC' | translate}}:</label>
+            <div class="col-sm-8">
+              <label class="control-label">{{currentPhoneInfo.mac}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">{{'Provisioning URL' | translate}}:</label>
+            <div class="col-sm-8">
+              <label class="control-label">
+                <div class="custom-code-tag">
+                  {{currentPhoneInfo.provisioning_url1 ? currentPhoneInfo.provisioning_url1 : currentPhoneInfo.provisioning_url2}}
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">{{'Configuration status' | translate}}:</label>
+            <div class="col-sm-8">
+              <label class="control-label {{currentPhoneInfo.provisioning_url1 ? 'text-color-red' : 'text-color-green'}}">
+                {{currentPhoneInfo.provisioning_url1 ? "Not configured" : "Configured" | translate}}
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{"Cancel" | translate}}</button>
+      </div>
     </div>
   </div>
 </div>

@@ -233,26 +233,26 @@
             </div>
           </div>
           <div ng-if="data.selExten.type.indexOf('webrtc') === -1" class="form-group">
-            <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Port' | translate}}:</label>
-            <div class="col-sm-9">
+            <label class="col-sm-4 control-label" for="textInput2-modal-markup">{{'Port' | translate}}:</label>
+            <div class="col-sm-8">
               <label class="control-label">{{data.selExten.port !== '' ? data.selExten.port : '-'}}</label>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput2-modal-markup">{{'Codecs' | translate}}:</label>
-            <div class="col-sm-9">
+            <label class="col-sm-4 control-label" for="textInput2-modal-markup">{{'Codecs' | translate}}:</label>
+            <div class="col-sm-8">
               <label class="control-label">{{data.selExten.codecs !== '' ? data.selExten.codecs.toString() : '-'}}</label>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput3-modal-markup">{{'DND' | translate}}:</label>
-            <div class="col-sm-9">
+            <label class="col-sm-4 control-label" for="textInput3-modal-markup">{{'DND' | translate}}:</label>
+            <div class="col-sm-8">
               <label class="control-label {{data.selExten.dnd === true ? 'text-red': ''}}">{{data.selExten.dnd === true ? 'ON' : 'OFF'}}</label>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput3-modal-markup">{{'Call forward' | translate}}:</label>
-            <div class="col-sm-9">
+            <label class="col-sm-4 control-label" for="textInput3-modal-markup">{{'Call forward' | translate}}:</label>
+            <div class="col-sm-8">
               <label class="control-label {{data.selExten.cf !== '' ? 'text-red': ''}}">{{data.selExten.cf !== '' ? 'ON - ' + data.selExten.cf : 'OFF'}}</label>
             </div>
           </div>

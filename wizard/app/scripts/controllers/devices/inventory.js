@@ -202,6 +202,29 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.openProvisioningInfo = function (mac) {
+      PhoneService.getPhone(mac).then(function (res) {
+
+        console.log("RES RES RES", res);
+
+        $scope.currentPhoneInfo = res.data
+
+        // if (res.data.provisioning_url1) {
+        //   PhoneService.toRps(phoneCorbera.mac, {
+        //     url: res.data.provisioning_url1
+        //   }).then(function (res) {
+        //     // rps post success
+        //   }, function (err) {
+        //     console.log(err)
+        //   })
+        // }
+
+        $("#provisioningInfoModal").modal("show")
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
     $scope.netmaskToScanChanged = function () {
       $scope.showNetmaskToScanError = false;
     }
@@ -815,5 +838,12 @@ angular.module('nethvoiceWizardUiApp')
       $scope.phonesLimit = $scope.PHONES_PAGE
     })
 
-    init();
+    $('#provisioningInfoModal').on('hidden.bs.modal', function () {
+      $scope.currentPhoneInfo = {}
+    })
+
+    angular.element(document).ready(function () {
+      init()
+    })
+
   });

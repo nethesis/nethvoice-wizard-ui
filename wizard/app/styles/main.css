@@ -1993,6 +1993,10 @@ F
   margin-top: 5px;
 }
 
+.mt-50 {
+  margin-top: 50px;
+}
+
 .ml-10 {
   margin-left: 10px !important;
 }
@@ -2375,6 +2379,23 @@ F
 
 .phone-sources-phonebook {
   margin-bottom: 30px !important;
+}
+
+.custom-code-tag {
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 50px;
+  background: #ececec;
+  border: 1px solid #dedede;
+  padding: 7px;
+}
+
+.text-color-green {
+  color: #6ec664 !important;
+}
+
+.text-color-red {
+  color: #DB2828 !important;
 }
 
 #navbar-left .panel-collapse .list-group-item {

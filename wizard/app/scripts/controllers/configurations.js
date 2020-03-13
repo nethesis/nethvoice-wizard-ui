@@ -352,13 +352,17 @@ angular.module('nethvoiceWizardUiApp')
         device.linkInAction = "ok"
         device.web_password = ''
         device.web_user = ''
+        device.extension = res.data.extension
         $scope.linkToUserInProgress = false;
         $scope.showResultLinkToUser = true;
         $scope.linkToUserSuccess = true;
         // set encryption if cloud
-        device.encryption = $scope.cloudProvisioning ? true : false
-        device.extension = res.data.extension
-        $scope.switchEncryption(device)
+        ModelService.getDefaults().then(function (res) {
+          device.encryption = res.data.provisioning_url_scheme === "https" ? true : false
+          $scope.switchEncryption(device)
+        }, function (err) {
+          console.log(err);
+        })
         // async graphics
         $timeout(function () {
           $('#devicesAssociation').modal('hide');

@@ -9,6 +9,22 @@
 			</div>
 			<form class="form-horizontal" ng-submit="setDefaultSettings()">
 				<div class="modal-body inline-display full-width">
+					<!-- <div ng-show="true" class="col-lg-12 mt-30">
+						<div class="alert alert-warning alert-dismissable mb-10">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span class="pficon pficon-close"></span>
+							</button>
+							<span class="pficon pficon-warning-triangle-o"></span>
+							<strong>{{"Manage models variables by modifying them from the appropriate section"}}.</strong> {{"Read the" | translate}}.
+						</div>
+						<div class="alert alert-danger alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span class="pficon pficon-close"></span>
+							</button>
+							<span class="pficon pficon-error-circle-o"></span>
+							<strong>Hey there is a problem!</strong> Yeah this is really messed up and you should <a href="#" class="alert-link">know about it</a>.
+						</div>
+					</div> -->
 					<div class="col-lg-12 mt-30">
 						<div ng-repeat="(sectionKey, section) in globalsUi">
 							<!-- if is pinned section -->
@@ -21,7 +37,7 @@
 											<select id="default-select-{{$index}}"
 												class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
 												ng-model="defaultSettings[item.variable]" autocomplete="off">
-												<option value="">-</option>
+												<option value="" ng-disabled="true" ng-hide="true">-</option>
 												<!-- selectpicker -->
 												<option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
 													value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}
@@ -59,7 +75,7 @@
 														<select id="default-select-{{$index}}"
 															class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
 															ng-model="defaultSettings[item.variable]" autocomplete="off">
-															<option value="">-</option>
+															<option value="" ng-disabled="true" ng-hide="true">-</option>
                               <!-- combobox -->
                               <option ng-selected="defaultSettings[item.variable] == option.value"
                                 ng-if="item.options.length > 10 && ($index < selectOptionsLimit || option.value == defaultSettings[item.variable])"
