@@ -71,12 +71,12 @@
                                               <option value="" ng-disabled="true" ng-hide="true">-</option>
                                               <!-- combobox -->
                                               <option ng-selected="currentModel.variables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == option.value"
-                                                ng-if="key.options.length > 10"
+                                                ng-if="key.options.length > 10 && !currentModel.ui.map[sectionkey].hidden_types.includes(option.value)"
                                                 ng-repeat="option in ::key.options"
                                                 value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                                               <!-- selectpicker -->
                                               <option ng-selected="currentModel.variables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == option.value"
-                                                ng-if="key.options.length <= 10"
+                                                ng-if="key.options.length <= 10 && !currentModel.ui.map[sectionkey].hidden_types.includes(option.value)"
                                                 ng-repeat="option in ::key.options"
                                                 value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
                                             </select>
@@ -160,12 +160,12 @@
                                       <option value="" ng-disabled="true" ng-hide="true">-</option>
                                       <!-- combobox -->
                                       <option ng-selected="currentModel.variables[key.variable + '_' + keysIndex] == option.value"
-                                        ng-if="key.options.length > 10"
+                                        ng-if="key.options.length > 10 && !currentModel.ui.map[sectionkey].hidden_types.includes(option.value)"
                                         ng-repeat="option in ::key.options"
                                         value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                                       <!-- selectpicker -->
                                       <option ng-selected="currentModel.variables[key.variable + '_' + keysIndex] == option.value"
-                                        ng-if="key.options.length <= 10"
+                                        ng-if="key.options.length <= 10 && !currentModel.ui.map[sectionkey].hidden_types.includes(option.value)"
                                         ng-repeat="option in ::key.options"
                                         value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
                                     </select>
@@ -240,12 +240,12 @@
                               <option value="" ng-disabled="true" ng-hide="true">-</option>                             
                               <!-- combobox -->
                               <option ng-selected="currentModel.variables[key.variable] == option.value"
-                                ng-if="key.options.length > 10"
+                                ng-if="key.options.length > 10 && !currentModel.ui.map[sectionkey].hidden_types.includes(option.value)"
                                 ng-repeat="option in ::key.options"
                                 value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}</option>
                               <!-- selectpicker -->
                               <option ng-selected="currentModel.variables[key.variable] == option.value"
-                                ng-if="key.options.length <= 10"
+                                ng-if="key.options.length <= 10 && !currentModel.ui.map[sectionkey].hidden_types.includes(option.value)"
                                 ng-repeat="option in ::key.options"
                                 value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}</option>
                             </select>

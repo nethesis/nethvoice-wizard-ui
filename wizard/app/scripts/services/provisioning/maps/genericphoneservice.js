@@ -1031,12 +1031,12 @@ angular.module('nethvoiceWizardUiApp')
                       "value": "status"
                     },
                     {
-                      "text": "LDAP",
-                      "value": "ldap"
-                    },
-                    {
                       "text": "Prefix",
                       "value": "prefix"
+                    },
+                    {
+                      "text": "LDAP",
+                      "value": "ldap"
                     }
                   ]
                 },
@@ -1147,16 +1147,16 @@ angular.module('nethvoiceWizardUiApp')
                       "value": "record"
                     },
                     {
-                      "text": "LDAP",
-                      "value": "ldap"
-                    },
-                    {
                       "text": "Prefix",
                       "value": "prefix"
                     },
                     {
                       "text": "Phone Lock",
                       "value": "phone_lock"
+                    },
+                    {
+                      "text": "LDAP",
+                      "value": "ldap"
                     }
                   ]
                 },
@@ -1267,16 +1267,16 @@ angular.module('nethvoiceWizardUiApp')
                       "value": "record"
                     },
                     {
-                      "text": "LDAP",
-                      "value": "ldap"
-                    },
-                    {
                       "text": "Prefix",
                       "value": "prefix"
                     },
                     {
                       "text": "Phone Lock",
                       "value": "phone_lock"
+                    },
+                    {
+                      "text": "LDAP",
+                      "value": "ldap"
                     }
                   ]
                 },
