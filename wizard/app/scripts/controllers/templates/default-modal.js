@@ -26,17 +26,42 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    var resetloadingActions = function (status) {
+      $scope.loadingActions = status
+      setTimeout(function () {
+        $scope.loadingActions = false
+        $scope.$apply()
+      }, 2500)
+    }
+
     $scope.setDefaultSettings = function () {
-      $scope.loadingActions = true
+      $scope.loadingActionss = true
       $scope.defaultSettings.ui_first_config = ""
       ModelService.setDefaults($scope.defaultSettings).then(function (res) {
-        // resetLoadingAction("ok")
+        resetloadingActions("ok")
         $scope.enableNextDisabled()
         $("#defaultSettingsModal").modal("hide")
       }, function (err) {
-        // resetLoadingAction("err")
+        resetloadingActions("err")
         console.log(err)
       })
+    }
+
+    $scope.isModelsPage = function () {
+      if ($location.path() == "/devices/models") {
+        return true
+      } else {
+        return false
+      }
+    }
+
+    $scope.pinnedChange = function (variable) {
+      if (variable == "hostname") {
+        $scope.connectivityCheck({
+          "host": $scope.defaultSettings.hostname,
+          "scheme": $scope.defaultSettings.provisioning_url_scheme
+        })
+      }
     }
 
     $scope.openSection = function (sectionkey) {

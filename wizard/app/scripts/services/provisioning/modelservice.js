@@ -145,4 +145,14 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    this.checkConnectivity = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.post('/provisioning/connectivitycheck', obj).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
   })

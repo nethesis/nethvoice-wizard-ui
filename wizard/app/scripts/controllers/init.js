@@ -494,6 +494,14 @@ angular.module('nethvoiceWizardUiApp')
       $scope.wizard.isNextDisabled = false
     }
 
+    $scope.connectivityCheck = function (obj) {
+      ModelService.checkConnectivity(obj).then(function (res) {
+        $scope.connectivityCheckRes = res.data
+      }, function (err) {
+        console.log(err);
+      })
+    }
+
     var getGlobals = function () {
       ModelService.getDefaults().then(function (res) {
         $scope.currentModel.globals = angular.copy(res.data)
@@ -540,6 +548,9 @@ angular.module('nethvoiceWizardUiApp')
       if ($location.path() == '/devices/models' || $location.path() == '/configurations'){
         $scope.currentModel = {}
         $scope.destroyAllSelects("#modelsContainer")
+      }
+      if ($scope.connectivityCheckRes) {
+        $scope.connectivityCheckRes = null
       }
     })
     

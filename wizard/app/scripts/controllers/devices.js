@@ -60,6 +60,10 @@ angular.module('nethvoiceWizardUiApp')
           redirect()
         }
         $scope.defaultSettings = res.data
+        $scope.connectivityCheck({
+          "host": res.data.hostname,
+          "scheme": res.data.provisioning_url_scheme
+        })
         $scope.$parent.wizard.isNextDisabled = $scope.defaultSettings.ui_first_config ? true : false
         $scope.view.changeRoute = false
       }, function (err) {

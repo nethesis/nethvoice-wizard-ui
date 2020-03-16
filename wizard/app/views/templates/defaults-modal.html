@@ -8,23 +8,32 @@
 				<h4 class="modal-title" id="dfSettingsMLabel">{{'Default Settings' | translate}}</h4>
 			</div>
 			<form class="form-horizontal" ng-submit="setDefaultSettings()">
-				<div class="modal-body inline-display full-width">
-					<!-- <div ng-show="true" class="col-lg-12 mt-30">
-						<div class="alert alert-warning alert-dismissable mb-10">
+				<div class="modal-body inline-display full-width mb-20">
+					<div ng-show="true" class="col-lg-12 mt-30">
+
+						<div ng-if="!isModelsPage()" class="alert alert-info alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span class="pficon pficon-close"></span>
+							</button>
+							<span class="pficon pficon-info"></span>
+							{{"The following settins can be modified later from the models page" | translate}}.
+						</div>
+
+						<div ng-if="connectivityCheckRes.valid_certificate === false" class="alert alert-warning alert-dismissable mb-10">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span class="pficon pficon-close"></span>
 							</button>
 							<span class="pficon pficon-warning-triangle-o"></span>
-							<strong>{{"Manage models variables by modifying them from the appropriate section"}}.</strong> {{"Read the" | translate}}.
+							<strong>{{"The PBX address certificate is invalid" | translate}}!</strong> {{"Configuring phones in remote networks with encryption is not possible, the phones will only be able to connect from trusted networks" | translate}}.
 						</div>
-						<div class="alert alert-danger alert-dismissable">
+						<div ng-if="connectivityCheckRes.is_reachable === false" class="alert alert-danger alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span class="pficon pficon-close"></span>
 							</button>
 							<span class="pficon pficon-error-circle-o"></span>
-							<strong>Hey there is a problem!</strong> Yeah this is really messed up and you should <a href="#" class="alert-link">know about it</a>.
+							<strong>{{"The PBX address is not reachable" | translate}}!</strong> {{"Add an address reachable from localhost" | translate}}.
 						</div>
-					</div> -->
+					</div>
 					<div class="col-lg-12 mt-30">
 						<div ng-repeat="(sectionKey, section) in globalsUi">
 							<!-- if is pinned section -->
@@ -45,9 +54,9 @@
 											</select>
 										</div>
 										<!-- input -->
-										<div ng-if="item.type == 'input'" class="form-group">
+										<div ng-if="item.type == 'input'" class="form-group {{(connectivityCheckRes.is_reachable === false) && (item.variable == 'hostname') ? 'has-error' : ''}}">
 											<label class="control-label">{{::item.description | translate}}</label>
-											<input type="text" id="default-select-{{$index}}" ng-model="defaultSettings[item.variable]"
+											<input type="text" id="default-select-{{$index}}" ng-change="pinnedChange(item.variable)" ng-model="defaultSettings[item.variable]"
 												class="form-control">
 											</input>
 										</div>
@@ -108,13 +117,12 @@
 						</div>
 					</div>
 				</div>
-				<!-- <div ng-if="loadingActions == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div> -->
+				<div ng-if="loadingActions == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div>
 				<span ng-if="loadingActions == 'ok'" class="pficon pficon-ok adjust-margin loader-modal fz-18"></span>
-				<span ng-if="loadingActions == 'err'"
-					class="pficon pficon-error-circle-o adjust-margin loader-modal fz-18"></span>
+				<span ng-if="loadingActions == 'err'" class="pficon pficon-error-circle-o adjust-margin loader-modal fz-18"></span>
 				<div class="modal-footer submit">
 					<button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
-					<button type="submit" class="btn btn-primary">{{'Save' | translate}}</button>
+					<button type="submit" ng-disabled="connectivityCheckRes.is_reachable === false" class="btn btn-primary">{{'Save' | translate}}</button>
 				</div>
 			</form>
 		</div>

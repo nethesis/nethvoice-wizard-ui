@@ -781,5 +781,11 @@
   "Encryption": "Crittografia",
   "Phone provisioning info": "Info provisioning telefono",
   "Configuration status": "Stato configurazione",
-  "Provisioning URL": "URL di provisioning"
+  "Provisioning URL": "URL di provisioning",
+  "PBX address": "Indirizzo centralino",
+  "Configuring phones in remote networks with encryption is not possible, the phones will only be able to connect from trusted networks": "La configurazione dei telefoni in reti remote con cifratura del traffico non è possibile, i telefoni potranno collegarsi solamente da reti fidate",
+  "The PBX address certificate is invalid": "Il certificato dell'indirizzo del centralino non è valido",
+  "The PBX address is not reachable": "L'indirizzo del centralino non è raggiungibile",
+  "Add an address reachable from localhost": "Inserisci un indirizzo raggiungibile dal host locale",
+  "The following settins can be modified later from the models page": "Le seguenti impostazioni potranno essere modificate successivamente dalla pagina modelli"
 }
