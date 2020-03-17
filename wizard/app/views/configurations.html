@@ -42,6 +42,7 @@
       <!-- repeat  -->
       <div
         ng-repeat="user in allUsers | customFilterMultiple:'displayname,username,default_extension,configurationsUsersSearch':searchUser | limitTo: usersLimit | orderBy:usersFilterNumbers"
+        ng-if="user.default_extension != 'none' && user.default_extension != ''"
         ng-show="usersFilter == 'configured' ? user.devices.length > 0 : (usersFilter == 'unconfigured' ? user.devices.length == 0 : true)"
         class="list-group-item {{user.username == currentUser.username ? 'list-view-pf-expand-active' : ''}}">
         <div class="list-group-item-header">
