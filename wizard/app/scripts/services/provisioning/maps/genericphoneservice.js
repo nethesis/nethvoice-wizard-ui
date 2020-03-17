@@ -19,12 +19,14 @@ angular.module('nethvoiceWizardUiApp')
           linekey_type_blacklist = variables.linekey_type_blacklist,
           expmodule_count = parseInt(variables.cap_expmodule_count),
           expkey_count = parseInt(variables.cap_expkey_count),
-          expkey_type_blacklist = variables.cap_expkey_type_blacklist
+          expkey_type_blacklist = variables.cap_expkey_type_blacklist,
+          hidden_date_formats = variables.cap_date_format_blacklist
 
       return {
         "general": {
           "settings": true,
-          "password": true
+          "password": true,
+          "hidden_dateformat": hidden_date_formats
         },
         "preferences": {
           "ringtone": true,

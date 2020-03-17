@@ -49,10 +49,6 @@ angular.module('nethvoiceWizardUiApp')
           "value": "WWW MMM DD"
         },
         {
-          "text": "MM DD YY",
-          "value": "MM DD YY"
-        },
-        {
           "text": "MM DD YYYY",
           "value": "MM DD YYYY"
         },
@@ -67,6 +63,10 @@ angular.module('nethvoiceWizardUiApp')
         {
           "text": "YYYY MM DD",
           "value": "YYYY MM DD"
+        },
+        {
+          "text": "MM DD YY",
+          "value": "MM DD YY"
         }
       ]
     }
