@@ -15,7 +15,7 @@
 								<span class="pficon pficon-close"></span>
 							</button>
 							<span class="pficon pficon-info"></span>
-							{{"The following settins can be modified later from the models page" | translate}}.
+							<strong>{{"The following settins can be modified later from the models page" | translate}}.</strong>
 						</div>
 						<div ng-if="connectivityCheckRes.valid_certificate === false" class="alert alert-warning alert-dismissable mb-10">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -65,7 +65,7 @@
 							<div class="mt-20 globalsSectionContainer" ng-if="sectionKey != 'pinned'">
 								<h2 ng-click="openSection(sectionKey)"
 									class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
-									{{::section.name}}
+									{{::section.name | translate}}
 									<span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
 								</h2>
 								<div id="collapse-section-{{$index}}"

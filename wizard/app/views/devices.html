@@ -25,8 +25,8 @@
   </div>
 
   <div class="blank-slate-pf-main-action">
-    <button ng-if="defaultSettings.ui_first_config === '1'" ng-click="openDefaultSettings()" class="btn btn-lgg btn-warning" type="button"><i class="fa fa-warning"></i> {{"Default settings" | translate}}</button>
-    <button ng-if="defaultSettings.ui_first_config === ''" ng-click="openDefaultSettings()" class="btn btn-lgg btn-primary" type="button"><i class="fa fa-check"></i> {{"Default settings" | translate}}</button>
+    <button ng-if="defaultSettings.ui_first_config === '1'" ng-click="openDefaultSettings()" class="btn btn-lgg btn-warning" type="button"><i class="fa fa-pencil-square-o"></i> {{"Edit the default settings" | translate}}</button>
+    <button ng-if="defaultSettings.ui_first_config === ''" ng-click="openDefaultSettings()" class="btn btn-lgg btn-primary" type="button"><i class="fa fa-check"></i> {{"Edit the default settings" | translate}}</button>
   </div>
 
   <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>

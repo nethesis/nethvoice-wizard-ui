@@ -787,5 +787,10 @@
   "The PBX address certificate is invalid": "Il certificato dell'indirizzo del centralino non è valido",
   "The PBX address is not reachable": "L'indirizzo del centralino non è raggiungibile",
   "Add an address reachable from localhost": "Inserisci un indirizzo raggiungibile dal host locale",
-  "The following settins can be modified later from the models page": "Le seguenti impostazioni potranno essere modificate successivamente dalla pagina modelli"
+  "The following settins can be modified later from the models page": "Le seguenti impostazioni potranno essere modificate successivamente dalla pagina modelli",
+  "Default settings": "Impostazioni di default",
+  "General": "Generali",
+  "Preferences": "Preferenze",
+  "Edit the default settings": "Modifica le impostazioni di default",
+  "Manage models variables by modifying them from the appropriate section": "Gestisci le veriabili dei modelli modificandole nella sezione corrispondente"
 }

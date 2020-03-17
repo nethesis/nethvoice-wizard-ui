@@ -5,7 +5,7 @@
         <span class="pficon pficon-close"></span>
       </button>
       <span class="pficon pficon-info"></span>
-      <strong>{{"Manage models variables by modifying them from the appropriate section"}}.</strong> {{"Read the" | translate}} <a href="#" class="alert-link">{{"documentation" | translate}}</a>.
+      <strong>{{"Manage models variables by modifying them from the appropriate section" | translate}}.</strong>
     </div>
   </div>
   <div class="col-lg-12 profile-list-container mb-0 no-border-bottom">
@@ -20,7 +20,7 @@
           <div class="mt-20" ng-if="isKeysSection(sectionkey)">
             <h2 ng-click="openSection(sectionkey)"
               class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
-              {{::section.name}}
+              {{::section.name | translate}}
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
             </h2>
             <div id="collapse-section-{{$index}}"
@@ -301,7 +301,7 @@
           <div class="mt-20" ng-if="!isKeysSection(sectionkey) && ($index > 0)">
             <h2 ng-click="openSection(sectionkey)"
               class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
-              {{::section.name}}
+              {{::section.name | translate}}
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
             </h2>
             <div id="collapse-section-{{$index}}"

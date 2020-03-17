@@ -894,7 +894,7 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       return {
-        "name": "Network",
+        "name": "Phonebook",
         "items": ldapItems.concat(vlanItems)
       }
     }
