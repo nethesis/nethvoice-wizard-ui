@@ -43,7 +43,7 @@ module.exports = function(config) {
       'bower_components/matchHeight/dist/jquery.matchHeight.js',
       'bower_components/moment/moment.js',
       'bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-      'bower_components/patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.js',
+      'bower_components/patternfly-bootstrap-treeview/dist/bootstrap-treeview.js',
       'bower_components/patternfly/dist/js/patternfly.js',
       'bower_components/angular-translate/angular-translate.js',
       'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
@@ -64,6 +64,7 @@ module.exports = function(config) {
       'bower_components/ace-builds/src-min/theme-twilight.js',
       'bower_components/ace-builds/src-min/worker-json.js',
       'bower_components/angular-ui-ace/ui-ace.js',
+      'bower_components/clipboard/dist/clipboard.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

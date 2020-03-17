@@ -11,7 +11,7 @@
       <button ng-click="wizard.prevState ? prevStep() : undefined" type="button" class="btn btn-default wizard-pf-back {{wizard.prevState ? '' : 'disabled'}}">
           {{'Back' | translate}}
         </button>
-      <button ng-if="!endWizard" ng-click="wizard.nextState ? nextStep() : undefined" type="button" class="btn btn-primary wizard-pf-next {{wizard.nextState ? '' : 'disabled'}}">
+      <button ng-if="!endWizard" ng-disabled="wizard.isNextDisabled" ng-click="wizard.nextState ? nextStep() : undefined" type="button" class="btn btn-primary wizard-pf-next {{wizard.nextState ? '' : 'disabled'}}">
           {{'Next' | translate}}
       </button>
       <button ng-if="endWizard" ng-click="wizard.isEnd ? finalize() : undefined" type="button" class="btn btn-primary wizard-pf-next {{wizard.isEnd ? '' : 'disabled'}}">

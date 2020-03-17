@@ -1,0 +1,44 @@
+<div class="blank-slate-pf no-border">
+  <div class="blank-slate-pf-icon">
+    <span class="fa fa-cogs"></span>
+  </div>
+
+  <div class="blank-slate-pf-title mt-10">
+    <h1>
+      {{'Edit the default settings before continuing' | translate}}
+    </h1>
+  </div>
+
+  <div class="blank-slate-pf-content mt-20 mb-30">
+    <p>
+      {{'Le impostazioni di default devono essere adatte ai dispositivi da configurare' | translate}}:
+    </p>
+    <p>
+      {{'Nel caso in cui tutti i dispositivi siano in rete locale rispetto al centralino sarà possibile disabilitare la crittografia e impostare un IP interno come nome host' | translate}}
+    </p>
+    <p>
+      {{'Nel caso in cui almeno un dispositivo sia remoto rispetto al centralino sarà necessario abilitare la citografia e impostare come nome host un IP o un Dominio pubblico' | translate}}
+    </p>
+    <p>
+      {{'Correggi le impostazioni di default cliccando il pulsane sottostante' | translate}}:
+    </p>
+  </div>
+
+  <div class="blank-slate-pf-main-action">
+    <button ng-if="defaultSettings.ui_first_config === '1'" ng-click="openDefaultSettings()" class="btn btn-lgg btn-warning" type="button"><i class="fa fa-pencil-square-o"></i> {{"Edit the default settings" | translate}}</button>
+    <button ng-if="defaultSettings.ui_first_config === ''" ng-click="openDefaultSettings()" class="btn btn-lgg btn-primary" type="button"><i class="fa fa-check"></i> {{"Edit the default settings" | translate}}</button>
+  </div>
+
+  <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>
+</div>
+  
+<div
+  class="modal fade"
+  id="defaultSettingsModal"
+  ng-controller="DefaultModalUICtrl"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+  data-backdrop="static"
+  ng-include="defaultsModalUrl"
+  ></div>

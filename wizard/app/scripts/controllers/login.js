@@ -7,6 +7,7 @@
  * # LoginCtrl
  * Controller of the nethvoiceWizardUiApp
  */
+
 angular.module('nethvoiceWizardUiApp')
   .controller('LoginCtrl', function ($rootScope, $scope, $location, ConfigService, LoginService, LocalStorageService, MigrationService) {
     $scope.doLogin = function (secret) {
@@ -19,10 +20,11 @@ angular.module('nethvoiceWizardUiApp')
             $scope.wizard.isWizard = res[0].status === 'true';
             $scope.wizard.stepCount = res[0].step;
           }
+
           if ($scope.wizard.isWizard) {
             MigrationService.isMigration().then(function (resIsMigration) {
-              $scope.wizard.isMigration = resIsMigration.data;
-              if (resIsMigration.data) {
+              $scope.wizard.isMigration = resIsMigration.data
+              if ($scope.wizard.isMigration) {
                 // isWizard && isMigration
                 ConfigService.getConfig().then(function(resConfig) {
                   if (resConfig.data.configured === 1) {
@@ -30,12 +32,12 @@ angular.module('nethvoiceWizardUiApp')
                     MigrationService.getMigrationStatus().then(function (migStatus) {
                       $scope.pauseWizard();
                       $scope.redirectMigrationAction(migStatus.data, 1);
-                      $scope.view.navbarLeftReady = true;
+                      $scope.view.navbarReadyFirst = true;
                     }, function (err) {
                       console.log(err);
                     });
                   } else {
-                    $scope.view.navbarLeftReady = true;
+                    $scope.view.navbarReadyFirst = true;
                     $location.path('/users');
                   }
                 }, function(err) {
@@ -43,7 +45,7 @@ angular.module('nethvoiceWizardUiApp')
                 });
               } else {
                 // isWizard && !isMigration
-                $scope.view.navbarLeftReady = true;
+                $scope.view.navbarReadyFirst = true;
                 var location = appConfig.STEP_MAP_REVERSE[$scope.wizard.stepCount];
                 if ("/" + location !== $location.path()) {
                   $location.path('/' + location);
@@ -54,8 +56,8 @@ angular.module('nethvoiceWizardUiApp')
             });
           } else {
             // !isWizard
-            $scope.view.changeRoute = false;
-            $scope.view.navbarLeftReady = true;
+            // $scope.view.changeRoute = false;
+            $scope.view.navbarReadyFirst = true;
           }
           $('body').show();
           $scope.login.isLogged = true;

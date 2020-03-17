@@ -80,4 +80,15 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
+    this.getProvisioningInfo = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/provisioning/engine').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        });
+      });
+    }
+
   });

@@ -63,6 +63,26 @@ angular
         controller: 'UsersConfigurationsCtrl',
         controllerAs: 'users/configurations'
       })
+      .when('/devices', {
+        templateUrl: 'views/devices.html',
+        controller: 'DevicesCtrl',
+        controllerAs: 'devices'
+      })
+      .when('/devices/inventory', {
+        templateUrl: 'views/devices/inventory.html',
+        controller: 'DevicesInventoryCtrl',
+        controllerAs: 'devices/inventory'
+      })
+      .when('/devices/models', {
+        templateUrl: 'views/devices/models.html',
+        controller: 'DevicesModelsCtrl',
+        controllerAs: 'devices/models'
+      })
+      .when('/configurations', {
+        templateUrl: 'views/configurations.html',
+        controller: 'ConfigurationsCtrl',
+        controllerAs: 'configurations'
+      })
       .when('/trunks/physical', {
         templateUrl: 'views/trunks/physical.html',
         controller: 'TrunksPhysicalCtrl',
@@ -138,6 +158,11 @@ angular
         controller: 'BulkextensionsCtrl',
         controllerAs: 'bulkextensions'
       })
+      .when('/apps/bulkdevices', {
+        templateUrl: 'views/apps/bulkdevices.html',
+        controller: 'BulkdevicesCtrl',
+        controllerAs: 'Bulkdevices'
+      })
       .when('/migration', {
         templateUrl: 'views/migration.html',
         controller: 'MigrationCtrl',
@@ -167,6 +192,16 @@ angular
         templateUrl: 'views/apps/phonebook.html',
         controller: 'PhonebookCtrl',
         controllerAs: 'phonebook'
+      })
+      .when('/configurations', {
+        templateUrl: 'views/configurations.html',
+        controller: 'ConfigurationsCtrl',
+        controllerAs: 'configurations'
+      })
+      .when('/bulkdevices', {
+        templateUrl: 'views/bulkdevices.html',
+        controller: 'BulkdevicesCtrl',
+        controllerAs: 'bulkdevices'
       })
       .otherwise({
         redirectTo: '/'

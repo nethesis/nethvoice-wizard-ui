@@ -8,13 +8,17 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('InitCtrl', function ($scope, $translate, $route, $location, ConfigService, LanguageService, LocalStorageService, LoginService, UserService, MigrationService, TrunkService, RouteService) {
-    $scope.customConfig = customConfig;
-    $scope.appConfig = appConfig;
+  .controller('InitCtrl', function ($scope, $translate, $location, ConfigService, LanguageService, PhoneService, LocalStorageService, LoginService, UserService,
+    MigrationService, TrunkService, RouteService, ModelService, GenericPhoneService, ProvGlobalsService, $q, ProvFanvilService, ProvGigasetService,
+    ProvSangomaService, ProvSnomService, ProvYealinkService) {
+
+    $scope.customConfig = customConfig
+    $scope.appConfig = appConfig
 
     $scope.view = {
       changeRoute: true,
-      navbarLeftReady: false
+      navbarReadyFirst: false,
+      navbarReadySecond: false
     };
 
     $scope.mode = {
@@ -25,6 +29,8 @@ angular.module('nethvoiceWizardUiApp')
       isLogged: false
     };
     $scope.loginUrl = 'views/login.html';
+    $scope.modelsUIUrl = 'views/templates/models-ui.html';
+    $scope.defaultsModalUrl = 'views/templates/defaults-modal.html';
 
     $scope.wizard = {
       isWizard: true,
@@ -35,7 +41,8 @@ angular.module('nethvoiceWizardUiApp')
       fromMigrationStart: false,
       isMigrationSkip: false,
       config: {},
-      stepCount: 1
+      stepCount: 1,
+      provisioning: ""
     };
 
     $scope.menuCount = {
@@ -52,6 +59,13 @@ angular.module('nethvoiceWizardUiApp')
       $scope.login.isLogged = false;
       $scope.setRandomBackground();
     };
+
+    $scope.isEmpty = function (obj) {
+      for (var prop in obj) {
+        return false;
+      }
+      return true;
+    }
 
     $scope.goTo = function (route, exception, external) {
       if (external) {
@@ -70,13 +84,13 @@ angular.module('nethvoiceWizardUiApp')
         if ($('#navbar-left').hasClass('show-mobile-nav')) {
           $('#wizard-step-footer').css('margin-left', '0px');
         } else {
-          $('#wizard-step-footer').css('margin-left', '200px');
+          $('#wizard-step-footer').css('margin-left', '250px');
         }
       } else {
         if (!$('#navbar-left').hasClass('collapsed')) {
           $('#wizard-step-footer').css('margin-left', '76px');
         } else {
-          $('#wizard-step-footer').css('margin-left', '200px');
+          $('#wizard-step-footer').css('margin-left', '250px');
         }
       }
     };
@@ -251,6 +265,64 @@ angular.module('nethvoiceWizardUiApp')
       $("#" + id).slideDown("fast");
     }
 
+    $scope.showModal = function (id) {
+      $("#" + id).modal("show")
+    }
+    
+    $scope.hideModal = function (id) {
+      $("#" + id).modal("hide")
+    }
+
+    $scope.validateLocation = function () {
+      if ($scope.wizard.provisioning != "tancredi") {
+        switch ($location.path()) {
+          case "/devices/inventory":
+            $location.path('/')
+            break
+          case "/devices/models":
+            $location.path('/')
+            break
+          case "/configurations":
+            $location.path('/')
+            break
+          case "/apps/bulkdevices":
+            $location.path('/')
+            break
+          default:
+            break
+        }
+      } else {
+        switch ($location.path()) {
+          case "/users/devices":
+            $location.path('/')
+            break
+          case "/users/configurations":
+            $location.path('/')
+            break
+          default:
+            break
+        }
+      }
+    }
+
+    var appConfigAdapt = function () {
+      if ($scope.wizard.provisioning != "tancredi") {
+        appConfig = appConfig_OLD
+        $scope.appConfig = appConfig_OLD
+      }
+    }
+
+    var getProvisioningInfo = function () {
+      ConfigService.getProvisioningInfo().then(function (res) {
+        $scope.wizard.provisioning = res.data
+        appConfigAdapt()
+        $scope.validateLocation()
+        $scope.view.navbarReadySecond = true
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
     // set language
     $scope.changeLanguage({
       key: LocalStorageService.get('preferredLanguage') || 'default'
@@ -286,10 +358,200 @@ angular.module('nethvoiceWizardUiApp')
 
       //config
       $scope.getConfig();
+      //provisioning
+      getProvisioningInfo()
 
       $('body').css('background', '');
     });
 
+    $scope.destroyAllSelects = function (container) {
+      $(container + " .selectpicker").each(function( index, elem ) {
+        $( elem ).selectpicker("destroy")
+        $( elem ).remove()
+      })
+      $(container + " .combobox").each(function( index, elem ) {
+        $( elem ).remove()
+      })
+      $(container + " .combobox-container").each(function( index, elem ) {
+        $( elem ).remove()
+      })
+    }
+
+    $scope.$on('comboboxRepeatEnd', function(event, elem) {
+      elem.parent().combobox().parent().removeClass("hidden")
+    })
+
+    $scope.$on('selectpickerRepeatEnd', function(event, elem) {
+      elem.parent().selectpicker().parent().parent().removeClass("hidden")
+    })
+    
     $scope.setRandomBackground();
+
+    // provisining build models start
+
+    $scope.currentModel = {}
+
+    $scope.buildDefaultSettingsUI = function () {
+      return {
+        pinned: ProvGlobalsService.pinned(),
+        general: ProvGlobalsService.general(),
+        preferences: ProvGlobalsService.preferences(),
+        network: ProvGlobalsService.network()
+      }
+    }
+
+    var buildModelUI = function (service, variables) {
+      let map = GenericPhoneService.map(variables)
+      return {
+        map: map,
+        softKeys: convertKeysMap(service.softKeys(map)),
+        lineKeys: convertKeysMap(service.lineKeys(map)),
+        expansionKeys: convertKeysMap(service.expansionKeys(map)),
+        general: service.general(map),
+        preferences: service.preferences(map),
+        network: service.network(map),
+        provisioning: service.provisioning(map),
+      }
+    }
+
+    var getModelUI = function (brand, variables) {
+      switch (brand.toLowerCase()) {
+        case "fanvil":
+          return buildModelUI(ProvFanvilService, variables)
+          break;
+      
+        case "gigaset":
+          return buildModelUI(ProvGigasetService, variables)
+          break;
+      
+        case "sangoma":
+          return buildModelUI(ProvSangomaService, variables)
+          break;
+          
+        case "snom":
+          return buildModelUI(ProvSnomService, variables)
+          break;
+
+        case "yealink":
+          return buildModelUI(ProvYealinkService, variables)
+          break;
+
+        default:
+          return buildModelUI(GenericPhoneService, variables)
+          break;
+      }
+    }
+
+    var buildModelObj = function (location, name, modelBrand, res, mac) {
+      return $scope.currentModel = {
+        "uiLocation" : location,
+        "ui" : getModelUI(modelBrand, res.data.variables),
+        "storedVariables": angular.copy(res.data.variables),
+        "variables" : angular.copy(res.data.variables),
+        "globals": {},
+        "name" : name,
+        "mac" : mac,
+        "display_name" : res.data.display_name,
+        "openedSection" : "",
+        "shownPasswords": {},
+        "openedExpKeys": "",
+        "showingKeys": "",
+        "showingExpKeys": "",
+        "changed": false,
+        "hasOriginals": hasOriginalsFromName(name),
+        "hidden": false
+      }
+    }
+
+    $scope.buildModel = function (name, location) {
+      return $q(function (resolve, reject) {
+        var nameSplit = name.split("-"),
+            modelBrand = nameSplit[0].toLowerCase()
+        ModelService.getModel(name).then(function (res) {
+          buildModelObj(location, name, modelBrand, res)
+          getGlobals()
+          resolve(true)
+        }, function () {
+          reject(err)
+        })
+      })
+    }
+
+    $scope.buildPhoneModel = function (mac, location) {
+      return $q(function (resolve, reject) {
+        PhoneService.getPhoneInherit(mac).then(function (res) {
+          var nameSplit = res.data.model.split("-"),
+              modelBrand = nameSplit[0].toLowerCase()
+          buildModelObj(location, res.data.model, modelBrand, res, mac)
+          resolve(true)
+        }, function () {
+          reject(err)
+        })
+      })
+    }
+
+    $scope.enableNextDisabled = function () {
+      $scope.wizard.isNextDisabled = false
+    }
+
+    $scope.connectivityCheck = function (obj) {
+      ModelService.checkConnectivity(obj).then(function (res) {
+        $scope.connectivityCheckRes = res.data
+      }, function (err) {
+        console.log(err);
+      })
+    }
+
+    var getGlobals = function () {
+      ModelService.getDefaults().then(function (res) {
+        $scope.currentModel.globals = angular.copy(res.data)
+        for (var globalVariables in res.data) {
+          if (!$scope.currentModel.variables[globalVariables]) {
+            $scope.currentModel.variables[globalVariables] = angular.copy(res.data[globalVariables])
+          }
+        }
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    var hasOriginalsFromName = function (name) {
+      return (name.split("-").length)-1 == 1 ? true : false
+    }
+
+    var convertKeysMap = function (keys) {
+      // convert keys intervals to a flat list of key numbers
+      if (keys) {
+        var keysIntervals = keys.items[0].keys.intervals;
+        var indexes = [];
+        keysIntervals.forEach(function (interval) {
+          for (var i = interval.start; i <= interval.end; i++) {
+            indexes.push(i);
+          }
+        });
+        keys.items[0].keysIndexes = indexes;
+        return keys;
+      }
+    }
+
+    $scope.$on('curentModelSaved', function() { 
+      $scope.currentModel.changed = false
+    })
+
+    $scope.$on('variableChanged', function() { 
+      if (!$scope.currentModel.changed) {
+        $scope.currentModel.changed = true
+      }
+    })
+
+    $scope.$on('$routeChangeStart', function() {
+      if ($location.path() == '/devices/models' || $location.path() == '/configurations'){
+        $scope.currentModel = {}
+        $scope.destroyAllSelects("#modelsContainer")
+      }
+      if ($scope.connectivityCheckRes) {
+        $scope.connectivityCheckRes = null
+      }
+    })
     
   });
