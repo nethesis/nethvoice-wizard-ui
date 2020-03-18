@@ -1,5 +1,6 @@
 var macVendors = {
   "0C383E": "fanvil",
+  "589EC6": "gigaset",
   "7C2F80": "gigaset",
   "005058": "sangoma",
   "000413": "snom",
