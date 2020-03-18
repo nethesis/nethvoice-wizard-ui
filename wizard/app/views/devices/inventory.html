@@ -564,10 +564,10 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-4 control-label">{{'Configuration status' | translate}}:</label>
+            <label class="col-sm-4 control-label">{{'Provisioning status' | translate}}:</label>
             <div class="col-sm-8">
-              <label class="control-label {{currentPhoneInfo.provisioning_url1 ? 'text-color-red' : 'text-color-green'}}">
-                {{currentPhoneInfo.provisioning_url1 ? "Not configured" : "Configured" | translate}}
+              <label class="control-label {{currentPhoneInfo.provisioning_url1 ? '' : 'text-color-green'}}">
+                {{currentPhoneInfo.provisioning_url1 ? "Pending" : "Completed" | translate}}
               </label>
             </div>
           </div>
