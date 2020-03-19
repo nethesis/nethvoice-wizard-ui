@@ -16,13 +16,12 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn',
     uglify: 'grunt-contrib-uglify-es'
   });
 
   // Configurable paths for the application
   var appConfig = {
-    app: require('./bower.json').appPath || 'app',
+    app: 'app',
     dist: 'dist'
   };
 
@@ -34,10 +33,6 @@ module.exports = function (grunt) {
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
-      bower: {
-        files: ['bower.json'],
-        tasks: ['wiredep']
-      },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
         tasks: ['newer:jshint:all', 'newer:jscs:all'],
@@ -83,8 +78,8 @@ module.exports = function (grunt) {
             return [
               connect.static('.tmp'),
               connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
+                '/node_modules',
+                connect.static('./node_modules')
               ),
               connect().use(
                 '/app/styles',
@@ -103,8 +98,8 @@ module.exports = function (grunt) {
               connect.static('.tmp'),
               connect.static('test'),
               connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
+                '/node_modules',
+                connect.static('./node_modules')
               ),
               connect.static(appConfig.app)
             ];
@@ -198,45 +193,6 @@ module.exports = function (grunt) {
           src: '{,*/}*.css',
           dest: '.tmp/styles/'
         }]
-      }
-    },
-
-    // Automatically inject Bower components into the app
-    wiredep: {
-      app: {
-        src: ['<%= yeoman.app %>/index.html'],
-        ignorePath: /\.\.\//,
-        exclude: [
-          'node_modules/patternfly-bootstrap-combobox/css/bootstrap-combobox.css',
-          'node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.css',
-          'node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css',
-          'node_modules/bootstrap-select/dist/css/bootstrap-select.css',
-          'node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css',
-          'node_modules/patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.css',
-          'node_modules/c3/c3.css',
-          'node_modules/datatables/media/css/jquery.dataTables.css',
-          'node_modules/datatables.net-colreorder-bs/css/colReorder.bootstrap.css',
-          'node_modules/drmonty-datatables-colvis/css/dataTables.colVis.css',
-          'node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-          'node_modules/font-awesome/css/font-awesome.css',
-          'node_modules/google-code-prettify/bin/prettify.min.css'
-        ]
-      },
-      test: {
-        devDependencies: true,
-        src: '<%= karma.unit.configFile %>',
-        ignorePath: /\.\.\//,
-        fileTypes: {
-          js: {
-            block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-            detect: {
-              js: /'(.*\.js)'/gi
-            },
-            replace: {
-              js: '\'{{filePath}}\','
-            }
-          }
-        }
       }
     },
 
@@ -391,13 +347,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Replace Google CDN references
-    cdnify: {
-      dist: {
-        html: ['<%= yeoman.dist %>/*.html']
-      }
-    },
-
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
@@ -419,7 +368,7 @@ module.exports = function (grunt) {
           src: ['generated/*']
         }, {
           expand: true,
-          cwd: 'bower_components/patternfly/dist/',
+          cwd: 'node_modules/patternfly/dist/',
           src: ['fonts/*.{eot,woff,woff2,ttf}'],
           dest: '<%= yeoman.dist %>',
         }, {
@@ -498,7 +447,6 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'wiredep',
       'concurrent:server',
       'postcss:server',
       'connect:livereload',
@@ -513,7 +461,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
-    'wiredep',
     'concurrent:test',
     'postcss',
     'connect:test',
@@ -522,7 +469,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'wiredep',
     'useminPrepare',
     'concurrent:dist',
     'postcss',
@@ -530,7 +476,6 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    'cdnify',
     'cssmin',
     'uglify',
     'filerev',

@@ -2,227 +2,6 @@
 # yarn lockfile v1
 
 
-"@bower_components/ace-builds@ajaxorg/ace-builds#^1":
-  version "1.4.7"
-  resolved "https://codeload.github.com/ajaxorg/ace-builds/tar.gz/5ad04a46e8e0981a65dd982693e5d19a2209311c"
-
-"@bower_components/angular-animate@angular/bower-angular-animate#1.3.0 - 1.5.*":
-  version "1.5.11"
-  resolved "https://codeload.github.com/angular/bower-angular-animate/tar.gz/ac17971fdc62d7ea816a079401084e6da2af3e3e"
-
-"@bower_components/angular-bootstrap-switch@frapontillo/angular-bootstrap-switch#0.5.1":
-  version "0.5.1"
-  resolved "https://codeload.github.com/frapontillo/angular-bootstrap-switch/tar.gz/ffb7b6a7e5dd8d574626115d470e511c80071640"
-
-"@bower_components/angular-bootstrap@angular-ui/bootstrap-bower#2.2.0":
-  version "2.2.0"
-  resolved "https://codeload.github.com/angular-ui/bootstrap-bower/tar.gz/9992f420b3a4655f7a7074bcbb21f0c7202f411f"
-
-"@bower_components/angular-cookies@angular/bower-angular-cookies#1.4.0":
-  version "1.4.0"
-  resolved "https://codeload.github.com/angular/bower-angular-cookies/tar.gz/9ec982254197161e1c39cce899c9c97e6d033010"
-
-"@bower_components/angular-mocks@angular/bower-angular-mocks#1.4.0":
-  version "1.4.0"
-  resolved "https://codeload.github.com/angular/bower-angular-mocks/tar.gz/5a7f9f0bad5da4314df7f638fcaf330ff864cae2"
-
-"@bower_components/angular-patternfly@patternfly/angular-patternfly#3.15.0":
-  version "3.15.0"
-  resolved "https://codeload.github.com/patternfly/angular-patternfly/tar.gz/8ed5c6dcf111879716d03ccf48d3f52ae606dca2"
-  dependencies:
-    angular "1.3.0 - 1.5.*"
-    angular-animate "1.3.0 - 1.5.*"
-    angular-sanitize "1.3.0 - 1.5.*"
-    angular-ui-bootstrap "0.13.x"
-    lodash "3.x"
-    patternfly "~3.15.0"
-
-"@bower_components/angular-resource@angular/bower-angular-resource#1.4.0":
-  version "1.4.0"
-  resolved "https://codeload.github.com/angular/bower-angular-resource/tar.gz/51fac1b7d12c0a4f1a730f9edb33a7d23add7e89"
-
-"@bower_components/angular-route@angular/bower-angular-route#1.4.0":
-  version "1.4.0"
-  resolved "https://codeload.github.com/angular/bower-angular-route/tar.gz/af773f99661df8a9ca9275d123a1daf6cc0bf778"
-
-"@bower_components/angular-sanitize@angular/bower-angular-sanitize#1.4.0":
-  version "1.4.0"
-  resolved "https://codeload.github.com/angular/bower-angular-sanitize/tar.gz/a64d96eff0b9f15db70322e77bc20c2e64bd8e07"
-
-"@bower_components/angular-translate-loader-static-files@PascalPrecht/bower-angular-translate-loader-static-files#2.13.0":
-  version "2.13.0"
-  resolved "https://codeload.github.com/PascalPrecht/bower-angular-translate-loader-static-files/tar.gz/cdf309251cae5c671940784e432fc514fc477fe3"
-  dependencies:
-    angular-translate "~2.13.0"
-
-"@bower_components/angular-translate@PascalPrecht/bower-angular-translate#2.13.0":
-  version "0.0.0"
-  resolved "https://codeload.github.com/PascalPrecht/bower-angular-translate/tar.gz/ba9c58adb6519b44d5975a397a3eeda0c650fbd8"
-
-"@bower_components/angular-ui-ace@angular-ui/ui-ace#bower":
-  version "0.0.0"
-  resolved "https://codeload.github.com/angular-ui/ui-ace/tar.gz/36844ff7c0e0d9445bc8e31514d7f0f59cb8b048"
-
-"@bower_components/angular-ui-sortable@angular-ui/ui-sortable#0.16.1":
-  version "0.0.0"
-  resolved "https://codeload.github.com/angular-ui/ui-sortable/tar.gz/30f312936fe6c0818e6e258315dc678b490b970e"
-
-"@bower_components/angular@angular/bower-angular#1.4.0":
-  version "1.4.0"
-  resolved "https://codeload.github.com/angular/bower-angular/tar.gz/e2f2cf7dc4a3ef1859ab28e657eca0e9edb588ba"
-
-"@bower_components/bootstrap-combobox@danielfarrell/bootstrap-combobox#~1.1.7":
-  version "1.1.8"
-  resolved "https://codeload.github.com/danielfarrell/bootstrap-combobox/tar.gz/ac332bbadcab9162d2e58ec4eaf917bdddeaf8d1"
-
-"@bower_components/bootstrap-datepicker@eternicode/bootstrap-datepicker#~1.6.4":
-  version "1.6.4"
-  resolved "https://codeload.github.com/eternicode/bootstrap-datepicker/tar.gz/42940960ffaf6c727c9f2d64a6175be87516986e"
-  dependencies:
-    jquery ">=1.7.1"
-
-"@bower_components/bootstrap-select@silviomoreto/bootstrap-select#~1.10.0":
-  version "1.10.0"
-  resolved "https://codeload.github.com/silviomoreto/bootstrap-select/tar.gz/a1b3d496e7ea13054451ddaa941fa217898b8ce4"
-  dependencies:
-    jquery ">=1.8"
-
-"@bower_components/bootstrap-switch@nostalgiaz/bootstrap-switch#3.3.2":
-  version "3.3.2"
-  resolved "https://codeload.github.com/nostalgiaz/bootstrap-switch/tar.gz/ec69b5dd914dacb19cf1fa8e1be7eea6bcc7b083"
-  dependencies:
-    jquery ">=1.9.0"
-
-"@bower_components/bootstrap-touchspin@istvan-ujjmeszaros/bootstrap-touchspin#~3.1.1":
-  version "3.1.2"
-  resolved "https://codeload.github.com/istvan-ujjmeszaros/bootstrap-touchspin/tar.gz/b87fa994778f11285975b5013c761b0376fe6f21"
-
-"@bower_components/bootstrap@twbs/bootstrap#~3.3.7":
-  version "3.3.7"
-  resolved "https://codeload.github.com/twbs/bootstrap/tar.gz/0b9c4a4007c44201dce9a6cc1a38407005c26c86"
-
-"@bower_components/c3@masayuki0812/c3#~0.4.11":
-  version "0.4.24"
-  resolved "https://codeload.github.com/masayuki0812/c3/tar.gz/2b7f8d96f8215f949061ba14253904b0881f0ebb"
-  dependencies:
-    d3 "~3.5.0"
-
-"@bower_components/clipboard@zenorocha/clipboard.js#2.0.1":
-  version "2.0.1"
-  resolved "https://codeload.github.com/zenorocha/clipboard.js/tar.gz/3382ea3d14a6c46d274df6147c73a83ef47e41b3"
-  dependencies:
-    good-listener "^1.2.2"
-    select "^1.1.2"
-    tiny-emitter "^2.0.0"
-
-"@bower_components/d3@mbostock-bower/d3-bower#~3.5.17":
-  version "0.0.0"
-  resolved "https://codeload.github.com/mbostock-bower/d3-bower/tar.gz/7a826d211d5067867debf9ce24a9987e0cb02b6e"
-
-"@bower_components/datatables-colreorder@DataTables/ColReorder#~1.3.2":
-  version "0.0.0"
-  resolved "https://codeload.github.com/DataTables/ColReorder/tar.gz/6e4b49125b7752f165c01ed2cccab33233ff61fc"
-
-"@bower_components/datatables-colvis@DataTables/ColVis#~1.1.2":
-  version "0.0.0"
-  resolved "https://codeload.github.com/DataTables/ColVis/tar.gz/48eeed7933807afe802d9162a1fc6e8a658565f7"
-
-"@bower_components/datatables@DataTables/DataTables#~1.10.12":
-  version "1.10.19"
-  resolved "https://codeload.github.com/DataTables/DataTables/tar.gz/156faa83386460c578e00c460eca9766e38a0c5f"
-  dependencies:
-    jquery ">=1.7"
-
-"@bower_components/eonasdan-bootstrap-datetimepicker@Eonasdan/bootstrap-datetimepicker#~4.17.37":
-  version "4.17.47"
-  resolved "https://codeload.github.com/Eonasdan/bootstrap-datetimepicker/tar.gz/25c11d79e614bc6463a87c3dd9cbf8280422e006"
-  dependencies:
-    bootstrap "^3.3"
-    jquery "^1.8.3 || ^2.0 || ^3.0"
-    moment "^2.10"
-    moment-timezone "^0.4.0"
-
-"@bower_components/font-awesome@FortAwesome/Font-Awesome#~4.6.3":
-  version "4.6.3"
-  resolved "https://codeload.github.com/FortAwesome/Font-Awesome/tar.gz/8e241f209faa1dd2182c9fdc9c352d8806504a4e"
-
-"@bower_components/google-code-prettify@tcollard/google-code-prettify#~1.0.5":
-  version "1.0.5"
-  resolved "https://codeload.github.com/tcollard/google-code-prettify/tar.gz/5e0b27bba2583a386c08ead942bbf25418c28784"
-
-"@bower_components/jquery-ui@components/jqueryui#>=1.12.x":
-  version "1.12.1"
-  resolved "https://codeload.github.com/components/jqueryui/tar.gz/44ecf3794cc56b65954cc19737234a3119d036cc"
-
-"@bower_components/jquery@jquery/jquery-dist#~2.1.4":
-  version "2.1.4"
-  resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/7751e69b615c6eca6f783a81e292a55725af6b85"
-
-"@bower_components/jspdf-autotable@someatoms/jsPDF-AutoTable#2.3.1":
-  version "2.3.1"
-  resolved "https://codeload.github.com/someatoms/jsPDF-AutoTable/tar.gz/e2d31bf0a963a4c9cb54b909f90cf3cb0b7a279c"
-
-"@bower_components/jspdf@MrRio/jsPDF#1.3.3":
-  version "1.3.3"
-  resolved "https://codeload.github.com/MrRio/jsPDF/tar.gz/ac12a246456496d509be585d0fa504da55aef96e"
-  dependencies:
-    adler32cs "github:chick307/adler32cs.js"
-    cf-blob.js "0.0.1"
-    filesaver.js "github:andyinabox/FileSaver.js"
-
-"@bower_components/lodash@lodash/lodash#3.x":
-  version "3.10.1"
-  resolved "https://codeload.github.com/lodash/lodash/tar.gz/dfbd78f71de0550068fc82ce6e013d443e5037d7"
-
-"@bower_components/matchHeight@liabru/jquery-match-height#~0.7.0":
-  version "0.7.2"
-  resolved "https://codeload.github.com/liabru/jquery-match-height/tar.gz/2446ac654f694bc05a1297cbab0b2d875e278bbd"
-
-"@bower_components/moment@moment/moment#~2.14.1":
-  version "2.14.2"
-  resolved "https://codeload.github.com/moment/moment/tar.gz/7798b6757697e9af3ab1358ed0a5e333f3410776"
-
-"@bower_components/ng-sortable@a5hik/ng-sortable#1.3.7":
-  version "1.3.7"
-  resolved "https://codeload.github.com/a5hik/ng-sortable/tar.gz/181cec2fa1aa624266358a3a0d17dd5f6d165a0e"
-
-"@bower_components/patternfly-bootstrap-combobox@patternfly/patternfly-bootstrap-combobox#~1.1.7":
-  version "0.0.0"
-  resolved "https://codeload.github.com/patternfly/patternfly-bootstrap-combobox/tar.gz/790223ef3b18c10ccaff371d4e7dee7f1dfb78b8"
-
-"@bower_components/patternfly-bootstrap-treeview@patternfly/patternfly-bootstrap-treeview#~2.1.0":
-  version "2.1.10"
-  resolved "https://codeload.github.com/patternfly/patternfly-bootstrap-treeview/tar.gz/6893ede419dbfcdc2c333a1c30098c605f980f64"
-  dependencies:
-    bootstrap "^3.4.1"
-    jquery "^3.4.1"
-
-"@bower_components/patternfly@patternfly/patternfly#3.14.0":
-  version "3.14.0"
-  resolved "https://codeload.github.com/patternfly/patternfly/tar.gz/2d9bbebfb2f9f181746951a74b56d9850ac1822d"
-  dependencies:
-    bootstrap "~3.3.7"
-    font-awesome "~4.6.3"
-    jquery "~2.1.4"
-  optionalDependencies:
-    bootstrap-datepicker "~1.6.4"
-    bootstrap-select "~1.10.0"
-    bootstrap-switch "~3.3.2"
-    bootstrap-touchspin "~3.1.1"
-    c3 "~0.4.11"
-    d3 "~3.5.17"
-    datatables "~1.10.12"
-    datatables.net-colreorder "~1.3.2"
-    datatables.net-colreorder-bs "~1.3.2"
-    datatables.net-select "~1.2.0"
-    drmonty-datatables-colvis "~1.1.2"
-    eonasdan-bootstrap-datetimepicker "~4.15.35"
-    google-code-prettify "~1.0.5"
-    jquery-match-height "~0.7.0"
-    moment "~2.14.1"
-    patternfly-bootstrap-combobox "~1.1.7"
-    patternfly-bootstrap-treeview "~2.1.0"
-
 "@webcomponents/webcomponentsjs@^2.4.1":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@webcomponents/webcomponentsjs/-/webcomponentsjs-2.4.1.tgz#7baadec56ed2fd79b94ddfd509132d8c0c295c5c"
@@ -254,6 +33,10 @@ accepts@~1.3.0:
     mime-types "~2.1.24"
     negotiator "0.6.2"
 
+ace-builds@ajaxorg/ace-builds#^1:
+  version "1.4.8"
+  resolved "https://codeload.github.com/ajaxorg/ace-builds/tar.gz/a279fe5367ed15a2c2f3fca96fccd1fe0681a547"
+
 acorn@~0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-0.11.0.tgz#6e95f0253ad161ff0127db32983e5e2e5352d59a"
@@ -273,15 +56,6 @@ ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-align-text@^0.1.1, align-text@^0.1.3:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/align-text/-/align-text-0.1.4.tgz#0cd90a561093f35d0a99256c22b7069433fad117"
-  integrity sha1-DNkKVhCT810KmSVsIrcGlDP60Rc=
-  dependencies:
-    kind-of "^3.0.2"
-    longest "^1.0.1"
-    repeat-string "^1.5.2"
-
 alter@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/alter/-/alter-0.2.0.tgz#c7588808617572034aae62480af26b1d4d1cb3cd"
@@ -294,15 +68,63 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
-"angular-animate@1.3.0 - 1.5.*":
+"angular-animate@1.3.0 - 1.5.*", "angular-animate@angular/bower-angular-animate#1.3.0 - 1.5.*":
   version "1.5.11"
-  resolved "https://registry.yarnpkg.com/angular-animate/-/angular-animate-1.5.11.tgz#1baa43c303d1b93c4e6aa89453b39114b7a1c669"
-  integrity sha1-G6pDwwPRuTxOaqiUU7ORFLehxmk=
+  resolved "https://codeload.github.com/angular/bower-angular-animate/tar.gz/ac17971fdc62d7ea816a079401084e6da2af3e3e"
+
+angular-bootstrap-switch@frapontillo/angular-bootstrap-switch#0.5.1:
+  version "0.5.1"
+  resolved "https://codeload.github.com/frapontillo/angular-bootstrap-switch/tar.gz/ffb7b6a7e5dd8d574626115d470e511c80071640"
+
+angular-bootstrap@angular-ui/bootstrap-bower#2.2.0:
+  version "2.2.0"
+  resolved "https://codeload.github.com/angular-ui/bootstrap-bower/tar.gz/9992f420b3a4655f7a7074bcbb21f0c7202f411f"
+
+angular-cookies@angular/bower-angular-cookies#1.4.0:
+  version "1.4.0"
+  resolved "https://codeload.github.com/angular/bower-angular-cookies/tar.gz/9ec982254197161e1c39cce899c9c97e6d033010"
+
+angular-mocks@angular/bower-angular-mocks#1.4.0:
+  version "1.4.0"
+  resolved "https://codeload.github.com/angular/bower-angular-mocks/tar.gz/5a7f9f0bad5da4314df7f638fcaf330ff864cae2"
+
+angular-patternfly@patternfly/angular-patternfly#3.15.0:
+  version "3.15.0"
+  resolved "https://codeload.github.com/patternfly/angular-patternfly/tar.gz/8ed5c6dcf111879716d03ccf48d3f52ae606dca2"
+  dependencies:
+    angular "1.3.0 - 1.5.*"
+    angular-animate "1.3.0 - 1.5.*"
+    angular-sanitize "1.3.0 - 1.5.*"
+    angular-ui-bootstrap "0.13.x"
+    lodash "3.x"
+    patternfly "~3.15.0"
+
+angular-resource@angular/bower-angular-resource#1.4.0:
+  version "1.4.0"
+  resolved "https://codeload.github.com/angular/bower-angular-resource/tar.gz/51fac1b7d12c0a4f1a730f9edb33a7d23add7e89"
+
+angular-route@angular/bower-angular-route#1.4.0:
+  version "1.4.0"
+  resolved "https://codeload.github.com/angular/bower-angular-route/tar.gz/af773f99661df8a9ca9275d123a1daf6cc0bf778"
 
 "angular-sanitize@1.3.0 - 1.5.*":
   version "1.5.11"
   resolved "https://registry.yarnpkg.com/angular-sanitize/-/angular-sanitize-1.5.11.tgz#ebfb3f343e543f9b2ef050fb4c2e9ee048d1772f"
   integrity sha1-6/s/ND5UP5su8FD7TC6e4EjRdy8=
+
+angular-sanitize@angular/bower-angular-sanitize#1.4.0:
+  version "1.4.0"
+  resolved "https://codeload.github.com/angular/bower-angular-sanitize/tar.gz/a64d96eff0b9f15db70322e77bc20c2e64bd8e07"
+
+angular-translate-loader-static-files@PascalPrecht/bower-angular-translate-loader-static-files#2.13.0:
+  version "2.13.0"
+  resolved "https://codeload.github.com/PascalPrecht/bower-angular-translate-loader-static-files/tar.gz/cdf309251cae5c671940784e432fc514fc477fe3"
+  dependencies:
+    angular-translate "~2.13.0"
+
+angular-translate@PascalPrecht/bower-angular-translate#2.13.0:
+  version "0.0.0"
+  resolved "https://codeload.github.com/PascalPrecht/bower-angular-translate/tar.gz/ba9c58adb6519b44d5975a397a3eeda0c650fbd8"
 
 angular-translate@~2.13.0:
   version "2.13.1"
@@ -311,10 +133,18 @@ angular-translate@~2.13.0:
   dependencies:
     angular ">=1.2.26 <=1.6"
 
+angular-ui-ace@angular-ui/ui-ace#bower:
+  version "0.0.0"
+  resolved "https://codeload.github.com/angular-ui/ui-ace/tar.gz/36844ff7c0e0d9445bc8e31514d7f0f59cb8b048"
+
 angular-ui-bootstrap@0.13.x:
   version "0.13.4"
   resolved "https://registry.yarnpkg.com/angular-ui-bootstrap/-/angular-ui-bootstrap-0.13.4.tgz#d9981523b12ecb5f911cb0b4829fa3e5f20ed9ec"
   integrity sha1-2ZgVI7Euy1+RHLC0gp+j5fIO2ew=
+
+angular-ui-sortable@angular-ui/ui-sortable#0.16.1:
+  version "0.0.0"
+  resolved "https://codeload.github.com/angular-ui/ui-sortable/tar.gz/30f312936fe6c0818e6e258315dc678b490b970e"
 
 "angular@1.3.0 - 1.5.*":
   version "1.5.11"
@@ -325,6 +155,10 @@ angular-ui-bootstrap@0.13.x:
   version "1.6.10"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.6.10.tgz#eed3080a34d29d0f681ff119b18ce294e3f74826"
   integrity sha512-PCZ5/hVdvPQiYyH0VwsPjrErPHRcITnaXxhksceOXgtJeesKHLA7KDu4X/yvcAi+1zdGgGF+9pDxkJvghXI9Wg==
+
+angular@angular/bower-angular#1.4.0:
+  version "1.4.0"
+  resolved "https://codeload.github.com/angular/bower-angular/tar.gz/e2f2cf7dc4a3ef1859ab28e657eca0e9edb588ba"
 
 ansi-align@^2.0.0:
   version "2.0.0"
@@ -718,12 +552,28 @@ boom@0.4.x:
   dependencies:
     hoek "0.9.x"
 
+bootstrap-combobox@danielfarrell/bootstrap-combobox#~1.1.7:
+  version "1.1.8"
+  resolved "https://codeload.github.com/danielfarrell/bootstrap-combobox/tar.gz/ac332bbadcab9162d2e58ec4eaf917bdddeaf8d1"
+
+bootstrap-datepicker@eternicode/bootstrap-datepicker#~1.6.4:
+  version "1.6.4"
+  resolved "https://codeload.github.com/eternicode/bootstrap-datepicker/tar.gz/42940960ffaf6c727c9f2d64a6175be87516986e"
+  dependencies:
+    jquery ">=1.7.1"
+
 bootstrap-datepicker@~1.6.4:
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/bootstrap-datepicker/-/bootstrap-datepicker-1.6.4.tgz#889ebeced8eaa2ff15ec1f273e4b07531cc43da0"
   integrity sha1-iJ6+ztjqov8V7B8nPksHUxzEPaA=
   dependencies:
     jquery ">=1.7.1"
+
+bootstrap-select@silviomoreto/bootstrap-select#~1.10.0:
+  version "1.10.0"
+  resolved "https://codeload.github.com/silviomoreto/bootstrap-select/tar.gz/a1b3d496e7ea13054451ddaa941fa217898b8ce4"
+  dependencies:
+    jquery ">=1.8"
 
 bootstrap-select@~1.10.0:
   version "1.10.0"
@@ -732,10 +582,20 @@ bootstrap-select@~1.10.0:
   dependencies:
     jquery ">=1.8"
 
+bootstrap-switch@nostalgiaz/bootstrap-switch#3.3.2:
+  version "3.3.2"
+  resolved "https://codeload.github.com/nostalgiaz/bootstrap-switch/tar.gz/ec69b5dd914dacb19cf1fa8e1be7eea6bcc7b083"
+  dependencies:
+    jquery ">=1.9.0"
+
 bootstrap-switch@~3.3.2:
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/bootstrap-switch/-/bootstrap-switch-3.3.5.tgz#3f02d73177471d5c1766c5b227a5dc1c5d8fdfd7"
   integrity sha512-aRwgTPO7QPvTtUxit2ucXgs/P+dp3Y8Qy41XOOqTXZiJvfI6b87+hP+r4B4+3y7bptu0P6KHIyEc4ordEVIVkg==
+
+bootstrap-touchspin@istvan-ujjmeszaros/bootstrap-touchspin#~3.1.1:
+  version "3.1.2"
+  resolved "https://codeload.github.com/istvan-ujjmeszaros/bootstrap-touchspin/tar.gz/b87fa994778f11285975b5013c761b0376fe6f21"
 
 bootstrap-touchspin@~3.1.1:
   version "3.1.1"
@@ -746,6 +606,10 @@ bootstrap@^3.0, bootstrap@^3.3, bootstrap@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.4.1.tgz#c3a347d419e289ad11f4033e3c4132b87c081d72"
   integrity sha512-yN5oZVmRCwe5aKwzRj6736nSmKDX7pLYwsXiCj/EYmo16hODaBiT4En5btW/jhBF/seV+XMx3aYwukYC3A49DA==
+
+bootstrap@twbs/bootstrap#~3.3.7:
+  version "3.3.7"
+  resolved "https://codeload.github.com/twbs/bootstrap/tar.gz/0b9c4a4007c44201dce9a6cc1a38407005c26c86"
 
 bootstrap@~3.3.7:
   version "3.3.7"
@@ -999,6 +863,12 @@ bytes@2.4.0:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-2.4.0.tgz#7d97196f9d5baf7f6935e25985549edd2a6c2339"
   integrity sha1-fZcZb51br39pNeJZhVSe3SpsIzk=
 
+c3@masayuki0812/c3#~0.4.11:
+  version "0.4.24"
+  resolved "https://codeload.github.com/masayuki0812/c3/tar.gz/2b7f8d96f8215f949061ba14253904b0881f0ebb"
+  dependencies:
+    d3 "~3.5.0"
+
 c3@~0.4.11:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/c3/-/c3-0.4.24.tgz#57b62357098842d38e265a265f6de1e8c6faadd2"
@@ -1100,14 +970,6 @@ cdnjs-cdn-data@~0.1.0:
   integrity sha1-hl00uk5I3Rtz/WaOJKYaWt+biyE=
   dependencies:
     semver "~5.0.1"
-
-center-align@^0.1.1:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/center-align/-/center-align-0.1.3.tgz#aa0d32629b6ee972200411cbd4461c907bc2b7ad"
-  integrity sha1-qg0yYptu6XIgBBHL1EYckHvCt60=
-  dependencies:
-    align-text "^0.1.3"
-    lazy-cache "^1.0.3"
 
 cf-blob.js@0.0.1:
   version "0.0.1"
@@ -1302,14 +1164,13 @@ cli@0.6.x:
     exit "0.1.2"
     glob "~ 3.2.1"
 
-cliui@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/cliui/-/cliui-2.1.0.tgz#4b475760ff80264c762c3a1719032e91c7fea0d1"
-  integrity sha1-S0dXYP+AJkx2LDoXGQMukcf+oNE=
+clipboard@zenorocha/clipboard.js#2.0.1:
+  version "2.0.1"
+  resolved "https://codeload.github.com/zenorocha/clipboard.js/tar.gz/3382ea3d14a6c46d274df6147c73a83ef47e41b3"
   dependencies:
-    center-align "^0.1.1"
-    right-align "^0.1.1"
-    wordwrap "0.0.2"
+    good-listener "^1.2.2"
+    select "^1.1.2"
+    tiny-emitter "^2.0.0"
 
 clone-deep@^1.0.0:
   version "1.0.0"
@@ -1423,6 +1284,11 @@ commander@2.8.x, commander@~2.8.1:
   integrity sha1-Br42f+v9oMMwqh4qBy09yXYkJdQ=
   dependencies:
     graceful-readlink ">= 1.0.0"
+
+commander@~2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.13.0.tgz#6964bca67685df7c1f1430c584f07d7597885b9c"
+  integrity sha512-MVuS359B+YzaWqjCL/c+22gfryv+mCBPHAv3zyVI2GN8EY6IRP8VwtasXn8jyyhvvq84R4ImN1OKRtcbIasjYA==
 
 component-emitter@^1.2.1:
   version "1.3.0"
@@ -1705,6 +1571,10 @@ cycle@1.0.x:
   resolved "https://registry.yarnpkg.com/cycle/-/cycle-1.0.3.tgz#21e80b2be8580f98b468f379430662b046c34ad2"
   integrity sha1-IegLK+hYD5i0aPN5QwZisEbDStI=
 
+d3@mbostock-bower/d3-bower#~3.5.17:
+  version "0.0.0"
+  resolved "https://codeload.github.com/mbostock-bower/d3-bower/tar.gz/7a826d211d5067867debf9ce24a9987e0cb02b6e"
+
 d3@~3.5.0, d3@~3.5.17:
   version "3.5.17"
   resolved "https://registry.yarnpkg.com/d3/-/d3-3.5.17.tgz#bc46748004378b21a360c9fc7cf5231790762fb8"
@@ -1731,6 +1601,14 @@ dashdash@^1.12.0:
   integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   dependencies:
     assert-plus "^1.0.0"
+
+datatables-colreorder@DataTables/ColReorder#~1.3.2:
+  version "0.0.0"
+  resolved "https://codeload.github.com/DataTables/ColReorder/tar.gz/6e4b49125b7752f165c01ed2cccab33233ff61fc"
+
+datatables-colvis@DataTables/ColVis#~1.1.2:
+  version "0.0.0"
+  resolved "https://codeload.github.com/DataTables/ColVis/tar.gz/48eeed7933807afe802d9162a1fc6e8a658565f7"
 
 datatables.net-bs@>=1.10.9:
   version "1.10.20"
@@ -1777,6 +1655,12 @@ datatables.net@1.10.20, datatables.net@>=1.10.9, datatables.net@^1.10.15:
   version "1.10.20"
   resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-1.10.20.tgz#9d65ecc3c83cbe7baa4fa5a053405c8fe42c1350"
   integrity sha512-4E4S7tTU607N3h0fZPkGmAtr9mwy462u+VJ6gxYZ8MxcRIjZqHy3Dv1GNry7i3zQCktTdWbULVKBbkAJkuHEnQ==
+  dependencies:
+    jquery ">=1.7"
+
+datatables@DataTables/DataTables#~1.10.12:
+  version "1.10.20"
+  resolved "https://codeload.github.com/DataTables/DataTables/tar.gz/83657a29e33ce93ee940ce25684940eb3acb2913"
   dependencies:
     jquery ">=1.7"
 
@@ -2194,6 +2078,15 @@ entities@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.0.tgz#68d6084cab1b079767540d80e56a39b423e4abf4"
   integrity sha512-D9f7V0JSRwIxlRI2mjMqufDrRDnx8p+eEOz7aUM9SuvF8gsBzra0/6tbjl1m8eQHrZlYj6PxqE00hZ1SAIKPLw==
+
+eonasdan-bootstrap-datetimepicker@Eonasdan/bootstrap-datetimepicker#~4.17.37:
+  version "4.17.47"
+  resolved "https://codeload.github.com/Eonasdan/bootstrap-datetimepicker/tar.gz/25c11d79e614bc6463a87c3dd9cbf8280422e006"
+  dependencies:
+    bootstrap "^3.3"
+    jquery "^1.8.3 || ^2.0 || ^3.0"
+    moment "^2.10"
+    moment-timezone "^0.4.0"
 
 eonasdan-bootstrap-datetimepicker@~4.15.35:
   version "4.15.35"
@@ -2705,6 +2598,10 @@ flagged-respawn@^1.0.0:
   resolved "https://registry.yarnpkg.com/flagged-respawn/-/flagged-respawn-1.0.1.tgz#e7de6f1279ddd9ca9aac8a5971d618606b3aab41"
   integrity sha512-lNaHNVymajmk0OJMBn8fVUAU1BtDeKIqKoVhk4xAALB57aALg6b4W0MfJ/cUE0g9YBXy5XhSlPIpYIJ7HaY/3Q==
 
+font-awesome@FortAwesome/Font-Awesome#~4.6.3:
+  version "4.6.3"
+  resolved "https://codeload.github.com/FortAwesome/Font-Awesome/tar.gz/8e241f209faa1dd2182c9fdc9c352d8806504a4e"
+
 font-awesome@~4.6.3:
   version "4.6.3"
   resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.6.3.tgz#86933651540ee00874c664017f50f2172f6531a2"
@@ -3053,6 +2950,10 @@ google-cdn@~0.7.0:
     regexp-quote "0.0.0"
     semver "^2.3.0"
 
+google-code-prettify@tcollard/google-code-prettify#~1.0.5:
+  version "1.0.5"
+  resolved "https://codeload.github.com/tcollard/google-code-prettify/tar.gz/5e0b27bba2583a386c08ead942bbf25418c28784"
+
 google-code-prettify@~1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/google-code-prettify/-/google-code-prettify-1.0.5.tgz#9f477f224dbfa62372e5ef803a7e157410400084"
@@ -3236,16 +3137,14 @@ grunt-contrib-jshint@^0.11.0:
     hooker "^0.2.3"
     jshint "~2.8.0"
 
-grunt-contrib-uglify@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/grunt-contrib-uglify/-/grunt-contrib-uglify-0.7.0.tgz#79dde81a62cec6ffa35b47a32833706744f8e787"
-  integrity sha1-ed3oGmLOxv+jW0ejKDNwZ0T454c=
+"grunt-contrib-uglify-es@github:gruntjs/grunt-contrib-uglify#harmony":
+  version "3.3.0"
+  resolved "https://codeload.github.com/gruntjs/grunt-contrib-uglify/tar.gz/ccb95a70cad6a4e9e902d3bd5d0e38a4de09a1e1"
   dependencies:
-    chalk "^0.5.1"
-    lodash "^2.4.1"
-    maxmin "^1.0.0"
-    uglify-js "^2.4.0"
-    uri-path "0.0.2"
+    chalk "^1.0.0"
+    maxmin "^1.1.0"
+    uglify-es "~3.3.0"
+    uri-path "^1.0.0"
 
 grunt-contrib-watch@^0.6.1:
   version "0.6.1"
@@ -4255,6 +4154,10 @@ jquery-match-height@~0.7.0:
   resolved "https://registry.yarnpkg.com/jquery-match-height/-/jquery-match-height-0.7.2.tgz#f8d9f3ba5314daab109cf07408674be204be5f0e"
   integrity sha1-+NnzulMU2qsQnPB0CGdL4gS+Xw4=
 
+jquery-ui@components/jqueryui#>=1.12.x:
+  version "1.12.1"
+  resolved "https://codeload.github.com/components/jqueryui/tar.gz/44ecf3794cc56b65954cc19737234a3119d036cc"
+
 jquery@>=1.7, jquery@>=1.7.0, jquery@>=1.7.1, jquery@>=1.8, jquery@>=1.9.0, "jquery@^1.8.3 || ^2.0 || ^3.0", jquery@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
@@ -4264,6 +4167,10 @@ jquery@>=1.7, jquery@>=1.7.0, jquery@>=1.7.1, jquery@>=1.8, jquery@>=1.9.0, "jqu
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.1.4.tgz#228bde698a0c61431dc2630a6a154f15890d2317"
   integrity sha1-IoveaYoMYUMdwmMKahVPFYkNIxc=
+
+jquery@jquery/jquery-dist#~2.1.4:
+  version "2.1.4"
+  resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/7751e69b615c6eca6f783a81e292a55725af6b85"
 
 js-base64@~2.1.8:
   version "2.1.9"
@@ -4377,6 +4284,18 @@ jsonify@~0.0.0:
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
   integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
 
+jspdf-autotable@someatoms/jsPDF-AutoTable#2.3.1:
+  version "2.3.1"
+  resolved "https://codeload.github.com/someatoms/jsPDF-AutoTable/tar.gz/e2d31bf0a963a4c9cb54b909f90cf3cb0b7a279c"
+
+jspdf@MrRio/jsPDF#1.3.3:
+  version "1.3.3"
+  resolved "https://codeload.github.com/MrRio/jsPDF/tar.gz/ac12a246456496d509be585d0fa504da55aef96e"
+  dependencies:
+    adler32cs "github:chick307/adler32cs.js"
+    cf-blob.js "0.0.1"
+    filesaver.js "github:andyinabox/FileSaver.js"
+
 jsprim@^1.2.2:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/jsprim/-/jsprim-1.4.1.tgz#313e66bc1e5cc06e438bc1b7499c2e5c56acb6a2"
@@ -4456,11 +4375,6 @@ latest-version@^3.0.0:
   integrity sha1-ogU4P+oyKzO1rjsYq+4NwvNW7hU=
   dependencies:
     package-json "^4.0.0"
-
-lazy-cache@^1.0.3:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/lazy-cache/-/lazy-cache-1.0.4.tgz#a1d78fc3a50474cb80845d3b3b6e1da49a446e8e"
-  integrity sha1-odePw6UEdMuAhF07O24dpJpEbo4=
 
 lazy-req@^1.0.0:
   version "1.1.0"
@@ -4698,6 +4612,10 @@ lodash@^4.0.1, lodash@^4.17.10, lodash@^4.17.4, lodash@~4.17.10, lodash@~4.17.5:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
+lodash@lodash/lodash#3.x:
+  version "3.10.1"
+  resolved "https://codeload.github.com/lodash/lodash/tar.gz/dfbd78f71de0550068fc82ce6e013d443e5037d7"
+
 lodash@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-1.0.2.tgz#8f57560c83b59fc270bd3d561b690043430e2551"
@@ -4718,7 +4636,7 @@ logalot@^2.0.0:
     figures "^1.3.5"
     squeak "^1.0.0"
 
-longest@^1.0.0, longest@^1.0.1:
+longest@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
   integrity sha1-MKCy2jj3N3DoKUoNIuZiXtd9AJc=
@@ -4824,12 +4742,16 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+matchHeight@liabru/jquery-match-height#~0.7.0:
+  version "0.7.2"
+  resolved "https://codeload.github.com/liabru/jquery-match-height/tar.gz/2446ac654f694bc05a1297cbab0b2d875e278bbd"
+
 math-random@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/math-random/-/math-random-1.0.4.tgz#5dd6943c938548267016d4e34f057583080c514c"
   integrity sha512-rUxjysqif/BZQH2yhd5Aaq7vXMSx9NdEsQcyA07uEzIvxgI7zIr33gGsh+RU0/XjmQpCW7RsVof1vlkvQVCK5A==
 
-maxmin@^1.0.0, maxmin@^1.1.0:
+maxmin@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/maxmin/-/maxmin-1.1.0.tgz#71365e84a99dd8f8b3f7d5fde2f00d1e7f73be61"
   integrity sha1-cTZehKmd2Piz99X94vANHn9zvmE=
@@ -5077,6 +4999,10 @@ moment-timezone@^0.4.0:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
+moment@moment/moment#~2.14.1:
+  version "2.14.2"
+  resolved "https://codeload.github.com/moment/moment/tar.gz/7798b6757697e9af3ab1358ed0a5e333f3410776"
+
 moment@~2.14.1:
   version "2.14.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.14.1.tgz#b35b27c47e57ed2ddc70053d6b07becdb291741c"
@@ -5212,6 +5138,10 @@ ng-annotate@~0.15.1:
     stringmap "~0.2.2"
     stringset "~0.2.1"
     tryor "~0.1.2"
+
+ng-sortable@a5hik/ng-sortable#1.3.7:
+  version "1.3.7"
+  resolved "https://codeload.github.com/a5hik/ng-sortable/tar.gz/181cec2fa1aa624266358a3a0d17dd5f6d165a0e"
 
 node-status-codes@^1.0.0:
   version "1.0.0"
@@ -5731,10 +5661,21 @@ pathval@~0.1.1:
   resolved "https://registry.yarnpkg.com/pathval/-/pathval-0.1.1.tgz#08f911cdca9cce5942880da7817bc0b723b66d82"
   integrity sha1-CPkRzcqczllCiA2ngXvAtyO2bYI=
 
+patternfly-bootstrap-combobox@patternfly/patternfly-bootstrap-combobox#~1.1.7:
+  version "0.0.0"
+  resolved "https://codeload.github.com/patternfly/patternfly-bootstrap-combobox/tar.gz/790223ef3b18c10ccaff371d4e7dee7f1dfb78b8"
+
 patternfly-bootstrap-combobox@~1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/patternfly-bootstrap-combobox/-/patternfly-bootstrap-combobox-1.1.7.tgz#6a5e3ccd1170c21b3c4b4aa168a7413e1ddbb6e1"
   integrity sha1-al48zRFwwhs8S0qhaKdBPh3btuE=
+
+patternfly-bootstrap-treeview@patternfly/patternfly-bootstrap-treeview#~2.1.0:
+  version "2.1.10"
+  resolved "https://codeload.github.com/patternfly/patternfly-bootstrap-treeview/tar.gz/6893ede419dbfcdc2c333a1c30098c605f980f64"
+  dependencies:
+    bootstrap "^3.4.1"
+    jquery "^3.4.1"
 
 patternfly-bootstrap-treeview@~2.1.0:
   version "2.1.10"
@@ -5743,6 +5684,32 @@ patternfly-bootstrap-treeview@~2.1.0:
   dependencies:
     bootstrap "^3.4.1"
     jquery "^3.4.1"
+
+patternfly@3.14.0:
+  version "3.14.0"
+  resolved "https://registry.yarnpkg.com/patternfly/-/patternfly-3.14.0.tgz#8096355b184371728f130e28f1dd422f2eaa0274"
+  integrity sha1-gJY1WxhDcXKPEw4o8d1CLy6qAnQ=
+  dependencies:
+    bootstrap "~3.3.7"
+    font-awesome "~4.6.3"
+    jquery "~2.1.4"
+  optionalDependencies:
+    bootstrap-datepicker "~1.6.4"
+    bootstrap-select "~1.10.0"
+    bootstrap-switch "~3.3.2"
+    bootstrap-touchspin "~3.1.1"
+    c3 "~0.4.11"
+    d3 "~3.5.17"
+    datatables "~1.10.12"
+    datatables.net-colreorder "~1.3.2"
+    datatables.net-colreorder-bs "~1.3.2"
+    drmonty-datatables-colvis "~1.1.2"
+    eonasdan-bootstrap-datetimepicker "~4.15.35"
+    google-code-prettify "~1.0.5"
+    jquery-match-height "~0.7.0"
+    moment "~2.14.1"
+    patternfly-bootstrap-combobox "~1.1.7"
+    patternfly-bootstrap-treeview "~2.1.0"
 
 patternfly@~3.15.0:
   version "3.15.0"
@@ -6372,13 +6339,6 @@ revalidator@0.1.x:
   resolved "https://registry.yarnpkg.com/revalidator/-/revalidator-0.1.8.tgz#fece61bfa0c1b52a206bd6b18198184bdd523a3b"
   integrity sha1-/s5hv6DBtSoga9axgZgYS91SOjs=
 
-right-align@^0.1.1:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/right-align/-/right-align-0.1.3.tgz#61339b722fe6a3515689210d24e14c96148613ef"
-  integrity sha1-YTObci/mo1FWiSENJOFMlhSGE+8=
-  dependencies:
-    align-text "^0.1.1"
-
 rimraf@2, rimraf@2.x.x, rimraf@^2.2.6, rimraf@^2.5.2:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.7.1.tgz#35797f13a7fdadc566142c29d4f07ccad483e3ec"
@@ -6728,10 +6688,15 @@ source-map@^0.3.0:
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.1:
+source-map@^0.5.3, source-map@^0.5.6:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
   integrity sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=
+
+source-map@~0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
+  integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
 sparkles@^1.0.0:
   version "1.0.1"
@@ -7373,6 +7338,14 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+uglify-es@~3.3.0:
+  version "3.3.9"
+  resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.3.9.tgz#0c1c4f0700bed8dbc124cdb304d2592ca203e677"
+  integrity sha512-r+MU0rfv4L/0eeW3xZrd16t4NZfK8Ld4SWVglYBb7ez5uXFWHuVRs6xCTrf1yirs9a4j4Y27nn7SRfO6v67XsQ==
+  dependencies:
+    commander "~2.13.0"
+    source-map "~0.6.1"
+
 uglify-js@2.4.x:
   version "2.4.24"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.4.24.tgz#fad5755c1e1577658bb06ff9ab6e548c95bebd6e"
@@ -7382,16 +7355,6 @@ uglify-js@2.4.x:
     source-map "0.1.34"
     uglify-to-browserify "~1.0.0"
     yargs "~3.5.4"
-
-uglify-js@^2.4.0:
-  version "2.8.29"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.29.tgz#29c5733148057bb4e1f75df35b7a9cb72e6a59dd"
-  integrity sha1-KcVzMUgFe7Th913zW3qcty5qWd0=
-  dependencies:
-    source-map "~0.5.1"
-    yargs "~3.10.0"
-  optionalDependencies:
-    uglify-to-browserify "~1.0.0"
 
 uglify-js@~2.3:
   version "2.3.6"
@@ -7540,10 +7503,10 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-uri-path@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/uri-path/-/uri-path-0.0.2.tgz#803eb01f2feb17927dcce0f6187e72b75f53f554"
-  integrity sha1-gD6wHy/rF5J9zOD2GH5yt19T9VQ=
+uri-path@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/uri-path/-/uri-path-1.0.0.tgz#9747f018358933c31de0fccfd82d138e67262e32"
+  integrity sha1-l0fwGDWJM8Md4PzP2C0TjmcmLjI=
 
 urix@^0.1.0:
   version "0.1.0"
@@ -7857,16 +7820,6 @@ yallist@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
   integrity sha1-HBH5IY8HYImkfdUS+TxmmaaoHVI=
-
-yargs@~3.10.0:
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-3.10.0.tgz#f7ee7bd857dd7c1d2d38c0e74efbd681d1431fd1"
-  integrity sha1-9+572FfdfB0tOMDnTvvWgdFDH9E=
-  dependencies:
-    camelcase "^1.0.2"
-    cliui "^2.1.0"
-    decamelize "^1.0.0"
-    window-size "0.1.0"
 
 yargs@~3.5.4:
   version "3.5.4"

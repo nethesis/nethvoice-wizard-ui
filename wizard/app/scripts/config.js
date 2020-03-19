@@ -137,7 +137,7 @@ var appConfig = {
       next: 'devices/inventory'
     },
     inventory: {
-      prev: 'users/profiles',
+      prev: 'devices',
       next: 'devices/models'
     },
     models: {

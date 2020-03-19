@@ -56,7 +56,7 @@ angular.module('nethvoiceWizardUiApp')
 
     var init = function () {
       ModelService.getDefaults().then(function (res) {
-        if (!res.data.ui_first_config) {
+        if (!$scope.wizard.isWizard) {
           redirect()
         }
         $scope.defaultSettings = res.data
