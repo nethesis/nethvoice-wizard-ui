@@ -11,9 +11,9 @@
 angular.module('nethvoiceWizardUiApp')
   .service('ProvYealinkService', function (GenericPhoneService) {
 
-    this.general = function (modelMap) {
-      return GenericPhoneService.general(modelMap)
-    }
+    // this.general = function (modelMap) {
+    //   return GenericPhoneService.general(modelMap)
+    // }
 
     this.preferences = function (modelMap) {
       return GenericPhoneService.preferences(modelMap)

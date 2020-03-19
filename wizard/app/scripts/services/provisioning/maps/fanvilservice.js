@@ -10,9 +10,9 @@
 angular.module('nethvoiceWizardUiApp')
   .service('ProvFanvilService', function (GenericPhoneService) {
 
-    this.general = function (modelMap) {
-      return GenericPhoneService.general(modelMap)
-    }
+    // this.general = function (modelMap) {
+    //   return GenericPhoneService.general(modelMap)
+    // }
 
     this.preferences = function (modelMap) {
       return GenericPhoneService.preferences(modelMap)
