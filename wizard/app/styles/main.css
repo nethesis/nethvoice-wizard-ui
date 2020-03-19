@@ -2388,6 +2388,7 @@ F
   background: #ececec;
   border: 1px solid #dedede;
   padding: 7px;
+  white-space: nowrap;
 }
 
 .text-color-green {

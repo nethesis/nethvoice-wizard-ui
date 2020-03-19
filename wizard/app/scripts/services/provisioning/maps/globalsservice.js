@@ -40,7 +40,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "userpw",
             "default_value": "",
-            "description": "Admin user",
+            "description": "User password",
             "type": "input"
           },
           {
@@ -53,34 +53,15 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.general = function () {
+    this.preferences = function () {
       return {
-        "name": "General",
+        "name": "Preferences",
         "data": [{
             "variable": "language",
             "description": "Language display (phone UI)",
             "type": "list",
             "options": GenericPhoneUtilsService.getLanguages()
-          },{
-            "variable": "timezone",
-            "description": "Time zone",
-            "type": "list",
-            "options": GenericPhoneUtilsService.getTimeZones()
           },
-          {
-            "variable": "tonezone",
-            "description": "Tone zone",
-            "type": "list",
-            "options": GenericPhoneUtilsService.getToneZones()
-          }
-        ]
-      }
-    }
-
-    this.preferences = function () {
-      return {
-        "name": "Preferences",
-        "data": [
           {
             "variable": "provisioning_freq",
             "description": "Provisioning scheduling",
@@ -95,6 +76,18 @@ angular.module('nethvoiceWizardUiApp')
                 "value": "never"
               }
             ]
+          },
+          {
+            "variable": "tonezone",
+            "description": "Tone zone",
+            "type": "list",
+            "options": GenericPhoneUtilsService.getToneZones()
+          },
+          {
+            "variable": "timezone",
+            "description": "Time zone",
+            "type": "list",
+            "options": GenericPhoneUtilsService.getTimeZones()
           }
         ]
       }

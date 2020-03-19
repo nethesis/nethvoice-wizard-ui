@@ -394,7 +394,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.buildDefaultSettingsUI = function () {
       return {
         pinned: ProvGlobalsService.pinned(),
-        general: ProvGlobalsService.general(),
         preferences: ProvGlobalsService.preferences(),
         network: ProvGlobalsService.network()
       }
@@ -407,7 +406,7 @@ angular.module('nethvoiceWizardUiApp')
         softKeys: convertKeysMap(service.softKeys(map)),
         lineKeys: convertKeysMap(service.lineKeys(map)),
         expansionKeys: convertKeysMap(service.expansionKeys(map)),
-        general: service.general(map),
+        // general: service.general(map),
         preferences: service.preferences(map),
         network: service.network(map),
         provisioning: service.provisioning(map),
