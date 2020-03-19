@@ -33,14 +33,6 @@ angular.module('nethvoiceWizardUiApp')
       return appConfig.STEP_WIZARD[currentStep].next
     }
 
-    var redirect = function () {
-      if ($scope.wizard.isWizard) {
-        nextStep()
-      } else {
-        $location.path("/devices/inventory")
-      }
-    }
-
     $scope.openDefaultSettings = function () {
       $("#defaultSettingsModal").modal("show")
       setTimeout(function () {
@@ -54,18 +46,33 @@ angular.module('nethvoiceWizardUiApp')
       }, 500)
     }
 
+    var initDefaults = function (defaultRes) {
+      $scope.defaultSettings = defaultRes.data
+      $scope.connectivityCheck({
+        "host": defaultRes.data.hostname,
+        "scheme": defaultRes.data.provisioning_url_scheme
+      })
+      $scope.$parent.wizard.isNextDisabled = $scope.defaultSettings.ui_first_config ? true : false
+      $scope.view.changeRoute = false
+    }
+
     var init = function () {
-      ModelService.getDefaults().then(function (res) {
-        if (!$scope.wizard.isWizard) {
-          redirect()
-        }
-        $scope.defaultSettings = res.data
-        $scope.connectivityCheck({
-          "host": res.data.hostname,
-          "scheme": res.data.provisioning_url_scheme
+      ModelService.getDefaults().then(function (defaultRes) {
+        ConfigService.getWizard().then(function (res) {
+          let isWizard
+          if (res.length == 0) {
+            isWizard = true;
+          } else {
+            isWizard = res[0].status === 'true';
+          }
+          if (isWizard) {
+            initDefaults(defaultRes)
+          } else {
+            $location.path("/devices/inventory")
+          }
+        }, function (err) {
+          console.log(err);
         })
-        $scope.$parent.wizard.isNextDisabled = $scope.defaultSettings.ui_first_config ? true : false
-        $scope.view.changeRoute = false
       }, function (err) {
         console.log(err)
       })
@@ -76,6 +83,5 @@ angular.module('nethvoiceWizardUiApp')
     })
 
     init()
-    // redirect()
 
   });
