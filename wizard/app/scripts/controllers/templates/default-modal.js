@@ -13,18 +13,8 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.openedSection = ""
     $scope.globalsUi = $scope.buildDefaultSettingsUI()
-    $scope.selectOptionsLimit = 11
+    $scope.selectOptionsLimit = 12
     $scope.loadingSections = []
-
-    var refreshSelects = function () {
-      $('.globalsSectionContainer select').each(function(){
-        if ($(this).hasClass("selectpicker")) {
-          $(this).selectpicker('refresh')
-        } else if ($(this).hasClass("combobox")) {
-          $(this).combobox("refresh")
-        }
-      })
-    }
 
     var resetloadingActions = function (status) {
       $scope.loadingActions = status
@@ -62,16 +52,19 @@ angular.module('nethvoiceWizardUiApp')
           "scheme": $scope.defaultSettings.provisioning_url_scheme
         })
       }
+      if (variable == "provisioning_url_scheme") {
+        $scope.ldapCheck()
+      }
     }
 
     $scope.openSection = function (sectionkey) {
       $scope.destroyAllSelects(".globalsSectionContainer")
-      $scope.selectOptionsLimit = 11
+      $scope.selectOptionsLimit = 12
       $interval.cancel($scope.selectOptionsInterval)
       $scope.selectOptionsInterval = $interval(function (index) {
         $scope.selectOptionsLimit += 10
         if (index == 5 || index == 10  || index == 15 || index == 20 || index == 25 || index == 30 || index == 35 || index == 42) {
-          refreshSelects()
+          $scope.refreshGlobalsSelects()
         }
       }, 1000, 43)
       if ($scope.openedSection != sectionkey) {

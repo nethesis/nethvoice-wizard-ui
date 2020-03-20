@@ -13,7 +13,6 @@ angular.module('nethvoiceWizardUiApp')
     // $scope.globalsUi = ProvGlobalsService.getGlobalsUI()
     $scope.view.changeRoute = true
     $scope.inventoryModels = []
-    $scope.defaultSettings = {}
     $scope.loadingModels = {}
     $scope.loadingActions = false
     $scope.newModelSourceName = ""
@@ -81,11 +80,12 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.openDefaultSettings = function () {
       ModelService.getDefaults().then(function (res) {
-        $scope.defaultSettings = res.data
+        $scope.$parent.defaultSettings = res.data
         $scope.connectivityCheck({
           "host": res.data.hostname,
           "scheme": res.data.provisioning_url_scheme
         })
+        $scope.ldapCheck()
         $("#defaultSettingsModal").modal("show")
         setTimeout(function () {
           $('#defaultSettingsModal select').each(function(){

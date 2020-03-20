@@ -133,16 +133,16 @@ angular.module('nethvoiceWizardUiApp')
             "type": "list",
             "options": [
               {
-                "text": "LDAP (unencrypted, port 389 by default)",
-                "value": "0"
+                "text": "LDAP (unencrypted)",
+                "value": "none"
               },
               {
-                "text": "LDAP TLS Start (port 389 by default)",
-                "value": "1"
+                "text": "LDAP TLS Start",
+                "value": "starttls"
               },
               {
-                "text": "LDAPs (port 636 by default)",
-                "value": "2"
+                "text": "LDAPs",
+                "value": "ldaps"
               }
             ]
           },

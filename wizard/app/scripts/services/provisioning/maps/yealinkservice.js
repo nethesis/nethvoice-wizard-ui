@@ -23,9 +23,9 @@ angular.module('nethvoiceWizardUiApp')
       return GenericPhoneService.network(modelMap)
     }
 
-    this.provisioning = function (modelMap) {
-      return GenericPhoneService.provisioning(modelMap)
-    }
+    // this.provisioning = function (modelMap) {
+    //   return GenericPhoneService.provisioning(modelMap)
+    // }
 
     this.softKeys = function (modelMap) {
       return GenericPhoneService.softKeys(modelMap)

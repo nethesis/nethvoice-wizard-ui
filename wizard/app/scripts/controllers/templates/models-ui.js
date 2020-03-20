@@ -61,7 +61,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.openSection = function (sectionkey) {
       $scope.destroyAllSelects("#modelsContainer")
       delete $scope.currentModel.ui[sectionkey].showingKeys
-      $scope.selectOptionsLimit = 11
+      $scope.selectOptionsLimit = 12
       $interval.cancel($scope.selectOptionsInterval)
       $scope.selectOptionsInterval = $interval(function (index) {
         $scope.selectOptionsLimit += 10

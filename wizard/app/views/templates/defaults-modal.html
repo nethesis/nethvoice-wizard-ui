@@ -17,6 +17,13 @@
 							<span class="pficon pficon-info"></span>
 							<strong>{{"The following settins can be modified later from the models page" | translate}}.</strong>
 						</div>
+						<div ng-if="ldapResDisabled" class="alert alert-warning alert-dismissable mb-10">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span class="pficon pficon-close"></span>
+							</button>
+							<span class="pficon pficon-warning-triangle-o"></span>
+							<strong>{{"Phonebook service is disabled on this system" | translate}}!</strong> {{"Enable the service in the Server Manager and manage the Phonebook variables" | translate}}.
+						</div>
 						<div ng-if="connectivityCheckRes.valid_certificate === false" class="alert alert-warning alert-dismissable mb-10">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span class="pficon pficon-close"></span>
@@ -41,9 +48,12 @@
 										<!-- list -->
 										<div ng-if="item.type == 'list'" class="form-group">
 											<label class="control-label">{{::item.description | translate}}</label>
-											<select id="default-select-{{$index}}"
+											<select
+												id="default-select-{{$index}}"
 												class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
-												ng-model="defaultSettings[item.variable]" autocomplete="off">
+												ng-change="pinnedChange(item.variable)"
+												ng-model="defaultSettings[item.variable]"
+												autocomplete="off">
 												<option value="" ng-disabled="true" ng-hide="true">-</option>
 												<!-- selectpicker -->
 												<option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
@@ -54,7 +64,12 @@
 										<!-- input -->
 										<div ng-if="item.type == 'input'" class="form-group {{(connectivityCheckRes.is_reachable === false) && (item.variable == 'hostname') ? 'has-error' : ''}}">
 											<label class="control-label">{{::item.description | translate}}</label>
-											<input type="text" id="default-select-{{$index}}" ng-change="pinnedChange(item.variable)" ng-model="defaultSettings[item.variable]"
+											<input
+												type="text"
+												id="default-select-{{$index}}"
+												ng-change="pinnedChange(item.variable)"
+												ng-model="defaultSettings[item.variable]"
+												autocomplete="off"
 												class="form-control">
 											</input>
 										</div>
@@ -79,9 +94,11 @@
 													<!-- list -->
 													<div ng-if="item.type == 'list'" class="form-group">
 														<label class="control-label">{{::item.description | translate}}</label>
-														<select id="default-select-{{$index}}"
+														<select
+															id="default-select-{{$index}}"
 															class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
-															ng-model="defaultSettings[item.variable]" autocomplete="off">
+															ng-model="defaultSettings[item.variable]"
+															autocomplete="off">
 															<option value="" ng-disabled="true" ng-hide="true">-</option>
                               <!-- combobox -->
                               <option ng-selected="defaultSettings[item.variable] == option.value"
@@ -101,7 +118,8 @@
 														<label class="control-label">{{::item.description | translate}}</label>
                             <input 
                               type="text"
-                              id="default-select-{{$index}}"
+															id="default-select-{{$index}}"
+															autocomplete="off"
                               ng-model="defaultSettings[item.variable]"
 															class="form-control">
 														</input>

@@ -82,53 +82,31 @@ angular.module('nethvoiceWizardUiApp')
         return;
       }
 
-      var settingsItems = [];
-      var passwordItems = [];
+      var settingsItems = []
+      var passwordItems = []
 
       if (modelMap.general.settings) {
         settingsItems = [
-          {
-            "variable": "language",
-            "description": "Language display (phone UI)",
-            "type": "list",
-            "options": GenericPhoneUtilsService.getLanguages()
-          },
           {
             "variable": "ntp_server",
             "description": "Network time (NTP) server",
             "type": "input"
           },
           {
-            "variable": "timezone",
-            "description": "Time zone",
+            "variable": "provisioning_freq",
+            "description": "Provisioning scheduling",
             "type": "list",
-            "options": GenericPhoneUtilsService.getTimeZones()
+            "options": [
+              {
+                "text": "everyday",
+                "value": "everyday"
+              },
+              {
+                "text": "never_prov_freq",
+                "value": "never"
+              }
+            ]
           },
-          {
-            "variable": "tonezone",
-            "description": "Tone zone",
-            "type": "list",
-            "options": GenericPhoneUtilsService.getToneZones()
-          },
-          // {
-          //   "variable": "pound",
-          //   "description": "Use '#' or '*' key as send",
-          //   "type": "list",
-          //   "options": [
-          //     {
-          //       "text": "Disabled",
-          //       "value": "0"
-          //     },
-          //     {
-          //       "text": "# key",
-          //       "value": "1"
-          //     },
-          //     {
-          //       "text": "* key",
-          //       "value": "2"
-          //     }
-          //   ]
-          // },
           {
             "variable": "dss_transfer",
             "description": "Transfer mode for DSS key",
@@ -148,21 +126,24 @@ angular.module('nethvoiceWizardUiApp')
               }
             ]
           },
-          // {
-          //   "variable": "auto_redial",
-          //   "description": "Auto redial",
-          //   "type": "list",
-          //   "options": [
-          //     {
-          //       "text": "Disabled",
-          //       "value": "0"
-          //     },
-          //     {
-          //       "text": "Enabled",
-          //       "value": "1"
-          //     }
-          //   ]
-          // },
+          {
+            "variable": "language",
+            "description": "Language display (phone UI)",
+            "type": "list",
+            "options": GenericPhoneUtilsService.getLanguages()
+          },
+          {
+            "variable": "timezone",
+            "description": "Time zone",
+            "type": "list",
+            "options": GenericPhoneUtilsService.getTimeZones()
+          },
+          {
+            "variable": "tonezone",
+            "description": "Tone zone",
+            "type": "list",
+            "options": GenericPhoneUtilsService.getToneZones()
+          },
           {
             "variable": "time_format",
             "description": "Time format",
@@ -183,28 +164,8 @@ angular.module('nethvoiceWizardUiApp')
             "description": "Date format",
             "type": "list",
             "options": GenericPhoneUtilsService.getDateFormat()
-          },
-          // {
-          //   "variable": "firmware_url", //// todo upload
-          //   "description": "Firmware URL",
-          //   "type": "input"
-          // },
-          {
-            "variable": "provisioning_freq",
-            "description": "Provisioning scheduling",
-            "type": "list",
-            "options": [
-              {
-                "text": "everyday",
-                "value": "everyday"
-              },
-              {
-                "text": "never_prov_freq",
-                "value": "never"
-              }
-            ]
           }
-        ];
+        ]
       }
 
       if (modelMap.general.password) {
@@ -219,12 +180,7 @@ angular.module('nethvoiceWizardUiApp')
             "description": "User password",
             "type": "password"
           }
-          // {
-          //   "variable": "varpw",
-          //   "description": "Var password",
-          //   "type": "password"
-          // }
-        ];
+        ]
       }
 
       return {
@@ -721,16 +677,16 @@ angular.module('nethvoiceWizardUiApp')
             "type": "list",
             "options": [
               {
-                "text": "LDAP (unencrypted, port 389 by default)",
-                "value": "0"
+                "text": "LDAP (unencrypted)",
+                "value": "none"
               },
               {
-                "text": "LDAP TLS Start (port 389 by default)",
-                "value": "1"
+                "text": "LDAP TLS Start",
+                "value": "starttls"
               },
               {
-                "text": "LDAPs (port 636 by default)",
-                "value": "2"
+                "text": "LDAPs",
+                "value": "ldaps"
               }
             ]
           },
@@ -906,77 +862,77 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.provisioning = function (modelMap) {
-      if (!modelMap.provisioning.provisioning) {
-        return;
-      }
+    // this.provisioning = function (modelMap) {
+    //   if (!modelMap.provisioning.provisioning) {
+    //     return;
+    //   }
 
-      return {
-        "name": "Provisioning",
-        "items": [
-          {
-            "variable": "dhcp_enable",
-            "description": "DHCP Active",
-            "type": "list",
-            "options": [
-              {
-                "text": "Off",
-                "value": "0"
-              },
-              {
-                "text": "On",
-                "value": "1"
-              }
-            ]
-          },
-          {
-            "variable": "weekly_enable",
-            "description": "Weekly Provisioning",
-            "type": "list",
-            "options": [
-              {
-                "text": "Off",
-                "value": "0"
-              },
-              {
-                "text": "On",
-                "value": "1"
-              }
-            ]
-          },
-          {
-            "variable": "weekly_dayofweek",
-            "description": "Weekly Provisioning Days of Week",
-            "type": "input"
-          },
-          {
-            "variable": "weekly_begin_time",
-            "description": "Weekly Begin Time",
-            "type": "time"
-          },
-          {
-            "variable": "weekly_end_time",
-            "description": "Weekly End Time",
-            "type": "time"
-          },
-          {
-            "variable": "pnp_enable",
-            "description": "Plug and Play (PnP)",
-            "type": "list",
-            "options": [
-              {
-                "text": "Off",
-                "value": "0"
-              },
-              {
-                "text": "On",
-                "value": "1"
-              }
-            ]
-          }
-        ]
-      }
-    }
+    //   return {
+    //     "name": "Provisioning",
+    //     "items": [
+    //       {
+    //         "variable": "dhcp_enable",
+    //         "description": "DHCP Active",
+    //         "type": "list",
+    //         "options": [
+    //           {
+    //             "text": "Off",
+    //             "value": "0"
+    //           },
+    //           {
+    //             "text": "On",
+    //             "value": "1"
+    //           }
+    //         ]
+    //       },
+    //       {
+    //         "variable": "weekly_enable",
+    //         "description": "Weekly Provisioning",
+    //         "type": "list",
+    //         "options": [
+    //           {
+    //             "text": "Off",
+    //             "value": "0"
+    //           },
+    //           {
+    //             "text": "On",
+    //             "value": "1"
+    //           }
+    //         ]
+    //       },
+    //       {
+    //         "variable": "weekly_dayofweek",
+    //         "description": "Weekly Provisioning Days of Week",
+    //         "type": "input"
+    //       },
+    //       {
+    //         "variable": "weekly_begin_time",
+    //         "description": "Weekly Begin Time",
+    //         "type": "time"
+    //       },
+    //       {
+    //         "variable": "weekly_end_time",
+    //         "description": "Weekly End Time",
+    //         "type": "time"
+    //       },
+    //       {
+    //         "variable": "pnp_enable",
+    //         "description": "Plug and Play (PnP)",
+    //         "type": "list",
+    //         "options": [
+    //           {
+    //             "text": "Off",
+    //             "value": "0"
+    //           },
+    //           {
+    //             "text": "On",
+    //             "value": "1"
+    //           }
+    //         ]
+    //       }
+    //     ]
+    //   }
+    // }
 
     this.softKeys = function (modelMap) {
 

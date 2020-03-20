@@ -12,7 +12,6 @@ angular.module('nethvoiceWizardUiApp')
   .controller('DevicesCtrl', function ($scope, ModelService, ConfigService, $location, $route, ProvGlobalsService) {
 
     $scope.view.changeRoute = true
-    $scope.defaultSettings = {}
 
     var currentStep = $route.current.controllerAs.split('/').length > 1 ? $route.current.controllerAs.split('/')[1] : $route.current.controllerAs.split('/')[0],
         stepCount = appConfig.STEP_MAP[currentStep],
@@ -47,11 +46,12 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     var initDefaults = function (defaultRes) {
-      $scope.defaultSettings = defaultRes.data
+      $scope.$parent.defaultSettings = defaultRes.data
       $scope.connectivityCheck({
         "host": defaultRes.data.hostname,
         "scheme": defaultRes.data.provisioning_url_scheme
       })
+      $scope.ldapCheck()
       $scope.$parent.wizard.isNextDisabled = $scope.defaultSettings.ui_first_config ? true : false
       $scope.view.changeRoute = false
     }

@@ -154,5 +154,15 @@ angular.module('nethvoiceWizardUiApp')
         })
       })
     }
+    
+    this.ldapCheck = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/configuration/ldapphonebook').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
 
   })

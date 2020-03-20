@@ -32,6 +32,10 @@ angular.module('nethvoiceWizardUiApp')
     $scope.modelsUIUrl = 'views/templates/models-ui.html';
     $scope.defaultsModalUrl = 'views/templates/defaults-modal.html';
 
+    $scope.defaultSettings = {}
+
+    $scope.ldapResDisabled = false
+
     $scope.wizard = {
       isWizard: true,
       isMigration: false,
@@ -408,8 +412,8 @@ angular.module('nethvoiceWizardUiApp')
         expansionKeys: convertKeysMap(service.expansionKeys(map)),
         // general: service.general(map),
         preferences: service.preferences(map),
-        network: service.network(map),
-        provisioning: service.provisioning(map),
+        network: service.network(map)
+        // provisioning: service.provisioning(map),
       }
     }
 
@@ -501,6 +505,41 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    $scope.refreshGlobalsSelects = function () {
+      $('.globalsSectionContainer select').each(function(){
+        if ($(this).hasClass("selectpicker")) {
+          $(this).selectpicker('refresh')
+        } else if ($(this).hasClass("combobox")) {
+          $(this).combobox("refresh")
+        }
+      })
+    }
+
+    $scope.ldapCheck = function () {
+      ModelService.ldapCheck().then(function (res) {
+        $scope.ldapCheckRes = res.data
+        if ($scope.defaultSettings.provisioning_url_scheme == "https") {
+          $scope.defaultSettings.ldap_tls = "ldaps"
+        } else {
+          $scope.defaultSettings.ldap_tls = "none"
+        }
+        if (res.data["ldaps"].enabled) {
+          $scope.defaultSettings.ldap_user = res.data["ldaps"].user
+          $scope.defaultSettings.ldap_password = res.data["ldaps"].password
+          $scope.defaultSettings.ldap_port = res.data["ldaps"].port
+        } else if (res.data["ldap"].enabled) {
+          $scope.defaultSettings.ldap_user = res.data["ldap"].user
+          $scope.defaultSettings.ldap_password = res.data["ldap"].password
+          $scope.defaultSettings.ldap_port = res.data["ldap"].port
+        } else {
+          $scope.ldapResDisabled = true
+        }
+        $scope.refreshGlobalsSelects()
+      }, function (err) {
+        console.log(err);
+      })
+    }
+
     var getGlobals = function () {
       ModelService.getDefaults().then(function (res) {
         $scope.currentModel.globals = angular.copy(res.data)
@@ -550,6 +589,9 @@ angular.module('nethvoiceWizardUiApp')
       }
       if ($scope.connectivityCheckRes) {
         $scope.connectivityCheckRes = null
+      }
+      if ($scope.ldapResDisabled) {
+        $scope.ldapResDisabled = null
       }
     })
     
