@@ -84,8 +84,8 @@
                                           <!-- input -->
                                           <input
                                             ng-if="key.type == 'input'"
-                                            ng-model="currentModel.variables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)]"
-                                            ng-change="onVariableChanged(key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex))"
+                                            ng-model="currentModel.inputs[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)]"
+                                            ng-change="onVariableChanged(key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex), key.type)"
                                             placeholder="{{currentModel.globals[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] ? currentModel.globals[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] + ' (default)' : ''}}"
                                             type="text"
                                             autocomplete="off"
@@ -94,8 +94,8 @@
                                           <!-- time -->
                                           <input
                                             ng-if="key.type == 'time'"
-                                            ng-model="currentModel.variables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)]"
-                                            ng-change="onVariableChanged(key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex))"
+                                            ng-model="currentModel.inputs[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)]"
+                                            ng-change="onVariableChanged(key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex), key.type)"
                                             placeholder="{{currentModel.globals[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] ? currentModel.globals[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] + ' (default)' : 'HH:MM'}}"
                                             type="text"
                                             autocomplete="off"
@@ -104,8 +104,8 @@
                                           <!-- password -->
                                           <div ng-if="item.type == 'password'" class="input-group">
                                             <input
-                                              ng-model="currentModel.variables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)]"
-                                              ng-change="onVariableChanged(key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex))"
+                                              ng-model="currentModel.inputs[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)]"
+                                              ng-change="onVariableChanged(key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex), key.type)"
                                               placeholder="{{currentModel.globals[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] ? currentModel.globals[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] + ' (default)' : ''}}"
                                               type="password"
                                               autocomplete="off"
@@ -176,8 +176,8 @@
                                   <!-- input -->
                                   <input
                                     ng-if="key.type == 'input'"
-                                    ng-model="currentModel.variables[key.variable + '_' + keysIndex]"
-                                    ng-change="onVariableChanged(key.variable + '_' + keysIndex)"
+                                    ng-model="currentModel.inputs[key.variable + '_' + keysIndex]"
+                                    ng-change="onVariableChanged(key.variable + '_' + keysIndex, key.type)"
                                     placeholder="{{currentModel.globals[key.variable + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + keysIndex] + ' (default)' : '-'}}"
                                     type="text"
                                     autocomplete="off"
@@ -186,8 +186,8 @@
                                   <!-- time -->
                                   <input
                                     ng-if="key.type == 'time'"
-                                    ng-model="currentModel.variables[key.variable + '_' + keysIndex]"
-                                    ng-change="onVariableChanged(key.variable + '_' + keysIndex)"
+                                    ng-model="currentModel.inputs[key.variable + '_' + keysIndex]"
+                                    ng-change="onVariableChanged(key.variable + '_' + keysIndex, key.type)"
                                     placeholder="{{currentModel.globals[key.variable + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + keysIndex] + ' (default)' : 'HH:MM'}}"
                                     type="text"
                                     autocomplete="off"
@@ -196,8 +196,8 @@
                                   <!-- password -->
                                   <div ng-if="item.type == 'password'" class="input-group">
                                     <input
-                                      ng-model="currentModel.variables[key.variable + '_' + keysIndex]"
-                                      ng-change="onVariableChanged(key.variable + '_' + keysIndex)"
+                                      ng-model="currentModel.inputs[key.variable + '_' + keysIndex]"
+                                      ng-change="onVariableChanged(key.variable + '_' + keysIndex, key.type)"
                                       placeholder="{{currentModel.globals[key.variable + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + keysIndex] + ' (default)' : '-'}}"
                                       type="password"
                                       autocomplete="off"
@@ -260,8 +260,8 @@
                           <input
                             ng-if="key.type == 'input'"
                             id="{{sectionkey}}-input-{{$index+1}}"
-                            ng-model="currentModel.variables[key.variable]"
-                            ng-change="onVariableChanged(key.variable)"
+                            ng-model="currentModel.inputs[key.variable]"
+                            ng-change="onVariableChanged(key.variable, key.type)"
                             placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : '-'}}"
                             type="text"
                             autocomplete="off"
@@ -271,8 +271,8 @@
                           <input
                             ng-if="key.type == 'time'"
                             id="{{sectionkey}}-input-{{$index+1}}"
-                            ng-model="currentModel.variables[key.variable]"
-                            ng-change="onVariableChanged(key.variable)"
+                            ng-model="currentModel.inputs[key.variable]"
+                            ng-change="onVariableChanged(key.variable, key.type)"
                             placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : 'HH:MM'}}"
                             type="text"
                             autocomplete="off"
@@ -282,8 +282,8 @@
                           <div ng-if="item.type == 'password'" class="input-group">
                             <input
                               id="{{sectionkey}}-input-{{$index+1}}"
-                              ng-model="currentModel.variables[key.variable]"
-                              ng-change="onVariableChanged(key.variable)"
+                              ng-model="currentModel.inputs[key.variable]"
+                              ng-change="onVariableChanged(key.variable, key.type)"
                               placeholder="{{currentModel.globals[key.variable] ? currentModel.globals[key.variable] + ' (default)' : '-'}}"
                               type="password"
                               autocomplete="off"
@@ -353,8 +353,8 @@
                       <input
                         ng-if="item.type == 'input'"
                         id="{{sectionkey}}-input-{{$index}}"
-                        ng-model="currentModel.variables[item.variable]"
-                        ng-change="onVariableChanged(item.variable)"
+                        ng-model="currentModel.inputs[item.variable]"
+                        ng-change="onVariableChanged(item.variable, item.type)"
                         placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : '-'}}"
                         type="text"
                         autocomplete="off"
@@ -364,8 +364,8 @@
                       <input
                         ng-if="item.type == 'time'"
                         id="{{sectionkey}}-input-{{$index}}"
-                        ng-model="currentModel.variables[item.variable]"
-                        ng-change="onVariableChanged(item.variable)"
+                        ng-model="currentModel.inputs[item.variable]"
+                        ng-change="onVariableChanged(item.variable, item.type)"
                         placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : 'HH:MM'}}"
                         type="text"
                         autocomplete="off"
@@ -375,8 +375,8 @@
                       <div ng-if="item.type == 'password'" class="input-group display-flex">
                         <input
                           id="{{sectionkey}}-input-{{$index}}"
-                          ng-model="currentModel.variables[item.variable]"
-                          ng-change="onVariableChanged(item.variable)"
+                          ng-model="currentModel.inputs[item.variable]"
+                          ng-change="onVariableChanged(item.variable, item.type)"
                           placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : '-'}}"
                           type="password"
                           autocomplete="off"

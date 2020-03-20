@@ -447,15 +447,16 @@ angular.module('nethvoiceWizardUiApp')
 
     var buildModelObj = function (location, name, modelBrand, res, mac) {
       return $scope.currentModel = {
-        "uiLocation" : location,
-        "ui" : getModelUI(modelBrand, res.data.variables),
+        "uiLocation": location,
+        "ui": getModelUI(modelBrand, res.data.variables),
         "storedVariables": angular.copy(res.data.variables),
-        "variables" : angular.copy(res.data.variables),
+        "variables": angular.copy(res.data.variables),
+        "inputs": angular.copy(res.data.variables),
         "globals": {},
-        "name" : name,
-        "mac" : mac,
+        "name": name,
+        "mac": mac,
         "display_name" : res.data.display_name,
-        "openedSection" : "",
+        "openedSection": "",
         "shownPasswords": {},
         "openedExpKeys": "",
         "showingKeys": "",
