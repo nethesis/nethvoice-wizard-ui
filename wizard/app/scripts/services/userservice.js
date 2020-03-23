@@ -139,9 +139,9 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.getMobileExtension = function (username) {
+    this.createMobileExtension = function (obj) {
       return $q(function (resolve, reject) {
-        RestService.get('/mobiles/' + username).then(function (res) {
+        RestService.post('/mobileapp', obj).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
@@ -149,15 +149,25 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.createMobileExtension = function (obj) {
+    this.getMobileExtension = function (mainextension) {
       return $q(function (resolve, reject) {
-        RestService.post('/mobiles', obj).then(function (res) {
+        RestService.get('/mobileapp/' + mainextension).then(function (res) {
           resolve(res);
         }, function (err) {
           reject(err);
         });
       });
     };
+
+    this.deleteMobileExtension = function (extension) {
+      return $q(function (resolve, reject) {
+        RestService.delete('/mobileapp/' + extension).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    }
 
     this.getWebRTCExtension = function (mainextension) {
       return $q(function (resolve, reject) {

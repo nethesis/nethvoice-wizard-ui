@@ -61,13 +61,6 @@ angular.module('nethvoiceWizardUiApp')
             console.log(err)
           }
         })
-        UserService.getMobileExtension($scope.currentUser.username).then(function (res) {
-          $scope.currentUser.mobile = res.data
-        }, function (err) {
-          if (err.status != 404) {
-            console.log(err)
-          }
-        })
         UserService.getVoiceMail($scope.currentUser.default_extension).then(function (res) {
           if (res.data && res.data.mailbox) {
             $scope.currentUser.voiceMailState = true
@@ -83,8 +76,18 @@ angular.module('nethvoiceWizardUiApp')
         UserService.getWebRTCExtension($scope.currentUser.default_extension).then(function (res) {
           $scope.currentUser.webRtcState = true
         }, function (err) {
-          console.log(err)
+          if (err.status != 404) {
+            console.log(err)
+          }
           $scope.currentUser.webRtcState = false
+        })
+        UserService.getMobileExtension($scope.currentUser.default_extension).then(function (res) {
+          $scope.currentUser.mobileAppState = true
+        }, function (err) {
+          if (err.status != 404) {
+            console.log(err)
+          }
+          $scope.currentUser.mobileAppState = false
         })
         getCuDevicesEncryption($scope.currentUser.devices)
         getAvailableModels($scope.currentUser.devices)
@@ -125,6 +128,47 @@ angular.module('nethvoiceWizardUiApp')
         $scope.currentUser.devices.forEach(function (el ,index) {
           getEncryption(el.extension, index)
         })
+      }
+    }
+
+    $scope.setMobileApp = function (mainextension) {
+      UserService.createMobileExtension({
+        "mainextension": mainextension
+      }).then(function (res){
+        $scope.currentUser.mobileAppState = true
+        $scope.currentUser.devices[Object.keys($scope.currentUser.devices).length] = {
+          "type": "mobile",
+          "extension": res.data.extension
+        }
+      }, function (err) {
+        console.log("err", err)
+      })
+    }
+
+    $scope.deleteMobileApp = function (extension) {
+      UserService.deleteMobileExtension(extension).then(function (){
+        $scope.currentUser.mobileAppState = false
+        for (let device in $scope.currentUser.devices) {
+          if ($scope.currentUser.devices[device].type == "mobile") {
+            delete $scope.currentUser.devices[device]
+          }
+        }
+      }, function (err) {
+        console.log("err", err)
+      })
+    }
+
+    $scope.toggleMobileApp = function () {
+      if ($scope.currentUser.mobileAppState) {
+        $scope.setMobileApp($scope.currentUser.default_extension)
+      } else {
+        let mobileExt
+        for (let device in $scope.currentUser.devices) {
+          if ($scope.currentUser.devices[device].type == "mobile") {
+            mobileExt = $scope.currentUser.devices[device].extension
+          }
+        }
+        $scope.deleteMobileApp(mobileExt)
       }
     }
 

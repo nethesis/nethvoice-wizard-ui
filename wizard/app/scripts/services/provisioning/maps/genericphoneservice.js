@@ -20,7 +20,9 @@ angular.module('nethvoiceWizardUiApp')
           expmodule_count = parseInt(variables.cap_expmodule_count),
           expkey_count = parseInt(variables.cap_expkey_count),
           expkey_type_blacklist = variables.cap_expkey_type_blacklist,
-          hidden_date_formats = variables.cap_date_format_blacklist
+          hidden_date_formats = variables.cap_date_format_blacklist,
+          hidden_dss_transfer = variables.cap_dss_transfer_blacklist,
+          hidden_ldap_tls = variables.cap_ldap_tls_blacklist
 
       return {
         "general": {
@@ -32,11 +34,13 @@ angular.module('nethvoiceWizardUiApp')
           "ringtone": true,
           "display": true,
           "wallpaper": true,
-          "screensaver": true
+          "screensaver": true,
+          "hidden_dsstransfer": hidden_dss_transfer
         },
         "network": {
           "ldap": true,
-          "vlan": false
+          "vlan": false,
+          "hidden_ldap_tls": hidden_ldap_tls
         },
         "provisioning": {
           "provisioning": true

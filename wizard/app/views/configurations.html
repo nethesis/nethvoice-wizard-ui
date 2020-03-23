@@ -333,7 +333,7 @@
                 </div>
               </div>
               <!-- mobile app -->
-              <!-- <div class="list-group-item abstract-item cursor-default ng-scope">
+              <div class="list-group-item abstract-item cursor-default ng-scope">
                 <div class="list-view-pf-actions">
                   <div class="display-flex">
                   </div>
@@ -345,7 +345,10 @@
                   <div class="list-view-pf-body">
                     <div class="list-view-pf-description">
                       <div class="list-group-item-heading configDevices-item-heading">
-                        {{"Mobile App" | translate}} - <span>92202</span>
+                        {{"Mobile App" | translate}}
+                        <span ng-repeat="device in user.devices" ng-if="device.type == 'mobile'">
+                          <span>-</span> <span>{{device.extension}}</span>
+                        </span>
                       </div>
                       <span class="weight-plus">
                       </span>
@@ -353,7 +356,13 @@
                         <div class="col-lg-6">
                           <div class="form-group no-margin-bottom">
                             <div class="display-flex">
-                              <input on-element-render="switchRenderEnd" class="bootstrap-switch" type="checkbox" checked>
+                              <input
+                                bs-switch
+                                ng-model="currentUser.mobileAppState"
+                                ng-change="toggleMobileApp()"
+                                id="bootstrap-switch-mobile-{{currentUser.id}}"
+                                class="bootstrap-switch bootstrap-switch-webrtc col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                                type="checkbox">
                             </div>
                           </div>
                         </div>
@@ -363,7 +372,7 @@
                     </div>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
@@ -435,11 +444,10 @@
                     </h1>
                     <div id="devices-not-linked-list" ng-style="{'max-height': devicesNotLinkedHeight}">
                       <!-- custom device -->
-                      <div class="list-group-item cursor-default back-whitesmoke {{deviceToLink.device == newDevice ? 'selected' : ''}}">
+                      <!-- <div class="list-group-item cursor-default back-whitesmoke {{deviceToLink.device == newDevice ? 'selected' : ''}}">
                         <label for="radio-custom-device" class="width-100p pointer">
                           <div class="list-view-pf-actions">
                           </div>
-                          <!-- radio button -->
                           <div class="list-view-pf-checkbox mt-48 display-flex">
                             <input type="radio" id="radio-custom-device" class="mt-2" name="deviceToLinkGroup" ng-model="deviceToLink.device" ng-value="newDevice">
                           </div>
@@ -470,7 +478,7 @@
                             </div>
                           </div>
                         </label>
-                      </div>
+                      </div> -->
                       <!-- devices -->
                       <div
                         ng-show="!devicesLoading"

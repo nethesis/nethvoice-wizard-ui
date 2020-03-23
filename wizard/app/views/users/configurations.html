@@ -163,6 +163,16 @@
                     <div ng-if="selectedUser.setWebRTCInAction" class="spinner spinner-sm language-name"></div>
                   </div>
                 </div>
+                <div class="col-lg-6 col-xs-12 config-bottom min-width-conf-cols">
+                  <div class="list-view-pf-additional-info-item list-view-configuration-settings margin-bottom-medium">
+                    <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left padding-left-conf-col">
+                      <span class="fa fa-mobile"></span>
+                      <span class="config-span">{{"Mobile App" | translate}}</span>
+                    </span>
+                    <input bs-switch ng-model="selectedUser.mobileAppState" ng-change="toggleMobileApp()" id="bootstrap-switch-mobileapp-{{selectedUser.id}}"
+                      class="bootstrap-switch bootstrap-switch-webrtc col-lg-6 col-md-6 col-sm-12 col-xs-12" type="checkbox">
+                  </div>
+                </div>
               </div>
             </div>
           </div>

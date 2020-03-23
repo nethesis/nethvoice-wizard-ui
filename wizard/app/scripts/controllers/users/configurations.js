@@ -122,13 +122,6 @@ angular.module('nethvoiceWizardUiApp')
             console.log(err);
           }
         });
-        UserService.getMobileExtension($scope.selectedUser.username).then(function (res) {
-          $scope.selectedUser.mobile = res.data;
-        }, function (err) {
-          if (err.status != 404) {
-            console.log(err);
-          }
-        });
         UserService.getVoiceMail($scope.selectedUser.default_extension).then(function (res) {
           if (res.data && res.data.mailbox) {
             $scope.selectedUser.voiceMailState = true;
@@ -144,9 +137,19 @@ angular.module('nethvoiceWizardUiApp')
         UserService.getWebRTCExtension($scope.selectedUser.default_extension).then(function (res) {
           $scope.selectedUser.webRtcState = true;
         }, function (err) {
-          console.log(err);
+          if (err.status != 404) {
+            console.log(err)
+          }
           $scope.selectedUser.webRtcState = false;
         });
+        UserService.getMobileExtension($scope.selectedUser.default_extension).then(function (res) {
+          $scope.selectedUser.mobileAppState = true
+        }, function (err) {
+          if (err.status != 404) {
+            console.log(err)
+          }
+          $scope.selectedUser.mobileAppState = false
+        })
       }
     };
 
@@ -193,6 +196,47 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
+    $scope.setMobileApp = function (mainextension) {
+      UserService.createMobileExtension({
+        "mainextension": mainextension
+      }).then(function (res){
+        $scope.selectedUser.mobileAppState = true
+        $scope.selectedUser.devices[Object.keys($scope.selectedUser.devices).length] = {
+          "type": "mobile",
+          "extension": res.data.extension
+        }
+      }, function (err) {
+        console.log("err", err)
+      })
+    }
+
+    $scope.deleteMobileApp = function (extension) {
+      UserService.deleteMobileExtension(extension).then(function (){
+        $scope.selectedUser.mobileAppState = false
+        for (let device in $scope.selectedUser.devices) {
+          if ($scope.selectedUser.devices[device].type == "mobile") {
+            delete $scope.selectedUser.devices[device]
+          }
+        }
+      }, function (err) {
+        console.log("err", err)
+      })
+    }
+
+    $scope.toggleMobileApp = function () {
+      if ($scope.selectedUser.mobileAppState) {
+        $scope.setMobileApp($scope.selectedUser.default_extension)
+      } else {
+        let mobileExt
+        for (let device in $scope.selectedUser.devices) {
+          if ($scope.selectedUser.devices[device].type == "mobile") {
+            mobileExt = $scope.selectedUser.devices[device].extension
+          }
+        }
+        $scope.deleteMobileApp(mobileExt)
+      }
+    }
+
     $scope.setPhysicalExtension = function (user, device, line) {
       device.setPhysicalInAction = true;
       UserService.createPhysicalExtension({
@@ -225,19 +269,6 @@ angular.module('nethvoiceWizardUiApp')
       }, function (err) {
         device.setPhysicalInAction = false;
         console.log(err);
-      });
-    };
-
-    $scope.setMobileExtension = function (user) {
-      $scope.selectedUser.setMobileInAction = true;
-      UserService.createMobileExtension({
-        username: user.username,
-        mobile: user.mobile
-      }).then(function (res) {
-        $scope.selectedUser.setMobileInAction = false;
-      }, function (err) {
-        console.log(err);
-        $scope.selectedUser.setMobileInAction = false;
       });
     };
 
