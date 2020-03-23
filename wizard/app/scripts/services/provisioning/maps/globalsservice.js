@@ -129,19 +129,19 @@ angular.module('nethvoiceWizardUiApp')
           },
           {
             "variable": "ldap_tls",
-            "description": "LDAP TLS",
+            "description": "encryption_ldap",
             "type": "list",
             "options": [
               {
-                "text": "LDAP (unencrypted)",
+                "text": "encryption_none",
                 "value": "none"
               },
               {
-                "text": "LDAP TLS Start",
+                "text": "encryption_starttls",
                 "value": "starttls"
               },
               {
-                "text": "LDAPs",
+                "text": "encryption_tls",
                 "value": "ldaps"
               }
             ]
