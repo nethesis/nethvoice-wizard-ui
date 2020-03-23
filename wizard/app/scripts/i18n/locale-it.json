@@ -783,6 +783,7 @@
   "encryption_none": "Nessuna",
   "encryption_starttls": "STARTTLS",
   "encryption_tls": "TLS",
+  "Phone language": "Lingua telefono",
   "Phone provisioning info": "Info provisioning telefono",
   "Provisioning status": "Stato provisioning",
   "Completed": "Completato",

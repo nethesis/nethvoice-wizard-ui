@@ -58,7 +58,7 @@ angular.module('nethvoiceWizardUiApp')
         "name": "Preferences",
         "data": [{
             "variable": "language",
-            "description": "Language display (phone UI)",
+            "description": "Phone language",
             "type": "list",
             "options": GenericPhoneUtilsService.getLanguages()
           },
