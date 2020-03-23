@@ -646,77 +646,72 @@ angular.module('nethvoiceWizardUiApp')
       if (modelMap.network.ldap) {
         ldapItems = [
           {
-            "variable": "ldap_base",
-            "description": "LDAP Base",
+            "variable": "ldap_server",
+            "description": "ldap_server",
             "type": "input"
           },
           {
             "variable": "ldap_port",
-            "description": "LDAP Port",
-            "type": "input"
-          },
-          {
-            "variable": "ldap_server",
-            "description": "LDAP Server",
-            "type": "input"
-          },
-          {
-            "variable": "ldap_name",
-            "description": "LDAP Name",
+            "description": "ldap_port",
             "type": "input"
           },
           {
             "variable": "ldap_user",
-            "description": "LDAP User",
+            "description": "ldap_user",
             "type": "input"
           },
           {
             "variable": "ldap_password",
-            "description": "LDAP Password",
+            "description": "ldap_password",
             "type": "password"
           },
           {
             "variable": "ldap_tls",
-            "description": "encryption_ldap",
+            "description": "ldap_tls",
             "type": "list",
             "options": [
               {
-                "text": "encryption_none",
+                "text": "ldap_tls_none",
                 "value": "none"
               },
               {
-                "text": "encryption_starttls",
+                "text": "ldap_tls_starttls",
                 "value": "starttls"
               },
               {
-                "text": "encryption_tls",
+                "text": "ldap_tls_tls",
                 "value": "ldaps"
               }
             ]
           },
           {
-            "variable": "ldap_name_display",
-            "description": "LDAP Display Name",
+            "variable": "ldap_base",
+            "description": "ldap_base",
             "type": "input"
           },
           {
             "variable": "ldap_number_attr",
-            "description": "LDAP Number Attributes",
-            "type": "input"
-          },
-          {
-            "variable": "ldap_name_attr",
-            "description": "LDAP Name Attributes",
+            "description": "ldap_number_attr",
             "type": "input"
           },
           {
             "variable": "ldap_number_filter",
-            "description": "LDAP Number Filter",
+            "description": "ldap_number_filter",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_name_attr",
+            "description": "ldap_name_attr",
             "type": "input"
           },
           {
             "variable": "ldap_name_filter",
-            "description": "LDAP Name Filter",
+            "description": "ldap_name_filter",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_name_display",
+            "description": "ldap_name_display",
             "type": "input"
           }
         ];
@@ -861,7 +856,7 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       return {
-        "name": "Phonebook",
+        "name": "ldap_phonebook_title",
         "items": ldapItems.concat(vlanItems)
       }
     }
