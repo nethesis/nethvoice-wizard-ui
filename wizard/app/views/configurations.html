@@ -444,11 +444,11 @@
                     </h1>
                     <div id="devices-not-linked-list" ng-style="{'max-height': devicesNotLinkedHeight}">
                       <!-- custom device -->
-                      <!-- <div class="list-group-item cursor-default back-whitesmoke {{deviceToLink.device == newDevice ? 'selected' : ''}}">
-                        <label for="radio-custom-device" class="width-100p pointer">
+                      <div class="list-group-item cursor-default back-whitesmoke {{deviceToLink.device == newDevice ? 'selected' : ''}}">
+                        <label for="radio-custom-device" class="width-100p pointer no-margin-bottom>
                           <div class="list-view-pf-actions">
                           </div>
-                          <div class="list-view-pf-checkbox mt-48 display-flex">
+                          <div class="list-view-pf-checkbox display-flex">
                             <input type="radio" id="radio-custom-device" class="mt-2" name="deviceToLinkGroup" ng-model="deviceToLink.device" ng-value="newDevice">
                           </div>
                           <div class="list-view-pf-main-info ">
@@ -468,17 +468,17 @@
                                 </div>
                               </div>
                               <div class="list-view-pf-additional-info config-info">
-                                <div>{{'Web user' | translate}}:
+                                <!-- <div>{{'Web user' | translate}}:
                                   <input class="form-control" placeholder="admin" ng-model="newDevice.web_user">
                                 </div>
                                 <div>{{'Web password' | translate}}:
                                   <input class="form-control" placeholder="admin" ng-model="newDevice.web_password">
-                                </div>
+                                </div> -->
                               </div>
                             </div>
                           </div>
                         </label>
-                      </div> -->
+                      </div>
                       <!-- devices -->
                       <div
                         ng-show="!devicesLoading"

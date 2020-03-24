@@ -501,6 +501,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.connectivityCheck = function (obj) {
       ModelService.checkConnectivity(obj).then(function (res) {
         $scope.connectivityCheckRes = res.data
+        setTimeout(function () {
+          $scope.$apply()
+        }, 100)
       }, function (err) {
         console.log(err);
       })

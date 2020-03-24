@@ -24,14 +24,14 @@
 							<span class="pficon pficon-warning-triangle-o"></span>
 							<strong>{{"Phonebook service is disabled on this system" | translate}}!</strong> {{"Enable the service in the Server Manager and manage the Phonebook variables" | translate}}.
 						</div>
-						<div ng-if="connectivityCheckRes.valid_certificate === false" class="alert alert-warning alert-dismissable mb-10">
+						<div ng-if="connectivityCheckRes && connectivityCheckRes.valid_certificate === false" class="alert alert-warning alert-dismissable mb-10">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span class="pficon pficon-close"></span>
 							</button>
 							<span class="pficon pficon-warning-triangle-o"></span>
 							<strong>{{"The PBX address certificate is invalid" | translate}}!</strong> {{"Configuring phones in remote networks with encryption is not possible, the phones will only be able to connect from trusted networks" | translate}}.
 						</div>
-						<div ng-if="connectivityCheckRes.is_reachable === false" class="alert alert-danger alert-dismissable">
+						<div ng-if="connectivityCheckRes && connectivityCheckRes.is_reachable === false" class="alert alert-danger alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span class="pficon pficon-close"></span>
 							</button>
