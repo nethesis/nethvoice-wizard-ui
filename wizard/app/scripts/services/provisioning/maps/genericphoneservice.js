@@ -708,7 +708,7 @@ angular.module('nethvoiceWizardUiApp')
             "variable": "ldap_name_display",
             "description": "ldap_name_display",
             "type": "input"
-          }
+          },
           {
             "variable": "ldap_mainphone_number_attr",
             "description": "ldap_mainphone_number_attr",
