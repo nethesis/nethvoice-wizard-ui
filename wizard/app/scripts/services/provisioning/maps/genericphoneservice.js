@@ -690,8 +690,8 @@ angular.module('nethvoiceWizardUiApp')
             "type": "input"
           },
           {
-            "variable": "ldap_number_attr",
-            "description": "ldap_number_attr",
+            "variable": "ldap_name_filter",
+            "description": "ldap_name_filter",
             "type": "input"
           },
           {
@@ -705,13 +705,23 @@ angular.module('nethvoiceWizardUiApp')
             "type": "input"
           },
           {
-            "variable": "ldap_name_filter",
-            "description": "ldap_name_filter",
+            "variable": "ldap_name_display",
+            "description": "ldap_name_display",
+            "type": "input"
+          }
+          {
+            "variable": "ldap_mainphone_number_attr",
+            "description": "ldap_mainphone_number_attr",
             "type": "input"
           },
           {
-            "variable": "ldap_name_display",
-            "description": "ldap_name_display",
+            "variable": "ldap_mobilephone_number_attr",
+            "description": "ldap_mobilephone_number_attr",
+            "type": "input"
+          },
+          {
+            "variable": "ldap_otherphone_number_attr",
+            "description": "ldap_otherphone_number_attr",
             "type": "input"
           }
         ];
