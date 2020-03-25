@@ -38,15 +38,15 @@ angular.module('nethvoiceWizardUiApp')
             "type": "input"
           },
           {
-            "variable": "userpw",
-            "default_value": "",
-            "description": "User password",
-            "type": "input"
-          },
-          {
             "variable": "adminpw",
             "default_value": "",
             "description": "Admin password",
+            "type": "input"
+          },
+          {
+            "variable": "userpw",
+            "default_value": "",
+            "description": "User password",
             "type": "input"
           }
         ]
