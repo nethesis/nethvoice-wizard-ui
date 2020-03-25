@@ -93,7 +93,7 @@ angular.module('nethvoiceWizardUiApp')
         settingsItems = [
           {
             "variable": "ntp_server",
-            "description": "Network time (NTP) server",
+            "description": "NTP server address",
             "type": "input"
           },
           {
