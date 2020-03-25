@@ -113,7 +113,7 @@ angular.module('nethvoiceWizardUiApp')
           },
           {
             "variable": "dss_transfer",
-            "description": "Transfer mode for DSS key",
+            "description": "Line keys transfer mode",
             "type": "list",
             "options": [
               {
