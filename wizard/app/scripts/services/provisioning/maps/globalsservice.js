@@ -115,7 +115,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "ldap_password",
             "description": "ldap_password",
-            "type": "password"
+            "type": "input"
           },
           {
             "variable": "ldap_tls",
