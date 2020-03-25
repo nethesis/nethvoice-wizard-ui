@@ -951,10 +951,10 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       return {
-        "name": "Soft Keys",
+        "name": "Soft keys",
         "items": [
           {
-            "description": "Soft Key",
+            "description": "Soft key",
             "type": "loop",
             "keys": modelMap.softKeys,
             "data": {
@@ -1039,10 +1039,10 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       return {
-        "name": "Line Keys",
+        "name": "Line keys",
         "items": [
           {
-            "description": "Line Key",
+            "description": "Line key",
             "type": "loop",
             "keys": modelMap.lineKeys,
             "data": {
