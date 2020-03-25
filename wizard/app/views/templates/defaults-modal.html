@@ -67,6 +67,7 @@
 											<input
 												type="text"
 												id="default-select-{{$index}}"
+												placeholder="-"
 												ng-change="pinnedChange(item.variable)"
 												ng-model="defaultSettings[item.variable]"
 												autocomplete="off"
@@ -120,6 +121,7 @@
                               type="text"
 															id="default-select-{{$index}}"
 															autocomplete="off"
+															placeholder="{{item.variable == 'ldap_server' && defaultSettings[item.variable] == '' ? defaultSettings['hostname'] : '-'}}"
                               ng-model="defaultSettings[item.variable]"
 															class="form-control">
 														</input>

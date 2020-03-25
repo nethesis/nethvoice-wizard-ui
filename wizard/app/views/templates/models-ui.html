@@ -355,7 +355,7 @@
                         id="{{sectionkey}}-input-{{$index}}"
                         ng-model="currentModel.inputs[item.variable]"
                         ng-change="onVariableChanged(item.variable, item.type)"
-                        placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : '-'}}"
+                        placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : item.variable == 'ldap_server' && currentModel.globals[item.variable] == '' ? currentModel.globals['hostname'] : '-'}}"
                         type="text"
                         autocomplete="off"
                         class="form-control">
