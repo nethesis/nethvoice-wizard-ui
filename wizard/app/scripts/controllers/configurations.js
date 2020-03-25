@@ -410,7 +410,7 @@ angular.module('nethvoiceWizardUiApp')
         // async graphics
         $timeout(function () {
           $('#devicesAssociation').modal('hide');
-        }, 2500);
+        }, 1000);
         $timeout(function () {
           getAllUsers(false)
           getAllDevices()
