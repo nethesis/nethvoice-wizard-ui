@@ -796,6 +796,8 @@
   "ldap_mobilephone_number_attr": "Attributo per numero di cellulare",
   "ldap_otherphone_number_attr": "Attributo per altro numero di telefono",
   "ldap_name_display": "Formato di visualizzazione nome",
+  "Admin password": "Password admin",
+  "User password": "Password utente",
   "New model": "Nuovo modello",
   "Phone language": "Lingua telefono",
   "Phone provisioning info": "Info provisioning telefono",
