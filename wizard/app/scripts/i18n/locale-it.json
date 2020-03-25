@@ -810,6 +810,8 @@
   "Line keys transfer mode": "Modalità di trasferimento per i line key",
   "Line keys": "Line key",
   "Soft keys": "Soft key",
+  "Time format": "Formato ora",
+  "Date format": "Formato data",
   "Configuring phones in remote networks with encryption is not possible, the phones will only be able to connect from trusted networks": "La configurazione dei telefoni in reti remote con cifratura non è possibile, i telefoni potranno collegarsi solamente da reti fidate",
   "The PBX address certificate is invalid": "Il certificato dell'indirizzo del centralino non è valido",
   "The PBX address is not reachable": "L'indirizzo del centralino non è raggiungibile",
