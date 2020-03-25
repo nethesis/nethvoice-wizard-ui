@@ -815,5 +815,6 @@
   "Edit the default settings": "Modifica le impostazioni di default",
   "Manage models variables by modifying them from the appropriate section": "Gestisci le veriabili dei modelli modificandole nella sezione corrispondente",
   "Phonebook service is disabled on this system": "Il servizio phonebook è disabilitato su questo sistema",
-  "Enable the service in the Server Manager and manage the Phonebook variables": "Abilita il servizio nel Server Manager e gestisci le variabili della Rubrica"
+  "Enable the service in the Server Manager and manage the Phonebook variables": "Abilita il servizio nel Server Manager e gestisci le variabili della Rubrica",
+  "Extension's secret": "Secret dell'interno"
 }

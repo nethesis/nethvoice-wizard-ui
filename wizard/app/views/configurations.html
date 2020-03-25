@@ -252,7 +252,8 @@
                               </div>
                             </div>
                             <!-- show secret for custom devices -->
-                            <button ng-if="!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical')" popover-animation="true" uib-popover="{{device.secret}}" type="button" class="btn btn-default">{{'Show secret' | translate}}</button>
+                            <span ng-if="!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical')">{{"Extension's secret" | translate}}: </span>
+                            <button ng-if="!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical')" popover-animation="true" uib-popover="{{device.secret}}" type="button" class="btn btn-default">{{'Show' | translate}}</button>
                           </div>
                           <div ng-if="!(!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical'))"
                             class="col-lg-5 mnw-180">
@@ -279,12 +280,12 @@
                         </div>
                         <!-- web credentials for custom devices -->
                         <div ng-if="!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical')">
-                          <div>{{'Web user' | translate}}:
+                          <!-- <div>{{'Web user' | translate}}:
                             <b>{{device.web_user}}</b>
                           </div>
                           <div>{{'Web password' | translate}}:
                             <b>{{device.web_password}}</b>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>
