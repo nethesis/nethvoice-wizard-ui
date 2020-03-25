@@ -774,6 +774,8 @@
   "Russian": "Russo",
   "it": "Italiano",
   "en": "Inglese",
+  "Tone zone": "Toni di chiamata",
+  "Time zone": "Fuso orario",
   "Edit the default settings before continuing": "Modifica le impostazioni di default prima di continuare",
   "Provisioning scheduling": "Pianificazione del provisioning",
   "never_prov_freq": "Solo all'avvio",
