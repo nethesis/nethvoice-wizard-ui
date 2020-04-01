@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.4.0
+Version: 14.4.1
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,15 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Wed Apr 01 2020 Stefano Fancello <stefano.fancello@nethesis.it> - 14.4.1-1
+- Hide phone buttons permission if provisioning engine is freepbx
+- Add exception in ldap_server placeholder
+- Reduce timeout before association success message
+- New LDAP phonebook labels and i18n fixes (#82)
+- Add enable mobile app button
+- Fix ui build and dependencies (#81)
+- New provisioning UI
+
 * Mon Jul 15 2019 Stefano Fancello <stefano.fancello@nethesis.it> - 14.4.0-1
 - Fix the deletion of routes containing symbols nethesis/dev#5674
 - Fix physical trunks configuration download nethesis/dev#5678
