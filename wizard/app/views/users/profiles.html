@@ -65,7 +65,7 @@
                   <div class="col-lg-10"></div>
                 </div>
                 <div class="row {{obj_permissions.permissions.length > 0 ? 'profile-permission-container' : ''}}" ng-if="obj_permissions.value">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-permission" ng-repeat="permission in obj_permissions.permissions">
+                  <div ng-hide="permission.name == 'phone_buttons' && wizard.provisioning != 'tancredi'" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-permission" ng-repeat="permission in obj_permissions.permissions">
                     <span class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
                       <span ng-if="!isGroupPermission(permission.name)" popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{permission.description | translate}}" class="config-span">{{permission.displayname | translate}}</span>
                       <span ng-if="isGroupPermission(permission.name)" popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{splitGroupName(permission.description)[0] | translate}} {{splitGroupName(permission.description)[1]}} {{splitGroupName(permission.description)[2] | translate}}" class="config-span">{{splitGroupName(permission.displayname)[0] | translate}} {{splitGroupName(permission.displayname)[1]}}</span>
