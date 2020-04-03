@@ -134,6 +134,13 @@ angular.module('nethvoiceWizardUiApp')
           }
           $scope.selectedUser.voiceMailState = false;
         });
+        UserService.getMobileNumber($scope.selectedUser.username).then(function (res) {
+          $scope.selectedUser.mobile = res.data;
+        }, function (err) {
+          if (err.status != 404) {
+            console.log(err);
+          }
+        });
         UserService.getWebRTCExtension($scope.selectedUser.default_extension).then(function (res) {
           $scope.selectedUser.webRtcState = true;
         }, function (err) {
@@ -208,6 +215,19 @@ angular.module('nethvoiceWizardUiApp')
       }, function (err) {
         console.log("err", err)
       })
+    }
+
+    $scope.setMobileNumber = function (user) {
+      $scope.selectedUser.setMobileInAction = true;
+      UserService.createMobileNumber({
+        username: user.username,
+        mobile: user.mobile
+      }).then(function (res) {
+        $scope.selectedUser.setMobileInAction = false;
+      }, function (err) {
+        console.log(err);
+        $scope.selectedUser.setMobileInAction = false;
+      });
     }
 
     $scope.deleteMobileApp = function (extension) {
