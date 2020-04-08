@@ -41,13 +41,13 @@ angular.module('nethvoiceWizardUiApp')
             "variable": "adminpw",
             "default_value": "",
             "description": "Admin password",
-            "type": "input"
+            "type": "password"
           },
           {
             "variable": "userpw",
             "default_value": "",
             "description": "User password",
-            "type": "input"
+            "type": "password"
           }
         ]
       }
@@ -115,7 +115,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "ldap_password",
             "description": "ldap_password",
-            "type": "input"
+            "type": "password"
           },
           {
             "variable": "ldap_tls",

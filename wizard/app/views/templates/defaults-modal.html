@@ -44,10 +44,10 @@
 							<!-- if is pinned section -->
 							<div ng-if="sectionKey == 'pinned'" style="display: flow-root !important;">
 								<div ng-repeat="item in section.data track by $index" class="col-lg-6 mb-15">
-									<div class="col-lg-12">
-										<!-- list -->
+									<label class="control-label">{{::item.description | translate}}</label>
+									<div class="{{item.type != 'password' ? 'col-lg-12' : ''}}">
+										<!-- list -->	
 										<div ng-if="item.type == 'list'" class="form-group">
-											<label class="control-label">{{::item.description | translate}}</label>
 											<select
 												id="default-select-{{$index}}"
 												class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
@@ -63,7 +63,6 @@
 										</div>
 										<!-- input -->
 										<div ng-if="item.type == 'input'" class="form-group {{(connectivityCheckRes.is_reachable === false) && (item.variable == 'hostname') ? 'has-error' : ''}}">
-											<label class="control-label">{{::item.description | translate}}</label>
 											<input
 												type="text"
 												id="default-select-{{$index}}"
@@ -73,6 +72,24 @@
 												autocomplete="off"
 												class="form-control">
 											</input>
+										</div>
+										<!-- password -->
+										<div ng-if="item.type == 'password'" class="input-group display-flex">
+											<input
+												id="{{sectionkey}}-input-{{$index}}"
+												ng-model="defaultSettings[item.variable]"
+												type="password"
+												autocomplete="off"
+												show-password="shownPasswords[item.variable]"
+												class="form-control">
+											</input>
+											<button
+												tabindex="-1"
+												type="button"
+												class="btn btn-default mln-1 zindex-2"
+												ng-click="toggleShowPassword(item.variable)">
+												<span ng-class="shownPasswords[item.variable] ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
+											</button>
 										</div>
 									</div>
 								</div>
@@ -91,10 +108,10 @@
 										<div ng-show="loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
 										<div ng-show="!loadingSections[sectionkey]" class="col-lg-12 mt-25 no-border-bottom">
 											<div ng-repeat="item in section.data track by $index" class="col-lg-6 mb-15">
-												<div class="col-lg-12">
+												<label class="control-label">{{::item.description | translate}}</label>
+												<div class="{{item.type != 'password' ? 'col-lg-12' : ''}}">
 													<!-- list -->
 													<div ng-if="item.type == 'list'" class="form-group">
-														<label class="control-label">{{::item.description | translate}}</label>
 														<select
 															id="default-select-{{$index}}"
 															class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
@@ -116,7 +133,6 @@
 													</div>
 													<!-- input -->
 													<div ng-if="item.type == 'input'" class="form-group">
-														<label class="control-label">{{::item.description | translate}}</label>
                             <input 
                               type="text"
 															id="default-select-{{$index}}"
@@ -125,6 +141,24 @@
                               ng-model="defaultSettings[item.variable]"
 															class="form-control">
 														</input>
+													</div>
+													<!-- password -->
+													<div ng-if="item.type == 'password'" class="input-group display-flex">
+														<input
+															id="{{sectionkey}}-input-{{$index}}"
+															ng-model="defaultSettings[item.variable]"
+															type="password"
+															autocomplete="off"
+															show-password="shownPasswords[item.variable]"
+															class="form-control">
+														</input>
+														<button
+															tabindex="-1"
+															type="button"
+															class="btn btn-default mln-1 zindex-2"
+															ng-click="toggleShowPassword(item.variable)">
+															<span ng-class="shownPasswords[item.variable] ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
+														</button>
 													</div>
 												</div>
 											</div>
