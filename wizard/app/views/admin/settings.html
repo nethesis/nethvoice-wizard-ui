@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="wizard-pf-contents adjust-size">
-    <h1 class="control-label centered" for="textInput-markup">{{'Admin Settings' | translate}}</h1>
+    <h1 class="control-label centered" for="textInput-markup">{{'Settings' | translate}}</h1>
     <div class="container-fluid col-xs-12 col-sm-12 col-md-6 col-lg-6 adjust-voip" ng-init="init()">
       <div ng-show="onSaveSuccess" class="alert alert-success alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -25,27 +25,64 @@
         <span class="pficon pficon-error-circle-o"></span>
         <strong>{{'Password error' | translate}}</strong> {{'Administrator password update failed' | translate}}
       </div>
-      <h3>{{'Change password' | translate}}</h3>
-      <form class="form-horizontal" ng-submit="create()">
-        <div class="form-group">
-          <label class="col-sm-3 control-label">{{'Password' | translate}}</label>
-          <div class="col-sm-9">
-            <input type="password" ng-model="admin.password" class="form-control" required>
+      <div class="col-lg-12">
+        <h3 class="settings-h3">{{'NAT Settings' | translate}}</h3>
+        <form class="form-horizontal" ng-submit="create()">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'External Address' | translate}}</label>
+            <div class="col-sm-9">
+              <input type="text" ng-model="admin.password" class="form-control" required>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label">{{'Confirm Password' | translate}}</label>
-          <div class="col-sm-9">
-            <input type="password" ng-model="admin.confirmPassword" class="form-control" required>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'Local Networks' | translate}}</label>
+            <div class="col-sm-7 withslash">
+              <input type="text" ng-model="admin.confirmPassword" class="form-control" required>
+            </div>
+            <div class="col-sm-2">
+              <input type="text" ng-model="admin.confirmPassword" class="form-control" required>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label"></label>
-          <div class="col-sm-9">
-            <button type="submit" class="col-md-2 btn btn-primary right-align">{{'Set' | translate}}</button>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-7 withslash">
+              <input type="text" ng-model="admin.confirmPassword" class="form-control" required>
+            </div>
+            <div class="col-sm-2">
+              <input type="text" ng-model="admin.confirmPassword" class="form-control" required>
+            </div>
           </div>
-        </div>
-      </form>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+              <button class="btn btn-default">{{'Add field' | translate}}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-12">
+        <h3 class="settings-h3">{{'Change password' | translate}}</h3>
+        <form class="form-horizontal" ng-submit="create()">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'Password' | translate}}</label>
+            <div class="col-sm-9">
+              <input type="password" ng-model="admin.password" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'Confirm Password' | translate}}</label>
+            <div class="col-sm-9">
+              <input type="password" ng-model="admin.confirmPassword" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+              <button type="submit" class="col-md-2 btn btn-primary right-align">{{'Save' | translate}}</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
   <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>
