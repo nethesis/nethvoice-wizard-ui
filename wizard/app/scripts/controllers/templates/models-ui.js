@@ -16,7 +16,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.modelsInfoMsg = ""
     $scope.selectOptionsInterval = ""
     $scope.selectOptionsLimit = 11
-    $scope.shownPasswords = false
 
     $scope.modelErrors = {
       updateReadOnlyAttribute: false,

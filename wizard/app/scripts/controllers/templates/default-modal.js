@@ -15,6 +15,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.globalsUi = $scope.buildDefaultSettingsUI()
     $scope.selectOptionsLimit = 12
     $scope.loadingSections = []
+    $scope.shownPasswords = {}
 
     var resetloadingActions = function (status) {
       $scope.loadingActions = status
@@ -43,6 +44,10 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         return false
       }
+    }
+
+    $scope.toggleShowPassword = function (variable) {
+      $scope.shownPasswords[variable] ? delete $scope.shownPasswords[variable] : $scope.shownPasswords[variable] = true
     }
 
     $scope.pinnedChange = function (variable) {
