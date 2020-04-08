@@ -830,5 +830,7 @@
   "Manage models variables by modifying them from the appropriate section": "Gestisci le variabili dei modelli modificandole nella sezione corrispondente",
   "Phonebook service is disabled on this system": "Il servizio phonebook è disabilitato su questo sistema",
   "Enable the service in the Server Manager and manage the Phonebook variables": "Abilita il servizio nel Server Manager e gestisci le variabili della Rubrica",
-  "Extension's secret": "Secret dell'interno"
+  "Extension's secret": "Secret dell'interno",
+  "Show url": "Mostra url",
+  "Copy url": "Copia url"
 }
