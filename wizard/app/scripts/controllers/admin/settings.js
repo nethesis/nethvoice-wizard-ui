@@ -32,4 +32,11 @@ angular.module('nethvoiceWizardUiApp')
         $scope.onSaveError = true;
       }
     };
+
+    var init = function () {
+      
+    }
+
+    init()
+
   });
