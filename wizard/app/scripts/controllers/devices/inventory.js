@@ -60,6 +60,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     function init() {
+      initPopoversInfo()
       $scope.hideInventoryHelp = LocalStorageService.get('hideInventoryHelp');
       Promise.all([
         ModelService.getModels(),
@@ -120,7 +121,6 @@ angular.module('nethvoiceWizardUiApp')
 
     function initCopyPasteMacUI() {
       initPopovers();
-
       $("#adding-modal").on('shown.bs.modal', function () {
         $('#paste-textarea').focus();
       });
@@ -133,6 +133,13 @@ angular.module('nethvoiceWizardUiApp')
         });
     }
 
+    function initPopoversInfo() {
+      $('#provisioningInfoModal [data-toggle=popover]').popovers()
+        .on('hidden.bs.popover', function (e) {
+          $(e.target).data('bs.popover').inState.click = false;
+        });
+    }
+    
     $scope.showManualModal = function () {
       $scope.phonesToAdd = [];
       $scope.successfulAddPhones = [];
@@ -204,21 +211,8 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.openProvisioningInfo = function (mac) {
       PhoneService.getPhone(mac).then(function (res) {
-
-        console.log("RES RES RES", res);
-
         $scope.currentPhoneInfo = res.data
-
-        // if (res.data.provisioning_url1) {
-        //   PhoneService.toRps(phoneCorbera.mac, {
-        //     url: res.data.provisioning_url1
-        //   }).then(function (res) {
-        //     // rps post success
-        //   }, function (err) {
-        //     console.log(err)
-        //   })
-        // }
-
+        $scope.urlToCopy = res.data.provisioning_url1 ? res.data.provisioning_url1 : res.data.provisioning_url2
         $("#provisioningInfoModal").modal("show")
       }, function (err) {
         console.log(err)
@@ -818,6 +812,14 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
+    $scope.copyUrl = function () {
+      $scope.copiedUrl = true
+      setTimeout(function () {
+        $scope.copiedUrl = false
+        $scope.$apply()
+      }, 1000)
+    }
+
     // only for dev purposes
     $scope.deleteAllPhonesDev = function() {
       $scope.phones.forEach(function (phone) {
@@ -838,7 +840,8 @@ angular.module('nethvoiceWizardUiApp')
       $scope.phonesLimit = $scope.PHONES_PAGE
     })
 
-    $('#provisioningInfoModal').on('hidden.bs.modal', function () {
+    $('#provisioningInfoModal').on('hide.bs.modal', function () {
+      $("#provisioningInfoModal #showurlbtn").popover("hide")
       $scope.currentPhoneInfo = {}
     })
 

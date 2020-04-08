@@ -556,11 +556,36 @@
           <div class="form-group">
             <label class="col-sm-4 control-label">{{'Provisioning URL' | translate}}:</label>
             <div class="col-sm-8">
-              <label class="control-label">
-                <div class="custom-code-tag">
-                  {{currentPhoneInfo.provisioning_url1 ? currentPhoneInfo.provisioning_url1 : currentPhoneInfo.provisioning_url2}}
-                </div>
-              </label>
+              <div class="w-75">
+                <label class="control-label full-width">
+                  <button
+                    class="btn btn-default full-width"
+                    id="showurlbtn"
+                    data-container="body"
+                    data-toggle="popover"
+                    data-placement="top"
+                    data-content="{{currentPhoneInfo.provisioning_url1 ? currentPhoneInfo.provisioning_url1 : currentPhoneInfo.provisioning_url2}}"
+                    >
+                    {{"Show url" | translate}}
+                  </button>
+                </label><br>
+                <label class="control-label mt-10 full-width">
+                  <!-- <button
+                    class="btn btn-primary full-width"
+                    ng-click="copyToClipboard(urlToCopy)">
+                    {{"Copy url" | translate}}
+                  </button> -->
+                  <clipboard-copy
+                    class="btn btn-primary full-width"
+                    value="{{urlToCopy}}"
+                    ng-click="copyUrl()"
+                    >
+                    {{"Copy url" | translate}}
+                  </clipboard-copy>
+                  <i ng-show="copiedUrl" class="fa fa-check text-color-green absolute-position mt-5 ml-7 fz-15">
+                  </i>
+                </label>
+              </div>
             </div>
           </div>
           <div class="form-group">
