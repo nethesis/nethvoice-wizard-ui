@@ -129,6 +129,26 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.getMobileNumber = function (username) {
+      return $q(function (resolve, reject) {
+        RestService.get('/mobiles/' + username).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
+    this.createMobileNumber = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.post('/mobiles', obj).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
+
     this.createVoiceMail = function (obj) {
       return $q(function (resolve, reject) {
         RestService.post('/voicemails', obj).then(function (res) {

@@ -73,6 +73,13 @@ angular.module('nethvoiceWizardUiApp')
           }
           $scope.currentUser.voiceMailState = false
         })
+        UserService.getMobileNumber($scope.currentUser.username).then(function (res) {
+          $scope.currentUser.mobile = res.data;
+        }, function (err) {
+          if (err.status != 404) {
+            console.log(err);
+          }
+        });
         UserService.getWebRTCExtension($scope.currentUser.default_extension).then(function (res) {
           $scope.currentUser.webRtcState = true
         }, function (err) {
@@ -447,9 +454,9 @@ angular.module('nethvoiceWizardUiApp')
       }, 1500)
     }
 
-    $scope.setMobileExtension = function (user) {
+    $scope.setMobileNumber = function (user) {
       $scope.currentUser.setMobileInAction = true
-      UserService.createMobileExtension({
+      UserService.createMobileNumber({
         username: user.username,
         mobile: user.mobile
       }).then(function (res) {
