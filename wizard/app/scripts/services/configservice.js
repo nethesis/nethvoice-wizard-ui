@@ -91,6 +91,74 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    
+    this.getExternalIp = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/configuration/externalip').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.getSuggestedIp = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/configuration/suggestedip').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.setExternalIp = function(ip) {
+      return $q(function(resolve, reject) {
+        RestService.post('/configuration/externalip/' + ip).then(function(res) {
+          resolve(res)
+        }, function(err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.getLocalNetworks = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/configuration/localnetworks').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.getExternalSip = function() {
+      return $q(function(resolve, reject) {
+        RestService.get('/configuration/allowexternalsips').then(function(res) {
+          resolve(res)
+        }, function(err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.setExternalSip = function(val) {
+      return $q(function(resolve, reject) {
+        RestService.post('/configuration/allowexternalsips/' + val).then(function(res) {
+          resolve(res)
+        }, function(err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.setLocalNetworks = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.post('/configuration/localnetworks', obj).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
 
   });

@@ -832,5 +832,19 @@
   "Enable the service in the Server Manager and manage the Phonebook variables": "Abilita il servizio nel Server Manager e gestisci le variabili della Rubrica",
   "Extension's secret": "Secret dell'interno",
   "Show url": "Mostra url",
-  "Copy url": "Copia url"
+  "Copy url": "Copia url",
+  "External SIPS enables access to SIPS from red interfaces and to RTP ports: 5061 for SIPS and from 10000 to 20000 for the audio" : "SIPS esterno consente l'accesso a SIPS da interfacce red e porte RTP: 5061 per SIPS e da 10000 a 20000 per l'audio",
+  "Change Password": "Cambia Password",
+  "NAT Settings": "Impostazioni NAT",
+  "External Address": "Indirizzo Esterno",
+  "Local Networks": "Reti Locali",
+  "Firewall Settings": "Impostazioni Firewall",
+  "External SIPS": "SIPS Esterno",
+  "Save Password": "Salva Password",
+  "Save NAT Settings": "Salva Impostazioni NAT",
+  "Add Field": "Aggiungi Campo",
+  "Remember to save the NAT Settings before continue": "Ricorda di salvare le Impostazioni NAT prima di continuare",
+  "NAT Settings saved": "Impostazioni NAT salvate",
+  "NAT Settings saved with success": "Impostazioni NAT salvate con successo",
+  "Remember to save the password before continue": "Ricorda di salvare la password prima di continuare"
 }

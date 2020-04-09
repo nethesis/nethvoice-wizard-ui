@@ -18,6 +18,27 @@
         <span class="pficon pficon-ok"></span>
         <strong>{{'Password changed' | translate}}.</strong> {{'Administrator password updated with success' | translate}}
       </div>
+      <div ng-show="wizard.isWizard && passwordSaved && !natSaved" class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <span class="pficon pficon-info"></span>
+        <strong>{{"Remember to save the NAT Settings before continue" | translate}}.</strong>
+      </div>
+      <div ng-show="onSettingsSaveSuccess" class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+        </button>
+        <span class="pficon pficon-ok"></span>
+        <strong>{{'NAT Settings saved' | translate}}.</strong> {{'NAT Settings saved with success' | translate}}
+      </div>
+      <div ng-show="wizard.isWizard && !passwordSaved && natSaved" class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <span class="pficon pficon-info"></span>
+        <strong>{{"Remember to save the password before continue" | translate}}.</strong>
+      </div>
       <div ng-show="onSaveError" class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
             <span class="pficon pficon-close"></span>
@@ -25,43 +46,8 @@
         <span class="pficon pficon-error-circle-o"></span>
         <strong>{{'Password error' | translate}}</strong> {{'Administrator password update failed' | translate}}
       </div>
-      <div class="col-lg-12">
-        <h3 class="settings-h3">{{'NAT Settings' | translate}}</h3>
-        <form class="form-horizontal" ng-submit="create()">
-          <div class="form-group">
-            <label class="col-sm-3 control-label">{{'External Address' | translate}}</label>
-            <div class="col-sm-9">
-              <input type="text" ng-model="admin.password" class="form-control" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label">{{'Local Networks' | translate}}</label>
-            <div class="col-sm-7 withslash">
-              <input type="text" ng-model="admin.confirmPassword" class="form-control" required>
-            </div>
-            <div class="col-sm-2">
-              <input type="text" ng-model="admin.confirmPassword" class="form-control" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label"></label>
-            <div class="col-sm-7 withslash">
-              <input type="text" ng-model="admin.confirmPassword" class="form-control" required>
-            </div>
-            <div class="col-sm-2">
-              <input type="text" ng-model="admin.confirmPassword" class="form-control" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label"></label>
-            <div class="col-sm-9">
-              <button class="btn btn-default">{{'Add field' | translate}}</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="col-lg-12">
-        <h3 class="settings-h3">{{'Change password' | translate}}</h3>
+      <div class="col-lg-12 mb-30">
+        <h3 class="settings-h3 fz-19 fw-300">{{'Change Password' | translate}}</h3>
         <form class="form-horizontal" ng-submit="create()">
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'Password' | translate}}</label>
@@ -78,7 +64,56 @@
           <div class="form-group">
             <label class="col-sm-3 control-label"></label>
             <div class="col-sm-9">
-              <button type="submit" class="col-md-2 btn btn-primary right-align">{{'Save' | translate}}</button>
+              <button type="submit" class="btn btn-primary right-align">{{'Save Password' | translate}}</button>
+            </div>
+          </div>
+        </form>
+        <h3 class="settings-h3 fz-19 fw-300">{{'NAT Settings' | translate}}</h3>
+        <form class="form-horizontal" ng-submit="saveNat()">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'External Address' | translate}}</label>
+            <div class="col-sm-9">
+              <input type="text" ng-model="externalIp" class="form-control" required>
+            </div>
+          </div>
+          <div ng-repeat="x in [].constructor(localNrFields) track by $index" class="form-group">
+            <label class="col-sm-3 control-label">{{$index == 0 ? "Local Networks" : "" | translate}}</label>
+            <div class="col-sm-5 withslash">
+              <input type="text" ng-change="setLNnet()" ng-model="localNetworks[$index].net" class="form-control">
+            </div>
+            <div class="col-sm-4">
+              <input type="text" ng-model="localNetworks[$index].mask" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+              <button type="button" ng-click="localNrFields = localNrFields + 1" class="btn btn-default">{{'Add Field' | translate}}</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+              <button type="submit" class="btn btn-primary right-align">{{'Save NAT Settings' | translate}}</button>
+            </div>
+          </div>
+        </form>
+        <h3 class="settings-h3 fz-19 fw-300">{{'Firewall Settings' | translate}}</h3>
+        <div class="alert alert-info">
+          <span class="pficon pficon-info"></span>
+          <strong>{{"External SIPS enables access to SIPS from red interfaces and to RTP ports: 5061 for SIPS and from 10000 to 20000 for the audio" | translate}}.</strong>
+        </div>
+        <form class="form-horizontal" ng-submit="saveFirewall()">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'External SIPS' | translate}}</label>
+            <div class="col-sm-9">
+              <input
+                bs-switch
+                ng-model="sipTlsStatus"
+                ng-change="toggleSipTls()"
+                id="siptls-switch"
+                class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                type="checkbox">
             </div>
           </div>
         </form>

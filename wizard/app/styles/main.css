@@ -912,11 +912,24 @@ a {
 }
 
 .adjust-panel-body:first-child {
-  border-top: 2px solid #030303 !important;
+  border-top: 0px;
 }
 
 .adjust-panel-body:last-child {
+  border-bottom: 0px !important;
+}
+
+.nav-pf-vertical-alt .panel-collapse .active.list-group-item:last-child {
+  border-bottom: 0px !important;
+}
+
+#adminCollapse .list-group-item:last-child {
   border-bottom: 1px solid #030303 !important;
+  margin-bottom: -1px !important;
+}
+
+#navbar-left {
+  bottom: 38px !important;
 }
 
 .adjust-panel-body {
@@ -1038,6 +1051,14 @@ a {
 
 .centered {
   text-align: center;
+}
+
+.fz-19 {
+  font-size: 19px !important;
+}
+
+.fw-300 {
+  font-weight: 300 !important;
 }
 
 .right {
@@ -2356,14 +2377,14 @@ F
   margin-bottom: 25px !important;
 }
 
-.settings-h3::before {
+/* .settings-h3::before {
   content: "";
   height: 3px;
   position: absolute;
   top: 40px;
   width: 35px;
   background-color: #ddd;
-}
+} */
 
 .withslash::before {
   content: "\/";
