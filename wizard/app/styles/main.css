@@ -932,6 +932,12 @@ a {
   bottom: 38px !important;
 }
 
+.dln-btn {
+  float: right;
+  margin-top: -26px;
+  margin-right: -50px;
+}
+
 .adjust-panel-body {
   color: #fff;
   padding-bottom: 0px;

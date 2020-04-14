@@ -25,20 +25,6 @@
         <span class="pficon pficon-info"></span>
         <strong>{{"Remember to save the NAT Settings before continue" | translate}}.</strong>
       </div>
-      <div ng-show="onSettingsSaveSuccess" class="alert alert-success alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-            <span class="pficon pficon-close"></span>
-        </button>
-        <span class="pficon pficon-ok"></span>
-        <strong>{{'NAT Settings saved' | translate}}.</strong> {{'NAT Settings saved with success' | translate}}
-      </div>
-      <div ng-show="wizard.isWizard && !passwordSaved && natSaved" class="alert alert-info">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-          <span class="pficon pficon-close"></span>
-        </button>
-        <span class="pficon pficon-info"></span>
-        <strong>{{"Remember to save the password before continue" | translate}}.</strong>
-      </div>
       <div ng-show="onSaveError" class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
             <span class="pficon pficon-close"></span>
@@ -68,7 +54,21 @@
             </div>
           </div>
         </form>
-        <h3 class="settings-h3 fz-19 fw-300">{{'NAT Settings' | translate}}</h3>
+        <div ng-show="onSettingsSaveSuccess" class="alert alert-success alert-dismissable mt-25">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+              <span class="pficon pficon-close"></span>
+          </button>
+          <span class="pficon pficon-ok"></span>
+          <strong>{{'NAT Settings saved' | translate}}.</strong> {{'NAT Settings saved with success' | translate}}
+        </div>
+        <div ng-show="wizard.isWizard && !passwordSaved && natSaved" class="alert alert-info mt-25">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+          <span class="pficon pficon-info"></span>
+          <strong>{{"Remember to save the password before continue" | translate}}.</strong>
+        </div>
+        <h3 class="settings-h3 fz-19 fw-300 mt-30">{{'NAT Settings' | translate}}</h3>
         <form class="form-horizontal" ng-submit="saveNat()">
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'External address' | translate}}</label>
@@ -84,11 +84,15 @@
             <div class="col-sm-4">
               <input type="text" ng-model="localNetworks[$index].mask" class="form-control">
             </div>
+            <!-- <button ng-if="$last" type="button" ng-click="deleteField()" class="btn btn-default dln-btn">
+              {{'Delete' | translate}}
+            </button> -->
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label"></label>
             <div class="col-sm-9">
-              <button type="button" ng-click="localNrFields = localNrFields + 1" class="btn btn-default">{{'Add field' | translate}}</button>
+              <button type="button" ng-click="addField()" class="btn btn-default">{{'Add' | translate}}</button>
+              <button type="button" ng-if="localNrFields > 1" ng-click="deleteField()" class="btn btn-default">{{'Delete' | translate}}</button>
             </div>
           </div>
           <div class="form-group">
@@ -98,7 +102,7 @@
             </div>
           </div>
         </form>
-        <h3 class="settings-h3 fz-19 fw-300">{{'Firewall Settings' | translate}}</h3>
+        <h3 class="settings-h3 fz-19 fw-300 mt-30">{{'Firewall Settings' | translate}}</h3>
         <div class="alert alert-info">
           <span class="pficon pficon-info"></span>
           <strong>{{"External SIPS enables access to SIP TLS from external IPs (Port 5061 for SIPS and ports from 10000 to 20000 UDP for the audio)" | translate}}.</strong>

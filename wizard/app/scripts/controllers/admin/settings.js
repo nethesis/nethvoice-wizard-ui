@@ -97,6 +97,12 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.saveNat = function () {
+      for (let index in $scope.localNetworks) {
+        if ($scope.localNetworks[index] == {} || !$scope.localNetworks[index].net) {
+          $scope.localNrFields = $scope.localNrFields - 1
+          $scope.localNetworks.splice( index, 1 );
+        }
+      }
       let p1 = ConfigService.setExternalIp($scope.externalIp)
       let p2 = ConfigService.setLocalNetworks($scope.localNetworks)
       Promise.all([p1, p2]).then(function (res) {
@@ -120,6 +126,16 @@ angular.module('nethvoiceWizardUiApp')
       }, function (err) {
         console.log(err)
       })
+    }
+
+    $scope.deleteField = function () {
+      $scope.localNrFields = $scope.localNrFields - 1
+      $scope.localNetworks.pop()
+    }
+
+    $scope.addField = function () {
+      $scope.localNrFields = $scope.localNrFields + 1
+      $scope.localNetworks.push({})
     }
 
     $scope.toggleSipTls = function () {
