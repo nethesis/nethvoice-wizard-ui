@@ -31,7 +31,12 @@ angular.module('nethvoiceWizardUiApp')
       ModelService.setDefaults($scope.defaultSettings).then(function (res) {
         resetloadingActions("ok")
         $scope.enableNextDisabled()
-        $("#defaultSettingsModal").modal("hide")
+        setTimeout(function () {
+          $scope.$apply(function () {
+            $("#defaultSettingsModal").modal("hide")
+            $scope.$parent.$parent.defaultSettings = {}
+          })
+        }, 1000)
       }, function (err) {
         resetloadingActions("err")
         console.log(err)
@@ -46,6 +51,18 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.phonebookTypeChange = function () {
+      $scope.$parent.$parent.phonebookType = document.querySelector("#phonebookType").value
+      if ($scope.phonebookType == "ldaps") {
+        $scope.ldapToDefaultVariables($scope.ldapCheckRes, true, false)
+      } else if ($scope.phonebookType == "ldap") {
+        $scope.ldapToDefaultVariables($scope.ldapCheckRes, false, false)
+      } else {
+        $scope.$parent.$parent.defaultSettings = angular.copy($scope.storedDefaultSettings)
+      }
+      $scope.refreshGlobalsSelects()
+    }
+
     $scope.toggleShowPassword = function (variable) {
       $scope.shownPasswords[variable] ? delete $scope.shownPasswords[variable] : $scope.shownPasswords[variable] = true
     }
@@ -57,9 +74,10 @@ angular.module('nethvoiceWizardUiApp')
           "scheme": $scope.defaultSettings.provisioning_url_scheme
         })
       }
-      if (variable == "provisioning_url_scheme") {
+      if (variable == "provisioning_url_scheme" && $scope.defaultSettings["ui_first_config"]) {
         $scope.ldapCheck()
       }
+      $scope.refreshGlobalsSelects()
     }
 
     $scope.openSection = function (sectionkey) {

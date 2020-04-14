@@ -112,7 +112,7 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.setMainExtension = function (user) {
-      user.isInAction = true;
+      user.isInAction = true;importConfirm
       user.alreadyExists = false;
       UserService.createMainExtension({
         username: user.username,
