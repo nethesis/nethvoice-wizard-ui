@@ -71,13 +71,13 @@
         <h3 class="settings-h3 fz-19 fw-300">{{'NAT Settings' | translate}}</h3>
         <form class="form-horizontal" ng-submit="saveNat()">
           <div class="form-group">
-            <label class="col-sm-3 control-label">{{'External Address' | translate}}</label>
+            <label class="col-sm-3 control-label">{{'External address' | translate}}</label>
             <div class="col-sm-9">
               <input type="text" ng-model="externalIp" class="form-control" required>
             </div>
           </div>
           <div ng-repeat="x in [].constructor(localNrFields) track by $index" class="form-group">
-            <label class="col-sm-3 control-label">{{$index == 0 ? "Local Networks" : "" | translate}}</label>
+            <label class="col-sm-3 control-label">{{$index == 0 ? "Reti locali" : "" | translate}}</label>
             <div class="col-sm-5 withslash">
               <input type="text" ng-change="setLNnet()" ng-model="localNetworks[$index].net" class="form-control">
             </div>
@@ -88,20 +88,20 @@
           <div class="form-group">
             <label class="col-sm-3 control-label"></label>
             <div class="col-sm-9">
-              <button type="button" ng-click="localNrFields = localNrFields + 1" class="btn btn-default">{{'Add Field' | translate}}</button>
+              <button type="button" ng-click="localNrFields = localNrFields + 1" class="btn btn-default">{{'Add field' | translate}}</button>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label"></label>
             <div class="col-sm-9">
-              <button type="submit" class="btn btn-primary right-align">{{'Save NAT Settings' | translate}}</button>
+              <button type="submit" class="btn btn-primary right-align">{{'Save NAT settings' | translate}}</button>
             </div>
           </div>
         </form>
         <h3 class="settings-h3 fz-19 fw-300">{{'Firewall Settings' | translate}}</h3>
         <div class="alert alert-info">
           <span class="pficon pficon-info"></span>
-          <strong>{{"External SIPS enables access to SIPS from red interfaces and to RTP ports: 5061 for SIPS and from 10000 to 20000 for the audio" | translate}}.</strong>
+          <strong>{{"External SIPS enables access to SIP TLS from external IPs (Port 5061 for SIPS and ports from 10000 to 20000 UDP for the audio)" | translate}}.</strong>
         </div>
         <form class="form-horizontal" ng-submit="saveFirewall()">
           <div class="form-group">
