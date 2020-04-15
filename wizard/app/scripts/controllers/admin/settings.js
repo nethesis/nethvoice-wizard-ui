@@ -41,39 +41,46 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
+    var getSuggestedIp = function () {
+      ConfigService.getSuggestedIp().then(function (res) {
+        $scope.externalIp = res.data
+        $scope.view.changeRoute = false
+        $scope.$apply()
+      }, function (err) {
+        console.log(err);
+        $scope.view.changeRoute = false
+        $scope.$apply()
+      })
+    }
+
     var initNat = function () {
       ConfigService.getExternalIp().then(function (res) {
         if (!res.data) {
-          ModelService.getDefaults().then(function (defaultsRes) {
-            ModelService.checkConnectivity({
-              "host": defaultsRes.data.hostname,
-              "scheme": defaultsRes.data.provisioning_url_scheme
-            }).then(function (res) {
-              if (res.data.valid_certificate) {
-                $scope.externalIp = defaultsRes.data.hostname
-                $scope.view.changeRoute = false
-                $scope.$apply()
-              } else {
-                ConfigService.getSuggestedIp().then(function (res) {
-                  $scope.externalIp = res.data
+          if ($scope.wizard.provisioning != "tancredi") {
+            getSuggestedIp()
+          } else {
+            ModelService.getDefaults().then(function (defaultsRes) {
+              ModelService.checkConnectivity({
+                "host": defaultsRes.data.hostname,
+                "scheme": defaultsRes.data.provisioning_url_scheme
+              }).then(function (res) {
+                if (res.data.valid_certificate) {
+                  $scope.externalIp = defaultsRes.data.hostname
                   $scope.view.changeRoute = false
                   $scope.$apply()
-                }, function (err) {
-                  console.log(err);
-                  $scope.view.changeRoute = false
+                } else {
+                  getSuggestedIp()
+                }
+                setTimeout(function () {
                   $scope.$apply()
-                })
-                $scope.$apply()
-              }
-              setTimeout(function () {
-                $scope.$apply()
-              }, 100)
+                }, 100)
+              }, function (err) {
+                console.log(err);
+              })
             }, function (err) {
-              console.log(err);
+              console.log(err)
             })
-          }, function (err) {
-            console.log(err)
-          })
+          }
         } else {
           $scope.externalIp = res.data
           setTimeout(function () {
