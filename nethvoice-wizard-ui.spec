@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.4.1
+Version: 14.4.2
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,11 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Thu Apr 16 2020 Stefano Fancello <stefano.fancello@nethesis.it> - 14.4.2-1
+- Allow or deny access to SIPS and RTP port from red interfaces - nethesis/dev#5763
+- Configure NAT settings - nethesis/dev#5772
+- Restore mobile number management functions (#86)
+
 * Wed Apr 01 2020 Stefano Fancello <stefano.fancello@nethesis.it> - 14.4.1-1
 - Hide phone buttons permission if provisioning engine is freepbx
 - Add exception in ldap_server placeholder
