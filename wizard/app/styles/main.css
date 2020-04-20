@@ -3227,3 +3227,7 @@ a.black:focus, a.black:hover, a.black:active {
 .w-75 {
   width: 75px !important;
 }
+
+.input-group {
+  margin-bottom: 15px;
+}

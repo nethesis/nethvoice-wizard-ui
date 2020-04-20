@@ -107,10 +107,10 @@
 												<span class="pficon pficon-close"></span>
 											</button>
 											<span class="pficon pficon-warning-triangle-o"></span>
-											<strong>{{"Phonebook service is disabled on this system" | translate}}!</strong> {{"Enable the service in the Server Manager and manage the Phonebook variables" | translate}}.
+											<strong>{{"Phonebook service is disabled on this system" | translate}}!</strong> {{"Saving will start the system service corresponding to the selected type of the phonebook" | translate}}.
 										</div>
-										<div ng-show="!loadingSections[sectionkey]" class="col-lg-12 mt-25 no-border-bottom">
-											<div ng-if="sectionKey == 'network'" class="col-lg-6 mb-15">
+										<div ng-show="!loadingSections[sectionkey]" class="mt-25 no-border-bottom">
+											<div ng-if="sectionKey == 'network'" class="col-lg-12 mb-15">
 												<label class="control-label">{{"ldap_phonebook_type_label" | translate}}</label>
 												<div class="col-lg-12">
 													<div class="form-group">

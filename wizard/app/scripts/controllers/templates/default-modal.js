@@ -30,6 +30,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.defaultSettings.ui_first_config = ""
       ModelService.setDefaults($scope.defaultSettings).then(function (res) {
         resetloadingActions("ok")
+        $scope.startPhonebookService()
         $scope.enableNextDisabled()
         setTimeout(function () {
           $scope.$apply(function () {
@@ -55,10 +56,14 @@ angular.module('nethvoiceWizardUiApp')
       $scope.$parent.$parent.phonebookType = document.querySelector("#phonebookType").value
       if ($scope.phonebookType == "ldaps") {
         $scope.ldapToDefaultVariables($scope.ldapCheckRes, true, false)
+        // force encryption select disabling or enabling
+        $("#default-select-4").prop('disabled', true)
       } else if ($scope.phonebookType == "ldap") {
         $scope.ldapToDefaultVariables($scope.ldapCheckRes, false, false)
+        $("#default-select-4").prop('disabled', true)
       } else {
         $scope.$parent.$parent.defaultSettings = angular.copy($scope.storedDefaultSettings)
+        $("#default-select-4").prop('disabled', false)
       }
       $scope.refreshGlobalsSelects()
     }

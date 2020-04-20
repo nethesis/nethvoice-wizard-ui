@@ -161,4 +161,24 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    this.switchPhonebookJss = function (status) {
+      return $q(function (resolve, reject) {
+        RestService.post('/phonebook/ldaps/status/' + status).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.switchPhonebookJs = function (status) {
+      return $q(function (resolve, reject) {
+        RestService.post('/phonebook/ldap/status/' + status).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
   });

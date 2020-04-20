@@ -127,6 +127,33 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    var ldapPhoneebookCheck = function () {
+      ModelService.ldapCheck().then(function (res) {
+        $scope.phonebookjsStatus = res.data.ldap.enabled
+        $scope.phonebookjssStatus = res.data.ldaps.enabled
+      }, function (err) {
+        console.log(err);
+      })
+    }
+
+    $scope.togglePhonebookjs = function () {
+      let status = $scope.phonebookjsStatus ? "enabled" : "disabled"
+      ConfigService.switchPhonebookJs(status).then(function (res) {
+        // phonebook js enabled
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    $scope.togglePhonebookjss = function () {
+      let status = $scope.phonebookjssStatus ? "enabled" : "disabled"
+      ConfigService.switchPhonebookJss(status).then(function (res) {
+        // phonebook jss enabled
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
     var initFirewall = function () {
       ConfigService.getExternalSip().then(function (res) {
         $scope.sipTlsStatus = res.data == "disabled" ? false : true
@@ -157,6 +184,7 @@ angular.module('nethvoiceWizardUiApp')
     var init = function () {
       initNat()
       initFirewall()
+      ldapPhoneebookCheck()
     }
 
     angular.element(document).ready(function () {

@@ -583,6 +583,28 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    $scope.startPhonebookService = function () {
+      if ($scope.phonebookType == "ldaps" && !$scope.ldapCheckRes["ldaps"].enabled) {
+        // enable phonebookjss
+        ConfigService.switchPhonebookJss("enabled").then(function (res) {
+          // res phonebookjss
+          $scope.ldapResDisabled = false
+          $scope.ldapCheckRes["ldaps"].enabled = true
+        }, function (err) {
+          console.log(err)
+        })
+      } else if ($scope.phonebookType == "ldap" && !$scope.ldapCheckRes["ldap"].enabled) {
+        // enable phonebookjs
+        ConfigService.switchPhonebookJs("enabled").then(function (res) {
+          // res phonebookjs  
+          $scope.ldapResDisabled = false
+          $scope.ldapCheckRes["ldap"].enabled = true
+        }, function (err) {
+          console.log(err)
+        })
+      }
+    }
+
     $scope.ldapTypeCheck = function () {
       if ($scope.defaultSettings["ui_first_config"]) {
         if ($scope.defaultSettings.provisioning_url_scheme == "https") {
@@ -655,7 +677,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.connectivityCheckRes = null
       }
       if ($scope.ldapResDisabled) {
-        $scope.ldapResDisabled = null
+        $scope.ldapResDisabled = false
       }
     })
     
