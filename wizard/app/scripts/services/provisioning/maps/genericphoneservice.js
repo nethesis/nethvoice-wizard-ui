@@ -1089,6 +1089,10 @@ angular.module('nethvoiceWizardUiApp')
                       "value": "dtmf"
                     },
                     {
+                      "text": "Dynamic Agent Login/Logout",
+                      "value": "queuetoggle"
+                    },
+                    {
                       "text": "Voice Mail",
                       "value": "voice_mail"
                     },
