@@ -318,7 +318,26 @@
               ng-if="currentModel.openedSection == sectionkey">
               <div class="panel-body">
                 <div ng-show="currentModel.loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
-                <div ng-show="!currentModel.loadingSections[sectionkey]" class="col-lg-12 mt-25 no-border-bottom">
+                <div ng-if="sectionkey == 'network'" class="col-lg-12 mb-15 mt-25">
+                  <label class="control-label">{{"ldap_phonebook_type_label" | translate}}</label>
+                  <div class="form-group">
+                    <select
+                      id="modelPhonebookType"
+                      class="selectpicker form-control"
+                      ng-model="modelPhonebookType"
+                      ng-change="modelPhonebookTypeChange()"
+                      autocomplete="off">
+                      <option value="" ng-disabled="true" ng-hide="true">-</option>
+                      <option	value="ldap" >{{"ldap_phonebook_type_ldap" | translate}}</option>
+                      <option	value="ldaps" >{{"ldap_phonebook_type_ldaps" | translate}}</option>
+                      <option	value="externalldap"
+                        on-finish-render="selectpickerRepeatEnd">
+                        {{"ldap_phonebook_type_custom" | translate}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div ng-show="!currentModel.loadingSections[sectionkey]" class="mt-25 no-border-bottom">
                   <div ng-if="!currentModel.ui.map[sectionkey].hidden.includes(item.variable)"
                     ng-repeat="item in ::currentModel.ui[sectionkey].items track by item.variable"
                     class="col-lg-6 mb-15">
@@ -334,6 +353,7 @@
                           class="{{item.options.length > 10 && item.variable != 'date_format' ? 'combobox' : 'selectpicker'}} form-control"
                           ng-model="currentModel.variables[item.variable]"
                           ng-change="onVariableChanged(item.variable, 'list')"
+                          ng-disabled="sectionkey == 'network' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
                           autocomplete="off">
                           <option value="" ng-disabled="true" ng-hide="true">-</option>
                           <!-- combobox -->
@@ -355,6 +375,7 @@
                         id="{{sectionkey}}-input-{{$index}}"
                         ng-model="currentModel.inputs[item.variable]"
                         ng-change="onVariableChanged(item.variable, item.type)"
+                        ng-disabled="sectionkey == 'network' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
                         placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : item.variable == 'ldap_server' && currentModel.globals[item.variable] == '' ? currentModel.globals['hostname'] : '-'}}"
                         type="text"
                         autocomplete="off"
@@ -366,6 +387,7 @@
                         id="{{sectionkey}}-input-{{$index}}"
                         ng-model="currentModel.inputs[item.variable]"
                         ng-change="onVariableChanged(item.variable, item.type)"
+                        ng-disabled="sectionkey == 'network' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
                         placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : 'HH:MM'}}"
                         type="text"
                         autocomplete="off"
@@ -377,6 +399,7 @@
                           id="{{sectionkey}}-input-{{$index}}"
                           ng-model="currentModel.inputs[item.variable]"
                           ng-change="onVariableChanged(item.variable, item.type)"
+                          ng-disabled="sectionkey == 'network' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
                           placeholder="{{currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : '-'}}"
                           type="password"
                           autocomplete="off"
@@ -386,6 +409,7 @@
                         <button
                           tabindex="-1"
                           type="button"
+                          ng-disabled="sectionkey == 'network' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
                           class="btn btn-default mln-1 zindex-2"
                           ng-click="toggleShowPassword(item.variable)">
                           <span ng-class="currentModel.shownPasswords[item.variable] ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>

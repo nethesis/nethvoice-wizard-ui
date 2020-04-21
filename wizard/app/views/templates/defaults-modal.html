@@ -102,7 +102,7 @@
 									ng-if="openedSection == sectionKey">
 									<div class="panel-body">
 										<div ng-show="loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
-										<div ng-if="sectionKey == 'network' && ldapResDisabled && !loadingSections[sectionkey]" class="alert alert-warning alert-dismissable mb-10 mt-5">
+										<div ng-if="sectionKey == 'network' && (ldapResDisabled && (phonebookType == 'ldap' || phonebookType == 'ldaps')) && !loadingSections[sectionkey]" class="alert alert-warning alert-dismissable mb-10 mt-5">
 											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 												<span class="pficon pficon-close"></span>
 											</button>

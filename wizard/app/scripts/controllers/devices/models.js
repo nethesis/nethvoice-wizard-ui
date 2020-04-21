@@ -51,6 +51,7 @@ angular.module('nethvoiceWizardUiApp')
       if ($scope.currentModel.name != name) {
         $scope.loadingModels[name] = true
         $scope.buildModel(name).then(function (res) {
+          $scope.modelLdapTypeCheck()
           setTimeout(function () {
             $scope.loadingModels[name] = false
             $scope.$apply()

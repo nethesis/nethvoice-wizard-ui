@@ -65,7 +65,9 @@ angular.module('nethvoiceWizardUiApp')
         $scope.$parent.$parent.defaultSettings = angular.copy($scope.storedDefaultSettings)
         $("#default-select-4").prop('disabled', false)
       }
-      $scope.refreshGlobalsSelects()
+      setTimeout(function () {
+        $("#default-select-4").selectpicker("refresh")
+      }, 100)
     }
 
     $scope.toggleShowPassword = function (variable) {

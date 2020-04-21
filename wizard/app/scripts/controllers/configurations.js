@@ -182,6 +182,7 @@ angular.module('nethvoiceWizardUiApp')
     // function for the currentModel creation
     $scope.setCurrentModelConfig = function (mac) {
       $scope.buildPhoneModel(mac, "configurations").then(function (cm) {
+        $scope.modelLdapTypeCheck()
         $("#singleModelModal").modal("show")
         // if ($scope.currentModel.name != name) {
         //   $scope.loadingModel[name] = true
@@ -415,8 +416,7 @@ angular.module('nethvoiceWizardUiApp')
           console.log(err);
         })
         // async graphics
-        $timeout(function () {
-          $('#devicesAssociation').modal('hide');
+        $timeout(function () {$scope.modelLdapTypeCheck()
         }, 1000);
         $timeout(function () {
           getAllUsers(false)
