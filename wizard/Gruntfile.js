@@ -213,6 +213,7 @@ module.exports = function (grunt) {
           '!<%= yeoman.dist %>/images/6.jpg',
           '!<%= yeoman.dist %>/scripts/custom.js',
           '!<%= yeoman.dist %>/scripts/macVendors.js',
+          '!<%= yeoman.dist %>/lib/clipboard-copy-element/dist/index.umd.js',
           '!<%= yeoman.dist %>/styles/brand.css',
         ]
       }
@@ -391,6 +392,11 @@ module.exports = function (grunt) {
           cwd: 'app/scripts/',
           src: ['macVendors.js'],
           dest: '<%= yeoman.dist %>/scripts/',
+        }, {
+          expand: true,
+          cwd: 'app/lib/clipboard-copy-element/dist/',
+          src: ['index.umd.js'],
+          dest: '<%= yeoman.dist %>/lib/clipboard-copy-element/dist/',
         }, {
           expand: true,
           cwd: 'app/styles/',
