@@ -40,7 +40,6 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "@github/clipboard-copy-element": "^1.1.2",
     "@webcomponents/webcomponentsjs": "^2.4.1",
     "ace-builds": "ajaxorg/ace-builds#^1",
     "angular": "angular/bower-angular#1.4.0",
