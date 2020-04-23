@@ -29,7 +29,7 @@
         <div ng-repeat="model in inventoryModels track by model.name" class="adjust-profile-margin">
           <div id="accordion-models-{{$index}}">
             <h1 ng-click="checkCurrentModelChanged(model.name)" class="adjust-header adjust-profile-header pointer">
-              <span class="fa fa-cube card-pf-icon-circle config-title-icon"></span>{{'Model' | translate}}
+              <span class="fa fa-cube card-pf-icon-circle config-title-icon"></span>
               <span class="weight">{{::model.display_name | translate}}</span>
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
             </h1>
