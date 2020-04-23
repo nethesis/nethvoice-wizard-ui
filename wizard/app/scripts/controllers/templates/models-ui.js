@@ -57,6 +57,61 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.ldapToModelVariables = function (res, ldaps) {
+      if (ldaps) {
+        $scope.currentModel.variables.ldap_port = res["ldaps"].port
+        $scope.currentModel.variables.ldap_user = res["ldaps"].user
+        $scope.currentModel.variables.ldap_password = res["ldaps"].password
+        $scope.currentModel.variables.ldap_tls = res["ldaps"].tls
+        $scope.currentModel.variables.ldap_base = res["ldaps"].base
+        $scope.currentModel.variables.ldap_name_display = res["ldaps"].name_display
+        $scope.currentModel.variables.ldap_mainphone_number_attr = res["ldaps"].mainphone_number_attr
+        $scope.currentModel.variables.ldap_mobilephone_number_attr = res["ldaps"].mobilephone_number_attr
+        $scope.currentModel.variables.ldap_otherphone_number_attr = res["ldaps"].otherphone_number_attr
+        $scope.currentModel.variables.ldap_name_attr = res["ldaps"].name_attr
+        $scope.currentModel.variables.ldap_number_filter = res["ldaps"].number_filter
+        $scope.currentModel.variables.ldap_name_filter = res["ldaps"].name_filter
+        $scope.currentModel.variables.ldap_server = ""
+      } else {
+        $scope.currentModel.variables.ldap_port = res["ldap"].port
+        $scope.currentModel.variables.ldap_user = res["ldap"].user
+        $scope.currentModel.variables.ldap_password = res["ldap"].password
+        $scope.currentModel.variables.ldap_tls = res["ldap"].tls
+        $scope.currentModel.variables.ldap_base = res["ldap"].base
+        $scope.currentModel.variables.ldap_name_display = res["ldap"].name_display
+        $scope.currentModel.variables.ldap_mainphone_number_attr = res["ldap"].mainphone_number_attr
+        $scope.currentModel.variables.ldap_mobilephone_number_attr = res["ldap"].mobilephone_number_attr
+        $scope.currentModel.variables.ldap_otherphone_number_attr = res["ldap"].otherphone_number_attr
+        $scope.currentModel.variables.ldap_otherphone_number_attr = res["ldap"].otherphone_number_attr
+        $scope.currentModel.variables.ldap_name_attr = res["ldap"].name_attr
+        $scope.currentModel.variables.ldap_number_filter = res["ldap"].number_filter
+        $scope.currentModel.variables.ldap_name_filter = res["ldap"].name_filter
+        $scope.currentModel.variables.ldap_server = ""
+      }
+      $scope.currentModel.inputs = angular.copy($scope.currentModel.variables)
+    }
+
+    $scope.modelPhonebookTypeChange = function () {
+      $scope.currentModel.changePhonebookType = true
+      $scope.currentModel.changed = true
+      $scope.modelPhonebookType = document.querySelector("#modelPhonebookType").value
+      if ($scope.modelPhonebookType == "ldaps") {
+        $scope.ldapToModelVariables($scope.ldapCheckRes, true)
+        // force encryption select disabling or enabling
+        $("#network-select-4").prop('disabled', true)
+      } else if ($scope.modelPhonebookType == "ldap") {
+        $scope.ldapToModelVariables($scope.ldapCheckRes, false)
+        $("#network-select-4").prop('disabled', true)
+      } else {
+        $scope.currentModel.variables = angular.copy($scope.currentModel.storedVariables)
+        $scope.currentModel.inputs = angular.copy($scope.currentModel.storedVariables)
+        $("#network-select-4").prop('disabled', false)
+      }
+      setTimeout(function () {
+        $("#network-select-4").selectpicker("refresh")
+      }, 100)
+    }
+
     $scope.openSection = function (sectionkey) {
       $scope.destroyAllSelects("#modelsContainer")
       delete $scope.currentModel.ui[sectionkey].showingKeys
@@ -77,6 +132,10 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.onVariableChanged = function (varName, varType) {
+      if (varName.indexOf("ldap_") == 0) {
+        $scope.currentModel.changePhonebookType = true
+      }
+      // if changed variable is an input
       if (varType && varType != "list") {
         $scope.currentModel.variables[varName] = angular.copy($scope.currentModel.inputs[varName])
       }
@@ -124,9 +183,11 @@ angular.module('nethvoiceWizardUiApp')
     $scope.cancelChanges = function () {
       $scope.loadingAction = true
       $scope.currentModel.variables = angular.copy($scope.currentModel.storedVariables)
+      $scope.currentModel.inputs = angular.copy($scope.currentModel.storedVariables)
       setTimeout(function () {
         refreshSelects()
         resetLoadingAction("ok")
+        $scope.currentModel.changePhonebookType = false
         $scope.$apply()
         setTimeout(function () {
           $("#actionsModal").modal("hide")
@@ -151,6 +212,8 @@ angular.module('nethvoiceWizardUiApp')
         }).then(function (res2) {
           $scope.currentModel.variables = angular.copy(res.data.variables)
           $scope.currentModel.storedVariables = angular.copy(res.data.variables)
+          $scope.currentModel.inputs = angular.copy(res.data.variables)
+          $scope.currentModel.changePhonebookType = false
           setTimeout(function () {
             refreshSelects()
             resetLoadingAction("ok")
@@ -220,7 +283,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.loadingAction = true
       // remove globals from variables
       for (var variable in $scope.currentModel.variables) {
-        if (!$scope.currentModel.storedVariables[variable] && $scope.currentModel.variables[variable] == $scope.currentModel.globals[variable]) {
+        if (!$scope.currentModel.storedVariables[variable] && $scope.currentModel.variables[variable] == $scope.currentModel.globals[variable] && (variable.indexOf("ldap_") != 0 && $scope.currentModel.changePhonebookType)) {
           delete $scope.currentModel.variables[variable]
         }
       }
@@ -229,6 +292,7 @@ angular.module('nethvoiceWizardUiApp')
         "variables": $scope.currentModel.variables
       }).then(function (res) {
         resetLoadingAction("ok")
+        $scope.currentModel.changePhonebookType = false
         setTimeout(function () {
           $scope.hideModal("saveChangesConfirm")
           setTimeout(function () {

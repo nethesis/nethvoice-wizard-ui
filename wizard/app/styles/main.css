@@ -3231,3 +3231,7 @@ a.black:focus, a.black:hover, a.black:active {
 .config-list-devices {
   display: initial !important;
 }
+
+.input-group {
+  margin-bottom: 15px;
+}

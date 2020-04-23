@@ -33,6 +33,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.openDefaultSettings = function () {
+      $scope.loadingDefaults()
       $("#defaultSettingsModal").modal("show")
       setTimeout(function () {
         $('#defaultSettingsModal select').each(function(){
@@ -47,6 +48,7 @@ angular.module('nethvoiceWizardUiApp')
 
     var initDefaults = function (defaultRes) {
       $scope.$parent.defaultSettings = defaultRes.data
+      $scope.$parent.storedDefaultSettings = angular.copy(defaultRes.data)
       $scope.connectivityCheck({
         "host": defaultRes.data.hostname,
         "scheme": defaultRes.data.provisioning_url_scheme

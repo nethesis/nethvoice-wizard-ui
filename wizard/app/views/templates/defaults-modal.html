@@ -8,7 +8,10 @@
 				<h4 class="modal-title" id="dfSettingsMLabel">{{'Default settings' | translate}}</h4>
 			</div>
 			<form class="form-horizontal" ng-submit="setDefaultSettings()">
-				<div class="modal-body inline-display full-width mb-20">
+				<div ng-show="defaultsLoading" class="mt-30 mb-30">
+					<div class="spinner"></div>
+				</div>
+				<div ng-show="!defaultsLoading" class="modal-body inline-display full-width mb-20">
 					<div ng-show="true" class="col-lg-12 mt-30">
 						<div ng-if="!isModelsPage()" class="alert alert-info alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -16,13 +19,6 @@
 							</button>
 							<span class="pficon pficon-info"></span>
 							<strong>{{"The following settings can be modified later from the Models page" | translate}}.</strong>
-						</div>
-						<div ng-if="ldapResDisabled" class="alert alert-warning alert-dismissable mb-10">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-								<span class="pficon pficon-close"></span>
-							</button>
-							<span class="pficon pficon-warning-triangle-o"></span>
-							<strong>{{"Phonebook service is disabled on this system" | translate}}!</strong> {{"Enable the service in the Server Manager and manage the Phonebook variables" | translate}}.
 						</div>
 						<div ng-if="connectivityCheckRes && connectivityCheckRes.valid_certificate === false" class="alert alert-warning alert-dismissable mb-10">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -106,7 +102,35 @@
 									ng-if="openedSection == sectionKey">
 									<div class="panel-body">
 										<div ng-show="loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
-										<div ng-show="!loadingSections[sectionkey]" class="col-lg-12 mt-25 no-border-bottom">
+										<div ng-if="sectionKey == 'network' && (ldapResDisabled && (phonebookType == 'ldap' || phonebookType == 'ldaps')) && !loadingSections[sectionkey]" class="alert alert-warning alert-dismissable mb-10 mt-5">
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span class="pficon pficon-close"></span>
+											</button>
+											<span class="pficon pficon-warning-triangle-o"></span>
+											<strong>{{"Phonebook service is disabled on this system" | translate}}!</strong> {{"Saving will start the system service corresponding to the selected type of the phonebook" | translate}}.
+										</div>
+										<div ng-show="!loadingSections[sectionkey]" class="mt-25 no-border-bottom">
+											<div ng-if="sectionKey == 'network'" class="col-lg-12 mb-15">
+												<label class="control-label">{{"ldap_phonebook_type_label" | translate}}</label>
+												<div class="col-lg-12">
+													<div class="form-group">
+														<select
+															id="phonebookType"
+															class="selectpicker form-control"
+															ng-model="phonebookType"
+															ng-change="phonebookTypeChange()"
+															autocomplete="off">
+															<option value="" ng-disabled="true" ng-hide="true">-</option>
+															<option	value="ldap" >{{"ldap_phonebook_type_ldap" | translate}}</option>
+															<option	value="ldaps" >{{"ldap_phonebook_type_ldaps" | translate}}</option>
+															<option	value="externalldap"
+																on-finish-render="selectpickerRepeatEnd">
+																{{"ldap_phonebook_type_custom" | translate}}
+															</option>
+														</select>
+													</div>
+												</div>
+											</div>
 											<div ng-repeat="item in section.data track by $index" class="col-lg-6 mb-15">
 												<label class="control-label">{{::item.description | translate}}</label>
 												<div class="{{item.type != 'password' ? 'col-lg-12' : ''}}">
@@ -115,6 +139,7 @@
 														<select
 															id="default-select-{{$index}}"
 															class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
+															ng-disabled="sectionKey == 'network' && (phonebookType == 'ldap' || phonebookType == 'ldaps')"
 															ng-model="defaultSettings[item.variable]"
 															autocomplete="off">
 															<option value="" ng-disabled="true" ng-hide="true">-</option>
@@ -136,6 +161,7 @@
                             <input 
                               type="text"
 															id="default-select-{{$index}}"
+															ng-disabled="sectionKey == 'network' && (phonebookType == 'ldap' || phonebookType == 'ldaps')"
 															autocomplete="off"
 															placeholder="{{item.variable == 'ldap_server' && defaultSettings[item.variable] == '' ? defaultSettings['hostname'] : '-'}}"
                               ng-model="defaultSettings[item.variable]"
@@ -147,6 +173,7 @@
 														<input
 															id="{{sectionkey}}-input-{{$index}}"
 															ng-model="defaultSettings[item.variable]"
+															ng-disabled="sectionKey == 'network' && (phonebookType == 'ldap' || phonebookType == 'ldaps')"
 															type="password"
 															autocomplete="off"
 															show-password="shownPasswords[item.variable]"
@@ -155,6 +182,7 @@
 														<button
 															tabindex="-1"
 															type="button"
+															ng-disabled="sectionKey == 'network' && (phonebookType == 'ldap' || phonebookType == 'ldaps')"
 															class="btn btn-default mln-1 zindex-2"
 															ng-click="toggleShowPassword(item.variable)">
 															<span ng-class="shownPasswords[item.variable] ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
@@ -172,7 +200,7 @@
 				<div ng-if="loadingActions == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div>
 				<span ng-if="loadingActions == 'ok'" class="pficon pficon-ok adjust-margin loader-modal fz-18"></span>
 				<span ng-if="loadingActions == 'err'" class="pficon pficon-error-circle-o adjust-margin loader-modal fz-18"></span>
-				<div class="modal-footer submit">
+				<div ng-if="!defaultsLoading" class="modal-footer submit">
 					<button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel' | translate}}</button>
 					<button type="submit" ng-disabled="connectivityCheckRes.is_reachable === false" class="btn btn-primary">{{'Save' | translate}}</button>
 				</div>

@@ -32,8 +32,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.modelsUIUrl = 'views/templates/models-ui.html';
     $scope.defaultsModalUrl = 'views/templates/defaults-modal.html';
 
-    $scope.defaultSettings = {}
-
     $scope.ldapResDisabled = false
 
     $scope.wizard = {
@@ -463,6 +461,7 @@ angular.module('nethvoiceWizardUiApp')
         "showingExpKeys": "",
         "changed": false,
         "hasOriginals": hasOriginalsFromName(name),
+        "changePhonebookType": false,
         "hidden": false
       }
     }
@@ -473,8 +472,11 @@ angular.module('nethvoiceWizardUiApp')
             modelBrand = nameSplit[0].toLowerCase()
         ModelService.getModel(name).then(function (res) {
           buildModelObj(location, name, modelBrand, res)
-          getGlobals()
-          resolve(true)
+          getGlobals().then(function (res) {
+            resolve(res)
+          }, function (err) {
+            reject(err)
+          })
         }, function () {
           reject(err)
         })
@@ -510,7 +512,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.refreshGlobalsSelects = function () {
-      $('.globalsSectionContainer select').each(function(){
+      $('.globalsSectionContainer select').each(function() {
         if ($(this).hasClass("selectpicker")) {
           $(this).selectpicker('refresh')
         } else if ($(this).hasClass("combobox")) {
@@ -519,41 +521,149 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    $scope.loadingDefaults = function () {
+      $scope.defaultsLoading = true
+      setTimeout(function () {
+        $scope.$apply(function () {
+          $scope.defaultsLoading = false
+        })
+      }, 1500)
+    }
+
+    $scope.ldapToDefaultVariables = function (res, ldaps, firstTime) {
+      let next = !firstTime ? true : firstTime && $scope.defaultSettings["ui_first_config"] ? true : false
+      if (ldaps && next) {
+        $scope.defaultSettings.ldap_port = res["ldaps"].port
+        $scope.defaultSettings.ldap_user = res["ldaps"].user
+        $scope.defaultSettings.ldap_password = res["ldaps"].password
+        $scope.defaultSettings.ldap_tls = res["ldaps"].tls
+        $scope.defaultSettings.ldap_base = res["ldaps"].base
+        $scope.defaultSettings.ldap_name_display = res["ldaps"].name_display
+        $scope.defaultSettings.ldap_mainphone_number_attr = res["ldaps"].mainphone_number_attr
+        $scope.defaultSettings.ldap_mobilephone_number_attr = res["ldaps"].mobilephone_number_attr
+        $scope.defaultSettings.ldap_otherphone_number_attr = res["ldaps"].otherphone_number_attr
+        $scope.defaultSettings.ldap_name_attr = res["ldaps"].name_attr
+        $scope.defaultSettings.ldap_number_filter = res["ldaps"].number_filter
+        $scope.defaultSettings.ldap_name_filter = res["ldaps"].name_filter
+        $scope.defaultSettings.ldap_server = ""
+      } else if (next) {
+        $scope.defaultSettings.ldap_port = res["ldap"].port
+        $scope.defaultSettings.ldap_user = res["ldap"].user
+        $scope.defaultSettings.ldap_password = res["ldap"].password
+        $scope.defaultSettings.ldap_tls = res["ldap"].tls
+        $scope.defaultSettings.ldap_base = res["ldap"].base
+        $scope.defaultSettings.ldap_name_display = res["ldap"].name_display
+        $scope.defaultSettings.ldap_mainphone_number_attr = res["ldap"].mainphone_number_attr
+        $scope.defaultSettings.ldap_mobilephone_number_attr = res["ldap"].mobilephone_number_attr
+        $scope.defaultSettings.ldap_otherphone_number_attr = res["ldap"].otherphone_number_attr
+        $scope.defaultSettings.ldap_otherphone_number_attr = res["ldap"].otherphone_number_attr
+        $scope.defaultSettings.ldap_name_attr = res["ldap"].name_attr
+        $scope.defaultSettings.ldap_number_filter = res["ldap"].number_filter
+        $scope.defaultSettings.ldap_name_filter = res["ldap"].name_filter
+        $scope.defaultSettings.ldap_server = ""
+      }
+    }
+
+    /* Get ldap informations from the server. */
     $scope.ldapCheck = function () {
       ModelService.ldapCheck().then(function (res) {
         $scope.ldapCheckRes = res.data
-        if ($scope.defaultSettings.provisioning_url_scheme == "https") {
-          $scope.defaultSettings.ldap_tls = "ldaps"
-        } else {
-          $scope.defaultSettings.ldap_tls = "none"
-        }
         if (res.data["ldaps"].enabled) {
-          $scope.defaultSettings.ldap_user = res.data["ldaps"].user
-          $scope.defaultSettings.ldap_password = res.data["ldaps"].password
-          $scope.defaultSettings.ldap_port = res.data["ldaps"].port
+          $scope.ldapToDefaultVariables(res.data, true, true)
         } else if (res.data["ldap"].enabled) {
-          $scope.defaultSettings.ldap_user = res.data["ldap"].user
-          $scope.defaultSettings.ldap_password = res.data["ldap"].password
-          $scope.defaultSettings.ldap_port = res.data["ldap"].port
+          $scope.ldapToDefaultVariables(res.data, false, true)
         } else {
           $scope.ldapResDisabled = true
+          if ($scope.defaultSettings.provisioning_url_scheme == "https") {
+            $scope.ldapToDefaultVariables(res.data, true, true)
+          } else {
+            $scope.ldapToDefaultVariables(res.data, false, true)
+          }
         }
+        $scope.ldapTypeCheck()
         $scope.refreshGlobalsSelects()
       }, function (err) {
         console.log(err);
       })
     }
 
-    var getGlobals = function () {
-      ModelService.getDefaults().then(function (res) {
-        $scope.currentModel.globals = angular.copy(res.data)
-        for (var globalVariables in res.data) {
-          if (!$scope.currentModel.variables[globalVariables]) {
-            $scope.currentModel.variables[globalVariables] = angular.copy(res.data[globalVariables])
-          }
+    $scope.startPhonebookService = function () {
+      if ($scope.phonebookType == "ldaps" && !$scope.ldapCheckRes["ldaps"].enabled) {
+        // enable phonebookjss
+        ConfigService.switchPhonebookJss("enabled").then(function (res) {
+          // res phonebookjss
+          $scope.ldapResDisabled = false
+          $scope.ldapCheckRes["ldaps"].enabled = true
+        }, function (err) {
+          console.log(err)
+        })
+      } else if ($scope.phonebookType == "ldap" && !$scope.ldapCheckRes["ldap"].enabled) {
+        // enable phonebookjs
+        ConfigService.switchPhonebookJs("enabled").then(function (res) {
+          // res phonebookjs
+          $scope.ldapResDisabled = false
+          $scope.ldapCheckRes["ldap"].enabled = true
+        }, function (err) {
+          console.log(err)
+        })
+      }
+    }
+
+    $scope.ldapTypeCheck = function () {
+      if ($scope.defaultSettings["ui_first_config"]) {
+        if ($scope.defaultSettings.provisioning_url_scheme == "https") {
+          $scope.phonebookType = "ldaps"
+        } else {
+          $scope.phonebookType = "ldap"
         }
-      }, function (err) {
-        console.log(err)
+      } else {
+        if ($scope.defaultSettings["ldap_server"] == "" && ($scope.defaultSettings["ldap_port"] == $scope.ldapCheckRes.ldap.port)) {
+          $scope.phonebookType = "ldap"
+        } else if ($scope.defaultSettings["ldap_server"] == "" && ($scope.defaultSettings["ldap_port"] == $scope.ldapCheckRes.ldaps.port)) {
+          $scope.phonebookType = "ldaps"
+        } else if ($scope.defaultSettings["ldap_server"] != "") {
+          $scope.phonebookType = "externalldap"
+        }
+      }
+    }
+
+    var modelLdapTypeApply = function () {
+      if (($scope.currentModel.globals["ldap_server"] == "" && $scope.currentModel.variables["ldap_server"] == "") && ($scope.currentModel.globals["ldap_port"] == $scope.ldapCheckRes.ldap.port || $scope.currentModel.variables["ldap_port"] == $scope.ldapCheckRes.ldap.port)) {
+        $scope.modelPhonebookType = "ldap"
+      } else if (($scope.currentModel.globals["ldap_server"] == "" && $scope.currentModel.variables["ldap_server"] == "") && ($scope.currentModel.globals["ldap_port"] == $scope.ldapCheckRes.ldaps.port || $scope.currentModel.variables["ldap_port"] == $scope.ldapCheckRes.ldaps.port)) {
+        $scope.modelPhonebookType = "ldaps"
+      } else if ($scope.currentModel.globals["ldap_server"] == "" || $scope.currentModel.variables["ldap_server"] == "") {
+        $scope.modelPhonebookType = "externalldap"
+      }
+      $("#modelPhonebookType").selectpicker("refresh")
+    }
+
+    $scope.modelLdapTypeCheck = function () {
+      if ($scope.ldapCheckRes) {
+        modelLdapTypeApply()
+      } else {
+        ModelService.ldapCheck().then(function (res) {
+          $scope.ldapCheckRes = res.data
+          modelLdapTypeApply()
+        }, function (err) {
+          console.log(err)
+        })
+      }
+    }
+
+    var getGlobals = function () {
+      return $q(function (resolve, reject) {
+        ModelService.getDefaults().then(function (res) {
+          $scope.currentModel.globals = angular.copy(res.data)
+          for (var globalVariables in res.data) {
+            if (!$scope.currentModel.variables[globalVariables]) {
+              $scope.currentModel.variables[globalVariables] = angular.copy(res.data[globalVariables])
+            }
+            resolve(res)
+          }
+        }, function (err) {
+          reject(err)
+        })
       })
     }
 
@@ -591,11 +701,14 @@ angular.module('nethvoiceWizardUiApp')
         $scope.currentModel = {}
         $scope.destroyAllSelects("#modelsContainer")
       }
+      if ($location.path() == '/devices/models' || $location.path() == '/devices'){
+        $scope.defaultSettings = {}
+      }
       if ($scope.connectivityCheckRes) {
         $scope.connectivityCheckRes = null
       }
       if ($scope.ldapResDisabled) {
-        $scope.ldapResDisabled = null
+        $scope.ldapResDisabled = false
       }
     })
     
