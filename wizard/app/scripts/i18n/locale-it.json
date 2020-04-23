@@ -786,6 +786,10 @@
   "never_prov_freq": "Solo all'avvio",
   "everyday": "Ogni giorno",
   "Encryption": "Crittografia",
+  "ldap_phonebook_type_label": "Tipo di rubrica",
+  "ldap_phonebook_type_ldap": "Rubrica di sistema LDAP",
+  "ldap_phonebook_type_ldaps": "Rubrica di sistema LDAPS",
+  "ldap_phonebook_type_custom": "Personalizzata",
   "ldap_phonebook_title": "Rubrica LDAP",
   "ldap_server": "Indirizzo server",
   "ldap_port": "Numero porta",
@@ -849,5 +853,9 @@
   "NAT Settings saved": "Impostazioni NAT salvate",
   "NAT Settings saved with success": "Impostazioni NAT salvate con successo",
   "Allow to customize physical phone buttons": "Consente la configurazione dei tasti dei telefoni fisici",
-  "Remember to save the password before continue": "Ricorda di salvare la password prima di continuare"
+  "Remember to save the password before continue": "Ricorda di salvare la password prima di continuare",
+  "Saving will start the system service corresponding to the selected type of the phonebook": "Salvando verrà avviato il servizio di sistema corrispondente al tipo di rubrica selezionato",
+  "Phonebook Settings": "Impostazioni Rubrica",
+  "LDAP phonebook": "Rubrica LDAP",
+  "LDAPS phonebook": "Rubrica LDAPS"
 }

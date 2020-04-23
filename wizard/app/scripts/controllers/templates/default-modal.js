@@ -30,8 +30,14 @@ angular.module('nethvoiceWizardUiApp')
       $scope.defaultSettings.ui_first_config = ""
       ModelService.setDefaults($scope.defaultSettings).then(function (res) {
         resetloadingActions("ok")
+        $scope.startPhonebookService()
         $scope.enableNextDisabled()
-        $("#defaultSettingsModal").modal("hide")
+        setTimeout(function () {
+          $scope.$apply(function () {
+            $("#defaultSettingsModal").modal("hide")
+            $scope.$parent.$parent.defaultSettings = {}
+          })
+        }, 1000)
       }, function (err) {
         resetloadingActions("err")
         console.log(err)
@@ -46,6 +52,24 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.phonebookTypeChange = function () {
+      $scope.$parent.$parent.phonebookType = document.querySelector("#phonebookType").value
+      if ($scope.phonebookType == "ldaps") {
+        $scope.ldapToDefaultVariables($scope.ldapCheckRes, true, false)
+        // force encryption select disabling or enabling
+        $("#default-select-4").prop('disabled', true)
+      } else if ($scope.phonebookType == "ldap") {
+        $scope.ldapToDefaultVariables($scope.ldapCheckRes, false, false)
+        $("#default-select-4").prop('disabled', true)
+      } else {
+        $scope.$parent.$parent.defaultSettings = angular.copy($scope.storedDefaultSettings)
+        $("#default-select-4").prop('disabled', false)
+      }
+      setTimeout(function () {
+        $("#default-select-4").selectpicker("refresh")
+      }, 100)
+    }
+
     $scope.toggleShowPassword = function (variable) {
       $scope.shownPasswords[variable] ? delete $scope.shownPasswords[variable] : $scope.shownPasswords[variable] = true
     }
@@ -57,9 +81,10 @@ angular.module('nethvoiceWizardUiApp')
           "scheme": $scope.defaultSettings.provisioning_url_scheme
         })
       }
-      if (variable == "provisioning_url_scheme") {
+      if (variable == "provisioning_url_scheme" && $scope.defaultSettings["ui_first_config"]) {
         $scope.ldapCheck()
       }
+      $scope.refreshGlobalsSelects()
     }
 
     $scope.openSection = function (sectionkey) {

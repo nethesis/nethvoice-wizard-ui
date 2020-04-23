@@ -51,6 +51,7 @@ angular.module('nethvoiceWizardUiApp')
       if ($scope.currentModel.name != name) {
         $scope.loadingModels[name] = true
         $scope.buildModel(name).then(function (res) {
+          $scope.modelLdapTypeCheck()
           setTimeout(function () {
             $scope.loadingModels[name] = false
             $scope.$apply()
@@ -81,11 +82,13 @@ angular.module('nethvoiceWizardUiApp')
     $scope.openDefaultSettings = function () {
       ModelService.getDefaults().then(function (res) {
         $scope.$parent.defaultSettings = res.data
+        $scope.$parent.storedDefaultSettings = angular.copy(res.data)
         $scope.connectivityCheck({
           "host": res.data.hostname,
           "scheme": res.data.provisioning_url_scheme
         })
         $scope.ldapCheck()
+        $scope.loadingDefaults()
         $("#defaultSettingsModal").modal("show")
         setTimeout(function () {
           $('#defaultSettingsModal select').each(function(){
@@ -232,7 +235,6 @@ angular.module('nethvoiceWizardUiApp')
       $scope.view.changeRoute = true
       $scope.globalsUi = null
       $scope.inventoryModels = null
-      $scope.defaultSettings = null    
     })
 
   })
