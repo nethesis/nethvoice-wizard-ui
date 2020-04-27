@@ -625,6 +625,16 @@ angular.module('nethvoiceWizardUiApp')
           $scope.phonebookType = "externalldap"
         }
       }
+      setTimeout(function () {
+        // update ldap type select
+        let typeSelect = document.querySelector("#phonebookType")
+        if (typeSelect) {
+          typeSelect.value = $scope.phonebookType
+          $scope.$apply()
+          $(typeSelect).selectpicker("#refresh")
+        }
+        typeSelect = null
+      }, 100)
     }
 
     var modelLdapTypeApply = function () {
