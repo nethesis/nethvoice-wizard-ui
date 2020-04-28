@@ -852,10 +852,12 @@
   "Remember to save the NAT Settings before continue": "Ricorda di salvare le Impostazioni NAT prima di continuare",
   "NAT Settings saved": "Impostazioni NAT salvate",
   "NAT Settings saved with success": "Impostazioni NAT salvate con successo",
-  "Allow to customize physical phone buttons": "Consente la configurazione dei tasti dei telefoni fisici",
+  "Allow the user to customize functions of physical phone buttons. These values correspond to the Line Keys settings shown in Devices -> Models and Configurations pages": "Consente la configurazione dei tasti dei telefoni fisici da parte dell'utente. Questi corrispondono alle Line Key mostrati nelle pagine Dispositivi -> Modelli e Configurazioni",
   "Remember to save the password before continue": "Ricorda di salvare la password prima di continuare",
   "Saving will start the system service corresponding to the selected type of the phonebook": "Salvando verrà avviato il servizio di sistema corrispondente al tipo di rubrica selezionato",
   "Phonebook Settings": "Impostazioni Rubrica",
   "LDAP phonebook": "Rubrica LDAP",
-  "LDAPS phonebook": "Rubrica LDAPS"
+  "LDAPS phonebook": "Rubrica LDAPS",
+  "Line keys settings can be overridden by the user from the CTI application, if permissions are granted in the Profile page": "Le configurazioni dei Line keys possono essere sovrascritti dall'applicazione CTI, ma solo se è stato abilitato il permesso dalla pagina dei Profili",
+  "Line keys settings can be modified by the user from the CTI application, if permissions are granted in the Profile page. Latest settings applied will take precedence": "Le configurazioni dei Line keys possono essere modificate dall'applicazione CTI, ma solo se è stato abilitato il permesso dalla pagina dei Profili. L'ultima modifica eseguita avrà la precedenza"
 }

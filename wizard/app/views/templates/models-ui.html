@@ -139,6 +139,24 @@
                         </div>
                         <!-- if not exp keys -->
                         <div ng-if="!isExpKeysSection(sectionkey)">
+                          <!-- line keys info message into Models page -->
+                          <div ng-if="sectionkey == 'lineKeys' && !lineKeysModelsInfoMsgHide && isConfigurations == false" class="alert alert-info alert-dismissable mb-10 mt-5">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="hideLineKeysModelsInfoMsg()">
+                              <span class="pficon pficon-close"></span>
+                            </button>
+                            <span class="pficon pficon-info"></span>
+                            <strong>{{"Line keys settings can be overridden by the user from the CTI application, if permissions are granted in the Profile page" | translate}}.</strong>
+                          </div>
+                          <!-- end info message -->
+                          <!-- info message into Configurations page -->
+                          <div ng-if="isConfigurations == true && !lineKeysConfigurationsInfoMsgHide && sectionkey == 'lineKeys'" class="alert alert-info alert-dismissable mb-10 mt-5">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="hideLineKeysConfigurationsInfoMsg()">
+                              <span class="pficon pficon-close"></span>
+                            </button>
+                            <span class="pficon pficon-info"></span>
+                            <strong>{{"Line keys settings can be modified by the user from the CTI application, if permissions are granted in the Profile page. Latest settings applied will take precedence" | translate}}.</strong>
+                          </div>
+                          <!-- end info message -->
                           <div ng-if="(4 * (!currentModel.ui[sectionkey].showingKeys ? 1 :
                             currentModel.ui[sectionkey].showingKeys)) > $index"
                             ng-repeat="keysIndex in ::item.keysIndexes track by $index">

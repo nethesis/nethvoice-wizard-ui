@@ -248,6 +248,18 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    $scope.hideLineKeysModelsInfoMsg = function () {
+      localStorage.setItem('lineKeysModelsInfoMsgHide', true);
+      $scope.lineKeysModelsInfoMsgHide = true;
+    }
+    $scope.lineKeysModelsInfoMsgHide = localStorage.getItem('lineKeysModelsInfoMsgHide');
+
+    $scope.hideLineKeysConfigurationsInfoMsg = function () {
+      localStorage.setItem('lineKeysConfigurationsInfoMsgHide', true);
+      $scope.lineKeysConfigurationsInfoMsgHide = true;
+    }
+    $scope.lineKeysConfigurationsInfoMsgHide = localStorage.getItem('lineKeysConfigurationsInfoMsgHide');
+
     $scope.hideModelsInfoMsg = function () {
       localStorage.setItem('modelsInfoMsgHide', true)
       $scope.modelsInfoMsg = true
