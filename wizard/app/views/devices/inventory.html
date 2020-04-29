@@ -363,6 +363,24 @@
                   </ul>
                 </div>
               </div>
+              <!-- warning notification for rps failure -->
+              <div class="alert alert-warning" ng-show="failedRpsAddPhones.length > 0">
+                <span class="pficon pficon-warning-triangle-o"></span>
+                <strong>{{ 'Warning' | translate }}:</strong>
+                {{ 'Some registrations of MAC addresses into the vendor cloud services failed. To make the phones work correctly, manually enter the following URLs directly into the phone web interface' | translate }}:
+                <span class="form-group">
+                  <ul>
+                    <li ng-repeat="phone in failedRpsAddPhones" class="mg-bottom-10 mg-top-10">
+                      <span class="mg-right-5"><b>{{ phone.mac }}</b></span>
+                      <span class="mg-right-5">{{ phone.model && phone.model !== '' ? phone.model : '' }}</span>
+                      <div>
+                        <clipboard-copy value="{{phone.manualProvisioningUrlForFailure}}" ng-click="copyUrl()" tabindex="0" role="button"><i title="{{ 'Copy URL' | translate }}" class="pointer fa fa-clipboard mg-right-5"></i></clipboard-copy>
+                        <span title="{{phone.manualProvisioningUrlForFailure}}" class="rpsUrlFailure text-warning mg-right-5" type="text" disabled="disabled">{{phone.manualProvisioningUrlForFailure}}</span>
+                      </div>
+                    </li>
+                  </ul>
+                </span>
+              </div>
               <!-- warning notification -->
               <div class="alert alert-warning" ng-show="failedAddPhones.length > 0">
                 <span class="pficon pficon-warning-triangle-o"></span>
