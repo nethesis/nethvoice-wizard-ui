@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.4.2
+Version: 14.4.3
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,13 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Thu Apr 30 2020 Stefano Fancello <stefano.fancello@nethesis.it> - 14.4.3-1
+- Feedback of failed RPS insertion - nethesis/dev#5785
+- Wizard: improve info about line keys settings for admin - nethesis/dev#5783
+- Allow to enable/disable ldap phonebook from wizard - nethesis/dev#5766
+- "Copy Url" button does not work into the wizard devices -> phones page - Bug nethesis/dev#5779
+- Add queuetoggle configuration for linekeys of physical phones - nethesis/dev#5778
+
 * Thu Apr 16 2020 Stefano Fancello <stefano.fancello@nethesis.it> - 14.4.2-1
 - Allow or deny access to SIPS and RTP port from red interfaces - nethesis/dev#5763
 - Configure NAT settings - nethesis/dev#5772
