@@ -3235,3 +3235,12 @@ a.black:focus, a.black:hover, a.black:active {
 .input-group {
   margin-bottom: 15px;
 }
+
+.rpsUrlFailure {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: middle;
+  width: 87%;
+}

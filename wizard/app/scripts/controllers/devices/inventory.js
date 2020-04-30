@@ -17,6 +17,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.pastedMacs = [];
     $scope.successfulAddPhones = [];
     $scope.failedAddPhones = [];
+    $scope.failedRpsAddPhones = [];
     $scope.errors = [];
     $scope.errorId = 0;
     $scope.modelLoaders = {};
@@ -112,6 +113,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.pastedMacs = [];
       $scope.successfulAddPhones = [];
       $scope.failedAddPhones = [];
+      $scope.failedRpsAddPhones = [];
       $scope.pendingRequestsAddPhones = 0;
       $scope.showResultsAddPhones = false;
       $scope.tooManyPastedMacs = false;
@@ -144,6 +146,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.phonesToAdd = [];
       $scope.successfulAddPhones = [];
       $scope.failedAddPhones = [];
+      $scope.failedRpsAddPhones = [];
       $scope.pendingRequestsAddPhones = 0;
       $scope.showResultsAddPhones = false;
       $scope.showGenericAddingModal('manual');
@@ -157,6 +160,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.phonesToAdd = [];
       $scope.successfulAddPhones = [];
       $scope.failedAddPhones = [];
+      $scope.failedRpsAddPhones = [];
       $scope.pendingRequestsAddPhones = 0;
       $scope.showResultsAddPhones = false;
       $scope.showNoPhoneToAddFromNetwork = false;
@@ -435,6 +439,7 @@ angular.module('nethvoiceWizardUiApp')
 
       $scope.pendingRequestsAddPhones = $scope.phonesToAdd.length;
       $scope.failedAddPhones = [];
+      $scope.failedRpsAddPhones = [];
       $scope.showSuccessfullyAddedPhones = false;
 
       $scope.addPhonesInProgress = true;
@@ -470,6 +475,11 @@ angular.module('nethvoiceWizardUiApp')
                   // rps post success
                 }, function (err) {
                   console.log(err)
+                  $scope.failedRpsAddPhones.push({
+                    mac: phoneCorbera.mac,
+                    manualProvisioningUrlForFailure: res.data.provisioning_url2,
+                    model: phone.model.display_name
+                  });
                 })
               }
             }, function (err) {
