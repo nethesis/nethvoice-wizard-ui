@@ -43,7 +43,7 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    // get phone ingerit
+    // get phone inherit
     this.getPhoneInherit = function (mac) {
       return $q(function (resolve, reject) {
         RestService.tget('/tancredi/api/v1/phones/' + mac + "?inherit=1").then(function (res) {

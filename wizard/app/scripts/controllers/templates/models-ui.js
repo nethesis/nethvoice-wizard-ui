@@ -23,6 +23,10 @@ angular.module('nethvoiceWizardUiApp')
       deleteChangesNotFound: false
     }
 
+    $scope.modelErrorsSingle = {
+      patchSingleVariables: false
+    }
+
     angular.element("#modelsUIUrl").ready(function () {
       $scope.inModal = document.querySelector("#modelsUIUrl").parentNode.parentNode.parentNode.parentNode.parentNode.classList.value.includes("modal")
       $scope.isConfigurations = $location.path() == "/configurations" ? true : false
@@ -141,6 +145,9 @@ angular.module('nethvoiceWizardUiApp')
       }
       if ($scope.currentModel.variables[varName] == "") {
         delete $scope.currentModel.variables[varName]
+      }
+      if ($scope.currentModel.uiLocation == "configurations") {
+        $scope.currentModel.singleVariables[varName] = $scope.currentModel.variables[varName]
       }
       $scope.$emit('variableChanged')
     }
@@ -324,12 +331,30 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    $scope.saveCurrentModelConfigurations = function () {
+    var resetLoadingActionSingle = function (status) {
+      $scope.loadingActionSingle = status
+      setTimeout(function () {
+        $scope.loadingActionSingle = false
+        $scope.$apply()
+      }, 2500)
+    }
+
+    $scope.saveCurrentModelSingle = function () {
+      $scope.loadingActionSingle = true
       PhoneService.patchPhone($scope.currentModel.mac, {
-        "variables": $scope.currentModel.variables
+        "variables": $scope.currentModel.singleVariables
       }).then(function (res) {
-        $scope.hideModal("singleModelModal")
+        resetLoadingActionSingle("ok")
+        setTimeout(function () {
+          $scope.hideModal("singleModelModal")
+        },1500)
       }, function (err) {
+        $scope.modelErrorsSingle.patchSingleVariables = true
+        setTimeout(function () {
+          $scope.$apply(function () {
+            $scope.modelErrorsSingle.patchSingleVariables = false
+          })
+        }, 2000)
         console.log(err)
       })
     }

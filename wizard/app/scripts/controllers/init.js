@@ -443,16 +443,18 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    var buildModelObj = function (location, name, modelBrand, res, mac) {
+    var buildModelObj = function (location, name, modelBrand, res) {
       return $scope.currentModel = {
         "uiLocation": location,
         "ui": getModelUI(modelBrand, res.data.variables),
         "storedVariables": angular.copy(res.data.variables),
         "variables": angular.copy(res.data.variables),
         "inputs": angular.copy(res.data.variables),
+        "modelVariables": angular.copy(res.data.variables),
+        "singleVariables": {},
         "globals": {},
         "name": name,
-        "mac": mac,
+        "mac": "",
         "display_name" : res.data.display_name,
         "openedSection": "",
         "shownPasswords": {},
@@ -477,19 +479,6 @@ angular.module('nethvoiceWizardUiApp')
           }, function (err) {
             reject(err)
           })
-        }, function () {
-          reject(err)
-        })
-      })
-    }
-
-    $scope.buildPhoneModel = function (mac, location) {
-      return $q(function (resolve, reject) {
-        PhoneService.getPhoneInherit(mac).then(function (res) {
-          var nameSplit = res.data.model.split("-"),
-              modelBrand = nameSplit[0].toLowerCase()
-          buildModelObj(location, res.data.model, modelBrand, res, mac)
-          resolve(true)
         }, function () {
           reject(err)
         })
@@ -707,9 +696,13 @@ angular.module('nethvoiceWizardUiApp')
     })
 
     $scope.$on('$routeChangeStart', function() {
-      if ($location.path() == '/devices/models' || $location.path() == '/configurations'){
+      if ($location.path() == '/devices/models'){
         $scope.currentModel = {}
         $scope.destroyAllSelects("#modelsContainer")
+      }
+      if ($location.path() == '/configurations') {
+        $scope.currentModel = {}
+        $scope.destroyAllSelects("#singleModelModal")
       }
       if ($location.path() == '/devices/models' || $location.path() == '/devices'){
         $scope.defaultSettings = {}
