@@ -172,6 +172,7 @@ angular.module('nethvoiceWizardUiApp')
       }, 1000)
     }
 
+    // Allowed chars are [A-Z] [a-z] [0-9] "." "-" "_". Any other char is replaced by "_".
     let sanitizeModelName = name => {
       let code;
       let sanitized = '';
