@@ -172,12 +172,27 @@ angular.module('nethvoiceWizardUiApp')
       }, 1000)
     }
 
+    // Allowed chars are [A-Z] [a-z] [0-9] "." "-" "_". Any other char is replaced by "_".
+    let sanitizeModelName = name => {
+      let code;
+      let sanitized = '';
+      for (let i = 0; i < name.length; i++) {
+        code = name.charCodeAt(i);
+        if ((code >= 48 && code <= 57) || (code >= 65 && code <= 90) || (code >= 97 && code <= 122) || code === 45 || code === 46 || code === 95) {
+          sanitized += name[i];
+        } else {
+          sanitized += '_';
+        }
+      }
+      return sanitized;
+    };
+
     $scope.createNewModel = function () {
       if (newModelValidErr()) {
         return
       }
       resetModelsErrors()
-      var newModelName = $scope.newModelSourceName + "-" + $scope.newModelCustomName + '-' + Date.now()
+      var newModelName = sanitizeModelName($scope.newModelSourceName + "-" + $scope.newModelCustomName + '-' + Date.now());
       $scope.loadingActions = true
       ModelService.getModel($scope.newModelSourceName).then(function (res) {
         ModelService.createModel({
