@@ -295,8 +295,14 @@ angular.module('nethvoiceWizardUiApp')
       $scope.loadingAction = true
       // remove globals from variables
       for (var variable in $scope.currentModel.variables) {
-        if (!$scope.currentModel.storedVariables[variable] && $scope.currentModel.variables[variable] == $scope.currentModel.globals[variable] && (variable.indexOf("ldap_") != 0 && $scope.currentModel.changePhonebookType)) {
-          delete $scope.currentModel.variables[variable]
+        if (!$scope.currentModel.storedVariables[variable] && $scope.currentModel.variables[variable] == $scope.currentModel.globals[variable]) {
+          if (variable.indexOf("ldap_") == 0) {
+            if (!$scope.currentModel.changePhonebookType) {
+              delete $scope.currentModel.variables[variable]
+            }
+          } else {
+            delete $scope.currentModel.variables[variable]
+          }
         }
       }
       ModelService.patchModel($scope.currentModel.name, {
