@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesModelsCtrl', function ($scope, ModelService, ProvGlobalsService, $translate, $timeout) {
+  .controller('DevicesModelsCtrl', function ($scope, $filter, ModelService, ProvGlobalsService, $translate, $timeout) {
 
     // $scope.globalsUi = ProvGlobalsService.getGlobalsUI()
     $scope.view.changeRoute = true
@@ -144,6 +144,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     var resetModelsErrors = function () {
+      $scope.newModelsErrors.apiError = undefined;
       for (var err in $scope.newModelsErrors) {
         if ($scope.newModelsErrors[err] == true) {
           $scope.newModelsErrors[err] = false
@@ -195,7 +196,7 @@ angular.module('nethvoiceWizardUiApp')
         return
       }
       resetModelsErrors()
-      var newModelName = sanitizeModelName($scope.newModelSourceName + "-" + $scope.newModelCustomName + '-' + Date.now());
+      var newModelName = sanitizeModelName($scope.newModelSourceName + "-" + $scope.newModelCustomName);
       $scope.loadingActions = true
       ModelService.getModel($scope.newModelSourceName).then(function (res) {
         ModelService.createModel({
@@ -214,7 +215,7 @@ angular.module('nethvoiceWizardUiApp')
           }, 1000)
         }, function (err) {
           console.log(err)
-          $scope.newModelsErrors.apiError = err.data.title
+          $scope.newModelsErrors.apiError = $filter('translate')('The model name is already registered')
           resetLoadingAction("err")
         })
       }, function (err) {
