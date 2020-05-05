@@ -242,7 +242,7 @@
                                   data-live-search="true"
                                   ng-change="setDeviceModel(device)"
                                   ng-model="device.model"
-                                  ng-options="model.display_name for model in device.availableModels | orderBy:orderByValue">
+                                  ng-options="model.display_name for model in device.availableModels | orderBy:'display_name'">
                                   <option ng-hide="device.model != null" value="">-</option>
                                 </select>
                                 <button ng-if="false" ng-disabled="!device.model" ng-click="setCurrentModelConfig(device.mac)"
