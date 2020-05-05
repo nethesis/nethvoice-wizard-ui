@@ -28,6 +28,14 @@ angular.module('nethvoiceWizardUiApp')
     $scope.setDefaultSettings = function () {
       $scope.loadingActionss = true
       $scope.defaultSettings.ui_first_config = ""
+      if ($scope.adminPw.origValue !== $scope.defaultSettings.adminpw) {
+        ModelService.updateAdminPw({ password: $scope.defaultSettings.adminpw }).then(function (res) {
+          console.log('update adminpw ok');
+        }, function (err) {
+          console.error('error updating adminpw');
+          console.error(err);
+        });
+      }
       ModelService.setDefaults($scope.defaultSettings).then(function (res) {
         resetloadingActions("ok")
         $scope.startPhonebookService()
@@ -75,6 +83,11 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.pinnedChange = function (variable) {
+      if (variable === "adminpw" && $scope.defaultSettings.adminpw !== $scope.adminPw.origValue) {
+        $scope.adminPw.showAdminPwWarning = true;
+      } else if (variable === "adminpw") {
+        $scope.adminPw.showAdminPwWarning = false;
+      }
       if (variable == "hostname") {
         $scope.connectivityCheck({
           "host": $scope.defaultSettings.hostname,

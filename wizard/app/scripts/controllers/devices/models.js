@@ -23,6 +23,7 @@ angular.module('nethvoiceWizardUiApp')
       newModelSourceEmpty: false,
       apiError: false
     }
+    $scope.adminPw = { showAdminPwWarning: false };
 
     var modelNameChecking = ""
 
@@ -89,6 +90,8 @@ angular.module('nethvoiceWizardUiApp')
         })
         $scope.ldapCheck()
         $scope.loadingDefaults()
+        $scope.adminPw.origValue = res.data.adminpw;
+        $scope.adminPw.showAdminPwWarning = false;
         $("#defaultSettingsModal").modal("show")
         setTimeout(function () {
           $('#defaultSettingsModal select').each(function(){

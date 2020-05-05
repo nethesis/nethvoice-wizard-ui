@@ -165,4 +165,14 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    // update admin password of phone web interface
+    this.updateAdminPw = obj => {
+      return $q(function (resolve, reject) {
+        RestService.post('/physicalextensions/adminpw', obj).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        });
+      });
+    };
   })

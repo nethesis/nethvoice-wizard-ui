@@ -34,6 +34,13 @@
 							<span class="pficon pficon-error-circle-o"></span>
 							<strong>{{"The PBX address is not reachable" | translate}}!</strong> {{"Add an address reachable from localhost" | translate}}.
 						</div>
+						<div ng-if="adminPw.showAdminPwWarning === true" class="alert alert-warning alert-dismissable mb-10">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span class="pficon pficon-close"></span>
+							</button>
+							<span class="pficon pficon-warning-triangle-o"></span>
+							<strong>{{"The admin password has been modified" | translate}}!</strong> {{"The automatic click2call function of the CTI application will not work until the next phones provisioning" | translate}}.
+						</div>
 					</div>
 					<div class="col-lg-12 mt-30">
 						<div ng-repeat="(sectionKey, section) in globalsUi">
@@ -74,6 +81,7 @@
 											<input
 												id="{{sectionkey}}-input-{{$index}}"
 												ng-model="defaultSettings[item.variable]"
+												ng-change="pinnedChange(item.variable)"
 												type="password"
 												autocomplete="off"
 												show-password="shownPasswords[item.variable]"

@@ -171,22 +171,6 @@ angular.module('nethvoiceWizardUiApp')
           }
         ]
       }
-
-      if (modelMap.general.password) {
-        passwordItems = [
-          {
-            "variable": "adminpw",
-            "description": "Admin password",
-            "type": "password"
-          },
-          {
-            "variable": "userpw",
-            "description": "User password",
-            "type": "password"
-          }
-        ]
-      }
-
       return {
         "name": "Preferences",
         "items": settingsItems.concat(passwordItems)
