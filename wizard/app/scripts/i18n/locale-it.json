@@ -863,5 +863,6 @@
   "Line keys settings can be modified by the user from the CTI application, if permissions are granted in the Profile page. Latest settings applied will take precedence": "Le configurazioni dei Line keys possono essere modificate dall'applicazione CTI, ma solo se è stato abilitato il permesso dalla pagina dei Profili. L'ultima modifica eseguita avrà la precedenza",
   "Some registrations of MAC addresses into the vendor cloud services failed. To make the phones work correctly, manually enter the following URLs directly into the phone web interface":"Alcune registrazioni degli indirizzi MAC presso i servizi cloud dei produttori sono fallite. Per rendere il telefono funzionante, si richiede l'inserimento degli URL seguenti direttamente nell'interfaccia web del telefono",
   "The admin password has been modified":"La password di admin è stata modificata",
-  "The automatic click2call function of the CTI application will not work until the next phones provisioning":"La funzionalità di click2call automatico dell'applicazione CTI non funzionerà fino al prossimo provisioning dei telefoni"
+  "The automatic click2call function of the CTI application will not work until the next phones provisioning":"La funzionalità di click2call automatico dell'applicazione CTI non funzionerà fino al prossimo provisioning dei telefoni",
+  "The model name is already registered":"Il nome del modello inserito è già presente"
 }
