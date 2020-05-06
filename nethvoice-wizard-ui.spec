@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.4.3
+Version: 14.4.4
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,12 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Wed May 06 2020 Davide Principi <davide.principi@nethesis.it> - 14.4.4-1
+- Models list alphabetically ordered - Bug nethesis/dev#5790
+- Deny the creation of modules with same names - Bug nethesis/dev#5789
+- Space in custom module breaks the Modules view - Bug nethesis/dev#5784
+- All default variables are copied to model scope on model variables save - Bug nethesis/dev#5787
+
 * Thu Apr 30 2020 Stefano Fancello <stefano.fancello@nethesis.it> - 14.4.3-1
 - Feedback of failed RPS insertion - nethesis/dev#5785
 - Wizard: improve info about line keys settings for admin - nethesis/dev#5783
