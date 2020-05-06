@@ -245,8 +245,8 @@
                                   ng-options="model.display_name for model in device.availableModels | orderBy:'display_name'">
                                   <option ng-hide="device.model != null" value="">-</option>
                                 </select>
-                                <button ng-if="false" ng-disabled="!device.model" ng-click="setCurrentModelConfig(device.mac)"
-                                  class="btn btn-default ml-3 zindex-2">
+                                <button ng-if="true" ng-disabled="!device.model" ng-click="setCurrentModelConfig(device.model.name, device.mac)"
+                                  class="btn btn-default adjust-button zindex-2">
                                   <i class="fa fa-pencil"></i>
                                 </button>
                               </div>
@@ -561,7 +561,7 @@
 </div>
 
 <div class="modal fade" id="singleModelModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="wizard-model-modal">
+  <div class="wizard-modal">
     <div class="modal-dialog wizard-pf margin-10">
       <div class="modal-content mb-40">
         <div class="modal-header">

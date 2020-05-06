@@ -180,17 +180,30 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     // function for the currentModel creation
-    $scope.setCurrentModelConfig = function (mac) {
-      $scope.buildPhoneModel(mac, "configurations").then(function (cm) {
+    $scope.setCurrentModelConfig = function (model, mac) {
+      $scope.destroyAllSelects("#singleModelModal")
+      $scope.buildModel(model, "configurations").then(function (res) {
+        $scope.currentModel.mac = mac
         $scope.modelLdapTypeCheck()
-        $("#singleModelModal").modal("show")
-        // if ($scope.currentModel.name != name) {
-        //   $scope.loadingModel[name] = true
-        // }
-        // setTimeout(function () {
-        //   $scope.loadingModel[name] = false
-        //   $scope.$apply()
-        // }, 1000)
+
+        // single variables may be shown as setted variables
+        // model variables may be shown as placeholder with (currentModel.display_name) at the end
+
+        PhoneService.getPhone(mac).then(function (res) {
+
+          $scope.currentModel.inputs = angular.copy(res.data.variables)
+          $scope.currentModel.singleVariables = angular.copy(res.data.variables)
+          // set single values to variables
+          for (let variable in res.data.variables) {
+            $scope.currentModel.storedVariables[variable] = res.data.variables[variable]
+            $scope.currentModel.variables[variable] = res.data.variables[variable]
+          }
+          console.log("SINGLE RES", $scope.currentModel)
+          $("#singleModelModal").modal("show")
+        }, function () {
+          console.log(err)
+        })
+
       }, function (err) {
         console.log(err)
       })
@@ -555,10 +568,6 @@ angular.module('nethvoiceWizardUiApp')
         $scope.allDevices[device].linkInAction = false
       }
       getAllDevices()
-    })
-
-    $('#singleModelModal').on('hidden.bs.modal', function () {
-      $scope.destroyAllSelects("#modelsUIUrl")
     })
 
     var scrollInventory = function () {
