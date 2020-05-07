@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.4.4
+Version: 14.4.5
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,13 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Thu May 07 2020 SebastianMB-IT <sebastian.besel@nethesis.it> - 14.4.5-1
+- Enable the edit form on single phone - nethesis/dev#5786
+- Models list alphabetically ordered - Bug nethesis/dev#5790
+- Deny the creation of modules with same names - Bug nethesis/dev#5789
+- Space in custom module breaks the Modules view - Bug nethesis/dev#5784
+- All default variables are copied to model scope on model variables save - Bug nethesis/dev#5787
+
 * Wed May 06 2020 Davide Principi <davide.principi@nethesis.it> - 14.4.4-1
 - Models list alphabetically ordered - Bug nethesis/dev#5790
 - Deny the creation of modules with same names - Bug nethesis/dev#5789
