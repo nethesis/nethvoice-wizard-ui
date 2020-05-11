@@ -23,7 +23,9 @@ angular.module('nethvoiceWizardUiApp')
       newModelSourceEmpty: false,
       apiError: false
     }
-    $scope.adminPw = { showAdminPwWarning: false };
+    $scope.adminPw = {
+      showAdminPwWarning: false
+    }
 
     var modelNameChecking = ""
 

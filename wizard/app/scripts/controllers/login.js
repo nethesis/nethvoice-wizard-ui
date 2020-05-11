@@ -20,7 +20,6 @@ angular.module('nethvoiceWizardUiApp')
             $scope.wizard.isWizard = res[0].status === 'true';
             $scope.wizard.stepCount = res[0].step;
           }
-
           if ($scope.wizard.isWizard) {
             MigrationService.isMigration().then(function (resIsMigration) {
               $scope.wizard.isMigration = resIsMigration.data

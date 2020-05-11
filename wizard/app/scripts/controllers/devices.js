@@ -13,6 +13,10 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.view.changeRoute = true
 
+    $scope.adminPw = {
+      showAdminPwWarning: false
+    }
+
     var currentStep = $route.current.controllerAs.split('/').length > 1 ? $route.current.controllerAs.split('/')[1] : $route.current.controllerAs.split('/')[0],
         stepCount = appConfig.STEP_MAP[currentStep],
         nextState = appConfig.STEP_WIZARD[currentStep].next
@@ -49,6 +53,8 @@ angular.module('nethvoiceWizardUiApp')
     var initDefaults = function (defaultRes) {
       $scope.$parent.defaultSettings = defaultRes.data
       $scope.$parent.storedDefaultSettings = angular.copy(defaultRes.data)
+      $scope.adminPw.origValue = defaultRes.data.adminpw
+      $scope.adminPw.showAdminPwWarning = false
       $scope.connectivityCheck({
         "host": defaultRes.data.hostname,
         "scheme": defaultRes.data.provisioning_url_scheme
