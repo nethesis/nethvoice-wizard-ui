@@ -222,7 +222,7 @@
                     </div>
                     <div class="list-view-pf-body config-list-devices">
                       <div class="list-view-pf-description">
-                        <div class="list-group-item-heading configDevices-item-heading">
+                        <div title="{{!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical') ? 'Custom' : device.manufacturer | translate}} - {{device.extension}}" class="list-group-item-heading configDevices-item-heading">
                           <span ng-if="device.manufacturer">{{device.manufacturer}}</span>
                           <span ng-if="!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical')">
                             {{"Custom" | translate}}
@@ -232,7 +232,7 @@
                         <span class="weight-plus mr-20">
                         </span>
                         <div class="list-group-item-text">
-                          <div class="col-lg-6">
+                          <div class="col-lg-6 mxw-211">
                             <!-- model select for non-custom devices -->
                             <div class="form-group no-margin-bottom" ng-if="!(!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical'))">
                               <div class="display-flex miw-135">
@@ -254,20 +254,20 @@
                             <!-- show secret for custom devices -->
                             <button ng-if="!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical')" popover-animation="true" uib-popover="{{device.secret}}" type="button" class="btn btn-default">{{'Show Secret' | translate}}</button>
                           </div>
-                          <div ng-if="!(!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical'))"
-                            class="col-lg-5 mnw-180">
+                          <div class="col-lg-5 mnw-180 {{!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical') ? 'eswitch-mt2' : 'eswitch-mt'}}">
                             <div class="list-view-pf-additional-info config-info ">
-                              <div class="eswitch-mt">
-                                {{'Encryption' | translate}}:
-                                <input
-                                bs-switch
-                                class="encryption-switch"
-                                ng-model="device.encryption"
-                                ng-change="switchEncryption(device)"
-                                id="bootstrap-switch-encrypt-{{currentUser.id}}"
-                                class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12"
-                                type="checkbox">
-                              </div>
+                              <input
+                              bs-switch
+                              class="encryption-switch"
+                              ng-model="device.encryption"
+                              switch-on-text="{{'ENCRYPTED' | translate}}"
+                              switch-off-text="{{'UNENCRYPTED' | translate}}"
+                              switch-handle-width="83"
+                              switch-label-width="25"
+                              ng-change="switchEncryption(device)"
+                              id="bootstrap-switch-encrypt-{{currentUser.id}}"
+                              class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                              type="checkbox">
                             </div>
                           </div>
                         </div>

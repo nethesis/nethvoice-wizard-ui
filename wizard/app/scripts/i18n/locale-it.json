@@ -866,5 +866,7 @@
   "The admin password has been modified":"La password di admin è stata modificata",
   "The automatic click2call function of the CTI application will not work until the next phones provisioning":"La funzionalità di click2call automatico dell'applicazione CTI non funzionerà fino al prossimo provisioning dei telefoni",
   "The model name is already registered":"Il nome del modello inserito è già presente",
-  "Variables correctly saved": "Variabili salvate correttamente"
+  "Variables correctly saved": "Variabili salvate correttamente",
+  "ENCRYPTED": "CRIPTATO",
+  "UNENCRYPTED": "IN CHIARO"
 }

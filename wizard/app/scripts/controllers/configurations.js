@@ -99,10 +99,6 @@ angular.module('nethvoiceWizardUiApp')
         getCuDevicesEncryption($scope.currentUser.devices)
         getAvailableModels($scope.currentUser.devices)
       }
-      setTimeout(function () {
-        $scope.loadingUser[user.username] = false
-        $scope.$apply()
-      }, 1500)
     }
 
     var filterModels = function (modelName, deviceMac) {
@@ -122,19 +118,47 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    var resetLoadingUser = function () {
+      $scope.loadingUser[$scope.currentUser.username] = false
+    }
+
     var getEncryption = function (ext, index) {
       ConfigurationService.getEncryption(ext).then(function (res) {
+        resetLoadingUser()
         $scope.currentUser.devices[index].encryption = res.data
       }, function (err) {
+        resetLoadingUser()
         console.log(err)
       })
     }
 
     var getCuDevicesEncryption = function(devices) {
       if (devices) {
-        $scope.currentUser.devices.forEach(function (el ,index) {
-          getEncryption(el.extension, index)
-        })
+        let isPhysical
+        for (let device in devices) {
+          if (devices[device].type == "physical") {
+            isPhysical = true
+          }
+        }
+        if (isPhysical) {
+          $scope.currentUser.devices.forEach(function (el ,index) {
+            if (el.type == "physical") {
+              getEncryption(el.extension, index)
+            }
+          })
+        } else {
+          setTimeout(function () {
+            $scope.$apply(function () {
+              resetLoadingUser()
+            })
+          }, 2000)
+        }
+      } else {
+        setTimeout(function () {
+          $scope.$apply(function () {
+            resetLoadingUser()
+          })
+        }, 2000)
       }
     }
 
