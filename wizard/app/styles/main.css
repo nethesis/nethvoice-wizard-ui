@@ -605,6 +605,7 @@ a {
 
 .configDevices-item-heading {
   flex: 1 0 calc(40% - 80px) !important;
+  max-width: 188px;
 }
 
 .selected {
@@ -811,8 +812,14 @@ a {
   }
 }
 
-@media screen and (max-width: 1647px) {
+@media screen and (max-width: 1950px) {
   .eswitch-mt {
+    margin-top: 10px !important;
+  }
+}
+
+@media screen and (max-width: 1884px) {
+  .eswitch-mt2 {
     margin-top: 10px !important;
   }
 }
@@ -831,7 +838,9 @@ a {
   }
 }
 
-
+.mxw-211 {
+  max-width: 211px;
+}
 
 @media screen and (max-width: 1200px) {
   .weight-gateway {
