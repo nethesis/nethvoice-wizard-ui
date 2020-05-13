@@ -122,7 +122,7 @@
                             <label class="control-label" for="textInput-markup">
                               {{"Mobile" | translate}}
                             </label>
-                            <div class="input-group display-flex mt-3">
+                            <div class="input-group display-flex mt-3 no-margin-bottom">
                               <input
                                 ng-model="currentUser.mobile"
                                 type="tel"
@@ -257,17 +257,17 @@
                           <div class="col-lg-5 mnw-180 {{!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical') ? 'eswitch-mt2' : 'eswitch-mt'}}">
                             <div class="list-view-pf-additional-info config-info ">
                               <input
-                              bs-switch
-                              class="encryption-switch"
-                              ng-model="device.encryption"
-                              switch-on-text="{{'ENCRYPTED' | translate}}"
-                              switch-off-text="{{'UNENCRYPTED' | translate}}"
-                              switch-handle-width="83"
-                              switch-label-width="25"
-                              ng-change="switchEncryption(device)"
-                              id="bootstrap-switch-encrypt-{{currentUser.id}}"
-                              class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12"
-                              type="checkbox">
+                                bs-switch
+                                class="encryption-switch"
+                                ng-model="device.encryption"
+                                switch-on-text="{{'ENCRYPTED' | translate}}"
+                                switch-off-text="{{'UNENCRYPTED' | translate}}"
+                                switch-handle-width="88"
+                                switch-label-width="21"
+                                ng-change="switchEncryption(device)"
+                                id="bootstrap-switch-encrypt-{{currentUser.id}}"
+                                class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                                type="checkbox">
                             </div>
                           </div>
                         </div>
@@ -457,7 +457,7 @@
                             </div>
                             <div class="list-view-pf-body">
                               <div class="list-view-pf-description">
-                                <div class="list-group-item-heading configDevices-item-heading">
+                                <div class="list-group-item-heading configDevices-item-heading mxw-200">
                                   {{'New custom device' | translate}}
                                 </div>
                                 <span class="weight-plus mr-20">

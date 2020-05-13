@@ -26,7 +26,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.setDefaultSettings = function () {
-      $scope.loadingActionss = true
+      $scope.loadingActions = true
       $scope.defaultSettings.ui_first_config = ""
       if ($scope.adminPw.origValue !== $scope.defaultSettings.adminpw) {
         ModelService.updateAdminPw({ password: $scope.defaultSettings.adminpw }).then(function (res) {
@@ -43,7 +43,7 @@ angular.module('nethvoiceWizardUiApp')
         setTimeout(function () {
           $scope.$apply(function () {
             $("#defaultSettingsModal").modal("hide")
-            $scope.$parent.$parent.defaultSettings = {}
+            // $scope.$parent.$parent.defaultSettings = {}
           })
         }, 1000)
       }, function (err) {
