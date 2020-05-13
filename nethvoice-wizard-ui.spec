@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.4.5
+Version: 14.4.6
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,10 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Wed May 13 2020 SebastianMB-IT <sebastian.besel@nethesis.it> - 14.4.6-1
+- Add encryption switch for custom devices in provisioning - nethesis/dev#5799
+- Fix the first configuration defaults management error - Bug nethesis/dev#5798
+
 * Thu May 07 2020 SebastianMB-IT <sebastian.besel@nethesis.it> - 14.4.5-1
 - Enable the edit form on single phone - nethesis/dev#5786
 - Models list alphabetically ordered - Bug nethesis/dev#5790
