@@ -810,6 +810,7 @@
   "ldap_name_display": "Formato di visualizzazione nome",
   "vlan_id_phone_label": "Identificativo VLAN (VID)",
   "vlan_id_pcport_label": "Identificativo VLAN per porta PC",
+  "vlan_settings": "Network",
   "Admin password": "Password admin",
   "User password": "Password utente",
   "New model": "Nuovo modello",

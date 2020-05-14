@@ -39,9 +39,9 @@ angular.module('nethvoiceWizardUiApp')
         },
         "network": {
           "ldap": true,
-          "vlan": true,
           "hidden_ldap_tls": hidden_ldap_tls
         },
+        "networkSettings": {},
         "provisioning": {
           "provisioning": true
         },
@@ -621,11 +621,27 @@ angular.module('nethvoiceWizardUiApp')
     //     "items": ringtoneItems.concat(displayItems).concat(wallpaperItems).concat(screensaverItems)
     //   }
     // }
+    this.networkSettings = function (modelMap) {
+      return {
+        "name":"network_settings_label",
+        "items": [
+          {
+            "variable": "vlan_id_phone",
+            "description": "vlan_id_phone_label",
+            "type": "input"
+          },
+          {
+            "variable": "vlan_id_pcport",
+            "description": "vlan_id_pcport_label",
+            "type": "input"
+          }
+        ]
+      }
+    }
 
     this.network = function (modelMap) {
 
       var ldapItems = [];
-      var vlanItems = [];
 
       if (modelMap.network.ldap) {
         ldapItems = [
@@ -711,24 +727,9 @@ angular.module('nethvoiceWizardUiApp')
         ];
       }
 
-      if (modelMap.network.vlan) {
-        vlanItems = [
-          {
-            "variable": "vlan_id_phone",
-            "description": "vlan_id_phone_label",
-            "type": "input"
-          },
-          {
-            "variable": "vlan_id_pcport",
-            "description": "vlan_id_pcport_label",
-            "type": "input"
-          }
-        ];
-      }
-
       return {
         "name": "ldap_phonebook_title",
-        "items": ldapItems.concat(vlanItems)
+        "items": ldapItems
       }
     }
 
