@@ -39,7 +39,7 @@ angular.module('nethvoiceWizardUiApp')
         },
         "network": {
           "ldap": true,
-          "vlan": false,
+          "vlan": true,
           "hidden_ldap_tls": hidden_ldap_tls
         },
         "provisioning": {
@@ -714,137 +714,14 @@ angular.module('nethvoiceWizardUiApp')
       if (modelMap.network.vlan) {
         vlanItems = [
           {
-            "variable": "vlan_dhcp_enable",
-            "description": "DHCP VLAN Discovery",
-            "type": "list",
-            "options": [
-              {
-                "text": "Disabled",
-                "value": "0"
-              },
-              {
-                "text": "Enabled",
-                "value": "1"
-              }
-            ]
-          },
-          {
-            "variable": "data_vlan_priority",
-            "description": "VLAN Priority for PC port",
-            "type": "list",
-            "options": [
-              {
-                "text": "0 (lowest)",
-                "value": "0"
-              },
-              {
-                "text": "1",
-                "value": "1"
-              },
-              {
-                "text": "2",
-                "value": "2"
-              },
-              {
-                "text": "3",
-                "value": "3"
-              },
-              {
-                "text": "4",
-                "value": "4"
-              },
-              {
-                "text": "5",
-                "value": "5"
-              },
-              {
-                "text": "6",
-                "value": "6"
-              },
-              {
-                "text": "7 (highest)",
-                "value": "7"
-              }
-            ]
-          },
-          {
-            "variable": "data_vlan_id",
-            "description": "VLAN ID for PC port",
+            "variable": "vlan_id_phone",
+            "description": "vlan_id_phone_label",
             "type": "input"
           },
           {
-            "variable": "data_vlan_enable",
-            "description": "VLAN Enable for PC port",
-            "type": "list",
-            "options": [
-              {
-                "text": "Disabled",
-                "value": "0"
-              },
-              {
-                "text": "Enabled",
-                "value": "1"
-              }
-            ]
-          },
-          {
-            "variable": "voice_vlan_priority",
-            "description": "VLAN Priority for Internet port",
-            "type": "list",
-            "options": [
-              {
-                "text": "0 (lowest)",
-                "value": "0"
-              },
-              {
-                "text": "1",
-                "value": "1"
-              },
-              {
-                "text": "2",
-                "value": "2"
-              },
-              {
-                "text": "3",
-                "value": "3"
-              },
-              {
-                "text": "4",
-                "value": "4"
-              },
-              {
-                "text": "5",
-                "value": "5"
-              },
-              {
-                "text": "6",
-                "value": "6"
-              },
-              {
-                "text": "7 (highest)",
-                "value": "7"
-              }
-            ]
-          },
-          {
-            "variable": "voice_vlan_id",
-            "description": "VLAN ID for Internet port",
+            "variable": "vlan_id_pcport",
+            "description": "vlan_id_pcport_label",
             "type": "input"
-          },
-          {
-            "variable": "voice_vlan_enable",
-            "description": "VLAN Enable for Internet port",
-            "type": "list",
-            "options": [
-              {
-                "text": "Disabled",
-                "value": "0"
-              },
-              {
-                "text": "Enabled",
-                "value": "1"
-              }
-            ]
           }
         ];
       }

@@ -125,6 +125,8 @@
   "ldap_mobilephone_number_attr": "Mobile phone number attribute",
   "ldap_otherphone_number_attr": "Other phone number attribute",
   "ldap_name_display": "Display name format",
+  "vlan_id_phone_label": "VLAN identifier (VID)",
+  "vlan_id_pcport_label": "PC port VLAN identifier",
   "en": "English",
   "it": "Italian",
   "never_prov_freq": "Only at startup",

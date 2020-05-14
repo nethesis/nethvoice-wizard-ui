@@ -98,14 +98,8 @@ This is the current list of variables related to features:
   - `ldap_number_filter`
   - `ldap_name_filter`
 - `vlan`
-  - `vlan_dhcp_enable`
-  - `data_vlan_priority`
-  - `data_vlan_id`
-  - `data_vlan_enable`
-  - `voice_vlan_priority`
-  - `voice_vlan_id`
-  - `voice_vlan_enable`
-  - `dhcp_option`
+  - `vlan_id_phone`
+  - `vlan_id_pcport`
 - `provisioning`
   - `dhcp_enable`
   - `weekly_enable`
