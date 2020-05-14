@@ -30,6 +30,7 @@ angular.module('nethvoiceWizardUiApp')
           "password": true,
           "hidden_dateformat": hidden_date_formats
         },
+        "networkSettings": {},
         "preferences": {
           "ringtone": true,
           "display": true,
@@ -41,7 +42,6 @@ angular.module('nethvoiceWizardUiApp')
           "ldap": true,
           "hidden_ldap_tls": hidden_ldap_tls
         },
-        "networkSettings": {},
         "provisioning": {
           "provisioning": true
         },
