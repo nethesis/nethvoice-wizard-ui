@@ -473,7 +473,7 @@
   "URL not saved": "URL non salvato",
   "URL saving error": "Errore nel salvataggio dell'URL",
   "New parameterized URL": "Nuovo URL parametrizzato",
-  "URL can contains three parameters identifying the caller": "L'URL può contenere tre parametri che identificano il chiamante",
+  "URL can contains four parameters identifying the caller": "L'URL può contenere quattro parametri che identificano il chiamante",
   "No profile available": "Nessun profilo disponibile",
   "To have one, free it from an existing URL": "Per averne uno, disassociarlo da un URL esistente",
   "Copy URL": "Copia URL",
