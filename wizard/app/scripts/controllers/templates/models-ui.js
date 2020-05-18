@@ -102,17 +102,17 @@ angular.module('nethvoiceWizardUiApp')
       if ($scope.modelPhonebookType == "ldaps") {
         $scope.ldapToModelVariables($scope.ldapCheckRes, true)
         // force encryption select disabling or enabling
-        $("#network-select-4").prop('disabled', true)
+        $("#phonebook-select-4").prop('disabled', true)
       } else if ($scope.modelPhonebookType == "ldap") {
         $scope.ldapToModelVariables($scope.ldapCheckRes, false)
-        $("#network-select-4").prop('disabled', true)
+        $("#phoneboook-select-4").prop('disabled', true)
       } else {
         $scope.currentModel.variables = angular.copy($scope.currentModel.storedVariables)
         $scope.currentModel.inputs = angular.copy($scope.currentModel.storedVariables)
-        $("#network-select-4").prop('disabled', false)
+        $("#phonebook-select-4").prop('disabled', false)
       }
       setTimeout(function () {
-        $("#network-select-4").selectpicker("refresh")
+        $("#phonebook-select-4").selectpicker("refresh")
       }, 100)
     }
 

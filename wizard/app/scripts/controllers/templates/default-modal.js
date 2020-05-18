@@ -9,7 +9,7 @@
  */
 
 angular.module('nethvoiceWizardUiApp')
-  .controller('DefaultModalUICtrl', function ($scope, $interval, $location, ModelService, PhoneService) {
+  .controller('DefaultModalUICtrl', function ($scope, $interval, $location, ModelService) {
 
     $scope.openedSection = ""
     $scope.globalsUi = $scope.buildDefaultSettingsUI()

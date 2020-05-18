@@ -18,8 +18,8 @@ angular.module('nethvoiceWizardUiApp')
       return GenericPhoneService.preferences(modelMap)
     }
 
-    this.network = function (modelMap) {
-      return GenericPhoneService.network(modelMap)
+    this.phonebook = function (modelMap) {
+      return GenericPhoneService.phonebook(modelMap)
     }
 
     // this.provisioning = function (modelMap) {

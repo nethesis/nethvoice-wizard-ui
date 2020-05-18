@@ -397,7 +397,7 @@ angular.module('nethvoiceWizardUiApp')
       return {
         pinned: ProvGlobalsService.pinned(),
         preferences: ProvGlobalsService.preferences(),
-        network: ProvGlobalsService.network()
+        phonebook: ProvGlobalsService.phonebook()
       }
     }
 
@@ -410,7 +410,7 @@ angular.module('nethvoiceWizardUiApp')
         expansionKeys: convertKeysMap(service.expansionKeys(map)),
         // general: service.general(map),
         preferences: service.preferences(map),
-        network: service.network(map)
+        phonebook: service.phonebook(map)
         // provisioning: service.provisioning(map),
       }
     }

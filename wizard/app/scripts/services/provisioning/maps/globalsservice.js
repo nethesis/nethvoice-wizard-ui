@@ -93,7 +93,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.network = function () {
+    this.phonebook = function () {
       return {
         "name": "ldap_phonebook_title",
         "data": [

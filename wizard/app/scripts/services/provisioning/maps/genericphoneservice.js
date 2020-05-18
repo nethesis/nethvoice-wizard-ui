@@ -38,7 +38,7 @@ angular.module('nethvoiceWizardUiApp')
           "screensaver": true,
           "hidden_dsstransfer": hidden_dss_transfer
         },
-        "network": {
+        "phonebook": {
           "ldap": true,
           "hidden_ldap_tls": hidden_ldap_tls
         },
@@ -621,6 +621,7 @@ angular.module('nethvoiceWizardUiApp')
     //     "items": ringtoneItems.concat(displayItems).concat(wallpaperItems).concat(screensaverItems)
     //   }
     // }
+    
     this.networkSettings = function (modelMap) {
       return {
         "name":"network_settings_label",
@@ -639,11 +640,11 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.network = function (modelMap) {
+    this.phonebook = function (modelMap) {
 
       var ldapItems = [];
 
-      if (modelMap.network.ldap) {
+      if (modelMap.phonebook.ldap) {
         ldapItems = [
           {
             "variable": "ldap_server",
