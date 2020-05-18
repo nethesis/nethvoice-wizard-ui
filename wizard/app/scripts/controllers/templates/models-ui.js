@@ -117,7 +117,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.openSection = function (sectionkey) {
-      $scope.destroyAllSelects("#modelsContainer")
+      $scope.destroyAllSelects("#modelsContainer", sectionkey)
       delete $scope.currentModel.ui[sectionkey].showingKeys
       $scope.selectOptionsLimit = 12
       $interval.cancel($scope.selectOptionsInterval)
@@ -132,6 +132,17 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         $scope.currentModel.openedSection = ""
         $interval.cancel($scope.selectOptionsInterval)
+      }
+      if (sectionkey == "phonebook") {
+        setTimeout(function () {
+          // update ldap type select
+          let typeSelect = document.querySelector("#modelPhonebookType")
+          if (typeSelect) {
+            $scope.$apply()
+            $(typeSelect).selectpicker("refresh")
+          }
+          typeSelect = null
+        }, 100)
       }
     }
 

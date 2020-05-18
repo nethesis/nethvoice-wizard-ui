@@ -34,7 +34,7 @@
               {{::section.name | translate}}
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
             </h2>
-            <div id="collapse-section-{{$index}}"
+            <div id="{{sectionkey}}"
               class="panel-collapse model-container adjust-profile-body"
               ng-if="currentModel.openedSection == sectionkey">
               <div class="panel-body profile-panel no-pad">

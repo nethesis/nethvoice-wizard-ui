@@ -209,12 +209,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.buildModel(model, "configurations").then(function (res) {
         $scope.currentModel.mac = mac
         $scope.modelLdapTypeCheck()
-
-        // single variables may be shown as setted variables
-        // model variables may be shown as placeholder with (currentModel.display_name) at the end
-
         PhoneService.getPhone(mac).then(function (res) {
-
           $scope.currentModel.inputs = angular.copy(res.data.variables)
           $scope.currentModel.singleVariables = angular.copy(res.data.variables)
           // set single values to variables

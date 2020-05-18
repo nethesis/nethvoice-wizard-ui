@@ -30,7 +30,7 @@ angular.module('nethvoiceWizardUiApp')
           "password": true,
           "hidden_dateformat": hidden_date_formats
         },
-        "networkSettings": {},
+        "network": {},
         "preferences": {
           "ringtone": true,
           "display": true,
@@ -622,7 +622,7 @@ angular.module('nethvoiceWizardUiApp')
     //   }
     // }
     
-    this.networkSettings = function (modelMap) {
+    this.network = function (modelMap) {
       return {
         "name":"network_settings_label",
         "items": [
