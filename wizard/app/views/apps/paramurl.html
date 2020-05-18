@@ -114,7 +114,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup"></label>
             <label class="col-sm-8 control-label paramurl-descr-label" for="textInput-modal-markup">
-              {{'URL can contains three parameters identifying the caller' | translate}}:
+              {{'URL can contains four parameters identifying the caller' | translate}}:
             </label>
             <label class="col-sm-3 control-label" for="textInput-modal-markup"></label>
             <label class="col-sm-8 paramurl-descr-label" for="textInput-modal-markup">
@@ -122,13 +122,14 @@
                 <li>$CALLER_NUMBER</li>
                 <li>$CALLER_NAME</li>
                 <li>$CALLED</li>
+                <li>$UNIQUEID</li>
               </ul>
             </label>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'URL' | translate}}</label>
             <div class="col-sm-9">
-              <input required ng-model="newUrl.url" type="text" class="form-control paramurl-input" placeholder="https://mycrm.com/webservice.php?cnumber=$CALLER_NUMBER&cname=$CALLER_NAME&dest=$CALLED">
+              <input required ng-model="newUrl.url" type="text" class="form-control paramurl-input" title="https://mycrm.com/webservice.php?cnumber=$CALLER_NUMBER&cname=$CALLER_NAME&dest=$CALLED&callid=$UNIQUEID" placeholder="https://mycrm.com/webservice.php?cnumber=$CALLER_NUMBER&cname=$CALLER_NAME&dest=$CALLED&callid=$UNIQUEID">
             </div>
           </div>
           <div class="form-group">
