@@ -366,17 +366,30 @@ angular.module('nethvoiceWizardUiApp')
       $('body').css('background', '');
     });
 
-    $scope.destroyAllSelects = function (container) {
-      $(container + " .selectpicker").each(function( index, elem ) {
-        $( elem ).selectpicker("destroy")
-        $( elem ).remove()
-      })
-      $(container + " .combobox").each(function( index, elem ) {
-        $( elem ).remove()
-      })
-      $(container + " .combobox-container").each(function( index, elem ) {
-        $( elem ).remove()
-      })
+    $scope.destroyAllSelects = function (parent, container) {
+      if (container) {
+        $(parent + " #" + container + " .selectpicker").each(function( index, elem ) {
+          $(elem).selectpicker("destroy")
+          $(elem).remove()
+        })
+        $(parent + " #" + container + " .combobox").each(function( index, elem ) {
+          $(elem).remove()
+        })
+        $(parent + " #" + container + ".combobox-container").each(function( index, elem ) {
+          $(elem).remove()
+        })
+      } else {
+        $(parent + " .selectpicker").each(function( index, elem ) {
+          $(elem).selectpicker("destroy")
+          $(elem).remove()
+        })
+        $(parent + " .combobox").each(function( index, elem ) {
+          $(elem).remove()
+        })
+        $(parent + " .combobox-container").each(function( index, elem ) {
+          $(elem).remove()
+        })
+      }
     }
 
     $scope.$on('comboboxRepeatEnd', function(event, elem) {
@@ -397,7 +410,7 @@ angular.module('nethvoiceWizardUiApp')
       return {
         pinned: ProvGlobalsService.pinned(),
         preferences: ProvGlobalsService.preferences(),
-        network: ProvGlobalsService.network()
+        phonebook: ProvGlobalsService.phonebook()
       }
     }
 
@@ -408,10 +421,9 @@ angular.module('nethvoiceWizardUiApp')
         softKeys: convertKeysMap(service.softKeys(map)),
         lineKeys: convertKeysMap(service.lineKeys(map)),
         expansionKeys: convertKeysMap(service.expansionKeys(map)),
-        // general: service.general(map),
         preferences: service.preferences(map),
+        phonebook: service.phonebook(map),
         network: service.network(map)
-        // provisioning: service.provisioning(map),
       }
     }
 
@@ -620,7 +632,7 @@ angular.module('nethvoiceWizardUiApp')
         if (typeSelect) {
           typeSelect.value = $scope.phonebookType
           $scope.$apply()
-          $(typeSelect).selectpicker("#refresh")
+          $(typeSelect).selectpicker("refresh")
         }
         typeSelect = null
       }, 100)
@@ -634,7 +646,6 @@ angular.module('nethvoiceWizardUiApp')
       } else if ($scope.currentModel.globals["ldap_server"] == "" || $scope.currentModel.variables["ldap_server"] == "") {
         $scope.modelPhonebookType = "externalldap"
       }
-      $("#modelPhonebookType").selectpicker("refresh")
     }
 
     $scope.modelLdapTypeCheck = function () {

@@ -34,7 +34,7 @@
               {{::section.name | translate}}
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
             </h2>
-            <div id="collapse-section-{{$index}}"
+            <div id="{{sectionkey}}"
               class="panel-collapse model-container adjust-profile-body"
               ng-if="currentModel.openedSection == sectionkey">
               <div class="panel-body profile-panel no-pad">
@@ -340,7 +340,7 @@
               ng-if="currentModel.openedSection == sectionkey">
               <div class="panel-body">
                 <div ng-show="currentModel.loadingSections[sectionkey]" class="spinner mt-14 mb-10"></div>
-                <div ng-if="sectionkey == 'network'" class="col-lg-12 mb-15 mt-25">
+                <div ng-if="sectionkey == 'phonebook'" class="col-lg-12 mb-15 mt-25">
                   <label class="control-label">{{"ldap_phonebook_type_label" | translate}}</label>
                   <div class="form-group">
                     <select
@@ -375,7 +375,7 @@
                           class="{{item.options.length > 10 && item.variable != 'date_format' ? 'combobox' : 'selectpicker'}} form-control"
                           ng-model="currentModel.variables[item.variable]"
                           ng-change="onVariableChanged(item.variable, 'list')"
-                          ng-disabled="sectionkey == 'network' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
+                          ng-disabled="sectionkey == 'phonebook' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
                           autocomplete="off">
                           <option value="" ng-disabled="true" ng-hide="true">-</option>
                           <!-- combobox -->
@@ -397,7 +397,7 @@
                         id="{{sectionkey}}-input-{{$index}}"
                         ng-model="currentModel.inputs[item.variable]"
                         ng-change="onVariableChanged(item.variable, item.type)"
-                        ng-disabled="sectionkey == 'network' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
+                        ng-disabled="sectionkey == 'phonebook' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
                         placeholder="{{currentModel.uiLocation == 'configurations' && currentModel.modelVariables[item.variable] && !currentModel.singleVariables[item.variable] ? currentModel.modelVariables[item.variable] + ' (' + currentModel.display_name + ')' : currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : item.variable == 'ldap_server' && currentModel.globals[item.variable] == '' ? currentModel.globals['hostname'] : '-'}}"
                         type="text"
                         autocomplete="off"
@@ -409,7 +409,7 @@
                         id="{{sectionkey}}-input-{{$index}}"
                         ng-model="currentModel.inputs[item.variable]"
                         ng-change="onVariableChanged(item.variable, item.type)"
-                        ng-disabled="sectionkey == 'network' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
+                        ng-disabled="sectionkey == 'phonebook' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
                         placeholder="{{currentModel.uiLocation == 'configurations' && currentModel.modelVariables[item.variable] && !currentModel.singleVariables[item.variable] ? currentModel.modelVariables[item.variable] + ' (' + currentModel.display_name + ')' : currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : 'HH:MM'}}"
                         type="text"
                         autocomplete="off"
@@ -421,7 +421,7 @@
                           id="{{sectionkey}}-input-{{$index}}"
                           ng-model="currentModel.inputs[item.variable]"
                           ng-change="onVariableChanged(item.variable, item.type)"
-                          ng-disabled="sectionkey == 'network' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
+                          ng-disabled="sectionkey == 'phonebook' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
                           placeholder="{{currentModel.uiLocation == 'configurations' && currentModel.modelVariables[item.variable] && !currentModel.singleVariables[item.variable] ? currentModel.modelVariables[item.variable] + ' (' + currentModel.display_name + ')' : currentModel.globals[item.variable] ? currentModel.globals[item.variable] + ' (default)' : '-'}}"
                           type="password"
                           autocomplete="off"
@@ -431,7 +431,7 @@
                         <button
                           tabindex="-1"
                           type="button"
-                          ng-disabled="sectionkey == 'network' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
+                          ng-disabled="sectionkey == 'phonebook' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
                           class="btn btn-default mln-1 zindex-2"
                           ng-click="toggleShowPassword(item.variable)">
                           <span ng-class="currentModel.shownPasswords[item.variable] ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>

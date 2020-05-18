@@ -102,22 +102,22 @@ angular.module('nethvoiceWizardUiApp')
       if ($scope.modelPhonebookType == "ldaps") {
         $scope.ldapToModelVariables($scope.ldapCheckRes, true)
         // force encryption select disabling or enabling
-        $("#network-select-4").prop('disabled', true)
+        $("#phonebook-select-4").prop('disabled', true)
       } else if ($scope.modelPhonebookType == "ldap") {
         $scope.ldapToModelVariables($scope.ldapCheckRes, false)
-        $("#network-select-4").prop('disabled', true)
+        $("#phoneboook-select-4").prop('disabled', true)
       } else {
         $scope.currentModel.variables = angular.copy($scope.currentModel.storedVariables)
         $scope.currentModel.inputs = angular.copy($scope.currentModel.storedVariables)
-        $("#network-select-4").prop('disabled', false)
+        $("#phonebook-select-4").prop('disabled', false)
       }
       setTimeout(function () {
-        $("#network-select-4").selectpicker("refresh")
+        $("#phonebook-select-4").selectpicker("refresh")
       }, 100)
     }
 
     $scope.openSection = function (sectionkey) {
-      $scope.destroyAllSelects("#modelsContainer")
+      $scope.destroyAllSelects("#modelsContainer", sectionkey)
       delete $scope.currentModel.ui[sectionkey].showingKeys
       $scope.selectOptionsLimit = 12
       $interval.cancel($scope.selectOptionsInterval)
@@ -132,6 +132,17 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         $scope.currentModel.openedSection = ""
         $interval.cancel($scope.selectOptionsInterval)
+      }
+      if (sectionkey == "phonebook") {
+        setTimeout(function () {
+          // update ldap type select
+          let typeSelect = document.querySelector("#modelPhonebookType")
+          if (typeSelect) {
+            $scope.$apply()
+            $(typeSelect).selectpicker("refresh")
+          }
+          typeSelect = null
+        }, 100)
       }
     }
 

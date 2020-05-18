@@ -10,21 +10,17 @@
 angular.module('nethvoiceWizardUiApp')
   .service('ProvFanvilService', function (GenericPhoneService) {
 
-    // this.general = function (modelMap) {
-    //   return GenericPhoneService.general(modelMap)
-    // }
-
     this.preferences = function (modelMap) {
       return GenericPhoneService.preferences(modelMap)
+    }
+
+    this.phonebook = function (modelMap) {
+      return GenericPhoneService.phonebook(modelMap)
     }
 
     this.network = function (modelMap) {
       return GenericPhoneService.network(modelMap)
     }
-
-    // this.provisioning = function (modelMap) {
-    //   return GenericPhoneService.provisioning(modelMap)
-    // }
 
     this.softKeys = function (modelMap) {
       return GenericPhoneService.softKeys(modelMap)
