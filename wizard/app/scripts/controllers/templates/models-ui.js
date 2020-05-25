@@ -350,6 +350,10 @@ angular.module('nethvoiceWizardUiApp')
       }, 2500)
     }
 
+    $scope.openFirmwareUpload = function () {
+      $("#uploadFileModal").modal("show")
+    }
+
     $scope.saveCurrentModelSingle = function () {
       $scope.loadingActionSingle = true
       PhoneService.patchPhone($scope.currentModel.mac, {
