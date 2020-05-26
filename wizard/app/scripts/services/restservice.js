@@ -79,16 +79,17 @@ angular.module('nethvoiceWizardUiApp')
         headers: {
           'Content-Type': undefined
         },
-        data: formdata,
-        uploadEventHandlers: {
-          progress: function(e) {
-            if (e.lengthComputable) {
-                progress = Math.round(e.loaded * 100 / e.total)
-                console.log(progress)
-                progressCallback(progress)
-            }
-          }
-        }
+        data: formdata
+        // Needs angularjs upgrade
+        // uploadEventHandlers: {
+        //   progress: function(e) {
+        //     console.log(e)
+        //     if (e.lengthComputable) {
+        //         progress = Math.round(e.loaded * 100 / e.total)
+        //         progressCallback(progress)
+        //     }
+        //   }
+        // }
       }
       return $q(function(resolve, reject) {
         $http(req).then(function successCallback(response) {

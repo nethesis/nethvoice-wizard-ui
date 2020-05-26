@@ -671,6 +671,32 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.getFirmwares = function () {
+      ModelService.getFirmwares().then(function (res) {
+        $scope.firmwares = res.data
+        for (let firm in $scope.firmwares) {
+          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
+        }
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    $scope.reloadFirmwaresList = function () {
+      ModelService.getFirmwares().then(function (res) {
+        $scope.firmwares = res.data
+        for (let firm in $scope.firmwares) {
+          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
+        }
+        setTimeout(function () {
+          $scope.$apply()
+          $(".model-container .firmware-select").selectpicker("refresh")
+        }, 100)
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
     var getGlobals = function () {
       return $q(function (resolve, reject) {
         ModelService.getDefaults().then(function (res) {
@@ -704,6 +730,33 @@ angular.module('nethvoiceWizardUiApp')
         keys.items[0].keysIndexes = indexes;
         return keys;
       }
+    }
+
+    // upload
+    $scope.getFirmwares = function () {
+      ModelService.getFirmwares().then(function (res) {
+        $scope.firmwares = res.data
+        for (let firm in $scope.firmwares) {
+          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
+        }
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    $scope.reloadFirmwaresList = function () {
+      ModelService.getFirmwares().then(function (res) {
+        $scope.firmwares = res.data
+        for (let firm in $scope.firmwares) {
+          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
+        }
+        setTimeout(function () {
+          $scope.$apply()
+          $(".model-container .firmware-select").selectpicker("refresh")
+        }, 100)
+      }, function (err) {
+        console.log(err)
+      })
     }
 
     $scope.$on('curentModelSaved', function() { 

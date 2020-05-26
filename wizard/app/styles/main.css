@@ -3312,11 +3312,11 @@ a.black:focus, a.black:hover, a.black:active {
 .fileUploading {
   display: grid;
   column-gap: 20px;
-  grid-template-columns: minmax(50px, 215px) minmax(50px, 215px) 55PX min-content;
+  grid-template-columns: minmax(50px, 215px) 60PX 48px;
 }
 
 .fileUploaded {
   display: grid;
   column-gap: 20px;
-  grid-template-columns: minmax(50px, 215px) 55PX min-content;
+  grid-template-columns: minmax(50px, 215px) 60PX min-content;
 }

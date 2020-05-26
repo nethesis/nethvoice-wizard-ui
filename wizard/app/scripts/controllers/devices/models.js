@@ -227,21 +227,9 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    var getFirmwares = function () {
-      ModelService.getFirmwares().then(function (res) {
-        $scope.firmwares = res.data
-        for (let firm in $scope.firmwares) {
-          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
-        }
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
     // initialisation
     angular.element(document).ready(function () {
       getModels()
-      getFirmwares()
     })
 
     $('#newModelModal').on('hidden.bs.modal', function () {

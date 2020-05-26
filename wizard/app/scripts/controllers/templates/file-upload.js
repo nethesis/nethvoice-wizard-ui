@@ -15,7 +15,10 @@ angular.module('nethvoiceWizardUiApp')
       "draghover": false
     }
 
-    $scope.loadingFiles = {}
+    $scope.uploadingFiles = {}
+
+    $scope.uploadingError = false
+    $scope.uploadingSuccess = false
 
     $scope.fileSelection = function () {
       document.querySelector("#dragArea input").click()
@@ -25,30 +28,37 @@ angular.module('nethvoiceWizardUiApp')
       console.log("UPLOAD PROGRESS: " + progress)
     }
 
-    $scope.fileUpload = function (file, uploadProgress) {
-      ModelService.uploadFirmware(file, uploadProgress).then(function (res) {
-        console.log(res);
-        reloadFirmwaresList()
-      }, function (err) {
-        console.log(err);
-      })
+    var uploadingFile = function (file) {
+      let fileObj = {
+        size: $scope.formatBytes(file.size),
+        name: file.name
+      }
+      $scope.uploadingFiles[file.name] = fileObj
     }
 
-    var reloadFirmwaresList = function (file) {
-      ModelService.getFirmwares().then(function (res) {
-        $scope.firmwares = res.data
-        for (let firm in $scope.firmwares) {
-          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
-        }
+    $scope.fileUpload = function (file, uploadProgress) {
+      $scope.uploadingError = false
+      $scope.uploadingSuccess = false
+      uploadingFile(file)
+      ModelService.uploadFirmware(file, uploadProgress).then(function (res) {
+        $scope.reloadFirmwaresList()
+        $scope.uploadingFiles = {}
+        $scope.uploadingSuccess = true
+        setTimeout(function () {
+          $scope.uploadingSuccess = false
+          $scope.$apply()
+        }, 2000)
       }, function (err) {
+        $scope.uploadingFiles = {}
+        $scope.uploadingError = true
         console.log(err)
       })
     }
 
     $scope.removeFirmware = function (name) {
       ModelService.deleteFirmware(name).then(function (res) {
-        console.log(res);
-        reloadFirmwaresList()
+        $scope.reloadFirmwaresList()
+        $scope.uploadingFiles = {}
       }, function (err) {
         console.log(err);
       })
