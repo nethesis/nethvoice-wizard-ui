@@ -3263,7 +3263,7 @@ a.black:focus, a.black:hover, a.black:active {
 }
 
 .input-group {
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 
 .rpsUrlFailure {
@@ -3320,3 +3320,11 @@ a.black:focus, a.black:hover, a.black:active {
   column-gap: 20px;
   grid-template-columns: minmax(50px, 215px) 60PX min-content;
 }
+
+.firmware-select>.dropdown-menu>ul>li:first-child {
+  display: none !important;
+}
+
+/* #modelsUIUrl .input-group {
+  margin-bottom: 0px !important;
+} */

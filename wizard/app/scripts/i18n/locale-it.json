@@ -877,5 +877,9 @@
   "Drag your file here": "Trascina qui il tuo file",
   "or": "o",
   "browse": "sfoglia",
-  "to upload": "per caricare"
+  "to upload": "per caricare",
+  "File correctly uploaded": "File caricato correttamente",
+  "Uploading error": "Errore di caricamento",
+  "Invalid file name": "Nome del file non valido",
+  "Error loading file": "Errore di caricamento del file"
 }

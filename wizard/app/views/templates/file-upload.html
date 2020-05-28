@@ -12,29 +12,6 @@
 					<div class="spinner"></div>
 				</div>
 				<div ng-show="!defaultsLoading" class="modal-body inline-display full-width">
-					<div ng-show="true" class="col-lg-12">
-						<!-- <div ng-if="!isModelsPage()" class="alert alert-info alert-dismissable">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-								<span class="pficon pficon-close"></span>
-							</button>
-							<span class="pficon pficon-info"></span>
-							<strong>{{"The following settings can be modified later from the Models page" | translate}}.</strong>
-						</div>
-						<div ng-if="connectivityCheckRes && connectivityCheckRes.valid_certificate === false" class="alert alert-warning alert-dismissable mb-10">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-								<span class="pficon pficon-close"></span>
-							</button>
-							<span class="pficon pficon-warning-triangle-o"></span>
-							<strong>{{"The PBX address certificate is invalid" | translate}}!</strong> {{"Configuring phones in remote networks with encryption is not possible, the phones will only be able to connect from trusted networks" | translate}}.
-						</div>-->
-						<!--<div ng-if="adminPw.showAdminPwWarning === true" class="alert alert-warning alert-dismissable mb-10">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-								<span class="pficon pficon-close"></span>
-							</button>
-							<span class="pficon pficon-warning-triangle-o"></span>
-							<strong>{{"The admin password has been modified" | translate}}!</strong> {{"The automatic click2call function of the CTI application will not work until the next phones provisioning" | translate}}.
-						</div> -->
-          </div>
           <div class="col-lg-12">
             <h2>
               {{"Upload a new Firmware" | translate}}
@@ -48,7 +25,7 @@
 								<span class="pficon pficon-close"></span>
 							</button>
 							<span class="pficon pficon-error-circle-o"></span>
-							<strong>{{"Uploading error" | translate}}!</strong> {{"Error loading file" | translate}}.
+							<strong>{{"Error" | translate}}!</strong> {{uploadingErrorMsg ? uploadingErrorMsg : "Error loading file" | translate}}.
 						</div>
 						<div dropzone id="dragArea" class="dragArea {{evt.draghover ? 'dropping lh-61' : ''}}">
 							<input class="hide" type="file" id="fileInput">

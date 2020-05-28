@@ -19,7 +19,8 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.uploadingError = false
     $scope.uploadingSuccess = false
-
+    $scope.uploadingErrorMsg = ""
+    
     $scope.fileSelection = function () {
       document.querySelector("#dragArea input").click()
     }
@@ -37,6 +38,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.fileUpload = function (file, uploadProgress) {
+      $scope.uploadingErrorMsg = ""
       $scope.uploadingError = false
       $scope.uploadingSuccess = false
       uploadingFile(file)
@@ -49,6 +51,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.$apply()
         }, 2000)
       }, function (err) {
+        $scope.uploadingErrorMsg = err.data.title
         $scope.uploadingFiles = {}
         $scope.uploadingError = true
         console.log(err)
