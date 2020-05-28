@@ -881,5 +881,6 @@
   "File correctly uploaded": "File caricato correttamente",
   "Uploading error": "Errore di caricamento",
   "Invalid file name": "Nome del file non valido",
-  "Error loading file": "Errore di caricamento del file"
+  "Error loading file": "Errore di caricamento del file",
+  "No files found": "Nessun file trovato"
 }
