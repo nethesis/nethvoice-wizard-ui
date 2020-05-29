@@ -37,10 +37,22 @@ angular.module('nethvoiceWizardUiApp')
       $scope.uploadingFiles[file.name] = fileObj
     }
 
+    var validFile = function (file) {
+      if (!file.name.match(/^[a-zA-Z0-9\-_\.()]+$/g)) {
+        $scope.uploadingErrorMsg = "The file name is not valid. It can only contain letters, numbers and symbols `_`` -`` .`` (``) `"
+        return false
+      }
+      return true
+    }
+
     $scope.fileUpload = function (file, uploadProgress) {
       $scope.uploadingErrorMsg = ""
       $scope.uploadingError = false
       $scope.uploadingSuccess = false
+      if (!validFile(file)) {
+        $scope.uploadingError = true
+        return
+      }
       uploadingFile(file)
       ModelService.uploadFirmware(file, uploadProgress).then(function (res) {
         $scope.reloadFirmwaresList()

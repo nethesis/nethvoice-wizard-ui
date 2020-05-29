@@ -170,7 +170,7 @@ angular.module('nethvoiceWizardUiApp')
             "options": GenericPhoneUtilsService.getDateFormat()
           },
           {
-            "variable": "firmware",
+            "variable": "firmware_file",
             "description": "Firmware",
             "type": "firmware"
           }
