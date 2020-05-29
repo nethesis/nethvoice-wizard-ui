@@ -27,11 +27,6 @@ angular.module('nethvoiceWizardUiApp')
       patchSingleVariables: false
     }
 
-    angular.element("#modelsUIUrl").ready(function () {
-      $scope.inModal = document.querySelector("#modelsUIUrl").parentNode.parentNode.parentNode.parentNode.parentNode.classList.value.includes("modal")
-      $scope.isConfigurations = $location.path() == "/configurations" ? true : false
-    })
-
     var resetLoadingAction = function (status) {
       $scope.loadingAction = status
       setTimeout(function () {
@@ -124,7 +119,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.selectOptionsInterval = $interval(function (index) {
         $scope.selectOptionsLimit += 10
         if (index == 5 || index == 10  || index == 15 || index == 20 || index == 25 || index == 30 || index == 35 || index == 42) {
-          refreshSelects()
+          $scope.refreshSelects()
         }
       }, 1000, 43)
       if ($scope.currentModel.openedSection != sectionkey) {
@@ -150,8 +145,8 @@ angular.module('nethvoiceWizardUiApp')
       if (varName.indexOf("ldap_") == 0) {
         $scope.currentModel.changePhonebookType = true
       }
-      // if changed variable is an input
-      if (varType && varType != "list") {
+      // exclude variables types from input copy
+      if (varType && varType != "list" && varType != "firmware") {
         $scope.currentModel.variables[varName] = angular.copy($scope.currentModel.inputs[varName])
       }
       if ($scope.currentModel.variables[varName] == "") {
@@ -188,7 +183,7 @@ angular.module('nethvoiceWizardUiApp')
       }, 1000)
     }
 
-    var refreshSelects = function () {
+    $scope.refreshSelects = function () {
       $('.model-container select').each(function(){
         if ($(this).hasClass("selectpicker")) {
           $(this).selectpicker('refresh')
@@ -203,7 +198,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.currentModel.variables = angular.copy($scope.currentModel.storedVariables)
       $scope.currentModel.inputs = angular.copy($scope.currentModel.storedVariables)
       setTimeout(function () {
-        refreshSelects()
+        $scope.refreshSelects()
         resetLoadingAction("ok")
         $scope.currentModel.changePhonebookType = false
         $scope.$apply()
@@ -233,7 +228,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.currentModel.inputs = angular.copy(res.data.variables)
           $scope.currentModel.changePhonebookType = false
           setTimeout(function () {
-            refreshSelects()
+            $scope.refreshSelects()
             resetLoadingAction("ok")
             $scope.$apply()
             setTimeout(function () {
@@ -296,7 +291,7 @@ angular.module('nethvoiceWizardUiApp')
             $scope.currentModel.variables[globalVariables] = angular.copy(res.data[globalVariables])
           }
         }
-        refreshSelects()
+        $scope.refreshSelects()
       }, function (err) {
         console.log(err)
       })
@@ -350,6 +345,20 @@ angular.module('nethvoiceWizardUiApp')
       }, 2500)
     }
 
+    $scope.openFirmwareUpload = function () {
+      if (!$scope.isConfigurations) {
+        $("#uploadFileModal").modal("show")
+      } else {
+        $("#singleModelModal").modal("hide").on("hidden.bs.modal", function () {
+          $("#singleModelModal").unbind()
+          $("#uploadFileModal").modal("show").on("hidden.bs.modal", function () {
+            $("#uploadFileModal").unbind()
+            $("#singleModelModal").modal("show")
+          })
+        })
+      }
+    }
+
     $scope.saveCurrentModelSingle = function () {
       $scope.loadingActionSingle = true
       PhoneService.patchPhone($scope.currentModel.mac, {
@@ -385,7 +394,12 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    getModelsInfoMsg()
+    angular.element("#modelsUIUrl").ready(function () {
+      getModelsInfoMsg()
+      $scope.getFirmwares()
+      $scope.inModal = document.querySelector("#modelsUIUrl").parentNode.parentNode.parentNode.parentNode.parentNode.classList.value.includes("modal")
+      $scope.isConfigurations = $location.path() == "/configurations" ? true : false
+    })
 
     $('#saveChangesConfirm').on('hidden.bs.modal', function () {
       $scope.modelErrors.updateReadOnlyAttribute = false

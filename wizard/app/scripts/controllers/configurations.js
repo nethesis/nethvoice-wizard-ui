@@ -625,6 +625,12 @@ angular.module('nethvoiceWizardUiApp')
       getAllModelsAndUsersAndDevices()
       getAllProfiles()
       getAllGroups()
+      // $('#uploadFileModal').on('hidden.bs.modal', function () {
+      //   let isConfigurations = $location.path() == "/configurations" ? true : false
+      //   if (isConfigurations) {
+      //     $("#singleModelModal").modal("show")
+      //   }
+      // })
     })
 
   })

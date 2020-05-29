@@ -168,6 +168,11 @@ angular.module('nethvoiceWizardUiApp')
             "description": "Date format",
             "type": "list",
             "options": GenericPhoneUtilsService.getDateFormat()
+          },
+          {
+            "variable": "firmware",
+            "description": "Firmware",
+            "type": "firmware"
           }
         ]
       }

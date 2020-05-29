@@ -1076,6 +1076,10 @@ a {
   font-weight: 300 !important;
 }
 
+.fw-600 {
+  font-weight: 600 !important;
+}
+
 .right {
   text-align: right;
 }
@@ -1753,6 +1757,10 @@ iframe body {
 
 .flex-container {
   flex: 1 0 calc(40% - 20px);
+}
+
+.inline-flex {
+  display: inline-flex !important;
 }
 
 #accordion-markup-usersmig {
@@ -2714,6 +2722,11 @@ F
   font-size: 15.2px;
 }
 
+.dropping {
+  border-color: #6ec664 !important;
+  color: #6ec664 !important;
+}
+
 .loop-keys-index::before {
   content: "";
   height: 3px;
@@ -2721,6 +2734,10 @@ F
   top: 39px;
   width: 35px;
   background-color: #ddd;
+}
+
+.lh-61 {
+  line-height: 61px !important;
 }
 
 @media screen and (max-width: 1200px) {
@@ -3072,6 +3089,10 @@ F
   align-items: flex-start;
 }
 
+.green-progress {
+  background: #87dd93 !important;
+}
+
 .spinner-large {
   display: inline-block;
   width: 40px;
@@ -3242,7 +3263,7 @@ a.black:focus, a.black:hover, a.black:active {
 }
 
 .input-group {
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 
 .rpsUrlFailure {
@@ -3253,3 +3274,57 @@ a.black:focus, a.black:hover, a.black:active {
   vertical-align: middle;
   width: 87%;
 }
+
+.dragArea {
+  text-align: center;
+  background: #f5f5f5;
+  padding: 22px 0px;
+  margin-top: 15px;
+  font-weight: 400;
+  font-size: 18px;
+  border: 1px solid #c1c1c1;
+  height: 105px;
+}
+
+.w-180 {
+  width: 180px;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.filesList {
+  list-style-type: none;
+  padding: 0px !important;
+  display: grid;
+  row-gap: 3px;
+  margin-top: 15px !important;
+  margin-bottom: 30px !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.fileUploading {
+  display: grid;
+  column-gap: 20px;
+  grid-template-columns: minmax(50px, 215px) 60PX 48px;
+}
+
+.fileUploaded {
+  display: grid;
+  column-gap: 20px;
+  grid-template-columns: minmax(50px, 215px) 60PX min-content;
+}
+
+.rm-first-option .dropdown-menu ul li:first-child {
+  display: none !important;
+}
+
+/* #modelsUIUrl .input-group {
+  margin-bottom: 0px !important;
+} */

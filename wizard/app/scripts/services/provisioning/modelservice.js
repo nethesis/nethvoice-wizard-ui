@@ -175,4 +175,35 @@ angular.module('nethvoiceWizardUiApp')
         });
       });
     };
+
+    // firmware
+    this.getFirmwares = function () {
+      return $q(function (resolve, reject) {
+        RestService.tget('/tancredi/api/v1/firmware').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.uploadFirmware = function (file, progressCallback) {
+      return $q(function (resolve, reject) {
+        RestService.tupload('/tancredi/api/v1/firmware', file, progressCallback).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.deleteFirmware = function (filename) {
+      return $q(function (resolve, reject) {
+        RestService.tdelete('/tancredi/api/v1/firmware/' + filename).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
   })

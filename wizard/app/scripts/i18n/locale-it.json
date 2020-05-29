@@ -871,5 +871,16 @@
   "The model name is already registered":"Il nome del modello inserito è già presente",
   "Variables correctly saved": "Variabili salvate correttamente",
   "ENCRYPTED": "CRIPTATO",
-  "UNENCRYPTED": "IN CHIARO"
+  "UNENCRYPTED": "IN CHIARO",
+  "Firmware management": "Gestione Firmware",
+  "Upload a new Firmware": "Carica un nuovo Firmware",
+  "Drag your file here": "Trascina qui il tuo file",
+  "or": "o",
+  "browse": "sfoglia",
+  "to upload": "per caricare",
+  "File correctly uploaded": "File caricato correttamente",
+  "Uploading error": "Errore di caricamento",
+  "Invalid file name": "Nome del file non valido",
+  "Error loading file": "Errore di caricamento del file",
+  "No files found": "Nessun file trovato"
 }

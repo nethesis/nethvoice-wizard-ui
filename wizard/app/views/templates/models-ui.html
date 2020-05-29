@@ -74,6 +74,7 @@
                                           <div ng-if="key.type == 'list'" class="hidden">
                                             <select
                                               id="{{sectionkey}}-select-{{key.variable}}-{{keysIndex}}"
+                                              title="-"
                                               ng-model="currentModel.variables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)]"
                                               ng-change="onVariableChanged(key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex))"
                                               class="{{key.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
@@ -184,6 +185,7 @@
                                   <div ng-if="key.type == 'list'" class="hidden">
                                     <select
                                       id="{{sectionkey}}-select-{{key.variable}}-{{keysIndex}}"
+                                      title="-"
                                       class="{{key.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
                                       ng-model="currentModel.variables[key.variable + '_' + keysIndex]"
                                       ng-change="onVariableChanged(key.variable + '_' + keysIndex)"
@@ -373,6 +375,7 @@
                         <select
                           id="{{sectionkey}}-select-{{$index}}"
                           class="{{item.options.length > 10 && item.variable != 'date_format' ? 'combobox' : 'selectpicker'}} form-control"
+                          title="-"
                           ng-model="currentModel.variables[item.variable]"
                           ng-change="onVariableChanged(item.variable, 'list')"
                           ng-disabled="sectionkey == 'phonebook' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
@@ -435,6 +438,30 @@
                           class="btn btn-default mln-1 zindex-2"
                           ng-click="toggleShowPassword(item.variable)">
                           <span ng-class="currentModel.shownPasswords[item.variable] ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
+                        </button>
+                      </div>
+                      <!-- firmware -->
+                      <div ng-if="item.type == 'firmware'" class="input-group display-flex rm-first-option">
+                        <select
+                          id="{{sectionkey}}-select-{{$index}}"
+                          class="selectpicker {{item.type == 'firmware' ? 'firmware-select' : ''}}"
+                          title="-"
+                          ng-model="currentModel.variables[item.variable]"
+                          ng-change="onVariableChanged(item.variable, item.type)"
+                          autocomplete="off">
+                          <option value="" ng-disabled="true" ng-hide="true">-</option>
+                          <option value="" ng-if="isEmpty(firmwares)" on-finish-render="selectpickerRepeatEnd">{{"No files found" | translate}}</option>
+                          <option 
+                            ng-selected="currentModel.variables[item.variable] == option.name"
+                            ng-repeat="option in firmwares track by $index"
+                            value="{{option.name}}" on-finish-render="selectpickerRepeatEnd">{{option.name}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[item.variable] && !currentModel.singleVariables[item.variable] && currentModel.modelVariables[item.variable] == option.name ? ' (' + currentModel.display_name + ')' : currentModel.globals[item.variable] && !currentModel.storedVariables[item.variable] && currentModel.globals[item.variable] == option.name ? ' (default)' : ''}}</option>
+                        </select>
+                        <button
+                          tabindex="-1"
+                          type="button"
+                          class="btn btn-default mln-1 zindex-2"
+                          ng-click="openFirmwareUpload()">
+                          <span class="fa fa-upload"></span>
                         </button>
                       </div>
                     </div>

@@ -32,6 +32,16 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.tpatch = function(endpoint, data) {
+      return $q(function(resolve, reject) {
+        $http.patch(endpoint, data).then(function successCallback(response) {
+          resolve(response);
+        }, function errorCallback(response) {
+          reject(response);
+        });
+      });
+    };
+
     this.tpost = function(endpoint, data) {
       return $q(function(resolve, reject) {
         $http.post(endpoint, data).then(function successCallback(response) {
@@ -42,15 +52,53 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.tpatch = function(endpoint, data) {
+    this.tdelete = function(endpoint, data) {
       return $q(function(resolve, reject) {
-        $http.patch(endpoint, data).then(function successCallback(response) {
+        if (data) {
+          $http.delete(endpoint, { data: data }).then(function successCallback(response) {
+            resolve(response);
+          }, function errorCallback(response) {
+            reject(response);
+          });
+        } else {
+          $http.delete(endpoint).then(function successCallback(response) {
+            resolve(response);
+          }, function errorCallback(response) {
+            reject(response);
+          });
+        }
+      });
+    };
+
+    this.tupload = function (endpoint, file, progressCallback) {
+      let formdata = new FormData();
+      formdata.append(0, file)
+      let req = {
+        method: 'POST',
+        url: endpoint,
+        headers: {
+          'Content-Type': undefined
+        },
+        data: formdata
+        // Needs angularjs upgrade
+        // uploadEventHandlers: {
+        //   progress: function(e) {
+        //     console.log(e)
+        //     if (e.lengthComputable) {
+        //         progress = Math.round(e.loaded * 100 / e.total)
+        //         progressCallback(progress)
+        //     }
+        //   }
+        // }
+      }
+      return $q(function(resolve, reject) {
+        $http(req).then(function successCallback(response) {
           resolve(response);
         }, function errorCallback(response) {
           reject(response);
         });
       });
-    };
+    }
 
     this.get = function(endpoint) {
       return $q(function(resolve, reject) {
@@ -92,24 +140,6 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.tdelete = function(endpoint, data) {
-      return $q(function(resolve, reject) {
-        if (data) {
-          $http.delete(endpoint, { data: data }).then(function successCallback(response) {
-            resolve(response);
-          }, function errorCallback(response) {
-            reject(response);
-          });
-        } else {
-          $http.delete(endpoint).then(function successCallback(response) {
-            resolve(response);
-          }, function errorCallback(response) {
-            reject(response);
-          });
-        }
-      });
-    };
-
     this.delete = function(endpoint, data) {
       return $q(function(resolve, reject) {
         if (data) {
@@ -146,43 +176,4 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.tget = function(endpoint) {
-      return $q(function(resolve, reject) {
-        $http.get(endpoint).then(function successCallback(response) {
-          resolve(response);
-        }, function errorCallback(response) {
-          reject(response);
-        });
-      });
-    };
-
-    this.tpost = function(endpoint, data) {
-      return $q(function(resolve, reject) {
-        $http.post(endpoint, data).then(function successCallback(response) {
-          resolve(response);
-        }, function errorCallback(response) {
-          reject(response);
-        });
-      });
-    };
-
-    this.tpatch = function(endpoint, data) {
-      return $q(function(resolve, reject) {
-        $http.patch(endpoint, data).then(function successCallback(response) {
-          resolve(response);
-        }, function errorCallback(response) {
-          reject(response);
-        });
-      });
-    };
-
-    this.tdelete = function(endpoint, data) {
-      return $q(function(resolve, reject) {
-        $http.delete(endpoint, data).then(function successCallback(response) {
-          resolve(response);
-        }, function errorCallback(response) {
-          reject(response);
-        });
-      });
-    };
   });

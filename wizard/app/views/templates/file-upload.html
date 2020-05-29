@@ -1,0 +1,71 @@
+<div class="wizard-modal">
+	<div class="modal-dialog wizard-pf margin-10">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					<span class="pficon pficon-close"></span>
+				</button>
+				<h4 class="modal-title" id="dfSettingsMLabel">{{'Firmware management' | translate}}</h4>
+			</div>
+			<form class="form-horizontal" ng-submit="">
+				<div ng-show="defaultsLoading" class="mb-30">
+					<div class="spinner"></div>
+				</div>
+				<div ng-show="!defaultsLoading" class="modal-body inline-display full-width">
+          <div class="col-lg-12">
+            <h2>
+              {{"Upload a new Firmware" | translate}}
+						</h2>
+						<div ng-if="uploadingSuccess" class="alert alert-success alert-dismissable mb-5 mt-20">
+							<span class="pficon pficon-ok"></span>
+							<strong>{{"Success" | translate}}!</strong> {{"File correctly uploaded" | translate}}.
+						</div>
+						<div ng-if="uploadingError" class="alert alert-danger alert-dismissable mb-5 mt-20">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span class="pficon pficon-close"></span>
+							</button>
+							<span class="pficon pficon-error-circle-o"></span>
+							<strong>{{"Error" | translate}}!</strong> {{uploadingErrorMsg ? uploadingErrorMsg : "Error loading file" | translate}}.
+						</div>
+						<div dropzone id="dragArea" class="dragArea {{evt.draghover ? 'dropping lh-61' : ''}}">
+							<input class="hide" type="file" id="fileInput">
+                {{evt.draghover ? "Drop Files here" : "Drag your file here" | translate}} <br>
+								{{evt.draghover ? "" : "or" | translate}} <a ng-click="fileSelection()">{{evt.draghover ? "" : "browse" | translate}}</a> {{evt.draghover ? "" : "to upload" | translate}}
+						</div>
+            <ul class="filesList">
+							<li class="fileUploading" ng-repeat="firmware in uploadingFiles track by $index">
+                <span class="ellipsis">
+                  {{firmware.name}}
+                </span>
+                <span class="fw-300">
+                  {{firmware.size}}
+								</span>
+							 	<span class="fw-600">
+									<div class="spinner spinner-sm"></div>
+							 	</span>
+              </li>
+              <li class="fileUploaded" ng-repeat="firmware in firmwares track by $index">
+                <span class="ellipsis">
+                  {{firmware.name}}
+                </span>
+                <span class="fw-300">
+                  {{firmware.size}}
+								</span>
+							 	<span class="fw-600">
+									<a ng-click="removeFirmware(firmware.name)">
+										{{"Remove" | translate}}
+									</a>
+							 	</span>
+              </li>
+						</ul>
+				</div>
+				<div ng-if="loadingActions == true" class="spinner spinner-sm adjust-margin loader-modal fz-18"></div>
+				<span ng-if="loadingActions == 'ok'" class="pficon pficon-ok adjust-margin loader-modal fz-18"></span>
+				<span ng-if="loadingActions == 'err'" class="pficon pficon-error-circle-o adjust-margin loader-modal fz-18"></span>
+				<div ng-if="!defaultsLoading" class="modal-footer submit">
+					<button type="button" class="btn btn-default" data-dismiss="modal">{{'Close' | translate}}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
