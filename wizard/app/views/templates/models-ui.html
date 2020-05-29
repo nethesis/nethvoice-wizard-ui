@@ -441,7 +441,7 @@
                         </button>
                       </div>
                       <!-- firmware -->
-                      <div ng-if="item.type == 'firmware'" class="input-group display-flex">
+                      <div ng-if="item.type == 'firmware'" class="input-group display-flex rm-first-option">
                         <select
                           id="{{sectionkey}}-select-{{$index}}"
                           class="selectpicker {{item.type == 'firmware' ? 'firmware-select' : ''}}"
@@ -450,7 +450,7 @@
                           ng-change="onVariableChanged(item.variable, item.type)"
                           autocomplete="off">
                           <option value="" ng-disabled="true" ng-hide="true">-</option>
-                          <option value="" ng-hide="false" ng-if="isEmpty(firmwares)" on-finish-render="selectpickerRepeatEnd"></option>
+                          <option value="" ng-if="isEmpty(firmwares)" on-finish-render="selectpickerRepeatEnd">{{"No files found" | translate}}</option>
                           <option 
                             ng-selected="currentModel.variables[item.variable] == option.name"
                             ng-repeat="option in firmwares track by $index"
