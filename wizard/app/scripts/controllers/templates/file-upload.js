@@ -39,7 +39,6 @@ angular.module('nethvoiceWizardUiApp')
 
     var validFile = function (file) {
       if (!file.name.match(/^[a-zA-Z0-9\-_\.()]+$/g)) {
-        $scope.uploadingErrorMsg = "The file name is not valid. It can only contain letters, numbers and symbols `_`` -`` .`` (``) `"
         return false
       }
       return true
@@ -51,6 +50,10 @@ angular.module('nethvoiceWizardUiApp')
       $scope.uploadingSuccess = false
       if (!validFile(file)) {
         $scope.uploadingError = true
+        $scope.showAlertDanger()
+        $scope.uploadingErrorMsg = "The file name is not valid. It can only contain letters, numbers and symbols `_`` -`` .`` (``) `"
+        document.querySelector("#dragArea input").value = ""
+        $scope.$apply()
         return
       }
       uploadingFile(file)
@@ -58,16 +61,23 @@ angular.module('nethvoiceWizardUiApp')
         $scope.reloadFirmwaresList()
         $scope.uploadingFiles = {}
         $scope.uploadingSuccess = true
-        setTimeout(function () {
-          $scope.uploadingSuccess = false
-          $scope.$apply()
-        }, 2000)
+        document.querySelector("#dragArea input").value = ""
       }, function (err) {
         $scope.uploadingErrorMsg = err.data.title
         $scope.uploadingFiles = {}
         $scope.uploadingError = true
+        $scope.showAlertDanger()
+        document.querySelector("#dragArea input").value = ""
         console.log(err)
       })
+    }
+
+    $scope.hideAlertDanger = function () {
+      $("#uploadErrorAlert").hide()
+    }
+
+    $scope.showAlertDanger = function () {
+      $("#uploadErrorAlert").show()
     }
 
     $scope.removeFirmware = function (name) {

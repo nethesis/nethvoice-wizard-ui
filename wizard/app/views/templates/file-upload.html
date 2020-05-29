@@ -14,18 +14,21 @@
 				<div ng-show="!defaultsLoading" class="modal-body inline-display full-width">
           <div class="col-lg-12">
             <h2>
-              {{"Upload a new Firmware" | translate}}
+              {{"Upload a new firmware" | translate}}
 						</h2>
-						<div ng-if="uploadingSuccess" class="alert alert-success alert-dismissable mb-5 mt-20">
-							<span class="pficon pficon-ok"></span>
-							<strong>{{"Success" | translate}}!</strong> {{"File correctly uploaded" | translate}}.
-						</div>
-						<div ng-if="uploadingError" class="alert alert-danger alert-dismissable mb-5 mt-20">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<div id="uploadErrorAlert" ng-if="uploadingError" class="alert alert-danger alert-dismissable mb-5 mt-20">
+							<button type="button" class="close" aria-label="Close" ng-click="hideAlertDanger()">
 								<span class="pficon pficon-close"></span>
 							</button>
 							<span class="pficon pficon-error-circle-o"></span>
 							<strong>{{"Error" | translate}}!</strong> {{uploadingErrorMsg ? uploadingErrorMsg : "Error loading file" | translate}}.
+						</div>
+						<div id="uploadSuccessAlert" ng-if="uploadingSuccess" class="alert alert-success alert-dismissable mb-5 mt-20">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span class="pficon pficon-close"></span>
+							</button>
+							<span class="pficon pficon-ok"></span>
+							<strong>{{"Success" | translate}}!</strong> {{"File correctly uploaded" | translate}}.
 						</div>
 						<div dropzone id="dragArea" class="dragArea {{evt.draghover ? 'dropping lh-61' : ''}}">
 							<input class="hide" type="file" id="fileInput">
