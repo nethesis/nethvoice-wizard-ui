@@ -3321,9 +3321,9 @@ a.black:focus, a.black:hover, a.black:active {
   grid-template-columns: minmax(50px, 215px) 60PX min-content;
 }
 
-.rm-first-option .dropdown-menu ul li:first-child {
+/* .rm-first-option .dropdown-menu ul li:first-child {
   display: none !important;
-}
+} */
 
 /* #modelsUIUrl .input-group {
   margin-bottom: 0px !important;

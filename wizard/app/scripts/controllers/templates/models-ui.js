@@ -145,13 +145,11 @@ angular.module('nethvoiceWizardUiApp')
       if (varName.indexOf("ldap_") == 0) {
         $scope.currentModel.changePhonebookType = true
       }
-      // exclude variables types from input copy
+      // sync inputs with variables
       if (varType && varType != "list" && varType != "firmware") {
         $scope.currentModel.variables[varName] = angular.copy($scope.currentModel.inputs[varName])
       }
-      if ($scope.currentModel.variables[varName] == "") {
-        delete $scope.currentModel.variables[varName]
-      }
+      // set single variables
       if ($scope.currentModel.uiLocation == "configurations") {
         $scope.currentModel.singleVariables[varName] = $scope.currentModel.variables[varName]
       }
@@ -306,8 +304,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.saveCurrentModel = function () {
       resetErrMessage()
       $scope.loadingAction = true
-      // remove globals from variables
       for (var variable in $scope.currentModel.variables) {
+        // remove globals from variables
         if (!$scope.currentModel.storedVariables[variable] && $scope.currentModel.variables[variable] == $scope.currentModel.globals[variable]) {
           if (variable.indexOf("ldap_") == 0) {
             if (!$scope.currentModel.changePhonebookType) {
@@ -316,6 +314,10 @@ angular.module('nethvoiceWizardUiApp')
           } else {
             delete $scope.currentModel.variables[variable]
           }
+        }
+        // manage empty variables and convert "null" strings to null
+        if ($scope.currentModel.variables[variable] == "" || $scope.currentModel.variables[variable] == "null") {
+          $scope.currentModel.variables[variable] = null
         }
       }
       ModelService.patchModel($scope.currentModel.name, {
