@@ -131,5 +131,6 @@
   "en": "English",
   "it": "Italian",
   "never_prov_freq": "Only at startup",
-  "everyday": "Every day"
+  "everyday": "Every day",
+  "upload_invalid_filename": "The file name is not valid. It can only contain letters, numbers and symbols _ - . ( ) "
 }

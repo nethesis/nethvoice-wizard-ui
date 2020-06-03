@@ -881,7 +881,7 @@
   "File correctly uploaded": "File caricato correttamente",
   "Uploading error": "Errore di caricamento",
   "Invalid file name": "Nome del file non valido",
-  "Error loading file": "Errore di caricamento del file",
+  "Error loading file": "Errore di caricamento del file.",
   "No files found": "Nessun file trovato",
-  "The file name is not valid. It can only contain letters, numbers and symbols `_`` -`` .`` (``) `": "Il nome del file non è valido. Può contenere solo lettere, numeri e i simboli `_` `-` `.` `(` `)`"
+  "upload_invalid_filename": "Il nome del file non è valido. Può contenere solo lettere, numeri e i simboli _ - . ( ) "
 }

@@ -9,7 +9,7 @@
  */
 
 angular.module('nethvoiceWizardUiApp')
-  .controller('FileUploadCtrl', function ($scope, ModelService) {
+  .controller('FileUploadCtrl', function ($scope, ModelService, $filter) {
 
     $scope.evt = {
       "draghover": false
@@ -55,7 +55,7 @@ angular.module('nethvoiceWizardUiApp')
       if (!validFile(file)) {
         $scope.uploadingError = true
         $scope.showAlertDanger()
-        $scope.uploadingErrorMsg = "The file name is not valid. It can only contain letters, numbers and symbols `_`` -`` .`` (``) `"
+        $scope.uploadingErrorMsg = $filter('translate')('upload_invalid_filename')
         document.querySelector("#dragArea input").value = ""
         $scope.$apply()
         return
