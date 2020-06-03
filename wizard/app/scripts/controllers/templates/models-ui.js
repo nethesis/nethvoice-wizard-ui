@@ -301,6 +301,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.modelErrors.deleteChangesNotFound = false
     }
 
+    // save function for model variables
     $scope.saveCurrentModel = function () {
       resetErrMessage()
       $scope.loadingAction = true
@@ -339,6 +340,33 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    // save function for single variables
+    $scope.saveCurrentModelSingle = function () {
+      $scope.loadingActionSingle = true
+      for (var variable in $scope.currentModel.singleVariables) {
+        // manage empty variables and convert "null" strings to null
+        if ($scope.currentModel.singleVariables[variable] == "" || $scope.currentModel.singleVariables[variable] == "null") {
+          $scope.currentModel.singleVariables[variable] = null
+        }
+      }
+      PhoneService.patchPhone($scope.currentModel.mac, {
+        "variables": $scope.currentModel.singleVariables
+      }).then(function (res) {
+        resetLoadingActionSingle("ok")
+        setTimeout(function () {
+          $scope.hideModal("singleModelModal")
+        },1500)
+      }, function (err) {
+        $scope.modelErrorsSingle.patchSingleVariables = true
+        setTimeout(function () {
+          $scope.$apply(function () {
+            $scope.modelErrorsSingle.patchSingleVariables = false
+          })
+        }, 2000)
+        console.log(err)
+      })
+    }
+
     var resetLoadingActionSingle = function (status) {
       $scope.loadingActionSingle = status
       setTimeout(function () {
@@ -362,26 +390,6 @@ angular.module('nethvoiceWizardUiApp')
       // manage upload modal hide event
       $("#uploadFileModal").unbind("hidden.bs.modal").on("hidden.bs.modal", function () {
         $rootScope.$broadcast('uploadModalHidden')
-      })
-    }
-
-    $scope.saveCurrentModelSingle = function () {
-      $scope.loadingActionSingle = true
-      PhoneService.patchPhone($scope.currentModel.mac, {
-        "variables": $scope.currentModel.singleVariables
-      }).then(function (res) {
-        resetLoadingActionSingle("ok")
-        setTimeout(function () {
-          $scope.hideModal("singleModelModal")
-        },1500)
-      }, function (err) {
-        $scope.modelErrorsSingle.patchSingleVariables = true
-        setTimeout(function () {
-          $scope.$apply(function () {
-            $scope.modelErrorsSingle.patchSingleVariables = false
-          })
-        }, 2000)
-        console.log(err)
       })
     }
 
