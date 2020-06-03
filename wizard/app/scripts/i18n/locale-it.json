@@ -654,6 +654,7 @@
   "User": "Utente",
   "Clear filters": "Rimuovi filtri",
   "Set model": "Assegna modello",
+  "Set models": "Assegna modelli",
   "Delayed reboot": "Riavvio ritardato",
   "No phone": "Nessun telefono",
   "Please change or clear active filters": "Modificare o rimuovere i filtri attivi",
@@ -883,5 +884,6 @@
   "Invalid file name": "Nome del file non valido",
   "Error loading file": "Errore di caricamento del file.",
   "No files found": "Nessun file trovato",
-  "upload_invalid_filename": "Il nome del file non è valido. Può contenere solo lettere, numeri e i simboli _ - . ( ) "
+  "upload_invalid_filename": "Il nome del file non è valido. Può contenere solo lettere, numeri e i simboli _ - . ( ) ",
+  "Assign the models to the phones in the Phones section before editing the variables": "Assegna i modelli ai telefoni nella sezione Telefoni prima di modificare le variabili"
 }
