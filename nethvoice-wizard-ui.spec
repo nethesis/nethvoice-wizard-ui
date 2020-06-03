@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.4.6
+Version: 14.4.7
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,11 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Wed Jun 03 2020 SebastianMB-IT <sebastian.besel@nethesis.it> - 14.4.7-1
+- VLAN static configurations for phones provisioning - nethesis/dev#5795
+- Firmware management in models and single phone - nethesis/dev#5800
+- Improve management of parameterized URL - nethesis/dev#5803
+
 * Wed May 13 2020 SebastianMB-IT <sebastian.besel@nethesis.it> - 14.4.6-1
 - Add encryption switch for custom devices in provisioning - nethesis/dev#5799
 - Fix the first configuration defaults management error - Bug nethesis/dev#5798
