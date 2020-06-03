@@ -102,8 +102,6 @@ angular.module('nethvoiceWizardUiApp')
         $scope.ldapToModelVariables($scope.ldapCheckRes, false)
         $("#phoneboook-select-4").prop('disabled', true)
       } else {
-        $scope.currentModel.variables = angular.copy($scope.currentModel.storedVariables)
-        $scope.currentModel.inputs = angular.copy($scope.currentModel.storedVariables)
         $("#phonebook-select-4").prop('disabled', false)
       }
       setTimeout(function () {
