@@ -9,7 +9,7 @@
  */
 
 angular.module('nethvoiceWizardUiApp')
-  .controller('ModelsUICtrl', function ($scope, $interval, $location, ModelService, PhoneService) {
+  .controller('ModelsUICtrl', function ($scope, $interval, $location, ModelService, PhoneService, $rootScope) {
 
     $scope.loadingAction = false
     $scope.selectedAction = ""
@@ -359,6 +359,10 @@ angular.module('nethvoiceWizardUiApp')
           })
         })
       }
+      // manage upload modal hide event
+      $("#uploadFileModal").unbind("hidden.bs.modal").on("hidden.bs.modal", function () {
+        $rootScope.$broadcast('uploadModalHidden')
+      })
     }
 
     $scope.saveCurrentModelSingle = function () {

@@ -44,10 +44,14 @@ angular.module('nethvoiceWizardUiApp')
       return true
     }
 
-    $scope.fileUpload = function (file, uploadProgress) {
+    var resetUploadErrors = function () {
       $scope.uploadingErrorMsg = ""
       $scope.uploadingError = false
       $scope.uploadingSuccess = false
+    }
+
+    $scope.fileUpload = function (file, uploadProgress) {
+      resetUploadErrors()
       if (!validFile(file)) {
         $scope.uploadingError = true
         $scope.showAlertDanger()
@@ -88,5 +92,9 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err);
       })
     }
+
+    $scope.$on('uploadModalHidden', function () {
+      resetUploadErrors()
+    });
 
   })
