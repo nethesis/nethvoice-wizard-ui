@@ -885,5 +885,8 @@
   "Error loading file": "Errore di caricamento del file.",
   "No files found": "Nessun file trovato",
   "upload_invalid_filename": "Il nome del file non è valido. Può contenere solo lettere, numeri e i simboli _ - . ( ) ",
-  "Assign the models to the phones in the Phones section before editing the variables": "Assegna i modelli ai telefoni nella sezione Telefoni prima di modificare le variabili"
+  "Assign the models to the phones in the Phones section before editing the variables": "Assegna i modelli ai telefoni nella sezione Telefoni prima di modificare le variabili",
+  "Remember to set the new password before continue": "Ricorda di impostare la nuova password prima di continuare",
+  "Asterisk will be restarted and ongoing calls will be terminated": "Asterisk sarà riavviato e le chiamate in corso verranno interrotte",
+  "Error saving the NAT settings": "Errore durante il salvataggio delle impostazioni NAT"
 }
