@@ -116,7 +116,7 @@
             <div class="col-sm-9">
               <div class="input-group {{newModelsErrors.newModelCustomNameEmpty ? 'has-error' : ''}}">
                 <span class="input-group-addon" >
-                  <span ng-if="model.name == newModelSourceName" ng-repeat="model in inventoryModels">{{model.display_name}}-</span>
+                  <span ng-if="model.name == newModelSourceName" ng-repeat="model in inventoryModels">{{model.display_name}} - </span>
                 </span>
                 <input
                   type="text"
