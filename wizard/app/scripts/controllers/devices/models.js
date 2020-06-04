@@ -203,7 +203,7 @@ angular.module('nethvoiceWizardUiApp')
       ModelService.getModel($scope.newModelSourceName).then(function (res) {
         ModelService.createModel({
           "name": newModelName,
-          "display_name":  res.data.display_name + "-" + $scope.newModelCustomName,
+          "display_name":  res.data.display_name + " - " + $scope.newModelCustomName,
           "variables": res.data.variables
         }).then(function (res) {
           $("#newModelModal").modal("hide")

@@ -103,6 +103,10 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    $scope.openSaveNat = function () {
+      $("#saveNat").modal("show")
+    }
+
     $scope.saveNat = function () {
       for (let index in $scope.localNetworks) {
         if ($scope.localNetworks[index] == {} || !$scope.localNetworks[index].net) {
@@ -110,9 +114,11 @@ angular.module('nethvoiceWizardUiApp')
           $scope.localNetworks.splice( index, 1 );
         }
       }
+      $scope.loadingNatAction = true
       let p1 = ConfigService.setExternalIp($scope.externalIp)
       let p2 = ConfigService.setLocalNetworks($scope.localNetworks)
       Promise.all([p1, p2]).then(function (res) {
+        $scope.loadingNatAction = "ok"
         $scope.onSettingsSaveSuccess = true
         if ($scope.wizard.isWizard && $scope.passwordSaved) {
           $scope.wizard.isEnd = true
@@ -120,9 +126,16 @@ angular.module('nethvoiceWizardUiApp')
         } else if ($scope.wizard.isWizard) {
           $scope.natSaved = true
         }
+        setTimeout(function () {
+          $("#saveNat").modal("hide")
+        }, 700)
         $scope.$apply()
       }, function (err) {
         console.log(err)
+        $scope.loadingNatAction = "err"
+        setTimeout(function () {
+          $("#saveNat").modal("hide")
+        }, 700)
         $scope.onSettingsSaveError = true
       })
     }
@@ -185,6 +198,9 @@ angular.module('nethvoiceWizardUiApp')
       initNat()
       initFirewall()
       ldapPhoneebookCheck()
+      $("#saveNat").on("hidden.bs.modal", function () {
+        $scope.loadingNatAction = ""
+      })
     }
 
     angular.element(document).ready(function () {
