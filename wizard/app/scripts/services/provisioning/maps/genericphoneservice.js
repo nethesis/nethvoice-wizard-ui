@@ -22,7 +22,9 @@ angular.module('nethvoiceWizardUiApp')
           expkey_type_blacklist = variables.cap_expkey_type_blacklist,
           hidden_date_formats = variables.cap_date_format_blacklist,
           hidden_dss_transfer = variables.cap_dss_transfer_blacklist,
-          hidden_ldap_tls = variables.cap_ldap_tls_blacklist
+          hidden_ldap_tls = variables.cap_ldap_tls_blacklist,
+          ringtone_blacklist = variables.cap_ringtone_blacklist,
+          ringtone_count = variables.cap_ringtone_count
 
       return {
         "general": {
@@ -37,6 +39,10 @@ angular.module('nethvoiceWizardUiApp')
           "wallpaper": true,
           "screensaver": true,
           "hidden_dsstransfer": hidden_dss_transfer
+        },
+        "displayAndRingtones": {
+          "hidden_ringtones": ringtone_blacklist,
+          "ringtones_count": ringtone_count,
         },
         "phonebook": {
           "ldap": true,
@@ -80,15 +86,58 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    this.preferences = function (modelMap) {
+    this.displayAndRingtones = function () {
+      return {
+        "name":"Display & Ringtones",
+        "items": [
+          {
+            "variable": "cap_ringtone_blacklist",
+            "description": "Builtin ringtone",
+            "type": "list",
+            "options": [
+              {
+                "text": "-1",
+                "value": "-1"
+              },
+              {
+                "text": "0",
+                "value": "0"
+              },
+              {
+                "text": "1",
+                "value": "1"
+              },
+              {
+                "text": "2",
+                "value": "2"
+              }
+            ]
+          },
+          {
+            "variable": "ringtone_file",
+            "description": "Custom ringtone",
+            "type": "list",
+            "options": [
+              {
+                "text": "everyday",
+                "value": "everyday"
+              },
+              {
+                "text": "never_prov_freq",
+                "value": "never"
+              }
+            ]
+          }
+        ]
+      }
+    }
 
+    this.preferences = function (modelMap) {
       if (!(modelMap.general.settings || modelMap.general.password)) {
         return;
       }
-
       var settingsItems = []
       var passwordItems = []
-
       if (modelMap.general.settings) {
         settingsItems = [
           {

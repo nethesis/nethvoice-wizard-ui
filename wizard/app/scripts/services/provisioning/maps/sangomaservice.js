@@ -18,6 +18,10 @@ angular.module('nethvoiceWizardUiApp')
       return GenericPhoneService.phonebook(modelMap)
     }
 
+    this.displayAndRingtones = function (modelMap) {
+      return GenericPhoneService.displayAndRingtones(modelMap)
+    }
+
     this.network = function (modelMap) {
       return GenericPhoneService.network(modelMap)
     }

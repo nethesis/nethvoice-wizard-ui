@@ -422,6 +422,7 @@ angular.module('nethvoiceWizardUiApp')
         softKeys: convertKeysMap(service.softKeys(map)),
         lineKeys: convertKeysMap(service.lineKeys(map)),
         expansionKeys: convertKeysMap(service.expansionKeys(map)),
+        displayAndRingtones: service.displayAndRingtones(map),
         preferences: service.preferences(map),
         phonebook: service.phonebook(map),
         network: service.network(map)
