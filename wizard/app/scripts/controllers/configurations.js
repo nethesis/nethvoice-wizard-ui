@@ -417,7 +417,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.setPhysicalExtension = function (device, line) {
+    var completePhysicalExtension = function (device, line) {
       device.setPhysicalInAction = true
       device.linkPhysicalInAction = true
       device.linkInAction = true
@@ -428,8 +428,8 @@ angular.module('nethvoiceWizardUiApp')
         mac: device.mac || null,
         model: device.model || null,
         line: line || null,
-        web_user: device.web_user || 'admin',
-        web_password: device.web_password || 'admin'
+        web_user: 'admin',
+        web_password: $scope.defaults.adminpw || 'admin'
       }).then(function (res) {
         device.setPhysicalInAction = "ok"
         device.linkPhysicalInAction = "ok"
@@ -441,14 +441,11 @@ angular.module('nethvoiceWizardUiApp')
         $scope.showResultLinkToUser = true;
         $scope.linkToUserSuccess = true;
         // set encryption if cloud
-        ModelService.getDefaults().then(function (res) {
-          device.encryption = res.data.provisioning_url_scheme === "https" ? true : false
-          $scope.switchEncryption(device)
-        }, function (err) {
-          console.log(err);
-        })
+        device.encryption = $scope.defaults.provisioning_url_scheme === "https" ? true : false
+        $scope.switchEncryption(device)
         // async graphics
-        $timeout(function () {$scope.modelLdapTypeCheck()
+        $timeout(function () {
+          $scope.modelLdapTypeCheck()
         }, 1000);
         $timeout(function () {
           getAllUsers(false)
@@ -465,6 +462,19 @@ angular.module('nethvoiceWizardUiApp')
           $scope.maxExtensionReached = true
         }
       })
+    }
+
+    $scope.setPhysicalExtension = function (device, line) {
+      if (!$scope.defaults) {
+        ModelService.getDefaults().then(function (res) {
+          $scope.defaults = res.data
+          completePhysicalExtension(device, line)
+        }, function (err) {
+          console.log(err);
+        })
+      } else {
+        completePhysicalExtension(device, line)
+      }
     }
 
     $scope.deletePhysicalExtension = function (device, extension) {
