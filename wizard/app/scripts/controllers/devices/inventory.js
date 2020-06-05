@@ -60,17 +60,23 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    function gotDefaults(defaults) {
+      $scope.defaults = defaults
+    }
+
     function init() {
       initPopoversInfo()
       $scope.hideInventoryHelp = LocalStorageService.get('hideInventoryHelp');
       Promise.all([
         ModelService.getModels(),
         PhoneService.getPhones(),
-        ConfigService.getNetworks()
+        ConfigService.getNetworks(),
+        ModelService.getDefaults()
       ]).then(function (res) {
         gotModels(res[0].data);
         gotPhones(res[1].data);
         gotNetworks(res[2].data);
+        gotDefaults(res[3].data);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error retrieving data");
@@ -457,7 +463,7 @@ angular.module('nethvoiceWizardUiApp')
             model: phoneTancredi.model || null,
             line: null,
             web_user: 'admin',
-            web_password: 'admin'
+            web_password: $scope.defaults.adminpw || 'admin'
           }
           UserService.createPhysicalExtension(phoneCorbera).then(function (successCorbera) {
             var phone = PhoneService.buildPhone(successTancredi.data, $scope.models);
