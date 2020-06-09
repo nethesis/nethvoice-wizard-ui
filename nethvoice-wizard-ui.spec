@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.4.7
+Version: 14.4.8
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,13 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Tue Jun 09 2020 Stefano Fancello <stefano.fancello@nethesis.it> - 14.4.8-1
+- Tancredi admin password not used when creating a physicalextension - Bug nethesis/dev#5818
+- Provisioning ui enhancements - nethesis/dev#5822
+- Add Asterisk restart message on nat settings save
+- Show default settings when no models are shown
+- Change custom phonebook behaviour
+
 * Wed Jun 03 2020 SebastianMB-IT <sebastian.besel@nethesis.it> - 14.4.7-1
 - VLAN static configurations for phones provisioning - nethesis/dev#5795
 - Firmware management in models and single phone - nethesis/dev#5800
