@@ -672,6 +672,11 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.toInt = function (string) {
+      return parseInt(string)
+    }
+
+    // get firmwares for firmware file upload
     $scope.getFirmwares = function () {
       ModelService.getFirmwares().then(function (res) {
         $scope.firmwares = res.data
@@ -683,6 +688,7 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    // reload firmwares for firmware file upload
     $scope.reloadFirmwaresList = function () {
       ModelService.getFirmwares().then(function (res) {
         $scope.firmwares = res.data
@@ -692,6 +698,34 @@ angular.module('nethvoiceWizardUiApp')
         setTimeout(function () {
           $scope.$apply()
           $(".model-container .firmware-select").selectpicker("refresh")
+        }, 100)
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    // get ringtones for ringotne file upload
+    $scope.getRingtones = function () {
+      ModelService.getRingtone().then(function (res) {
+        $scope.ringtones = res.data
+        for (let ring in $scope.ringtones) {
+          $scope.ringtones[ring].size = $scope.formatBytes($scope.ringtones[ring].size)
+        }
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    // reload ringtones for ringtone file upload
+    $scope.reloadRingtonesList = function () {
+      ModelService.getRingtone().then(function (res) {
+        $scope.ringtones = res.data
+        for (let ring in $scope.ringtones) {
+          $scope.ringtones[ring].size = $scope.formatBytes($scope.ringtones[ring].size)
+        }
+        setTimeout(function () {
+          $scope.$apply()
+          $(".model-container .ringtone-select").selectpicker("refresh")
         }, 100)
       }, function (err) {
         console.log(err)
@@ -731,33 +765,6 @@ angular.module('nethvoiceWizardUiApp')
         keys.items[0].keysIndexes = indexes;
         return keys;
       }
-    }
-
-    // upload
-    $scope.getFirmwares = function () {
-      ModelService.getFirmwares().then(function (res) {
-        $scope.firmwares = res.data
-        for (let firm in $scope.firmwares) {
-          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
-        }
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
-    $scope.reloadFirmwaresList = function () {
-      ModelService.getFirmwares().then(function (res) {
-        $scope.firmwares = res.data
-        for (let firm in $scope.firmwares) {
-          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
-        }
-        setTimeout(function () {
-          $scope.$apply()
-          $(".model-container .firmware-select").selectpicker("refresh")
-        }, 100)
-      }, function (err) {
-        console.log(err)
-      })
     }
 
     $scope.$on('curentModelSaved', function() { 

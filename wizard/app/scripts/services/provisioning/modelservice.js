@@ -206,4 +206,35 @@ angular.module('nethvoiceWizardUiApp')
         })
       })
     }
+
+    // ringtone
+    this.getRingtone = function () {
+      return $q(function (resolve, reject) {
+        RestService.tget('/tancredi/api/v1/ringtones').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.uploadRingtone = function (file, progressCallback) {
+      return $q(function (resolve, reject) {
+        RestService.tupload('/tancredi/api/v1/ringtones', file, progressCallback).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.deleteRingtone = function (filename) {
+      return $q(function (resolve, reject) {
+        RestService.tdelete('/tancredi/api/v1/ringtones/' + filename).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
   })

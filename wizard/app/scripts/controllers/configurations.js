@@ -217,7 +217,6 @@ angular.module('nethvoiceWizardUiApp')
             $scope.currentModel.storedVariables[variable] = res.data.variables[variable]
             $scope.currentModel.variables[variable] = res.data.variables[variable]
           }
-          console.log("SINGLE RES", $scope.currentModel)
           $("#singleModelModal").modal("show")
         }, function () {
           console.log(err)

@@ -9,7 +9,7 @@
  */
 
 angular.module('nethvoiceWizardUiApp')
-  .controller('FileUploadCtrl', function ($scope, ModelService, $filter) {
+  .controller('FileUploadCtrl', function ($scope, ModelService, $filter, $rootScope) {
 
     $scope.evt = {
       "draghover": false
@@ -20,7 +20,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.uploadingError = false
     $scope.uploadingSuccess = false
     $scope.uploadingErrorMsg = ""
-    
+
     $scope.fileSelection = function () {
       document.querySelector("#dragArea input").click()
     }
@@ -44,36 +44,10 @@ angular.module('nethvoiceWizardUiApp')
       return true
     }
 
-    var resetUploadErrors = function () {
+    var resetSuccessErrors = function () {
       $scope.uploadingErrorMsg = ""
       $scope.uploadingError = false
       $scope.uploadingSuccess = false
-    }
-
-    $scope.fileUpload = function (file, uploadProgress) {
-      resetUploadErrors()
-      if (!validFile(file)) {
-        $scope.uploadingError = true
-        $scope.showAlertDanger()
-        $scope.uploadingErrorMsg = $filter('translate')('upload_invalid_filename')
-        document.querySelector("#dragArea input").value = ""
-        $scope.$apply()
-        return
-      }
-      uploadingFile(file)
-      ModelService.uploadFirmware(file, uploadProgress).then(function (res) {
-        $scope.reloadFirmwaresList()
-        $scope.uploadingFiles = {}
-        $scope.uploadingSuccess = true
-        document.querySelector("#dragArea input").value = ""
-      }, function (err) {
-        $scope.uploadingErrorMsg = err.data.title
-        $scope.uploadingFiles = {}
-        $scope.uploadingError = true
-        $scope.showAlertDanger()
-        document.querySelector("#dragArea input").value = ""
-        console.log(err)
-      })
     }
 
     $scope.hideAlertDanger = function () {
@@ -84,17 +58,83 @@ angular.module('nethvoiceWizardUiApp')
       $("#uploadErrorAlert").show()
     }
 
-    $scope.removeFirmware = function (name) {
-      ModelService.deleteFirmware(name).then(function (res) {
-        $scope.reloadFirmwaresList()
-        $scope.uploadingFiles = {}
-      }, function (err) {
-        console.log(err);
-      })
+    var uploadSuccess = function () {
+      $scope.uploadingFiles = {}
+      $scope.uploadingSuccess = true
+      document.querySelector("#dragArea input").value = ""
+    }
+
+    var uploadError = function (err) {
+      $scope.uploadingErrorMsg = err.data.title
+      $scope.uploadingFiles = {}
+      $scope.uploadingError = true
+      $scope.showAlertDanger()
+      document.querySelector("#dragArea input").value = ""
+    }
+
+    // main functions
+    $scope.fileUpload = function (file, uploadProgress) {
+      resetSuccessErrors()
+      if (!validFile(file)) {
+        $scope.uploadingError = true
+        $scope.showAlertDanger()
+        $scope.uploadingErrorMsg = $filter('translate')('upload_invalid_filename')
+        document.querySelector("#dragArea input").value = ""
+        $scope.$apply()
+        return
+      }
+      uploadingFile(file)
+      switch ($scope.uploadVariable) {
+        case "firmware_file":
+          ModelService.uploadFirmware(file, uploadProgress).then(function (res) {
+            $scope.reloadFirmwaresList()
+            uploadSuccess()
+          }, function (err) {
+            // error feedback
+            uploadError(err)
+            console.log(err)
+          })
+          break;
+        case "ringtone_file":
+          ModelService.uploadRingtone(file, uploadProgress).then(function (res) {
+            $scope.reloadRingtonesList()
+            uploadSuccess()
+          }, function (err) {
+            // error feedback
+            uploadError(err)
+            console.log(err)
+          })
+          break;
+        default:
+          break;
+      }
+    }
+
+    $scope.fileDelete = function (name) {
+      switch ($scope.uploadVariable) {
+        case "firmware_file":
+          ModelService.deleteFirmware(name).then(function (res) {
+            $scope.reloadFirmwaresList()
+            $scope.uploadingFiles = {}
+          }, function (err) {
+            console.log(err);
+          })
+          break;
+        case "ringtone_file":
+          ModelService.deleteRingtone(name).then(function (res) {
+            $scope.reloadRingtonesList()
+            $scope.uploadingFiles = {}
+          }, function (err) {
+            console.log(err);
+          })
+          break;
+        default:
+          break;
+      }
     }
 
     $scope.$on('uploadModalHidden', function () {
-      resetUploadErrors()
+      resetSuccessErrors()
     });
 
   })

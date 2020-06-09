@@ -144,12 +144,18 @@ angular.module('nethvoiceWizardUiApp')
         $scope.currentModel.changePhonebookType = true
       }
       // sync inputs with variables
-      if (varType && varType != "list" && varType != "firmware") {
+      if (varType && varType != "list" && varType != "firmware" && varType != "ringtonefile" && varType != "dinamycselectpicker") {
         $scope.currentModel.variables[varName] = angular.copy($scope.currentModel.inputs[varName])
       }
       // set single variables
       if ($scope.currentModel.uiLocation == "configurations") {
         $scope.currentModel.singleVariables[varName] = $scope.currentModel.variables[varName]
+      }
+      if (varName == "ringtone") {
+        setTimeout(function () {
+          $scope.$apply()
+          $(".model-container .ringtone-select").selectpicker("refresh")
+        }, 100)
       }
       $scope.$emit('variableChanged')
     }
@@ -373,7 +379,8 @@ angular.module('nethvoiceWizardUiApp')
       }, 2500)
     }
 
-    $scope.openFirmwareUpload = function () {
+    $scope.openFileUpload = function (variable) {
+      $rootScope.uploadVariable = variable
       if (!$scope.isConfigurations) {
         $("#uploadFileModal").modal("show")
       } else {
@@ -409,6 +416,7 @@ angular.module('nethvoiceWizardUiApp')
     angular.element("#modelsUIUrl").ready(function () {
       getModelsInfoMsg()
       $scope.getFirmwares()
+      $scope.getRingtones()
       $scope.inModal = document.querySelector("#modelsUIUrl").parentNode.parentNode.parentNode.parentNode.parentNode.classList.value.includes("modal")
       $scope.isConfigurations = $location.path() == "/configurations" ? true : false
     })
