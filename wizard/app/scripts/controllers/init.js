@@ -676,12 +676,19 @@ angular.module('nethvoiceWizardUiApp')
       return parseInt(string)
     }
 
+    $scope.uploads = {
+      "firmware_file": [],
+      "ringtones_file": [],
+      "background_file": [],
+      "screensaver_file": []
+    }
+
     // get firmwares for firmware file upload
     $scope.getFirmwares = function () {
       ModelService.getFirmwares().then(function (res) {
-        $scope.firmwares = res.data
-        for (let firm in $scope.firmwares) {
-          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
+        $scope.uploads.firmware_file = res.data
+        for (let firm in $scope.uploads.firmware_file) {
+          $scope.uploads.firmware_file[firm].size = $scope.formatBytes($scope.uploads.firmware_file[firm].size)
         }
       }, function (err) {
         console.log(err)
@@ -691,9 +698,9 @@ angular.module('nethvoiceWizardUiApp')
     // reload firmwares for firmware file upload
     $scope.reloadFirmwaresList = function () {
       ModelService.getFirmwares().then(function (res) {
-        $scope.firmwares = res.data
-        for (let firm in $scope.firmwares) {
-          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
+        $scope.uploads.firmware_file = res.data
+        for (let firm in $scope.uploads.firmware_file) {
+          $scope.uploads.firmware_file[firm].size = $scope.formatBytes($scope.uploads.firmware_file[firm].size)
         }
         setTimeout(function () {
           $scope.$apply()
@@ -707,9 +714,9 @@ angular.module('nethvoiceWizardUiApp')
     // get ringtones for ringotne file upload
     $scope.getRingtones = function () {
       ModelService.getRingtone().then(function (res) {
-        $scope.ringtones = res.data
-        for (let ring in $scope.ringtones) {
-          $scope.ringtones[ring].size = $scope.formatBytes($scope.ringtones[ring].size)
+        $scope.uploads.ringtone_file = res.data
+        for (let ring in $scope.uploads.ringtone_file) {
+          $scope.uploads.ringtone_file[ring].size = $scope.formatBytes($scope.uploads.ringtone_file[ring].size)
         }
       }, function (err) {
         console.log(err)
@@ -719,13 +726,41 @@ angular.module('nethvoiceWizardUiApp')
     // reload ringtones for ringtone file upload
     $scope.reloadRingtonesList = function () {
       ModelService.getRingtone().then(function (res) {
-        $scope.ringtones = res.data
-        for (let ring in $scope.ringtones) {
-          $scope.ringtones[ring].size = $scope.formatBytes($scope.ringtones[ring].size)
+        $scope.uploads.ringtone_file = res.data
+        for (let ring in $scope.uploads.ringtone_file) {
+          $scope.uploads.ringtone_file[ring].size = $scope.formatBytes($scope.uploads.ringtone_file[ring].size)
         }
         setTimeout(function () {
           $scope.$apply()
           $(".model-container .ringtone-select").selectpicker("refresh")
+        }, 100)
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    // get backgrounds for background file upload
+    $scope.getBackgrounds = function () {
+      ModelService.getBackground().then(function (res) {
+        $scope.uploads.background_file = res.data
+        for (let ring in $scope.uploads.background_file) {
+          $scope.uploads.background_file[ring].size = $scope.formatBytes($scope.uploads.background_file[ring].size)
+        }
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    // reload background for background file upload
+    $scope.reloadBackgroundsList = function () {
+      ModelService.getBackground().then(function (res) {
+        $scope.uploads.background_file = res.data
+        for (let ring in $scope.uploads.background_file) {
+          $scope.uploads.background_file[ring].size = $scope.formatBytes($scope.uploads.background_file[ring].size)
+        }
+        setTimeout(function () {
+          $scope.$apply()
+          $(".model-container .background-select").selectpicker("refresh")
         }, 100)
       }, function (err) {
         console.log(err)

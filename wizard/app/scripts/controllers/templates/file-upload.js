@@ -105,6 +105,26 @@ angular.module('nethvoiceWizardUiApp')
             console.log(err)
           })
           break;
+        case "background_file":
+          ModelService.uploadBackground(file, uploadProgress).then(function (res) {
+            $scope.reloadBackgroundsList()
+            uploadSuccess()
+          }, function (err) {
+            // error feedback
+            uploadError(err)
+            console.log(err)
+          })
+          break;
+        case "screensaver_file":
+          ModelService.uploadScreensaver(file, uploadProgress).then(function (res) {
+            $scope.reloadScreensaversList()
+            uploadSuccess()
+          }, function (err) {
+            // error feedback
+            uploadError(err)
+            console.log(err)
+          })
+          break;
         default:
           break;
       }
@@ -117,6 +137,7 @@ angular.module('nethvoiceWizardUiApp')
             $scope.reloadFirmwaresList()
             $scope.uploadingFiles = {}
           }, function (err) {
+            $scope.uploadingFiles = {}
             console.log(err);
           })
           break;
@@ -125,7 +146,26 @@ angular.module('nethvoiceWizardUiApp')
             $scope.reloadRingtonesList()
             $scope.uploadingFiles = {}
           }, function (err) {
+            $scope.uploadingFiles = {}
             console.log(err);
+          })
+          break;
+        case "background_file":
+          ModelService.deleteBackground(name).then(function (res) {
+            $scope.reloadBackgroundsList()
+            $scope.uploadingFiles = {}
+          }, function (err) {
+            console.log(err);
+            $scope.uploadingFiles = {}
+          })
+          break;
+        case "screensaver_file":
+          ModelService.deleteScreensaver(name).then(function (res) {
+            $scope.reloadScreensaversList()
+            $scope.uploadingFiles = {}
+          }, function (err) {
+            console.log(err);
+            $scope.uploadingFiles = {}
           })
           break;
         default:

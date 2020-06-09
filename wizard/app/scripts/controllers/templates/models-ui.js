@@ -144,7 +144,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.currentModel.changePhonebookType = true
       }
       // sync inputs with variables
-      if (varType && varType != "list" && varType != "firmware" && varType != "ringtonefile" && varType != "dinamycselectpicker") {
+      if (varType && varType != "list" && varType != "upload" && varType != "dinamycselectpicker") {
         $scope.currentModel.variables[varName] = angular.copy($scope.currentModel.inputs[varName])
       }
       // set single variables

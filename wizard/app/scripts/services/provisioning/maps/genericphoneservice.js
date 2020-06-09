@@ -24,7 +24,8 @@ angular.module('nethvoiceWizardUiApp')
           hidden_dss_transfer = variables.cap_dss_transfer_blacklist,
           hidden_ldap_tls = variables.cap_ldap_tls_blacklist,
           ringtone_blacklist = variables.cap_ringtone_blacklist,
-          ringtone_count = variables.cap_ringtone_count
+          ringtone_count = variables.cap_ringtone_count,
+          background_cap = variables.cap_background_file
 
       return {
         "general": {
@@ -44,7 +45,8 @@ angular.module('nethvoiceWizardUiApp')
           "ringtone": {
             "blacklist": ringtone_blacklist,
             "count": ringtone_count
-          }
+          },
+          "background_cap": background_cap
         },
         "phonebook": {
           "ldap": true,
@@ -100,8 +102,14 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "ringtone_file",
             "description": "Custom ringtone",
-            "type": "ringtonefile"
+            "type": "upload"
+          },
+          {
+            "variable": "background_file",
+            "description": "Display background",
+            "type": "upload"
           }
+          
         ]
       }
     }
@@ -195,7 +203,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "firmware_file",
             "description": "Firmware",
-            "type": "firmware"
+            "type": "upload"
           }
         ]
       }

@@ -237,4 +237,35 @@ angular.module('nethvoiceWizardUiApp')
         })
       })
     }
+
+    // background
+    this.getBackground = function () {
+      return $q(function (resolve, reject) {
+        RestService.tget('/tancredi/api/v1/backgrounds').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.uploadBackground = function (file, progressCallback) {
+      return $q(function (resolve, reject) {
+        RestService.tupload('/tancredi/api/v1/backgrounds', file, progressCallback).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.deleteBackground = function (filename) {
+      return $q(function (resolve, reject) {
+        RestService.tdelete('/tancredi/api/v1/backgrounds/' + filename).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
   })
