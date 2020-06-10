@@ -20,18 +20,23 @@ angular.module('nethvoiceWizardUiApp')
           expmodule_count = parseInt(variables.cap_expmodule_count),
           expkey_count = parseInt(variables.cap_expkey_count),
           expkey_type_blacklist = variables.cap_expkey_type_blacklist,
-          hidden_date_formats = variables.cap_date_format_blacklist,
-          hidden_dss_transfer = variables.cap_dss_transfer_blacklist,
-          hidden_ldap_tls = variables.cap_ldap_tls_blacklist,
+          date_formats_blacklist = variables.cap_date_format_blacklist,
+          dss_transfer_blacklist = variables.cap_dss_transfer_blacklist,
+          ldap_tls_blacklist = variables.cap_ldap_tls_blacklist,
           ringtone_blacklist = variables.cap_ringtone_blacklist,
           ringtone_count = variables.cap_ringtone_count,
-          background_cap = variables.cap_background_file
+          background_cap = variables.cap_background_file,
+          screensaver_cap = variables.cap_screensaver_file,
+          backlight_time_blacklist = variables.cap_backlight_time_blacklist,
+          screensaver_time_blacklist = variables.cap_screensaver_time_blacklist
 
       return {
         "general": {
           "settings": true,
           "password": true,
-          "hidden_dateformat": hidden_date_formats
+          "date_format": {
+            "blacklist":  date_formats_blacklist
+          }
         },
         "network": {},
         "preferences": {
@@ -39,18 +44,29 @@ angular.module('nethvoiceWizardUiApp')
           "display": true,
           "wallpaper": true,
           "screensaver": true,
-          "hidden_dsstransfer": hidden_dss_transfer
+          "dss_transfer": {
+            "blacklist": dss_transfer_blacklist
+          }
         },
         "displayAndRingtones": {
           "ringtone": {
             "blacklist": ringtone_blacklist,
             "count": ringtone_count
           },
-          "background_cap": background_cap
+          "background_file": background_cap,
+          "screensaver_file": screensaver_cap,
+          "backlight_time": {
+            "blacklist": backlight_time_blacklist
+          },
+          "screensaver_time": {
+            "blacklist": screensaver_time_blacklist
+          }
         },
         "phonebook": {
           "ldap": true,
-          "hidden_ldap_tls": hidden_ldap_tls
+          "ldap_tls": {
+            "blacklist": ldap_tls_blacklist
+          }
         },
         "provisioning": {
           "provisioning": true
@@ -63,7 +79,6 @@ angular.module('nethvoiceWizardUiApp')
             }
           ],
           "hidden_types": softkey_type_blacklist,
-          "hidden_variables": ""
         },
         "lineKeys": {
           "intervals": [
@@ -73,7 +88,6 @@ angular.module('nethvoiceWizardUiApp')
             }
           ],
           "hidden_types": linekey_type_blacklist,
-          "hidden_variables": ""
         },
         "expansionKeys":  {
           "modules": expmodule_count,
@@ -85,7 +99,6 @@ angular.module('nethvoiceWizardUiApp')
             }
           ],
           "hidden_types": expkey_type_blacklist,
-          "hidden_variables": ""
         }
       }
     }
@@ -113,6 +126,77 @@ angular.module('nethvoiceWizardUiApp')
             "variable": "screensaver_file",
             "description": "Display screensaver",
             "type": "upload"
+          },
+          {
+            "variable": "backlight_time",
+            "description": "Backlight time",
+            "type": "list",
+            "options": [
+              {
+                "text": "Off",
+                "value": "0"
+              },
+              {
+                "text": "3 seconds",
+                "value": "3"
+              },
+              {
+                "text": "5 seconds",
+                "value": "5"
+              },
+              {
+                "text": "7 seconds",
+                "value": "7"
+              },
+              {
+                "text": "10 seconds",
+                "value": "10"
+              },
+              {
+                "text": "15 seconds",
+                "value": "15"
+              },
+              {
+                "text": "30 seconds",
+                "value": "30"
+              },
+              {
+                "text": "1 minute",
+                "value": "60"
+              },
+              {
+                "text": "2 minutes",
+                "value": "120"
+              },
+              {
+                "text": "5 minutes",
+                "value": "300"
+              },
+              {
+                "text": "10 minutes",
+                "value": "600"
+              },
+              {
+                "text": "20 minutes",
+                "value": "1200"
+              },
+              {
+                "text": "30 minutes",
+                "value": "1800"
+              },
+              {
+                "text": "40 minutes",
+                "value": "2400"
+              },
+              {
+                "text": "50 minutes",
+                "value": "3000"
+              },
+              {
+                "text": "1 hour",
+                "value": "3600"
+              }
+            ]
           }
         ]
       }

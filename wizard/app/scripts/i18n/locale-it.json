@@ -899,5 +899,18 @@
   "Upload a new background": "Carica un nuovo sfondo",
   "Display background": "Sfondo display",
   "Screensaver management": "Gestione salvaschermo",
-  "Upload a new screensaver": "Carica un nuovo salvaschermo"
+  "Upload a new screensaver": "Carica un nuovo salvaschermo",
+  "3 seconds": "3 secondi",
+  "5 seconds": "5 secondi",
+  "7 seconds": "7 secondi",
+  "10 seconds": "10 secondi",
+  "15 seconds": "15 secondi",
+  "30 seconds": "30 secondi",
+  "1 minute": "1 minuto",
+  "2 minutes": "2 minuti",
+  "5 minutes": "5 minuti",
+  "10 minutes": "10 minuti",
+  "20 minutes": "20 minuti",
+  "40 minutes": "40 minuti",
+  "50 minutes": "50 minuti"
 }
