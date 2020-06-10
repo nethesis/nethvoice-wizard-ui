@@ -108,8 +108,12 @@ angular.module('nethvoiceWizardUiApp')
             "variable": "background_file",
             "description": "Display background",
             "type": "upload"
+          },
+          {
+            "variable": "screensaver_file",
+            "description": "Display screensaver",
+            "type": "upload"
           }
-          
         ]
       }
     }

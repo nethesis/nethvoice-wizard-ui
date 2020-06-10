@@ -268,4 +268,35 @@ angular.module('nethvoiceWizardUiApp')
         })
       })
     }
+
+    // background
+    this.getScreensaver = function () {
+      return $q(function (resolve, reject) {
+        RestService.tget('/tancredi/api/v1/screensavers').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.uploadScreensaver = function (file, progressCallback) {
+      return $q(function (resolve, reject) {
+        RestService.tupload('/tancredi/api/v1/screensavers', file, progressCallback).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.deleteScreensaver = function (filename) {
+      return $q(function (resolve, reject) {
+        RestService.tdelete('/tancredi/api/v1/screensavers/' + filename).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
   })

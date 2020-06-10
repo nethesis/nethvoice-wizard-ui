@@ -417,6 +417,8 @@ angular.module('nethvoiceWizardUiApp')
       getModelsInfoMsg()
       $scope.getFirmwares()
       $scope.getRingtones()
+      $scope.getBackgrounds()
+      $scope.getScreensavers()
       $scope.inModal = document.querySelector("#modelsUIUrl").parentNode.parentNode.parentNode.parentNode.parentNode.classList.value.includes("modal")
       $scope.isConfigurations = $location.path() == "/configurations" ? true : false
     })

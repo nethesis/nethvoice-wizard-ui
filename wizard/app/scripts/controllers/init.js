@@ -704,7 +704,7 @@ angular.module('nethvoiceWizardUiApp')
         }
         setTimeout(function () {
           $scope.$apply()
-          $(".model-container .firmware-select").selectpicker("refresh")
+          $(".model-container .firmware_file-select").selectpicker("refresh")
         }, 100)
       }, function (err) {
         console.log(err)
@@ -732,7 +732,7 @@ angular.module('nethvoiceWizardUiApp')
         }
         setTimeout(function () {
           $scope.$apply()
-          $(".model-container .ringtone-select").selectpicker("refresh")
+          $(".model-container .ringtone_file-select").selectpicker("refresh")
         }, 100)
       }, function (err) {
         console.log(err)
@@ -760,7 +760,35 @@ angular.module('nethvoiceWizardUiApp')
         }
         setTimeout(function () {
           $scope.$apply()
-          $(".model-container .background-select").selectpicker("refresh")
+          $(".model-container .background_file-select").selectpicker("refresh")
+        }, 100)
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    // get screensavers for screensaver file upload
+    $scope.getScreensavers = function () {
+      ModelService.getScreensaver().then(function (res) {
+        $scope.uploads.screensaver_file = res.data
+        for (let screen in $scope.uploads.screensaver_file) {
+          $scope.uploads.screensaver_file[screen].size = $scope.formatBytes($scope.uploads.screensaver_file[screen].size)
+        }
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    // reload screensavers for background file upload
+    $scope.reloadScreensaversList = function () {
+      ModelService.getScreensaver().then(function (res) {
+        $scope.uploads.screensaver_file = res.data
+        for (let screen in $scope.uploads.screensaver_file) {
+          $scope.uploads.screensaver_file[screen].size = $scope.formatBytes($scope.uploads.screensaver_file[screen].size)
+        }
+        setTimeout(function () {
+          $scope.$apply()
+          $(".model-container .screensaver_file-select").selectpicker("refresh")
         }, 100)
       }, function (err) {
         console.log(err)
