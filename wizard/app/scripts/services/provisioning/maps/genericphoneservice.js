@@ -28,7 +28,9 @@ angular.module('nethvoiceWizardUiApp')
           background_cap = variables.cap_background_file,
           screensaver_cap = variables.cap_screensaver_file,
           backlight_time_blacklist = variables.cap_backlight_time_blacklist,
-          screensaver_time_blacklist = variables.cap_screensaver_time_blacklist
+          screensaver_time_blacklist = variables.cap_screensaver_time_blacklist,
+          contrast_cap = variables.cap_contrast,
+          brightness_cap = variables.cap_brightness
 
       return {
         "general": {
@@ -40,10 +42,6 @@ angular.module('nethvoiceWizardUiApp')
         },
         "network": {},
         "preferences": {
-          "ringtone": true,
-          "display": true,
-          "wallpaper": true,
-          "screensaver": true,
           "dss_transfer": {
             "blacklist": dss_transfer_blacklist
           }
@@ -51,15 +49,30 @@ angular.module('nethvoiceWizardUiApp')
         "displayAndRingtones": {
           "ringtone": {
             "blacklist": ringtone_blacklist,
-            "count": ringtone_count
+            "count": parseInt(ringtone_count) + 2,
+            "startfrom": -1
           },
-          "background_file": background_cap,
-          "screensaver_file": screensaver_cap,
+          "background_file": {
+            "cap": background_cap // set cap false to hide the variable
+          },
+          "screensaver_file": {
+            "cap": screensaver_cap
+          },
           "backlight_time": {
             "blacklist": backlight_time_blacklist
           },
           "screensaver_time": {
             "blacklist": screensaver_time_blacklist
+          },
+          "contrast": {
+            "count": 10,
+            "startfrom": 0,
+            "cap": contrast_cap
+          },
+          "brightness": {
+            "count": 10,
+            "startfrom": 0,
+            "cap": brightness_cap
           }
         },
         "phonebook": {
@@ -197,6 +210,87 @@ angular.module('nethvoiceWizardUiApp')
                 "value": "3600"
               }
             ]
+          },
+          {
+            "variable": "screensaver_time",
+            "description": "Screensaver time",
+            "type": "list",
+            "options": [
+              {
+                "text": "Off",
+                "value": "0"
+              },
+              {
+                "text": "3 seconds",
+                "value": "3"
+              },
+              {
+                "text": "5 seconds",
+                "value": "5"
+              },
+              {
+                "text": "7 seconds",
+                "value": "7"
+              },
+              {
+                "text": "10 seconds",
+                "value": "10"
+              },
+              {
+                "text": "15 seconds",
+                "value": "15"
+              },
+              {
+                "text": "30 seconds",
+                "value": "30"
+              },
+              {
+                "text": "1 minute",
+                "value": "60"
+              },
+              {
+                "text": "2 minutes",
+                "value": "120"
+              },
+              {
+                "text": "5 minutes",
+                "value": "300"
+              },
+              {
+                "text": "10 minutes",
+                "value": "600"
+              },
+              {
+                "text": "20 minutes",
+                "value": "1200"
+              },
+              {
+                "text": "30 minutes",
+                "value": "1800"
+              },
+              {
+                "text": "40 minutes",
+                "value": "2400"
+              },
+              {
+                "text": "50 minutes",
+                "value": "3000"
+              },
+              {
+                "text": "1 hour",
+                "value": "3600"
+              }
+            ]
+          },
+          {
+            "variable": "contrast",
+            "description": "Display contrast",
+            "type": "dinamycselectpicker"
+          },
+          {
+            "variable": "brightness",
+            "description": "Display brightness",
+            "type": "dinamycselectpicker"
           }
         ]
       }

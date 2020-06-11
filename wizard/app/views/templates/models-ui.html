@@ -300,7 +300,7 @@
                 <div ng-show="!currentModel.loadingSections[sectionkey]" class="mt-25 no-border-bottom">
                   <!-- Variable input cotainer -->
                   <div 
-                    ng-if="!(currentModel.ui.map[sectionkey][item.variable] === false)"
+                    ng-if="!(currentModel.ui.map[sectionkey][item.variable].cap === false)"
                     ng-repeat="item in ::currentModel.ui[sectionkey].items track by item.variable"
                     class="col-lg-6 mb-15">
                     <div class="form-group">
@@ -356,11 +356,11 @@
                           <!-- selectpicker -->
                           <option
                             ng-selected="currentModel.variables[item.variable] == $index - 1"
-                            ng-repeat="option in [] | range: (toInt(currentModel.ui.map[sectionkey][item.variable].count) + 1) track by $index"
-                            ng-if="!currentModel.ui.map[sectionkey][item.variable].blacklist.includes($index - 1)"
-                            value="{{$index - 1}}"
+                            ng-repeat="option in [] | range: toInt(currentModel.ui.map[sectionkey][item.variable].count) track by $index"
+                            ng-if="!currentModel.ui.map[sectionkey][item.variable].blacklist.includes($index + currentModel.ui.map[sectionkey][item.variable].startfrom)"
+                            value="{{$index + currentModel.ui.map[sectionkey][item.variable].startfrom}}"
                             on-finish-render="selectpickerRepeatEnd">
-                            {{($index - 1) == -1 ? "Custom" : ($index - 1) == 0 ? "Silent" : ($index - 1) | translate}} {{currentModel.uiLocation == "configurations" && currentModel.modelVariables[item.variable] && !currentModel.singleVariables[item.variable] && currentModel.modelVariables[item.variable] == ($index - 1) ? ' (' + currentModel.display_name + ')' : currentModel.globals[item.variable] && !currentModel.storedVariables[item.variable] && currentModel.globals[item.variable] == ($index - 1) ? ' (default)' : ''}}</option>
+                            {{($index + currentModel.ui.map[sectionkey][item.variable].startfrom) == -1 && (item.variable == "ringtone") ? "Custom" : ($index + currentModel.ui.map[sectionkey][item.variable].startfrom) == 0 && item.variable == "ringtone" ? "Silent" : ($index + currentModel.ui.map[sectionkey][item.variable].startfrom) | translate}} {{currentModel.uiLocation == "configurations" && currentModel.modelVariables[item.variable] && !currentModel.singleVariables[item.variable] && currentModel.modelVariables[item.variable] == ($index + currentModel.ui.map[sectionkey][item.variable].startfrom) ? ' (' + currentModel.display_name + ')' : currentModel.globals[item.variable] && !currentModel.storedVariables[item.variable] && currentModel.globals[item.variable] == ($index + currentModel.ui.map[sectionkey][item.variable].startfrom) ? ' (default)' : ''}}</option>
                         </select>
                       </div>
                       <!-- upload -->
