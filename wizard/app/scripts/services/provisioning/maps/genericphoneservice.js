@@ -12,23 +12,22 @@ angular.module('nethvoiceWizardUiApp')
   .service('GenericPhoneService', function (GenericPhoneUtilsService) {
 
     this.map = function (variables) {
-
       let softkey_count = parseInt(variables.cap_softkey_count),
-          softkey_type_blacklist = variables.cap_softkey_type_blacklist,
+          softkey_type_blacklist = variables.cap_softkey_type_blacklist ? variables.cap_softkey_type_blacklist.split(",") : "",
           linekey_count = parseInt(variables.cap_linekey_count),
-          linekey_type_blacklist = variables.linekey_type_blacklist,
+          linekey_type_blacklist = variables.linekey_type_blacklist ? variables.linekey_type_blacklist.split(",") : "",
           expmodule_count = parseInt(variables.cap_expmodule_count),
           expkey_count = parseInt(variables.cap_expkey_count),
-          expkey_type_blacklist = variables.cap_expkey_type_blacklist,
-          date_formats_blacklist = variables.cap_date_format_blacklist,
-          dss_transfer_blacklist = variables.cap_dss_transfer_blacklist,
-          ldap_tls_blacklist = variables.cap_ldap_tls_blacklist,
-          ringtone_blacklist = variables.cap_ringtone_blacklist,
+          expkey_type_blacklist = variables.cap_expkey_type_blacklist ? variables.cap_expkey_type_blacklist.split(",") : "",
+          date_formats_blacklist = variables.cap_date_format_blacklist ? variables.cap_date_format_blacklist.split(",") : "",
+          dss_transfer_blacklist = variables.cap_dss_transfer_blacklist ? variables.cap_dss_transfer_blacklist.split(",") : "",
+          ldap_tls_blacklist = variables.cap_ldap_tls_blacklist ? variables.cap_ldap_tls_blacklist.split(",") : "",
+          ringtone_blacklist = variables.cap_ringtone_blacklist ? variables.cap_ringtone_blacklist.split(",") : "",
           ringtone_count = variables.cap_ringtone_count,
           background_cap = variables.cap_background_file,
           screensaver_cap = variables.cap_screensaver_file,
-          backlight_time_blacklist = variables.cap_backlight_time_blacklist,
-          screensaver_time_blacklist = variables.cap_screensaver_time_blacklist,
+          backlight_time_blacklist = variables.cap_backlight_time_blacklist ? variables.cap_ldap_tls_blacklist.split(",").split(",") : "",
+          screensaver_time_blacklist = variables.cap_screensaver_time_blacklist ? variables.cap_screensaver_time_blacklist.split(",") : "",
           contrast_cap = variables.cap_contrast,
           brightness_cap = variables.cap_brightness
 
@@ -53,10 +52,10 @@ angular.module('nethvoiceWizardUiApp')
             "startfrom": -1
           },
           "background_file": {
-            "cap": background_cap // set cap false to hide the variable
+            "visible": background_cap == "1" ? true : false // set false to hide the variable
           },
           "screensaver_file": {
-            "cap": screensaver_cap
+            "visible": screensaver_cap == "1" ? true : false
           },
           "backlight_time": {
             "blacklist": backlight_time_blacklist
@@ -67,12 +66,12 @@ angular.module('nethvoiceWizardUiApp')
           "contrast": {
             "count": 10,
             "startfrom": 0,
-            "cap": contrast_cap
+            "visible": contrast_cap == "1" ? true : false
           },
           "brightness": {
             "count": 10,
             "startfrom": 0,
-            "cap": brightness_cap
+            "visible": brightness_cap == "1" ? true : false
           }
         },
         "phonebook": {
@@ -143,7 +142,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "backlight_time",
             "description": "Backlight time",
-            "type": "list",
+            "type": "selectpicker",
             "options": [
               {
                 "text": "Off",
@@ -214,7 +213,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "screensaver_time",
             "description": "Screensaver time",
-            "type": "list",
+            "type": "selectpicker",
             "options": [
               {
                 "text": "Off",
@@ -312,7 +311,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "provisioning_freq",
             "description": "Provisioning scheduling",
-            "type": "list",
+            "type": "selectpicker",
             "options": [
               {
                 "text": "everyday",
@@ -327,7 +326,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "dss_transfer",
             "description": "Line keys transfer mode",
-            "type": "list",
+            "type": "selectpicker",
             "options": [
               {
                 "text": "New Call",
@@ -346,25 +345,25 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "language",
             "description": "Phone language",
-            "type": "list",
+            "type": "selectpicker",
             "options": GenericPhoneUtilsService.getLanguages()
           },
           {
             "variable": "timezone",
             "description": "Time zone",
-            "type": "list",
+            "type": "bigcombobox",
             "options": GenericPhoneUtilsService.getTimeZones()
           },
           {
             "variable": "tonezone",
             "description": "Tone zone",
-            "type": "list",
+            "type": "selectpicker",
             "options": GenericPhoneUtilsService.getToneZones()
           },
           {
             "variable": "time_format",
             "description": "Time format",
-            "type": "list",
+            "type": "selectpicker",
             "options": [
               {
                 "text": "12-hour",
@@ -379,7 +378,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "date_format",
             "description": "Date format",
-            "type": "list",
+            "type": "selectpicker",
             "options": GenericPhoneUtilsService.getDateFormat()
           },
           {
@@ -442,7 +441,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "ldap_tls",
             "description": "ldap_tls",
-            "type": "list",
+            "type": "selectpicker",
             "options": [
               {
                 "text": "ldap_tls_none",

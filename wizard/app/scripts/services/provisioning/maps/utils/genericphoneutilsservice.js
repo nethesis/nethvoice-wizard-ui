@@ -570,4 +570,8 @@ angular.module('nethvoiceWizardUiApp')
       return list
     }
 
+    this.countBlacklist = function (blacklist) {
+      return blacklist.split(",").length
+    }
+
   })

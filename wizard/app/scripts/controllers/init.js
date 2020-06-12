@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('InitCtrl', function ($scope, $translate, $location, ConfigService, LanguageService, PhoneService, LocalStorageService, LoginService, UserService,
+  .controller('InitCtrl', function ($scope, $rootScope, $translate, $location, ConfigService, LanguageService, PhoneService, LocalStorageService, LoginService, UserService,
     MigrationService, TrunkService, RouteService, ModelService, GenericPhoneService, ProvGlobalsService, $q, ProvFanvilService, ProvGigasetService,
     ProvSangomaService, ProvSnomService, ProvYealinkService) {
 
@@ -393,12 +393,20 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.$on('comboboxRepeatEnd', function(event, elem) {
+    $rootScope.$on('comboboxRepeatEnd', function(event, elem) {
       elem.parent().combobox().parent().removeClass("hidden")
     })
 
-    $scope.$on('selectpickerRepeatEnd', function(event, elem) {
+    $rootScope.$on('selectpickerRepeatEnd', function(event, elem) {
       elem.parent().selectpicker().parent().parent().removeClass("hidden")
+    })
+
+    $rootScope.$on('comboboxRepeatEndRevised', function(event, id) {
+      $("#" + id).combobox().parent().removeClass("hidden")
+    })
+
+    $rootScope.$on('selectpickerRepeatEndRevised', function(event, id) {
+      $("#" + id).selectpicker().parent().parent().removeClass("hidden")
     })
     
     $scope.setRandomBackground();
