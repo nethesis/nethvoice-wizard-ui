@@ -5,6 +5,7 @@ my $event = 'nethvoice-wizard-ui-update';
 
 event_actions($event, qw(
     initialize-default-databases 00
+    nethserver-nethvoice-brand 60
 ));
 
 event_templates($event, qw(
