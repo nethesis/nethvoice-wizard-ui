@@ -58,10 +58,12 @@ angular.module('nethvoiceWizardUiApp')
             "visible": screensaver_cap == "1" ? true : false
           },
           "backlight_time": {
-            "blacklist": backlight_time_blacklist
+            "blacklist": backlight_time_blacklist,
+            "visible": backlight_time_blacklist.length == 16 ? false : true
           },
           "screensaver_time": {
-            "blacklist": screensaver_time_blacklist
+            "blacklist": screensaver_time_blacklist,
+            "visible": screensaver_time_blacklist.length == 16 ? false : true
           },
           "contrast": {
             "count": 10,
@@ -145,10 +147,6 @@ angular.module('nethvoiceWizardUiApp')
             "type": "selectpicker",
             "options": [
               {
-                "text": "Off",
-                "value": "0"
-              },
-              {
                 "text": "3 seconds",
                 "value": "3"
               },
@@ -207,6 +205,10 @@ angular.module('nethvoiceWizardUiApp')
               {
                 "text": "1 hour",
                 "value": "3600"
+              },
+              {
+                "text": "Always on",
+                "value": "0"
               }
             ]
           },
@@ -216,10 +218,6 @@ angular.module('nethvoiceWizardUiApp')
             "type": "selectpicker",
             "options": [
               {
-                "text": "Off",
-                "value": "0"
-              },
-              {
                 "text": "3 seconds",
                 "value": "3"
               },
@@ -278,6 +276,10 @@ angular.module('nethvoiceWizardUiApp')
               {
                 "text": "1 hour",
                 "value": "3600"
+              },
+              {
+                "text": "Disabled",
+                "value": "0"
               }
             ]
           },
