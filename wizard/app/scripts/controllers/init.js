@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('InitCtrl', function ($scope, $translate, $location, ConfigService, LanguageService, PhoneService, LocalStorageService, LoginService, UserService,
+  .controller('InitCtrl', function ($scope, $rootScope, $translate, $location, ConfigService, LanguageService, PhoneService, LocalStorageService, LoginService, UserService,
     MigrationService, TrunkService, RouteService, ModelService, GenericPhoneService, ProvGlobalsService, $q, ProvFanvilService, ProvGigasetService,
     ProvSangomaService, ProvSnomService, ProvYealinkService) {
 
@@ -393,12 +393,20 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    $scope.$on('comboboxRepeatEnd', function(event, elem) {
+    $rootScope.$on('comboboxRepeatEnd', function(event, elem) {
       elem.parent().combobox().parent().removeClass("hidden")
     })
 
-    $scope.$on('selectpickerRepeatEnd', function(event, elem) {
+    $rootScope.$on('selectpickerRepeatEnd', function(event, elem) {
       elem.parent().selectpicker().parent().parent().removeClass("hidden")
+    })
+
+    $rootScope.$on('comboboxRepeatEndRevised', function(event, id) {
+      $("#" + id).combobox().parent().removeClass("hidden")
+    })
+
+    $rootScope.$on('selectpickerRepeatEndRevised', function(event, id) {
+      $("#" + id).selectpicker().parent().parent().removeClass("hidden")
     })
     
     $scope.setRandomBackground();
@@ -422,6 +430,7 @@ angular.module('nethvoiceWizardUiApp')
         softKeys: convertKeysMap(service.softKeys(map)),
         lineKeys: convertKeysMap(service.lineKeys(map)),
         expansionKeys: convertKeysMap(service.expansionKeys(map)),
+        displayAndRingtones: service.displayAndRingtones(map),
         preferences: service.preferences(map),
         phonebook: service.phonebook(map),
         network: service.network(map)
@@ -671,26 +680,123 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
+    $scope.toInt = function (string) {
+      return parseInt(string)
+    }
+
+    $scope.uploads = {
+      "firmware_file": [],
+      "ringtones_file": [],
+      "background_file": [],
+      "screensaver_file": []
+    }
+
+    // get firmwares for firmware file upload
     $scope.getFirmwares = function () {
       ModelService.getFirmwares().then(function (res) {
-        $scope.firmwares = res.data
-        for (let firm in $scope.firmwares) {
-          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
+        $scope.uploads.firmware_file = res.data
+        for (let firm in $scope.uploads.firmware_file) {
+          $scope.uploads.firmware_file[firm].size = $scope.formatBytes($scope.uploads.firmware_file[firm].size)
         }
       }, function (err) {
         console.log(err)
       })
     }
 
+    // reload firmwares for firmware file upload
     $scope.reloadFirmwaresList = function () {
       ModelService.getFirmwares().then(function (res) {
-        $scope.firmwares = res.data
-        for (let firm in $scope.firmwares) {
-          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
+        $scope.uploads.firmware_file = res.data
+        for (let firm in $scope.uploads.firmware_file) {
+          $scope.uploads.firmware_file[firm].size = $scope.formatBytes($scope.uploads.firmware_file[firm].size)
         }
         setTimeout(function () {
           $scope.$apply()
-          $(".model-container .firmware-select").selectpicker("refresh")
+          $(".model-container .firmware_file-select").selectpicker("refresh")
+        }, 100)
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    // get ringtones for ringotne file upload
+    $scope.getRingtones = function () {
+      ModelService.getRingtone().then(function (res) {
+        $scope.uploads.ringtone_file = res.data
+        for (let ring in $scope.uploads.ringtone_file) {
+          $scope.uploads.ringtone_file[ring].size = $scope.formatBytes($scope.uploads.ringtone_file[ring].size)
+        }
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    // reload ringtones for ringtone file upload
+    $scope.reloadRingtonesList = function () {
+      ModelService.getRingtone().then(function (res) {
+        $scope.uploads.ringtone_file = res.data
+        for (let ring in $scope.uploads.ringtone_file) {
+          $scope.uploads.ringtone_file[ring].size = $scope.formatBytes($scope.uploads.ringtone_file[ring].size)
+        }
+        setTimeout(function () {
+          $scope.$apply()
+          $(".model-container .ringtone_file-select").selectpicker("refresh")
+        }, 100)
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    // get backgrounds for background file upload
+    $scope.getBackgrounds = function () {
+      ModelService.getBackground().then(function (res) {
+        $scope.uploads.background_file = res.data
+        for (let ring in $scope.uploads.background_file) {
+          $scope.uploads.background_file[ring].size = $scope.formatBytes($scope.uploads.background_file[ring].size)
+        }
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    // reload background for background file upload
+    $scope.reloadBackgroundsList = function () {
+      ModelService.getBackground().then(function (res) {
+        $scope.uploads.background_file = res.data
+        for (let ring in $scope.uploads.background_file) {
+          $scope.uploads.background_file[ring].size = $scope.formatBytes($scope.uploads.background_file[ring].size)
+        }
+        setTimeout(function () {
+          $scope.$apply()
+          $(".model-container .background_file-select").selectpicker("refresh")
+        }, 100)
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    // get screensavers for screensaver file upload
+    $scope.getScreensavers = function () {
+      ModelService.getScreensaver().then(function (res) {
+        $scope.uploads.screensaver_file = res.data
+        for (let screen in $scope.uploads.screensaver_file) {
+          $scope.uploads.screensaver_file[screen].size = $scope.formatBytes($scope.uploads.screensaver_file[screen].size)
+        }
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    // reload screensavers for background file upload
+    $scope.reloadScreensaversList = function () {
+      ModelService.getScreensaver().then(function (res) {
+        $scope.uploads.screensaver_file = res.data
+        for (let screen in $scope.uploads.screensaver_file) {
+          $scope.uploads.screensaver_file[screen].size = $scope.formatBytes($scope.uploads.screensaver_file[screen].size)
+        }
+        setTimeout(function () {
+          $scope.$apply()
+          $(".model-container .screensaver_file-select").selectpicker("refresh")
         }, 100)
       }, function (err) {
         console.log(err)
@@ -730,33 +836,6 @@ angular.module('nethvoiceWizardUiApp')
         keys.items[0].keysIndexes = indexes;
         return keys;
       }
-    }
-
-    // upload
-    $scope.getFirmwares = function () {
-      ModelService.getFirmwares().then(function (res) {
-        $scope.firmwares = res.data
-        for (let firm in $scope.firmwares) {
-          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
-        }
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
-    $scope.reloadFirmwaresList = function () {
-      ModelService.getFirmwares().then(function (res) {
-        $scope.firmwares = res.data
-        for (let firm in $scope.firmwares) {
-          $scope.firmwares[firm].size = $scope.formatBytes($scope.firmwares[firm].size)
-        }
-        setTimeout(function () {
-          $scope.$apply()
-          $(".model-container .firmware-select").selectpicker("refresh")
-        }, 100)
-      }, function (err) {
-        console.log(err)
-      })
     }
 
     $scope.$on('curentModelSaved', function() { 

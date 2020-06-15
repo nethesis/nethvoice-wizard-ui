@@ -12,35 +12,75 @@ angular.module('nethvoiceWizardUiApp')
   .service('GenericPhoneService', function (GenericPhoneUtilsService) {
 
     this.map = function (variables) {
-
       let softkey_count = parseInt(variables.cap_softkey_count),
-          softkey_type_blacklist = variables.cap_softkey_type_blacklist,
+          softkey_type_blacklist = variables.cap_softkey_type_blacklist ? variables.cap_softkey_type_blacklist.split(",") : "",
           linekey_count = parseInt(variables.cap_linekey_count),
-          linekey_type_blacklist = variables.linekey_type_blacklist,
+          linekey_type_blacklist = variables.linekey_type_blacklist ? variables.linekey_type_blacklist.split(",") : "",
           expmodule_count = parseInt(variables.cap_expmodule_count),
           expkey_count = parseInt(variables.cap_expkey_count),
-          expkey_type_blacklist = variables.cap_expkey_type_blacklist,
-          hidden_date_formats = variables.cap_date_format_blacklist,
-          hidden_dss_transfer = variables.cap_dss_transfer_blacklist,
-          hidden_ldap_tls = variables.cap_ldap_tls_blacklist
+          expkey_type_blacklist = variables.cap_expkey_type_blacklist ? variables.cap_expkey_type_blacklist.split(",") : "",
+          date_formats_blacklist = variables.cap_date_format_blacklist ? variables.cap_date_format_blacklist.split(",") : "",
+          dss_transfer_blacklist = variables.cap_dss_transfer_blacklist ? variables.cap_dss_transfer_blacklist.split(",") : "",
+          ldap_tls_blacklist = variables.cap_ldap_tls_blacklist ? variables.cap_ldap_tls_blacklist.split(",") : "",
+          ringtone_blacklist = variables.cap_ringtone_blacklist ? variables.cap_ringtone_blacklist.split(",") : "",
+          ringtone_count = variables.cap_ringtone_count,
+          background_cap = variables.cap_background_file,
+          screensaver_cap = variables.cap_screensaver_file,
+          backlight_time_blacklist = variables.cap_backlight_time_blacklist ? variables.cap_backlight_time_blacklist.split(",") : "",
+          screensaver_time_blacklist = variables.cap_screensaver_time_blacklist ? variables.cap_screensaver_time_blacklist.split(",") : "",
+          contrast_cap = variables.cap_contrast,
+          brightness_cap = variables.cap_brightness
 
       return {
         "general": {
           "settings": true,
           "password": true,
-          "hidden_dateformat": hidden_date_formats
+          "date_format": {
+            "blacklist":  date_formats_blacklist
+          }
         },
         "network": {},
         "preferences": {
-          "ringtone": true,
-          "display": true,
-          "wallpaper": true,
-          "screensaver": true,
-          "hidden_dsstransfer": hidden_dss_transfer
+          "dss_transfer": {
+            "blacklist": dss_transfer_blacklist
+          }
+        },
+        "displayAndRingtones": {
+          "ringtone": {
+            "blacklist": ringtone_blacklist,
+            "count": parseInt(ringtone_count) + 2,
+            "startfrom": -1
+          },
+          "background_file": {
+            "visible": background_cap == "1" ? true : false // set false to hide the variable
+          },
+          "screensaver_file": {
+            "visible": screensaver_cap == "1" ? true : false
+          },
+          "backlight_time": {
+            "blacklist": backlight_time_blacklist,
+            "visible": backlight_time_blacklist.length == 16 ? false : true
+          },
+          "screensaver_time": {
+            "blacklist": screensaver_time_blacklist,
+            "visible": screensaver_time_blacklist.length == 16 ? false : true
+          },
+          "contrast": {
+            "count": 10,
+            "startfrom": 0,
+            "visible": contrast_cap == "1" ? true : false
+          },
+          "brightness": {
+            "count": 10,
+            "startfrom": 0,
+            "visible": brightness_cap == "1" ? true : false
+          }
         },
         "phonebook": {
           "ldap": true,
-          "hidden_ldap_tls": hidden_ldap_tls
+          "ldap_tls": {
+            "blacklist": ldap_tls_blacklist
+          }
         },
         "provisioning": {
           "provisioning": true
@@ -53,7 +93,6 @@ angular.module('nethvoiceWizardUiApp')
             }
           ],
           "hidden_types": softkey_type_blacklist,
-          "hidden_variables": ""
         },
         "lineKeys": {
           "intervals": [
@@ -63,7 +102,6 @@ angular.module('nethvoiceWizardUiApp')
             }
           ],
           "hidden_types": linekey_type_blacklist,
-          "hidden_variables": ""
         },
         "expansionKeys":  {
           "modules": expmodule_count,
@@ -75,20 +113,196 @@ angular.module('nethvoiceWizardUiApp')
             }
           ],
           "hidden_types": expkey_type_blacklist,
-          "hidden_variables": ""
         }
       }
     }
 
-    this.preferences = function (modelMap) {
+    this.displayAndRingtones = function () {
+      return {
+        "name":"Display and ringtone",
+        "items": [
+          {
+            "variable": "ringtone",
+            "description": "Ringtone selection",
+            "type": "dinamycselectpicker"
+          },
+          {
+            "variable": "ringtone_file",
+            "description": "Custom ringtone management",
+            "type": "upload"
+          },
+          {
+            "variable": "background_file",
+            "description": "Background image",
+            "type": "upload"
+          },
+          {
+            "variable": "screensaver_file",
+            "description": "Screensaver image",
+            "type": "upload"
+          },
+          {
+            "variable": "backlight_time",
+            "description": "Backlight timeout",
+            "type": "selectpicker",
+            "options": [
+              {
+                "text": "3 seconds",
+                "value": "3"
+              },
+              {
+                "text": "5 seconds",
+                "value": "5"
+              },
+              {
+                "text": "7 seconds",
+                "value": "7"
+              },
+              {
+                "text": "10 seconds",
+                "value": "10"
+              },
+              {
+                "text": "15 seconds",
+                "value": "15"
+              },
+              {
+                "text": "30 seconds",
+                "value": "30"
+              },
+              {
+                "text": "1 minute",
+                "value": "60"
+              },
+              {
+                "text": "2 minutes",
+                "value": "120"
+              },
+              {
+                "text": "5 minutes",
+                "value": "300"
+              },
+              {
+                "text": "10 minutes",
+                "value": "600"
+              },
+              {
+                "text": "20 minutes",
+                "value": "1200"
+              },
+              {
+                "text": "30 minutes",
+                "value": "1800"
+              },
+              {
+                "text": "40 minutes",
+                "value": "2400"
+              },
+              {
+                "text": "50 minutes",
+                "value": "3000"
+              },
+              {
+                "text": "1 hour",
+                "value": "3600"
+              },
+              {
+                "text": "Always on",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "variable": "screensaver_time",
+            "description": "Screensaver timeout",
+            "type": "selectpicker",
+            "options": [
+              {
+                "text": "3 seconds",
+                "value": "3"
+              },
+              {
+                "text": "5 seconds",
+                "value": "5"
+              },
+              {
+                "text": "7 seconds",
+                "value": "7"
+              },
+              {
+                "text": "10 seconds",
+                "value": "10"
+              },
+              {
+                "text": "15 seconds",
+                "value": "15"
+              },
+              {
+                "text": "30 seconds",
+                "value": "30"
+              },
+              {
+                "text": "1 minute",
+                "value": "60"
+              },
+              {
+                "text": "2 minutes",
+                "value": "120"
+              },
+              {
+                "text": "5 minutes",
+                "value": "300"
+              },
+              {
+                "text": "10 minutes",
+                "value": "600"
+              },
+              {
+                "text": "20 minutes",
+                "value": "1200"
+              },
+              {
+                "text": "30 minutes",
+                "value": "1800"
+              },
+              {
+                "text": "40 minutes",
+                "value": "2400"
+              },
+              {
+                "text": "50 minutes",
+                "value": "3000"
+              },
+              {
+                "text": "1 hour",
+                "value": "3600"
+              },
+              {
+                "text": "Disabled",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "variable": "contrast",
+            "description": "Display contrast",
+            "type": "dinamycselectpicker"
+          },
+          {
+            "variable": "brightness",
+            "description": "Display brightness",
+            "type": "dinamycselectpicker"
+          }
+        ]
+      }
+    }
 
+    this.preferences = function (modelMap) {
       if (!(modelMap.general.settings || modelMap.general.password)) {
         return;
       }
-
       var settingsItems = []
       var passwordItems = []
-
       if (modelMap.general.settings) {
         settingsItems = [
           {
@@ -99,7 +313,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "provisioning_freq",
             "description": "Provisioning scheduling",
-            "type": "list",
+            "type": "selectpicker",
             "options": [
               {
                 "text": "everyday",
@@ -114,7 +328,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "dss_transfer",
             "description": "Line keys transfer mode",
-            "type": "list",
+            "type": "selectpicker",
             "options": [
               {
                 "text": "New Call",
@@ -133,25 +347,25 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "language",
             "description": "Phone language",
-            "type": "list",
+            "type": "selectpicker",
             "options": GenericPhoneUtilsService.getLanguages()
           },
           {
             "variable": "timezone",
             "description": "Time zone",
-            "type": "list",
+            "type": "bigcombobox",
             "options": GenericPhoneUtilsService.getTimeZones()
           },
           {
             "variable": "tonezone",
             "description": "Tone zone",
-            "type": "list",
+            "type": "selectpicker",
             "options": GenericPhoneUtilsService.getToneZones()
           },
           {
             "variable": "time_format",
             "description": "Time format",
-            "type": "list",
+            "type": "selectpicker",
             "options": [
               {
                 "text": "12-hour",
@@ -166,13 +380,13 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "date_format",
             "description": "Date format",
-            "type": "list",
+            "type": "selectpicker",
             "options": GenericPhoneUtilsService.getDateFormat()
           },
           {
             "variable": "firmware_file",
             "description": "Firmware",
-            "type": "firmware"
+            "type": "upload"
           }
         ]
       }
@@ -181,451 +395,6 @@ angular.module('nethvoiceWizardUiApp')
         "items": settingsItems.concat(passwordItems)
       }
     }
-
-    // this.preferences_OLD = function (modelMap) {
-     
-    //   if (!(modelMap.preferences.ringtone || modelMap.preferences.display || modelMap.preferences.wallpaper || modelMap.preferences.screensaver)) {
-    //     return;
-    //   }
-
-    //   var ringtoneItems = [];
-    //   var displayItems = [];
-    //   var wallpaperItems = [];
-    //   var screensaverItems = [];
-
-    //   if (modelMap.preferences.ringtone) {
-    //     ringtoneItems = [
-    //       {
-    //         "variable": "default_ringtone",
-    //         "description": "Default Ringtone",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "Common",
-    //             "value": "Common"
-    //           },
-    //           {
-    //             "text": "Ring1",
-    //             "value": "Ring1.wav"
-    //           },
-    //           {
-    //             "text": "Ring2",
-    //             "value": "Ring2.wav"
-    //           },
-    //           {
-    //             "text": "Ring3",
-    //             "value": "Ring3.wav"
-    //           },
-    //           {
-    //             "text": "Ring4",
-    //             "value": "Ring4.wav"
-    //           },
-    //           {
-    //             "text": "Ring5",
-    //             "value": "Ring5.wav"
-    //           },
-    //           {
-    //             "text": "Ring6",
-    //             "value": "Ring6.wav"
-    //           },
-    //           {
-    //             "text": "Ring7",
-    //             "value": "Ring7.wav"
-    //           },
-    //           {
-    //             "text": "Ring8",
-    //             "value": "Ring8.wav"
-    //           },
-    //           {
-    //             "text": "Silent",
-    //             "value": "Silent.wav"
-    //           },
-    //           {
-    //             "text": "Splash",
-    //             "value": "Splash.wav"
-    //           },
-    //         ]
-    //       },
-    //       {
-    //         "variable": "ringtone_url", //// todo upload
-    //         "description": "Ringtone URL",
-    //         "type": "input"
-    //       },
-    //     ]
-    //   }
-
-    //   if (modelMap.preferences.display) {
-    //     displayItems = [
-    //       {
-    //         "variable": "lcd_logo_mode",
-    //         "description": "LCD Logo Mode",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "Common",
-    //             "value": "Common"
-    //           },
-    //           {
-    //             "text": "Ring1",
-    //             "value": "Ring1.wav"
-    //           },
-    //           {
-    //             "text": "Ring2",
-    //             "value": "Ring2.wav"
-    //           },
-    //           {
-    //             "text": "Ring3",
-    //             "value": "Ring3.wav"
-    //           },
-    //           {
-    //             "text": "Ring4",
-    //             "value": "Ring4.wav"
-    //           },
-    //           {
-    //             "text": "Ring5",
-    //             "value": "Ring5.wav"
-    //           },
-    //           {
-    //             "text": "Ring6",
-    //             "value": "Ring6.wav"
-    //           },
-    //           {
-    //             "text": "Ring7",
-    //             "value": "Ring7.wav"
-    //           },
-    //           {
-    //             "text": "Ring8",
-    //             "value": "Ring8.wav"
-    //           },
-    //           {
-    //             "text": "Silent",
-    //             "value": "Silent.wav"
-    //           },
-    //           {
-    //             "text": "Splash",
-    //             "value": "Splash.wav"
-    //           },
-    //         ]
-    //       },
-    //       {
-    //         "variable": "lcd_logo_url",
-    //         "description": "LCD Logo URL", //// todo upload
-    //         "type": "input"
-    //       },
-    //       {
-    //         "variable": "contrast",
-    //         "description": "Contrast",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "1",
-    //             "value": "1"
-    //           },
-    //           {
-    //             "text": "2",
-    //             "value": "2"
-    //           },
-    //           {
-    //             "text": "3",
-    //             "value": "3"
-    //           },
-    //           {
-    //             "text": "4",
-    //             "value": "4"
-    //           },
-    //           {
-    //             "text": "5",
-    //             "value": "5"
-    //           },
-    //           {
-    //             "text": "6",
-    //             "value": "6"
-    //           },
-    //           {
-    //             "text": "7",
-    //             "value": "7"
-    //           },
-    //           {
-    //             "text": "8",
-    //             "value": "8"
-    //           },
-    //           {
-    //             "text": "9",
-    //             "value": "9"
-    //           },
-    //           {
-    //             "text": "10",
-    //             "value": "10"
-    //           }
-    //         ]
-    //       },
-    //       {
-    //         "variable": "backlight_time",
-    //         "description": "Backlight Time",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "Always on",
-    //             "value": "0"
-    //           },
-    //           {
-    //             "text": "Always off",
-    //             "value": "1"
-    //           },
-    //           {
-    //             "text": "15s",
-    //             "value": "15"
-    //           },
-    //           {
-    //             "text": "30s",
-    //             "value": "30"
-    //           },
-    //           {
-    //             "text": "1min",
-    //             "value": "60"
-    //           },
-    //           {
-    //             "text": "2min",
-    //             "value": "120"
-    //           },
-    //           {
-    //             "text": "5min",
-    //             "value": "300"
-    //           },
-    //           {
-    //             "text": "10min",
-    //             "value": "600"
-    //           },
-    //           {
-    //             "text": "30min",
-    //             "value": "1800"
-    //           }
-    //         ]
-    //       },
-    //       {
-    //         "variable": "inactive_backlight_level",
-    //         "description": "Inactive Backlight Level",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "Off",
-    //             "value": "0"
-    //           },
-    //           {
-    //             "text": "Low",
-    //             "value": "1"
-    //           }
-    //         ]
-    //       },
-
-    //       {
-    //         "variable": "active_backlight_level",
-    //         "description": "Active Backlight Level",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "1",
-    //             "value": "1"
-    //           },
-    //           {
-    //             "text": "2",
-    //             "value": "2"
-    //           },
-    //           {
-    //             "text": "3",
-    //             "value": "3"
-    //           },
-    //           {
-    //             "text": "4",
-    //             "value": "4"
-    //           },
-    //           {
-    //             "text": "5",
-    //             "value": "5"
-    //           },
-    //           {
-    //             "text": "6",
-    //             "value": "6"
-    //           },
-    //           {
-    //             "text": "7",
-    //             "value": "7"
-    //           },
-    //           {
-    //             "text": "8",
-    //             "value": "8"
-    //           },
-    //           {
-    //             "text": "9",
-    //             "value": "9"
-    //           },
-    //           {
-    //             "text": "10",
-    //             "value": "10"
-    //           }
-    //         ]
-    //       }
-    //     ];
-    //   }
-
-    //   if (modelMap.preferences.wallpaper) {
-    //     wallpaperItems = [
-    //       {
-    //         "variable": "wallpaper",
-    //         "description": "Wallpaper",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "Default.jpg",
-    //             "value": "Default.jpg"
-    //           },
-    //           {
-    //             "text": "Default.png",
-    //             "value": "Default.png"
-    //           },
-    //           {
-    //             "text": "01.jpg",
-    //             "value": "01.jpg"
-    //           },
-    //           {
-    //             "text": "01.png",
-    //             "value": "01.png"
-    //           },
-    //           {
-    //             "text": "02.jpg",
-    //             "value": "02.jpg"
-    //           },
-    //           {
-    //             "text": "02.png",
-    //             "value": "02.png"
-    //           },
-    //           {
-    //             "text": "03.jpg",
-    //             "value": "03.jpg"
-    //           },
-    //           {
-    //             "text": "03.png",
-    //             "value": "03.png"
-    //           },
-    //           {
-    //             "text": "04.jpg",
-    //             "value": "04.jpg"
-    //           },
-    //           {
-    //             "text": "04.png",
-    //             "value": "04.png"
-    //           },
-    //           {
-    //             "text": "05.jpg",
-    //             "value": "05.jpg"
-    //           },
-    //           {
-    //             "text": "05.png",
-    //             "value": "05.png"
-    //           },
-    //         ]
-    //       },
-    //       {
-    //         "variable": "wallpaperurl", //// todo upload
-    //         "description": "Wallpaper URL",
-    //         "type": "input"
-    //       },
-    //     ];
-    //   }
-
-    //   if (modelMap.preferences.screensaver) {
-    //     screensaverItems = [
-    //       {
-    //         "variable": "screensaver_mode",
-    //         "description": "Screensaver Mode",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "System",
-    //             "value": "0"
-    //           },
-    //           {
-    //             "text": "Custom",
-    //             "value": "1"
-    //           },
-    //           {
-    //             "text": "Server XML",
-    //             "value": "2"
-    //           },
-    //           {
-    //             "text": "Clock (VP59 / T58A)",
-    //             "value": "0"
-    //           },
-    //           {
-    //             "text": "Colours (VP59 / T58A)",
-    //             "value": "1"
-    //           },
-    //           {
-    //             "text": "Photo Frame (VP59 / T58A)",
-    //             "value": "2"
-    //           },
-    //           {
-    //             "text": "Photo Table (VP59 / T58A)",
-    //             "value": "3"
-    //           },
-    //         ]
-    //       },
-    //       {
-    //         "variable": "screesaver_url", //// todo upload
-    //         "description": "Screensaver URL",
-    //         "type": "input"
-    //       },
-    //       {
-    //         "variable": "screensaver_wait_time",
-    //         "description": "Screensaver Wait Time",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "15s",
-    //             "value": "15"
-    //           },
-    //           {
-    //             "text": "30s",
-    //             "value": "30"
-    //           },
-    //           {
-    //             "text": "1min",
-    //             "value": "60"
-    //           },
-    //           {
-    //             "text": "2min",
-    //             "value": "120"
-    //           },
-    //           {
-    //             "text": "5min",
-    //             "value": "300"
-    //           },
-    //           {
-    //             "text": "10min",
-    //             "value": "600"
-    //           },
-    //           {
-    //             "text": "30min",
-    //             "value": "1800"
-    //           },
-    //           {
-    //             "text": "1h",
-    //             "value": "3600"
-    //           },
-    //           {
-    //             "text": "2h",
-    //             "value": "7200"
-    //           }
-    //         ]
-    //       }
-    //     ];
-    //   }
-
-    //   return {
-    //     "name": "Preferences",
-    //     "items": ringtoneItems.concat(displayItems).concat(wallpaperItems).concat(screensaverItems)
-    //   }
-    // }
     
     this.network = function (modelMap) {
       return {
@@ -674,7 +443,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "ldap_tls",
             "description": "ldap_tls",
-            "type": "list",
+            "type": "selectpicker",
             "options": [
               {
                 "text": "ldap_tls_none",
@@ -739,77 +508,6 @@ angular.module('nethvoiceWizardUiApp')
       }
     }
 
-    // this.provisioning = function (modelMap) {
-    //   if (!modelMap.provisioning.provisioning) {
-    //     return;
-    //   }
-
-    //   return {
-    //     "name": "Provisioning",
-    //     "items": [
-    //       {
-    //         "variable": "dhcp_enable",
-    //         "description": "DHCP Active",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "Off",
-    //             "value": "0"
-    //           },
-    //           {
-    //             "text": "On",
-    //             "value": "1"
-    //           }
-    //         ]
-    //       },
-    //       {
-    //         "variable": "weekly_enable",
-    //         "description": "Weekly Provisioning",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "Off",
-    //             "value": "0"
-    //           },
-    //           {
-    //             "text": "On",
-    //             "value": "1"
-    //           }
-    //         ]
-    //       },
-    //       {
-    //         "variable": "weekly_dayofweek",
-    //         "description": "Weekly Provisioning Days of Week",
-    //         "type": "input"
-    //       },
-    //       {
-    //         "variable": "weekly_begin_time",
-    //         "description": "Weekly Begin Time",
-    //         "type": "time"
-    //       },
-    //       {
-    //         "variable": "weekly_end_time",
-    //         "description": "Weekly End Time",
-    //         "type": "time"
-    //       },
-    //       {
-    //         "variable": "pnp_enable",
-    //         "description": "Plug and Play (PnP)",
-    //         "type": "list",
-    //         "options": [
-    //           {
-    //             "text": "Off",
-    //             "value": "0"
-    //           },
-    //           {
-    //             "text": "On",
-    //             "value": "1"
-    //           }
-    //         ]
-    //       }
-    //     ]
-    //   }
-    // }
 
     this.softKeys = function (modelMap) {
 

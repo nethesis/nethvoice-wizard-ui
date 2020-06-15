@@ -206,4 +206,97 @@ angular.module('nethvoiceWizardUiApp')
         })
       })
     }
+
+    // ringtone
+    this.getRingtone = function () {
+      return $q(function (resolve, reject) {
+        RestService.tget('/tancredi/api/v1/ringtones').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.uploadRingtone = function (file, progressCallback) {
+      return $q(function (resolve, reject) {
+        RestService.tupload('/tancredi/api/v1/ringtones', file, progressCallback).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.deleteRingtone = function (filename) {
+      return $q(function (resolve, reject) {
+        RestService.tdelete('/tancredi/api/v1/ringtones/' + filename).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    // background
+    this.getBackground = function () {
+      return $q(function (resolve, reject) {
+        RestService.tget('/tancredi/api/v1/backgrounds').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.uploadBackground = function (file, progressCallback) {
+      return $q(function (resolve, reject) {
+        RestService.tupload('/tancredi/api/v1/backgrounds', file, progressCallback).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.deleteBackground = function (filename) {
+      return $q(function (resolve, reject) {
+        RestService.tdelete('/tancredi/api/v1/backgrounds/' + filename).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    // background
+    this.getScreensaver = function () {
+      return $q(function (resolve, reject) {
+        RestService.tget('/tancredi/api/v1/screensavers').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.uploadScreensaver = function (file, progressCallback) {
+      return $q(function (resolve, reject) {
+        RestService.tupload('/tancredi/api/v1/screensavers', file, progressCallback).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.deleteScreensaver = function (filename) {
+      return $q(function (resolve, reject) {
+        RestService.tdelete('/tancredi/api/v1/screensavers/' + filename).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
   })
