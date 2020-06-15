@@ -912,5 +912,16 @@
   "10 minutes": "10 minuti",
   "20 minutes": "20 minuti",
   "40 minutes": "40 minuti",
-  "50 minutes": "50 minuti"
+  "50 minutes": "50 minuti",
+  "Background image": "Immagine di sfondo",
+  "Screensaver image": "Immagine screensaver",
+  "Backlight timeout": "Spegnimento illuminazione",
+  "Screensaver timeout": "Avvio screensaver",
+  "Display contrast": "Contrasto schermo",
+  "Display brightness": "Luminosità schermo",
+  "Ringtone selection": "Selezione suoneria",
+  "Custom ringtone management": "Gestione suoneria personalizzata",
+  "The changes are not saved yet": "Le modifiche non sono ancora state salvate",
+  "Cancel and save the changes or continue without saving": "Annulla e salva le modifiche oppure continua senza salvare",
+  "Changes not saved": "Modifiche non salvate"
 }

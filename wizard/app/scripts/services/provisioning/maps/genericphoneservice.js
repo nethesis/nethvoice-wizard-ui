@@ -121,27 +121,27 @@ angular.module('nethvoiceWizardUiApp')
         "items": [
           {
             "variable": "ringtone",
-            "description": "Builtin ringtone",
+            "description": "Ringtone selection",
             "type": "dinamycselectpicker"
           },
           {
             "variable": "ringtone_file",
-            "description": "Custom ringtone",
+            "description": "Custom ringtone management",
             "type": "upload"
           },
           {
             "variable": "background_file",
-            "description": "Display background",
+            "description": "Background image",
             "type": "upload"
           },
           {
             "variable": "screensaver_file",
-            "description": "Display screensaver",
+            "description": "Screensaver image",
             "type": "upload"
           },
           {
             "variable": "backlight_time",
-            "description": "Backlight time",
+            "description": "Backlight timeout",
             "type": "selectpicker",
             "options": [
               {
@@ -212,7 +212,7 @@ angular.module('nethvoiceWizardUiApp')
           },
           {
             "variable": "screensaver_time",
-            "description": "Screensaver time",
+            "description": "Screensaver timeout",
             "type": "selectpicker",
             "options": [
               {

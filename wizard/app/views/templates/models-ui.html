@@ -385,7 +385,7 @@
                           <option value="null">-</option>
                           <!-- selectpicker -->
                           <option
-                            ng-selected="currentModel.variables[item.variable] == $index - 1"
+                            ng-selected="currentModel.variables[item.variable] == ($index + currentModel.ui.map[sectionkey][item.variable].startfrom)"
                             ng-repeat="option in ::[] | range: toInt(currentModel.ui.map[sectionkey][item.variable].count) | blacklistFilterNoKeyDsp: currentModel.ui.map[sectionkey][item.variable].blacklist track by $index"
                             parentid="{{sectionkey}}-{{item.variable}}"
                             value="{{$index + currentModel.ui.map[sectionkey][item.variable].startfrom}}"
