@@ -26,7 +26,7 @@ angular.module('nethvoiceWizardUiApp')
           ringtone_count = variables.cap_ringtone_count,
           background_cap = variables.cap_background_file,
           screensaver_cap = variables.cap_screensaver_file,
-          backlight_time_blacklist = variables.cap_backlight_time_blacklist ? variables.cap_ldap_tls_blacklist.split(",").split(",") : "",
+          backlight_time_blacklist = variables.cap_backlight_time_blacklist ? variables.cap_backlight_time_blacklist.split(",").split(",") : "",
           screensaver_time_blacklist = variables.cap_screensaver_time_blacklist ? variables.cap_screensaver_time_blacklist.split(",") : "",
           contrast_cap = variables.cap_contrast,
           brightness_cap = variables.cap_brightness
@@ -117,7 +117,7 @@ angular.module('nethvoiceWizardUiApp')
 
     this.displayAndRingtones = function () {
       return {
-        "name":"Display & Ringtones",
+        "name":"Display and ringtone",
         "items": [
           {
             "variable": "ringtone",

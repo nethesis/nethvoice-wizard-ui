@@ -154,7 +154,7 @@ angular.module('nethvoiceWizardUiApp')
       if (varName == "ringtone") {
         setTimeout(function () {
           $scope.$apply()
-          $(".model-container .ringtone-select").selectpicker("refresh")
+          $(".model-container .ringtone_file-select").selectpicker("refresh")
         }, 100)
       }
       $scope.$emit('variableChanged')
