@@ -11,7 +11,7 @@ angular.module('nethvoiceWizardUiApp')
     return {
       restrict: 'A',
       link: function (scope, element, attr) {
-        if (scope.$last === true) {
+        if (scope.$last === true || attr.forcerendering) {
           $timeout(function () {
             $rootScope.$emit(attr.onFinishRenderRevised, attr.parentid)
           })

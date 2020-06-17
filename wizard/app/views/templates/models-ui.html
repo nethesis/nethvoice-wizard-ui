@@ -394,23 +394,31 @@
                         </select>
                       </div>
                       <!-- upload -->
-                      <div ng-if="item.type == 'upload'" class="input-group display-flex rm-first-option">
+                      <div ng-if="item.type == 'upload'" class="input-group display-flex rm-first-option hidden">
                         <select
-                          id="{{sectionkey}}-{{$index}}"
+                          id="{{sectionkey}}-{{item.variable}}"
                           class="selectpicker {{item.variable}}-select"
                           title="-"
                           ng-model="currentModel.variables[item.variable]"
                           ng-change="onVariableChanged(item.variable, item.type)"
                           ng-disabled="item.variable == 'ringtone_file' && !(toInt(currentModel.variables['ringtone']) === -1)"
                           autocomplete="off">
-                          <option value="" ng-disabled="true" ng-hide="true">-</option>
-                          <option ng-if="!isEmpty(uploads[item.variable])" value="null">-</option>
-                          <option value="" ng-if="isEmpty(uploads[item.variable])" ng-disabled="true" on-finish-render="selectpickerRepeatEnd">{{"No files found" | translate}}</option>
+                          <option
+                            ng-if="!isEmpty(uploads[item.variable])"
+                            value="null">-</option>
+                          <option
+                            value=""
+                            ng-if="isEmpty(uploads[item.variable])"
+                            ng-disabled="true"
+                            parentid="{{sectionkey}}-{{item.variable}}"
+                            forcerendering="true"
+                            on-finish-render-revised="selectpickerRepeatEndRevised">{{"No files found" | translate}}</option>
                           <option
                             ng-selected="currentModel.variables[item.variable] == option.name"
                             ng-repeat="option in uploads[item.variable] track by $index"
                             value="{{option.name}}"
-                            on-finish-render="selectpickerRepeatEnd">{{option.name}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[item.variable] && !currentModel.singleVariables[item.variable] && currentModel.modelVariables[item.variable] == option.name ? ' (' + currentModel.display_name + ')' : currentModel.globals[item.variable] && !currentModel.storedVariables[item.variable] && currentModel.globals[item.variable] == option.name ? ' (default)' : ''}}</option>
+                            parentid="{{sectionkey}}-{{item.variable}}"
+                            on-finish-render-revised="selectpickerRepeatEndRevised">{{option.name}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[item.variable] && !currentModel.singleVariables[item.variable] && currentModel.modelVariables[item.variable] == option.name ? ' (' + currentModel.display_name + ')' : currentModel.globals[item.variable] && !currentModel.storedVariables[item.variable] && currentModel.globals[item.variable] == option.name ? ' (default)' : ''}}</option>
                         </select>
                         <button
                           tabindex="-1"
