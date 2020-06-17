@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.4.8
+Version: 14.4.9
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,13 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Wed Jun 17 2020 SebastianMB-IT <sebastian.besel@nethesis.it> - 14.4.9-1
+- Phone display and ringtone settings - nethesis/dev#5812
+- Fix variables values on ldap phonebook custom type select - nethesis/dev#5822
+- Add warning message on NAT settings save - nethesis/dev#5822
+- Show default settings button in models if models list is empty - nethesis/dev#5822
+- Enhance custom model display name on creation - nethesis/dev#5822
+
 * Tue Jun 09 2020 Stefano Fancello <stefano.fancello@nethesis.it> - 14.4.8-1
 - Tancredi admin password not used when creating a physicalextension - Bug nethesis/dev#5818
 - Provisioning ui enhancements - nethesis/dev#5822
