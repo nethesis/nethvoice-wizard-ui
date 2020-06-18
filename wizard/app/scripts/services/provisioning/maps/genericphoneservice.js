@@ -729,10 +729,10 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       return {
-        "name": "Expansion Keys",
+        "name": "expkeys_title",
         "items": [
           {
-            "description": "Expansion Key",
+            "description": "expkey_label",
             "type": "loop",
             "keys": modelMap.expansionKeys,
             "data": {

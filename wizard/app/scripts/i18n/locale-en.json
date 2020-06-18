@@ -132,5 +132,8 @@
   "it": "Italian",
   "never_prov_freq": "Only at startup",
   "everyday": "Every day",
+  "expkeys_module": "Module",
+  "expkeys_title": "Exp keys",
+  "expkey_label": "Exp key",
   "upload_invalid_filename": "The file name is not valid. It can only contain letters, numbers and the symbols _ - . ( ) "
 }
