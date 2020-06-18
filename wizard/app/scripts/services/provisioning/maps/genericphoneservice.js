@@ -587,7 +587,7 @@ angular.module('nethvoiceWizardUiApp')
                 },
                 {
                   "variable": "softkey_label",
-                  "description": "Label",
+                  "description": "progkey_label",
                   "type": "input"
                 }
               ]
@@ -711,7 +711,7 @@ angular.module('nethvoiceWizardUiApp')
                 },
                 {
                   "variable": "linekey_label",
-                  "description": "Label",
+                  "description": "progkey_label",
                   "type": "input"
                 }
               ]
@@ -831,7 +831,7 @@ angular.module('nethvoiceWizardUiApp')
                 },
                 {
                   "variable": "expkey_label",
-                  "description": "Label",
+                  "description": "progkey_label",
                   "type": "input"
                 }
               ]

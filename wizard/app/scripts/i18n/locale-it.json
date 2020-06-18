@@ -829,6 +829,7 @@
   "expkeys_title": "Exp key",
   "expkeys_module": "Modulo",
   "expkey_label": "Exp key",
+  "progkey_label": "Etichetta",
   "Time format": "Formato ora",
   "Date format": "Formato data",
   "Configuring phones in remote networks with encryption is not possible, the phones will only be able to connect from trusted networks": "La configurazione dei telefoni in reti remote con cifratura non è possibile, i telefoni potranno collegarsi solamente da reti fidate",
