@@ -327,19 +327,19 @@ angular.module('nethvoiceWizardUiApp')
           },
           {
             "variable": "dss_transfer",
-            "description": "Line keys transfer mode",
+            "description": "dss_transfer_label",
             "type": "selectpicker",
             "options": [
               {
-                "text": "New Call",
+                "text": "dss_transfer_verify_label",
                 "value": "verify"
               },
               {
-                "text": "Attended Transfer",
+                "text": "dss_transfer_attended_label",
                 "value": "attended"
               },
               {
-                "text": "Blind Transfer",
+                "text": "dss_transfer_blind_label",
                 "value": "blind"
               }
             ]
