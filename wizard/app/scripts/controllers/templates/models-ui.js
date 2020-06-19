@@ -9,7 +9,7 @@
  */
 
 angular.module('nethvoiceWizardUiApp')
-  .controller('ModelsUICtrl', function ($scope, $interval, $location, ModelService, PhoneService, $rootScope) {
+  .controller('ModelsUICtrl', function ($scope, $interval, $location, ModelService, PhoneService, UserService, $rootScope) {
 
     $scope.loadingAction = false
     $scope.selectedAction = ""
@@ -144,7 +144,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.currentModel.changePhonebookType = true
       }
       // sync inputs with variables
-      if (varType && varType != "list" && varType != "upload" && varType != "dinamycselectpicker") {
+      if (varType && varType != "list" && varType != "upload" && varType != "dynamicselectpicker") {
         $scope.currentModel.variables[varName] = angular.copy($scope.currentModel.inputs[varName])
       }
       // set single variables
@@ -413,8 +413,22 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    var getUsers = function () {
+      UserService.list(true).then(function (res) {
+        for (let user in res.data) {
+          if (res.data[user].default_extension == "none") {
+            res.data.splice(user, 1)
+          }
+        }
+        $scope.users = res.data
+      }, function (err) {
+        console.log(err)
+      });
+    }
+
     angular.element("#modelsUIUrl").ready(function () {
       getModelsInfoMsg()
+      getUsers()
       $scope.getFirmwares()
       $scope.getRingtones()
       $scope.getBackgrounds()
@@ -430,6 +444,47 @@ angular.module('nethvoiceWizardUiApp')
     $('#actionsModal').on('hidden.bs.modal', function () {
       $scope.modelErrors.resetChangesNotFound = false
       $scope.modelErrors.deleteChangesNotFound = false
+    })
+
+    // dynamicsearch
+
+    $scope.shownDynamicList = ""
+
+    $scope.openSearchList = function (variable) {
+      $scope.shownDynamicList = variable
+      $scope.dynamicSearchLimit = $scope.DYNAMIC_SCROLL_PAGE
+    }
+
+    $scope.applyDynamicSearch = function (variable, user) {
+      let arr = variable.split("_")
+      var variableValue = arr[0] + "_value_" + arr[2]
+      var variableLabel = arr[0] + "_label_" + arr[2]
+      $scope.currentModel.inputs[variableValue] = user.default_extension
+      $scope.currentModel.inputs[variableLabel] = user.displayname
+      $scope.shownDynamicList = ""
+      $scope.onVariableChanged(variableValue, "input")
+      $scope.onVariableChanged(variableLabel, "input")
+    }
+
+    $rootScope.$on("domclick" ,function (evt, data) {
+      if (!data.target.className.includes("dynamicsearch")) {
+        $scope.$apply(function () {
+          $scope.shownDynamicList = ""
+        })
+      }
+    })
+
+    $scope.DYNAMIC_SCROLL_PAGE = 6
+    $scope.dynamicSearchLimit = $scope.DYNAMIC_SCROLL_PAGE
+
+    var dynamicSearchScroll = function () {
+      $scope.dynamicSearchLimit += $scope.DYNAMIC_SCROLL_PAGE
+      $scope.$apply()
+    }
+    document.addEventListener('dynamicSearchScroll', dynamicSearchScroll)
+    
+    $scope.$on('$routeChangeStart', function() {
+      document.removeEventListener('dynamicSearchScroll', dynamicSearchScroll)
     })
 
   })

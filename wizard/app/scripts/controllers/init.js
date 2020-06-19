@@ -867,5 +867,9 @@ angular.module('nethvoiceWizardUiApp')
         $scope.ldapResDisabled = false
       }
     })
-    
+
+    document.body.addEventListener('click', function (evt) {
+      $rootScope.$broadcast("domclick", evt)
+    }, true);
+
   });
