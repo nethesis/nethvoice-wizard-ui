@@ -364,15 +364,15 @@ angular.module('nethvoiceWizardUiApp')
           },
           {
             "variable": "time_format",
-            "description": "Time format",
+            "description": "time_format_label",
             "type": "selectpicker",
             "options": [
               {
-                "text": "12-hour",
+                "text": "time_format_12h",
                 "value": "12"
               },
               {
-                "text": "24-hour",
+                "text": "time_format_24h",
                 "value": "24"
               }
             ]
