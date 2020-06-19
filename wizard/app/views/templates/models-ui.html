@@ -50,7 +50,7 @@
                           <div class="mt-20" ng-repeat="module in [] | range: item.keys.modules track by module">
                             <h2 ng-click="openExpKeys('expkeys-' + (module + 1), sectionkey)"
                               class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
-                                {{"Module" | translate}} <spam class="weight">{{module + 1}}</spam>
+                                {{"expkeys_module" | translate}} <spam class="weight">{{module + 1}}</spam>
                               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
                             </h2>
                             <div id="collapse-expkey-{{module}}"
