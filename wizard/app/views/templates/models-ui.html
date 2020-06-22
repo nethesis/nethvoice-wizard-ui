@@ -93,9 +93,46 @@
                                                 value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && !currentModel.singleVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == option.value ? ' (' + currentModel.display_name + ')' : ''}}</option>
                                             </select>
                                           </div>
+                                          <!-- dynamicsearch -->
+                                          <div ng-if="(key.variable.includes('value') && (currentModel.variables['expkey_type_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == 'blf'))">
+                                            <input
+                                              ng-model="currentModel.inputs[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)]"
+                                              ng-change="onVariableChanged(key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex), key.type)"
+                                              ng-focus="openSearchList(key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex))"
+                                              placeholder="{{currentModel.uiLocation == 'configurations' && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && !currentModel.singleVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] ? currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] + ' (' + currentModel.display_name + ')' : currentModel.globals[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] ? currentModel.globals[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] + ' (default)' : 'Search' | translate}}"
+                                              type="text"
+                                              autocomplete="off"
+                                              class="form-control dynamicsearch">
+                                            </input>
+                                            <div
+                                              ng-if="shownDynamicList == (key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex))"
+                                              class="dynamicsearch-list">
+                                              <div class="infotip bottom-right">
+                                                <div class="arrow"></div>
+                                                <ul class="list-group dynamicsearch-list-group">
+                                                  <li
+                                                    ng-repeat="user in filteredUsers=(users | customFilterMultiple:'username,displayname,default_extension':currentModel.inputs[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)]) | limitTo: dynamicSearchLimit"
+                                                    class="list-group-item dynamicsearch-item"
+                                                    ng-click="applyDynamicSearch((key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)), user, true)">
+                                                    <span class="dynamicsearch-label">{{user.displayname}} - {{user.default_extension}}</span>
+                                                  </li>
+                                                  <li 
+                                                    class="list-group-item dynamicsearch-item"
+                                                    ng-if="isEmpty(filteredUsers)">
+                                                    <span class="dynamicsearch-label cursive">
+                                                      {{"No users found" | translate}}
+                                                    </span>
+                                                  </li>
+                                                  <li class="h-0">
+                                                    <scrolling-sentinel event="dynamicSearchScroll"></scrolling-sentinel>
+                                                  </li>
+                                                </ul>
+                                              </div>
+                                            </div>
+                                          </div>
                                           <!-- input -->
                                           <input
-                                            ng-if="key.type == 'input'"
+                                            ng-if="key.type == 'input' && !(key.variable.includes('value') && (currentModel.variables['expkey_type_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == 'blf'))"
                                             ng-model="currentModel.inputs[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)]"
                                             ng-change="onVariableChanged(key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex), key.type)"
                                             placeholder="{{currentModel.uiLocation == 'configurations' && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && !currentModel.singleVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] ? currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] + ' (' + currentModel.display_name + ')' : currentModel.globals[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] ? currentModel.globals[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] + ' (default)' : ''}}"
@@ -105,7 +142,7 @@
                                           </input>
                                           <!-- time -->
                                           <input
-                                            ng-if="key.type == 'time'"
+                                            ng-if="key.type == 'time' && !(key.variable.includes('value') && (currentModel.variables['expkey_type_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == 'blf'))"
                                             ng-model="currentModel.inputs[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)]"
                                             ng-change="onVariableChanged(key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex), key.type)"
                                             placeholder="{{currentModel.uiLocation == 'configurations' && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && !currentModel.singleVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] ? currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] + ' (' + currentModel.display_name + ')' : currentModel.globals[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] ? currentModel.globals[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] + ' (default)' : 'HH:MM'}}"
@@ -114,7 +151,7 @@
                                             class="form-control">
                                           </input>
                                           <!-- password -->
-                                          <div ng-if="item.type == 'password'" class="input-group">
+                                          <div ng-if="item.type == 'password' && !(key.variable.includes('value') && (currentModel.variables['expkey_type_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == 'blf'))" class="input-group">
                                             <input
                                               ng-model="currentModel.inputs[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)]"
                                               ng-change="onVariableChanged(key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex), key.type)"
@@ -205,9 +242,46 @@
                                         value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[key.variable + '_' + keysIndex] && !currentModel.singleVariables[key.variable + '_' + keysIndex] && currentModel.modelVariables[key.variable + '_' + keysIndex] == option.value ? ' (' + currentModel.display_name + ')' : ''}}</option>
                                     </select>
                                   </div>
+                                  <!-- dynamicsearch -->
+                                  <div ng-if="(key.variable.includes('value') && (currentModel.variables['linekey_type_' + keysIndex] == 'blf' || currentModel.variables['softkey_type_' + keysIndex] == 'blf'))">
+                                    <input
+                                      ng-model="currentModel.inputs[key.variable + '_' + keysIndex]"
+                                      ng-change="onVariableChanged(key.variable + '_' + keysIndex, key.type)"
+                                      ng-focus="openSearchList(key.variable + '_' + keysIndex)"
+                                      placeholder="{{currentModel.uiLocation == 'configurations' && currentModel.modelVariables[key.variable + '_' + keysIndex] && !currentModel.singleVariables[key.variable + '_' + keysIndex] ? currentModel.modelVariables[key.variable + '_' + keysIndex] + ' (' + currentModel.display_name + ')' : currentModel.globals[key.variable + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + keysIndex] + ' (default)' : 'Search' | translate}}"
+                                      type="text"
+                                      autocomplete="off"
+                                      class="form-control dynamicsearch">
+                                    </input>
+                                    <div
+                                      ng-if="shownDynamicList == (key.variable + '_' + keysIndex)"
+                                      class="dynamicsearch-list">
+                                      <div class="infotip bottom-right">
+                                        <div class="arrow"></div>
+                                        <ul class="list-group dynamicsearch-list-group">
+                                          <li
+                                            ng-repeat="user in filteredUsers=(users | customFilterMultiple:'username,displayname,default_extension':currentModel.inputs[key.variable + '_' + keysIndex]) | limitTo: dynamicSearchLimit"
+                                            class="list-group-item dynamicsearch-item"
+                                            ng-click="applyDynamicSearch((key.variable + '_' + keysIndex), user)">
+                                            <span class="dynamicsearch-label">{{user.displayname}} - {{user.default_extension}}</span>
+                                          </li>
+                                          <li 
+                                            class="list-group-item dynamicsearch-item"
+                                            ng-if="isEmpty(filteredUsers)">
+                                            <span class="dynamicsearch-label cursive">
+                                              {{"No users found" | translate}}
+                                            </span>
+                                          </li>
+                                          <li class="h-0">
+                                            <scrolling-sentinel event="dynamicSearchScroll"></scrolling-sentinel>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <!-- input -->
                                   <input
-                                    ng-if="key.type == 'input'"
+                                    ng-if="key.type == 'input' && !(key.variable.includes('value') && (currentModel.variables['linekey_type_' + keysIndex] == 'blf' || currentModel.variables['softkey_type_' + keysIndex] == 'blf'))"
                                     ng-model="currentModel.inputs[key.variable + '_' + keysIndex]"
                                     ng-change="onVariableChanged(key.variable + '_' + keysIndex, key.type)"
                                     placeholder="{{currentModel.uiLocation == 'configurations' && currentModel.modelVariables[key.variable + '_' + keysIndex] && !currentModel.singleVariables[key.variable + '_' + keysIndex] ? currentModel.modelVariables[key.variable + '_' + keysIndex] + ' (' + currentModel.display_name + ')' : currentModel.globals[key.variable + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + keysIndex] + ' (default)' : '-'}}"
@@ -217,7 +291,7 @@
                                   </input>
                                   <!-- time -->
                                   <input
-                                    ng-if="key.type == 'time'"
+                                    ng-if="key.type == 'time' && !(key.variable.includes('value') && (currentModel.variables['linekey_type_' + keysIndex] == 'blf' || currentModel.variables['softkey_type_' + keysIndex] == 'blf'))"
                                     ng-model="currentModel.inputs[key.variable + '_' + keysIndex]"
                                     ng-change="onVariableChanged(key.variable + '_' + keysIndex, key.type)"
                                     placeholder="{{currentModel.uiLocation == 'configurations' && currentModel.modelVariables[key.variable + '_' + keysIndex] && !currentModel.singleVariables[key.variable + '_' + keysIndex] ? currentModel.modelVariables[key.variable + '_' + keysIndex] + ' (' + currentModel.display_name + ')' : currentModel.globals[key.variable + '_' + keysIndex] ? currentModel.globals[key.variable + '_' + keysIndex] + ' (default)' : 'HH:MM'}}"
@@ -226,7 +300,7 @@
                                     class="form-control">
                                   </input>
                                   <!-- password -->
-                                  <div ng-if="item.type == 'password'" class="input-group">
+                                  <div ng-if="item.type == 'password' && !(key.variable.includes('value') && (currentModel.variables['linekey_type_' + keysIndex] == 'blf' || currentModel.variables['softkey_type_' + keysIndex] == 'blf'))" class="input-group">
                                     <input
                                       ng-model="currentModel.inputs[key.variable + '_' + keysIndex]"
                                       ng-change="onVariableChanged(key.variable + '_' + keysIndex, key.type)"
@@ -371,14 +445,14 @@
                           <option ng-disabled="true" ng-if="item.variable == 'timezone' && selectOptionsLimit < item.options.length" value="loading">{{"Loading" | translate}}...</option>
                         </select>
                       </div>
-                      <!-- dinamycselectpicker -->
-                      <div ng-if="item.type == 'dinamycselectpicker'" class="hidden">
+                      <!-- dynamicselectpicker -->
+                      <div ng-if="item.type == 'dynamicselectpicker'" class="hidden">
                         <select
                           id="{{sectionkey}}-{{item.variable}}"
                           class="selectpicker form-control"
                           title="-"
                           ng-model="currentModel.variables[item.variable]"
-                          ng-change="onVariableChanged(item.variable, 'dinamycselectpicker')"
+                          ng-change="onVariableChanged(item.variable, 'dynamicselectpicker')"
                           ng-disabled="sectionkey == 'phonebook' && (modelPhonebookType == 'ldap' || modelPhonebookType == 'ldaps')"
                           autocomplete="off">
                           <option value="" ng-disabled="true" ng-hide="true">-</option>

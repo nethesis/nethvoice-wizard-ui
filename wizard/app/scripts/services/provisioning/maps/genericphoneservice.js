@@ -124,7 +124,7 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "ringtone",
             "description": "Ringtone selection",
-            "type": "dinamycselectpicker"
+            "type": "dynamicselectpicker"
           },
           {
             "variable": "ringtone_file",
@@ -286,12 +286,12 @@ angular.module('nethvoiceWizardUiApp')
           {
             "variable": "contrast",
             "description": "Display contrast",
-            "type": "dinamycselectpicker"
+            "type": "dynamicselectpicker"
           },
           {
             "variable": "brightness",
             "description": "Display brightness",
-            "type": "dinamycselectpicker"
+            "type": "dynamicselectpicker"
           }
         ]
       }
