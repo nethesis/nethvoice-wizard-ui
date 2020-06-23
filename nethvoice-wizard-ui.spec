@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.4.9
+Version: 14.4.10
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,11 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Tue Jun 23 2020 SebastianMB-IT <sebastian.besel@nethesis.it> - 14.4.10-1
+- Add users dynamic search in keys - nethesis/dev#5835
+- Add translations for dss_transfer and time_format (#116)
+- Fix Expansion keys labels (#115)
+
 * Wed Jun 17 2020 SebastianMB-IT <sebastian.besel@nethesis.it> - 14.4.9-1
 - Phone display and ringtone settings - nethesis/dev#5812
 - Fix variables values on ldap phonebook custom type select - nethesis/dev#5822
