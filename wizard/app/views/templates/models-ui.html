@@ -571,12 +571,12 @@
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
       <li role="presentation">
         <a class="{{!currentModel.changed ? 'disabled' : ''}}" ng-click="currentModel.changed ? openActionModal('cancel') : ''" role="menuitem">
-          {{"Reset to saved values" | translate}}
+          {{"Reset to saved settings" | translate}}
         </a>
       </li>
       <li ng-if="currentModel.hasOriginals" role="presentation">
         <a ng-click="openActionModal('reset')">
-          {{"Reset to original values" | translate}}
+          {{"Reset to original settings" | translate}}
         </a>
       </li>
       <li ng-if="!currentModel.hasOriginals" role="presentation" class="red-colored">
@@ -648,7 +648,7 @@
             {{"Cancel changes" | translate}}
           </h4>
           <h4 ng-if="selectedAction == 'reset'" class="modal-title" id="nModelMLabel">
-            {{"Reset changes" | translate}}
+            {{"Reset settings" | translate}}
           </h4>
           <h4 ng-if="selectedAction == 'delete'" class="modal-title" id="nModelMLabel">
             {{"Delete changes" | translate}}
@@ -679,13 +679,13 @@
             <div ng-if="loadingAction != 'ok'" class="alert alert-warning alert-dismissable">
               <span class="pficon pficon-warning-triangle-o"></span>
               <strong ng-if="selectedAction == 'cancel'">
-                {{"Changes on the current model will be canceled" | translate}}.
+                {{"Changes to the model" | translate}} {{currentModel.display_name}} {{"will be canceled" | translate}}.
               </strong>
               <strong ng-if="selectedAction == 'reset'">
-                {{"Changes on the current model will be reset to the original values" | translate}}.
+                {{"Setting of the model" | translate}} {{currentModel.display_name}} {{"will be reset to the original values" | translate}}.
               </strong>
               <strong ng-if="selectedAction == 'delete'">
-                {{"The current model will be deleted" | translate}}.
+                {{"The model" | translate}} {{currentModel.display_name}} {{"will be deleted" | translate}}.
               </strong>
               <p>
                 {{"Are you sure" | translate}}?
