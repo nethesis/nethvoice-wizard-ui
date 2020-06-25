@@ -207,26 +207,26 @@
       <div class="modal-body">
         <form class="form-horizontal">
           <div class="form-group">
-            <label class="col-sm-3 control-label">{{'Name' | translate}}:</label>
-            <div class="col-sm-9">
+            <label class="col-sm-4 control-label">{{'Name' | translate}}:</label>
+            <div class="col-sm-8">
               <label class="control-label">{{data.selExten.name !== '' ? data.selExten.name : '-'}}</label>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-3 control-label">{{'Model' | translate}}:</label>
-            <div class="col-sm-9">
+            <label class="col-sm-4 control-label">{{'User agent' | translate}}:</label>
+            <div class="col-sm-8">
               <label class="control-label">{{data.selExten.sipuseragent !== '' ? data.selExten.sipuseragent : '-'}}</label>
             </div>
           </div>
           <div ng-show="data.selExten.type.indexOf('webrtc') === -1" class="form-group">
-            <label class="col-sm-3 control-label">{{'Type' | translate}}:</label>
-            <div class="col-sm-9">
+            <label class="col-sm-4 control-label">{{'Type' | translate}}:</label>
+            <div class="col-sm-8">
               <label class="control-label">{{data.selExten.chanType !== '' ? data.selExten.chanType : '-'}}</label>
             </div>
           </div>
           <div ng-if="data.selExten.type.indexOf('webrtc') === -1" class="form-group">
-            <label class="col-sm-3 control-label">{{'IP Address' | translate}}:</label>
-            <div class="col-sm-9">
+            <label class="col-sm-4 control-label">{{'IP Address' | translate}}:</label>
+            <div class="col-sm-8">
               <label class="control-label">
                 <a target="_blank" ng-href="http://{{data.selExten.ip}}">{{data.selExten.ip !== '' ? data.selExten.ip : '-'}}</a>
               </label>

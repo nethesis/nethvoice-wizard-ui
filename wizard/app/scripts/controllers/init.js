@@ -63,6 +63,14 @@ angular.module('nethvoiceWizardUiApp')
       $scope.setRandomBackground();
     };
 
+    $scope.copyUrl = function () {
+      $scope.copiedUrl = true
+      setTimeout(function () {
+        $scope.copiedUrl = false
+        $scope.$apply()
+      }, 1000)
+    }
+
     $scope.isEmpty = function (obj) {
       for (var prop in obj) {
         return false;

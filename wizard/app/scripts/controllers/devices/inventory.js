@@ -828,14 +828,6 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    $scope.copyUrl = function () {
-      $scope.copiedUrl = true
-      setTimeout(function () {
-        $scope.copiedUrl = false
-        $scope.$apply()
-      }, 1000)
-    }
-
     // only for dev purposes
     $scope.deleteAllPhonesDev = function() {
       $scope.phones.forEach(function (phone) {

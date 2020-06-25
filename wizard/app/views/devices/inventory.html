@@ -575,9 +575,9 @@
             <label class="col-sm-4 control-label">{{'Provisioning URL' | translate}}:</label>
             <div class="col-sm-8">
               <div class="w-75">
-                <label class="control-label full-width">
+                <label class="control-label full-width left-align">
                   <button
-                    class="btn btn-default full-width"
+                    class="btn btn-default ml-10"
                     id="showurlbtn"
                     data-container="body"
                     data-toggle="popover"
@@ -587,14 +587,14 @@
                     {{"Show url" | translate}}
                   </button>
                 </label><br>
-                <label class="control-label mt-10 full-width">
+                <label class="control-label mt-10 full-width left-align">
                   <!-- <button
                     class="btn btn-primary full-width"
                     ng-click="copyToClipboard(urlToCopy)">
                     {{"Copy url" | translate}}
                   </button> -->
                   <clipboard-copy
-                    class="btn btn-primary full-width"
+                    class="btn btn-primary full-width ml-10"
                     value="{{urlToCopy}}"
                     ng-click="copyUrl()"
                     >

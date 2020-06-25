@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('ConfigurationsCtrl', function ($scope, ConfigurationService, ProfileService, ModelService, DeviceService, UserService, PhoneService, $timeout) {
+  .controller('ConfigurationsCtrl', function ($scope, $q, ConfigurationService, ProfileService, ModelService, DeviceService, UserService, PhoneService, DashboardService, $timeout) {
 
     $scope.view.changeRoute = true
     $scope.allUsers = []
@@ -598,6 +598,21 @@ angular.module('nethvoiceWizardUiApp')
       getAllDevices()
     })
 
+    $scope.openProvisioningInfo = function (mac, extension) {
+      $q.all([
+        PhoneService.getPhone(mac),
+        DashboardService.getExtension(extension)
+      ]).then(function (res) {
+        $scope.currentPhoneInfo = res[0].data
+        $scope.urlToCopy = res[0].data.provisioning_url1 ? res[0].data.provisioning_url1 : res[0].data.provisioning_url2
+        $scope.currentPhoneInfo.model = res[1].data.sipuseragent
+        $scope.currentPhoneInfo.codecs = res[1].data.codecs.join()
+        $("#provisioningInfoModal").modal("show")
+      }, function (err) {
+        console.log(err);
+      });
+    }
+
     var scrollInventory = function () {
       $scope.$apply(function () {
         $scope.usersLimit += $scope.USERS_PAGE
@@ -630,10 +645,23 @@ angular.module('nethvoiceWizardUiApp')
       $scope.currentModel = {}
     })
 
+    function initPopovers() {
+      $('[data-toggle=popover]').popovers()
+        .on('hidden.bs.popover', function (e) {
+          $(e.target).data('bs.popover').inState.click = false;
+        });
+    }
+
+    $('#provisioningInfoModal').on('hide.bs.modal', function () {
+      $("#provisioningInfoModal #showurlbtn").popover("hide")
+      $scope.currentPhoneInfo = {}
+    })
+
     angular.element(document).ready(function () {
       getAllModelsAndUsersAndDevices()
       getAllProfiles()
       getAllGroups()
+      initPopovers()
       // $('#uploadFileModal').on('hidden.bs.modal', function () {
       //   let isConfigurations = $location.path() == "/configurations" ? true : false
       //   if (isConfigurations) {
