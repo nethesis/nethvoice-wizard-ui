@@ -12,7 +12,7 @@
 					<div class="spinner"></div>
 				</div>
 				<div ng-show="!defaultsLoading" class="modal-body inline-display full-width mb-20">
-					<div ng-show="true" class="col-lg-12 mt-30">
+					<div ng-show="true" class="col-lg-12 mt-30 pl-40 pr-40">
 						<div ng-if="!isModelsPage()" class="alert alert-info alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span class="pficon pficon-close"></span>
@@ -117,29 +117,27 @@
 											<span class="pficon pficon-warning-triangle-o"></span>
 											<strong>{{"Phonebook service is disabled on this system" | translate}}!</strong> {{"Saving will start the system service corresponding to the selected type of the phonebook" | translate}}.
 										</div>
-										<div ng-show="!loadingSections[sectionKey]" class="mt-25 no-border-bottom">
-											<div ng-if="sectionKey == 'phonebook'" class="col-lg-12 mb-15">
-												<label class="control-label">{{"ldap_phonebook_type_label" | translate}}</label>
-												<div class="col-lg-12">
-													<div class="form-group">
-														<select
-															id="phonebookType"
-															class="selectpicker form-control"
-															ng-model="phonebookType"
-															ng-change="phonebookTypeChange()"
-															autocomplete="off">
-															<option value="" ng-disabled="true" ng-hide="true">-</option>
-															<option	value="ldap" >{{"ldap_phonebook_type_ldap" | translate}}</option>
-															<option	value="ldaps" >{{"ldap_phonebook_type_ldaps" | translate}}</option>
-															<option	value="externalldap"
-																on-finish-render="selectpickerRepeatEnd">
-																{{"ldap_phonebook_type_custom" | translate}}
-															</option>
-														</select>
-													</div>
-												</div>
+										<div ng-if="sectionKey == 'phonebook'" class="full-width pl-20 pr-20 mb-20 mt-20">
+											<label class="control-label">{{"ldap_phonebook_type_label" | translate}}</label>
+											<div class="form-group pl-20 pr-20">
+												<select
+													id="phonebookType"
+													class="selectpicker form-control"
+													ng-model="phonebookType"
+													ng-change="phonebookTypeChange()"
+													autocomplete="off">
+													<option value="" ng-disabled="true" ng-hide="true">-</option>
+													<option	value="ldap" >{{"ldap_phonebook_type_ldap" | translate}}</option>
+													<option	value="ldaps" >{{"ldap_phonebook_type_ldaps" | translate}}</option>
+													<option	value="externalldap"
+														on-finish-render="selectpickerRepeatEnd">
+														{{"ldap_phonebook_type_custom" | translate}}
+													</option>
+												</select>
 											</div>
-											<div ng-repeat="item in section.data track by $index" class="col-lg-6 mb-15">
+										</div>
+										<div ng-show="!loadingSections[sectionKey]" class="mt-25 no-border-bottom bs-cssgrid">
+											<div ng-repeat="item in section.data track by $index" class="col-bs-cssgrid mb-15">
 												<label class="control-label">{{::item.description | translate}}</label>
 												<div class="{{item.type != 'password' ? 'col-lg-12' : ''}}">
 													<!-- list -->

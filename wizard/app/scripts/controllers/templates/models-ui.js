@@ -157,11 +157,6 @@ angular.module('nethvoiceWizardUiApp')
           $(".model-container .ringtone_file-select").selectpicker("refresh")
         }, 100)
       }
-
-
-      console.log("AAAAAAAA", $scope.currentModel);
-
-
       $scope.$emit('variableChanged')
     }
 
