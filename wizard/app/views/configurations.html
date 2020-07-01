@@ -183,6 +183,13 @@
                 <div ng-if="device.type == 'physical'" class="list-group-item cursor-default ng-scope">
                   <div class="list-view-pf-actions">
                     <div class="display-flex">
+                      <!-- provisioning info -->
+                      <button
+                        type="button"
+                        class="btn btn-default"
+                        ng-click="openProvisioningInfo(device.mac, device.extension)">
+                        {{ 'Info' | translate }}
+                      </button>
                       <button
                         ng-click="deletePhysicalExtension(device, device.extension)"
                         class="btn btn-default mr-2">
@@ -587,3 +594,88 @@
   aria-hidden="true"
   data-backdrop="static"
   ng-include="fileUploadUIUrl"></div>
+
+<div class="modal fade" id="provisioningInfoModal" tabindex="-1" role="dialog" aria-labelledby="extenDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <span class="pficon pficon-close"></span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">{{'Phone provisioning info' | translate}} {{data.selExten.exten}}</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">{{'MAC' | translate}}:</label>
+            <div class="col-sm-8">
+              <label class="control-label">{{currentPhoneInfo.mac}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">{{'Provisioning URL' | translate}}:</label>
+            <div class="col-sm-8">
+              <div class="w-75">
+                <label class="control-label full-width left-align">
+                  <button
+                    class="btn btn-default ml-10"
+                    id="showurlbtn"
+                    data-container="body"
+                    data-toggle="popover"
+                    data-placement="top"
+                    data-content="{{currentPhoneInfo.provisioning_url1 ? currentPhoneInfo.provisioning_url1 : currentPhoneInfo.provisioning_url2}}"
+                    >
+                    {{"Show url" | translate}}
+                  </button>
+                </label><br>
+                <label class="control-label mt-10 full-width left-align">
+                  <!-- <button
+                    class="btn btn-primary full-width"
+                    ng-click="copyToClipboard(urlToCopy)">
+                    {{"Copy url" | translate}}
+                  </button> -->
+                  <clipboard-copy
+                    class="btn btn-primary full-width ml-10"
+                    value="{{urlToCopy}}"
+                    ng-click="copyUrl()"
+                    >
+                    {{"Copy url" | translate}}
+                  </clipboard-copy>
+                  <i ng-show="copiedUrl" class="fa fa-check text-color-green absolute-position mt-5 ml-7 fz-15">
+                  </i>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">{{'Provisioning status' | translate}}:</label>
+            <div class="col-sm-8">
+              <label class="control-label {{currentPhoneInfo.provisioning_url1 ? '' : 'text-color-green'}}">
+                {{currentPhoneInfo.provisioning_url1 ? "Pending" : "Completed" | translate}}
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">{{'User agent' | translate}}:</label>
+            <div class="col-sm-8">
+              <label class="control-label">
+                {{currentPhoneInfo.model ? currentPhoneInfo.model : "-"}}
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">{{'Codecs' | translate}}:</label>
+            <div class="col-sm-8">
+              <label class="control-label">
+                {{currentPhoneInfo.codecs}}
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{"Cancel" | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
