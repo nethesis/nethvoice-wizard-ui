@@ -102,7 +102,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     var filterModels = function (modelName, deviceMac) {
-      return modelName.toLowerCase().startsWith(PhoneService.getVendor(deviceMac).toLowerCase())
+      return modelName.toLowerCase().startsWith(PhoneService.getVendor(deviceMac, $scope.macVendors).toLowerCase())
     }
 
     var getAvailableModels = function (devices) {
@@ -657,17 +657,24 @@ angular.module('nethvoiceWizardUiApp')
       $scope.currentPhoneInfo = {}
     })
 
-    angular.element(document).ready(function () {
+    var init = function () {
       getAllModelsAndUsersAndDevices()
       getAllProfiles()
       getAllGroups()
       initPopovers()
-      // $('#uploadFileModal').on('hidden.bs.modal', function () {
-      //   let isConfigurations = $location.path() == "/configurations" ? true : false
-      //   if (isConfigurations) {
-      //     $("#singleModelModal").modal("show")
-      //   }
-      // })
+    }
+
+    angular.element(document).ready(function () {
+      if (!$scope.macVendors) {
+        PhoneService.getMacVendors().then(function (res) {
+          $scope.$parent.macVendors = res.data
+          init()
+        }, function (err) {
+          console.log(err)
+        })
+      } else {
+        init()
+      }
     })
 
   })

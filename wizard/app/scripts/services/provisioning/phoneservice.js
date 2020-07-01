@@ -116,11 +116,21 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
+    this.getMacVendors = function () {
+      return $q(function (resolve, reject) {
+        RestService.tget('/tancredi/api/v1/macvendors').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
     this.removeMacSeparators = function (macAddress) {
       return macAddress.replace(/:|-/g, "");
     }
 
-    this.getAllVendors = function () {
+    this.getAllVendors = function (macVendors) {
       var vendorSet = new Set();
       Object.keys(macVendors).forEach(function (macPrefix) {
         var vendor = macVendors[macPrefix];
@@ -140,7 +150,7 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    this.getVendor = function (macAddress) {
+    this.getVendor = function (macAddress, macVendors) {
       // remove separators
       macAddress = this.removeMacSeparators(macAddress).toUpperCase();
       var vendor = macVendors[macAddress.substring(0, 6)];
@@ -174,9 +184,8 @@ angular.module('nethvoiceWizardUiApp')
       return regExp.test(netmask)
     };
 
-    this.getFilteredModels = function (mac, models) {
-      var vendor = this.getVendor(mac);
-
+    this.getFilteredModels = function (mac, models, macVendors) {
+      var vendor = this.getVendor(mac, macVendors);
       if (vendor) {
         var filteredModels = models.filter(function (model) {
           return model.name.toLowerCase().startsWith(vendor.toLowerCase());
@@ -188,10 +197,10 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     // Builds a phone starting from a phone got from Tancredi
-    this.buildPhone = function (phoneTancredi, models) {
+    this.buildPhone = function (phoneTancredi, models, macVendors) {
       var mac = phoneTancredi.mac;
       var model;
-      var filteredModels = this.getFilteredModels(mac, models);
+      var filteredModels = this.getFilteredModels(mac, models, macVendors);
 
       if (phoneTancredi.model) {
         model = filteredModels.find(function (m) {
@@ -201,7 +210,7 @@ angular.module('nethvoiceWizardUiApp')
 
       var vendor = phoneTancredi.display_name;
       if (!vendor) {
-        vendor = this.getVendor(mac);
+        vendor = this.getVendor(mac, macVendors);
       }
 
       if (vendor) {
@@ -218,13 +227,13 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     // Builds a phone object that can be passed to Tancredi
-    this.buildPhoneTancredi = function (mac, model, vendor) {
+    this.buildPhoneTancredi = function (mac, model, vendor, macVendors) {
       if (model) {
         model = model.name;
       }
 
       if (!vendor) {
-        vendor = this.getVendor(mac);
+        vendor = this.getVendor(mac, macVendors);
       }
 
       mac = this.formatMac(mac);
@@ -248,4 +257,5 @@ angular.module('nethvoiceWizardUiApp')
       mac = mac.substring(0, mac.length - 1);
       return mac;
     }
+  
   });

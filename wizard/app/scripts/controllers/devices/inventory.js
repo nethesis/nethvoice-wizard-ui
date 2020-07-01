@@ -37,7 +37,7 @@ angular.module('nethvoiceWizardUiApp')
     function gotPhones(phonesTancredi) {
       $scope.phones = [];
       phonesTancredi.forEach(function (phoneTancredi) {
-        var phone = PhoneService.buildPhone(phoneTancredi, $scope.models);
+        var phone = PhoneService.buildPhone(phoneTancredi, $scope.models, $scope.macVendors);
         $scope.phones.push(phone);
       });
       setTimeout(function () {
@@ -207,7 +207,7 @@ angular.module('nethvoiceWizardUiApp')
       }
 
       // update model list
-      var vendor = PhoneService.getVendor($scope.manualMac);
+      var vendor = PhoneService.getVendor($scope.manualMac, $scope.macVendors);
 
       if (vendor) {
         $scope.manualFilteredModels = $scope.models.filter(function (model) {
@@ -297,7 +297,7 @@ angular.module('nethvoiceWizardUiApp')
           var macFromScan = phoneFromScan.mac.replace(/:/g, "-");
 
           // check vendor
-          var vendor = PhoneService.getVendor(macFromScan);
+          var vendor = PhoneService.getVendor(macFromScan, $scope.macVendors);
           if (!vendor) {
             return false;
           }
@@ -398,7 +398,7 @@ angular.module('nethvoiceWizardUiApp')
 
         if (!phone.invalidMac) {
           // check vendor
-          var vendor = PhoneService.getVendor(mac);
+          var vendor = PhoneService.getVendor(mac, $scope.macVendors);
           if (!vendor) {
             phone.unknownVendor = true;
 
@@ -452,7 +452,7 @@ angular.module('nethvoiceWizardUiApp')
 
       // add all phones
       $scope.phonesToAdd.forEach(function (phone) {
-        var phoneTancredi = PhoneService.buildPhoneTancredi(phone.mac, phone.model, phone.vendor);
+        var phoneTancredi = PhoneService.buildPhoneTancredi(phone.mac, phone.model, phone.vendor, $scope.macVendors);
         // set formatted MAC
         phone.mac = phoneTancredi.mac;
         // create device on Tancredi
@@ -466,7 +466,7 @@ angular.module('nethvoiceWizardUiApp')
             web_password: $scope.defaults.adminpw || 'admin'
           }
           UserService.createPhysicalExtension(phoneCorbera).then(function (successCorbera) {
-            var phone = PhoneService.buildPhone(successTancredi.data, $scope.models);
+            var phone = PhoneService.buildPhone(successTancredi.data, $scope.models, $scope.macVendors);
             $scope.pendingRequestsAddPhones--;
             $scope.successfulAddPhones.push(phone);
             if ($scope.pendingRequestsAddPhones == 0) {
@@ -546,7 +546,7 @@ angular.module('nethvoiceWizardUiApp')
 
       if (!$scope.manualMacSyntaxError) {
         // check vendor
-        var vendor = PhoneService.getVendor($scope.manualMac);
+        var vendor = PhoneService.getVendor($scope.manualMac, $scope.macVendors);
 
         if (!vendor) {
           $scope.manualMacUnknownVendor = true;
@@ -630,7 +630,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.phonesToAdd.forEach(function (phone) {
         var vendor = phone.vendor;
         if (!vendor) {
-          vendor = PhoneService.getVendor(phone.mac);
+          vendor = PhoneService.getVendor(phone.mac, $scope.macVendors);
           phone.vendor = vendor;
         }
 
@@ -642,7 +642,7 @@ angular.module('nethvoiceWizardUiApp')
 
       if ($scope.vendorApplyToAllList.length == 0) {
         // show all vendors
-        $scope.vendorApplyToAllList = PhoneService.getAllVendors();
+        $scope.vendorApplyToAllList = PhoneService.getAllVendors($scope.macVendors);
       }
     }
 
@@ -650,7 +650,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.phonesToAdd.forEach(function (phone) {
         var vendor = phone.vendor;
         if (!vendor) {
-          vendor = PhoneService.getVendor(phone.mac);
+          vendor = PhoneService.getVendor(phone.mac, $scope.macVendors);
           phone.vendor = vendor;
         }
 
@@ -684,7 +684,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.macDuplicates = UtilService.findDuplicates(macsPhonesToAdd);
 
       // check vendor
-      var vendor = PhoneService.getVendor(phone.mac);
+      var vendor = PhoneService.getVendor(phone.mac, $scope.macVendors);
 
       if (vendor) {
         phone.vendor = vendor;
@@ -854,7 +854,16 @@ angular.module('nethvoiceWizardUiApp')
     })
 
     angular.element(document).ready(function () {
-      init()
+      if (!$scope.macVendors) {
+        PhoneService.getMacVendors().then(function (res) {
+          $scope.$parent.macVendors = res.data
+          init()
+        }, function (err) {
+          console.log(err)
+        })
+      } else {
+        init()
+      }
     })
 
   });

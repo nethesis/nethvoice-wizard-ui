@@ -163,7 +163,7 @@ angular.module('nethvoiceWizardUiApp')
       $scope.filteredModel = null;
       $scope.phones = [];
       phones.forEach(function (phoneTancredi) {
-        var phone = PhoneService.buildPhone(phoneTancredi, $scope.models);
+        var phone = PhoneService.buildPhone(phoneTancredi, $scope.models, $scope.macVendors);
         phone.filtered = true;
         $scope.phones.push(phone);
       });
@@ -534,5 +534,17 @@ angular.module('nethvoiceWizardUiApp')
       $scope.phonesLimit = $scope.PHONES_PAGE
     })
 
-    init();
+    angular.element(document).ready(function () {
+      if (!$scope.macVendors) {
+        PhoneService.getMacVendors().then(function (res) {
+          $scope.$parent.macVendors = res.data
+          init()
+        }, function (err) {
+          console.log(err)
+        })
+      } else {
+        init()
+      }
+    })
+
   });
