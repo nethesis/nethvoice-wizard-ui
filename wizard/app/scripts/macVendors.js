@@ -1,11 +1,6 @@
-var macVendors = {
-  "0C383E": "fanvil",
-  "7C2F80": "gigaset",
-  "589EC6": "gigaset",
-  "005058": "sangoma",
-  "000413": "snom",
-  "001565": "yealink",
-  "805E0C": "yealink",
-  "805EC0": "yealink",
-  "9C7514": "yealink"
-};
+var macVendors = ((function () {
+  var req = new XMLHttpRequest();
+  req.open("GET", "/tancredi/api/v1/macvendors", false);
+  req.send();
+  return req.status == 200 && req.responseType == "json" ? req.response : {};
+})());
