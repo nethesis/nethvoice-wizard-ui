@@ -14,6 +14,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.customConfig = customConfig
     $scope.appConfig = appConfig
+    $scope.macVendors = null
 
     $scope.view = {
       changeRoute: true,
