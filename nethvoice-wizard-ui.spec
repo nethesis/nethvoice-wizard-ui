@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.4.10
+Version: 14.5.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,16 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Mon Jul 06 2020 Stefano Fancello <stefano.fancello@nethesis.it> - 14.5.0-1
+- Retrieve vendor MACs from Tancredi API - nethesis/dev#5839
+- Provisioning minor fixes - nethesis/dev#5838
+- Fix missing Italian Codecs translation
+- Change provisioning inputs columns behaviour
+- Fix the warning on changed values in phone settings
+- Add info to phones in configurations
+- Enhance warning labels in settings
+- Enhance actions labels and warnings in models
+
 * Tue Jun 23 2020 SebastianMB-IT <sebastian.besel@nethesis.it> - 14.4.10-1
 - Add users dynamic search in keys - nethesis/dev#5835
 - Add translations for dss_transfer and time_format (#116)
