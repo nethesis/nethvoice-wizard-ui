@@ -607,6 +607,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.urlToCopy = res[0].data.provisioning_url1 ? res[0].data.provisioning_url1 : res[0].data.provisioning_url2
         $scope.currentPhoneInfo.model = res[1].data.sipuseragent
         $scope.currentPhoneInfo.codecs = res[1].data.codecs.join()
+        $scope.currentPhoneInfo.ip = res[1].data.ip
         $("#provisioningInfoModal").modal("show")
       }, function (err) {
         console.log(err);
