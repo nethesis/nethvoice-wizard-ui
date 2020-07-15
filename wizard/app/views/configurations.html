@@ -607,13 +607,19 @@
       <div class="modal-body">
         <form class="form-horizontal">
           <div class="form-group">
-            <label class="col-sm-4 control-label">{{'MAC' | translate}}:</label>
+            <label class="col-sm-4 control-label">{{'MAC address' | translate}}</label>
             <div class="col-sm-8">
               <label class="control-label">{{currentPhoneInfo.mac}}</label>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-4 control-label">{{'Provisioning URL' | translate}}:</label>
+            <label class="col-sm-4 control-label">{{'IP address' | translate}}</label>
+            <div class="col-sm-8">
+              <label class="control-label">{{currentPhoneInfo.ip || "-"}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">{{'Provisioning URL' | translate}}</label>
             <div class="col-sm-8">
               <div class="w-75">
                 <label class="control-label full-width left-align">
@@ -648,7 +654,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-4 control-label">{{'Provisioning status' | translate}}:</label>
+            <label class="col-sm-4 control-label">{{'Provisioning status' | translate}}</label>
             <div class="col-sm-8">
               <label class="control-label {{currentPhoneInfo.provisioning_url1 ? '' : 'text-color-green'}}">
                 {{currentPhoneInfo.provisioning_url1 ? "Pending" : "Completed" | translate}}
@@ -656,7 +662,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-4 control-label">{{'User agent' | translate}}:</label>
+            <label class="col-sm-4 control-label">{{'User agent' | translate}}</label>
             <div class="col-sm-8">
               <label class="control-label">
                 {{currentPhoneInfo.model ? currentPhoneInfo.model : "-"}}
@@ -664,7 +670,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-4 control-label">{{'Codecs' | translate}}:</label>
+            <label class="col-sm-4 control-label">{{'Codecs' | translate}}</label>
             <div class="col-sm-8">
               <label class="control-label">
                 {{currentPhoneInfo.codecs}}

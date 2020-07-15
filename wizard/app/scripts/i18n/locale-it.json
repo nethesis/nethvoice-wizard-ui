@@ -822,6 +822,7 @@
   "Completed": "Completato",
   "Pending": "In attesa",
   "Provisioning URL": "URL di provisioning",
+  "IP address": "Indirizzo IP",
   "PBX address": "Indirizzo centralino",
   "NTP server address": "Indirizzo server NTP",
   "dss_transfer_label": "Modalità di trasferimento per i line key",
