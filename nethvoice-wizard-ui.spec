@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.5.0
+Version: 14.5.1
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,9 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Fri Jul 17 2020 Stefano Fancello <stefano.fancello@nethesis.it> - 14.5.1-1
+- Add IP to phone informations in configurations  - nethesis/dev#5846
+
 * Mon Jul 06 2020 Stefano Fancello <stefano.fancello@nethesis.it> - 14.5.0-1
 - Retrieve vendor MACs from Tancredi API - nethesis/dev#5839
 - Provisioning minor fixes - nethesis/dev#5838
