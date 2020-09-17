@@ -36,7 +36,8 @@ angular.module('nethvoiceWizardUiApp')
         $scope.view.changeRoute = false
         ModelService.getModels().then(function (res) {
           for (let model in res.data) {
-            if (res.data[model].name.split("-").length > 2) {
+            if (res.data[model].name.split("-").length > 2
+                && !$scope.inventoryModels.find(function (el) { return el.name === res.data[model].name; })) {
               $scope.inventoryModels.push(res.data[model])
             }
           }
