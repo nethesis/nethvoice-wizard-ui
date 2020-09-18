@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.5.1
+Version: 14.5.2
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,10 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Fri Sep 18 2020 Davide Principi <davide.principi@nethesis.it> - 14.5.2-1
+- Models page shows a partial list - Bug nethesis/dev#5872
+- Users list not correctly filtered in configurations - Bug nethesis/dev#5852
+
 * Fri Jul 17 2020 Stefano Fancello <stefano.fancello@nethesis.it> - 14.5.1-1
 - Add IP to phone informations in configurations  - nethesis/dev#5846
 
