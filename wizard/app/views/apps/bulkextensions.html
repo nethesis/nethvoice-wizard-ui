@@ -366,7 +366,7 @@
                         <li>
                           <a ng-click="resetDest(destKey, '')">{{"Unavail Voicemail if Enabled" | translate}}</a>
                         </li>
-                        <li ng-repeat="(k, v) in dest" ng-if="v.length > 1 || v[1] != undefined">
+                        <li ng-repeat="(k, v) in dest" ng-if="!isEmptyObj(v)">
                           <a ng-click="setDest(k, v, destKey)">{{k | translate}}</a>
                         </li>
                       </ul>

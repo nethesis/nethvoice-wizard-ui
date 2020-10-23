@@ -183,11 +183,13 @@ angular.module('nethvoiceWizardUiApp')
                 $scope.selectDest.noanswerdest.selected = $scope.dest[d][i].description;
                 $scope.selectDest.noanswerdest.key = d;
                 $scope.selectDest.noanswerdest.value = $scope.dest[d];
-              } else if ($scope.dest[d][i].destination == $scope.bulkEdit.busydest) {
+              }
+              if ($scope.dest[d][i].destination == $scope.bulkEdit.busydest) {
                 $scope.selectDest.busydest.selected = $scope.dest[d][i].description;
                 $scope.selectDest.busydest.key = d;
                 $scope.selectDest.busydest.value = $scope.dest[d];
-              } else if ($scope.dest[d][i].destination == $scope.bulkEdit.notreachabledest) {
+              }
+              if ($scope.dest[d][i].destination == $scope.bulkEdit.notreachabledest) {
                 $scope.selectDest.notreachabledest.selected = $scope.dest[d][i].description;
                 $scope.selectDest.notreachabledest.key = d;
                 $scope.selectDest.notreachabledest.value = $scope.dest[d];
@@ -283,6 +285,10 @@ angular.module('nethvoiceWizardUiApp')
       $scope.selectDest[dk].selected = $scope.selectDest[dk].value[k].description;
     }
 
+    $scope.isEmptyObj = function (obj) {
+      return UtilService.isEmpty(obj)
+    }
+
     $scope.resetDest = function (dk, val) {
       $scope.bulkEdit[dk] = val;
       $scope.selectDest[dk].value = {};
@@ -290,7 +296,10 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     BulkService.getDestinations().then(function (res) {
-      $scope.dest = res.data;
+      for (let d in res.data) {
+        delete res.data[d][99999]
+      }
+      $scope.dest = res.data
     }, function (err) {
       console.log(err);
     });
