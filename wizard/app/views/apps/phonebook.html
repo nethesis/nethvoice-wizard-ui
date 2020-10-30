@@ -331,7 +331,7 @@
                     <div>
                       <h1 class="adjust-header adjust-profile-header phonebook-source-title-container">
                         <span class="fa fa-database card-pf-icon-circle config-title-icon"></span>
-                        <span class="phonebook-source-title">{{'SQL source' | translate}}</span>
+                        <span class="phonebook-source-title">{{'Phonebook source' | translate}}</span>
                       </h1>
                       <div id="collapse-queryselection" class="panel-collapse phonebook-source-border adjust-profile-body">
                         <div class="panel-body profile-panel">
@@ -343,33 +343,34 @@
                                   <input required ng-disabled="newSource.readonly" ng-model="newSource.type" type="text" class="form-control"></div>
                               </div>
                               <div class="form-group">
-                                <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database type' | translate}}</label>
+                                <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Source type' | translate}}</label>
                                 <div class="col-sm-9 input-container">
-                                  <select ng-change="updatePort()" ng-disabled="newSource.readonly" required title="-" pf-select="" ng-model="newSource.dbtype"
+                                  <select ng-change="updateDbType()" ng-disabled="newSource.readonly" required title="-" pf-select="" ng-model="newSource.dbtype"
                                     ng-options="k as v for (k, v) in  allDBTypes">
                                   </select></div>
                               </div>
-                              <div class="form-group">
+                              <!-- type mysql -->
+                              <div ng-if="newSource.dbtype == 'mysql'" ng-if="newSource.dbtype == 'mysql'" class="form-group">
                                 <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database name' | translate}}</label>
                                 <div class="col-sm-9 input-container">
                                   <input required ng-disabled="newSource.readonly" ng-model="newSource.dbname" type="text" class="form-control"></div>
                               </div>
-                              <div class="form-group">
+                              <div ng-if="newSource.dbtype == 'mysql'" class="form-group">
                                 <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database address' | translate}}</label>
                                 <div class="col-sm-9 input-container">
                                   <input required ng-disabled="newSource.readonly" ng-model="newSource.host" type="text" class="form-control"></div>
                               </div>
-                              <div class="form-group">
+                              <div ng-if="newSource.dbtype == 'mysql'" class="form-group">
                                 <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database port' | translate}}</label>
                                 <div class="col-sm-9 input-container">
                                   <input required ng-disabled="newSource.readonly" ng-model="newSource.port" type="text" class="form-control"></div>
                               </div>
-                              <div class="form-group">
+                              <div ng-if="newSource.dbtype == 'mysql'" class="form-group">
                                 <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database user' | translate}}</label>
                                 <div class="col-sm-9 input-container">
                                   <input required ng-disabled="newSource.readonly" ng-model="newSource.user" type="text" class="form-control"></div>
                               </div>
-                              <div class="form-group">
+                              <div ng-if="newSource.dbtype == 'mysql'" class="form-group">
                                 <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Database password' | translate}}</label>
                                 <div class="col-sm-9 input-container">
                                   <input ng-disabled="newSource.readonly" ng-model="newSource.password" type="{{newSource.showPass ? 'text' : 'password'}}"
@@ -377,11 +378,17 @@
                                   <a ng-click="togglePass(newSource)">{{newSource.showPass ? 'Hide' : 'Show' | translate}}</a>
                                 </div>
                               </div>
-                              <div class="form-group">
+                              <div ng-if="newSource.dbtype == 'mysql'" class="form-group">
                                 <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Select query' | translate}}</label>
                                 <div class="col-sm-9 input-container">
                                   <div required ng-model="newSource.query" class="editor-form editor-form-phonebook" ui-ace="{theme:'twilight',mode: 'sql', onChange: editorOnChange}"></div>
                                 </div>
+                              </div>
+                              <!-- type CSV -->
+                              <div ng-if="newSource.dbtype == 'csv'" class="form-group">
+                                <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'URL' | translate}}</label>
+                                <div class="col-sm-9 input-container">
+                                  <input required ng-disabled="newSource.readonly" ng-model="newSource.url" type="url" pattern="(https?://|file:///).+" type="text" class="form-control"></div>
                               </div>
                               <div class="form-group">
                                 <label class="col-sm-3 control-label" for="textInput-modal-markup"></label>

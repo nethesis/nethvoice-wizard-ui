@@ -114,7 +114,7 @@ angular.module('nethvoiceWizardUiApp')
       if(pbo.dbtype == 'mysql') {
         return pbo.dbname;
       } else if(pbo.dbtype == 'csv') {
-        return pbo.name;
+        return pbo.type;
       } else {
         return defval;
       }
@@ -264,8 +264,12 @@ angular.module('nethvoiceWizardUiApp')
       $scope.updateSource(true);
     }
 
-    $scope.updatePort = function () {
-      $scope.newSource.port = $scope.sourcePortMap[$scope.newSource.dbtype];
+    $scope.updateDbType = function () {
+      if ($scope.newSource.dbtype == 'mysql') {
+        $scope.newSource.port = $scope.sourcePortMap[$scope.newSource.dbtype];
+      } else {
+        delete $scope.newSource.port;
+      }
     };
 
     $scope.deletePhonebookSource = function () {
