@@ -77,7 +77,8 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.allDBTypes = {
-      "mysql": "MySQL"
+      "mysql": "MySQL",
+      "csv": "CSV"
     };
 
     $scope.syncIntervals = {
@@ -86,7 +87,7 @@ angular.module('nethvoiceWizardUiApp')
       "60": "1 hour",
       "360": "6 hours",
       "1440": "24 hours"
-    }
+    },
 
     $scope.sourceModal = {
       tab: "datasource",
@@ -109,8 +110,18 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.view.changeRoute = true;
 
-    $scope.getDBName = function (type) {
-      return $scope.allDBTypes[type];
+    $scope.getSourceName = function (pbo, defval) {
+      if(pbo.dbtype == 'mysql') {
+        return pbo.dbname;
+      } else if(pbo.dbtype == 'csv') {
+        return pbo.name;
+      } else {
+        return defval;
+      }
+    };
+
+    $scope.getSourceType = function (pbo, defval) {
+      return $scope.allDBTypes[pbo.dbtype] ? $scope.allDBTypes[pbo.dbtype] : defval;
     };
 
     // rest api functions
