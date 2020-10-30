@@ -87,7 +87,7 @@ angular.module('nethvoiceWizardUiApp')
       "60": "1 hour",
       "360": "6 hours",
       "1440": "24 hours"
-    },
+    }
 
     $scope.sourceModal = {
       tab: "datasource",
