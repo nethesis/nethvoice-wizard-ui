@@ -211,8 +211,33 @@ angular.module('nethvoiceWizardUiApp')
       $scope.reloadAvailableDestinations();
     }
 
+    var createSourcePayload = function(s) {
+      var payload = {};
+      if (s.dbtype == 'mysql') {
+        payload = {
+          dbtype: 'mysql',
+          dbname: s.dbname,
+          host: s.host,
+          port: s.port,
+          user: s.user,
+          password: s.password,
+          query: s.query,
+        };
+      } else if (s.dbtype == 'csv') {
+        payload = {
+          dbtype: 'csv',
+          url: s.url,
+        };
+      }
+      payload.type = s.type;
+      payload.mapping = s.mapping;
+      payload.enabled = s.enabled;
+      payload.interval = s.interval;
+      return payload;
+    };
+
     $scope.saveSource = function () {
-      PhonebookService.createConfig($scope.newSource).then(function (res) {
+      PhonebookService.createConfig(createSourcePayload($scope.newSource)).then(function (res) {
         $("#creationsourceModal").modal('hide');
         $scope.onSaveSuccessSource = true;
         $scope.ui.onModify = false;
@@ -224,7 +249,7 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.updateSource = function (fromSwitch) {
-      PhonebookService.updateConfig($scope.ui.modifyId, $scope.newSource).then(function (res) {
+      PhonebookService.updateConfig($scope.ui.modifyId, createSourcePayload($scope.newSource)).then(function (res) {
         $("#creationsourceModal").modal('hide');
         if (!fromSwitch) {
           $scope.getAllSources();
@@ -282,9 +307,10 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.checkConnection = function (s) {
+      var payload = createSourcePayload(s);
       s.isChecking = true;
       $scope.sourceModal.querySelectProgress = true;
-      PhonebookService.testConnections(s).then(function (res) {
+      PhonebookService.testConnections(payload).then(function (res) {
         $scope.sourceModal.querySelectProgress = false;
         if (res.data.status != false) {
           s.checked = true;
