@@ -1,4 +1,8 @@
 {
+  "pb_source_dialog_title": "Sorgente rubrica",
+  "pb_source_type_label": "Tipo sorgente",
+  "pb_check_button_label": "Verifica",
+  "pb_csv_url_label": "URL",
   "Users": "Utenti",
   "Trunks": "Fasci",
   "Trunk": "Fascio",

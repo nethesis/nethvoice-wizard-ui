@@ -331,7 +331,7 @@
                     <div>
                       <h1 class="adjust-header adjust-profile-header phonebook-source-title-container">
                         <span class="fa fa-database card-pf-icon-circle config-title-icon"></span>
-                        <span class="phonebook-source-title">{{'Phonebook source' | translate}}</span>
+                        <span class="phonebook-source-title">{{'pb_source_dialog_title' | translate}}</span>
                       </h1>
                       <div id="collapse-queryselection" class="panel-collapse phonebook-source-border adjust-profile-body">
                         <div class="panel-body profile-panel">
@@ -343,7 +343,7 @@
                                   <input required ng-disabled="newSource.readonly" ng-model="newSource.type" type="text" class="form-control"></div>
                               </div>
                               <div class="form-group">
-                                <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Source type' | translate}}</label>
+                                <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'pb_source_type_label' | translate}}</label>
                                 <div class="col-sm-9 input-container">
                                   <select ng-change="updateDbType()" ng-disabled="newSource.readonly" required title="-" pf-select="" ng-model="newSource.dbtype"
                                     ng-options="k as v for (k, v) in  allDBTypes">
@@ -386,14 +386,14 @@
                               </div>
                               <!-- type CSV -->
                               <div ng-if="newSource.dbtype == 'csv'" class="form-group">
-                                <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'URL' | translate}}</label>
+                                <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'pb_csv_url_label' | translate}}</label>
                                 <div class="col-sm-9 input-container">
                                   <input required ng-disabled="newSource.readonly" ng-model="newSource.url" type="url" pattern="(https?://|file:///).+" type="text" class="form-control"></div>
                               </div>
                               <div class="form-group">
                                 <label class="col-sm-3 control-label" for="textInput-modal-markup"></label>
                                 <div class="col-sm-9">
-                                  <button class="btn btn-primary" type="submit">{{'Run' | translate}}</button>
+                                  <button class="btn btn-primary" type="submit">{{'pb_check_button_label' | translate}}</button>
                                   <div ng-show="newSource.isChecking" class="spinner spinner-sm inline-display language-name check-connection"></div>
                                   <span ng-show="!newSource.isChecking && newSource.checked && newSource.verified" class="pficon pficon-ok check-status"></span>
                                   <span ng-show="!newSource.isChecking && newSource.checked && !newSource.verified" class="pficon pficon-error-circle-o check-status"></span>
