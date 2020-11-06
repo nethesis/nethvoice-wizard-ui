@@ -103,7 +103,7 @@
               <button ng-click="openDeleteModal(kg)" class="btn btn-danger phonebook-footer-card-buttons" type="button">{{'Delete' | translate}}</button>
             </div>
             <div class="col-xs-12 col-md-12 col-lg-6">
-              <button ng-click="runSyncNow(kg)" class="btn btn-default right-only phonebook-footer-card-buttons" type="button">
+              <button ng-disabled="!g.enabled" ng-click="runSyncNow(kg)" class="btn btn-default right-only phonebook-footer-card-buttons" type="button">
                 <i class="fa fa-refresh sync-phonebook-icon" aria-hidden="true"></i>
                 {{'Sync' | translate}}
               </button>
