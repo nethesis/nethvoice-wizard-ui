@@ -82,9 +82,9 @@
               {{"Synchronization status" | translate}}
             </p>
             <div class="form-group onof-button-phonebook">
-              <input bs-switch ng-model="g.enabled" switch-change="onOfSource(kg, g)" id="bootstrap-switch-enable-source" class="bootstrap-switch" type="checkbox">
+              <input bs-switch ng-model="g.enabled" ng-change="onOfSource(kg, g)" id="bootstrap-switch-enable-source" class="bootstrap-switch" type="checkbox">
               <span class="onof-string">
-                {{g.elabled ? "Disable" : "Enable" | translate}}
+                {{g.enabled ? "Disable" : "Enable" | translate}}
               </span>
             </div>
           </div>
