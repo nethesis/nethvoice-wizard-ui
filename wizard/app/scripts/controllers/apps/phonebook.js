@@ -111,13 +111,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.view.changeRoute = true;
 
     $scope.getSourceName = function (pbo, defval) {
-      if(pbo.dbtype == 'mysql') {
-        return pbo.dbname;
-      } else if(pbo.dbtype == 'csv') {
-        return pbo.type;
-      } else {
-        return defval;
-      }
+      return pbo.type ? pbo.type : defval;
     };
 
     $scope.getSourceType = function (pbo, defval) {
