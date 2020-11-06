@@ -244,8 +244,8 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.updateSource = function (fromSwitch) {
       PhonebookService.updateConfig($scope.ui.modifyId, createSourcePayload($scope.newSource)).then(function (res) {
-        $("#creationsourceModal").modal('hide');
         if (!fromSwitch) {
+          $("#creationsourceModal").modal('hide');
           $scope.getAllSources();
         } 
       }, function (err) {
