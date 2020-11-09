@@ -151,6 +151,25 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     // view functions
+    $scope.csvUploadClick = function (ev) {
+      $('#csvUploadFile').one("change", function(ev) {
+        try {
+          PhonebookService.uploadFile(event.target.files[0]).then((res) => {
+            if(!res.data.uri || !res.data.uri.startsWith('file:///')) {
+              throw 'Response uri field is missing or malformed';
+            }
+            $scope.newSource.url = res.data.uri;
+            setTimeout(() => {
+              $('#pbSourceCheckButton').click();
+            });
+          });
+        } catch (err) {
+          $scope.newSource.isChecking = false;
+          console.error('File upload error!', err);
+        }
+      }).click();
+    };
+
     $scope.togglePass = function (g) {
       g.showPass = !g.showPass;
     };
