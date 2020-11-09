@@ -345,7 +345,7 @@
                               <div class="form-group">
                                 <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'pb_source_type_label' | translate}}</label>
                                 <div class="col-sm-9 input-container">
-                                  <select ng-change="updateDbType()" ng-disabled="newSource.readonly" required title="-" pf-select="" ng-model="newSource.dbtype"
+                                  <select ng-change="updateDbType()" ng-disabled="newSource.readonly || ui.onModify" required title="-" pf-select="" ng-model="newSource.dbtype"
                                     ng-options="k as v for (k, v) in  allDBTypes">
                                   </select></div>
                               </div>
