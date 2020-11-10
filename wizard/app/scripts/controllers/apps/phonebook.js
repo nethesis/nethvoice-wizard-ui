@@ -164,7 +164,6 @@ angular.module('nethvoiceWizardUiApp')
             });
           });
         } catch (err) {
-          $scope.newSource.isChecking = false;
           console.error('File upload error!', err);
         }
       }).click();
