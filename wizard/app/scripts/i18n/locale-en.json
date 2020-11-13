@@ -1,4 +1,10 @@
 {
+  "pb_source_dialog_title": "Phonebook source",
+  "pb_source_type_label": "Source type",
+  "pb_check_button_label": "Verify",
+  "pb_csv_url_label": "URL",
+  "pb_modal_title_create": "New phonebook source",
+  "pb_modal_title_modify": "Modify phonebook source",
   "Copy url": "Copy URL",
   "Show url": "Show URL",
   "Advanceds": "Advanced",

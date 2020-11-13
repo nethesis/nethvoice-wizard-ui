@@ -88,6 +88,16 @@ angular.module('nethvoiceWizardUiApp')
           reject(err);
         });
       });
-    }
+    };
+
+    this.uploadFile = function (file) {
+      return $q(function (resolve, reject) {
+        RestService.postfile('/phonebook/uploadfile', file).then(function (res) {
+          resolve(res);
+        }, function (err) {
+          reject(err);
+        });
+      });
+    };
 
   });

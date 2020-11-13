@@ -1,4 +1,8 @@
 {
+  "pb_source_dialog_title": "Sorgente rubrica",
+  "pb_source_type_label": "Tipo sorgente",
+  "pb_check_button_label": "Verifica",
+  "pb_csv_url_label": "URL",
   "Users": "Utenti",
   "Trunks": "Fasci",
   "Trunk": "Fascio",
@@ -318,7 +322,8 @@
   "Source saving error": "Errore nel salvataggio della sorgente",
   "Create new source": "Crea nuova sorgente",
   "No sources found": "Nessuna sorgente trovata",
-  "New source": "Nuova sorgente",
+  "pb_modal_title_create": "Nuova sorgente rubrica",
+  "pb_modal_title_modify": "Modifica sorgente rubrica",
   "Modify source": "Modifica sorgente",
   "Duplicate": "Duplica",
   "Duplicate template": "Duplica template",

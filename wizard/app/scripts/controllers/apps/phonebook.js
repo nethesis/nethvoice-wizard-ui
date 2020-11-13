@@ -77,7 +77,8 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.allDBTypes = {
-      "mysql": "MySQL"
+      "mysql": "MySQL",
+      "csv": "CSV"
     };
 
     $scope.syncIntervals = {
@@ -109,8 +110,12 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.view.changeRoute = true;
 
-    $scope.getDBName = function (type) {
-      return $scope.allDBTypes[type];
+    $scope.getSourceName = function (pbo, defval) {
+      return pbo.type ? pbo.type : defval;
+    };
+
+    $scope.getSourceType = function (pbo, defval) {
+      return $scope.allDBTypes[pbo.dbtype] ? $scope.allDBTypes[pbo.dbtype] : defval;
     };
 
     // rest api functions
@@ -146,6 +151,24 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     // view functions
+    $scope.csvUploadClick = function (ev) {
+      $('#csvUploadFile').one("change", function(ev) {
+        try {
+          PhonebookService.uploadFile(event.target.files[0]).then((res) => {
+            if(!res.data.uri || !res.data.uri.startsWith('file:///')) {
+              throw 'Response uri field is missing or malformed';
+            }
+            $scope.newSource.url = res.data.uri;
+            setTimeout(() => {
+              $('#pbSourceCheckButton').click();
+            });
+          });
+        } catch (err) {
+          console.error('File upload error!', err);
+        }
+      }).click();
+    };
+
     $scope.togglePass = function (g) {
       g.showPass = !g.showPass;
     };
@@ -200,8 +223,33 @@ angular.module('nethvoiceWizardUiApp')
       $scope.reloadAvailableDestinations();
     }
 
+    var createSourcePayload = function(s) {
+      var payload = {};
+      if (s.dbtype == 'mysql') {
+        payload = {
+          dbtype: 'mysql',
+          dbname: s.dbname,
+          host: s.host,
+          port: s.port,
+          user: s.user,
+          password: s.password,
+          query: s.query,
+        };
+      } else if (s.dbtype == 'csv') {
+        payload = {
+          dbtype: 'csv',
+          url: s.url,
+        };
+      }
+      payload.type = s.type;
+      payload.mapping = s.mapping;
+      payload.enabled = s.enabled;
+      payload.interval = s.interval;
+      return payload;
+    };
+
     $scope.saveSource = function () {
-      PhonebookService.createConfig($scope.newSource).then(function (res) {
+      PhonebookService.createConfig(createSourcePayload($scope.newSource)).then(function (res) {
         $("#creationsourceModal").modal('hide');
         $scope.onSaveSuccessSource = true;
         $scope.ui.onModify = false;
@@ -213,9 +261,9 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.updateSource = function (fromSwitch) {
-      PhonebookService.updateConfig($scope.ui.modifyId, $scope.newSource).then(function (res) {
-        $("#creationsourceModal").modal('hide');
+      PhonebookService.updateConfig($scope.ui.modifyId, createSourcePayload($scope.newSource)).then(function (res) {
         if (!fromSwitch) {
+          $("#creationsourceModal").modal('hide');
           $scope.getAllSources();
         } 
       }, function (err) {
@@ -253,8 +301,12 @@ angular.module('nethvoiceWizardUiApp')
       $scope.updateSource(true);
     }
 
-    $scope.updatePort = function () {
-      $scope.newSource.port = $scope.sourcePortMap[$scope.newSource.dbtype];
+    $scope.updateDbType = function () {
+      if ($scope.newSource.dbtype == 'mysql') {
+        $scope.newSource.port = $scope.sourcePortMap[$scope.newSource.dbtype];
+      } else {
+        delete $scope.newSource.port;
+      }
     };
 
     $scope.deletePhonebookSource = function () {
@@ -267,9 +319,10 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.checkConnection = function (s) {
+      var payload = createSourcePayload(s);
       s.isChecking = true;
       $scope.sourceModal.querySelectProgress = true;
-      PhonebookService.testConnections(s).then(function (res) {
+      PhonebookService.testConnections(payload).then(function (res) {
         $scope.sourceModal.querySelectProgress = false;
         if (res.data.status != false) {
           s.checked = true;

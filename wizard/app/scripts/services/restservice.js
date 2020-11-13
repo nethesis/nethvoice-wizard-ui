@@ -120,6 +120,26 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.postfile = function (endpoint, file) {
+      let formdata = new FormData();
+      formdata.append(0, file)
+      let req = {
+        method: 'POST',
+        url: customConfig.BASE_API_URL + endpoint,
+        headers: {
+          'Content-Type': undefined
+        },
+        data: formdata
+      }
+      return $q(function (resolve, reject) {
+        $http(req).then(function successCallback(response) {
+          resolve(response);
+        }, function errorCallback(response) {
+          reject(response);
+        });
+      });
+    }
+
     this.patch = function(endpoint, data) {
       return $q(function(resolve, reject) {
         $http.patch(customConfig.BASE_API_URL + endpoint, data).then(function successCallback(response) {
