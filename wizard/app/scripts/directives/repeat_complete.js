@@ -19,6 +19,10 @@ angular.module('nethvoiceWizardUiApp')
           $timeout(function () {
             $rootScope.$emit(attr.onFinishRender, element)
           })
+        } else if (attr.renderIndex && (attr.renderIndex == scope.$index + 1)) {
+          $timeout(function () {
+            $rootScope.$emit(attr.onFinishRender, element)
+          })
         }
       }
     }
