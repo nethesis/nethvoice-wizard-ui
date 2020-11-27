@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.5.2
+Version: 14.6.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,10 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Fri Nov 27 2020 Davide Principi <davide.principi@nethesis.it> - 14.6.0-1
+- Phonebook CSV sources - nethesis/dev#5903
+- Missing destinations in bulk extensions - nethesis/dev#5875
+
 * Fri Sep 18 2020 Davide Principi <davide.principi@nethesis.it> - 14.5.2-1
 - Models page shows a partial list - Bug nethesis/dev#5872
 - Users list not correctly filtered in configurations - Bug nethesis/dev#5852
