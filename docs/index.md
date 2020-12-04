@@ -37,12 +37,18 @@ $app->add(function ($req, $res, $next) {
 
 ```
 
-Modify app/scripts/custom.js with URL of REST server and server secretKey (from /var/www/html/freepbx/rest/config.inc.php)
-  BASE_API_URL: 'https://192.168.122.73/freepbx/rest',
-  BASE_API_URL_CTI: 'https://192.168.122.73/webrest',
-  VPLAN_URL: 'https://192.168.122.73/freepbx/visualplan',
-  OUTBOUNDS_URL: 'https://192.168.122.73/freepbx/admin/config.php?display=routing&view=form&id=',
-  SECRET_KEY: 'rhwBBTV03La_axcu'
+create app/scripts/custom.js with following content, customizing URL of REST server and secretKey (Needs to be the same of /var/www/html/freepbx/rest/config.inc.php)
+
+var customConfig = {
+  BRAND_NAME: 'NethVoice',
+  BRAND_SITE: 'http://www.nethvoice.it',
+  BRAND_DOCS: 'http://nethvoice.docs.nethesis.it/it/v14/wizard.html',
+  BASE_API_URL: '/freepbx/rest',
+  BASE_API_URL_CTI: '/webrest',
+  VPLAN_URL: '/freepbx/visualplan',
+  OUTBOUNDS_URL: '/freepbx/admin/config.php?display=routing&view=form&id=',
+  SECRET_KEY: '1234',
+};
 
 Accept certificate server if necessary
 
