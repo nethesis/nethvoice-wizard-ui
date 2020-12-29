@@ -150,6 +150,45 @@
             </div>
           </div>
         </form>
+        <h3 class="settings-h3 fz-19 fw-300 mt-35">{{'Phonebook Sources' | translate}}</h3>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'Rapid code PBX' | translate}}</label>
+            <div class="col-sm-9">
+              <input
+                bs-switch
+                ng-model="rapidCodePbx"
+                ng-change="toggleRapidCode()"
+                id="rapidCodeSwitch"
+                class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                type="checkbox">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'PBX extensions' | translate}}</label>
+            <div class="col-sm-9">
+              <input
+                bs-switch
+                ng-model="pbxExtensions"
+                ng-change="togglePbxExtensions()"
+                id="pbxExtensionsSwitch"
+                class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                type="checkbox">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{'NethCTI public contacts' | translate}}</label>
+            <div class="col-sm-9">
+              <input
+                bs-switch
+                ng-model="publicContactsPbx"
+                ng-change="togglePublicContacts()"
+                id="publicContactsSwitch"
+                class="bootstrap-switch col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                type="checkbox">
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
