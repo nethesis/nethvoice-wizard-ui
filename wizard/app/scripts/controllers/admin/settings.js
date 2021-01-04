@@ -103,6 +103,14 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    var initFirewall = function () {
+      ConfigService.getExternalSip().then(function (res) {
+        $scope.sipTlsStatus = res.data == "disabled" ? false : true
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
     $scope.openSaveNat = function () {
       $("#saveNat").modal("show")
     }
@@ -149,6 +157,46 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    var getPhonebookSettings = function () {
+      ConfigService.getPhonebookSettings().then(function (res) {
+        $scope.rapidCodePbx = res.data.speeddial
+        $scope.pbxExtensions = res.data.extensions
+        $scope.publicContactsPbx = res.data.nethcti
+      }, function (err) {
+        console.log(err);
+      })
+    }
+
+    $scope.toggleRapidCode = function () {
+      let status = $scope.rapidCodePbx ? "enabled" : "disabled"
+      ConfigService.switchRapidCode(status).then(function (res) {
+        // toggle success
+      }, function (err) {
+        $scope.rapidCodePbx = !$scope.rapidCodePbx
+        console.log(err)
+      })
+    }
+
+    $scope.togglePbxExtensions = function () {
+      let status = $scope.pbxExtensions ? "enabled" : "disabled"
+      ConfigService.switchPbxExtensions(status).then(function (res) {
+        // toggle success
+      }, function (err) {
+        $scope.pbxExtensions = !$scope.pbxExtensions
+        console.log(err)
+      })
+    }
+
+    $scope.togglePublicContacts = function () {
+      let status = $scope.publicContactsPbx ? "enabled" : "disabled"
+      ConfigService.switchPublicContacts(status).then(function (res) {
+        // toggle success
+      }, function (err) {
+        $scope.publicContactsPbx = !$scope.publicContactsPbx
+        console.log(err)
+      })
+    }
+
     $scope.togglePhonebookjs = function () {
       let status = $scope.phonebookjsStatus ? "enabled" : "disabled"
       ConfigService.switchPhonebookJs(status).then(function (res) {
@@ -162,14 +210,6 @@ angular.module('nethvoiceWizardUiApp')
       let status = $scope.phonebookjssStatus ? "enabled" : "disabled"
       ConfigService.switchPhonebookJss(status).then(function (res) {
         // phonebook jss enabled
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
-    var initFirewall = function () {
-      ConfigService.getExternalSip().then(function (res) {
-        $scope.sipTlsStatus = res.data == "disabled" ? false : true
       }, function (err) {
         console.log(err)
       })
@@ -198,6 +238,7 @@ angular.module('nethvoiceWizardUiApp')
       initNat()
       initFirewall()
       ldapPhoneebookCheck()
+      getPhonebookSettings()
       $("#saveNat").on("hidden.bs.modal", function () {
         $scope.loadingNatAction = ""
       })

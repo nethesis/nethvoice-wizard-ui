@@ -181,4 +181,44 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    this.getPhonebookSettings = function () {
+      return $q(function(resolve, reject) {
+        RestService.get('/phonebook/sources').then(function(res) {
+          resolve(res)
+        }, function(err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.switchRapidCode = function (status) {
+      return $q(function (resolve, reject) {
+        RestService.post('/phonebook/sources/speeddial/' + status).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.switchPbxExtensions = function (status) {
+      return $q(function (resolve, reject) {
+        RestService.post('/phonebook/sources/extensions/' + status).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.switchPublicContacts = function (status) {
+      return $q(function (resolve, reject) {
+        RestService.post('/phonebook/sources/nethcti/' + status).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
   });

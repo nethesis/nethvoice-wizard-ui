@@ -955,5 +955,9 @@
   "Reset to saved settings": "Ripristina le impostazioni salvate",
   "Changes have been canceled": "Le modifiche sono state cancellate",
   "Settings have been reset to the original values": "Le impostazioni sono state ripristinate ai valori originali",
-  "The model has been deleted": "Il modello è stato cancellato"
+  "The model has been deleted": "Il modello è stato cancellato",
+  "Rapid code PBX": "Numeri brevi Centralino",
+  "PBX extensions": "Interni Centralino",
+  "NethCTI public contacts": "Contatti condivisi di NethCTI",
+  "Phonebook Sources": "Sorgenti Rubrica"
 }
