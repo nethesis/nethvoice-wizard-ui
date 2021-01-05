@@ -82,15 +82,23 @@
                                               <option value="" ng-disabled="true" ng-hide="true">-</option>
                                               <option value="null">-</option>
                                               <!-- combobox -->
-                                              <option ng-selected="currentModel.variables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == option.value"
+                                              <option
+                                                ng-selected="currentModel.variables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == option.value"
                                                 ng-if="key.options.length > 10 && !currentModel.ui.map[sectionkey].hidden_types.includes(option.value)"
                                                 ng-repeat="option in ::key.options"
-                                                value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && !currentModel.singleVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == option.value ? ' (' + currentModel.display_name + ')' : ''}}</option>
+                                                value="{{::option.value}}"
+                                                render-index="{{key.options.length - currentModel.ui.map[sectionkey].hidden_types.length}}"
+                                                on-finish-render="comboboxRepeatEnd"
+                                              >{{::option.text | translate}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && !currentModel.singleVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == option.value ? ' (' + currentModel.display_name + ')' : ''}}</option>
                                               <!-- selectpicker -->
-                                              <option ng-selected="currentModel.variables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == option.value"
+                                              <option
+                                                ng-selected="currentModel.variables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == option.value"
                                                 ng-if="key.options.length <= 10 && !currentModel.ui.map[sectionkey].hidden_types.includes(option.value)"
                                                 ng-repeat="option in ::key.options"
-                                                value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && !currentModel.singleVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == option.value ? ' (' + currentModel.display_name + ')' : ''}}</option>
+                                                value="{{::option.value}}"
+                                                render-index="{{key.options.length - currentModel.ui.map[sectionkey].hidden_types.length}}"
+                                                on-finish-render="selectpickerRepeatEnd"
+                                              >{{::option.text | translate}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && !currentModel.singleVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] && currentModel.modelVariables[key.variable + '_' + (module * currentModel.ui.map[sectionkey].module_keys_count + keysIndex)] == option.value ? ' (' + currentModel.display_name + ')' : ''}}</option>
                                             </select>
                                           </div>
                                           <!-- dynamicsearch -->
@@ -231,15 +239,23 @@
                                       <option value="" ng-disabled="true" ng-hide="true">-</option>
                                       <option value="null">-</option>
                                       <!-- combobox -->
-                                      <option ng-selected="currentModel.variables[key.variable + '_' + keysIndex] == option.value"
+                                      <option
+                                        ng-selected="currentModel.variables[key.variable + '_' + keysIndex] == option.value"
                                         ng-if="key.options.length > 10 && !currentModel.ui.map[sectionkey].hidden_types.includes(option.value)"
                                         ng-repeat="option in ::key.options"
-                                        value="{{::option.value}}" on-finish-render="comboboxRepeatEnd">{{::option.text | translate}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[key.variable + '_' + keysIndex] && !currentModel.singleVariables[key.variable + '_' + keysIndex] && currentModel.modelVariables[key.variable + '_' + keysIndex] == option.value ? ' (' + currentModel.display_name + ')' : ''}}</option>
+                                        value="{{::option.value}}"
+                                        render-index="{{key.options.length - currentModel.ui.map[sectionkey].hidden_types.length}}"
+                                        on-finish-render="comboboxRepeatEnd"
+                                      >{{::option.text | translate}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[key.variable + '_' + keysIndex] && !currentModel.singleVariables[key.variable + '_' + keysIndex] && currentModel.modelVariables[key.variable + '_' + keysIndex] == option.value ? ' (' + currentModel.display_name + ')' : ''}}</option>
                                       <!-- selectpicker -->
-                                      <option ng-selected="currentModel.variables[key.variable + '_' + keysIndex] == option.value"
+                                      <option
+                                        ng-selected="currentModel.variables[key.variable + '_' + keysIndex] == option.value"
                                         ng-if="key.options.length <= 10 && !currentModel.ui.map[sectionkey].hidden_types.includes(option.value)"
                                         ng-repeat="option in ::key.options"
-                                        value="{{::option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[key.variable + '_' + keysIndex] && !currentModel.singleVariables[key.variable + '_' + keysIndex] && currentModel.modelVariables[key.variable + '_' + keysIndex] == option.value ? ' (' + currentModel.display_name + ')' : ''}}</option>
+                                        value="{{::option.value}}"
+                                        render-index="{{key.options.length - currentModel.ui.map[sectionkey].hidden_types.length}}"
+                                        on-finish-render="selectpickerRepeatEnd"
+                                      >{{::option.text | translate}}{{currentModel.uiLocation == "configurations" && currentModel.modelVariables[key.variable + '_' + keysIndex] && !currentModel.singleVariables[key.variable + '_' + keysIndex] && currentModel.modelVariables[key.variable + '_' + keysIndex] == option.value ? ' (' + currentModel.display_name + ')' : ''}}</option>
                                     </select>
                                   </div>
                                   <!-- dynamicsearch -->

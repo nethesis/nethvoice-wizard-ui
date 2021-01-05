@@ -59,7 +59,7 @@
 												autocomplete="off">
 												<option value="" ng-disabled="true" ng-hide="true">-</option>
 												<!-- selectpicker -->
-												<option ng-if="item.options.length <= 10" ng-repeat="option in item.options"
+												<option ng-repeat="option in item.options"
 													value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}
 												</option>
 											</select>
