@@ -3416,6 +3416,22 @@ a.black:focus, a.black:hover, a.black:active {
   margin-left: 12px;
 }
 
+.device-warning-bg {
+  background: #ec7a0833;
+}
+
+.device-warning-bg:hover {
+  background: #fff;
+}
+
+.fs-15 {
+  font-size: 15px !important;
+}
+
+.ml-11 {
+  margin-left: 11px;
+}
+
 /* .rm-first-option .dropdown-menu ul li:first-child {
   display: none !important;
 } */

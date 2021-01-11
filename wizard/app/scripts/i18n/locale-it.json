@@ -959,5 +959,9 @@
   "Rapid code PBX": "Numeri brevi Centralino",
   "PBX extensions": "Interni Centralino",
   "CTI public contacts": "Contatti condivisi del CTI",
-  "Phonebook Sources": "Sorgenti Rubrica"
+  "Phonebook Sources": "Sorgenti Rubrica",
+  "Temporary": "Temporaneo",
+  "Unlink the device and link it again with the new provisioning": "Disassocia il dispositivo e riassocialo con il nuovo provisioning",
+  "Phone not registered": "Telefono non registrato",
+  "Register a phone to see the informations": "Registra un telefono per visualizzare le informazioni"
 }

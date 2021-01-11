@@ -20,16 +20,6 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
-    this.createPhysicalExtension = function (obj) {
-      return $q(function (resolve, reject) {
-        RestService.post('/physicalextensions', obj).then(function (res) {
-          resolve(res);
-        }, function (err) {
-          reject(err);
-        });
-      });
-    };
-
     this.deletePhysicalExtension = function (ext) {
       return $q(function (resolve, reject) {
         RestService.delete('/physicalextensions/' + ext).then(function (res) {
