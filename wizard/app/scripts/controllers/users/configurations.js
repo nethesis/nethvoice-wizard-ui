@@ -265,7 +265,8 @@ angular.module('nethvoiceWizardUiApp')
         model: device.model || null,
         line: line || null,
         web_user: device.web_user || 'admin',
-        web_password: device.web_password || 'admin'
+        web_password: device.web_password || 'admin',
+        clear_temporary: true
       }).then(function (res) {
         device.setPhysicalInAction = false;
         device.web_password = '';

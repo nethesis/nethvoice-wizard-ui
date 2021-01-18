@@ -178,8 +178,11 @@
                 </div>
               </div>
               <div ng-repeat="device in user.devices | orderBy: device.extension track by device.id">
-                <!-- devices -->
-                <div ng-if="device.type == 'physical'" class="list-group-item cursor-default ng-scope">
+                <!-- physical, temporary physical and custom -->
+                <div
+                  ng-if="device.type == 'physical' || device.type == 'temporaryphysical'"
+                  class="list-group-item cursor-default {{!device.mac && (device.type === 'temporaryphysical') ? 'device-warning-bg' : ''}}"
+                >
                   <div class="list-view-pf-actions">
                     <div class="display-flex">
                       <!-- provisioning info -->
@@ -228,18 +231,39 @@
                     </div>
                     <div class="list-view-pf-body config-list-devices">
                       <div class="list-view-pf-description">
-                        <div title="{{!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical') ? 'Custom' : device.manufacturer | translate}} - {{device.extension}}" class="list-group-item-heading configDevices-item-heading">
+                        <div
+                          title="{{!device.mac && device.type === 'physical' ? 'Custom' : !device.mac && device.type === 'temporaryphysical' ? 'Temporary' : device.manufacturer | translate}} - {{device.extension}}"
+                          class="list-group-item-heading configDevices-item-heading display-flex"
+                        >
                           <span ng-if="device.manufacturer">{{device.manufacturer}}</span>
-                          <span ng-if="!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical')">
+                          <!-- when custom -->
+                          <span ng-if="!device.mac && (device.type === 'physical')">
                             {{"Custom" | translate}}
                           </span>
-                          - <span>{{device.extension}}</span>
+                          <!-- when temporary -->
+                          <span ng-if="!device.mac && (device.type === 'temporaryphysical')">
+                            {{"Temporary" | translate}}
+                          </span>
+                          <!-- extension -->
+                          <span class="ml-3">
+                            {{device.extension ? " - " + device.extension : ""}}
+                          </span>
+                          <!-- temporary description -->
+                          <span
+                            ng-if="!device.mac && (device.type === 'temporaryphysical')"
+                            class="pficon pficon-warning-triangle-o ml-10 fs-15 mt-3"
+                            popover-placement="top"
+                            popover-trigger="'mouseenter'"
+                            popover-animation="true"
+                            popover-class="popover-small-width"
+                            uib-popover="{{'Unlink the device and link it again with the new provisioning' | translate}}!">
+                          </span>
                         </div>
                         <span class="weight-plus mr-20">
                         </span>
                         <div class="list-group-item-text">
                           <div class="col-lg-6 mxw-211">
-                            <!-- model select for non-custom devices -->
+                            <!-- model select for physical devices not custom or temporary -->
                             <div class="form-group no-margin-bottom" ng-if="!(!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical'))">
                               <div class="display-flex miw-135">
                                 <select
@@ -257,10 +281,13 @@
                                 </button>
                               </div>
                             </div>
-                            <!-- show secret for custom devices -->
+                            <!-- show secret for custom devices and temporary -->
                             <button ng-if="!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical')" popover-animation="true" uib-popover="{{device.secret}}" type="button" class="btn btn-default">{{'Show Secret' | translate}}</button>
                           </div>
-                          <div class="col-lg-5 mnw-180 {{!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical') ? 'eswitch-mt2' : 'eswitch-mt'}}">
+                          <div
+                            class="col-lg-5 mnw-180 {{!device.mac ? 'eswitch-mt2' : 'eswitch-mt'}}"
+                            ng-if="device.type != 'temporaryphysical'"
+                            >
                             <div class="list-view-pf-additional-info config-info ">
                               <input
                                 bs-switch
@@ -604,7 +631,16 @@
         <h4 class="modal-title" id="myModalLabel">{{'Phone provisioning info' | translate}} {{data.selExten.exten}}</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
+        <div ng-if="emptyDeviceInfo" class="alert alert-warning">
+          <span class="pficon pficon-warning-triangle-o"></span>
+          <strong>
+            {{"Phone not registered" | translate}}.
+          </strong>
+          <p>
+            {{"Register a phone to see the informations" | translate}}!
+          </p>
+        </div>
+        <form ng-if="!emptyDeviceInfo" class="form-horizontal">
           <div class="form-group">
             <label class="col-sm-4 control-label">{{'MAC address' | translate}}</label>
             <div class="col-sm-8">

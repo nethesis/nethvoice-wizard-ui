@@ -428,7 +428,8 @@ angular.module('nethvoiceWizardUiApp')
         model: device.model || null,
         line: line || null,
         web_user: 'admin',
-        web_password: $scope.defaults.adminpw || 'admin'
+        web_password: $scope.defaults.adminpw || 'admin',
+        clear_temporary: true
       }).then(function (res) {
         device.setPhysicalInAction = "ok"
         device.linkPhysicalInAction = "ok"
@@ -608,8 +609,11 @@ angular.module('nethvoiceWizardUiApp')
         $scope.currentPhoneInfo.model = res[1].data.sipuseragent
         $scope.currentPhoneInfo.codecs = res[1].data.codecs.join()
         $scope.currentPhoneInfo.ip = res[1].data.ip
+        $scope.emptyDeviceInfo = false
         $("#provisioningInfoModal").modal("show")
       }, function (err) {
+        $scope.emptyDeviceInfo = true
+        $("#provisioningInfoModal").modal("show")
         console.log(err);
       });
     }
