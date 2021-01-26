@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.6.0
+Version: 14.9.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,12 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Tue Jan 26 2021 Stefano Fancello <stefano.fancello@nethesis.it> - 14.9.0-1
+- Show devices created by migration from old version - Bug nethesis/dev#5915
+- Add to Wizard the management of sources to be included in the Nethvoice Phonebook - nethesis/dev#5941
+- Selects not correctly rendered in exp keys types during model editing - Bug nethesis/dev#5921
+- NethVoice wizard ui and rest SecretKey templates aren't expanded on box - Bug nethesis/dev#5932
+
 * Fri Nov 27 2020 Davide Principi <davide.principi@nethesis.it> - 14.6.0-1
 - Phonebook CSV sources - nethesis/dev#5903
 - Missing destinations in bulk extensions - nethesis/dev#5875
