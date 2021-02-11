@@ -456,6 +456,10 @@ angular.module('nethvoiceWizardUiApp')
           return buildModelUI(ProvGigasetService, variables)
           break;
       
+        case "nethesis":
+          return buildModelUI(ProvNethesisService, variables)
+          break;
+
         case "sangoma":
           return buildModelUI(ProvSangomaService, variables)
           break;
