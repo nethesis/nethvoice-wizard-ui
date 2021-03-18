@@ -221,7 +221,6 @@
   "international_es": "Internazionali",
   "cellphone_es": "Cellulari",
   "toll_es": "Pagamento",
-
   "Standard": "Standard",
   "Advanced": "Avanzato",
   "Settings": "Impostazioni",
@@ -230,7 +229,6 @@
   "Customerd Card": "Schede cliente",
   "Presence Panel": "Pannello presenza",
   "Use queue agent panel": "Pannello agente di coda",
-  "Streaming": "Streaming",
   "Off Hour": "Fuori orario",
   "Remote Sites": "Sedi remote",
   "Call Waiting": "Avviso di chiamata",
@@ -328,7 +326,6 @@
   "Duplicate": "Duplica",
   "Duplicate template": "Duplica template",
   "Delete card": "Elimina scheda",
-
   "Template saved": "Template salvato",
   "Template saved with success": "Template salvato con successo",
   "Template not saved": "Template non salvato",
@@ -339,7 +336,6 @@
   "Modify template": "Modifica template",
   "Templates": "Template",
   "Template": "Template",
-
   "Card saved": "Scheda salvata",
   "Card saved with success": "Scheda salvata con successo",
   "Card not saved": "Scheda non salvata",
@@ -353,7 +349,6 @@
   "Video sources configuration": "Configurazione sorgenti video",
   "No video sources found": "Nessuna sorgente video trovata",
   "Opening code": "Codice d'apertura",
-
   "No customer cards found": "Nessuna scheda cliente trovata",
   "Database type": "Tipo database",
   "Database name": "Nome database",
@@ -963,5 +958,18 @@
   "Temporary": "Temporaneo",
   "Unlink the device and link it again with the new provisioning": "Disassocia il dispositivo e riassocialo con il nuovo provisioning",
   "Phone not registered": "Telefono non registrato",
-  "Register a phone to see the informations": "Registra un telefono per visualizzare le informazioni"
+  "Register a phone to see the informations": "Registra un telefono per visualizzare le informazioni",
+  "Screen Sharing": "Condivisione Schermo",
+  "Allow to share the desktop": "Consente la condivisione dello schermo",
+  "Phone buttons": "Pulsanti Telefono Fisico",
+  "Video Conference": "Video Conferenza",
+  "Allow to start a video conference": "Consente l'inizio di una video conferenza",
+  "Allow to change user's incoming call path and generic inbound routes": "Consente di modificare il percorso della chiamata in entrata dell'utente e delle rotte in entrata generiche",
+  "Streaming": "Sorgenti Video",
+  "Admin Off Hour": "Fuori Orario Completo",
+  "Allow to change all incoming call paths": "Consente la modifica di tutti i percorsi delle chiamate in arrivo",
+  "Operator Panel": "Posto Operatore",
+  "Manage Queue": "Gestione Coda",
+  "Enables Operator Panel interface for operators": "Abilita l'interfaccia Posto Operatore per gli operatori",
+  "Use this queue for Operator Panel incoming calls": "Utilizza questa coda per le chiamate in arrivo per il Posto Operatore"
 }
