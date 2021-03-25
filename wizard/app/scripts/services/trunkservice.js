@@ -78,4 +78,24 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    this.changeTrunkPwd = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.patch('/trunk/secret', obj).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.deleteTrunk = function (trunkid) {
+      return $q(function (resolve, reject) {
+        RestService.delete('/trunk/' + trunkid).then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
   });

@@ -971,5 +971,13 @@
   "Operator Panel": "Posto Operatore",
   "Manage Queue": "Gestione Coda",
   "Enables Operator Panel interface for operators": "Abilita l'interfaccia Posto Operatore per gli operatori",
-  "Use this queue for Operator Panel incoming calls": "Utilizza questa coda per le chiamate in arrivo per il Posto Operatore"
+  "Use this queue for Operator Panel incoming calls": "Utilizza questa coda per le chiamate in arrivo per il Posto Operatore",
+  "Configure new provider": "Configurazione nuovo provider",
+  "Provider IP": "IP provider",
+  "Password change": "Cambio password",
+  "Add the password provided by the provider": "Inserisci la password fornita dal provider",
+  "New password": "Nuova password",
+  "Password change failed": "Cambio password fallito",
+  "No configured providers": "Nessun provider configurato",
+  "Trunk status information will be available shortly": "Le informazioni sullo stato del trunk saranno disponibili a breve"
 }
