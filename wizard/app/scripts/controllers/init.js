@@ -56,6 +56,8 @@ angular.module('nethvoiceWizardUiApp')
       routesOut: 0
     };
 
+    $scope.SCROLLPLUS = 20
+
     $scope.doLogout = function () {
       LoginService.removeCredentials();
       $location.path('/');
@@ -810,6 +812,10 @@ angular.module('nethvoiceWizardUiApp')
       }, function (err) {
         console.log(err)
       })
+    }
+
+    $scope.scrollingContainerView = function () {
+      $rootScope.$broadcast("scrollingContainerView")
     }
 
     var getGlobals = function () {
