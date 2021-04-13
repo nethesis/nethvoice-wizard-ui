@@ -972,7 +972,7 @@
   "Manage Queue": "Gestione Coda",
   "Enables Operator Panel interface for operators": "Abilita l'interfaccia Posto Operatore per gli operatori",
   "Use this queue for Operator Panel incoming calls": "Utilizza questa coda per le chiamate in arrivo per il Posto Operatore",
-  "Configure new provider": "Configurazione nuovo provider",
+  "Configure new provider": "Configura nuovo provider",
   "Provider IP": "IP provider",
   "Password change": "Cambio password",
   "Add the password provided by the provider": "Inserisci la password fornita dal provider",
