@@ -14,6 +14,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.externalIp = ""
     $scope.localNetworks = []
     $scope.localNrFields = 1
+    $scope.conferenceUrl = ""
+    $scope.conferenceUrlSuccess = false
+    $scope.conferenceUrlError = false
 
     $scope.create = function () {
       if ($scope.admin.password === $scope.admin.confirmPassword) {
@@ -234,11 +237,33 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    var getConferenceUrl = function () {
+      ConfigService.getConferenceUrl().then(function (res) {
+        $scope.conferenceUrl = res.data
+      }, function (err) {
+        console.log(err)
+      })
+    }
+
+    $scope.saveConferenceUrl = function () {
+      ConfigService.setConferenceUrl($scope.conferenceUrl).then(function () {
+        $scope.conferenceUrlSuccess = true
+        if(!$scope.$$phase) {
+          $scope.$apply()
+        }
+      }, function (err) {
+        $scope.conferenceUrlError = true
+        $scope.$apply()
+        console.log(err)
+      })
+    }
+
     var init = function () {
       initNat()
       initFirewall()
       ldapPhoneebookCheck()
       getPhonebookSettings()
+      getConferenceUrl()
       $("#saveNat").on("hidden.bs.modal", function () {
         $scope.loadingNatAction = ""
       })

@@ -221,4 +221,24 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
+    this.getConferenceUrl = function () {
+      return $q(function (resolve, reject) {
+        RestService.get('/settings/conferenceurl').then(function (res) {
+          resolve(res)
+        }, function (err) {
+          reject(err)
+        })
+      })
+    }
+
+    this.setConferenceUrl = function (url) {
+      return $q(function (resolve, reject) {
+        RestService.post('/settings/conferenceurl', {"url": url}).then(function(res) {
+          resolve(res);
+        }, function(err) {
+          reject(err);
+        });
+      })
+    }
+
   });
