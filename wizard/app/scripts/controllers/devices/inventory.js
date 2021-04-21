@@ -26,6 +26,13 @@ angular.module('nethvoiceWizardUiApp')
     $scope.PHONES_PAGE = 15;
     $scope.phonesLimit = $scope.PHONES_PAGE;
 
+    const nethesisVendor = "Nethesis"
+    const modelDigitsKey = 3
+    const npx3Digits = "00"
+    const npx5Digits = "01"
+    const npx3Name = "nethesis-NPX3"
+    const npx5Name = "nethesis-NPX5"
+
     function gotModels(models) {
       $scope.models = models;
 
@@ -213,6 +220,16 @@ angular.module('nethvoiceWizardUiApp')
         $scope.manualFilteredModels = $scope.models.filter(function (model) {
           return model.name.toLowerCase().startsWith(vendor.toLowerCase());
         });
+
+        // force phone model when vendor is Nethesis
+        if (vendor === nethesisVendor && $scope.manualMac && ($scope.manualFilteredModels.length > 0)) {
+          let mac = $scope.manualMac.replace(/:/g, "-")
+          if (mac.toUpperCase().split("-")[modelDigitsKey] === npx3Digits) {
+            $scope.manualModel = $scope.manualFilteredModels.find(( model ) => { return model.name === npx3Name })
+          } else if (mac.toUpperCase().split("-")[modelDigitsKey] === npx5Digits) {
+            $scope.manualModel = $scope.manualFilteredModels.find(( model ) => { return model.name === npx5Name })
+          }
+        }
       } else {
         $scope.manualVendor = null;
         $scope.manualFilteredModels = angular.copy($scope.models);
@@ -691,6 +708,16 @@ angular.module('nethvoiceWizardUiApp')
         phone.filteredModels = $scope.models.filter(function (model) {
           return model.name.toLowerCase().startsWith(vendor.toLowerCase());
         });
+
+        // force phone model when vendor is Nethesis
+        if (phone.vendor === nethesisVendor && phone.mac && (phone.filteredModels.length > 0)) {
+          let mac = phone.mac.replace(/:/g, "-")
+          if (mac.toUpperCase().split("-")[modelDigitsKey] === npx3Digits) {
+            phone.model = phone.filteredModels.find(( model ) => { return model.name === npx3Name })
+          } else if (mac.toUpperCase().split("-")[modelDigitsKey] === npx5Digits) {
+            phone.model = phone.filteredModels.find(( model ) => { return model.name === npx5Name })
+          }
+        }
       } else {
         phone.vendor = null;
         phone.filteredModels = angular.copy($scope.models);
