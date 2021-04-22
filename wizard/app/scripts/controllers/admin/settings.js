@@ -248,12 +248,16 @@ angular.module('nethvoiceWizardUiApp')
     $scope.saveConferenceUrl = function () {
       ConfigService.setConferenceUrl($scope.conferenceUrl).then(function () {
         $scope.conferenceUrlSuccess = true
+        $scope.conferenceUrlError = false
         if(!$scope.$$phase) {
           $scope.$apply()
         }
       }, function (err) {
         $scope.conferenceUrlError = true
-        $scope.$apply()
+        $scope.conferenceUrlSuccess = false
+        if(!$scope.$$phase) {
+          $scope.$apply()
+        }
         console.log(err)
       })
     }
