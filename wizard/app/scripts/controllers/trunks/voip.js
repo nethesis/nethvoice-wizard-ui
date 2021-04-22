@@ -58,8 +58,14 @@ angular.module('nethvoiceWizardUiApp')
 
     var getVoipTrunksList = function (selectId) {
       TrunkService.getAllTrunks().then(function (res) {
-        $scope.voipTrunks = $filter("orderBy")(res.data, "name")
+        // filter data
+        let filteredData = res.data.filter((trunk) => {  
+          return (trunk.tech === "sip")
+        })
+        // order data
+        $scope.voipTrunks = $filter("orderBy")(filteredData, "name")
         if ($scope.voipTrunks.length > 0) {
+          // set selected trunk
           if (selectId) {
             $scope.selectedTrunk = $scope.voipTrunks.find(el => el.trunkid == selectId)
           } else {
@@ -70,6 +76,9 @@ angular.module('nethvoiceWizardUiApp')
               }
             }
           }
+        } else {
+          // empty selected trunk
+          $scope.selectedTrunk = {}
         }
         $scope.view.changeRoute = false;
       }, function (err) {
@@ -105,9 +114,7 @@ angular.module('nethvoiceWizardUiApp')
             codecs: ['alaw', 'ulaw']
           }
         }, 1000)
-        $scope.updateTrunksInfoAsync = $timeout(function () {
-          getVoipTrunksInfo()
-        }, 15000)
+        getVoipTrunksInfo()
         // count all trunks
         TrunkService.count().then(function (res) {
           $scope.menuCount.trunks = res.data;

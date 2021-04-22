@@ -41,7 +41,6 @@
           ng-class="selectedTrunk.trunkid == trunk.trunkid ? 'selected' : ''"
           ng-repeat="trunk in voipTrunks | filter:searchTrunk"
           ng-click="selectTrunk(trunk)"
-          ng-if="trunk.tech == 'sip'"
         >
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
@@ -72,7 +71,7 @@
       </h1>
       <form class="form-horizontal" ng-submit="">
         <div class="modal-body">
-          <div ng-if="newCreated" class="alert alert-info">
+          <div ng-if="newCreated && false" class="alert alert-info">
             <span class="pficon pficon-info"></span>
             <strong>{{"Trunk status information will be available shortly" | translate}}.</strong>
           </div>
