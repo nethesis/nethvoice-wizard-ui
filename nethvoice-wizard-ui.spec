@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.9.0
+Version: 14.10.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,13 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Thu Apr 22 2021 Stefano Fancello <stefano.fancello@nethesis.it> - 14.10.0-1
+- Jitsi instant video conference integration - nethesis/dev#5966
+- Add Videoconference URL management - nethesis/dev#5993
+- Add NethPhone to NethVoice provisioning - nethesis/dev#5956
+- Enhace Voip Trunks management section - nethesis/dev#5982
+- Fix all missed translation on NethVoice Wizard Profile section - Bug nethesis/dev#5974
+
 * Tue Jan 26 2021 Stefano Fancello <stefano.fancello@nethesis.it> - 14.9.0-1
 - Show devices created by migration from old version - Bug nethesis/dev#5915
 - Add to Wizard the management of sources to be included in the Nethvoice Phonebook - nethesis/dev#5941
