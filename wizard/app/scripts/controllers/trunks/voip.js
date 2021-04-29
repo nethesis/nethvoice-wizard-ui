@@ -60,7 +60,7 @@ angular.module('nethvoiceWizardUiApp')
       TrunkService.getAllTrunks().then(function (res) {
         // filter data
         let filteredData = res.data.filter((trunk) => {  
-          return (trunk.tech === "sip")
+          return (trunk.tech === "sip" || trunk.tech === "pjsip")
         })
         // order data
         $scope.voipTrunks = $filter("orderBy")(filteredData, "name")
@@ -70,7 +70,7 @@ angular.module('nethvoiceWizardUiApp')
             $scope.selectedTrunk = $scope.voipTrunks.find(el => el.trunkid == selectId)
           } else {
             for (var i in $scope.voipTrunks) {
-              if ($scope.voipTrunks[i].tech == 'sip') {
+              if ($scope.voipTrunks[i].tech == 'sip' || $scope.voipTrunks[i].tech == 'pjsip') {
                 $scope.selectedTrunk = $scope.voipTrunks[i]
                 break
               }
