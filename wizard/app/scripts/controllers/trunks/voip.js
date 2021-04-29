@@ -130,7 +130,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.deleteTrunk = function (trunk) {
       $scope.onDelete = true
-      TrunkService.deleteTrunk(trunk.trunkid, "sip").then(function (res) {
+      TrunkService.deleteTrunk(trunk.trunkid).then(function (res) {
         getVoipTrunksList()
         getVoipTrunksInfo()
         $scope.onDelete = false
