@@ -3553,4 +3553,30 @@ a.black:focus, a.black:hover, a.black:active {
 
 #modalEncryptionCss{
   font-size: 23px;
+  
+/* popup in the adding source */
+#informationSource{
+  margin-top: -10px;
+  margin-left: 13px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#informationSource:hover {
+  color: #6EC664 
+}
+
+#columnModal{
+  /* color:#6EC664; */
+  font-weight: 700 !important;
+  font-size: large;
+}
+
+#columnModalColored{
+  background-color: #f3f6f6 !important;
+}
+
+#tableModal{
+  margin-bottom: 1px;
 }
