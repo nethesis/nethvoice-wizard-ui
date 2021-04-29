@@ -242,6 +242,122 @@
                         <div class="list-view-pf-additional-info-item">
                           <label>{{"Destination columns" | translate}}</label>
                         </div>
+                        <span type="button" id="informationSource" class="pficon-info" data-toggle="modal" data-target="#informationPopup">
+                        </span>
+                        <div class="modal fade" id="informationPopup" tabindex="-1" role="dialog" aria-labelledby="informationPopup" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-body">
+                                <table id="tableModal" class="table">
+                                  <thead class="thead-dark">
+                                    <tr id="columnModal">
+                                      <th scope="col">{{"Column"| translate}}</th>
+                                      <th scope="col">{{"Description"| translate}}</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>owner_id</td>
+                                      <td>{{"Contact owner"| translate}}</td>
+                                    </tr>
+                                    <tr id="columnModalColored">
+                                      <td>type</td>
+                                      <td>{{"Source of origin"| translate}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>homeemail</td>
+                                      <td>{{"Home email address"| translate}}</td>
+                                    </tr>
+                                    <tr id="columnModalColored">
+                                      <td>workemail</td>
+                                      <td>{{"Business email address"| translate}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>homephone</td>
+                                      <td>{{"Home telephone number"| translate}}</td>
+                                    </tr>
+                                    <tr id="columnModalColored">
+                                      <td>workphone</td>
+                                      <td>{{"Business telephone number"| translate}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>cellphone</td>
+                                      <td>{{"Mobile number"| translate}}</td>
+                                    </tr>
+                                    <tr id="columnModalColored">
+                                      <td>fax</td>
+                                      <td>{{"Fax number"| translate}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>title</td>
+                                      <td>{{"Task"| translate}}</td>
+                                    </tr>
+                                    <tr id="columnModalColored">
+                                      <td>company</td>
+                                      <td>{{"Company"| translate}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>notes</td>
+                                      <td>{{"Notes"| translate}}</td>
+                                    </tr>
+                                    <tr id="columnModalColored">
+                                      <td>name</td>
+                                      <td>{{"Name and surname"| translate}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>homestreet</td>
+                                      <td>{{"Home address"| translate}}</td>
+                                    </tr>
+                                    <tr id="columnModalColored">
+                                      <td>homepob</td>
+                                      <td>{{"Home post box"| translate}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>homecity</td>
+                                      <td>{{"City of domicile"| translate}}</td>
+                                    </tr>
+                                    <tr id="columnModalColored"> 
+                                      <td>homeprovince </td>
+                                      <td>{{"Province of domicile"| translate}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>homepostalcode</td>
+                                      <td>{{"Postal code domicile"| translate}}</td>
+                                    </tr>
+                                    <tr id="columnModalColored">
+                                      <td>homecountry</td>
+                                      <td>{{"State / region of domicile"| translate}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>workstreet</td>
+                                      <td>{{"Business address"| translate}}</td>
+                                    </tr>
+                                    <tr id="columnModalColored">
+                                      <td>workpob</td>
+                                      <td>{{"Post box work"| translate}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>workcity</td>
+                                      <td>{{"Working city"| translate}}</td>
+                                    </tr>
+                                    <tr id="columnModalColored">
+                                      <td>workprovince</td>
+                                      <td>{{"Work province"| translate}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>workpostalcode</td>
+                                      <td>{{"Business postal code"| translate}}</td>
+                                    </tr>
+                                    <tr id="columnModalColored">
+                                      <td>workcountry</td>
+                                      <td>{{"State / region of employment"| translate}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table> 
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
