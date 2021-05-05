@@ -10,7 +10,7 @@
 angular.module('nethvoiceWizardUiApp')
   .controller('InitCtrl', function ($scope, $rootScope, $translate, $location, ConfigService, LanguageService, PhoneService, LocalStorageService, LoginService, UserService,
     MigrationService, TrunkService, RouteService, ModelService, GenericPhoneService, ProvGlobalsService, $q, ProvFanvilService, ProvGigasetService,
-    ProvSangomaService, ProvSnomService, ProvYealinkService) {
+    ProvSangomaService, ProvSnomService, ProvYealinkService, ProvNethesisService) {
 
     $scope.customConfig = customConfig
     $scope.appConfig = appConfig
