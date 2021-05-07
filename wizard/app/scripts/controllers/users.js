@@ -54,16 +54,7 @@ angular.module('nethvoiceWizardUiApp')
     });
 
     $scope.goNethserverSssdConfig = function () {
-      for (var la in $scope.languagesArr) {
-        if ($scope.languagesArr[la].check) {
-          if ($scope.languagesArr[la].key == "it") {
-            var lang = "it-IT";
-          } else {
-            var lang = "en-US";
-          }
-          window.location.href = window.location.origin + ":980/" + lang + "/SssdConfig";
-        }
-      }
+      window.location.href = window.location.origin + ":9090/nethserver#/users-groups";
     };
 
     $scope.makeChoice = function (mode) {
