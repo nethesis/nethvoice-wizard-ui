@@ -288,6 +288,26 @@
                             class="col-lg-5 mnw-180 {{!device.mac ? 'eswitch-mt2' : 'eswitch-mt'}}"
                             ng-if="device.type != 'temporaryphysical'"
                             >
+                          <!-- button info for the encrypted information  -->
+                          <span type="button" id="encryptionCss" class="pficon-info" data-toggle="modal" data-target="#encryptionModal"></span>
+                            <!-- Modal -->
+                            <div class="modal fade" id="encryptionModal" tabindex="-1" role="dialog" aria-labelledby="encryptionModalTitle" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content" id="modalEncryptionCss">
+                                    <h1 class="modal-title" id="encryptionModalTitle">
+                                      <span>{{"Fundamental steps" | translate}}</span>
+                                      <span class="pficon-warning-triangle-o"></span>
+                                    </h1>
+                                  <div class="modal-body">
+                                    <ul>
+                                      <li>{{"Configurare porta 5061" | translate}} </li>
+                                      <li>{{"Abilitare TLS" | translate}}</li>
+                                      <li>{{"Abilitare audio sicuro SRTP" | translate}}</li>
+                                    </ul>                                    
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <div class="list-view-pf-additional-info config-info ">
                               <input
                                 bs-switch

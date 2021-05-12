@@ -3528,6 +3528,34 @@ a.black:focus, a.black:hover, a.black:active {
   padding-left: 0px !important;
 }
 
+#encryptionCss{
+  margin-left: 120px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index:9999;
+}
+
+#encryptionCss:hover {
+  color: #6EC664
+}
+
+.modal-backdrop {
+  /* bug fix - no overlay */    
+  display: none;    
+}
+
+#encryptionModalTitle{
+  text-align: center;
+  line-height: 54px;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+#modalEncryptionCss{
+  font-size: 23px;
+}
+
+/* popup in the adding source */
 #informationSource{
   margin-top: -10px;
   margin-left: 13px;
