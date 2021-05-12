@@ -3553,7 +3553,8 @@ a.black:focus, a.black:hover, a.black:active {
 
 #modalEncryptionCss{
   font-size: 23px;
-  
+}
+
 /* popup in the adding source */
 #informationSource{
   margin-top: -10px;
