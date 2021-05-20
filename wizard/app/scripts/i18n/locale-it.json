@@ -1016,5 +1016,6 @@
   "Videoconference URL successfully saved": "URL della Videoconferenza salvato correttamente",
   "Error while saving Videoconference URL": "Errore durante il salvataggio dell'URL della Videoconferenza",
   "Provide the Conference System URL provided by the supplier": "Indicare l'URL del Sistema di Conferenza fornita dal fornitore",
-  "Alternatively, you can enter the URL of any public Jitsi server, checking the conditions of use, compatibility with your privacy directives and the need for continuity of service": "È possibile in alternativa inserire l'URL di un qualsiasi server Jitsi pubblico verificando le condizioni di utilizzo, la compatibilità con le proprie direttive privacy e necessità di continuità di servizio"
+  "Alternatively, you can enter the URL of any public Jitsi server, checking the conditions of use, compatibility with your privacy directives and the need for continuity of service": "È possibile in alternativa inserire l'URL di un qualsiasi server Jitsi pubblico verificando le condizioni di utilizzo, la compatibilità con le proprie direttive privacy e necessità di continuità di servizio",
+  "Calls only through queues": "Solo chiamate su code"
 }

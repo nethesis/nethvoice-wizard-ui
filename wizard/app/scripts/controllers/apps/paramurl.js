@@ -12,7 +12,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allUrls = [];
     $scope.newUrl = {
       url: '',
-      profiles: []
+      profiles: [],
+      only_queues: false
     };
     $scope.currentUrl = {};
     $scope.users = [];
@@ -77,7 +78,7 @@ angular.module('nethvoiceWizardUiApp')
     };
 
     $scope.cancelParamurl = function (s) {
-      $scope.newUrl = { url: '', profiles: [] };
+      $scope.newUrl = { url: '', profiles: [], only_queue: false };
       s = $scope.newUrl;
       s.onMod = false;
     };
@@ -121,7 +122,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.openModal = function() {
       $scope.newUrl = {
         url: '',
-        profiles: []
+        profiles: [],
+        only_queues: false
       };
       $scope.getAllProfiles();
       $scope.getParamUrls();
