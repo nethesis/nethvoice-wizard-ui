@@ -82,6 +82,13 @@
                   </strong>
                 </span>
               </div>
+              <div class="progress-description full-size-max" style="word-wrap: break-word">
+                {{'Calls only through queues' | translate}}
+                <span class="right-only paramurl-input-span">
+                  <label ng-if="g.only_queues">{{'Enabled' | translate}}</label>
+                  <label ng-if="!g.only_queues">{{'Disabled' | translate}}</label>
+                </span>
+              </div>
             </div>
           </div>
           <div class="card-pf-footer">
@@ -142,6 +149,16 @@
                   {{p.name}}
                 </option>
               </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="textInput-modal-markup">{{'Calls only through queues' | translate}}</label>
+            <div class="col-sm-9">
+              <input 
+                bs-switch 
+                ng-model="newUrl.only_queues"
+                class="bootstrap-switch bootstrap-switch-webrtc col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                type="checkbox">
             </div>
           </div>
           <div class="form-group" ng-if="!newUrl.onMod && tdata.busyProfiles.length === tdata.allProfiles.length">
