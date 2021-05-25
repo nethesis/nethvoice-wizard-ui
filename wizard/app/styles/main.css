@@ -3581,3 +3581,28 @@ a.black:focus, a.black:hover, a.black:active {
 .overflowSources{
   overflow-y:auto;
 }
+
+.copyedPassword{
+  margin-top: 0px !important;
+}
+
+.listConfiguration{
+  margin-bottom: 6px;
+}
+
+.modalListConfiguration{
+  margin-bottom: -46px;
+}
+
+#warningModal{
+  font-size: 23px !important;
+}
+
+.encryptedButtonModal{
+  margin-bottom: 6px;
+}
+
+.labelTitleEncrypted{
+  margin-left: 26px !important;
+  margin-top: -22px !important;
+}

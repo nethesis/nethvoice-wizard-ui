@@ -669,6 +669,10 @@ angular.module('nethvoiceWizardUiApp')
       initPopovers()
     }
 
+    $scope.getHostName = function (){
+      $scope.hostname = window.location.hostname;
+    }
+
     angular.element(document).ready(function () {
       if (!$scope.macVendors) {
         PhoneService.getMacVendors().then(function (res) {
