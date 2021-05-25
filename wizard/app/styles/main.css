@@ -3565,7 +3565,7 @@ a.black:focus, a.black:hover, a.black:active {
 }
 
 #informationSource:hover {
-  color: #6EC664 
+  color: #6EC664
 }
 
 #columnModal{
@@ -3578,6 +3578,6 @@ a.black:focus, a.black:hover, a.black:active {
   background-color: #f3f6f6 !important;
 }
 
-#tableModal{
-  margin-bottom: 1px;
+.modal {
+  overflow-y:auto;
 }
