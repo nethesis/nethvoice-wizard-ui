@@ -72,6 +72,14 @@ angular.module('nethvoiceWizardUiApp')
       }, 1000)
     }
 
+    $scope.copyPassword = function () {
+      $scope.copiedPassword = true
+      setTimeout(function () {
+        $scope.copiedPassword = false
+        $scope.$apply()
+      }, 1000)
+    }
+
     $scope.isEmpty = function (obj) {
       for (var prop in obj) {
         return false;

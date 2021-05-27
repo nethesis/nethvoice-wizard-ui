@@ -282,32 +282,77 @@
                               </div>
                             </div>
                             <!-- show secret for custom devices and temporary -->
-                            <button ng-if="!device.mac && (device.type === 'physical' || device.type === 'temporaryphysical')" popover-animation="true" uib-popover="{{device.secret}}" type="button" class="btn btn-default">{{'Show Secret' | translate}}</button>
-                          </div>
-                          <div
-                            class="col-lg-5 mnw-180 {{!device.mac ? 'eswitch-mt2' : 'eswitch-mt'}}"
-                            ng-if="device.type != 'temporaryphysical'"
-                            >
-                          <!-- button info for the encrypted information  -->
-                          <span type="button" id="encryptionCss" class="pficon-info" data-toggle="modal" data-target="#encryptionModal"></span>
-                            <!-- Modal -->
-                            <div class="modal fade" id="encryptionModal" tabindex="-1" role="dialog" aria-labelledby="encryptionModalTitle" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content" id="modalEncryptionCss">
-                                    <h1 class="modal-title" id="encryptionModalTitle">
-                                      <span>{{"Fundamental steps" | translate}}</span>
-                                      <span class="pficon-warning-triangle-o"></span>
-                                    </h1>
+                            <button ng-if="!device.mac && device.encryption && (device.type === 'physical' || device.type === 'temporaryphysical')" ng-click="getHostName()" class="btn btn-default encryptedButtonModal" data-toggle="modal" data-target="#encryptedModal">{{"Basic configuration" | translate}}</button>
+                            <div class="modal fade" id="encryptedModal" tabindex="-1" role="dialog" aria-labelledby="modalEncrypted" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                      <span class="pficon pficon-close"></span>
+                                    </button>
+                                    <div class="modal-title" id="modalEncrypted"><span id="warningModal" class="pficon-warning-triangle-o "></span></div>
+                                    <div class="labelTitleEncrypted"><b>{{"Fundamental steps" | translate}}</b></div>
+                                  </div>
                                   <div class="modal-body">
-                                    <ul>
-                                      <li>{{"Configurare porta 5061" | translate}} </li>
-                                      <li>{{"Abilitare TLS" | translate}}</li>
-                                      <li>{{"Abilitare audio sicuro SRTP" | translate}}</li>
-                                    </ul>                                    
+                                    <ul class="modalListConfiguration">
+                                      <li class="listConfiguration"><b>{{"Indirizzo Centralino" | translate}}:</b> {{hostname}}</li> 
+                                      <li class="listConfiguration"><b>{{"Configurare porta 5061" | translate}}</b> </li>
+                                      <li class="listConfiguration"><b>{{"Abilitare trasporto TLS" | translate}}</b></li>
+                                      <li class="listConfiguration"><b>{{"Configurare audio sicuro SRTP" | translate}}</b></li>
+                                      <li class="listConfiguration"><b>{{"default_extension" | translate}}:</b> {{device.extension}}</li>
+                                      <li class="listConfiguration" id="showPassword" data-content="{{device.secret}}"><b>{{"Password" | translate}}:</b> {{device.secret}}                   
+                                        <clipboard-copy class="pficon-blueprint" value="{{device.secret}}" ng-click="copyPassword()"
+                                          data-toggle="tooltip" data-placement="top" title="{{'Copy password' | translate}}">
+                                        </clipboard-copy>
+                                        <i ng-show="copiedPassword" class="fa fa-check copyedPassword text-color-green absolute-position mt-5 ml-7 fz-15">
+                                        </i>
+                                      </li>
+                                    </ul> 
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"| translate}}</button>
                                   </div>
                                 </div>
                               </div>
                             </div>
+                            <button ng-if="!device.mac && !device.encryption && (device.type === 'physical' || device.type === 'temporaryphysical')" ng-click="getHostName()" class="btn btn-default encryptedButtonModal" data-toggle="modal" data-target="#myModal">{{"Basic configuration" | translate}}</button>
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalEncrypted" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                      <span class="pficon pficon-close"></span>
+                                    </button>
+                                    <div class="modal-title" id="myModalLabel"><span id="warningModal" class="pficon-warning-triangle-o"></span></div>
+                                    <div class="labelTitleEncrypted"><b>{{"Fundamental steps" | translate}}</b></div>
+                                  </div>
+                                  <div class="modal-body" >
+                                    <ul class="modalListConfiguration">
+                                      <li class="listConfiguration"><b>{{"Indirizzo Centralino" | translate}}: </b>{{hostname}}</li>
+                                      <li class="listConfiguration"><b>{{"Configurare porta 5060" | translate}} </b></li>
+                                      <li class="listConfiguration"><b>{{"Abilitare trasporto UDP" | translate}} </b></li>
+                                      <li class="listConfiguration"><b>{{"Configurare audio non criptato" | translate}}</b></li>
+                                      <li class="listConfiguration"><b>{{"default_extension" | translate}}:</b> {{device.extension}}</li>
+                                      <li class="listConfiguration" id="showPassword" data-content="{{device.secret}}"><b>{{"Password" | translate}}: </b>{{device.secret}}                   
+                                        <clipboard-copy class="pficon-blueprint" value="{{device.secret}}" ng-click="copyPassword()"
+                                          data-toggle="tooltip" data-placement="top" title="{{'Copy password' | translate}}">
+                                        </clipboard-copy>
+                                        <i ng-show="copiedPassword" class="fa fa-check copyedPassword text-color-green absolute-position mt-5 ml-7 fz-15">
+                                        </i>
+                                      </li>
+                                    </ul> 
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"| translate}}</button>
+                                </div>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-lg-5 mnw-180 {{!device.mac ? 'eswitch-mt2' : 'eswitch-mt'}}"
+                            ng-if="device.type != 'temporaryphysical'"
+                            > 
                             <div class="list-view-pf-additional-info config-info ">
                               <input
                                 bs-switch
