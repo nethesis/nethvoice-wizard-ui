@@ -3578,6 +3578,6 @@ a.black:focus, a.black:hover, a.black:active {
   background-color: #f3f6f6 !important;
 }
 
-.modal {
+.overflowSources{
   overflow-y:auto;
 }
