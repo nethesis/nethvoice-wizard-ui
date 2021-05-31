@@ -88,9 +88,9 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    this.deleteTrunk = function (trunkid, tech) {
+    this.deleteTrunk = function (trunkid) {
       return $q(function (resolve, reject) {
-        RestService.delete('/trunk/' + trunkid + '/' + tech).then(function (res) {
+        RestService.delete('/trunks/' + trunkid).then(function (res) {
           resolve(res)
         }, function (err) {
           reject(err)
