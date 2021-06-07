@@ -670,9 +670,9 @@ angular.module('nethvoiceWizardUiApp')
       initPopovers()
     }
 
-    $scope.getHostName = function (device){
+    $scope.setModalPhysical = function (device){
       $scope.hostname = window.location.hostname;
-      $scope.getPhysicalDeviceName = device.extension;
+      $scope.deviceExtension = device.extension;
     }
 
     angular.element(document).ready(function () {
