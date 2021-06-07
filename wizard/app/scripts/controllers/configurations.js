@@ -26,7 +26,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.deviceToLink = {}
     $scope.deviceToLink.device = null
 
-    $scope.getPhysycalDeviceName = "";
+    $scope.deviceExtension = "";
     $scope.USERS_PAGE = 15;
     $scope.usersLimit = $scope.USERS_PAGE;
     $scope.DEVICES_NOT_LINKED_PAGE = 15;
