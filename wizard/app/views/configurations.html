@@ -282,7 +282,7 @@
                               </div>
                             </div>
                             <!-- show secret for custom devices and temporary -->
-                            <button ng-if="!device.mac && device.encryption && (device.type === 'physical' || device.type === 'temporaryphysical')" ng-click="getHostName()" class="btn btn-default encryptedButtonModal" data-toggle="modal" data-target="#encryptedModal">{{"Basic configuration" | translate}}</button>
+                            <button ng-if="!device.mac && device.encryption && (device.type === 'physical' || device.type === 'temporaryphysical')" ng-click="getHostName(device)" class="btn btn-default encryptedButtonModal" data-toggle="modal" data-target="#encryptedModal">{{"Basic configuration" | translate}}</button>
                             <div class="modal fade" id="encryptedModal" tabindex="-1" role="dialog" aria-labelledby="modalEncrypted" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
@@ -299,7 +299,7 @@
                                       <li class="listConfiguration"><b>{{"Configurare porta 5061" | translate}}</b> </li>
                                       <li class="listConfiguration"><b>{{"Abilitare trasporto TLS" | translate}}</b></li>
                                       <li class="listConfiguration"><b>{{"Configurare audio sicuro SRTP" | translate}}</b></li>
-                                      <li class="listConfiguration"><b>{{"default_extension" | translate}}:</b> {{device.extension}}</li>
+                                      <li class="listConfiguration"><b>{{"default_extension" | translate}}:</b> {{getPhysicalDeviceName}}</li>
                                       <li class="listConfiguration" id="showPassword" data-content="{{device.secret}}"><b>{{"Password" | translate}}:</b> {{device.secret}}                   
                                         <clipboard-copy class="pficon-blueprint" value="{{device.secret}}" ng-click="copyPassword()"
                                           data-toggle="tooltip" data-placement="top" title="{{'Copy password' | translate}}">
@@ -315,7 +315,7 @@
                                 </div>
                               </div>
                             </div>
-                            <button ng-if="!device.mac && !device.encryption && (device.type === 'physical' || device.type === 'temporaryphysical')" ng-click="getHostName()" class="btn btn-default encryptedButtonModal" data-toggle="modal" data-target="#myModal">{{"Basic configuration" | translate}}</button>
+                            <button ng-if="!device.mac && !device.encryption && (device.type === 'physical' || device.type === 'temporaryphysical')" ng-click="getHostName(device)" class="btn btn-default encryptedButtonModal" data-toggle="modal" data-target="#myModal">{{"Basic configuration" | translate}}</button>
                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalEncrypted" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
@@ -332,7 +332,7 @@
                                       <li class="listConfiguration"><b>{{"Configurare porta 5060" | translate}} </b></li>
                                       <li class="listConfiguration"><b>{{"Abilitare trasporto UDP" | translate}} </b></li>
                                       <li class="listConfiguration"><b>{{"Configurare audio non criptato" | translate}}</b></li>
-                                      <li class="listConfiguration"><b>{{"default_extension" | translate}}:</b> {{device.extension}}</li>
+                                      <li class="listConfiguration"><b>{{"default_extension" | translate}}:</b> {{getPhysicalDeviceName}}</li>
                                       <li class="listConfiguration" id="showPassword" data-content="{{device.secret}}"><b>{{"Password" | translate}}: </b>{{device.secret}}                   
                                         <clipboard-copy class="pficon-blueprint" value="{{device.secret}}" ng-click="copyPassword()"
                                           data-toggle="tooltip" data-placement="top" title="{{'Copy password' | translate}}">

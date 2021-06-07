@@ -26,6 +26,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.deviceToLink = {}
     $scope.deviceToLink.device = null
 
+    $scope.getPhysycalDeviceName = "";
     $scope.USERS_PAGE = 15;
     $scope.usersLimit = $scope.USERS_PAGE;
     $scope.DEVICES_NOT_LINKED_PAGE = 15;
@@ -669,8 +670,9 @@ angular.module('nethvoiceWizardUiApp')
       initPopovers()
     }
 
-    $scope.getHostName = function (){
+    $scope.getHostName = function (device){
       $scope.hostname = window.location.hostname;
+      $scope.getPhysicalDeviceName = device.extension;
     }
 
     angular.element(document).ready(function () {
