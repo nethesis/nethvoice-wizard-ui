@@ -3621,3 +3621,14 @@ a.black:focus, a.black:hover, a.black:active {
   margin-bottom: -6px !important;
   border: none !important;
 }
+
+@media screen and (max-width: 767px) {
+
+  .hideItem{
+    visibility: hidden !important;
+  }
+
+  .cutSpace{
+    margin-bottom: -100px !important;
+  }
+}

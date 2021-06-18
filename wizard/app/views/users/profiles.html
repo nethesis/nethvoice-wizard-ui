@@ -87,12 +87,12 @@
                     <span class="col-lg-6 col-md-4 col-sm-6 col-xs-6">
                       <input bs-switch ng-change="saveProfile(profile, obj_permissions, permission, macro)" ng-model="permission.value" class="bootstrap-switch bootstrap-switch-permission"
                       type="checkbox">
-                      <div ng-if= "permissionsStatus[permission.id] === 'error'" class="errorConfiguration alert alert-danger alert-dismissable">
+                      <div ng-if= "permissionsStatus[permission.id] === 'error'" class="cutSpace errorConfiguration alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                            <span class="pficon pficon-close"></span>
+                            <span class="cutSpace hideItem pficon pficon-close"></span>
                           </button>
-                        <span class="pficon pficon-error-circle-o"></span>
-                        <strong>{{'Configuration not saved, try again' | translate}}.</strong>
+                        <span class="cutSpace pficon pficon-error-circle-o"></span>
+                        <span class="hideItem"><strong>{{'Configuration not saved' | translate}}. </strong>{{'Try again' | translate}}.</span>
                       </div>
                     </span>
                   </div>
