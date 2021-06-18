@@ -37,13 +37,6 @@
         <span class="pficon pficon-ok"></span>
         <strong>{{'Configuration saved' | translate}}.</strong> {{'Profiles configuration saved with success' | translate}}
       </div>
-      <div ng-if="onSaveError" class="alert alert-danger alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-            <span class="pficon pficon-close"></span>
-          </button>
-        <span class="pficon pficon-error-circle-o"></span>
-        <strong>{{'Configuration not saved' | translate}}.</strong> {{'Profiles configuration error' | translate}}
-      </div>
       <div class="list-group list-view-pf adjust-margin-extensions no-border">
         <div ng-repeat="profile in allProfiles" class="adjust-profile-margin">
           <div id="accordion-markup-{{$index}}">
@@ -94,6 +87,13 @@
                     <span class="col-lg-6 col-md-4 col-sm-6 col-xs-6">
                       <input bs-switch ng-change="saveProfile(profile, obj_permissions, permission, macro)" ng-model="permission.value" class="bootstrap-switch bootstrap-switch-permission"
                       type="checkbox">
+                      <div ng-if= "permissionsStatus[permission.id] === 'error'" class="errorConfiguration alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            <span class="pficon pficon-close"></span>
+                          </button>
+                        <span class="pficon pficon-error-circle-o"></span>
+                        <strong>{{'Configuration not saved, try again' | translate}}.</strong>
+                      </div>
                     </span>
                   </div>
                 </div>

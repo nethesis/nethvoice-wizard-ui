@@ -3606,3 +3606,18 @@ a.black:focus, a.black:hover, a.black:active {
   margin-left: 26px !important;
   margin-top: -22px !important;
 }
+
+.informationIcon{
+  font-size: 18px !important;
+  position:relative;
+  top: 4px !important;
+  margin-left: 8px !important;
+}
+.errorConfiguration{
+  background-color: transparent !important;
+  border-color: transparent !important;
+  margin-left: 81px !important;
+  margin-top: -34px !important;
+  margin-bottom: -6px !important;
+  border: none !important;
+}

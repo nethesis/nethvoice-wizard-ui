@@ -151,6 +151,7 @@
   "VoIP trunk creation failed": "Creazione fascio VoIP fallita",
   "Configuration saved": "Configurazione salvata",
   "Configuration not saved": "Configurazione non salvata",
+  "Configuration not saved, try again": "Configurazione non salvata, riprova di nuovo",
   "Configuration saved with success": "Configurazione salvata con successo",
   "Configuration error": "Errore configurazione",
   "Generic error in configuration": "Errore generico nella configurazione",

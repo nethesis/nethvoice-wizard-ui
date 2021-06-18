@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersProfilesCtrl', function ($scope, UserService, ProfileService) {
+  .controller('UsersProfilesCtrl', function ($scope, UserService, ProfileService, $timeout) {
     $scope.allProfiles = [];
     $scope.allPermissions = [];
     $scope.allGroups = [];
@@ -16,6 +16,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.onSaveSuccess = false;
     $scope.onSaveError = false;
     $scope.gruopsDisabled = false;
+    $scope.permissionsStatus = {};
 
     $scope.initGraphics = function () {};
 
@@ -108,17 +109,36 @@ angular.module('nethvoiceWizardUiApp')
       //start saving
       profile.onSave = true;
       if (profile.id) {
+        if (permission){
+          $scope.permissionsStatus[permission.id] = "loading";
+        }
         ProfileService.update(profile.id, profile).then(function (res) {
           $scope.checkAllGroups();
           profile.onSave = false;
           //$scope.getAllProfiles(false);
           $scope.onSaveSuccess = true;
           $scope.onSaveError = false;
+          if (permission){
+            $scope.permissionsStatus[permission.id] = "success";
+            $timeout(function () {
+              $scope.permissionsStatus[permission.id] = "";
+            }, 5000)
+          }
         }, function (err) {
+          if(permission){
+            permission.value = !permission.value;
+          }
           profile.onSave = false;
           $scope.onSaveSuccess = false;
           $scope.onSaveError = true;
-          console.log(err);
+          $scope.statusFalse = true;
+          if(permission){
+            $scope.permissionsStatus[permission.id] = "error";
+            if(!$scope.$$phase) {
+              $scope.$apply(function () {
+               });
+            }
+          }
         });
       } else {
         ProfileService.create(profile).then(function (res) {
