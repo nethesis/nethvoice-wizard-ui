@@ -121,7 +121,7 @@ angular.module('nethvoiceWizardUiApp')
           if (permission){
             $scope.permissionsStatus[permission.id] = "success";
             $timeout(function () {
-              $scope.permissionsStatus[permission.id] = "";
+              delete $scope.permissionsStatus[permission.id];
             }, 5000)
           }
         }, function (err) {
@@ -131,12 +131,10 @@ angular.module('nethvoiceWizardUiApp')
           profile.onSave = false;
           $scope.onSaveSuccess = false;
           $scope.onSaveError = true;
-          $scope.statusFalse = true;
           if(permission){
             $scope.permissionsStatus[permission.id] = "error";
             if(!$scope.$$phase) {
-              $scope.$apply(function () {
-               });
+              $scope.$apply();
             }
           }
         });
