@@ -140,7 +140,16 @@
                           <div class="list-view-pf-main-info">
                             <div class="list-view-pf-body">
                               <div class="list-view-pf-additional-info config-info">
-                                <div>{{'Status' | translate}}: <b class="right-only {{t.status === 'online' ? 'text-online-green' : ''}}">{{t.status !== '' ? t.status : '-'}}</b></div>
+                                <div>{{'Provider status' | translate}}: <b class="right-only {{t.status === 'online' ? 'text-online-green' : ''}}">{{t.status !== '' ? t.status : '-'}}</b></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-group-item cursor-default dashboard-list-item">
+                          <div class="list-view-pf-main-info">
+                            <div class="list-view-pf-body">
+                              <div class="list-view-pf-additional-info config-info">
+                                <div>{{'Registration' | translate}}: <b class="right-only {{t.registration === 'registered' ? 'text-online-green' : 'text-red'}}"> {{t.registration !== '' ? t.registration : '-' | translate}} </b></div>
                               </div>
                             </div>
                           </div>
