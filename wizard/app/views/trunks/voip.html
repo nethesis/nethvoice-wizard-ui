@@ -145,11 +145,12 @@
         </div>
         <div class="modal-footer mt-0">
           <button
-            class="btn btn-default hide"
+            class="btn btn-default "
             data-toggle="modal"
             data-target="#changePWDModal"
+            ng-click = clickedEdit()
           >
-            {{"Change password" | translate}}
+            {{"Edit" | translate}}
           </button>
           <button
             class="btn btn-danger"
@@ -294,7 +295,7 @@
       </div>
     </div>
   </div>
-  <!-- change password modal -->
+  <!-- change parameter modal -->
   <div class="modal fade" id="changePWDModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -303,24 +304,30 @@
               <span class="pficon pficon-close"></span>
             </button>
           <h4 class="modal-title" id="myModalLabel">
-            {{"Password change" | translate}}
+            {{"Edit" | translate}}:
             {{selectedTrunk.name}}
           </h4>
         </div>
         <div class="modal-body">
-          <div class="alert alert-info">
-            <span class="pficon pficon-info"></span>
-            <strong>{{"Add the password provided by the provider" | translate}}.</strong>
-          </div>
           <!-- error message -->
           <div ng-show="onPWDChangeError" class="alert alert-danger alert-dismissable">
             <span class="pficon pficon-error-circle-o"></span>
-            <strong>{{'VoIP trunk error'}}.</strong> {{'Password change failed' | translate}}.
+            <strong>{{'The change was not successful'}}.</strong> {{'Please try again' | translate}}.
           </div>
-          <div class="form-horizontal">
+          <div class="form-horizontal resizeModal">
             <div class="form-group mt-25">
               <div class="col-sm-3 control-label">
-                <label>{{"New password" | translate}}</label>
+                <label>{{'Trunk name' | translate}}</label>
+              </div>
+              <div class="col-sm-9">
+                <input class="form-control" ng-model="editedSelectedTrunk.username" type='text'>
+              </div>
+            </div>
+          </div>
+          <div class="form-horizontal resizeModal">
+            <div class="form-group mt-25">
+              <div class="col-sm-3 control-label">
+                <label data-toggle="tooltip" data-placement="left" title="{{'Add the password provided by the provider' | translate}}">{{"New password" | translate}}</label>
               </div>
               <div class="col-sm-9">
                 <div class="input-group display-flex">
@@ -332,21 +339,50 @@
               </div>
             </div>
           </div>
+          <div class="form-horizontal resizeModal">
+            <div class="form-group mt-25">
+              <div class="col-sm-3 control-label">
+                <label>{{'Phone number' | translate}}</label>
+              </div>
+              <div class="col-sm-9">
+                  <input class="form-control" ng-model="editedSelectedTrunk.outcid" type='text'>
+              </div>
+            </div>
+          </div>
+          <div class="form-horizontal resizeModal">
+            <div class="form-group mt-25">
+              <div class="col-sm-3 control-label">
+                <label>{{'Favourite codecs' | translate}} </label>
+              </div>
+              <div class="col-sm-9">
+                  <select class="mt-3" title="-" multiple pf-select="{ width: '100%' }" ng-model=editedSelectedTrunk.info[editedSelectedTrunk.name].codecs ng-options="p as p for p in availableCodecs"></select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-horizontal">
+          <div class="form-group mt-25">
+            <div class="col-sm-3 control-label">
+              <label>{{'Force codec' | translate}}</label>
+            </div>
+            <div class="col-sm-1 forceCodecEdit ">
+              <input bs-switch ng-model="editedSelectedTrunk.forceCodec" class="bootstrap-switch " type="checkbox">
+            </div>
+          </div>
         </div>
         <div class="modal-footer submit">
           <div class="right mb-10 h-18">
-            <span ng-show="onPWDChange" class="spinner spinner-sm float-right"></span>
-            <span ng-show="onPWDChangeSuccess" class="pficon pficon-ok float-right fz-18 mt-1"></span>
-            <span ng-show="onPWDChangeError && !onPWDChange" class="pficon pficon-error-circle-o float-right fz-18 mt-1">
+            <span ng-show="onChange" class="spinner spinner-sm float-right"></span>
+            <span ng-show="onChangeSuccess" class="pficon pficon-ok float-right fz-18 mt-1"></span>
+            <span ng-show="onChangeError && !onPWDChange" class="pficon pficon-error-circle-o float-right fz-18 mt-1">
           </div>
-          <button type="button" class="btn btn-default" data-dismiss="modal">{{ "Cancel" | translate }}</button>
-          <button type="button" class="btn btn-primary" ng-click="changePWD(selectedTrunk)">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{ "Close" | translate }}</button>
+          <button type="button" class="btn btn-primary" ng-click="editTrunks(editedSelectedTrunk)">
             {{ "Save" | translate }}
           </button>
         </div>
       </div>
     </div>
   </div>
-
   <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>
 </div>
