@@ -1591,6 +1591,7 @@ iframe body {
 .drd-carret {
   float: right;
   margin-top: 5px;
+  left: -6px !important;
 }
 
 .drd-ul {
@@ -3605,4 +3606,12 @@ a.black:focus, a.black:hover, a.black:active {
 .labelTitleEncrypted{
   margin-left: 26px !important;
   margin-top: -22px !important;
+}
+
+.editProfile{
+  width: 395px !important;
+}
+
+.standardFont::-webkit-input-placeholder {
+  font-style: normal !important;
 }

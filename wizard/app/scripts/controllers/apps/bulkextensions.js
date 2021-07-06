@@ -13,7 +13,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.users = {};
     $scope.interval = {};
     $scope.allGroups = {};
-    $scope.contexts = {};
+    $scope.profiles = [];
     $scope.bulkData = {};
     $scope.exts = {};
     $scope.temp = {
@@ -130,14 +130,14 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.bulkEditSave = function () {
-      $scope.temp.context = $scope.bulkEdit.context;
+      $scope.temp.profile = $scope.bulkEdit.profile;
       $scope.temp.onsave = true;
       if ($scope.bulkEdit.outboundcid === null) {
         $scope.bulkEdit.outboundcid_fixed = null;
       }
-      for (var c in $scope.contexts) {
-        if ($scope.contexts[c] == $scope.bulkEdit.context) {
-          $scope.bulkEdit.context = c;
+      for (var profile in $scope.profiles){
+        if ($scope.profiles[profile] == $scope.bulkEdit.profile){
+          $scope.bulkEdit.profile = profile;
         }
       }
       BulkService.setBulkInfo($scope.exts, $scope.bulkEdit).then(function (res) {
@@ -157,7 +157,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.initEditModal = function () {
       $scope.bulkEdit = {};
       $scope.selectedUsers = [];
-      $scope.temp.context = "";
+      $scope.temp.profile = "";
       $('#bulkEdit').modal('show');
       for (var u in $scope.users) {
         if ($scope.users[u].default_extension != 'none' && $scope.users[u].selected == true && !$scope.selectedUsers.includes($scope.users[u].default_extension)) {
@@ -176,7 +176,6 @@ angular.module('nethvoiceWizardUiApp')
           if ($scope.bulkEdit.ringtime !== null) {
             $scope.bulkEdit.ringtime = parseInt($scope.bulkEdit.ringtime);
           }
-          $scope.bulkEdit.context = $scope.contexts[res.data.context];
           for (var d in $scope.dest) {
             for (var i in $scope.dest[d]) {
               if ($scope.dest[d][i].destination == $scope.bulkEdit.noanswerdest) {
@@ -201,6 +200,34 @@ angular.module('nethvoiceWizardUiApp')
         });
       }
     }
+
+    /**
+     * Check if the selected users
+     * has the same profile
+     */
+    $scope.checkSame = function (){
+      $scope.checkUsers = []
+      $scope.checkProfile = []
+      for (var u in $scope.users) {
+        if ($scope.users[u].profile != 'none' &&
+          $scope.users[u].selected == true ) {
+
+          $scope.checkUsers.push($scope.users[u].profile)
+            if(!$scope.$$phase) {
+              $scope.$apply()
+            }
+          }
+        }
+         if (areSame($scope.checkUsers)){
+          return true
+        }
+      }
+
+      function areSame(arr)
+      {
+          let s = new Set(arr);
+          return (s.size == 1);
+      }
 
     $scope.selectResults = function (res) {
       var users = $filter('filter')($scope.users, res);
@@ -251,8 +278,8 @@ angular.module('nethvoiceWizardUiApp')
       } else {
         if (key == "callwaiting") {
           $scope.bulkEdit.callwaiting = true;
-        } else if (key == "context") {
-          $scope.bulkEdit.context = 'Standard';
+        } else if (key == "profile") {
+          $scope.bulkEdit.profile = 'Standard';
         } else {
           $scope.bulkEdit[key] = '';
         }
@@ -304,10 +331,11 @@ angular.module('nethvoiceWizardUiApp')
       console.log(err);
     });
 
-    BulkService.allContexts().then(function (res) {
-      $scope.contexts = res.data;
+    //call the api to get profiles information
+    ProfileService.allProfiles().then(function (res) {
+      $scope.profiles = res.data;
     }, function (err) {
-      console.log(err);
+      console.log(err)
     });
 
     $scope.$on( "$routeChangeSuccess", function(event, next, current) {
