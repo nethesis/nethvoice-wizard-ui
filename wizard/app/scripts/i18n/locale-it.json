@@ -1032,5 +1032,9 @@
   "registered":"registrato",
   "rejected":"respinta",
   "noauth":"non autenticato",
-  "failed":"fallita"
+  "failed":"fallita",
+  "Change parameter":"Cambia parametri",
+  "Favourite codecs":"Codec preferiti",
+  "Please try again":"Per favore riprova",
+  "The change was not successful":"La modifica non è andata a buon fine"
 }

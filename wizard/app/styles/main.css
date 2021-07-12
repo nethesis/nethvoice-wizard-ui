@@ -3606,3 +3606,11 @@ a.black:focus, a.black:hover, a.black:active {
   margin-left: 26px !important;
   margin-top: -22px !important;
 }
+
+.forceCodecEdit{
+  margin-left: 7px !important;
+}
+
+.resizeModal{
+  margin-bottom: -12px !important;
+}
