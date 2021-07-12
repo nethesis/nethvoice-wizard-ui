@@ -1591,6 +1591,7 @@ iframe body {
 .drd-carret {
   float: right;
   margin-top: 5px;
+  left: -6px !important;
 }
 
 .drd-ul {
@@ -3607,12 +3608,21 @@ a.black:focus, a.black:hover, a.black:active {
   margin-top: -22px !important;
 }
 
+.editProfile{
+  width: 395px !important;
+}
+
+.standardFont::-webkit-input-placeholder {
+  font-style: normal !important;
+}
+
 .informationIcon{
   font-size: 18px !important;
   position:relative;
   top: 4px !important;
   margin-left: 8px !important;
 }
+
 .errorConfiguration{
   background-color: transparent !important;
   border-color: transparent !important;
@@ -3632,6 +3642,8 @@ a.black:focus, a.black:hover, a.black:active {
     margin-bottom: -100px !important;
   }
   
+}
+
 .forceCodecEdit{
   margin-left: 7px !important;
 }
