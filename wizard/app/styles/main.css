@@ -3631,4 +3631,11 @@ a.black:focus, a.black:hover, a.black:active {
   .cutSpace{
     margin-bottom: -100px !important;
   }
+  
+.forceCodecEdit{
+  margin-left: 7px !important;
+}
+
+.resizeModal{
+  margin-bottom: -12px !important;
 }

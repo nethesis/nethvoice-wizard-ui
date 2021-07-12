@@ -26,6 +26,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.onSaveError = false
     $scope.onSaveSuccess = false
 
+    //Insert all the data that will gonna be edited
+    $scope.editedSelectedTrunk = {}
+
     $scope.trunk = {
       forceCodec: true,
       codecs: ['alaw', 'ulaw']
@@ -33,6 +36,18 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.retrieveCodecs = function () {
       return CodecService.getVoipCodecs();
+    }
+
+    /**
+     * When the user will click on the
+     * edit button, we copy the value
+     * of the selected trunk on the new
+     * object
+     */
+    $scope.clickedEdit = function (){
+      $scope.editedSelectedTrunk = angular.copy($scope.selectedTrunk)
+      $scope.editedSelectedTrunk.forceCodec = angular.copy($scope.trunk.forceCodec)
+      $scope.editedSelectedTrunk.info = angular.copy($scope.trunksInfo)
     }
 
     var getProvidersList = function () {
@@ -148,25 +163,35 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    $scope.changePWD = function (trunk) {
-      $scope.onPWDChange = true
-      TrunkService.changeTrunkPwd({
-        "secret": $scope.newPwd,
-        "trunkid": trunk.trunkid
+    $scope.editTrunks = function (trunk) {
+      $scope.onChange = true
+      TrunkService.changeTrunkPwd(trunk.trunkid,{
+        "username": trunk.username,
+        "password": $scope.newPwd,
+        "phone": trunk.outcid,
+        "codecs": trunk.info[trunk.name].codecs,
+        "forceCodec": trunk.forceCodec
       }).then(function () {
-        $scope.onPWDChangeSuccess = true
-        $scope.onPWDChange = false
+        $scope.onChangeSuccess = true
+        $scope.onChange = false
+        $scope.updateData(trunk);
         $timeout(function () {
           $("#changePWDModal").modal("hide")
-          $scope.onPWDChangeSuccess = false
-          $scope.onPWDChangeError = false
-          $scope.newPwd = ""
+          $scope.newPwd = "",
+          $scope.onChangeSuccess = false
+          $scope.onChangeError = false
         }, 1000)
       }, function (err) {
-        $scope.onPWDChange = false
-        $scope.onPWDChangeError = true
+        $scope.onChange = false
+        $scope.onChangeError = true
         console.log(err)
       })
+    }
+
+    //Update the data
+    $scope.updateData = function(trunk){
+      $scope.selectedTrunk = trunk;
+      $scope.trunksInfo[$scope.selectedTrunk.name].codecs = trunk.info[trunk.name].codecs;
     }
 
     angular.element(document).ready(function () {

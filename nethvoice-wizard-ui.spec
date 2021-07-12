@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.10.0
+Version: 14.11.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,16 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Fri Jun 18 2021 Sebastian <sebastian.besel@nethesis.it> - 14.11.0-1
+- Lack of explanation if the added physical phone is encrypted - Bug nethesis/dev#6003 !! INCOMPLETE
+- Create VoIP trunks using pjsip instead of chan_sip - nethesis/dev#6002
+- Nethvoice:  added destination column description - nethesis/dev#6001
+- Wizard: add an option to open parameterized URL only for incoming calls through queues - nethesis/dev#5928
+- Point users provider configuration link to the section on Cockpit - nethesis/dev#6014
+- Lack of translations inside the wizard - Bug nethesis/dev#6006
+- Add NethPhone to NethVoice provisioning - nethesis/dev#5956 !! INCOMPLETE
+- Add CDR admin and group CDR permissions to reports - nethesis/dev#5991
+
 * Thu Apr 22 2021 Stefano Fancello <stefano.fancello@nethesis.it> - 14.10.0-1
 - Jitsi instant video conference integration - nethesis/dev#5966
 - Add Videoconference URL management - nethesis/dev#5993

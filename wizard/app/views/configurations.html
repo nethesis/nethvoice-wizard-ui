@@ -300,8 +300,8 @@
                                       <li class="listConfiguration"><b>{{"Abilitare trasporto TLS" | translate}}</b></li>
                                       <li class="listConfiguration"><b>{{"Configurare audio sicuro SRTP" | translate}}</b></li>
                                       <li class="listConfiguration"><b>{{"default_extension" | translate}}:</b> {{deviceExtension}}</li>
-                                      <li class="listConfiguration" id="showPassword" data-content="{{device.secret}}"><b>{{"Password" | translate}}:</b> {{device.secret}}                   
-                                        <clipboard-copy class="pficon-blueprint" value="{{device.secret}}" ng-click="copyPassword()"
+                                      <li class="listConfiguration" id="showPassword" data-content="{{passwordExtension}}"><b>{{"Password" | translate}}:</b> {{passwordExtension}}
+                                        <clipboard-copy class="pficon-blueprint" value="{{passwordExtension}}" ng-click="copyPassword()"
                                           data-toggle="tooltip" data-placement="top" title="{{'Copy password' | translate}}">
                                         </clipboard-copy>
                                         <i ng-show="copiedPassword" class="fa fa-check copyedPassword text-color-green absolute-position mt-5 ml-7 fz-15">
@@ -333,8 +333,8 @@
                                       <li class="listConfiguration"><b>{{"Abilitare trasporto UDP" | translate}} </b></li>
                                       <li class="listConfiguration"><b>{{"Configurare audio non criptato" | translate}}</b></li>
                                       <li class="listConfiguration"><b>{{"default_extension" | translate}}:</b> {{deviceExtension}}</li>
-                                      <li class="listConfiguration" id="showPassword" data-content="{{device.secret}}"><b>{{"Password" | translate}}: </b>{{device.secret}}                   
-                                        <clipboard-copy class="pficon-blueprint" value="{{device.secret}}" ng-click="copyPassword()"
+                                      <li class="listConfiguration" id="showPassword" data-content="{{passwordExtension}}"><b>{{"Password" | translate}}: </b>{{passwordExtension}}
+                                        <clipboard-copy class="pficon-blueprint" value="{{passwordExtension}}" ng-click="copyPassword()"
                                           data-toggle="tooltip" data-placement="top" title="{{'Copy password' | translate}}">
                                         </clipboard-copy>
                                         <i ng-show="copiedPassword" class="fa fa-check copyedPassword text-color-green absolute-position mt-5 ml-7 fz-15">

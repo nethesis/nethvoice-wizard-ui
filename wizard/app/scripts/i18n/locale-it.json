@@ -1025,5 +1025,17 @@
   "Show information": "Mostra informazioni",
   "Basic configuration": "Configurazioni di base",
   "Copy password":"Copia password",
-  "Alternatively, you can enter the URL of any public Jitsi server, checking the conditions of use, compatibility with your privacy directives and the need for continuity of service": "È possibile in alternativa inserire l'URL di un qualsiasi server Jitsi pubblico verificando le condizioni di utilizzo, la compatibilità con le proprie direttive privacy e necessità di continuità di servizio"
+  "Alternatively, you can enter the URL of any public Jitsi server, checking the conditions of use, compatibility with your privacy directives and the need for continuity of service": "È possibile in alternativa inserire l'URL di un qualsiasi server Jitsi pubblico verificando le condizioni di utilizzo, la compatibilità con le proprie direttive privacy e necessità di continuità di servizio",
+  "Provider status": "Stato provider",
+  "Registration": "Registrazione",
+  "sent":"inviata",
+  "unregistered":"non registrato",
+  "registered":"registrato",
+  "rejected":"respinta",
+  "noauth":"non autenticato",
+  "failed":"fallita",
+  "Change parameter":"Cambia parametri",
+  "Favourite codecs":"Codec preferiti",
+  "Please try again":"Per favore riprova",
+  "The change was not successful":"La modifica non è andata a buon fine"
 }
