@@ -35,11 +35,11 @@
           </button>
         </div>
       </form>
-      <div class="leftcol-vh enhanced-scroll">
+      <div class="leftcol-vh enhanced-scroll resizeFisical" when-scrolled="voipContainer()">
         <div
           class="list-group-item cursor-pointer no-padding-top no-padding-bottom"
           ng-class="selectedTrunk.trunkid == trunk.trunkid ? 'selected' : ''"
-          ng-repeat="trunk in voipTrunks | filter:searchTrunk"
+          ng-repeat="trunk in voipTrunks | filter:searchTrunk | limitTo: voipLimit"
           ng-click="selectTrunk(trunk)"
         >
           <div class="list-view-pf-main-info">

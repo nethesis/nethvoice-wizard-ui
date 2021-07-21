@@ -8,10 +8,11 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('AdminReportCtrl', function ($scope, $filter, UserService) {
+  .controller('AdminReportCtrl', function ($scope, $rootScope, $filter, UserService) {
     $scope.customConfig = customConfig;
     $scope.users = [];
     $scope.view.changeRoute = true;
+    $scope.usersLimit = 20
 
     $scope.retrieveInfo = function () {
       UserService.retrieveFinalInfo().then(function (res) {
@@ -21,6 +22,14 @@ angular.module('nethvoiceWizardUiApp')
         console.log(err);
       });
     };
+
+    $rootScope.$on('scrollingContainerView', function () {
+      if($scope.users){
+        if ($scope.users.length > $scope.usersLimit) {
+          $scope.usersLimit += $scope.SCROLLPLUS
+        }
+      }
+    });
 
     $scope.generatePDF = function () {
       var columns = [{

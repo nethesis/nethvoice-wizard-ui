@@ -12,7 +12,7 @@
               <div ng-show="profile.onSave" class="spinner spinner-sm profile-save-spinner ng-hide"></div>
             </h1>
             <div id="collapse-0" class="panel-collapse adjust-profile-body collapse in" aria-expanded="true">
-              <div class="panel-body profile-panel max-containers-height pannel-body-color">
+              <div class="panel-body profile-panel max-containers-height pannel-body-color" when-scrolled="scrollingUsersContainer()">
                 <!-- SEARCH -->
                 <form role="form" class="search-pf has-button adjust-form ng-pristine ng-valid" id="form-lg-domains-details">
                   <div class="form-group has-clear">
@@ -34,7 +34,7 @@
                     </h1>
                   </div>
                   <!-- CARD -->
-                  <div ng-if="u.endpoints.extension[0]" ng-repeat="u in data.users | customFilterMultiple:'name,dashboardUsersSearch':searchUsersString | orderBy:'u.name'"
+                  <div ng-if="u.endpoints.extension[0]" ng-repeat="u in usersNumber | customFilterMultiple:'name,dashboardUsersSearch':searchUsersString | orderBy:'u.name' | limitTo: usersLimit"
                     class="card-pf user-dashboard-card">
                     <h2 class="card-pf-title ng-binding dashboard-cards-h2">
                       <span class="pficon pficon-user dashboard-cards-icon"></span>{{u.name}}
@@ -79,14 +79,14 @@
             </div>
           </div>
           <!-- TRUNKS -->
-          <div id="accordion-markup-1">
+          <div id="accordion-markup-1 box-dimension">
             <h1 data-toggle="collapse" data-parent="#accordion-markup-1" href="#collapse-1"
               class="adjust-header adjust-profile-header dashboard-trunks-margin" aria-expanded="true"> <span class="pficon pficon-topology card-pf-icon-circle config-title-icon"></span>{{"Trunks" | translate}}
               <span class="fa fa-angle-down icon-med-reload profile-open-icon"></span>
               <div ng-show="profile.onSave" class="spinner spinner-sm profile-save-spinner ng-hide"></div>
             </h1>
             <div id="collapse-1" class="panel-collapse adjust-profile-body collapse in" aria-expanded="true">
-              <div class="panel-body profile-panel max-containers-height pannel-body-color">
+              <div class="panel-body profile-panel max-containers-height pannel-body-color" when-scrolled="scrollingTrunksContainer()">
                 <form role="form" class="search-pf has-button adjust-form ng-pristine ng-valid" id="form-lg-domains-details2">
                   <div class="form-group has-clear">
                     <div class="search-pf-input-group" id="filter-domains-details"> <input ng-model="searchTrunkString"

@@ -277,7 +277,7 @@
                 <label class="col-sm-4 control-label" for="manual-model">{{ 'Model' | translate }}</label>
                 <div class="col-sm-8">
                   <select class="form-control" pf-select="{ noneSelectedText: '-' }" data-live-search="true" data-size="5"
-                    ng-model="manualModel" ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue"
+                    ng-model="manualModel" ng-options="model.display_name for model in manualFilteredModels | orderBy:orderByValue | limitTo: phonesLimit"
                     ng-disabled="getManualFilteredModelsCount()" id="manual-model">
                     <option value="" ng-disabled="true" ng-hide="true">-</option>
                   </select>

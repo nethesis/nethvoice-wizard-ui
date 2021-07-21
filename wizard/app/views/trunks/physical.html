@@ -50,27 +50,30 @@
     </div>
 
     <div ng-if="!(allDevices | isEmpty: true)" class="container-fluid scanned-lists col-lg-6 col-md-12 col-sm-12 col-xs-12">
-      <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view list-gateway" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)">
-        <div class="row">
-          <h1 class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-header">
-            <span class="pficon pficon-network card-pf-icon-circle config-title-icon"></span>{{networkName}} <span class="weight weight-gateway">{{networks[networkName].network}}</span>
-          </h1>
-          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-search adjust-search-gateway">
-            <form role="form" class="search-pf has-button" id="form-lg-domains-details">
-              <div class="form-group has-clear">
-                <div class="search-pf-input-group" id="filter-domains-details">
-                  <input ng-model="searchDeviceString" type="text" class="form-control input-lg" placeholder="{{'Search' | translate}}..."></input>
+      <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view list-gateway" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)" >
+        <div>
+          <div class="row">
+            <h1 class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-header">
+              <span class="pficon pficon-network card-pf-icon-circle config-title-icon"></span>{{networkName}} <span class="weight weight-gateway">{{networks[networkName].network}}</span>
+            </h1>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-search adjust-search-gateway">
+              <form role="form" class="search-pf has-button" id="form-lg-domains-details">
+                <div class="form-group has-clear">
+                  <div class="search-pf-input-group" id="filter-domains-details">
+                    <input ng-model="searchDeviceString" type="text" class="form-control input-lg" placeholder="{{'Search' | translate}}..."></input>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <button class="btn btn-default btn-lg" type="submit">
-                  <span class="fa fa-search"></span>
-                </button>
-              </div>
-            </form>
+                <div class="form-group">
+                  <button class="btn btn-default btn-lg" type="submit">
+                    <span class="fa fa-search"></span>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-        <div class="list-group-item {{selectedDevice.mac == device.mac ? 'selected' : ''}}" ng-repeat="device in devices | filter:searchDeviceString | orderBy: 'manufacturer'" ng-click="selectDevice(device, networks[networkName], networkName)">
+      <div class="resizeFisical" when-scrolled="scrollingFisicalContainer(networkName)">
+       <div class="list-group-item {{selectedDevice.mac == device.mac ? 'selected' : ''}}" ng-repeat="device in devices | filter:searchDeviceString | orderBy: 'manufacturer' | limitTo: fisicalLimit[networkName]" ng-click="selectDevice(device, networks[networkName], networkName)">
           <div class="list-view-pf-actions">
             <div ng-show="device.isInAction" class="spinner spinner-sm adjust-margin"></div>
             <span ng-show="!device.isInAction" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{device.isConfigured && device.isConnected ? 'Configured and Connected' : device.isConfigured && !device.isConnected ? 'Configured and Not Connected' : 'Not configured' | translate}}"
@@ -108,6 +111,7 @@
             </div>
           </div>
         </div>
+      </div>
         <div class="config-button-list">
         </div>
       </div>

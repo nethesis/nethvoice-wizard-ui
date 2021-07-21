@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('BulkextensionsCtrl', function ($scope, $filter, $location, $q, ConfigService, UserService, UtilService, ProfileService, BulkService) {
+  .controller('BulkextensionsCtrl', function ($scope, $rootScope, $filter, $location, $q, ConfigService, UserService, UtilService, ProfileService, BulkService) {
 
     $scope.users = {};
     $scope.interval = {};
@@ -25,6 +25,7 @@ angular.module('nethvoiceWizardUiApp')
       selected: 0
     };
     $scope.bulkEdit = {}
+    $scope.usersLimit = 20
 
     $scope.view.changeRoute = true;
 
@@ -49,6 +50,14 @@ angular.module('nethvoiceWizardUiApp')
       result: false
     }
 
+    $rootScope.$on('scrollingContainerView', function () {
+      if($scope.users){
+        if ($scope.users.length > $scope.usersLimit) {
+          $scope.usersLimit += $scope.SCROLLPLUS
+        }
+      }
+    });
+    
     $scope.getUserList = function () {
       if (!$scope.lockOnList) {
         $scope.lockOnList = true;

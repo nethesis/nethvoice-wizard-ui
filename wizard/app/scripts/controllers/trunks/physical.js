@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('TrunksPhysicalCtrl', function ($scope, $location, $interval, UserService, TrunkService, ConfigService, UtilService, DeviceService) {
+  .controller('TrunksPhysicalCtrl', function ($scope, $rootScope, $location, $interval, UserService, TrunkService, ConfigService, UtilService, DeviceService) {
 
     $scope.allDevices = {};
     $scope.allVendors = {};
@@ -22,6 +22,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.onSave = false;
     $scope.scanned = false;
     $scope.users = [];
+    $scope.fisicalLimit = {};
+    var limitLength = 20;
 
     $scope.getUserList = function () {
       UserService.list(false).then(function (res) {
@@ -109,6 +111,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getGatewayList = function (key, network) {
       DeviceService.gatewayListByNetwork(network).then(function (res) {
         $scope.allDevices[key] = res.data;
+        $scope.pushKey(key);
         $scope.tasks[key].currentProgress = 100;
         $scope.onSave = false;
         $scope.scanned = true;
@@ -117,6 +120,18 @@ angular.module('nethvoiceWizardUiApp')
         $scope.tasks[key].currentProgress = -1;
       });
     };
+
+    $scope.pushKey = function (network){
+      if (network) {
+        $scope.fisicalLimit[network] = limitLength;
+      }
+    }
+
+    $scope.scrollingFisicalContainer = function (networkName) {
+      if ($scope.allDevices[networkName].length > $scope.fisicalLimit[networkName]) {
+        $scope.fisicalLimit[networkName] += $scope.SCROLLPLUS
+      }
+    }
 
     $scope.startScan = function (key, network) {
       if ($scope.tasks[key].currentProgress > 0 && $scope.tasks[key].currentProgress < 100) {

@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('BulkdevicesCtrl', function ($scope, $filter, $timeout, PhoneService, ModelService, UserService, ProfileService) {
+  .controller('BulkdevicesCtrl', function ($scope, $rootScope, $filter, $timeout, PhoneService, ModelService, UserService, ProfileService) {
     $scope.models = [];
     $scope.phones = [];
     $scope.numFiltered = 0;
@@ -16,8 +16,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.view.changeRoute = true;
     $scope.errors = [];
     $scope.errorId = 0;
-    $scope.PHONES_PAGE = 15;
-    $scope.phonesLimit = $scope.PHONES_PAGE;
+    $scope.phonesLimit = 20;
 
     var chooseModel = {
       "id": 0,
@@ -521,6 +520,14 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
+    $rootScope.$on('scrollingContainerView', function () {
+      if($scope.phones){
+        if ($scope.phones.length > $scope.phonesLimit) {
+          $scope.phonesLimit += $scope.SCROLLPLUS
+        }
+      }
+    });
+
     var scrollBulkDevices = function () {
       $scope.$apply(function () {
         $scope.phonesLimit += $scope.PHONES_PAGE
@@ -528,11 +535,6 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     document.addEventListener('bulkDevicesScroll', scrollBulkDevices)
-
-    $scope.$on('$routeChangeStart', function() {
-      document.removeEventListener('bulkDevicesScroll', scrollBulkDevices)
-      $scope.phonesLimit = $scope.PHONES_PAGE
-    })
 
     angular.element(document).ready(function () {
       if (!$scope.macVendors) {

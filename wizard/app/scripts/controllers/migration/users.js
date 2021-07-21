@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersmigrationCtrl', function ($scope, $location, $interval, UserService, UtilService, MigrationService) {
+  .controller('UsersmigrationCtrl', function ($scope, $rootScope, $location, $interval, UserService, UtilService, MigrationService) {
     
     $scope.migration = {
       oldUserToRemove : '',
@@ -30,6 +30,11 @@ angular.module('nethvoiceWizardUiApp')
         data: {}
       }
     };
+
+    $scope.olduserLimit = 20;
+    $scope.userLimit = 20;
+    $scope.totalUsers = 0;
+    $scope.usersTranfered = 0;
 
     $scope.errorUserCreation = false;
 
@@ -254,6 +259,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.users = res.data;
           $scope.lockOnList = false;
           $scope.reloadAvaibleUsers();
+          $scope.countUser($scope.users);
           setTimeout(function () {
             $scope.$apply();
           }, 100);
@@ -264,6 +270,14 @@ angular.module('nethvoiceWizardUiApp')
         });
       }
     };
+
+    $scope.countUser = function(user){
+      $scope.counting = 0;
+      for (var counting in user ){
+        $scope.counting = $scope.counting + 1;
+      }
+      $scope.usersTranfered = $scope.counting;
+    }
 
     $scope.getOldUsers = function () {
       MigrationService.getOldUsers().then(function (res) {
@@ -277,12 +291,34 @@ angular.module('nethvoiceWizardUiApp')
             $scope.oldusers[olduser].oldusername = $scope.oldusers[olduser].username;
           }
         }
+        $scope.countOldUser($scope.oldusers);
         $scope.getUsersList();
       }, function (err) {
         $scope.view.changeRoute = false;
         console.log(err);
       });
     }
+
+    $scope.countOldUser = function(old){
+      $scope.count = 0;
+      for (var count in old ){
+        $scope.count = $scope.count + 1;
+      }
+      $scope.totalUsers = $scope.count;
+    }
+
+    $rootScope.$on('scrollingContainerView', function () {
+      if($scope.totalUsers){
+        if ($scope.totalUsers > $scope.olduserLimit) {
+          $scope.olduserLimit += $scope.SCROLLPLUS
+        }
+      }
+      if($scope.usersTranfered){
+        if ($scope.usersTranfered > $scope.userLimit) {
+          $scope.userLimit += $scope.SCROLLPLUS
+        }
+      }
+    });
 
     $scope.validateMigrationStatus = function () {
       MigrationService.getMigrationStatus().then(function (res) {

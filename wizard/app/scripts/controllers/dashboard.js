@@ -18,7 +18,28 @@ angular.module('nethvoiceWizardUiApp')
       userChangingPresenceUsername: undefined,
       userChangingPresenceName: undefined
     };
+    $scope.usersNumber = [];
+    $scope.trunksNumber = [];
     $scope.view.changeRoute = true;
+
+    $scope.usersLimit = 20;
+    $scope.trunksLimit = 20;
+
+    $scope.scrollingUsersContainer = function (){
+      if ($scope.usersNumber) {
+        if ($scope.usersNumber.length > $scope.usersLimit) {
+          $scope.usersLimit += $scope.SCROLLPLUS
+          }
+        }
+    }
+
+    $scope.scrollingTrunksContainer = function (){
+      if ($scope.trunksNumber) {
+        if ($scope.trunksNumber.length > $scope.trunksLimit) {
+          $scope.trunksLimit += $scope.SCROLLPLUS
+          }
+        }
+    }
 
     $scope.update = function () {
       $scope.getUsers();
@@ -28,6 +49,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getUsers = function (s) {
       DashboardService.getUsers().then(function (res) {
         $scope.data.users = res.data;
+        $scope.usersNumber = Object.values($scope.data.users);
         if (!$scope.wizard.isWizard) {
           $scope.view.changeRoute = false;
         }
@@ -45,6 +67,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.getTrunks = function (s) {
       DashboardService.getTrunks().then(function (res) {
         $scope.data.trunks = res.data;
+        $scope.trunksNumber = Object.values($scope.data.trunks);
       }, function (err) {
         console.log(err);
       });

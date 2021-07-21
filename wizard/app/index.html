@@ -310,7 +310,7 @@
     </nav>
     <!-- end left menu -->
     <!-- content -->
-    <div id="containerView" class="container-fluid container-cards-pf container-pf-alt-nav-pf-vertical-alt">
+    <div id="containerView" class="container-fluid container-cards-pf container-pf-alt-nav-pf-vertical-alt" when-scrolled="scrollingContainerView()">
       <div ng-show="view.changeRoute" class="spinner spinner-lg pageLoader"></div>
       <div ng-show="!view.changeRoute" ng-view></div>
     </div>
@@ -468,7 +468,7 @@
   <script src="scripts/controllers/devices/models.js"></script>
   <script src="scripts/controllers/configurations.js"></script>
   <script src="scripts/controllers/apps/bulkdevices.js"></script>
-  <script src="scripts/directives/whenScrolled.js"></script>
+  <script src="scripts/directives/whenscrolled.js"></script>
   <script src="scripts/directives/showPassword.js"></script>
   <script src="scripts/controllers/templates/file-upload.js"></script>
   <!-- load the webcomponents loader, which injects the necessary polyfill bundle -->
