@@ -130,7 +130,7 @@
           >
             <label class="col-sm-3 control-label">{{'Registration' | translate}}:</label>
             <div class="col-sm-9">
-              <label class="mt-3 {{trunksInfo[selectedTrunk.name].registration === 'registered' ? 'text-online-green' : 'text-red'}}">{{trunksInfo[selectedTrunk.name].registration || "-" | translate}}</label>
+              <label class="mt-3 {{trunksInfo[selectedTrunk.name].registration === 'registered' ? 'text-online-green' : trunksInfo[selectedTrunk.name].registration === 'unmonitored' ? 'text-orange' : 'text-red'}}">{{trunksInfo[selectedTrunk.name].registration || "-" | translate}}</label>
             </div>
           </div>
           <div
