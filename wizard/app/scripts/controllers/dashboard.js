@@ -29,8 +29,8 @@ angular.module('nethvoiceWizardUiApp')
       if ($scope.usersNumber) {
         if ($scope.usersNumber.length > $scope.usersLimit) {
           $scope.usersLimit += $scope.SCROLLPLUS
-          }
         }
+      }
     }
 
     $scope.scrollingTrunksContainer = function (){

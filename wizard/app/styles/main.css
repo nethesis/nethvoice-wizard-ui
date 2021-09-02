@@ -3661,3 +3661,9 @@ a.black:focus, a.black:hover, a.black:active {
   overflow-y: auto !important;
   overflow-x: clip !important;
 }
+
+.resizeDashboard {
+  max-height: 356px !important;
+  overflow-y: auto !important;
+  overflow-x: clip !important;
+}
