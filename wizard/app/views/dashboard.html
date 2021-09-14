@@ -149,7 +149,7 @@
                           <div class="list-view-pf-main-info">
                             <div class="list-view-pf-body">
                               <div class="list-view-pf-additional-info config-info">
-                                <div>{{'Registration' | translate}}: <b class="right-only {{t.registration === 'registered' ? 'text-online-green' : 'text-red'}}"> {{t.registration !== '' ? t.registration : '-' | translate}} </b></div>
+                                <div>{{'Registration' | translate}}: <b class="right-only {{t.registration === 'registered' ? 'text-online-green' : t.registration === 'unmonitored' ? 'text-orange' : 'text-red'}}"> {{t.registration !== '' ? t.registration : '-' | translate}} </b></div>
                               </div>
                             </div>
                           </div>
