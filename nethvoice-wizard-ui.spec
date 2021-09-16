@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.11.0
+Version: 14.12.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,13 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Thu Sep 16 2021 Sebastian <sebastian.besel@nethesis.it> - 14.12.0-1
+- Default registration value for unmonitored trunks is wrong - Bug nethesis/dev#6049
+- Change the CTI profile instead of the context in multiple extension management - Bug nethesis/dev#6041
+- Add feedback for failed requests in permissions - Bug nethesis/dev#6037
+- Enhance voip trunks patch operations - nethesis/dev#6028
+- Add trunks's registration to dashboard and voip trunks sections   - nethesis/dev#6029
+
 * Fri Jun 18 2021 Sebastian <sebastian.besel@nethesis.it> - 14.11.0-1
 - Lack of explanation if the added physical phone is encrypted - Bug nethesis/dev#6003 !! INCOMPLETE
 - Create VoIP trunks using pjsip instead of chan_sip - nethesis/dev#6002
