@@ -8,11 +8,12 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('RoutesInboundCtrl', function($scope, $interval, RouteService) {
+  .controller('RoutesInboundCtrl', function($scope, $rootScope, $interval, RouteService) {
     $scope.routes = {};
     $scope.destinations = {};
     $scope.currentRoute = {};
     $scope.inboundPromise = null;
+    $scope.inboundLimit = 20
 
     $scope.setCurrentRoute = function(route) {
       $scope.currentRoute = route;
@@ -34,6 +35,14 @@ angular.module('nethvoiceWizardUiApp')
       });
     };
 
+    $rootScope.$on('scrollingContainerView', function () {
+      if($scope.routes){
+        if ($scope.routes.length > $scope.inboundLimit) {
+          $scope.inboundLimit += $scope.SCROLLPLUS
+        }
+      }
+    });
+    
     $scope.parseDestinations = function(destination) {
       if (!destination || destination === null || destination.length == 0) {
         return '';

@@ -107,7 +107,7 @@
               <div ng-if="!(oldusers | isEmpty)" class="container-fluid">
                 <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions">
                   <div ng-show="migration.users.status != 'success' && migration.users.status != 'fail'"
-                    class="list-group-item margin-migration-usersmigration" ng-repeat="(key, olduser) in oldusers">
+                    class="list-group-item margin-migration-usersmigration" ng-repeat="(key, olduser) in oldusers | limitTo: olduserLimit">
                     <div class="list-view-pf-actions {{olduser.alreadyExists ? 'has-error' : ''}}">
                       <div ng-show="olduser.isInAction" class="spinner spinner-sm adjust-margin"></div>
                       <span ng-show="!olduser.isInAction" ng-click="checkRemoveOldExtension(key)" data-toggle="modal"
@@ -143,7 +143,7 @@
                                 <li ng-if="(olduser.oldusername) && (olduser.oldusername !==olduser.username)" ng-click="resetUser(olduser)" class="not-selectable">
                                   <a>{{"Reset field" | translate}}</a>
                                 </li>
-                                <li ng-if="!(users | isEmpty) && !(userz.inuse)" ng-repeat="(keyz, userz) in users" class="not-selectable">
+                                <li ng-if="!(users | isEmpty) && !(userz.inuse)" ng-repeat="(keyz, userz) in users | limitTo: userLimit" class="not-selectable">
                                   <a ng-click="associateUser(olduser, userz)">{{userz.username}}</a>
                                 </li>
                                 <li ng-if="!(areUsersAvaible())" class="not-selectable">
@@ -164,7 +164,7 @@
                       </div>
                     </div>
                   </div>
-                  <div ng-show="(user.default_extension != 'none' && user.default_extension != '') && (migration.users.status == 'success' || migration.users.status == 'fail')" class="list-group-item margin-migration-usersmigration" ng-repeat="(key, user) in users">
+                  <div ng-show="(user.default_extension != 'none' && user.default_extension != '') && (migration.users.status == 'success' || migration.users.status == 'fail')" class="list-group-item margin-migration-usersmigration" ng-repeat="(key, user) in users  | limitTo: userLimit">
                     <div class="list-view-pf-actions {{user.alreadyExists ? 'has-error' : ''}}">
                       <div ng-show="user.isInAction" class="spinner spinner-sm adjust-margin"></div>
                       <span ng-show="!user.isInAction" ng-click="checkRemoveOldExtension(key)" data-toggle="modal" data-target="#confirmDelete"

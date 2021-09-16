@@ -70,8 +70,8 @@
             </span>
           </div>
         </span>
-        <div class="list-group list-view-pf list-view-pf-view adjust-body-user">
-          <div ng-repeat="user in users | customFilterMultiple:'displayname,username,default_extension':searchUserUserString | orderBy:selectedUserFilterNumbers">
+        <div class="list-group list-view-pf list-view-pf-view adjust-body-user" when-scrolled="scrollingUserContainer()">
+          <div ng-repeat="user in users | customFilterMultiple:'displayname,username,default_extension':searchUserUserString | orderBy:selectedUserFilterNumbers | limitTo: usersLimit">
             <div ng-if="user.default_extension !== 'none'" ng-show="selectedUserFilter == 'configured' ? user.devices.length > 0 : (selectedUserFilter == 'unconfigured' ? user.devices.length == 0 : true)"
               class="list-group-item {{selectedUser.id == user.id ? 'selected' : ''}}" ng-click="selectUser(user)">
               <div class="list-view-pf-actions">
@@ -224,8 +224,7 @@
           <strong>{{'Devices limit reached' | translate}}.</strong> {{'An user can have up to 7 devices associated' | translate}}.
         </div>
         <div class="container-fluid">
-          <div class="list-group list-view-pf list-view-pf-view config-view-container">
-  
+          <div class="list-group list-view-pf list-view-pf-view config-view-container" when-scrolled="scrollingDeviceContainer()">
             <div class="list-group-item">
               <div class="list-view-pf-actions adjust-link">
                 <button ng-click="setPhysicalExtension(selectedUser, newDevice)" type="button" class="btn btn-primary" aria-haspopup="true"
@@ -260,7 +259,7 @@
               class="list-group-item
               {{device.lines[0].mainextension == selectedUser.default_extension ? 'selected' : ''}} {{device.extension ? 'disabled' : ''}}
               {{device.lines[0].mainextension != null && selectedUser.default_extension !=null && device.lines[0].mainextension != selectedUser.default_extension ? 'associated' : ''}}"
-              ng-repeat="device in devices | filter:searchDeviceUserString | orderBy: ['manufacturer','model']">
+              ng-repeat="device in devices | filter:searchDeviceUserString | orderBy: ['manufacturer','model'] | limitTo: devicesLimit">
               <div class="list-view-pf-actions adjust-link">
                 <button ng-if="device.lines && device.lines.length == 1" ng-click="device.lines[0].extension ? deletePhysicalExtension(device, device.lines[0].extension) : setPhysicalExtension(selectedUser, device)"
                   type="button" class="btn btn-{{device.lines[0].extension ? 'default' : 'primary'}}" aria-haspopup="true" aria-expanded="false">

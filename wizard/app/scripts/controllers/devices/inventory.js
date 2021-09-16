@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('DevicesInventoryCtrl', function ($scope, $interval, $q, $timeout, PhoneService, ModelService, UtilService, ConfigService, DeviceService, LocalStorageService, UserService) {
+  .controller('DevicesInventoryCtrl', function ($scope, $rootScope, $interval, $q, $timeout, PhoneService, ModelService, UtilService, ConfigService, DeviceService, LocalStorageService, UserService) {
     $scope.phones = [];
     $scope.models = [];
     $scope.tasks = {};
@@ -25,6 +25,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.maxPastedMacCharacters = 3600;
     $scope.PHONES_PAGE = 15;
     $scope.phonesLimit = $scope.PHONES_PAGE;
+    $scope.phonesLimit = 20
 
     const nethesisVendor = "Nethesis"
     const modelDigitsKey = 3
@@ -40,6 +41,14 @@ angular.module('nethvoiceWizardUiApp')
         $("select").selectpicker('refresh');
       }, 1000);
     }
+
+    $rootScope.$on('scrollingContainerView', function () {
+      if($scope.phones){
+        if ($scope.phones.length > $scope.phonesLimit) {
+          $scope.phonesLimit += $scope.SCROLLPLUS
+        }
+      }
+    });
 
     function gotPhones(phonesTancredi) {
       $scope.phones = [];
@@ -861,19 +870,6 @@ angular.module('nethvoiceWizardUiApp')
         deletePhoneDev(phone)
       });
     }
-
-    var scrollInventory = function () {
-      $scope.$apply(function () {
-        $scope.phonesLimit += $scope.PHONES_PAGE
-      })
-    }
-
-    document.addEventListener('inventoryScroll', scrollInventory)
-
-    $scope.$on('$routeChangeStart', function() {
-      document.removeEventListener('inventoryScroll', scrollInventory)
-      $scope.phonesLimit = $scope.PHONES_PAGE
-    })
 
     $('#provisioningInfoModal').on('hide.bs.modal', function () {
       $("#provisioningInfoModal #showurlbtn").popover("hide")

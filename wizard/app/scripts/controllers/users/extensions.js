@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersExtensionsCtrl', function ($scope, $location, $interval, ConfigService, UserService, UtilService) {
+  .controller('UsersExtensionsCtrl', function ($scope, $rootScope, $location, $interval, ConfigService, UserService, UtilService) {
     $scope.users = {};
     $scope.providerLocal = false;
     $scope.taskPromise = null;
@@ -17,6 +17,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.availableUsersFilters = ['all', 'configured', 'unconfigured'];
     $scope.selectedUsersFilter = $scope.availableUsersFilters[0];
     $scope.view.changeRoute = true;
+    $scope.usersLimit = 20
 
     $scope.error = {
       file: {
@@ -30,6 +31,14 @@ angular.module('nethvoiceWizardUiApp')
       errorCount: 0,
       currentProgress: 0
     };
+
+    $rootScope.$on('scrollingContainerView', function () {
+      if($scope.users){
+        if ($scope.users.length > $scope.usersLimit) {
+          $scope.usersLimit += $scope.SCROLLPLUS
+        }
+      }
+    });
 
     $scope.checkDefaultExtensions = function() {
       $scope.wizard.nextState = false;

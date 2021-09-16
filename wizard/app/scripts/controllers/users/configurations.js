@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersConfigurationsCtrl', function ($scope, $filter, UserService, DeviceService, ProfileService, UtilService) {
+  .controller('UsersConfigurationsCtrl', function ($scope, $rootScope, $filter, UserService, DeviceService, ProfileService, UtilService) {
     $scope.users = {};
     $scope.selectedUser = null;
     $scope.devices = [];
@@ -17,6 +17,9 @@ angular.module('nethvoiceWizardUiApp')
     $scope.maxExtensionReached = false;
     $scope.view.changeRoute = true;
     $scope.newDevice = {};
+
+    $scope.usersLimit = 20
+    $scope.devicesLimit = 20
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured'];
     $scope.availableUserFiltersNumbers = ['lname', 'default_extension'];
@@ -29,6 +32,22 @@ angular.module('nethvoiceWizardUiApp')
     $scope.cancelError = function () {
       $scope.maxExtensionReached = false;
     };
+
+    $scope.scrollingUserContainer = function () {
+      if ($scope.users) {
+        if ($scope.users.length > $scope.usersLimit) {
+          $scope.usersLimit += $scope.SCROLLPLUS
+        }
+      }
+    }
+
+    $scope.scrollingDeviceContainer = function () {
+      if ($scope.devices) {
+        if ($scope.devices.length > $scope.devicesLimit) {
+          $scope.devicesLimit += $scope.SCROLLPLUS
+        }
+      }
+    }
 
     $scope.getAllProfiles = function () {
       ProfileService.allProfiles().then(function (res) {

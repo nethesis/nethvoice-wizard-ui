@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('TrunksVoipCtrl', function ($scope, TrunkService, CodecService, $timeout, $filter, DashboardService) {
+  .controller('TrunksVoipCtrl', function ($scope, $rootScope, TrunkService, CodecService, $timeout, $filter, DashboardService) {
 
     $scope.providers = []
     $scope.voipTrunks = []
@@ -18,6 +18,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.onSaveError = false;
     $scope.searchTrunk = ""
     $scope.newPwd = ""
+    $scope.voipLimit = 20;
 
     $scope.onDelete = false
     $scope.onDeleteError = false
@@ -36,6 +37,14 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.retrieveCodecs = function () {
       return CodecService.getVoipCodecs();
+    }
+
+    $scope.voipContainer = function(){
+      if($scope.voipTrunks){
+        if ($scope.voipTrunks.length > $scope.voipLimit) {
+          $scope.voipLimit += $scope.SCROLLPLUS
+        }
+      }
     }
 
     /**

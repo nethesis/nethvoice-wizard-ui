@@ -8,7 +8,7 @@
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('ConfigurationsCtrl', function ($scope, $q, ConfigurationService, ProfileService, ModelService, DeviceService, UserService, PhoneService, DashboardService, $timeout) {
+  .controller('ConfigurationsCtrl', function ($scope, $rootScope, $q, ConfigurationService, ProfileService, ModelService, DeviceService, UserService, PhoneService, DashboardService, $timeout) {
 
     $scope.view.changeRoute = true
     $scope.allUsers = []
@@ -31,6 +31,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.USERS_PAGE = 15;
     $scope.usersLimit = $scope.USERS_PAGE;
     $scope.DEVICES_NOT_LINKED_PAGE = 15;
+    $scope.usersLimit = 20;
+
     $scope.devicesNotLinkedLimit = $scope.DEVICES_NOT_LINKED_PAGE;
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured']
@@ -38,6 +40,14 @@ angular.module('nethvoiceWizardUiApp')
     
     $scope.usersFilter = $scope.availableUserFilters[0]
     $scope.usersFilterNumbers = $scope.availableUserFiltersNumbers[0]
+    
+    $rootScope.$on('scrollingContainerView', function () {
+      if($scope.allUsers){
+        if ($scope.allUsers.length > $scope.usersLimit) {
+          $scope.usersLimit += $scope.SCROLLPLUS
+        }
+      }
+    });
 
     $scope.setCurrentUser = function (user) {
       if (user.username == $scope.currentUser.username) {
