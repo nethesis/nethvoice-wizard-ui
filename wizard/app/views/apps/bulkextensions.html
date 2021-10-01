@@ -151,10 +151,10 @@
               <div class="input-group">
                 <div class="dropdown inline-display imp-full-size-max">
                   <select
-                      ng-disabled="bulkEdit.profile === null || !checkSame()"
+                      ng-disabled="bulkEdit.profile === null"
                       class="dropdown inline-display imp-full-size-max editProfile"
                       aria-labelledby="textInput-profile-bulk"
-                      title="{{bulkEdit.profile !== null && checkSame() ? bulkEdit.profile : 'This field will be left untouched' | translate}}"
+                      title="{{bulkEdit.profile !== null && checkSame() ? bulkEdit.profile : bulkEdit.profile !== null && !checkSame() ? 'Choose the profile' : 'This field will be left untouched' | translate}}"
                       pf-select="{ width: '100%' }"
                       ng-model="bulkEdit.profile"
                       ng-options="p.id as p.name | translate for p in profiles"
