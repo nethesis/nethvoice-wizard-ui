@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.12.0
+Version: 14.13.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,10 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Thu Oct 21 2021 Sebastian <sebastian.besel@nethesis.it> - 14.13.0-1
+- Correction of profile modification in multiple extensions selection - Bug nethesis/dev#6065
+- Add client-side infinite scrolling to all UI's lists - nethesis/dev#5985
+
 * Thu Sep 16 2021 Sebastian <sebastian.besel@nethesis.it> - 14.12.0-1
 - Default registration value for unmonitored trunks is wrong - Bug nethesis/dev#6049
 - Change the CTI profile instead of the context in multiple extension management - Bug nethesis/dev#6041
