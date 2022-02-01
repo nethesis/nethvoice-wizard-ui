@@ -17,6 +17,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.onSaveError = false;
     $scope.gruopsDisabled = false;
     $scope.permissionsStatus = {};
+    $scope.outboundStatus = {};
 
     $scope.initGraphics = function () {};
 
@@ -50,7 +51,8 @@ angular.module('nethvoiceWizardUiApp')
         ProfileService.getProfile(newProfile.duplicateProfile.id).then(function (res) {
           var emptyProfile = {
             name: newProfile.name,
-            macro_permissions: res.data.macro_permissions
+            macro_permissions: res.data.macro_permissions,
+            outbound_routes_permissions: res.data.outbound_routes_permissions
           }
           ProfileService.create(emptyProfile).then(function (res) {
             newProfile.onSave = false;
@@ -74,7 +76,8 @@ angular.module('nethvoiceWizardUiApp')
         ProfileService.allPermissions().then(function (res) {
           var emptyProfile = {
             name: newProfile.name,
-            macro_permissions: res.data
+            macro_permissions: res.data,
+            outbound_routes_permissions: res.data.outbound_routes_permissions
           }
           ProfileService.create(emptyProfile).then(function (res) {
             newProfile.onSave = false;
@@ -111,6 +114,7 @@ angular.module('nethvoiceWizardUiApp')
       if (profile.id) {
         if (permission){
           $scope.permissionsStatus[permission.id] = "loading";
+          $scope.outboundStatus[permission.route_id] = "loading";
         }
         ProfileService.update(profile.id, profile).then(function (res) {
           $scope.checkAllGroups();
@@ -120,8 +124,10 @@ angular.module('nethvoiceWizardUiApp')
           $scope.onSaveError = false;
           if (permission){
             $scope.permissionsStatus[permission.id] = "success";
+            $scope.outboundStatus[permission.route_id] = "success";
             $timeout(function () {
               delete $scope.permissionsStatus[permission.id];
+              delete $scope.outboundStatus[permission.route_id];
             }, 5000)
           }
         }, function (err) {
@@ -133,6 +139,7 @@ angular.module('nethvoiceWizardUiApp')
           $scope.onSaveError = true;
           if(permission){
             $scope.permissionsStatus[permission.id] = "error";
+            $scope.outboundStatus[permission.route_id] = "error";
             if(!$scope.$$phase) {
               $scope.$apply();
             }
