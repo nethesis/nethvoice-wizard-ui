@@ -21,7 +21,7 @@ NethVoice UI
 perl createlinks
 
 # Wizard UI
-(cd wizard && npm install yarn && node_modules/yarn/bin/yarn install && node_modules/grunt-cli/bin/grunt build)
+(cd wizard && npx -y -p npm@6 npm install yarn && node_modules/yarn/bin/yarn install && node_modules/grunt-cli/bin/grunt build)
 mkdir -p root/var/www/html/freepbx/wizard
 cp -r wizard/dist/* root/var/www/html/freepbx/wizard/
 
