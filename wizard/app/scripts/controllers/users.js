@@ -18,7 +18,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.nextStepUsers = function () {
       var step = $scope.wizard.stepCount;
-      $location.path("/users/extensions");
+      $location.path("/extensions");
       if (!step || (step && step == "0")) {
         ConfigService.setWizard({
           status: 'true',

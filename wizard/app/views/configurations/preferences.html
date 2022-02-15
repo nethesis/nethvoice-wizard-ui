@@ -2,15 +2,26 @@
   <div class="wizard-pf-body clearfix">
     <div ng-if="wizard.isWizard" class="wizard-pf-steps">
       <ul class="wizard-pf-steps-indicator">
-        <li class="wizard-pf-step {{resolveActiveTab('configurations',1) ? 'active' : ''}}" data-tabgroup="1">
-          <a ng-click="goTo('users/extensions')"><span class="wizard-pf-step-number">1</span><span
-            class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
+        <li class="wizard-pf-step {{resolveActiveTab('groups',2) ? 'active' : ''}}" data-tabgroup="1">
+          <a ng-click="goTo('configurations/groups')">
+            <span class="wizard-pf-step-number">1</span>
+            <span class="wizard-pf-step-title">{{'Groups' | translate}}</span></a>
+        </li>
+        <li class="wizard-pf-step {{resolveActiveTab('profiles',2) ? 'active' : ''}}" data-tabgroup="2">
+          <a ng-click="goTo('configurations/profiles')">
+            <span class="wizard-pf-step-number">2</span>
+            <span class="wizard-pf-step-title">{{'Profiles' | translate}}</span></a>
+        </li>
+        <li class="wizard-pf-step {{resolveActiveTab('preferences',2) ? 'active' : ''}}" data-tabgroup="3">
+          <a ng-click="goTo('configurations/preferences')">
+            <span class="wizard-pf-step-number">3</span>
+            <span class="wizard-pf-step-title">{{'Users' | translate}}</span></a>
         </li>
       </ul>
     </div>
   </div>
   <div class="wizard-pf-contents adjust-size no-margin-bottom">
-    <h1 class="control-label centered" for="textInput-markup">{{'Configurations' | translate}}</h1>
+    <h1 class="control-label centered" for="textInput-markup">{{'Users Configuration' | translate}}</h1>
     <div class="container-fluid mt-10">
       <div class="form-group">
         <div class="filter-label-user adjust-filter-user">{{'Filter' | translate}}:</div>

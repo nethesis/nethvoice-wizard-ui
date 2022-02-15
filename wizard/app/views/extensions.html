@@ -3,25 +3,14 @@
     <div ng-if="wizard.isWizard" class="wizard-pf-steps">
       <ul class="wizard-pf-steps-indicator">
         <li class="wizard-pf-step {{resolveActiveTab('extensions',2) ? 'active' : ''}}" data-tabgroup="1">
-          <a ng-click="goTo('users/extensions')"><span class="wizard-pf-step-number">1</span><span class="wizard-pf-step-title">{{'Extensions' | translate}}</span></a>
-        </li>
-        <li class="wizard-pf-step {{resolveActiveTab('groups',2) ? 'active' : ''}}" data-tabgroup="2">
-          <a ng-click="goTo('users/groups')"><span class="wizard-pf-step-number">2</span><span class="wizard-pf-step-title">{{'Groups' | translate}}</span></a>
-        </li>
-        <li class="wizard-pf-step {{resolveActiveTab('profiles',2) ? 'active' : ''}}" data-tabgroup="3">
-          <a ng-click="goTo('users/profiles')"><span class="wizard-pf-step-number">3</span><span class="wizard-pf-step-title">{{'Profiles' | translate}}</span></a>
-        </li>
-        <li ng-if="wizard.provisioning != 'tancredi'" class="wizard-pf-step {{resolveActiveTab('devices',2) ? 'active' : ''}}" data-tabgroup="4">
-          <a ng-click="goTo('users/devices')"><span class="wizard-pf-step-number">4</span><span class="wizard-pf-step-title">{{'Devices' | translate}}</span></a>
-        </li>
-        <li ng-if="wizard.provisioning != 'tancredi'" class="wizard-pf-step {{resolveActiveTab('configurations',2) ? 'active' : ''}}" data-tabgroup="5">
-          <a ng-click="goTo('users/configurations')"><span class="wizard-pf-step-number">5</span><span class="wizard-pf-step-title">{{'Configurations' | translate}}</span></a>
+          <a ng-click="goTo('/extension')">
+            <span class="wizard-pf-step-number">1</span>
+            <span class="wizard-pf-step-title">{{'extensions' | translate}}</span></a>
         </li>
       </ul>
     </div>
-  </div>
   <div class="wizard-pf-contents adjust-size no-margin-bottom">
-    <h1 class="control-label centered" for="textInput-markup">{{'Users configuration' | translate}}</h1>
+    <h1 class="control-label centered" for="textInput-markup">{{'Extensions Configuration' | translate}}</h1>
     <div ng-if="!(users | isEmpty)" class="container-fluid margin-top-lg">
       <div ng-if="error.file.status" class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">

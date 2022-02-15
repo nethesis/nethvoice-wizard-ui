@@ -2,57 +2,41 @@ var appConfig_OLD = {
   TOTAL_STEP: 11,
   STEP_MAP: {
     extensions: 1,
-    groups: 2,
-    profiles: 3,
-    devices: 4,
-    configurations: 5,
-    physical: 6,
-    voip: 7,
-    inbound: 8,
-    outbound: 9,
+    physical: 2,
+    voip: 3,
+    inbound: 4,
+    outbound: 5,
+    groups: 6,
+    profiles: 7,
+    devices: 8,
+    configurations: 9,
     languages: 10,
     settings: 11
   },
   STEP_MAP_REVERSE: {
     '0': 'users',
-    '1': 'users/extensions',
-    '2': 'users/groups',
-    '3': 'users/profiles',
-    '4': 'users/devices',
-    '5': 'users/configurations',
-    '6': 'trunks/physical',
-    '7': 'trunks/voip',
-    '8': 'routes/inbound',
-    '9': 'routes/outbound',
+    '1': 'extensions',
+    '2': 'trunks/physical',
+    '3': 'trunks/voip',
+    '4': 'routes/inbound',
+    '5': 'routes/outbound',
+    '6': 'configurations/groups',
+    '7': 'configurations/profiles',
+    '8': 'configurations/devices',
+    '9': 'configurations/preferencesFreepbx',
     '10': 'admin/languages',
     '11': 'admin/settings'
   },
-  TRUNKS_PREV_STEP: 5,
-  ROUTES_PREV_STEP: 7,
+  TRUNKS_PREV_STEP: 1,
+  ROUTES_PREV_STEP: 3,
   ADMINS_PREV_STEP: 9,
   STEP_WIZARD: {
     extensions: {
       prev: false,
-      next: 'users/groups'
-    },
-    groups: {
-      prev: 'users/extensions',
-      next: 'users/profiles'
-    },
-    profiles: {
-      prev: 'users/groups',
-      next: 'users/devices'
-    },
-    devices: {
-      prev: 'users/profiles',
-      next: 'users/configurations'
-    },
-    configurations: {
-      prev: 'users/devices',
       next: 'trunks/physical'
     },
     physical: {
-      prev: 'users/configurations',
+      prev: 'extensions',
       next: 'trunks/voip'
     },
     voip: {
@@ -65,10 +49,26 @@ var appConfig_OLD = {
     },
     outbound: {
       prev: 'routes/inbound',
+      next: 'configurations/groups'
+    },
+    groups: {
+      prev: 'routes/oubound',
+      next: 'configurations/profiles'
+    },
+    profiles: {
+      prev: 'configurations/groups',
+      next: 'configurations/devices'
+    },
+    devices: {
+      prev: 'configurations/profiles',
+      next: 'configurations/preferencesFreepbx'
+    },
+    preferences: {
+      prev: 'configurations/devices',
       next: 'admin/languages'
     },
     languages: {
-      prev: 'routes/outbound',
+      prev: 'configurations/preferencesFreepbx',
       next: 'admin/settings'
     },
     settings: {
@@ -85,71 +85,47 @@ var appConfig = {
   TOTAL_STEP: 13,
   STEP_MAP: {
     extensions: 1,
-    groups: 2,
-    profiles: 3,
-    devices: 4,
-    inventory: 5,
-    models: 6,
-    configurations: 7,
-    physical: 8,
-    voip: 9,
-    inbound: 10,
-    outbound: 11,
+    physical: 2,
+    voip: 3,
+    inbound: 4,
+    outbound: 5,
+    devices: 6,
+    inventory: 7,
+    models: 8,
+    groups: 9,
+    profiles: 10,
+    preferences: 11,
     languages: 12,
     settings: 13
   },
   STEP_MAP_REVERSE: {
     '0': 'users',
-    '1': 'users/extensions',
-    '2': 'users/groups',
-    '3': 'users/profiles',
-    '4': 'devices',
-    '5': 'devices/inventory',
-    '6': 'devices/models',
-    '7': 'configurations',
-    '8': 'trunks/physical',
-    '9': 'trunks/voip',
-    '10': 'routes/inbound',
-    '11': 'routes/outbound',
+    '1': 'extensions',
+    '2': 'trunks/physical',
+    '3': 'trunks/voip',
+    '4': 'routes/inbound',
+    '5': 'routes/outbound',
+    '6': 'devices',
+    '7': 'devices/inventory',
+    '8': 'devices/models',
+    '9': 'configurations/groups',
+    '10': 'configurations/profiles',
+    '11': 'configurations/preferences',
     '12': 'admin/languages',
     '13': 'admin/settings'
   },
-  DEVICES_PREV_STEP: 3,
-  CONFIGURATIONS_PREV_STEP: 6,
-  TRUNKS_PREV_STEP: 7,
-  ROUTES_PREV_STEP: 9,
+  TRUNKS_PREV_STEP: 1,
+  ROUTES_PREV_STEP: 3,
+  DEVICES_PREV_STEP: 5,
+  CONFIG_PREV_STEP: 8,
   ADMINS_PREV_STEP: 11,
   STEP_WIZARD: {
     extensions: {
       prev: false,
-      next: 'users/groups'
-    },
-    groups: {
-      prev: 'users/extensions',
-      next: 'users/profiles'
-    },
-    profiles: {
-      prev: 'users/groups',
-      next: 'devices'
-    },
-    devices: {
-      prev: 'users/profiles',
-      next: 'devices/inventory'
-    },
-    inventory: {
-      prev: 'devices',
-      next: 'devices/models'
-    },
-    models: {
-      prev: 'devices/inventory',
-      next: 'configurations'
-    },
-    configurations: {
-      prev: 'devices/models',
       next: 'trunks/physical'
     },
     physical: {
-      prev: 'configurations',
+      prev: 'extensions',
       next: 'trunks/voip'
     },
     voip: {
@@ -162,10 +138,34 @@ var appConfig = {
     },
     outbound: {
       prev: 'routes/inbound',
+      next: 'devices'
+    },
+    devices: {
+      prev: 'routes/inbound',
+      next: 'devices/inventory'
+    },
+    inventory: {
+      prev: 'devices',
+      next: 'devices/models'
+    },
+    models: {
+      prev: 'devices/inventory',
+      next: 'configurations/groups'
+    },
+    groups: {
+      prev: 'devices/models',
+      next: 'configurations/profiles'
+    },
+    profiles: {
+      prev: 'configurations/groups',
+      next: 'configurations/preferences'
+    },
+    preferences: {
+      prev: 'configurations/profiles',
       next: 'admin/languages'
     },
     languages: {
-      prev: 'routes/outbound',
+      prev: 'configurations/preferences',
       next: 'admin/settings'
     },
     settings: {

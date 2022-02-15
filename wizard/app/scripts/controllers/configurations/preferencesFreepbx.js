@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name nethvoiceWizardUiApp.controller:UsersConfigurationsCtrl
+ * @name nethvoiceWizardUiApp.controller:OtherConfigurationsCtrl
  * @description
- * # UsersConfigurationsCtrl
+ * # OtherConfigurationsCtrl
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
-  .controller('UsersConfigurationsCtrl', function ($scope, $rootScope, $filter, UserService, DeviceService, ProfileService, UtilService) {
+  .controller('OtherConfigurationsCtrl', function ($scope, $rootScope, $filter, UserService, DeviceService, ProfileService, UtilService) {
     $scope.users = {};
     $scope.selectedUser = null;
     $scope.devices = [];

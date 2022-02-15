@@ -265,7 +265,7 @@ angular.module('nethvoiceWizardUiApp')
       MigrationService.endMigration().then(function (res) {
         $scope.wizard.isWizard = true;
         $scope.wizard.isMigrationView = false;
-        $location.path('/users/extensions');
+        $location.path('/extensions');
       }, function (err) {
         console.log(err);
       });
@@ -304,7 +304,7 @@ angular.module('nethvoiceWizardUiApp')
           case "/devices/models":
             $location.path('/')
             break
-          case "/configurations":
+          case "/configurations/preferences":
             $location.path('/')
             break
           case "/apps/bulkdevices":
@@ -318,7 +318,7 @@ angular.module('nethvoiceWizardUiApp')
           case "/users/devices":
             $location.path('/')
             break
-          case "/users/configurations":
+          case "/configurations/preferencesFreepbx":
             $location.path('/')
             break
           default:

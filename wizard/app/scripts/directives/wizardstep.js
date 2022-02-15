@@ -21,7 +21,7 @@ angular.module('nethvoiceWizardUiApp')
         if (!appConfig.STEP_WIZARD[$scope.currentStep].next && appConfig.STEP_WIZARD[$scope.currentStep].last) {
           $scope.endWizard = true;
         }
-        if (($scope.wizard.nextState == "admin/settings" || $scope.wizard.nextState == "admin/languages")) {
+        if (($scope.wizard.nextState == "admin/settings" || $scope.wizard.nextState == "devices")) {
           $scope.wizard.nextState = false;
         }
 
