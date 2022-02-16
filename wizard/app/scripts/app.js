@@ -29,6 +29,11 @@ angular
         controller: 'DashboardCtrl',
         controllerAs: 'dashboard'
       })
+      .when('/extensions', {
+        templateUrl: 'views/extensions.html',
+        controller: 'UsersExtensionsCtrl',
+        controllerAs: 'extensions'
+      })
       .when('/users', {
         templateUrl: 'views/users.html',
         controller: 'UsersCtrl',
@@ -44,26 +49,6 @@ angular
         controller: 'RoutesCtrl',
         controllerAs: 'routes'
       })
-      .when('/users/extensions', {
-        templateUrl: 'views/users/extensions.html',
-        controller: 'UsersExtensionsCtrl',
-        controllerAs: 'users/extensions'
-      })
-      .when('/users/profiles', {
-        templateUrl: 'views/users/profiles.html',
-        controller: 'UsersProfilesCtrl',
-        controllerAs: 'users/profiles'
-      })
-      .when('/users/devices', {
-        templateUrl: 'views/users/devices.html',
-        controller: 'UsersDevicesCtrl',
-        controllerAs: 'users/devices'
-      })
-      .when('/users/configurations', {
-        templateUrl: 'views/users/configurations.html',
-        controller: 'UsersConfigurationsCtrl',
-        controllerAs: 'users/configurations'
-      })
       .when('/devices', {
         templateUrl: 'views/devices.html',
         controller: 'DevicesCtrl',
@@ -78,11 +63,6 @@ angular
         templateUrl: 'views/devices/models.html',
         controller: 'DevicesModelsCtrl',
         controllerAs: 'devices/models'
-      })
-      .when('/configurations', {
-        templateUrl: 'views/configurations.html',
-        controller: 'ConfigurationsCtrl',
-        controllerAs: 'configurations'
       })
       .when('/trunks/physical', {
         templateUrl: 'views/trunks/physical.html',
@@ -104,6 +84,31 @@ angular
         controller: 'RoutesOutboundCtrl',
         controllerAs: 'routes/outbound'
       })
+      .when('/configurations/devices', {
+        templateUrl: 'views/configurations/devices.html',
+        controller: 'UsersDevicesCtrl',
+        controllerAs: 'configurations/devices'
+      })
+      .when('/configurations/groups', {
+        templateUrl: 'views/configurations/groups.html',
+        controller: 'UsersGroupsCtrl',
+        controllerAs: 'configurations/groups'
+      })
+      .when('/configurations/profiles', {
+        templateUrl: 'views/configurations/profiles.html',
+        controller: 'UsersProfilesCtrl',
+        controllerAs: 'configurations/profiles'
+      })
+      .when('/configurations/preferences', {
+        templateUrl: 'views/configurations/preferences.html',
+        controller: 'ConfigurationsCtrl',
+        controllerAs: 'configurations/preferences'
+      })
+      .when('/configurations/preferencesFreepbx', {
+        templateUrl: 'views/configurations/preferencesFreepbx.html',
+        controller: 'OtherConfigurationsCtrl',
+        controllerAs: 'configurations/preferencesFreepbx'
+      })
       .when('/final', {
         templateUrl: 'views/final.html',
         controller: 'FinalCtrl',
@@ -123,11 +128,6 @@ angular
         templateUrl: 'views/admin/report.html',
         controller: 'AdminReportCtrl',
         controllerAs: 'admin/report'
-      })
-      .when('/users/groups', {
-        templateUrl: 'views/users/groups.html',
-        controller: 'UsersGroupsCtrl',
-        controllerAs: 'users/groups'
       })
       .when('/apps', {
         templateUrl: 'views/apps.html',
@@ -193,11 +193,6 @@ angular
         templateUrl: 'views/apps/phonebook.html',
         controller: 'PhonebookCtrl',
         controllerAs: 'phonebook'
-      })
-      .when('/configurations', {
-        templateUrl: 'views/configurations.html',
-        controller: 'ConfigurationsCtrl',
-        controllerAs: 'configurations'
       })
       .when('/bulkdevices', {
         templateUrl: 'views/bulkdevices.html',

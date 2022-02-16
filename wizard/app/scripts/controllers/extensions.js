@@ -4,7 +4,7 @@
  * @ngdoc function
  * @name nethvoiceWizardUiApp.controller:UsersExtensionsCtrl
  * @description
- * # UsersExtensionsCtrl
+ * #UsersExtensionsCtrl
  * Controller of the nethvoiceWizardUiApp
  */
 angular.module('nethvoiceWizardUiApp')
