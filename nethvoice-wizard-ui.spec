@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.13.0
+Version: 14.14.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,10 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Wed Feb 16 2022 Stefano Fancello <stefano.fancello@nethesis.it> - 14.14.0-1
+- New label position inside wizard - nethesis/dev#6106
+- Add outbound routes permisisons in CTI profiles - nethesis/dev#6103
+
 * Thu Oct 21 2021 Sebastian <sebastian.besel@nethesis.it> - 14.13.0-1
 - Correction of profile modification in multiple extensions selection - Bug nethesis/dev#6065
 - Add client-side infinite scrolling to all UI's lists - nethesis/dev#5985
