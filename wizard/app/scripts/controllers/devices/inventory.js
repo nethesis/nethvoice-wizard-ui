@@ -42,6 +42,7 @@ angular.module('nethvoiceWizardUiApp')
       }, 1000);
     }
 
+    $scope.searchPhoneString = "";
     $rootScope.$on('scrollingContainerView', function () {
       if($scope.phones){
         if ($scope.phones.length > $scope.phonesLimit) {
