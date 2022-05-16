@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.14.0
+Version: 14.14.1
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,9 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Mon May 16 2022 Sebastian <sebastian.besel@nethesis.it> - 14.14.1-1
+- Case insensitive phone search - Bug nethesis/dev#6144
+
 * Wed Feb 16 2022 Stefano Fancello <stefano.fancello@nethesis.it> - 14.14.0-1
 - New label position inside wizard - nethesis/dev#6106
 - Add outbound routes permisisons in CTI profiles - nethesis/dev#6103
