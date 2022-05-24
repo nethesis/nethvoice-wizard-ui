@@ -245,7 +245,16 @@
 
 
           <div class="form-group">
-            <label class="col-sm-3 control-label" for="textInput-outboundcid-bulk">{{'Outbound CID' | translate}}</label>
+            <label class="col-sm-3 control-label" for="textInput-outboundcid-bulk">{{'Outbound CID' | translate}}
+              <label
+                id="outboundVariable"
+                popover-placement="top-right"
+                popover-trigger="'mouseenter'"
+                popover-animation="true"
+                uib-popover="{{'In case of multiple selection you will not be able to see the variable outbound number configurated' | translate}}"
+                class="pficon-info orange icon-med">
+              </label>
+            </label>
             <div class="col-sm-9">
               <div class="input-group">
                 <div class="dropdown inline-display imp-full-size-max">
