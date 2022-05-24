@@ -1041,5 +1041,6 @@
   "Please try again":"Per favore riprova",
   "The change was not successful":"La modifica non è andata a buon fine",
   "Choose the profile": "Scegli il profilo",
-  "Users Configuration": "Configurazione Utenti"
+  "Users Configuration": "Configurazione Utenti",
+  "In case of multiple selection you will not be able to see the variable outbound number configurated": "In caso di selezione multipla non sarà possibile visualizzare il numero in uscita variabile configurato"
 }
