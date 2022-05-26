@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.14.1
+Version: 14.14.2
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,10 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Thu May 26 2022 Stefano Fancello <stefano.fancello@nethesis.it> - 14.14.2-1
+- Missing outbound visualization in case of multiple selection of variable number - Bug nethesis/dev#6146
+- Case insensitive phone search - Bug nethesis/dev#6144
+
 * Mon May 16 2022 Sebastian <sebastian.besel@nethesis.it> - 14.14.1-1
 - Case insensitive phone search - Bug nethesis/dev#6144
 
