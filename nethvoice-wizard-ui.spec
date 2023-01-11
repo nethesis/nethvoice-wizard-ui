@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.14.2
+Version: 14.14.3
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,9 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Wed Jan 11 2023 Stefano Fancello <stefano.fancello@nethesis.it> - 14.14.3-1
+- NethVoice: wrong label on Trunk page - Bug nethesis/dev#6190
+
 * Thu May 26 2022 Stefano Fancello <stefano.fancello@nethesis.it> - 14.14.2-1
 - Missing outbound visualization in case of multiple selection of variable number - Bug nethesis/dev#6146
 - Case insensitive phone search - Bug nethesis/dev#6144
