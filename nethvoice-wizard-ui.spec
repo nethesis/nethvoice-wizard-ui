@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.14.3
+Version: 14.14.4
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,9 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Tue Jan 17 2023 Stefano Fancello <stefano.fancello@nethesis.it> - 14.14.4-1
+- Fix Trunk name translation (#173)
+
 * Wed Jan 11 2023 Stefano Fancello <stefano.fancello@nethesis.it> - 14.14.3-1
 - NethVoice: wrong label on Trunk page - Bug nethesis/dev#6190
 
