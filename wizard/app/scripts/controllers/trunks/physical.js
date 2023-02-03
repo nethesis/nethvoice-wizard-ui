@@ -299,7 +299,13 @@ angular.module('nethvoiceWizardUiApp')
         var config = new Blob([data], { type: 'application/octet-stream;charset=utf-8;' });
         var url = URL.createObjectURL(config);
         link.setAttribute('href', url);
-        link.setAttribute('download', device.name + '.cfg');
+	var checkGrandStream = Object.values(device)
+        var stringToCheck = 'Grand'
+        if(checkGrandStream.find(v => v.includes(stringToCheck))) {
+            link.setAttribute('download', 'config' + '.xml');
+        } else {
+          link.setAttribute('download', device.name + '.cfg');
+        }
         link.click();
         device.onSave = false;
       }, function (err) {
