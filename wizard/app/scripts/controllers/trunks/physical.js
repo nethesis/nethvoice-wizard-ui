@@ -23,6 +23,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.scanned = false;
     $scope.users = [];
     $scope.fisicalLimit = {};
+    $scope.stringToCheckGrandstream = "Grandstream".toLowerCase();
     var limitLength = 20;
 
     $scope.getUserList = function () {
@@ -54,6 +55,11 @@ angular.module('nethvoiceWizardUiApp')
         $scope.selectedDevice.netmask_green = network.netmask;
         $scope.selectedDevice.gateway = network.gateway;
         $scope.selectedDevice.ipv4_green = network.ip;
+      }
+      if ( $scope.selectedDevice.manufacturer && $scope.selectedDevice.manufacturer.toLowerCase() === $scope.stringToCheckGrandstream ) {
+        $scope.selectedDevice["isGrandstream"] = true
+      } else {
+        $scope.selectedDevice["isGrandstream"] = false
       }
     };
 
@@ -299,11 +305,8 @@ angular.module('nethvoiceWizardUiApp')
         var config = new Blob([data], { type: 'application/octet-stream;charset=utf-8;' });
         var url = URL.createObjectURL(config);
         link.setAttribute('href', url);
-        //trasform object in to an array
-        var checkGrandStream = Object.values(device).map(String);
-        var stringToCheck = "Grand";
-        //checks if a grandstream model is contained in the array 
-        if (checkGrandStream.find((v) => v.includes(stringToCheck))) {
+        //check if the manufacturer is Grandstream
+        if (device.isGrandstream) {
           link.setAttribute("download", "config" + ".xml");
         } else {
           link.setAttribute("download", device.name + ".cfg");

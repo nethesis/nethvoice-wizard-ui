@@ -227,7 +227,7 @@
           <div class="col-sm-12">
             <div ng-show="selectedDevice.onSave" class="spinner spinner-sm adjust-margin loader-modal-gateway-not-form"></div>
             <button data-toggle="modal" data-target="#confirmDeleteModal" ng-show="selectedDevice.isConfigured" type="button" ng-disabled="selectedDevice.onSave" class="btn btn-danger col-md-1 right-align">{{'Delete' | translate}}</button>
-            <button data-toggle="modal" data-target="#confirmPushModal" ng-show="(selectedDevice.isConfigured && selectedDevice.isConnected && (selectedDevice.manufacturer !== 'Grandstream'))" type="button" ng-disabled="selectedDevice.onSave" class="btn btn-warning col-md-1 left-align">{{'Push' | translate}}</button>
+            <button data-toggle="modal" data-target="#confirmPushModal" ng-show="selectedDevice.isConfigured && selectedDevice.isConnected && !selectedDevice.isGrandStream" type="button" ng-disabled="selectedDevice.onSave" class="btn btn-warning col-md-1 left-align">{{'Push' | translate}}</button>
             <button ng-show="!selectedDevice.isConfigured" ng-disabled="selectedDevice.onSave" type="submit" class="btn btn-primary col-md-1 right-align">{{'Save' | translate}}</button>
           </div>
         </div>
