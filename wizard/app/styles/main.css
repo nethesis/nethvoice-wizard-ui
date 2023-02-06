@@ -3657,7 +3657,7 @@ a.black:focus, a.black:hover, a.black:active {
 }
 
 /* Remove useless overflow */
-.resizeFisical{
+.resizePhysical{
   overflow-x: clip !important;
 }
 

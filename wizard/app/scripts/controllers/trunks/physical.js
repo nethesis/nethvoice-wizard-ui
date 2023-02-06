@@ -22,8 +22,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.onSave = false;
     $scope.scanned = false;
     $scope.users = [];
-    $scope.fisicalLimit = {};
-    $scope.stringToCheckGrandstream = "Grandstream".toLowerCase();
+    $scope.physicalLimit = {};
+    $scope.stringToCheckGrandstream = "grandstream";
     var limitLength = 20;
 
     $scope.getUserList = function () {
@@ -56,11 +56,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.selectedDevice.gateway = network.gateway;
         $scope.selectedDevice.ipv4_green = network.ip;
       }
-      if ( $scope.selectedDevice.manufacturer && $scope.selectedDevice.manufacturer.toLowerCase() === $scope.stringToCheckGrandstream ) {
-        $scope.selectedDevice["isGrandstream"] = true
-      } else {
-        $scope.selectedDevice["isGrandstream"] = false
-      }
+      $scope.selectedDevice.isGrandstream = ( $scope.selectedDevice.manufacturer && $scope.selectedDevice.manufacturer.toLowerCase() === $scope.stringToCheckGrandstream );
     };
 
     $scope.close = function (device) {
@@ -129,13 +125,13 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.pushKey = function (network){
       if (network) {
-        $scope.fisicalLimit[network] = limitLength;
+        $scope.physicalLimit[network] = limitLength;
       }
     }
 
-    $scope.scrollingFisicalContainer = function (networkName) {
-      if ($scope.allDevices[networkName].length > $scope.fisicalLimit[networkName]) {
-        $scope.fisicalLimit[networkName] += $scope.SCROLLPLUS
+    $scope.scrollingPhysicalContainer = function (networkName) {
+      if ($scope.allDevices[networkName].length > $scope.physicalLimit[networkName]) {
+        $scope.physicalLimit[networkName] += $scope.SCROLLPLUS
       }
     }
 
