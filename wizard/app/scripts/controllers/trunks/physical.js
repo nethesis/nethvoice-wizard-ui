@@ -302,11 +302,9 @@ angular.module('nethvoiceWizardUiApp')
         var url = URL.createObjectURL(config);
         link.setAttribute('href', url);
         //check if the manufacturer is Grandstream
-        if (device.isGrandstream) {
-          link.setAttribute("download", "config" + ".xml");
-        } else {
-          link.setAttribute("download", device.name + ".cfg");
-        }
+        //If the device is a Grandstream, the file format will be the device name + ".xml"
+        //else will be the device name + ".cfg"
+        link.setAttribute("download", device.isGrandstream ? device.name.match(/^\S+/)[0] + ".xml" : device.name.match(/^\S+/)[0] + ".cfg");
         link.click();
         device.onSave = false;
       }, function (err) {
