@@ -22,7 +22,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.onSave = false;
     $scope.scanned = false;
     $scope.users = [];
-    $scope.fisicalLimit = {};
+    $scope.physicalLimit = {};
+    $scope.stringToCheckGrandstream = "grandstream";
     var limitLength = 20;
 
     $scope.getUserList = function () {
@@ -55,6 +56,7 @@ angular.module('nethvoiceWizardUiApp')
         $scope.selectedDevice.gateway = network.gateway;
         $scope.selectedDevice.ipv4_green = network.ip;
       }
+      $scope.selectedDevice.isGrandstream = ( $scope.selectedDevice.manufacturer && $scope.selectedDevice.manufacturer.toLowerCase() === $scope.stringToCheckGrandstream );
     };
 
     $scope.close = function (device) {
@@ -123,13 +125,13 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.pushKey = function (network){
       if (network) {
-        $scope.fisicalLimit[network] = limitLength;
+        $scope.physicalLimit[network] = limitLength;
       }
     }
 
-    $scope.scrollingFisicalContainer = function (networkName) {
-      if ($scope.allDevices[networkName].length > $scope.fisicalLimit[networkName]) {
-        $scope.fisicalLimit[networkName] += $scope.SCROLLPLUS
+    $scope.scrollingPhysicalContainer = function (networkName) {
+      if ($scope.allDevices[networkName].length > $scope.physicalLimit[networkName]) {
+        $scope.physicalLimit[networkName] += $scope.SCROLLPLUS
       }
     }
 
@@ -299,7 +301,10 @@ angular.module('nethvoiceWizardUiApp')
         var config = new Blob([data], { type: 'application/octet-stream;charset=utf-8;' });
         var url = URL.createObjectURL(config);
         link.setAttribute('href', url);
-        link.setAttribute('download', device.name + '.cfg');
+        //check if the manufacturer is Grandstream
+        //If the device is a Grandstream, the file format will be the device name + ".xml"
+        //else will be the device name + ".cfg"
+        link.setAttribute("download", device.isGrandstream ? device.name.match(/^\S+/)[0] + ".xml" : device.name.match(/^\S+/)[0] + ".cfg");
         link.click();
         device.onSave = false;
       }, function (err) {

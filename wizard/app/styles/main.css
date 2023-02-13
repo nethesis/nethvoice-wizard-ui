@@ -3656,9 +3656,8 @@ a.black:focus, a.black:hover, a.black:active {
   color: #ec7a08 !important;
 }
 
-.resizeFisical{
-  max-height: 431px !important;
-  overflow-y: auto !important;
+/* Remove useless overflow */
+.resizePhysical{
   overflow-x: clip !important;
 }
 

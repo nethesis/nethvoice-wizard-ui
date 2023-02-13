@@ -50,7 +50,7 @@
     </div>
 
     <div ng-if="!(allDevices | isEmpty: true)" class="container-fluid scanned-lists col-lg-6 col-md-12 col-sm-12 col-xs-12">
-      <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view list-gateway" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)" >
+      <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view list-gateway max-containers-height resizePhysical" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)" >
         <div>
           <div class="row">
             <h1 class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-header">
@@ -72,8 +72,8 @@
             </div>
           </div>
         </div>
-      <div class="resizeFisical" when-scrolled="scrollingFisicalContainer(networkName)">
-       <div class="list-group-item {{selectedDevice.mac == device.mac ? 'selected' : ''}}" ng-repeat="device in devices | filter:searchDeviceString | orderBy: 'manufacturer' | limitTo: fisicalLimit[networkName]" ng-click="selectDevice(device, networks[networkName], networkName)">
+      <div when-scrolled="scrollingPhysicalContainer(networkName)">
+       <div class="list-group-item {{selectedDevice.mac == device.mac ? 'selected' : ''}}" ng-repeat="device in devices | filter:searchDeviceString | orderBy: 'manufacturer' | limitTo: physicalLimit[networkName]" ng-click="selectDevice(device, networks[networkName], networkName)">
           <div class="list-view-pf-actions">
             <div ng-show="device.isInAction" class="spinner spinner-sm adjust-margin"></div>
             <span ng-show="!device.isInAction" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{device.isConfigured && device.isConnected ? 'Configured and Connected' : device.isConfigured && !device.isConnected ? 'Configured and Not Connected' : 'Not configured' | translate}}"
@@ -227,7 +227,7 @@
           <div class="col-sm-12">
             <div ng-show="selectedDevice.onSave" class="spinner spinner-sm adjust-margin loader-modal-gateway-not-form"></div>
             <button data-toggle="modal" data-target="#confirmDeleteModal" ng-show="selectedDevice.isConfigured" type="button" ng-disabled="selectedDevice.onSave" class="btn btn-danger col-md-1 right-align">{{'Delete' | translate}}</button>
-            <button data-toggle="modal" data-target="#confirmPushModal" ng-show="selectedDevice.isConfigured && selectedDevice.isConnected" type="button" ng-disabled="selectedDevice.onSave" class="btn btn-warning col-md-1 left-align">{{'Push' | translate}}</button>
+            <button data-toggle="modal" data-target="#confirmPushModal" ng-show="selectedDevice.isConfigured && selectedDevice.isConnected && !selectedDevice.isGrandStream" type="button" ng-disabled="selectedDevice.onSave" class="btn btn-warning col-md-1 left-align">{{'Push' | translate}}</button>
             <button ng-show="!selectedDevice.isConfigured" ng-disabled="selectedDevice.onSave" type="submit" class="btn btn-primary col-md-1 right-align">{{'Save' | translate}}</button>
           </div>
         </div>
