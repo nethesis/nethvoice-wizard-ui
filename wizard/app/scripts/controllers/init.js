@@ -9,7 +9,7 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .controller('InitCtrl', function ($scope, $rootScope, $translate, $location, ConfigService, LanguageService, PhoneService, LocalStorageService, LoginService, UserService,
-    MigrationService, TrunkService, RouteService, ModelService, GenericPhoneService, ProvGlobalsService, $q, ProvFanvilService, ProvGigasetService,
+    MigrationService, TrunkService, RouteService, ModelService, GenericPhoneService, ProvGlobalsService, $q, ProvAkuvoxService, ProvFanvilService, ProvGigasetService,
     ProvSangomaService, ProvSnomService, ProvYealinkService, ProvNethesisService) {
 
     $scope.customConfig = customConfig
@@ -458,6 +458,10 @@ angular.module('nethvoiceWizardUiApp')
 
     var getModelUI = function (brand, variables) {
       switch (brand.toLowerCase()) {
+        case "akuvox":
+          return buildModelUI(ProvAkuvoxService, variables)
+          break;
+
         case "fanvil":
           return buildModelUI(ProvFanvilService, variables)
           break;
