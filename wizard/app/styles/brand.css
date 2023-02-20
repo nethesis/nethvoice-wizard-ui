@@ -42,7 +42,7 @@ html {
 }
 
 .login-pf {
-  background-image: url('../images/login.png');
+  background-color: #3f9c35;
   overflow-y: auto;
 }
 
