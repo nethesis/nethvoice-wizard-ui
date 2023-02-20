@@ -211,6 +211,7 @@ module.exports = function (grunt) {
           '!<%= yeoman.dist %>/images/4.jpg',
           '!<%= yeoman.dist %>/images/5.jpg',
           '!<%= yeoman.dist %>/images/6.jpg',
+          '!<%= yeoman.dist %>/images/login.png',
           '!<%= yeoman.dist %>/scripts/custom.js',
           '!<%= yeoman.dist %>/lib/clipboard-copy-element/dist/index.umd.js',
           '!<%= yeoman.dist %>/styles/brand.css',
