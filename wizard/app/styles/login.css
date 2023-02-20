@@ -32,9 +32,8 @@
 }
 .login-pf .container {
   padding-top: 20px;
-  padding-bottom: 22px;
+  padding-bottom: 10px;
   background-color: rgba(0, 0, 0, 0.2);
-  top: 610px;
 }
 .login-error {
   border: 2px solid #FF0000;
