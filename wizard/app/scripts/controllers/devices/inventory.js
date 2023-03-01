@@ -31,8 +31,10 @@ angular.module('nethvoiceWizardUiApp')
     const modelDigitsKey = 3
     const npx3Digits = "00"
     const npx5Digits = "01"
+    const npx210Digits = "02"
     const npx3Name = "nethesis-NPX3"
     const npx5Name = "nethesis-NPX5"
+    const npx210Name = "nethesis-NPX210"
 
     function gotModels(models) {
       $scope.models = models;
@@ -238,6 +240,8 @@ angular.module('nethvoiceWizardUiApp')
             $scope.manualModel = $scope.manualFilteredModels.find(( model ) => { return model.name === npx3Name })
           } else if (mac.toUpperCase().split("-")[modelDigitsKey] === npx5Digits) {
             $scope.manualModel = $scope.manualFilteredModels.find(( model ) => { return model.name === npx5Name })
+          } else if (mac.toUpperCase().split("-")[modelDigitsKey] === npx210Digits) {
+            $scope.manualModel = $scope.manualFilteredModels.find(( model ) => { return model.name === npx210Name })
           }
         }
       } else {
@@ -726,6 +730,8 @@ angular.module('nethvoiceWizardUiApp')
             phone.model = phone.filteredModels.find(( model ) => { return model.name === npx3Name })
           } else if (mac.toUpperCase().split("-")[modelDigitsKey] === npx5Digits) {
             phone.model = phone.filteredModels.find(( model ) => { return model.name === npx5Name })
+          } else if (mac.toUpperCase().split("-")[modelDigitsKey] === npx210Digits) {
+            phone.model = phone.filteredModels.find(( model ) => { return model.name === npx210Name })
           }
         }
       } else {
