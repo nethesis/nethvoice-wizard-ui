@@ -1,6 +1,7 @@
 body {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
   background-size: 100% auto !important;
+  background: url('../images/login.png');
   display: none;
   overflow: hidden;
 }

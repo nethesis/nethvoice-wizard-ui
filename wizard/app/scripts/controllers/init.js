@@ -63,7 +63,6 @@ angular.module('nethvoiceWizardUiApp')
       $location.path('/');
       $('#loginTpl').show();
       $scope.login.isLogged = false;
-      $scope.setRandomBackground();
     };
 
     $scope.copyUrl = function () {
@@ -95,10 +94,6 @@ angular.module('nethvoiceWizardUiApp')
       } else if (!$scope.wizard.isWizard || exception) {
         $location.path(route);
       }
-    };
-
-    $scope.setRandomBackground = function () {
-      $('body').css('background', 'linear-gradient( rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.95) ), url(images/' + Math.floor(Math.random() * (6 - 1) + 1) + '.jpg)');
     };
 
     $scope.toggleNavBar = function () {
@@ -427,9 +422,7 @@ angular.module('nethvoiceWizardUiApp')
     $rootScope.$on('selectpickerRepeatEndRevised', function(event, id) {
       $("#" + id).selectpicker().parent().parent().removeClass("hidden")
     })
-    
-    $scope.setRandomBackground();
-
+ 
     // provisining build models start
 
     $scope.currentModel = {}
