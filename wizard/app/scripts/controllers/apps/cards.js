@@ -27,6 +27,19 @@ angular.module('nethvoiceWizardUiApp')
       'pink': '#e03997',
       'brown': '#a5673f'
     };
+    $scope.mapColors = {
+      'red': 'red-600',
+      'orange': 'yellow-600',
+      'yellow': 'yellow-500',
+      'olive': 'lime-800',
+      'green': 'green-600',
+      'teal': 'green-400',
+      'blue': 'blue-600',
+      'violet': 'violet-500',
+      'purple': 'purple-600',
+      'pink': 'pink-500',
+      'brown': 'yellow-800'
+    };
 
     $scope.sourcePortMap = {
       "mssql:7_1": '1433',
@@ -85,7 +98,12 @@ angular.module('nethvoiceWizardUiApp')
       };
       var replace = oldColor;
       var re = new RegExp(RegExp.quote(replace), "g");
-      g.html = g.html.replace(re, color).replace('<!-- color: ' + oldColor + ' -->\n', '<!-- color: ' + color + ' -->\n');
+
+      if(g.name.endsWith('_new')) {
+        g.html = g.html.replace('bg-' + $scope.mapColors[oldColor], 'bg-' + $scope.mapColors[color]);
+      } else {
+        g.html = g.html.replace(re, color).replace('<!-- color: ' + oldColor + ' -->\n', '<!-- color: ' + color + ' -->\n');
+      }
     };
 
     $scope.editorOnChange = function (e) {
@@ -329,6 +347,7 @@ angular.module('nethvoiceWizardUiApp')
     };
     $scope.switchResultsData = function (t) {
       var template = '';
+      var t = t.split('_')[0];
       switch (t) {
         case 'table':
           template = JSON.stringify([{
@@ -501,7 +520,13 @@ angular.module('nethvoiceWizardUiApp')
         template: g.template,
         query: btoa(g.query)
       }).then(function (res) {
-        g.render_html = '<style>body{overflow: auto !important; padding: 5px !important;}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"/>' + atob(res.data.html);
+        // check template version
+        if(g.template.endsWith('_new')) {
+
+          g.render_html = '<style>body{overflow: auto !important; padding: 5px !important;}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"/>' + atob(res.data.html);
+        } else {
+          g.render_html = '<style>body{overflow: auto !important; padding: 5px !important;}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"/>' + atob(res.data.html);
+        }
         g.isChecking = false;
       }, function (err) {
         g.isChecking = false;
