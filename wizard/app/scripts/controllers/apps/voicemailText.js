@@ -9,7 +9,7 @@
  */
 angular
   .module("nethvoiceWizardUiApp")
-  .controller("AppsVoicemailTextCtrl", function ($rootScope, $scope) {
+  .controller("AppsVoicemailTextCtrl", function ($rootScope, $scope, VoicemailTextService) {
     $scope.voicemailTextEnabled = false;
     $scope.toggleVoicemailText = function () {
       $scope.voicemailTextEnabled == !$scope.voicemailTextEnabled;
