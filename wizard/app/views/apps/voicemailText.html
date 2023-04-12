@@ -1,0 +1,89 @@
+<div class="wizard-pf">
+  <div class="wizard-pf-body clearfix">
+    <div ng-if="wizard.isWizard" class="wizard-pf-steps">
+      <ul class="wizard-pf-steps-indicator">
+        <li
+          class="wizard-pf-step {{resolveActiveTab('voicemailText',2) ? 'active' : ''}}"
+          data-tabgroup="1"
+        >
+          <a ng-click="goTo('apps/voicemailText')"
+            ><span class="wizard-pf-step-number">1</span
+            ><span class="wizard-pf-step-title"
+              >{{'Parameterized URLs' | translate}}</span
+            ></a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="wizard-pf-contents adjust-size">
+    <h1 class="control-label centered" for="textInput-markup">
+      {{'Voicemail to text configuration' | translate}}
+    </h1>
+
+    <div class="cards-pf">
+        <div class="container-fluid container-cards-pf">
+          <div class="row row-cards-pf">
+            <div class="col-xs-6 col-sm-4 col-md-4">
+              <div class="card-pf card-pf-accented">
+                <div class="card-pf-heading">
+                  <h2 class="card-pf-title">
+                    <span class="fa fa-cloud-upload"></span>
+                    {{'Upload Google Auth JSON File' | translate}}
+                  </h2>
+                </div>
+                <div class="card-pf-body">
+                  <form enctype="multipart/form-data">
+                    <div class="form-group">
+                      <input
+                        type="file"
+                        name="file"
+                        class="form-control-file"
+                        id="fileInput"
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="uploadBtn">
+                      {{'Upload' | translate}}
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="cards-pf">
+      <div class="container-fluid container-cards-pf">
+        <div class="row row-cards-pf">
+          <div class="col-xs-6 col-sm-4 col-md-4">
+            <div class="card-pf card-pf-accented">
+              <div class="card-pf-heading">
+                <div class="dropdown card-pf-time-frame-filter">
+                  <input
+                    bs-switch
+                    ng-model="voicemailTextEnabled"
+                    ng-change="toggleVoicemailText()"
+                    id="bootstrap-switch-forcecodec"
+                    class="bootstrap-switch"
+                    type="checkbox"
+                  />
+                </div>
+                <h2 class="card-pf-title">
+                  <span class="fa fa-comment"></span>
+                  {{'Enable google speech STT' | translate}}
+                </h2>
+              </div>
+              <div class="card-pf-body">
+                <p>More info about google speech</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /row -->
+      </div>
+      <!-- /container -->
+    </div>
+
+  </div>
+</div>

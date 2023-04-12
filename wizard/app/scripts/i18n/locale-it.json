@@ -1042,5 +1042,7 @@
   "The change was not successful":"La modifica non è andata a buon fine",
   "Choose the profile": "Scegli il profilo",
   "Users Configuration": "Configurazione Utenti",
-  "In case of multiple selection will not be possible to see the outbound number if configurated in variable modality": "In caso di selezione multipla non è possibile visualizzare il numero in uscita se configurato nella modalità variabile"
+  "In case of multiple selection will not be possible to see the outbound number if configurated in variable modality": "In caso di selezione multipla non è possibile visualizzare il numero in uscita se configurato nella modalità variabile",
+  "Voicemail speech to text": "Casella vocale a testo",
+  "Voicemail to text configuration": "Configurazione casella vocale a testo"
 }
