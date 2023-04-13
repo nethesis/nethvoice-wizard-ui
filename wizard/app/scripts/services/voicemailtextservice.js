@@ -25,9 +25,39 @@ angular
     };
 
     //Send new status of google speech to text
-    this.sendGoogleSpeechStatus = function (status) {
+    this.sendGoogleSpeechStatus = function (objectSpeechStatus) {
       return $q(function (resolve, reject) {
-        RestService.post("/configuration/voicemailgooglestt/", status).then(
+        RestService.post(
+          "/configuration/voicemailgooglestt/" + objectSpeechStatus.status
+        ).then(
+          function (res) {
+            resolve(res);
+          },
+          function (err) {
+            reject(err);
+          }
+        );
+      });
+    };
+
+    //Send new status of google speech to text
+    this.uploadGoogleAuthorizationFile = function (obj) {
+      return $q(function (resolve, reject) {
+        RestService.post("/configuration/googleauth", obj).then(
+          function (res) {
+            resolve(res);
+          },
+          function (err) {
+            reject(err);
+          }
+        );
+      });
+    };
+
+    //Get status of autentichation file speech to text
+    this.getGoogleAuthentication = function () {
+      return $q(function (resolve, reject) {
+        RestService.get("/configuration/googleauthexists").then(
           function (res) {
             resolve(res);
           },
