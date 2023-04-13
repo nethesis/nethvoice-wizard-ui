@@ -1606,6 +1606,10 @@ iframe body {
   display: none !important;
 }
 
+#uploadInput {
+  display: none !important;
+}
+
 .no-box-shadow {
   box-shadow: none !important;
 }

@@ -22,38 +22,44 @@
     </h1>
 
     <div class="cards-pf">
-        <div class="container-fluid container-cards-pf">
-          <div class="row row-cards-pf">
-            <div class="col-xs-6 col-sm-4 col-md-4">
-              <div class="card-pf card-pf-accented">
-                <div class="card-pf-heading">
-                  <h2 class="card-pf-title">
-                    <span class="fa fa-cloud-upload"></span>
-                    {{'Upload Google Auth JSON File' | translate}}
-                  </h2>
-                </div>
-                <div class="card-pf-body">
-                  <form enctype="multipart/form-data">
-                    <div class="form-group">
-                      <input
-                        type="file"
-                        name="file"
-                        class="form-control-file"
-                        id="fileInput"
-                      />
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="uploadBtn">
-                      {{'Upload' | translate}}
-                    </button>
-                  </form>
+      <div class="container-fluid container-cards-pf">
+        <div class="row row-cards-pf">
+          <div class="col-xs-6 col-sm-4 col-md-4">
+            <div class="card-pf card-pf-accented">
+              <div class="card-pf-heading">
+                <h2 class="card-pf-title">
+                  <span class="fa fa-cloud-upload"></span>
+                  {{'Upload Google Auth JSON File' | translate}}
+                </h2>
+              </div>
+              <div class="card-pf-body">
+                <div class="form-group config-row-button">
+                  <button
+                    ng-click="googleAuthorizationUpload()"
+                    class="btn btn-primary btn-lg no-margin"
+                  >
+                    {{'Upload' | translate}}
+                  </button>
+
+                  <input
+                    ng-model="temp.importFile"
+                    type="file"
+                    accept=".JSON"
+                    id="uploadInput"
+                  />
+                  <label for="uploadInput" class="file-label"
+                    >{{tempVoicemail.jsonFileName || 'Select a file to
+                    upload'}}</label
+                  >
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-    <div class="cards-pf">
+    <div class="cards-pf" ng-show="tempVoicemail.jsonFileName">
       <div class="container-fluid container-cards-pf">
         <div class="row row-cards-pf">
           <div class="col-xs-6 col-sm-4 col-md-4">
@@ -84,6 +90,5 @@
       </div>
       <!-- /container -->
     </div>
-
   </div>
 </div>
