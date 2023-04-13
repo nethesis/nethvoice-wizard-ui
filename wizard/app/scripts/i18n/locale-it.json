@@ -1044,5 +1044,13 @@
   "Users Configuration": "Configurazione Utenti",
   "In case of multiple selection will not be possible to see the outbound number if configurated in variable modality": "In caso di selezione multipla non è possibile visualizzare il numero in uscita se configurato nella modalità variabile",
   "Voicemail speech to text": "Casella vocale a testo",
-  "Voicemail to text configuration": "Configurazione casella vocale a testo"
+  "Voicemail to text configuration": "Configurazione casella vocale a testo",
+  "Enable Google speech STT": "Abilita Google Speech STT",
+  "Upload Google Auth JSON File": "Carica JSON di autenticazione di Google",
+  "Upload": "Carica",
+  "Google speech description": "Google Speech-to-Text è un servizio cloud che converte l'audio in testo utilizzando le tecnologie di riconosciment o vocale di Google. Per saperne di più:",
+  "Google SST official page": "Pagina ufficiale di Google SST",
+  "Google SST official documentation": "Documentazione ufficiale di Google SST",
+  "File already uploaded, click here to resend it": "File già caricato, clicca qui per rinviarlo",
+  "Select a file to upload": "Seleziona un file da caricare"
 }

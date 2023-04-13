@@ -24,6 +24,33 @@
     <div class="cards-pf">
       <div class="container-fluid container-cards-pf">
         <div class="row row-cards-pf">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="card-pf card-pf-accented">
+              <div class="card-pf-heading">
+                <h2 class="card-pf-title">Google SST</h2>
+              </div>
+              <div class="card-pf-body">
+                <p>{{'Google speech description' | translate}}</p>
+                <ul>
+                  <li>
+                    <a
+                      href="https://cloud.google.com/speech-to-text/"
+                      target="_blank"
+                    >
+                      {{'Google SST official page' | translate}}</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://cloud.google.com/speech-to-text/docs/"
+                      target="_blank"
+                      >{{'Google SST official documentation' | translate}}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
           <div class="col-xs-6 col-sm-4 col-md-4">
             <div class="card-pf card-pf-accented">
               <div class="card-pf-heading">
@@ -48,21 +75,17 @@
                     id="uploadInput"
                   />
                   <label for="uploadInput" class="file-label"
-                    >{{tempVoicemail.jsonFileName || 'Select a file to
-                    upload'}}</label
+                    >{{'File already uploaded, click here to resend it' ||
+                    'Select a file to upload' | translate}}</label
                   >
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cards-pf" ng-show="tempVoicemail.jsonFileName">
-      <div class="container-fluid container-cards-pf">
-        <div class="row row-cards-pf">
-          <div class="col-xs-6 col-sm-4 col-md-4">
+          <div
+            class="col-xs-6 col-sm-4 col-md-4"
+            ng-show="authorizationAvailable"
+          >
             <div class="card-pf card-pf-accented">
               <div class="card-pf-heading">
                 <div class="dropdown card-pf-time-frame-filter">
@@ -77,18 +100,13 @@
                 </div>
                 <h2 class="card-pf-title">
                   <span class="fa fa-comment"></span>
-                  {{'Enable google speech STT' | translate}}
+                  {{'Enable Google speech STT' | translate}}
                 </h2>
-              </div>
-              <div class="card-pf-body">
-                <p>More info about google speech</p>
               </div>
             </div>
           </div>
         </div>
-        <!-- /row -->
       </div>
-      <!-- /container -->
     </div>
   </div>
 </div>

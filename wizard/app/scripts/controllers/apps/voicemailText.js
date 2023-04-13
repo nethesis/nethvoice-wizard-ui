@@ -62,7 +62,9 @@ angular
         VoicemailTextService.uploadGoogleAuthorizationFile({
           file: authorizationFileBase64,
         }).then(
-          function (res) {},
+          function (res) {
+            $scope.authorizationAvailable = true;
+          },
           function (err) {
             console.log(err);
           }
