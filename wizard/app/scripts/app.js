@@ -149,8 +149,8 @@ angular
         controller: 'AppsParamurlCtrl',
         controllerAs: 'apps/paramurl'
       })
-      .when('/apps/voicemailText', {
-        templateUrl: 'views/apps/voicemailText.html',
+      .when('/apps/cloudServices', {
+        templateUrl: 'views/apps/cloudServices.html',
         controller: 'AppsVoicemailTextCtrl',
         controllerAs: 'apps/voicemailText'
       })
