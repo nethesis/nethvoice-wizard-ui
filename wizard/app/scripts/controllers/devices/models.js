@@ -133,14 +133,6 @@ angular.module('nethvoiceWizardUiApp')
       })
     }
 
-    $scope.listModels = function () {
-      ModelService.getUsedModels().then(function (res) {
-        // get models
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
     $scope.showNewModelModal = function () {
       $("#newModelModal").modal("show")
       $scope.newModelShown = true

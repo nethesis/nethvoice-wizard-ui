@@ -38,7 +38,6 @@
 
       </form>
       <div class="form-group config-row-button">
-          <button ng-if="providerLocal" data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg no-margin">{{'Add user' | translate}}</button>
           <button ng-if="providerLocal" ng-click="fileSelectImport()" class="btn btn-primary btn-lg no-margin">{{'Import' | translate}}</button>
           <button ng-click="csvExport()" class="btn btn-primary btn-lg no-margin">{{'Export' | translate}}</button>
           <input ng-model="temp.importFile" type="file" accept=".csv" id="importInput">
