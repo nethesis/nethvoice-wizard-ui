@@ -1,5 +1,5 @@
 Name: nethvoice-wizard-ui
-Version: 14.14.4
+Version: 14.15.0
 Release: 1%{?dist}
 Summary: UI for NethVoice
 Group: Network
@@ -43,6 +43,10 @@ rm -rf %{buildroot}
 %doc
 
 %changelog
+* Tue Mar 07 2023 Stefano Fancello <stefano.fancello@nethesis.it> - 14.15.0-1
+- NethVoice. add NethPhone X-210 and new firmware version for other NethPhone - nethesis/dev#6199
+- Add Akuvox phone to tancredi - nethesis/dev#6198
+
 * Tue Jan 17 2023 Stefano Fancello <stefano.fancello@nethesis.it> - 14.14.4-1
 - Fix Trunk name translation (#173)
 
