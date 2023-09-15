@@ -19,11 +19,7 @@ angular.module('nethvoiceWizardUiApp')
         }
         return true;
       }
-      var cssLibrary = '<style>body{overflow-x: auto !important; padding: 5px !important;}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"/>';
-      
-      if(name && name.endsWith('_new')) {
-        cssLibrary = '<style>body{overflow-x: auto !important; padding: 5px !important;}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"/>';
-      }
+      var cssLibrary = '<style>body{overflow-x: auto !important; padding: 5px !important;}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"/>';
       
       return cssLibrary+ejs.render(input, {
         results: isJson(data) ? JSON.parse(data) : [{}],
