@@ -826,7 +826,6 @@
   "everyday": "Ogni giorno",
   "Encryption": "Crittografia",
   "ldap_phonebook_type_label": "Tipo di rubrica",
-  "ldap_phonebook_type_ldap": "Rubrica di sistema LDAP",
   "ldap_phonebook_type_ldaps": "Rubrica di sistema LDAPS",
   "ldap_phonebook_type_custom": "Personalizzata",
   "ldap_phonebook_title": "Rubrica LDAP",
