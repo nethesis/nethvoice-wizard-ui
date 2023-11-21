@@ -40,7 +40,7 @@
   "Admins": "Admin",
   "lname": "Surname",
   "username": "Username",
-  "display_name": "Display name",
+  "displayname": "Display name",
   "default_extension": "Extension",
   "orderBy": "Order",
   "profiles": "users profiles",

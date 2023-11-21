@@ -36,7 +36,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.devicesNotLinkedLimit = $scope.DEVICES_NOT_LINKED_PAGE;
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured']
-    $scope.availableUserFiltersNumbers = ['username', 'display_name', 'default_extension'];
+    $scope.availableUserFiltersNumbers = ['username', 'displayname', 'default_extension'];
     
     $scope.usersFilter = $scope.availableUserFilters[0]
     $scope.usersFilterNumbers = $scope.availableUserFiltersNumbers[0]

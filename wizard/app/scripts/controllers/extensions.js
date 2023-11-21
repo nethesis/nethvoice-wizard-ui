@@ -15,7 +15,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.onSave = false;
     $scope.lockOnList = false;
     $scope.availableUsersFilters = ['all', 'configured', 'unconfigured'];
-    $scope.availableUserFiltersNumbers = ['username', 'display_name', 'default_extension'];
+    $scope.availableUserFiltersNumbers = ['username', 'displayname', 'default_extension'];
     $scope.selectedUsersFilter = $scope.availableUsersFilters[0];
     $scope.usersFilterNumbers = $scope.availableUserFiltersNumbers[0];
     $scope.view.changeRoute = true;
