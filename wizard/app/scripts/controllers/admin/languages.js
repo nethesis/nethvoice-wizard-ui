@@ -51,58 +51,18 @@ angular.module('nethvoiceWizardUiApp')
       $scope.onSaveSuccess = false;
       $scope.onSaveError = false;
       $scope.wizard.nextState = true;
-      ConfigService.setPBXLang({
+
+      // set default language
+      ConfigService.setDefaultPBXLang({
         lang: lang
       }).then(function (res) {
-        $scope.taskPromise = $interval(function () {
-          UtilService.taskStatus(res.data.result).then(function (res) {
-            if (res.data.progress < 100) {
-              $scope.errorCount = 0;
-              $scope.currentProgress = res.data.progress;
-            } else if (res.data.progress == 100) {
-              $scope.errorCount = 0;
-              $interval.cancel($scope.taskPromise);
-              $scope.currentProgress = 100;
-              // set default language
-              ConfigService.setDefaultPBXLang({
-                lang: lang
-              }).then(function (res) {
-                $scope.currentLanguage = $scope.language;
-                $scope.onSaveSuccess = true;
-                $scope.onSaveError = false;
-              }, function (err) {
-                console.error(err);
-                $scope.onSaveSuccess = false;
-                $scope.onSaveError = true;
-              });
-            } else {
-              console.log(res.error);
-              if ($scope.errorCount < appConfig.MAX_TRIES) {
-                $scope.errorCount++;
-              } else {
-                $interval.cancel($scope.taskPromise);
-                $scope.currentProgress = -1;
-                $scope.onSaveSuccess = false;
-                $scope.onSaveError = true;
-              }
-            }
-          }, function (err) {
-            console.log(err);
-            if ($scope.errorCount < appConfig.MAX_TRIES) {
-              $scope.errorCount++;
-            } else {
-              $interval.cancel($scope.taskPromise);
-              $scope.currentProgress = -1;
-              $scope.onSaveSuccess = false;
-              $scope.onSaveError = true;
-            }
-          });
-        }, 5000);
+        $scope.currentLanguage = $scope.language;
+        $scope.onSaveSuccess = true;
+        $scope.onSaveError = false;
       }, function (err) {
         console.error(err);
         $scope.onSaveSuccess = false;
         $scope.onSaveError = true;
-        $scope.currentProgress = 100;
       });
     };
 

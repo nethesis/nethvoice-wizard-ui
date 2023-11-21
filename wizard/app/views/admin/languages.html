@@ -41,21 +41,6 @@
           </div>
         </div>
       </form>
-      <div ng-show="startInstallation">
-        <div class="progress-description">
-          <div ng-if="currentProgress < 100 && currentProgress != -1" class="spinner spinner-xs spinner-inline"></div>
-          <span ng-if="currentProgress == 100" class="pficon pficon-ok"></span>
-          <span ng-if="currentProgress == -1" class="pficon pficon-error-circle-o"></span>
-          <span ng-if="currentProgress != -1"><strong>{{'Installing' | translate}}:</strong> {{'system languages' | translate}}</span>
-          <span ng-if="currentProgress == -1"><strong>{{'Error' | translate}}:</strong> {{'installation failed' | translate}}</span>
-        </div>
-        <div class="progress progress-label-top-right">
-          <div class="progress-bar {{currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}" role="progressbar" aria-valuenow="0"
-            aria-valuemin="0" aria-valuemax="100" style="width: {{currentProgress == -1 ? '100' : currentProgress}}%;">
-            <span>{{currentProgress == -1 ? '100' : currentProgress}}%</span>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
   <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>
