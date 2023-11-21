@@ -44,18 +44,6 @@
                 <span class="inline-display" popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Netmask' | translate}}: {{network.netmask}}"><input ng-model="network.netmask" type="text" class="form-control config-form"></span>
               </div>
             </div>
-            <p class="card-pf-info text-center">
-              <div class="blank-slate-pf-main-action centered adjust-bottom">
-                <button ng-click="startScan(key, network)" class="btn btn-primary btn-lg {{tasks[key].currentProgress > 0 && tasks[key].currentProgress < 100 ? 'disabled' : ''}}">{{'Scan' | translate}}</button>
-                <div ng-if="tasks[key].currentProgress < 100 && tasks[key].currentProgress != -1" class="spinner spinner-sm spinner-inline spinner-right absolute-icon-right"></div>
-                <div ng-if="tasks[key].currentProgress == 100 || tasks[key].currentProgress == -1" class="pficon pficon-{{tasks[key].currentProgress == 100 ? 'ok' : 'error-circle-o'}} icon-right absolute-icon-right"></div>
-              </div>
-              <div ng-if="tasks[key].startScan" class="progress">
-                <div class="progress-bar {{tasks[key].currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{tasks[key].currentProgress == -1 ? '100' : tasks[key].currentProgress}}%;">
-                  <span>{{tasks[key].currentProgress == -1 ? '100' : tasks[key].currentProgress}}%</span>
-                </div>
-              </div>
-            </p>
           </div>
         </div>
       </div>

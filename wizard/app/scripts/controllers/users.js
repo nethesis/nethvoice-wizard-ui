@@ -13,7 +13,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.startInstall = false;
     $scope.currentProgress = 0;
     $scope.selectedMode = '';
-    $scope.taskPromise = null;
     $scope.errorCount = 0;
 
     $scope.nextStepUsers = function () {
@@ -49,10 +48,6 @@ angular.module('nethvoiceWizardUiApp')
       });
     }
 
-    $scope.$on('$destroy', function () {
-      $interval.cancel($scope.taskPromise);
-    });
-
     $scope.goNethserverSssdConfig = function () {
       window.location.href = window.location.origin + ":9090/nethserver#/users-groups";
     };
@@ -65,44 +60,16 @@ angular.module('nethvoiceWizardUiApp')
         ConfigService.setConfig(mode).then(function (res) {
           if (mode === 'legacy') {
             $('#uc-button').addClass('disabled');
-            $scope.taskPromise = $interval(function () {
-              UtilService.taskStatus(res.data.result).then(function (res) {
-                if (res.data.progress < 100) {
-                  $scope.errorCount = 0;
-                  $scope.currentProgress = res.data.progress;
-                } else if (res.data.progress == 100) {
-                  $scope.errorCount = 0;
-                  $interval.cancel($scope.taskPromise);
-                  $scope.currentProgress = 100;
-                  $scope.mode.isLdap = true;
+              $scope.errorCount = 0;
+              $scope.mode.isLdap = true;
 
-                  if ($scope.wizard.isMigration) {
-                    $scope.wizard.isMigrationView = true;
-                    $scope.wizard.isWizard = false;
-                    $location.path('/migration');
-                  }
-                } else {
-                  console.log(res.error);
-                  if ($scope.errorCount < appConfig.MAX_TRIES) {
-                    $scope.errorCount++;
-                  } else {
-                    $interval.cancel($scope.taskPromise);
-                    $scope.currentProgress = -1;
-                  }
-                }
-              }, function (err) {
-                console.log(err);
-                if ($scope.errorCount < appConfig.MAX_TRIES) {
-                  $scope.errorCount++;
-                } else {
-                  $interval.cancel($scope.taskPromise);
-                  $scope.currentProgress = -1;
-                }
-              });
-            }, 5000);
+              if ($scope.wizard.isMigration) {
+                $scope.wizard.isMigrationView = true;
+                $scope.wizard.isWizard = false;
+                $location.path('/migration');
+              }
           } else {
             $('#legacy-button').addClass('disabled');
-            $scope.currentProgress = 100;
           }
         }, function (err) {
           console.log(err);

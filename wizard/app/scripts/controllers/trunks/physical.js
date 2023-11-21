@@ -15,7 +15,6 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allModels = {};
     $scope.networks = {};
     $scope.networkLength = 0;
-    $scope.tasks = {};
     $scope.sipTrunks = {};
     $scope.selectedDevice = {};
     $scope.newGateway = {};
@@ -99,7 +98,6 @@ angular.module('nethvoiceWizardUiApp')
       ConfigService.getNetworks().then(function (res) {
         $scope.networks = res.data;
         for (var eth in res.data) {
-          $scope.tasks[eth] = {};
           $scope.allDevices[eth] = [];
         }
         $scope.networkLength = Object.keys(res.data).length;
@@ -114,12 +112,10 @@ angular.module('nethvoiceWizardUiApp')
       DeviceService.gatewayListByNetwork(network).then(function (res) {
         $scope.allDevices[key] = res.data;
         $scope.pushKey(key);
-        $scope.tasks[key].currentProgress = 100;
         $scope.onSave = false;
         $scope.scanned = true;
       }, function (err) {
         console.log(err);
-        $scope.tasks[key].currentProgress = -1;
       });
     };
 
@@ -136,41 +132,9 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.startScan = function (key, network) {
-      if ($scope.tasks[key].currentProgress > 0 && $scope.tasks[key].currentProgress < 100) {
-        return true;
-      }
-      $scope.tasks[key].startScan = true;
-      $scope.tasks[key].currentProgress = Math.floor((Math.random() * 50) + 10);
       DeviceService.startScan(network).then(function (res) {
-        $scope.tasks[key].promise = $interval(function () {
-          UtilService.taskStatus(res.data.result).then(function (res) {
-            if (res.data.progress < 100) {
-              $scope.errorCount = 0;
-            } else if (res.data.progress == 100) {
-              $scope.tasks[key].errorCount = 0;
-              $interval.cancel($scope.tasks[key].promise);
-              $scope.getGatewayList(key, network);
-            } else {
-              console.log(res.error);
-              if ($scope.tasks[key].errorCount < appConfig.MAX_TRIES) {
-                $scope.tasks[key].errorCount++;
-              } else {
-                $interval.cancel($scope.tasks[key].promise);
-                $scope.tasks[key].currentProgress = -1;
-              }
-            }
-          }, function (err) {
-            console.log(err);
-            if ($scope.tasks[key].errorCount < appConfig.MAX_TRIES) {
-              $scope.tasks[key].errorCount++;
-            } else {
-              $interval.cancel($scope.tasks[key].promise);
-              $scope.tasks[key].currentProgress = -1;
-            }
-          });
-        }, appConfig.INTERVAL_POLLING);
+        $scope.getGatewayList(key, network);
       }, function (err) {
-        $scope.tasks[key].currentProgress = -1;
         console.log(err);
       });
     };

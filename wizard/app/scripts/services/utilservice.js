@@ -29,16 +29,6 @@ angular.module('nethvoiceWizardUiApp')
       return text;
     };
 
-    this.taskStatus = function (task) {
-      return $q(function (resolve, reject) {
-        RestService.get('/tasks/' + task).then(function (res) {
-          resolve(res);
-        }, function (err) {
-          reject(err);
-        });
-      });
-    };
-
     this.maskToCidr = function (obj) {
       if (obj === undefined) {
         return '';

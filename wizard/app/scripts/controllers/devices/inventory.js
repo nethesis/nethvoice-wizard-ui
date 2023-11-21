@@ -11,7 +11,6 @@ angular.module('nethvoiceWizardUiApp')
   .controller('DevicesInventoryCtrl', function ($scope, $rootScope, $interval, $q, $timeout, PhoneService, ModelService, UtilService, ConfigService, DeviceService, LocalStorageService, UserService) {
     $scope.phones = [];
     $scope.models = [];
-    $scope.tasks = {};
     $scope.networkScanInProgress = false;
     $scope.view.changeRoute = true;
     $scope.pastedMacs = [];
@@ -73,10 +72,6 @@ angular.module('nethvoiceWizardUiApp')
         network.name = networkName;
       });
       $scope.networks = networks;
-
-      for (var eth in $scope.networks) {
-        $scope.tasks[eth] = {};
-      }
     }
 
     function gotDefaults(defaults) {
@@ -281,43 +276,11 @@ angular.module('nethvoiceWizardUiApp')
       // start scan
       $scope.phonesToAdd = [];
       $scope.networkScanInProgress = true;
-      $scope.tasks[netName].currentProgress = Math.floor((Math.random() * 50) + 10);
       DeviceService.startScan($scope.networkToScan).then(function (res) {
-        $scope.tasks[netName].promise = $interval(function () {
-          UtilService.taskStatus(res.data.result).then(function (res) {
-            if (res.data.progress < 100) {
-              $scope.tasks[netName].currentProgress = res.data.progress;
-              $scope.tasks[netName].errorCount = 0;
-            } else if (res.data.progress == 100) {
-              $scope.tasks[netName].currentProgress = res.data.progress;
-              $scope.tasks[netName].errorCount = 0;
-              $interval.cancel($scope.tasks[netName].promise);
-              networkScanCompleted($scope.networkToScan);
-            } else {
-              console.log(res.error);
-              if ($scope.tasks[netName].errorCount < appConfig.MAX_TRIES) {
-                $scope.tasks[netName].errorCount++;
-              } else {
-                $interval.cancel($scope.tasks[netName].promise);
-                $scope.networkScanInProgress = false;
-                $scope.tasks[netName].currentProgress = -1;
-              }
-            }
-          }, function (err) {
-            console.log(err);
-            if ($scope.tasks[netName].errorCount < appConfig.MAX_TRIES) {
-              $scope.tasks[netName].errorCount++;
-            } else {
-              $interval.cancel($scope.tasks[netName].promise);
-              $scope.networkScanInProgress = false;
-              $scope.tasks[netName].currentProgress = -1;
-            }
-          });
-        }, appConfig.INTERVAL_POLLING);
+        networkScanCompleted($scope.networkToScan);
       }, function (err) {
         console.log(err);
         addErrorNotification(err.data, "Error scanning network");
-        $scope.tasks[netName].currentProgress = -1;
       });
     }
 
@@ -364,10 +327,6 @@ angular.module('nethvoiceWizardUiApp')
     }
 
     $scope.cancelAllNetworkScans = function (netName) {
-      for (var netName in $scope.tasks) {
-        $interval.cancel($scope.tasks[netName].promise);
-        $scope.networkScanInProgress = false;
-      }
     }
 
     $scope.clearValidationErrorsManual = function () {
