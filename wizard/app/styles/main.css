@@ -3682,3 +3682,7 @@ a.black:active {
 .card-pf.card-pf-accented {
   border-top-color: #6ec664;
 }
+
+.adjust-search-button {
+  height: 33px;
+}
