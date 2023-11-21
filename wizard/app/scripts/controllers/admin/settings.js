@@ -24,7 +24,6 @@ angular.module('nethvoiceWizardUiApp')
           $scope.onSaveError = false;
           if ($scope.wizard.isWizard ) {
             $scope.wizard.isEnd = true
-            $scope.passwordSaved = true
           } 
         }, function (err) {
           $scope.onSaveSuccess = false;

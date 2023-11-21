@@ -26,16 +26,9 @@
           <span class="pficon pficon-error-circle-o"></span>
           <strong>{{'Password error' | translate}}</strong> {{'Administrator password update failed' | translate}}
         </div>
-        <div ng-show="wizard.isWizard && !passwordSaved" class="alert alert-warning">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-            <span class="pficon pficon-close"></span>
-          </button>
-          <span class="pficon pficon-warning-triangle-o"></span>
-          <strong>{{"Remember to save the password before continue" | translate}}.</strong>
-        </div>
       </div>
       <div class="col-lg-12 mb-30">
-        <h3 class="settings-h3 fz-19 fw-300">{{'Change Password' | translate}}</h3>
+        <h3 class="settings-h3 fz-19 fw-300">{{'Change Password' | translate}} ({{'optional' | translate}})</h3>
         <form class="form-horizontal" ng-submit="create()">
           <div class="form-group">
             <label class="col-sm-3 control-label">{{'Password' | translate}}</label>
