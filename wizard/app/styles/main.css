@@ -3686,3 +3686,7 @@ a.black:active {
 .adjust-search-button {
   height: 33px;
 }
+
+.adjust-center {
+  text-align: center !important;
+}

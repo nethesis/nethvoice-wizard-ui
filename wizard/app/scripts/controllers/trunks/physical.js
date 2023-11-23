@@ -13,13 +13,10 @@ angular.module('nethvoiceWizardUiApp')
     $scope.allDevices = {};
     $scope.allVendors = {};
     $scope.allModels = {};
-    $scope.networks = {};
-    $scope.networkLength = 0;
     $scope.sipTrunks = {};
     $scope.selectedDevice = {};
     $scope.newGateway = {};
     $scope.onSave = false;
-    $scope.scanned = false;
     $scope.users = [];
     $scope.physicalLimit = {};
     $scope.stringToCheckGrandstream = "grandstream";
@@ -95,25 +92,16 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.getNetworkList = function (reload) {
       $scope.view.changeRoute = reload;
-      ConfigService.getNetworks().then(function (res) {
-        $scope.networks = res.data;
-        for (var eth in res.data) {
-          $scope.allDevices[eth] = [];
-        }
-        $scope.networkLength = Object.keys(res.data).length;
-        $scope.view.changeRoute = false;
-      }, function (err) {
-        console.log(err);
-        $scope.view.changeRoute = false;
-      });
+      $scope.getGatewayList('eth-fake', 'fake-network');
+      $scope.view.changeRoute = false;
     };
 
     $scope.getGatewayList = function (key, network) {
       DeviceService.gatewayListByNetwork(network).then(function (res) {
         $scope.allDevices[key] = res.data;
         $scope.pushKey(key);
+        $scope.selectedDevice = res.data[0];
         $scope.onSave = false;
-        $scope.scanned = true;
       }, function (err) {
         console.log(err);
       });
@@ -130,14 +118,6 @@ angular.module('nethvoiceWizardUiApp')
         $scope.physicalLimit[networkName] += $scope.SCROLLPLUS
       }
     }
-
-    $scope.startScan = function (key, network) {
-      DeviceService.startScan(network).then(function (res) {
-        $scope.getGatewayList(key, network);
-      }, function (err) {
-        console.log(err);
-      });
-    };
 
     $scope.updateExtraFields = function (device) {
       var tempArr = $scope.allModels[device.manufacturer];
@@ -285,10 +265,7 @@ angular.module('nethvoiceWizardUiApp')
         device.onDeleteSuccess = true;
         device.onPushSuccess = false;
         $scope.selectedDevice = {};
-        $scope.getGatewayList(device.network_name, {
-          netmask: device.netmask_green,
-          ip: device.ipv4_green
-        });
+        $scope.getGatewayList('eth-fake', 'fake-network');
         //trunks
         TrunkService.count().then(function (res) {
           $scope.menuCount.trunks = res.data;
