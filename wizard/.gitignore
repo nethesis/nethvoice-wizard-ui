@@ -4,4 +4,4 @@
 /dist
 package-lock.json
 yarn.lock
-app/scripts/custom.js
+app/scripts/custom.js*

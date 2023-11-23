@@ -37,6 +37,7 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured']
     $scope.availableUserFiltersNumbers = ['username', 'displayname', 'default_extension'];
+    $scope.usersFilterNumbersOrd = true;
     
     $scope.usersFilter = $scope.availableUserFilters[0]
     $scope.usersFilterNumbers = $scope.availableUserFiltersNumbers[0]
@@ -312,7 +313,7 @@ angular.module('nethvoiceWizardUiApp')
 
     var getAllUsers = function () {
       ConfigurationService.list(false).then(function (res) {
-        $scope.allUsers = res.data
+        $scope.allUsers = res.data;
         $scope.view.changeRoute = false
         $scope.allUsers.forEach(function (user){
           prepareDevices(user.devices)

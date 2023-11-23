@@ -1064,5 +1064,7 @@
   "Google Speec-to-text": "Google Speech-to-Text",
   "Token description": "Per accedere ai servizi di Google Cloud, è necessario fornire un token di autorizzazione valido. Puoi caricare il file JSON contenente le credenziali necessarie tramite il pulsante 'Upload'. Una volta caricato il file, il sistema utilizzerà le credenziali contenute nel JSON per autenticare le tue richieste ai servizi di Google Cloud.",
   "No gateways configured": "Nessun gateway configurato",
-  "Click on the button below to add you first gateway": "Clicca sul pulsante qui sotto per aggiungere il tuo primo gateway"
+  "Click on the button below to add you first gateway": "Clicca sul pulsante qui sotto per aggiungere il tuo primo gateway",
+  "Download config": "Scarica config",
+  "Push config": "Carica config"
 }

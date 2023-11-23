@@ -1353,6 +1353,13 @@ a {
   margin-bottom: 6px !important;
 }
 
+.filter-label-user-order .fa-sort-alpha-desc {
+  font-size: 15px;
+  margin-left: 5px;
+  vertical-align: bottom;
+  margin-bottom: 6px !important;
+}
+
 .full-size {
   width: 100%;
 }
@@ -3689,4 +3696,8 @@ a.black:active {
 
 .adjust-center {
   text-align: center !important;
+}
+
+.adjust-container-height {
+  min-height: 80px !important;
 }
