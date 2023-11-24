@@ -18,7 +18,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.availableUserFiltersNumbers = ['username', 'displayname', 'default_extension'];
     $scope.selectedUsersFilter = $scope.availableUsersFilters[0];
     $scope.usersFilterNumbers = $scope.availableUserFiltersNumbers[0];
-    $scope.usersFilterNumbersOrd = true;
+    $scope.usersFilterNumbersOrd = false;
     $scope.view.changeRoute = true;
     $scope.usersLimit = 20
 
