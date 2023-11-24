@@ -1066,5 +1066,6 @@
   "No gateways configured": "Nessun gateway configurato",
   "Click on the button below to add you first gateway": "Clicca sul pulsante qui sotto per aggiungere il tuo primo gateway",
   "Download config": "Scarica config",
-  "Push config": "Carica config"
+  "Push config": "Carica config",
+  "Enables access to NethVoice CTI application": "Consenti l'accesso all'applicazione NethVoice CTI"
 }
