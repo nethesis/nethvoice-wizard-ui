@@ -1221,7 +1221,13 @@ a {
   border-bottom: 1px solid #e2e2e2;
 }
 
-.profile-list-container:nth-last-child(3) {
+.profile-list-container:nth-last-child(11) {
+  border-bottom: none;
+}
+
+.profile-list-container-child {
+  margin-bottom: 12px;
+  margin-left: 20px;
   border-bottom: none;
 }
 
@@ -1235,8 +1241,21 @@ a {
   margin-bottom: 12px;
 }
 
+.child-permission {
+  margin-left: -12px;
+}
+
 .profile-permission-container {
   margin-top: 16px;
+}
+.profile-permission-container-child {
+  margin-top: 8px;
+  border-left: 1px solid #e2e2e2;
+  margin-left: 0px;
+}
+
+.child-font {
+  font-size: 14px;
 }
 
 .profile-panel {
@@ -1347,6 +1366,13 @@ a {
 }
 
 .filter-label-user-order .fa-sort-alpha-asc {
+  font-size: 15px;
+  margin-left: 5px;
+  vertical-align: bottom;
+  margin-bottom: 6px !important;
+}
+
+.filter-label-user-order .fa-sort-alpha-desc {
   font-size: 15px;
   margin-left: 5px;
   vertical-align: bottom;
@@ -3681,4 +3707,16 @@ a.black:active {
 
 .card-pf.card-pf-accented {
   border-top-color: #6ec664;
+}
+
+.adjust-search-button {
+  height: 33px;
+}
+
+.adjust-center {
+  text-align: center !important;
+}
+
+.adjust-container-height {
+  min-height: 80px !important;
 }

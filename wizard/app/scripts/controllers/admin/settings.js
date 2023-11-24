@@ -11,9 +11,6 @@ angular.module('nethvoiceWizardUiApp')
   .controller('AdminSettingsCtrl', function ($scope, UserService, RestService, RestServiceCTI, ConfigService, ModelService) {
     $scope.wizard.isEnd = false
     $scope.view.changeRoute = false
-    $scope.conferenceUrl = ""
-    $scope.conferenceUrlSuccess = false
-    $scope.conferenceUrlError = false
 
     $scope.create = function () {
       if ($scope.admin.password === $scope.admin.confirmPassword) {
@@ -27,7 +24,6 @@ angular.module('nethvoiceWizardUiApp')
           $scope.onSaveError = false;
           if ($scope.wizard.isWizard ) {
             $scope.wizard.isEnd = true
-            $scope.passwordSaved = true
           } 
         }, function (err) {
           $scope.onSaveSuccess = false;
@@ -39,33 +35,7 @@ angular.module('nethvoiceWizardUiApp')
       }
     };
 
-    var getConferenceUrl = function () {
-      ConfigService.getConferenceUrl().then(function (res) {
-        $scope.conferenceUrl = res.data
-      }, function (err) {
-        console.log(err)
-      })
-    }
-
-    $scope.saveConferenceUrl = function () {
-      ConfigService.setConferenceUrl($scope.conferenceUrl).then(function () {
-        $scope.conferenceUrlSuccess = true
-        $scope.conferenceUrlError = false
-        if(!$scope.$$phase) {
-          $scope.$apply()
-        }
-      }, function (err) {
-        $scope.conferenceUrlError = true
-        $scope.conferenceUrlSuccess = false
-        if(!$scope.$$phase) {
-          $scope.$apply()
-        }
-        console.log(err)
-      })
-    }
-
     var init = function () {
-      getConferenceUrl()
       $("#saveNat").on("hidden.bs.modal", function () {
         $scope.loadingNatAction = ""
       })

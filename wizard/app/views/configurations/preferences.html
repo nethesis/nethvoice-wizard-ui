@@ -29,7 +29,7 @@
         </select>
         <div class="filter-label-user-order">
           <select title="-" pf-select="{ width: '180px' }" ng-model="usersFilterNumbers" ng-options="uf as uf | translate for uf in availableUserFiltersNumbers"></select>
-          <i class="fa fa-sort-alpha-asc"></i>
+          <i ng-click="usersFilterNumbersOrd = !usersFilterNumbersOrd" class="fa fa-sort-alpha-{{usersFilterNumbersOrd ? 'asc' : 'desc'}} pointer"></i>
         </div>
       </div>
       <form role="form" class="search-pf has-button adjust-form" id="form-lg-domains-details">
@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="form-group">
-          <button class="btn btn-default btn-lg" type="submit">
+          <button class="btn btn-default btn-lg adjust-search-button" type="submit">
             <span class="fa fa-search"></span>
           </button>
         </div>
@@ -52,7 +52,7 @@
     <div class="list-group list-view-pf list-view-pf-view mt-20">
       <!-- repeat -->
       <div
-        ng-repeat="user in allUsers | customFilterMultiple:'displayname,username,default_extension,configurationsUsersSearch':searchUser | withExtension | limitTo: usersLimit | orderBy:usersFilterNumbers"
+        ng-repeat="user in allUsers | customFilterMultiple:'displayname,username,default_extension,configurationsUsersSearch':searchUser | withExtension | limitTo: usersLimit | orderBy:usersFilterNumbers:usersFilterNumbersOrd"
         ng-show="usersFilter == 'configured' ? user.devices.length > 0 : (usersFilter == 'unconfigured' ? user.devices.length == 0 : true)"
         class="list-group-item {{user.username == currentUser.username ? 'list-view-pf-expand-active' : ''}}">
         <div class="list-group-item-header">
@@ -541,7 +541,7 @@
                             class="form-control input-lg ng-pristine ng-valid ng-touched"
                             placeholder=" {{'Search devices' | translate}}...">
                         </div>
-                        <button class="btn btn-default btn-lg mln-1" type="submit">
+                        <button class="btn btn-default btn-lg mln-1 adjust-search-button" type="submit">
                           <span class="fa fa-search"></span>
                         </button>
                       </div>

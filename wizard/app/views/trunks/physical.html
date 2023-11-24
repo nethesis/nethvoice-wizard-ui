@@ -14,47 +14,13 @@
 
   <div class="wizard-pf-contents adjust-size">
     <h1 class="control-label centered" for="textInput-markup">{{'Physical lines configuration' | translate}}</h1>
-    <div ng-if="!(networks | isEmpty)" class="container-fluid">
-      <div class="col-xs-12 col-sm-6 col-md-{{12/networkLength}} col-lg-{{12/networkLength}} physical-margin-top" ng-repeat="(key, network) in networks">
-        <div class="card-pf card-pf-view adjust-card">
-          <div class="card-pf-body">
-            <div class="card-pf-top-element">
-              <span class="pficon pficon-network card-pf-icon-circle"></span>
-            </div>
-            <h2 class="card-pf-title text-center">
-              {{key}} | <span class="weight">{{network.network}}</span>
-            </h2>
-            <div class="card-pf-items text-center">
-              <div class="card-pf-item">
-                <span class="pficon pficon-screen"></span>
-                <span class="card-pf-item-text"><b>{{network.ip}}</b> / </span>
-                <span class="inline-display" popover-placement="top" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{'Netmask' | translate}}: {{network.netmask}}"><input ng-model="network.netmask" type="text" class="form-control config-form"></span>
-              </div>
-            </div>
-            <p class="card-pf-info text-center">
-              <div class="blank-slate-pf-main-action centered adjust-bottom">
-                <button ng-click="startScan(key, network)" class="btn btn-primary btn-lg {{tasks[key].currentProgress > 0 && tasks[key].currentProgress < 100 ? 'disabled' : ''}}">{{'Scan' | translate}}</button>
-                <button ng-disabled="selectedDevice.onSave" ng-click="setNewGateway(key, networks[key])" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#newGwDialog">{{'Add gateway' | translate}}</button>
-                <div ng-if="tasks[key].currentProgress < 100 && tasks[key].currentProgress != -1" class="spinner spinner-sm spinner-inline spinner-right absolute-icon-right"></div>
-                <div ng-if="tasks[key].currentProgress == 100 || tasks[key].currentProgress == -1" class="pficon pficon-{{tasks[key].currentProgress == 100 ? 'ok' : 'error-circle-o'}} icon-right absolute-icon-right"></div>
-              </div>
-              <div ng-if="tasks[key].startScan" class="progress">
-                <div class="progress-bar {{tasks[key].currentProgress == -1 ? 'progress-bar-danger' : 'progress-bar-success'}}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{tasks[key].currentProgress == -1 ? '100' : tasks[key].currentProgress}}%;">
-                  <span>{{tasks[key].currentProgress == -1 ? '100' : tasks[key].currentProgress}}%</span>
-                </div>
-              </div>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div ng-if="!(allDevices | isEmpty: true)" class="container-fluid scanned-lists col-lg-6 col-md-12 col-sm-12 col-xs-12">
-      <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view list-gateway max-containers-height resizePhysical" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)" >
+    <div ng-if="allDevices['eth-fake'].length > 0" class="container-fluid scanned-lists col-lg-6 col-md-12 col-sm-12 col-xs-12">
+      <div id="#{{networkName}}" class="list-group list-view-pf list-view-pf-view list-gateway max-containers-height resizePhysical adjust-container-height" ng-repeat="(networkName, devices) in allDevices" ng-if="!(devices | isEmpty)" >
         <div>
           <div class="row">
             <h1 class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-header">
-              <span class="pficon pficon-network card-pf-icon-circle config-title-icon"></span>{{networkName}} <span class="weight weight-gateway">{{networks[networkName].network}}</span>
+              <span class="pficon pficon-network card-pf-icon-circle config-title-icon"></span>{{'Main network' | translate}}
             </h1>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 adjust-search adjust-search-gateway">
               <form role="form" class="search-pf has-button" id="form-lg-domains-details">
@@ -64,7 +30,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-default btn-lg" type="submit">
+                  <button class="btn btn-default btn-lg adjust-search-button" type="submit">
                     <span class="fa fa-search"></span>
                   </button>
                 </div>
@@ -79,17 +45,6 @@
             <span ng-show="!device.isInAction" popover-placement="top-right" popover-trigger="'mouseenter'" popover-animation="true" uib-popover="{{device.isConfigured && device.isConnected ? 'Configured and Connected' : device.isConfigured && !device.isConnected ? 'Configured and Not Connected' : 'Not configured' | translate}}"
                 class="pficon {{device.isConfigured && device.isConnected ? 'pficon-ok' : device.isConfigured && !device.isConnected ? 'pficon-warning-triangle-o' : 'pficon-info'}} icon-med">
             </span>
-            <div ng-if="device.isConfigured" class="dropdown dropdown-kebab-pf right-only">
-              <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  <span class="fa fa-ellipsis-v"></span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebab">
-                <li><a ng-click="downConfig(device)">{{'Download configuration' | translate}}</a></li>
-                <li ng-if="selectedDevice.isConfigured && selectedDevice.isConnected"><a data-toggle="modal" data-target="#confirmPushModal">{{'Push configuration on device' | translate}}</a></li>
-                <li role="separator" class="divider"></li>
-                <li ng-if="selectedDevice.isConfigured"><a data-toggle="modal" data-target="#confirmDeleteModal">{{'Delete configuration' | translate}}</a></li>
-              </ul>
-            </div>
           </div>
           <div class="list-view-pf-main-info">
             <div class="list-view-pf-left">
@@ -115,6 +70,8 @@
         <div class="config-button-list">
         </div>
       </div>
+      <button class="btn btn-primary"
+          data-toggle="modal" data-target="#newGwDialog">{{'Add gateway' | translate}}</button>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 config-adjust-size-gateway" ng-if="!(selectedDevice | isEmpty)">
       <div ng-if="selectedDevice.onSaveSuccess" class="alert alert-success alert-dismissable adjust-alert-gateway">
@@ -227,36 +184,31 @@
           <div class="col-sm-12">
             <div ng-show="selectedDevice.onSave" class="spinner spinner-sm adjust-margin loader-modal-gateway-not-form"></div>
             <button data-toggle="modal" data-target="#confirmDeleteModal" ng-show="selectedDevice.isConfigured" type="button" ng-disabled="selectedDevice.onSave" class="btn btn-danger col-md-1 right-align">{{'Delete' | translate}}</button>
-            <button data-toggle="modal" data-target="#confirmPushModal" ng-show="selectedDevice.isConfigured && selectedDevice.isConnected && !selectedDevice.isGrandStream" type="button" ng-disabled="selectedDevice.onSave" class="btn btn-warning col-md-1 left-align">{{'Push' | translate}}</button>
+            <button ng-click="downConfig(selectedDevice)" ng-show="selectedDevice.isConfigured" type="button" ng-disabled="selectedDevice.onSave" class="btn btn-success col-md-3 left-align adjust-center">{{'Download config' | translate}}</button>
+            <button data-toggle="modal" data-target="#confirmPushModal" ng-show="selectedDevice.isConfigured && selectedDevice.isConnected && !selectedDevice.isGrandStream" type="button" ng-disabled="selectedDevice.onSave" class="btn btn-warning col-md-2 left-align adjust-center">{{'Push config' | translate}}</button>
+            
             <button ng-show="!selectedDevice.isConfigured" ng-disabled="selectedDevice.onSave" type="submit" class="btn btn-primary col-md-1 right-align">{{'Save' | translate}}</button>
           </div>
         </div>
       </form>
     </div>
 
-    <div ng-if="networks | isEmpty" class="blank-slate-pf ">
-      <div class="blank-slate-pf-icon">
-        <span class="pficon pficon-network"></span>
-      </div>
-      <h1>
-        {{'No networks found' | translate}}
-      </h1>
-      <p>
-        {{'There are problems to get networks configurations' | translate}}
-      </p>
-    </div>
-
-    <div ng-if="!(networks | isEmpty) && (allDevices | isEmpty: true) && scanned == true" class="blank-slate-pf ">
-      <div class="blank-slate-pf-icon">
+    <div ng-show="allDevices['eth-fake'].length == 0" class="blank-slate-pf">
+      <div class="blank-slate-pf-icon mtn-30">
         <span class="pficon pficon-container-node"></span>
       </div>
-      <h1>
-         {{ 'No devices found' | translate }}
+      <h1 class="mb-25 mt-25">
+        {{'No gateways configured' | translate}}
       </h1>
-      <p>
-        {{'Check if the devices are connected in your network' | translate}}
-      </p>
-    </div>
+      <div class="mb-25">
+        <p>
+          {{"Click on the button below to add you first gateway" | translate}}
+        </p>
+      </div>
+      <div class="blank-slate-pf-main-action mb-30 mt-15">
+        <button class="btn btn-lgg btn-primary"
+          data-toggle="modal" data-target="#newGwDialog">{{'Add gateway' | translate}}</button>
+      </div>
   </div>
 
   <div class="modal fade" id="newGwDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

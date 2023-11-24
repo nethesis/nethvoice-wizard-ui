@@ -109,6 +109,17 @@ angular.module('nethvoiceWizardUiApp')
           }
         }
       }
+
+      if(macro == 'nethvoice_cti') {
+        // list all linked permissions
+        for (var p in profile.macro_permissions) {
+          if (p == 'phonebook' || p == 'cdr' || p  == 'presence_panel' || p == 'customer_card' || p == 'queue_agent' || p == 'streaming' || p == 'off_hour' || p == 'qmanager' || p == 'operator_panel') {
+            var m = profile.macro_permissions[p];
+            m.value = obj_permissions.value;
+          }
+        }
+      }
+
       //start saving
       profile.onSave = true;
       if (profile.id) {

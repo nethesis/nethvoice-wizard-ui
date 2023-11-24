@@ -141,11 +141,11 @@
                     </div>
                   </div>
                 </div>
-                <!-- FOR THE OTHER MACRO PERMISSIONS -->
+                <!-- FOR THE NETHVOICE CTI MACRO PERMISSION -->
                 <div
                   class="col-lg-12 profile-list-container"
                   ng-repeat="(macro, obj_permissions) in profile.macro_permissions"
-                  ng-if="macro !== 'settings'"
+                  ng-if="macro === 'nethvoice_cti'"
                 >
                   <div
                     ng-if="macro !== 'remote_sites'"
@@ -161,7 +161,7 @@
                       {{obj_permissions.displayname | translate}}
                     </div>
                     <div class="col-lg-1">
-                      <input bs-switch ng-change="saveProfile(profile)" ng-model="obj_permissions.value" class="bootstrap-switch bootstrap-switch-permission" type="checkbox">
+                      <input bs-switch ng-change="saveProfile(profile, obj_permissions, null, macro)" ng-model="obj_permissions.value" class="bootstrap-switch bootstrap-switch-permission" type="checkbox">
                     </div>
                     <div class="col-lg-10"></div>
                   </div>
@@ -169,6 +169,69 @@
                     <div
                       ng-hide="permission.name == 'phone_buttons' && wizard.provisioning != 'tancredi'"
                       class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-permission"
+                      ng-repeat="permission in obj_permissions.permissions"
+                    >
+                      <span class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <span
+                          popover-placement="top"
+                          popover-trigger="'mouseenter'"
+                          popover-animation="true"
+                          uib-popover="{{permission.description | translate}}"
+                          class="config-span"
+                        >
+                          {{permission.displayname | translate}}
+                        </span>
+                      </span>
+                      <span class="col-lg-6 col-md-4 col-sm-6 col-xs-6">
+                        <input
+                          bs-switch
+                          ng-change="saveProfile(profile, obj_permissions, permission, macro)"
+                          ng-model="permission.value"
+                          class="bootstrap-switch bootstrap-switch-permission"
+                          type="checkbox"
+                        >
+                        <div
+                          ng-if= "permissionsStatus[permission.id] === 'error'"
+                          class="cutSpace errorConfiguration alert alert-danger alert-dismissable"
+                        >
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            <span class="cutSpace hideItem pficon pficon-close"></span>
+                          </button>
+                          <span class="cutSpace pficon pficon-error-circle-o"></span>
+                          <span class="hideItem"><strong>{{'Configuration not saved' | translate}}. </strong>{{'Try again' | translate}}.</span>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- FOR THE OTHER MACRO PERMISSIONS -->
+                <div
+                  class="col-lg-12 profile-list-container profile-list-container-child"
+                  ng-repeat="(macro, obj_permissions) in profile.macro_permissions"
+                  ng-if="macro !== 'settings' && macro !== 'remote_sites' && macro !== 'nethvoice_cti'"
+                >
+                  <div
+                    ng-if="macro !== 'remote_sites'"
+                    class="row profile-macro-title {{!obj_permissions.value ? 'disabled' : ''}}"
+                  >
+                    <div
+                      popover-placement="top"
+                      popover-trigger="'mouseenter'"
+                      popover-animation="true"
+                      uib-popover="{{obj_permissions.description | translate}}"
+                      class="col-lg-2 col-md-3 col-sm-4 col-xs-12 child-font"
+                    >
+                      {{obj_permissions.displayname | translate}}
+                    </div>
+                    <div class="col-lg-1">
+                      <input bs-switch ng-change="saveProfile(profile)" ng-model="obj_permissions.value" class="bootstrap-switch bootstrap-switch-permission" type="checkbox">
+                    </div>
+                    <div class="col-lg-10"></div>
+                  </div>
+                  <div class="row {{obj_permissions.permissions.length > 0 ? 'profile-permission-container-child' : ''}}" ng-if="obj_permissions.value">
+                    <div
+                      ng-hide="permission.name == 'phone_buttons' && wizard.provisioning != 'tancredi'"
+                      class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-permission child-permission"
                       ng-repeat="permission in obj_permissions.permissions"
                     >
                       <span class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
