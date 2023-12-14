@@ -79,7 +79,7 @@
                   </div>
                   <div class="row {{obj_permissions.permissions.length > 0 ? 'profile-permission-container' : ''}}" ng-if="obj_permissions.value">
                     <div
-                      ng-hide="permission.name == 'phone_buttons' && wizard.provisioning != 'tancredi'"
+                      ng-hide="(permission.name == 'phone_buttons' && wizard.provisioning != 'tancredi') || isInBlacklist(permission.name)"
                       class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-permission"
                       ng-repeat="permission in obj_permissions.permissions"
                     >
@@ -167,7 +167,7 @@
                   </div>
                   <div class="row {{obj_permissions.permissions.length > 0 ? 'profile-permission-container' : ''}}" ng-if="obj_permissions.value">
                     <div
-                      ng-hide="permission.name == 'phone_buttons' && wizard.provisioning != 'tancredi'"
+                      ng-hide="(permission.name == 'phone_buttons' && wizard.provisioning != 'tancredi') || isInBlacklist(permission.name)"
                       class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-permission"
                       ng-repeat="permission in obj_permissions.permissions"
                     >
@@ -211,7 +211,7 @@
                   ng-if="macro !== 'settings' && macro !== 'remote_sites' && macro !== 'nethvoice_cti'"
                 >
                   <div
-                    ng-if="macro !== 'remote_sites'"
+                    ng-if="macro !== 'remote_sites' && macro !== 'streaming' && macro != 'operator_panel'"
                     class="row profile-macro-title {{!obj_permissions.value ? 'disabled' : ''}}"
                   >
                     <div
@@ -230,7 +230,7 @@
                   </div>
                   <div class="row {{obj_permissions.permissions.length > 0 ? 'profile-permission-container-child' : ''}}" ng-if="obj_permissions.value">
                     <div
-                      ng-hide="permission.name == 'phone_buttons' && wizard.provisioning != 'tancredi'"
+                      ng-hide="(permission.name == 'phone_buttons' && wizard.provisioning != 'tancredi') || isInBlacklist(permission.name)"
                       class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-permission child-permission"
                       ng-repeat="permission in obj_permissions.permissions"
                     >
