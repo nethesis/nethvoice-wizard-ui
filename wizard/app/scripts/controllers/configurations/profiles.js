@@ -21,6 +21,12 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.initGraphics = function () {};
 
+    $scope.tempBlacklist = ["conference", "chat", "phone_buttons", "screen_sharing", "video_conference", "trunks"];
+
+    $scope.isInBlacklist = function(perm) {
+      return $scope.tempBlacklist.includes(perm);
+    }
+
     $scope.isGroupPermission = function(p) {
       return p.indexOf("grp_") !== -1;
     };
