@@ -12,8 +12,8 @@ angular.module('nethvoiceWizardUiApp')
 
     this.removeCredentials = function() {
       return $q(function (resolve, reject) {
+        LocalStorageService.remove('secretkey');
         RestService.get('/logout').then(function (res) {
-          LocalStorageService.remove('secretkey');
           resolve(res);
         }, function (err) {
           reject(err);
