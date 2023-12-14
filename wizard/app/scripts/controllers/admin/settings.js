@@ -9,7 +9,7 @@
  */
 angular.module('nethvoiceWizardUiApp')
   .controller('AdminSettingsCtrl', function ($scope, UserService, RestService, RestServiceCTI, ConfigService, ModelService) {
-    $scope.wizard.isEnd = false
+    $scope.wizard.isEnd = true
     $scope.view.changeRoute = false
 
     $scope.create = function () {
