@@ -1037,6 +1037,19 @@ a {
   margin-top: 28px;
 }
 
+.adjust-filter-label {
+  margin-top: 10px;
+}
+
+.adjust-creation-info {
+  margin-bottom: -25px;
+}
+
+.adjust-portal-link {
+  float: inline-end;
+  margin-top: -3px;
+}
+
 .check-results {
   margin-top: 8px;
   padding-left: 1px;

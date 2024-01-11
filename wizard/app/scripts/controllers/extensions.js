@@ -21,6 +21,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.usersFilterNumbersOrd = false;
     $scope.view.changeRoute = true;
     $scope.usersLimit = 20
+    $scope.localDomain = "";
 
     $scope.error = {
       file: {
@@ -55,6 +56,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.checkUserProviderStatus = function () {
       ConfigService.getConfig().then(function (res) {
         $scope.view.changeRoute = false;
+        $scope.localDomain = res.data.domain;
         if (res.data.configured === 0) {
           $scope.showConfigSwitch = true;
           $location.path('/users');

@@ -11,6 +11,12 @@
     </div>
   <div class="wizard-pf-contents adjust-size no-margin-bottom">
     <h1 class="control-label centered" for="textInput-markup">{{'Extensions Configuration' | translate}}</h1>
+
+    <div class="alert alert-info adjust-creation-info">
+      <span class="pficon pficon-info"></span>
+        {{'Link to portal text' | translate}}: <a class="btn btn-primary adjust-portal-link" ng-href="/users-admin/{{localDomain}}/#/login" target="_blank">{{'Link to portal' | translate}}</a>
+    </div>
+
     <div ng-if="!(users | isEmpty)" class="container-fluid margin-top-lg">
       <div ng-if="error.file.status" class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -20,7 +26,7 @@
         <strong>{{error.file.title | translate}}.</strong> {{error.file.content | translate}}
       </div>
       <div>
-        <div class="filter-label-user adjust-filter-user">{{'Filter' | translate}}:</div>
+        <div class="filter-label-user adjust-filter-label">{{'Filter' | translate}}:</div>
         <select title="-" pf-select="{ width: '180px' }" ng-model="selectedUsersFilter" ng-options="uf as uf | translate for uf in availableUsersFilters">
         </select>
         <div class="filter-label-user-order">
