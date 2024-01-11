@@ -1067,5 +1067,7 @@
   "Click on the button below to add you first gateway": "Clicca sul pulsante qui sotto per aggiungere il tuo primo gateway",
   "Download config": "Scarica config",
   "Push config": "Carica config",
-  "Enables access to NethVoice CTI application": "Consenti l'accesso all'applicazione NethVoice CTI"
+  "Enables access to NethVoice CTI application": "Consenti l'accesso all'applicazione NethVoice CTI",
+  "Link to portal text": "Per la gestione degli utenti (creazione, modifica e eliminazione), utilizzare il portale dedicato",
+  "Link to portal": "Link al Portale"
 }

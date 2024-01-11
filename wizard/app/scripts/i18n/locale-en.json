@@ -151,5 +151,7 @@
   "expkey_label": "Exp key",
   "progkey_label": "Label",
   "upload_invalid_filename": "The file name is not valid. It can only contain letters, numbers and the symbols _ - . ( ) ",
-  "Spy":"Listen"
+  "Spy":"Listen",
+  "Link to portal text": "For user management (creation, update and deletion), use the dedicated portal",
+  "Link to portal": "Link to the Portal"
 }
