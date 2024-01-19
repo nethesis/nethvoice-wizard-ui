@@ -106,11 +106,11 @@
       <p ng-if="!mode.isLdap">
         {{'Check your LDAP or Active Directory settings' | translate}}
       </p>
-      <div ng-if="providerLocal" class="blank-slate-pf-main-action">
+      <!-- <div ng-if="providerLocal" class="blank-slate-pf-main-action">
         <button data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg">{{'Create user' | translate}}</button>
         <button ng-click="fileSelectImport()" class="btn btn-primary btn-lg no-margin">{{'Import' | translate}}</button>
         <input ng-model="temp.importFile" type="file" accept=".csv" id="importInput">
-      </div>
+      </div> -->
     </div>
   </div>
   <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>
