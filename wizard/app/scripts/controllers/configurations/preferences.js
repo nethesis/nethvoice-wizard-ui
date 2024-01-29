@@ -41,6 +41,18 @@ angular.module('nethvoiceWizardUiApp')
     
     $scope.usersFilter = $scope.availableUserFilters[0]
     $scope.usersFilterNumbers = $scope.availableUserFiltersNumbers[0]
+
+    $scope.usersIsEmpty = function() {
+      for(var u in $scope.allUsers) {
+        var user = $scope.allUsers[u];
+
+        if(user.devices.length > 0) {
+          return false
+        }
+
+        return true
+      }
+    };
     
     $rootScope.$on('scrollingContainerView', function () {
       if($scope.allUsers){
