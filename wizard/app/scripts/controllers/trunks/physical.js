@@ -19,6 +19,8 @@ angular.module('nethvoiceWizardUiApp')
     $scope.onSave = false;
     $scope.users = [];
     $scope.physicalLimit = {};
+    $scope.exampleInputProxy = ''
+    $scope.exampleIpv4_green = ''
     $scope.stringToCheckGrandstream = "grandstream";
     var limitLength = 20;
 
@@ -85,6 +87,11 @@ angular.module('nethvoiceWizardUiApp')
       DeviceService.gatewayModelList().then(function (res) {
         $scope.allModels = res.data;
         $scope.allVendors = Object.keys($scope.allModels);
+        var firstModel = Object.values($scope.allModels)[0][0];
+        $scope.exampleInputProxy = firstModel.proxy;
+        $scope.exampleIpv4_green = firstModel.ipv4_green;
+        $scope.newGateway.proxy = $scope.exampleInputProxy;
+        $scope.newGateway.ipv4_green = $scope.exampleIpv4_green;
       }, function (err) {
         console.log(err);
       });
@@ -171,6 +178,8 @@ angular.module('nethvoiceWizardUiApp')
 
     $scope.hideGatewayDialog = function () {
       $scope.newGateway = {};
+      $scope.newGateway.proxy = $scope.exampleInputProxy;
+      $scope.newGateway.ipv4_green = $scope.exampleIpv4_green;
       $('#newGwDialog').modal('hide');
     };
 
