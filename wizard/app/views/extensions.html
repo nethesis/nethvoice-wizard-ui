@@ -47,12 +47,12 @@
         </div>
 
       </form>
-      <!-- <div class="form-group config-row-button">
+      <div class="form-group config-row-button">
         <button ng-if="providerLocal" ng-click="fileSelectImport()" class="btn btn-primary btn-lg no-margin">{{'Import' | translate}}</button>
         <button ng-click="csvExport()" class="btn btn-primary btn-lg no-margin">{{'Export' | translate}}</button>
         <input ng-model="temp.importFile" type="file" accept=".csv" id="importInput">
         <a id="dlLink" download="users.csv" href="" class="hidden"></a>
-      </div> -->
+      </div>
       <div class="list-group list-view-pf list-view-pf-view adjust-margin-extensions margin-bottom-lg">
         <div ng-show="selectedUsersFilter == 'configured' ? user.default_extension !== 'none' : (selectedUsersFilter == 'unconfigured' ? user.default_extension == 'none' : true)"
           class="list-group-item" ng-repeat="user in users | customFilterMultiple:'displayname,username,default_extension':searchUsersString | limitTo: usersLimit | orderBy:usersFilterNumbers:usersFilterNumbersOrd">
@@ -106,11 +106,10 @@
       <p ng-if="!mode.isLdap">
         {{'Check your LDAP or Active Directory settings' | translate}}
       </p>
-      <!-- <div ng-if="providerLocal" class="blank-slate-pf-main-action">
-        <button data-toggle="modal" data-target="#createUser" class="btn btn-primary btn-lg">{{'Create user' | translate}}</button>
+      <div ng-if="providerLocal" class="blank-slate-pf-main-action">
         <button ng-click="fileSelectImport()" class="btn btn-primary btn-lg no-margin">{{'Import' | translate}}</button>
         <input ng-model="temp.importFile" type="file" accept=".csv" id="importInput">
-      </div> -->
+      </div>
     </div>
   </div>
   <wizard-step ng-if="wizard.isWizard" id="wizardStepBase"></wizard-step>

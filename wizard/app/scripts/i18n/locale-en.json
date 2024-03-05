@@ -153,5 +153,8 @@
   "upload_invalid_filename": "The file name is not valid. It can only contain letters, numbers and the symbols _ - . ( ) ",
   "Spy":"Listen",
   "Link to portal text": "For user management (creation, update and deletion), use the dedicated portal",
-  "Link to portal": "Link to the Portal"
+  "Link to portal": "Link to the Portal",
+  "Off Hour": "Phones lines",
+  "Admin Off Hour": "Admin phone lines",
+  "Advanced Off Hour": "Advanced phone lines"
 }
