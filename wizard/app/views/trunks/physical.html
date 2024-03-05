@@ -152,6 +152,13 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{'Proxy address' | translate}}</label>
+          <div class="col-sm-9">
+            <input type="text" ng-model="selectedDevice.proxy" class="form-control" ng-disabled="selectedDevice.isConfigured">
+          </div>
+        </div>
+
         <div class="form-group" ng-repeat="trunk in selectedDevice.trunks_isdn">
           <label class="col-sm-3 control-label">{{'Port' | translate}} ISDN {{trunk.name}}</label>
           <div class="col-sm-9">
@@ -272,7 +279,14 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">{{'PBX IP' | translate}}</label>
               <div class="col-sm-9">
-                <input type="text" ng-model="newGateway.ipv4_green" class="form-control" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$">
+                <input type="text" ng-model="newGateway.ipv4_green" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label">{{'Proxy address' | translate}}</label>
+              <div class="col-sm-9">
+                <input type="text" ng-model="newGateway.proxy" class="form-control">
               </div>
             </div>
 
