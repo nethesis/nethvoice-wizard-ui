@@ -306,7 +306,7 @@
                                   </div>
                                   <div class="modal-body">
                                     <ul class="modalListConfiguration">
-                                      <li class="listConfiguration"><b>{{"Indirizzo Centralino" | translate}}:</b> {{hostname}}</li> 
+                                      <li class="listConfiguration"><b>{{"Indirizzo Centralino" | translate}}:</b> {{hostname}}</li>
                                       <li class="listConfiguration"><b>{{"Configurare porta 5061" | translate}}</b> </li>
                                       <li class="listConfiguration"><b>{{"Abilitare trasporto TLS" | translate}}</b></li>
                                       <li class="listConfiguration"><b>{{"Configurare audio sicuro SRTP" | translate}}</b></li>
@@ -318,7 +318,7 @@
                                         <i ng-show="copiedPassword" class="fa fa-check copyedPassword text-color-green absolute-position mt-5 ml-7 fz-15">
                                         </i>
                                       </li>
-                                    </ul> 
+                                    </ul>
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"| translate}}</button>
@@ -351,7 +351,7 @@
                                         <i ng-show="copiedPassword" class="fa fa-check copyedPassword text-color-green absolute-position mt-5 ml-7 fz-15">
                                         </i>
                                       </li>
-                                    </ul> 
+                                    </ul>
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"| translate}}</button>
@@ -363,7 +363,7 @@
                           <div
                             class="col-lg-5 mnw-180 {{!device.mac ? 'eswitch-mt2' : 'eswitch-mt'}}"
                             ng-if="device.type != 'temporaryphysical'"
-                            > 
+                            >
                             <div class="list-view-pf-additional-info config-info ">
                               <input
                                 bs-switch
@@ -424,8 +424,8 @@
                         <div class="col-lg-6">
                           <div class="form-group no-margin-bottom">
                             <div class="display-flex">
-                              <input 
-                                bs-switch 
+                              <input
+                                bs-switch
                                 ng-model="currentUser.webRtcState"
                                 ng-change="setWebRTC()"
                                 id="bootstrap-switch-webrtc-{{currentUser.id}}"
@@ -478,6 +478,47 @@
                       </div>
                     </div>
                     <div class="list-view-pf-additional-info config-info ">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- nethlink -->
+              <div class="list-group-item abstract-item cursor-default ng-scope">
+                <div class="list-view-pf-actions">
+                  <div class="display-flex">
+                  </div>
+                </div>
+                <div class="list-view-pf-main-info">
+                  <div class="list-view-pf-left">
+                    <span class="fa fa-headphones list-view-pf-icon-sm "></span>
+                  </div>
+                  <div class="list-view-pf-body">
+                    <div class="list-view-pf-description">
+                      <div class="list-group-item-heading configDevices-item-heading">
+                        {{"NethLink" | translate}}
+                        <span ng-repeat="device in user.devices" ng-if="device.type == 'nethlink'">
+                          <span>-</span> <span>{{device.extension}}</span>
+                        </span>
+                      </div>
+                      <span class="weight-plus">
+                      </span>
+                      <div class="list-group-item-text">
+                        <div class="col-lg-6">
+                          <div class="form-group no-margin-bottom">
+                            <div class="display-flex">
+                              <input
+                                bs-switch
+                                ng-model="currentUser.nethLinkState"
+                                ng-change="setNethLink()"
+                                id="bootstrap-switch-nethlink-{{currentUser.id}}"
+                                class="bootstrap-switch bootstrap-switch-webrtc col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                                type="checkbox">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-view-pf-additional-info config-info">
                     </div>
                   </div>
                 </div>

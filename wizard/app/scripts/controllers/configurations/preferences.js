@@ -38,7 +38,7 @@ angular.module('nethvoiceWizardUiApp')
     $scope.availableUserFilters = ['all', 'configured', 'unconfigured']
     $scope.availableUserFiltersNumbers = ['username', 'displayname', 'default_extension', 'lname'];
     $scope.usersFilterNumbersOrd = false;
-    
+
     $scope.usersFilter = $scope.availableUserFilters[0]
     $scope.usersFilterNumbers = $scope.availableUserFiltersNumbers[0]
 
@@ -53,7 +53,7 @@ angular.module('nethvoiceWizardUiApp')
         return true
       }
     };
-    
+
     $rootScope.$on('scrollingContainerView', function () {
       if($scope.allUsers){
         if ($scope.allUsers.length > $scope.usersLimit) {
@@ -112,6 +112,14 @@ angular.module('nethvoiceWizardUiApp')
             console.log(err)
           }
           $scope.currentUser.webRtcState = false
+        })
+        UserService.getNethLinkExtension($scope.currentUser.default_extension).then(function (res) {
+          $scope.currentUser.nethLinkState = true
+        }, function (err) {
+          if (err.status != 404) {
+            console.log(err)
+          }
+          $scope.currentUser.nethLinkState = false
         })
         UserService.getMobileExtension($scope.currentUser.default_extension).then(function (res) {
           $scope.currentUser.mobileAppState = true
@@ -568,6 +576,29 @@ angular.module('nethvoiceWizardUiApp')
         }, function (err) {
           console.log(err)
           $scope.currentUser.setWebRTCInAction = false
+        })
+      }
+    }
+
+    $scope.setNethLink = function (event, state) {
+      $scope.currentUser.setNethLinkInAction = true
+      if ($scope.currentUser.nethLinkState) {
+        UserService.createNethLinkExtension({
+          extension: $scope.currentUser.default_extension
+        }).then(function (res) {
+          $scope.currentUser.setNethLinkInAction = false
+          getAllUsers(false)
+        }, function (err) {
+          console.log(err)
+          $scope.currentUser.setNethLinkInAction = false
+        })
+      } else {
+        UserService.deleteNethLinkExtension($scope.currentUser.default_extension).then(function (res) {
+          $scope.currentUser.setNethLinkInAction = false
+          getAllUsers(false)
+        }, function (err) {
+          console.log(err)
+          $scope.currentUser.setNethLinkInAction = false
         })
       }
     }
