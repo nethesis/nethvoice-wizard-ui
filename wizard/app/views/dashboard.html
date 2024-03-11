@@ -61,7 +61,7 @@
                           </div>
                           <div class="list-view-pf-main-info exten-dashboard-label">
                             <div class="list-view-pf-left">
-                              <span class="fa {{exten.type.indexOf('webrtc') === 0 ? 'fa-headphones' : 'fa-phone'}} {{data.extensions[exten.id].status === 'online' ? 'online-green' : data.extensions[exten.id].status === 'offline' ? 'offline-gray' : 'online-red'}} list-view-pf-icon-sm user-dashboard-icon"></span>
+                              <span class="fa {{(exten.type.indexOf('webrtc') === 0 || exten.type.indexOf('nethlink') === 0) ? 'fa-headphones' : 'fa-phone'}} {{data.extensions[exten.id].status === 'online' ? 'online-green' : data.extensions[exten.id].status === 'offline' ? 'offline-gray' : 'online-red'}} list-view-pf-icon-sm user-dashboard-icon"></span>
                             </div>
                             <div class="list-view-pf-body">
                               <div class="list-view-pf-additional-info">
@@ -227,13 +227,13 @@
               <label class="control-label">{{data.selExten.sipuseragent !== '' ? data.selExten.sipuseragent : '-'}}</label>
             </div>
           </div>
-          <div ng-show="data.selExten.type.indexOf('webrtc') === -1" class="form-group">
+          <div ng-show="(data.selExten.type.indexOf('webrtc') === -1 && data.selExten.type.indexOf('nethlink') === -1)" class="form-group">
             <label class="col-sm-4 control-label">{{'Type' | translate}}:</label>
             <div class="col-sm-8">
               <label class="control-label">{{data.selExten.chanType !== '' ? data.selExten.chanType : '-'}}</label>
             </div>
           </div>
-          <div ng-if="data.selExten.type.indexOf('webrtc') === -1" class="form-group">
+          <div ng-if="(data.selExten.type.indexOf('webrtc') === -1 && data.selExten.type.indexOf('nethlink') === -1)" class="form-group">
             <label class="col-sm-4 control-label">{{'IP Address' | translate}}:</label>
             <div class="col-sm-8">
               <label class="control-label">
@@ -241,7 +241,7 @@
               </label>
             </div>
           </div>
-          <div ng-if="data.selExten.type.indexOf('webrtc') === -1" class="form-group">
+          <div ng-if="(data.selExten.type.indexOf('webrtc') === -1) && data.selExten.type.indexOf('nethlink') === -1" class="form-group">
             <label class="col-sm-4 control-label" for="textInput2-modal-markup">{{'Port' | translate}}:</label>
             <div class="col-sm-8">
               <label class="control-label">{{data.selExten.port !== '' ? data.selExten.port : '-'}}</label>
