@@ -90,12 +90,6 @@ angular.module('nethvoiceWizardUiApp')
             $scope.checkDefaultExtensions();
           }
           $scope.lockOnList = false;
-          // count users
-          UserService.count().then(function (res) {
-            $scope.menuCount.users = res.data;
-          }, function (err) {
-            console.log(err);
-          });
         }, function (err) {
           $scope.users = {}
           $scope.view.changeRoute = false;
