@@ -1,7 +1,7 @@
 body {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
-  background-size: 100% auto !important;
-  background: url('../images/login.png');
+  background-size: cover !important;
+  background: url('../images/login.svg');
   display: none;
   overflow: hidden;
 }
