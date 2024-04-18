@@ -12,26 +12,26 @@
       class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-24"
     >
       <div class="mx-auto lg:w-52-edited">
-        <div class="w-1/2 h-full" style="zoom: 1.34">
+        <div class="w-1/2 h-full" style="zoom: 1.47">
           <div
             class="absolute top-1/2 left-1/2 lg:left-28-edited transform -translate-y-1/2 -translate-x-1/2 lg:-translate-x-0"
           >
             <div
               ng-class="!isDarkTheme ? 'bg-gray-50 border-gray-200' : 'bg-gray-900 border-gray-700'"
-              class="border-b rounded-lg p-10-edited"
+              class="border-b rounded-lg p-12"
             >
               <div class="max-w-sm sm:w-96">
                 <!-- card Description -->
                 <h1
                   ng-class="!isDarkTheme ? 'text-gray-900' : 'text-gray-50'"
-                  class="pb-2 text-lg font-regular leading-5"
+                  class="text-xl-edited font-medium leading-5 mb-4"
                 >
                   {{'Welcome' | translate}}
                 </h1>
 
                 <span
                   ng-class="!isDarkTheme ? 'text-gray-700' : 'text-gray-200'"
-                  class="text-md font-regular leading-5"
+                  class="text-sm-edited font-medium leading-5"
                   >{{'Sign in to Nethvoice' | translate}}</span
                 >
                 <!-- Error alert -->
@@ -58,7 +58,7 @@
                     <div class="ml-3">
                       <p
                         ng-class="!isDarkTheme ? 'text-rose-800' : 'text-rose-100'"
-                        class="text-sm font-medium"
+                        class="text-sm-edited font-medium"
                       >
                         {{'Cannot login' | translate}}
                       </p>
@@ -76,7 +76,7 @@
                       <label
                         htmlFor="username"
                         ng-class="!isDarkTheme ? 'text-gray-700' : 'text-gray-200'"
-                        class="block text-md font-medium leading-5"
+                        class="block text-sm-edited font-medium leading-5"
                       >
                         {{'User' | translate}}
                       </label>
@@ -85,7 +85,7 @@
                           required
                           type="text"
                           ng-class="login.showError && !isDarkTheme? 'text-red-600 border-red-500 focus:border-red-500 focus:ring-red-500 bg-white' : login.showError && isDarkTheme ? 'border-red-400 focus:border-red-400 focus:ring-red-400 text-red-400 bg-gray-950' : !login.showError && !isDarkTheme ? 'bg-white text-gray-900 border-gray-300 focus:border-emerald-500 placeholder:text-gray-400 focus:ring-emerald-500' : 'bg-gray-950 text-gray-100 border-gray-600 focus:border-emerald-500 focus:ring-emerald-700 placeholder:text-gray-500'"
-                          class="form-control block w-full relative focus:z-[8] px-3 py-2 text-sm rounded-md"
+                          class="form-control block w-full relative focus:z-[8] px-3 py-2 text-sm-edited rounded-md"
                           id="inputUsername"
                           placeholder=""
                           tabindex="1"
@@ -97,7 +97,7 @@
                       <label
                         htmlFor="password"
                         ng-class="!isDarkTheme ? 'text-gray-700' : 'text-gray-200'"
-                        class="block text-md font-medium leading-5"
+                        class="block text-sm-edited font-medium leading-5"
                       >
                         {{'Password' | translate}}
                       </label>
@@ -106,7 +106,7 @@
                           required
                           type="{{showPassword ? 'text' : 'password'}}"
                           ng-class="login.showError && !isDarkTheme? 'text-red-600 border-red-500 focus:border-red-500 focus:ring-red-500 bg-white' : login.showError && isDarkTheme ? 'border-red-400 focus:border-red-400 focus:ring-red-400 text-red-400 bg-gray-950' : !login.showError && !isDarkTheme ? 'bg-white text-gray-900 border-gray-300 focus:border-emerald-500 placeholder:text-gray-400 focus:ring-emerald-500' : 'bg-gray-950 text-gray-100 border-gray-600 focus:border-emerald-500 focus:ring-emerald-700 placeholder:text-gray-500'"
-                          class="form-control block w-full relative focus:z-[8] px-3 py-2 text-sm rounded-md"
+                          class="form-control block w-full relative focus:z-[8] px-3 py-2 text-sm-edited rounded-md"
                           id="inputPassword"
                           placeholder=""
                           tabindex="2"
@@ -124,9 +124,9 @@
                       <button
                         type="submit"
                         ng-class="!isDarkTheme ? 'text-white bg-emerald-700 ring-offset-slate-50 focus:ring-emerald-500 hover:bg-emerald-800 ' : 'text-gray-950 bg-emerald-500 dark:ring-offset-slate-900 dark:focus:ring-emerald-200 dark:hover:bg-emerald-300'"
-                        class="inline-flex content-center items-center justify-center font-medium tracking-wide transition-colors duration-200 transform focus:outline-none border border-transparent focus:ring-2 ring-offset-2 px-4 py-2 text-sm h-full w-full rounded-md font-semibold"
+                        class="inline-flex content-center items-center justify-center font-medium tracking-wide transition-colors duration-200 transform focus:outline-none border border-transparent focus:ring-2 ring-offset-2 px-4 py-2 text-sm-edited h-full w-full rounded-md font-semibold"
                       >
-                        <span class="font-medium leading-5 text-sm"
+                        <span class="leading-5 text-sm-edited font-semibold"
                           >{{'Sign in' | translate}}</span
                         >
                       </button>
