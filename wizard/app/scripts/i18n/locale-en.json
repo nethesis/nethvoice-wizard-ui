@@ -163,5 +163,6 @@
   "User": "User",
   "Welcome": "Welcome",
   "Cannot login": "Cannot login",
-  "Incorrect username or password": "Incorrect username or password"
+  "Incorrect username or password": "Incorrect username or password",
+  "Sign in to Nethvoice": "Sign in to Nethvoice"
 }

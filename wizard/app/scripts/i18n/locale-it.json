@@ -1076,5 +1076,6 @@
   "Password": "Password",
   "Welcome": "Benvenuto",
   "Cannot login": "Impossibile accedere",
-  "Incorrect username or password": "Nome utente o password errati"
+  "Incorrect username or password": "Nome utente o password errati",
+  "Sign in to Nethvoice": "Accedi a Nethvoice"
 }
