@@ -1,40 +1,40 @@
 a {
-  color: #6ec664;
+  color: #10b981;
 }
 
 .navbar-pf-alt {
   background: #171717;
-  border-top: 2px solid #3f9c35;
+  border-top: 2px solid #047857;
 }
 
 .nav-pf-vertical-alt .list-group-item.active:before {
-  background: #6ec664;
+  background: #10b981;
 }
 
 .wizard-pf-steps-indicator .active .wizard-pf-step-number {
-  background-color: #6ec664;
-  border-color: #3f9c35;
+  background-color: #10b981;
+  border-color: #047857;
 }
 
 .nav-pf-vertical-alt .list-group-item .badge.notifications {
-  background: #3f9c35;
+  background: #047857;
 }
 
 .btn-primary {
-  background-color: #3f9c35;
-  background-image: linear-gradient(to bottom, #6ec664 0%, #3f9c35 100%);
-  border-color: #3f9c35;
+  background-color: #047857;
+  background-image: linear-gradient(to bottom, #047857 0%, #047857 100%);
+  border-color: #047857;
   color: #fff;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:focus, .btn-primary.active, .btn-primary.active:hover, btn-primary.active:focus, btn-primary.active:active, btn-primary.active:active:focus {
-  background-color: #6ec664;
-  border-color: #3f9c35;
+  background-color: #10b981;
+  border-color: #047857;
   color: #fff;
 }
 
 .progress-bar-success {
-  background-color: #6ec664;
+  background-color: #10b981;
 }
 
 html {
@@ -42,28 +42,28 @@ html {
 }
 
 .login-pf {
-  background-color: #3f9c35;
+  background-color: #047857;
   overflow-y: auto;
 }
 
 .list-view-pf-left .pficon.list-view-pf-icon-sm, .list-view-pf-left .fa.list-view-pf-icon-sm {
-  border: 2px solid #6ec664;
+  border: 2px solid #10b981;
 }
 
 .card-pf-view .card-pf-top-element .card-pf-icon-circle {
-  border: 2px solid #6ec664;
+  border: 2px solid #10b981;
 }
 
 .btn-link:hover {
-  color: #6ec664 !important;
+  color: #10b981 !important;
 }
 
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
-  background: #6ec664;
+  background: #10b981;
 }
 
 .bootstrap-switch.bootstrap-switch-focused {
-  border-color: #3f9c35;
+  border-color: #047857;
   box-shadow: none;
 }
 
@@ -73,13 +73,13 @@ html {
 }
 
 .wizard-modal .wizard-pf-sidebar .list-group-item.active > a {
-  color: #6ec664 !important;
+  color: #10b981 !important;
 }
 
 .wizard-modal .wizard-pf-sidebar .list-group-item.active > a::after {
-  color: #6ec664 !important;
+  color: #10b981 !important;
 }
 
 .wizard-modal .wizard-pf-sidebar .list-group-item.active > a::before {
-  background: #6ec664 !important;
+  background: #10b981 !important;
 }

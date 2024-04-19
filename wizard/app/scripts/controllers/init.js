@@ -348,8 +348,8 @@ angular.module('nethvoiceWizardUiApp')
     // get count data
     $scope.$on('loginCompleted', function (event, args) {
       // users
-      UserService.count().then(function (res) {
-        $scope.menuCount.users = res.data;
+      UserService.list(true).then(function (res) {
+        $scope.menuCount.users = res.data.length;
       }, function (err) {
         console.log(err);
       });

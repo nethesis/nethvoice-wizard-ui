@@ -138,14 +138,10 @@ var appConfig = {
     },
     outbound: {
       prev: 'routes/inbound',
-      next: 'devices'
-    },
-    devices: {
-      prev: 'routes/inbound',
       next: 'devices/inventory'
     },
     inventory: {
-      prev: 'devices',
+      prev: 'routes/outbound',
       next: 'devices/models'
     },
     models: {

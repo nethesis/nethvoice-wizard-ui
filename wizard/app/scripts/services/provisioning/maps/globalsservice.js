@@ -83,12 +83,6 @@ angular.module('nethvoiceWizardUiApp')
             "type": "list",
             "options": GenericPhoneUtilsService.getToneZones()
           },
-          {
-            "variable": "timezone",
-            "description": "Time zone",
-            "type": "list",
-            "options": GenericPhoneUtilsService.getTimeZones()
-          }
         ]
       }
     }

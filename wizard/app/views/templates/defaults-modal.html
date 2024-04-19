@@ -47,59 +47,30 @@
 							<!-- if is pinned section -->
 							<div ng-if="sectionKey == 'pinned'" style="display: flow-root !important;">
 								<div ng-repeat="item in section.data track by $index" class="col-lg-6 mb-15">
-									<label class="control-label">{{::item.description | translate}}</label>
-									<div class="{{item.type != 'password' ? 'col-lg-12' : ''}}">
-										<!-- list -->	
-										<div ng-if="item.type == 'list'" class="form-group">
-											<select
-												id="default-select-{{$index}}"
-												class="{{item.options.length > 10 ? 'combobox' : 'selectpicker'}} form-control"
-												ng-change="pinnedChange(item.variable)"
-												ng-model="defaultSettings[item.variable]"
-												autocomplete="off">
-												<option value="" ng-disabled="true" ng-hide="true">-</option>
-												<!-- selectpicker -->
-												<option ng-repeat="option in item.options"
-													value="{{option.value}}" on-finish-render="selectpickerRepeatEnd">{{::option.text | translate}}
-												</option>
-											</select>
-										</div>
-										<!-- input -->
-										<div ng-if="item.type == 'input'" class="form-group {{(connectivityCheckRes.is_reachable === false) && (item.variable == 'hostname') ? 'has-error' : ''}}">
-											<input
-												type="text"
-												id="default-select-{{$index}}"
-												placeholder="-"
-												ng-change="pinnedChange(item.variable)"
-												ng-model="defaultSettings[item.variable]"
-												autocomplete="off"
-												class="form-control">
-											</input>
-										</div>
-										<!-- password -->
-										<div ng-if="item.type == 'password'" class="input-group display-flex">
-											<input
-												id="{{sectionKey}}-input-{{$index}}"
-												ng-model="defaultSettings[item.variable]"
-												ng-change="pinnedChange(item.variable)"
-												type="password"
-												autocomplete="off"
-												show-password="shownPasswords[item.variable]"
-												class="form-control">
-											</input>
-											<button
-												tabindex="-1"
-												type="button"
-												class="btn btn-default mln-1 zindex-2"
-												ng-click="toggleShowPassword(item.variable)">
-												<span ng-class="shownPasswords[item.variable] ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
-											</button>
-										</div>
+									<label class="control-label" ng-if="item.description === 'Admin password' || item.description === 'User password'">{{::item.description | translate}}</label>
+									<!-- password -->
+									<div ng-if="item.type == 'password'" class="input-group display-flex">
+										<input
+											id="{{sectionKey}}-input-{{$index}}"
+											ng-model="defaultSettings[item.variable]"
+											ng-change="pinnedChange(item.variable)"
+											type="password"
+											autocomplete="off"
+											show-password="shownPasswords[item.variable]"
+											class="form-control">
+										</input>
+										<button
+											tabindex="-1"
+											type="button"
+											class="btn btn-default mln-1 zindex-2"
+											ng-click="toggleShowPassword(item.variable)">
+											<span ng-class="shownPasswords[item.variable] ? 'fa fa-eye-slash' : 'fa fa-eye'"></span>
+										</button>
 									</div>
 								</div>
 							</div>
 							<!-- if is section -->
-							<div class="mt-20 globalsSectionContainer col-lg-12" ng-if="sectionKey != 'pinned'">
+							<div class="mt-20 globalsSectionContainer col-lg-12" ng-if="sectionKey != 'pinned' && sectionKey != 'phonebook'">
 								<h2 ng-click="openSection(sectionKey)"
 									class="adjust-header adjust-profile-header pl-20 ng-binding pointer">
 									{{::section.name | translate}}

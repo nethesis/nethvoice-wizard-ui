@@ -84,4 +84,20 @@ angular.module('nethvoiceWizardUiApp')
       $location.path('/login');
       $('body').show();
     }
+
+    //detect dark mode
+    $scope.isDarkTheme = false;
+
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      $scope.isDarkTheme  = true;
+    } else {
+      $scope.isDarkTheme = false;
+    }
+
+   // handle password visibility toggle
+    $scope.showPassword = false;
+
+    $scope.togglePasswordVisibility = function() {
+      $scope.showPassword = !$scope.showPassword;
+    };
   });
