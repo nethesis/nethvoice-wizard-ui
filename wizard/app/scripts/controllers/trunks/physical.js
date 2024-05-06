@@ -194,6 +194,7 @@ angular.module('nethvoiceWizardUiApp')
       }
       DeviceService.saveGatewayConfig(device).then(function (res) {
         $scope.hideGatewayDialog();
+        $scope.getGatewayList('eth-fake', 'fake-network');
         device.id = res.data.id
         if (isNew) {
           $scope.allDevices[device.network_key].push(device);
