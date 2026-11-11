@@ -43,6 +43,10 @@ angular.module('nethvoiceWizardUiApp')
         "preferences": {
           "dss_transfer": {
             "blacklist": dss_transfer_blacklist
+          },
+          "auto_headset": {
+            // only these templates render the auto_headset variable
+            "visible": ["fanvil-X5.tmpl", "fanvil-V67.tmpl", "nethesis.tmpl"].includes(variables.tmpl_phone)
           }
         },
         "displayAndRingtones": {
@@ -292,6 +296,25 @@ angular.module('nethvoiceWizardUiApp')
             "variable": "brightness",
             "description": "Display brightness",
             "type": "dynamicselectpicker"
+          }
+        ]
+      }
+    }
+
+    // Fanvil and NethPhone only: added by their brand services
+    this.autoHeadsetItem = function () {
+      return {
+        "variable": "auto_headset",
+        "description": "auto_headset_label",
+        "type": "selectpicker",
+        "options": [
+          {
+            "text": "Enabled",
+            "value": "1"
+          },
+          {
+            "text": "Disabled",
+            "value": "0"
           }
         ]
       }
